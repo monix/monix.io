@@ -1,0 +1,637 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>reactive - Monifu 1.0 - monifu.reactive</title>
+          <meta name="description" content="reactive - Monifu 1.0 - monifu.reactive" />
+          <meta name="keywords" content="reactive Monifu 1.0 monifu.reactive" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'monifu.reactive.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../lib/package_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="monifu">monifu</a></p>
+        <h1>reactive</h1><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">reactive</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monifu.reactive.Ack" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="AckextendsFuture[monifu.reactive.Ack]"></a>
+      <a id="Ack:Ack"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Ack.html"><span class="name">Ack</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<a href="Ack.html" class="extype" name="monifu.reactive.Ack">Ack</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@AckextendsFuture[monifu.reactive.Ack]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents the acknowledgement of processing that a consumer
+sends back upstream on <code>Observer.onNext</code>
+</p>
+    </li><li name="monifu.reactive.Channel" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Channel[-I]extendsAnyRef"></a>
+      <a id="Channel[-I]:Channel[I]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Channel.html"><span class="name">Channel</span></a><span class="tparams">[<span name="I">-I</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Channel[-I]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A channel is meant for imperative style feeding of events.</p><div class="fullcomment"><div class="comment cmt"><p>A channel is meant for imperative style feeding of events.</p><p>When emitting events, one doesn't need to follow the back-pressure contract.
+On the other hand the grammar must still be respected:</p><p>    (pushNext)* (pushComplete | pushError)
+</p></div></div>
+    </li><li name="monifu.reactive.Notification" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="Notification[+T]extendsAnyRef"></a>
+      <a id="Notification[+T]:Notification[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Notification.html"><span class="name">Notification</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Notification[+T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Used by <a href="Observable.html#materialize:monifu.reactive.Observable[monifu.reactive.Notification[T]]" class="extmbr" name="monifu.reactive.Observable#materialize">Observable.materialize</a>.</p>
+    </li><li name="monifu.reactive.Observable" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Observable[+T]extendsAnyRef"></a>
+      <a id="Observable[+T]:Observable[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Observable.html"><span class="name">Observable</span></a><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Observable[+T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The Observable interface in the Rx pattern.</p><div class="fullcomment"><div class="comment cmt"><p>The Observable interface in the Rx pattern.</p><h4>Interface</h4><p>An Observable is characterized by a <code>onSubscribe</code> method that needs
+to be implemented. In simple terms, an Observable might as well be
+just a function like:</p><pre><span class="kw">type</span> Observable[+T] = Subscriber[T] <span class="kw">=&gt;</span> <span class="std">Unit</span></pre><p>In other words an Observable is something that provides a
+side-effecting function that can connect a <a href="Subscriber.html" class="extype" name="monifu.reactive.Subscriber">Subscriber</a> to a
+stream of data. A <code>Subscriber</code> is a cross between an <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a>
+and a <a href="../concurrent/Scheduler.html" class="extype" name="monifu.concurrent.Scheduler">Scheduler</a>.  We need a
+<code>Scheduler</code> when calling <code>subscribe</code> because that's when the
+side-effects happen and a context capable of scheduling tasks for
+asynchronous execution is needed. An <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> on the other hand
+is the interface implemented by consumer and that receives events
+according to the Rx grammar.</p><p>On <code>onSubscribe</code>, because we need the interesting operators and
+the polymorphic behavior provided by OOP, the Observable is
+being described as an interface that has to be implemented:</p><pre><span class="kw">class</span> MySampleObservable(unit: <span class="std">Int</span>) <span class="kw">extends</span> Observable[<span class="std">Int</span>] {
+  <span class="kw">def</span> onSubscribe(sub: Subscriber[<span class="std">Int</span>]): <span class="std">Unit</span> = {
+    <span class="kw">implicit</span> <span class="kw">val</span> s = sub.scheduler
+    <span class="cmt">// note we must apply back-pressure</span>
+    <span class="cmt">// when calling `onNext`</span>
+    sub.onNext(unit).onComplete {
+      <span class="kw">case</span> Success(Cancel) <span class="kw">=&gt;</span>
+        () <span class="cmt">// do nothing</span>
+      <span class="kw">case</span> Success(Continue) <span class="kw">=&gt;</span>
+        sub.onComplete()
+      <span class="kw">case</span> Failure(ex) <span class="kw">=&gt;</span>
+        sub.onError(ex)
+    }
+  }
+}</pre><p>Of course, you don't need to inherit from this trait, as you can just
+use <a href="Observable$.html#create[T](f:monifu.reactive.Subscriber[T]=&gt;Unit):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#create">Observable.create</a>, the following example being equivalent
+to the above:</p><pre>Observable.create[<span class="std">Int</span>] { sub <span class="kw">=&gt;</span>
+  <span class="kw">implicit</span> <span class="kw">val</span> s = sub.scheduler
+  <span class="cmt">// note we must apply back-pressure</span>
+  <span class="cmt">// when calling `onNext`</span>
+  sub.onNext(unit).onComplete {
+    <span class="kw">case</span> Success(Cancel) <span class="kw">=&gt;</span>
+      () <span class="cmt">// do nothing</span>
+    <span class="kw">case</span> Success(Continue) <span class="kw">=&gt;</span>
+      sub.onComplete()
+    <span class="kw">case</span> Failure(ex) <span class="kw">=&gt;</span>
+      sub.onError(ex)
+  }
+}</pre><p>The above is describing how to create your own Observables, however
+Monifu already provides already made utilities in the
+<a href="Observable$.html" class="extype" name="monifu.reactive.Observable">Observable companion object</a>. For example, to
+periodically make a request to a web service, you could do it like
+this:</p><pre><span class="cmt">// just some http client</span>
+<span class="kw">import</span> play.api.libs.ws._
+
+<span class="cmt">// triggers an auto-incremented number every second</span>
+Observable.intervalAtFixedRate(<span class="num">1.</span>second)
+  .flatMap(_ <span class="kw">=&gt;</span> WS.request(s<span class="lit">"http://some.endpoint.com/request"</span>).get())</pre><p>As you might notice, in the above example we are doing
+<a href="Observable.html#flatMap[U](f:T=&gt;monifu.reactive.Observable[U]):monifu.reactive.Observable[U]" class="extmbr" name="monifu.reactive.Observable#flatMap">Observable!.flatMap</a> on an Observable that emits <code>Future</code>
+instances. And it works, because Monifu considers Scala's Futures
+to be just a subset of Observables, see the automatic
+<a href="Observable$.html#FutureIsObservable[T](future:scala.concurrent.Future[T]):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#FutureIsObservable">FutureIsObservable</a> conversion
+that it defines. Or you could just use <a href="Observable$.html#fromFuture[T](future:scala.concurrent.Future[T]):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#fromFuture">Observable.fromFuture</a>
+for explicit conversions, an Observable builder available
+<a href="Observable$.html" class="extype" name="monifu.reactive.Observable">amongst others</a>.</p><h4>Contract</h4><p>Observables must obey Monifu's contract, this is why if you get
+away with already built and tested observables, that would be
+better than implementing your own by means of inheriting the
+interface or by using <a href="Observable$.html#create[T](f:monifu.reactive.Subscriber[T]=&gt;Unit):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#create">create</a>. The contract is
+this:</p><ul><li>the supplied <code>onSubscribe</code> method MUST NOT throw exceptions, any
+    unforeseen errors that happen in user-code must be emitted to
+    the observers and the streaming closed</li><li>events MUST follow this grammar: <code>onNext* (onComplete | onError)</code><ul><li>a data source can emit zero or many <code>onNext</code> events</li><li>the stream can be infinite, but when the stream is closed
+      (and not canceled by the observer), then
+      it always emits a final <code>onComplete</code> or <code>onError</code></li></ul></li><li>MUST apply back-pressure when emitting events, which means that sending
+    events is always done in response to demand signaled by observers and
+    that observers should only receive events in response to that signaled
+    demand<ul><li>emitting a new <code>onNext</code> event must happen only after the previous
+      <code>onNext</code> completed with a <a href="Ack$$Continue.html" class="extype" name="monifu.reactive.Ack.Continue">Continue</a></li><li>streaming must stop immediately after an <code>onNext</code> event
+      is signaling a <a href="Ack$$Cancel.html" class="extype" name="monifu.reactive.Ack.Cancel">Cancel</a></li><li>back-pressure must be applied for the final events as well,
+      so <code>onComplete</code> and <code>onError</code> must happen only after the previous
+      <code>onNext</code> was completed with a <a href="Ack$$Continue.html" class="extype" name="monifu.reactive.Ack.Continue">Continue</a>
+      acknowledgement</li><li>the first <code>onNext</code> event can be sent directly, since there are no
+      previous events</li><li>if there are no previous <code>onNext</code> events, then streams can be
+      closed with <code>onComplete</code> and <code>onError</code> directly</li><li>if buffering of events happens, it is acceptable for events
+      to get dropped when <code>onError</code> happens such that its delivery
+      is prioritized</li></ul></li></ul><h5>On Dealing with the contract</h5><p>Back-pressure means in essence that the speed with which the data-source
+produces events is adjusted to the speed with which the consumer consumes.</p><p>For example, lets say we want to feed an iterator into an observer,
+similar to what we are doing in <a href="Observer$$Extensions.html#feed(iterable:Iterable[T])(implicits:monifu.concurrent.Scheduler):scala.concurrent.Future[monifu.reactive.Ack]" class="extmbr" name="monifu.reactive.Observer.Extensions#feed">Observer.feed</a>,
+we might build a loop like this:</p><pre><span class="cmt">/** Transforms any Iterable into an Observable */</span>
+<span class="kw">def</span> fromIterator[T](iterable: Iterable[T]): Observable[T] =
+  Observable.create { sub <span class="kw">=&gt;</span>
+    <span class="kw">implicit</span> <span class="kw">val</span> s = sub.scheduler
+    loop(sub.observer, iterable.iterator).onComplete {
+      <span class="kw">case</span> Success(Cancel) <span class="kw">=&gt;</span>
+        () <span class="cmt">// do nothing</span>
+      <span class="kw">case</span> Success(Continue) <span class="kw">=&gt;</span>
+        sub.onComplete()
+      <span class="kw">case</span> Failed(ex) <span class="kw">=&gt;</span>
+        reportError(ex)
+    }
+  }
+
+<span class="kw">private</span> <span class="kw">def</span> loop[T](o: Observer[T], iterator: Iterator[T])
+  (<span class="kw">implicit</span> s: Scheduler): Future[Ack] = {
+
+  <span class="kw">try</span> {
+    <span class="kw">if</span> (iterator.hasNext) {
+      <span class="kw">val</span> next = iterator.next()
+      <span class="cmt">// signaling event, applying back-pressure</span>
+      o.onNext(next).flatMap {
+        <span class="kw">case</span> Cancel <span class="kw">=&gt;</span> Cancel
+        <span class="kw">case</span> Continue <span class="kw">=&gt;</span>
+          <span class="cmt">// signal next event (recursive, but async)</span>
+          loop(o, iterator)
+      }
+    }
+    <span class="kw">else</span> {
+      <span class="cmt">// nothing left to do, and because we are implementing</span>
+      <span class="cmt">// Observer.feed, the final acknowledgement is a `Continue`</span>
+      <span class="cmt">// assuming that the observer hasn't canceled or failed</span>
+      Continue
+    }
+  }
+  <span class="kw">catch</span> {
+    <span class="kw">case</span> NonFatal(ex) <span class="kw">=&gt;</span>
+      reportError(ex)
+  }
+}
+
+<span class="kw">private</span> <span class="kw">def</span> reportError[T](o: Observer[T], ex: Throwable): Cancel =
+  <span class="kw">try</span> o.onError(ex) <span class="kw">catch</span> {
+    <span class="kw">case</span> NonFatal(err) <span class="kw">=&gt;</span>
+      <span class="cmt">// oops, onError failed, trying to</span>
+      <span class="cmt">// report it somewhere</span>
+      s.reportFailure(ex)
+      s.reportFailure(err)
+      Cancel
+  }</pre><p>There are cases in which the data-source can't be slowed down in response
+to the demand signaled through back-pressure. For such cases buffering
+is needed.</p><p>For example to &quot;imperatively&quot; build an Observable, we could use channels:</p><pre><span class="kw">val</span> channel = PublishChannel[<span class="std">Int</span>](OverflowStrategy.DropNew(bufferSize = <span class="num">100</span>))
+
+<span class="cmt">// look mum, no back-pressure concerns</span>
+channel.pushNext(<span class="num">1</span>)
+channel.pushNext(<span class="num">2</span>)
+channel.pushNext(<span class="num">3</span>)
+channel.pushComplete()</pre><p>In Monifu a <a href="Channel.html" class="extype" name="monifu.reactive.Channel">Channel</a> is much like a <a href="Subject.html" class="extype" name="monifu.reactive.Subject">Subject</a>, meaning that it can be
+used to construct observables, except that a <code>Channel</code> has a buffer
+attached and IS NOT an <code>Observer</code> (like the <code>Subject</code> is). In Monifu
+(compared to Rx implementations) <a href="Subject.html" class="extype" name="monifu.reactive.Subject">Subjects</a> are subject to
+back-pressure concerns as well, so they can't be used in an imperative way,
+like described above, hence the need for Channels.</p><p>Or for more serious and lower level jobs, you can simply take an
+<code>Observer</code> and wrap it into a
+<a href="observers/BufferedSubscriber.html" class="extype" name="monifu.reactive.observers.BufferedSubscriber">BufferedSubscriber</a>.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="Channel.html" class="extype" name="monifu.reactive.Channel">Channel</a>, which are meant for imperatively building
+    Observables without back-pressure concerns</p></span><span class="cmt"><p><a href="Subject.html" class="extype" name="monifu.reactive.Subject">Subject</a>, which are both Observables and Observers</p></span><span class="cmt"><p><a href="../concurrent/Cancelable.html" class="extype" name="monifu.concurrent.Cancelable">Cancelable</a>, the type returned by higher
+    level <code>subscribe</code> variants and that can be used to cancel subscriptions</p></span><span class="cmt"><p><a href="Subscriber.html" class="extype" name="monifu.reactive.Subscriber">Subscriber</a>, the cross between an
+    <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> and a <a href="../concurrent/Scheduler.html" class="extype" name="monifu.concurrent.Scheduler">Scheduler</a></p></span><span class="cmt"><p><a href="../concurrent/Scheduler.html" class="extype" name="monifu.concurrent.Scheduler">Scheduler</a>, our enhanced <code>ExecutionContext</code></p></span><span class="cmt"><p><a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a>, the interface that must be
+    implemented by consumers</p></span></dd></dl></div>
+    </li><li name="monifu.reactive.Observer" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Observer[-T]extendsAnyRef"></a>
+      <a id="Observer[-T]:Observer[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Observer.html"><span class="name">Observer</span></a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Observer[-T]extendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The Observer from the Rx pattern is the trio of callbacks that
+get subscribed to an Observable for receiving events.</p><div class="fullcomment"><div class="comment cmt"><p>The Observer from the Rx pattern is the trio of callbacks that
+get subscribed to an Observable for receiving events.</p><p>The events received must follow the Rx grammar, which is:
+     onNext *   (onComplete | onError)?</p><p>That means an Observer can receive zero or multiple events, the stream
+ending either in one or zero <code>onComplete</code> or <code>onError</code> (just one, not both),
+and after onComplete or onError, a well behaved Observable implementation
+shouldn't send any more onNext events.
+</p></div></div>
+    </li><li name="monifu.reactive.OverflowStrategy" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="OverflowStrategyextendsAnyRef"></a>
+      <a id="OverflowStrategy:OverflowStrategy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="OverflowStrategy.html"><span class="name">OverflowStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.7/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@OverflowStrategyextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents the buffering overflowStrategy chosen for actions that need buffering,
+instructing the pipeline what to do when the buffer is full.</p><div class="fullcomment"><div class="comment cmt"><p>Represents the buffering overflowStrategy chosen for actions that need buffering,
+instructing the pipeline what to do when the buffer is full.</p><p>For the available policies, see:</p><p>- <a href="OverflowStrategy$$Unbounded$.html" class="extype" name="monifu.reactive.OverflowStrategy.Unbounded">Unbounded</a>
+- <a href="OverflowStrategy$$Fail.html" class="extype" name="monifu.reactive.OverflowStrategy.Fail">OverflowTriggering</a>
+- <a href="OverflowStrategy$$BackPressure.html" class="extype" name="monifu.reactive.OverflowStrategy.BackPressure">BackPressured</a></p><p>Used in <a href="observers/BufferedSubscriber.html" class="extype" name="monifu.reactive.observers.BufferedSubscriber">BufferedSubscriber</a>
+to implement buffering when concurrent actions are needed, such as in
+<a href="Channel.html" class="extype" name="monifu.reactive.Channel">Channels</a> or in <a href="Observable$.html#merge[T](sources:monifu.reactive.Observable[T]*):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#merge">Observable.merge</a>.
+</p></div></div>
+    </li><li name="monifu.reactive.Subject" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Subject[I,+T]extendsObservable[T]withObserver[I]withLiftOperators2[I,T,monifu.reactive.Subject]"></a>
+      <a id="Subject[I,+T]:Subject[I,T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Subject.html"><span class="name">Subject</span></a><span class="tparams">[<span name="I">I</span>, <span name="T">+T</span>]</span><span class="result"> extends <a href="Observable.html" class="extype" name="monifu.reactive.Observable">Observable</a>[<span class="extype" name="monifu.reactive.Subject.T">T</span>] with <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a>[<span class="extype" name="monifu.reactive.Subject.I">I</span>] with <a href="observables/LiftOperators2.html" class="extype" name="monifu.reactive.observables.LiftOperators2">LiftOperators2</a>[<span class="extype" name="monifu.reactive.Subject.I">I</span>, <span class="extype" name="monifu.reactive.Subject.T">T</span>, <a href="Subject.html" class="extype" name="monifu.reactive.Subject">Subject</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Subject[I,+T]extendsObservable[T]withObserver[I]withLiftOperators2[I,T,monifu.reactive.Subject]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <code>Subject</code> is a sort of bridge or proxy that acts both as an
+<a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> and as an <a href="Observable.html" class="extype" name="monifu.reactive.Observable">Observable</a> and that must respect the contract of both.</p><div class="fullcomment"><div class="comment cmt"><p>A <code>Subject</code> is a sort of bridge or proxy that acts both as an
+<a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> and as an <a href="Observable.html" class="extype" name="monifu.reactive.Observable">Observable</a> and that must respect the contract of both.</p><p>Because it is a <code>Observer</code>, it can subscribe to an <code>Observable</code> and because it is an <code>Observable</code>,
+it can pass through the items it observes by re-emitting them and it can also emit new items.</p><p>Useful to build multicast Observables or reusable processing pipelines.
+</p></div></div>
+    </li><li name="monifu.reactive.Subscriber" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Subscriber[-T]extendsObserver[T]"></a>
+      <a id="Subscriber[-T]:Subscriber[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Subscriber.html"><span class="name">Subscriber</span></a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a>[<span class="extype" name="monifu.reactive.Subscriber.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Subscriber[-T]extendsObserver[T]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <code>Subscriber</code> value is a named tuple of an observer and a scheduler,
+whose usage is in <a href="Observable$.html#create[T](f:monifu.reactive.Subscriber[T]=&gt;Unit):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#create">Observable.create</a>.</p><div class="fullcomment"><div class="comment cmt"><p>A <code>Subscriber</code> value is a named tuple of an observer and a scheduler,
+whose usage is in <a href="Observable$.html#create[T](f:monifu.reactive.Subscriber[T]=&gt;Unit):monifu.reactive.Observable[T]" class="extmbr" name="monifu.reactive.Observable#create">Observable.create</a>.</p><p>An <code>Observable.subscribe</code> takes as parameters both an <a href="Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a>
+and a <a href="../concurrent/Scheduler.html" class="extype" name="monifu.concurrent.Scheduler">Scheduler</a> and the purpose of a
+<code>Subscriber</code> is convenient grouping in <code>Observable.create</code>.</p><p>A <code>Subscriber</code> value is basically an address that the data source needs
+in order to send events.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="monifu.reactive.Ack" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Ack"></a>
+      <a id="Ack:Ack"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Ack$.html"><span class="name">Ack</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Ack" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.Notification" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Notification"></a>
+      <a id="Notification:Notification"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Notification$.html"><span class="name">Notification</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Notification" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.Observable" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Observable"></a>
+      <a id="Observable:Observable"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Observable$.html"><span class="name">Observable</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Observable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.Observer" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Observer"></a>
+      <a id="Observer:Observer"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Observer$.html"><span class="name">Observer</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Observer" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.OverflowStrategy" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OverflowStrategy"></a>
+      <a id="OverflowStrategy:OverflowStrategy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="OverflowStrategy$.html"><span class="name">OverflowStrategy</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@OverflowStrategy" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.Subject" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Subject"></a>
+      <a id="Subject:Subject"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Subject$.html"><span class="name">Subject</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Subject" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.Subscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Subscriber"></a>
+      <a id="Subscriber:Subscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Subscriber$.html"><span class="name">Subscriber</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@Subscriber" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.channels" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="channels"></a>
+      <a id="channels:channels"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="channels/package.html"><span class="name">channels</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@channels" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.exceptions" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="exceptions"></a>
+      <a id="exceptions:exceptions"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="exceptions/package.html"><span class="name">exceptions</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@exceptions" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.observables" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="observables"></a>
+      <a id="observables:observables"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="observables/package.html"><span class="name">observables</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@observables" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.observers" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="observers"></a>
+      <a id="observers:observers"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="observers/package.html"><span class="name">observers</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@observers" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.streams" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="streams"></a>
+      <a id="streams:streams"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="streams/package.html"><span class="name">streams</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@streams" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.subjects" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="subjects"></a>
+      <a id="subjects:subjects"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="subjects/package.html"><span class="name">subjects</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monifu.reactive.package@subjects" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
