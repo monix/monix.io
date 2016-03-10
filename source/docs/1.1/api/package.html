@@ -1,0 +1,168 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>root - Monifu 1.1 - _root_</title>
+          <meta name="description" content="root - Monifu 1.1 - root " />
+          <meta name="keywords" content="root Monifu 1.1 root " />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="lib/template.js"></script>
+      <script type="text/javascript" src="lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = 'index.html';
+            var hash = 'package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="lib/package_big.png" />
+        
+        <h1>root package</h1><span class="permalink">
+      <a href="index.html#package" title="Permalink" target="_top">
+        <img src="lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">root</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><img src="https://raw.githubusercontent.com/wiki/monifu/monifu/assets/monifu-square.png" align="right" width="300" /></p><p>This is the API documentation for the <a href="https://www.monifu.org" target="_blank">Monifu</a> library.</p><h4>Overview</h4><p>Monifu is a high-performance Scala / Scala.js library for
+composing asynchronous and event-based programs using observable sequences
+that are exposed as asynchronous streams, expanding on the
+<a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank">observer pattern</a>,
+strongly inspired by
+<a href="http://reactivex.io/" target="_blank">Reactive Extensions (Rx)</a>,
+but designed from the ground up  for back-pressure and made to cleanly interact
+with Scala's standard library and compatible out-of-the-box with the
+<a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a> protocol.</p><p>Highlights:</p><ul><li>zero dependencies</li><li>clean and user-friendly API, with the observer interface using <code>Future</code> for back-pressure purposes</li><li>Observable operators exposed in a way that's idiomatic to Scala</li><li>compatible with for-comprehensions</li><li>compatible with <a href="https://github.com/scalaz/scalaz" target="_blank">Scalaz</a></li><li>designed to be completely asynchronous - Rx operators that are
+    blocking or that are not compatible with back-pressure semantics
+    are not going to be supported</li><li>does not depend on any particular mechanism for asynchronous
+    execution and can be made to work with threads, actors, event loops,
+    or whatnot, running perfectly both on top of the JVM or in Node.js
+    or the browser</li><li>really good test coverage as a project policy</li></ul><h4>Example Usage</h4><p>In order for subscriptions to work, we need an implicit
+<a href="monifu/concurrent/Scheduler.html" class="extype" name="monifu.concurrent.Scheduler">Scheduler</a> imported in our
+context. A <code>Scheduler</code> inherits from Scala's own
+<a href="http://www.scala-lang.org/api/current/index.html#scala.concurrent.ExecutionContext" target="_blank">ExecutionContext</a>
+and any <code>ExecutionContext</code> can be quickly converted into a <code>Scheduler</code>.
+And then you're off ...</p><pre><span class="cmt">// scala.concurrent.ExecutionContext.Implicits.global</span>
+<span class="cmt">// is being used under the hood</span>
+<span class="kw">import</span> monifu.concurrent.Implicits.globalScheduler
+
+<span class="cmt">// or we can simply convert our own execution context</span>
+<span class="cmt">// import play.api.libs.concurrent.Execution.Implicits.defaultContext</span>
+<span class="cmt">// implicit val scheduler = Scheduler(defaultContext)</span>
+
+<span class="kw">import</span> concurrent.duration._
+<span class="kw">import</span> monifu.reactive._
+
+<span class="kw">val</span> subscription = Observable.intervalAtFixedRate(<span class="num">1.</span>second)
+  .take(<span class="num">10</span>)
+  .subscription(x <span class="kw">=&gt;</span> println(x))</pre><p>We can then try out more complex things:</p><pre><span class="kw">import</span> monifu.concurrent.Implicits.globalScheduler
+<span class="kw">import</span> play.api.libs.ws._
+<span class="kw">import</span> monifu.reactive._
+
+<span class="cmt">// emits an auto-incremented number, every second</span>
+Observable.interval(<span class="num">1.</span>second)
+  <span class="cmt">// drops the items emitted over the first 5 secs</span>
+  .dropByTimespan(<span class="num">5.</span>seconds)
+  <span class="cmt">// takes the first 100 emitted events</span>
+  .take(<span class="num">100</span>)
+  <span class="cmt">// per second, makes requests and concatenates the results</span>
+  .flatMap(x <span class="kw">=&gt;</span> WS.request(s<span class="lit">"http://some.endpoint.com/request?tick=$x"</span>).get())
+  <span class="cmt">// filters only valid responses</span>
+  .filter(response <span class="kw">=&gt;</span> response.status == <span class="num">200</span>)
+  <span class="cmt">// samples by 3 seconds, repeating previous results in case of nothing new</span>
+  .sampleRepeated(<span class="num">3.</span>seconds)
+  <span class="cmt">// processes response, selecting the body</span>
+  .map(response <span class="kw">=&gt;</span> response.body)
+  <span class="cmt">// creates subscription, foreach response print it</span>
+  .foreach(x <span class="kw">=&gt;</span> println(x))</pre><p>There's actually a lot more to Monifu.</p></div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="_root_.monifu" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="monifu"></a>
+      <a id="monifu:monifu"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="monifu/package.html"><span class="name">monifu</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="index.html#package@monifu" title="Permalink" target="_top">
+        <img src="lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
