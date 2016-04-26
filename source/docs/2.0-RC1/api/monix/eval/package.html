@@ -1,0 +1,236 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>eval - Monix 2.0-RC1 - monix.eval</title>
+          <meta name="description" content="eval - Monix 2.0 - RC1 - monix.eval" />
+          <meta name="keywords" content="eval Monix 2.0 RC1 monix.eval" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'monix.eval.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../lib/package_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="monix">monix</a></p>
+        <h1>eval</h1><span class="permalink">
+      <a href="../../index.html#monix.eval.package" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eval</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.eval.Callback" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Callback[-T]extendsutil.Try[T]=&gt;Unit"></a>
+      <a id="Callback[-T]:Callback[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Callback.html"><span class="name">Callback</span></a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends (<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Callback[-T]extendsutil.Try[T]=&gt;Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents a callback that should be called asynchronously
+with the result of a computation.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a callback that should be called asynchronously
+with the result of a computation. Used by <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> to signal
+the completion of asynchronous computations on <code>runAsync</code>.</p><p>The <code>onSuccess</code> method should be called only once, with the successful
+result, whereas <code>onError</code> should be called if the result is an error.
+</p></div></div>
+    </li><li name="monix.eval.Coeval" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Coeval[+A]extendsSerializablewithProduct"></a>
+      <a id="Coeval[+A]:Coeval[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Coeval.html"><span class="name">Coeval</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Coeval[+A]extendsSerializablewithProduct" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Coeval</code> represents lazy computations that can execute synchronously.</p><div class="fullcomment"><div class="comment cmt"><p><code>Coeval</code> represents lazy computations that can execute synchronously.</p><p>Word definition and origin:</p><ul><li>Having the same age or date of origin; a contemporary; synchronous.</li><li>From the Latin &quot;coævus&quot;: com- ‎(&quot;equal&quot;) in combination with aevum ‎(aevum, &quot;age&quot;).</li><li>The constructor of <code>Coeval</code> is the dual of an expression that evaluates to an <code>A</code>.</li></ul><p>There are three evaluation strategies:</p><ul><li><a href="Coeval$$Now.html" class="extype" name="monix.eval.Coeval.Now">Now</a>: evaluated immediately</li><li><a href="Coeval$$Error.html" class="extype" name="monix.eval.Coeval.Error">Error</a>: evaluated immediately, representing an error</li><li><a href="Coeval$$EvalOnce.html" class="extype" name="monix.eval.Coeval.EvalOnce">EvalOnce</a>: evaluated a single time</li><li><a href="Coeval$$EvalAlways.html" class="extype" name="monix.eval.Coeval.EvalAlways">EvalAlways</a>: evaluated every time the value is needed</li></ul><p>The <code>EvalOnce</code> and <code>EvalAlways</code> are both lazy strategies while
+<code>Now</code> and <code>Error</code> are eager. <code>EvalOnce</code> and <code>EvalAlways</code> are
+distinguished from each other only by memoization: once evaluated
+<code>EvalOnce</code> will save the value to be returned immediately if it is
+needed again. <code>EvalAlways</code> will run its computation every time.</p><p><code>Coeval</code> supports stack-safe lazy computation via the .map and .flatMap
+methods, which use an internal trampoline to avoid stack overflows.
+Computation done within .map and .flatMap is always done lazily,
+even when applied to a <code>Now</code> instance.
+</p></div></div>
+    </li><li name="monix.eval.Task" visbl="pub" data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Task[+A]extendsSerializablewithProduct"></a>
+      <a id="Task[+A]:Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="Task.html"><span class="name">Task</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Product" class="extype" target="_top">Product</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Task[+A]extendsSerializablewithProduct" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"><code>Task</code> represents a specification for a possibly non-strict or
+asynchronous computation, which when executed will produce
+an <code>A</code> as a result, along with possible side-effects.</p><div class="fullcomment"><div class="comment cmt"><p><code>Task</code> represents a specification for a possibly non-strict or
+asynchronous computation, which when executed will produce
+an <code>A</code> as a result, along with possible side-effects.</p><p>Compared with <code>Future</code> from Scala's standard library, <code>Task</code> does
+not represent a running computation or a value detached from time,
+as <code>Task</code> does not execute anything when working with its builders
+or operators and it does not submit any work into any thread-pool,
+the execution eventually taking place only after <code>runAsync</code>
+is called and not before that.</p><p>Note that <code>Task</code> is conservative in how it spawns logical threads.
+Transformations like <code>map</code> and <code>flatMap</code> for example will default
+to being executed on the logical thread on which the asynchronous
+computation was started. But one shouldn't make assumptions about
+how things will end up executed, as ultimately it is the
+implementation's job to decide on the best execution model. All
+you are guaranteed is asynchronous execution after executing
+<code>runAsync</code>.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="monix.eval.Callback" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Callback"></a>
+      <a id="Callback:Callback"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Callback$.html"><span class="name">Callback</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Callback" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monix.eval.Coeval" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Coeval"></a>
+      <a id="Coeval:Coeval"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Coeval$.html"><span class="name">Coeval</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Coeval" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monix.eval.Task" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Task"></a>
+      <a id="Task:Task"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Task$.html"><span class="name">Task</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.package@Task" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
