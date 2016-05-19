@@ -15,12 +15,13 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}">About</a>
+      <a class="sidebar-nav-item{% if page.url contains "/docs" %} active{% endif %}" href="{{ site.baseurl }}docs/2x/">Documentation</a>
       <a class="sidebar-nav-item{% if page.url contains "/blog" %} active{% endif %}" href="{{ site.baseurl }}blog/">Blog</a>
       <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a>
       <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
     </nav>
 
     <p>&copy; {{ site.time | date: '%Y' }}. Some rights reserved
-      (<a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>)</p>
+      (See <a href="{{ site.baseurl }}LICENSE">LICENSE</a>)</p>
   </div>
 </div>
