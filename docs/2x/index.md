@@ -1,17 +1,18 @@
 ---
 layout: page
-title: Learn Monix
+title: Monix Documentation
 ---
 
-See the [API Documentation (ScalaDoc)](./api/).
+Usage:
 
-Documentation:
-
-1. [Hello World!](./learn/hello-world.html)
+- [API Documentation (ScalaDoc)](./api/)
+- Getting Started
+  - [Usage with SBT and Maven](./intro/usage.html)
+  - [Hello World!](./intro/hello-world.html)
 
 Presentations:
 
-1. [Monix Task: Lazy, Async &amp; Awesome](https://alexn.org/blog/2016/05/10/monix-task.html), flatMap(Oslo), 2016
-2. [Akka & Monix: Controlling Power Plants](https://alexn.org/blog/2016/05/15/monix-observable.html), Typelevel Summit, Oslo, 2016
+- [Monix Task: Lazy, Async &amp; Awesome](./presentations/2016-task-flatmap-oslo.html) (flatMap(Oslo), 2016)
+- [Akka & Monix: Controlling Power Plants](./presentations/2016-akka-monix-typelevel.html) (Typelevel Summit, Oslo, 2016)
 
 Work in progress! Please help!

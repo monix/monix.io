@@ -1,9 +1,10 @@
 ---
-layout: page
-title: Hello World! Hello Task, Observable!
+layout: docs
+title: Hello World!
+description: "Go reactive (✿◠‿◠)"
 ---
 
-Lets do instant gratification stuff.
+Let's do instant gratification stuff.
 
 First, we need a [Scheduler]({{ site.api2x }}#monix.execution.Scheduler)
 whenever asynchronous execution happens.

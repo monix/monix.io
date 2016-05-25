@@ -34,19 +34,21 @@ Highlights:
 
 The packages are published on Maven Central.
 
-- Current stable release: `{{ site.version }}`
-- Current beta release: `{{ site.beta_version }}`
+- Current 1.x release: `{{ site.version1x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version1x }}.zip)
+- Current 2.x release: `{{ site.version2x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip)
 
-For the stable release (use the `%%%` for Scala.js):
+For the 1.x release (use the `%%%` for Scala.js):
 
 ```scala
-libraryDependencies += "org.monifu" %% "monifu" % "{{ site.version }}"
+libraryDependencies += "org.monifu" %% "monifu" % "{{ site.version1x }}"
 ```
 
-For the beta/preview release (use at your own risk):
+For the 2.x release (use the `%%%` for Scala.js):
 
 ```scala
-libraryDependencies += "io.monix" %% "monix" % "{{ site.beta_version }}"
+libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
 ```
 
 ### Sub-projects

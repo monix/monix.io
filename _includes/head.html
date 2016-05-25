@@ -5,14 +5,29 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title>
-    {% if page.title == "Monix" %}
-      {{ site.title }} &middot; {{ site.tagline }}
-    {% else %}
-      {{ page.title }} &middot; {{ site.title }}
-    {% endif %}
-  </title>
+  {% capture processed_title %}{% if page.title contains "Monix" %}{{ page.title }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}{% endcapture %}
+  {% capture processed_description %}{% if post.excerpt %}{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}{% elsif page.description %}{{ page.description | strip_newlines }}{% else %}{{ site.tagline }}{% endif %}{% endcapture %}
+  <title>{{ processed_title }}</title>
 
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@alexelcu" />  
+  <meta name="twitter:image" content="{{ site.url }}/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="{{ processed_title }}" />
+  <meta name="twitter:description" content="{{ processed_description }}" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ processed_title }}" />
+  <meta property="og:description" content="{{ processed_description }}" />
+  <meta property="og:image" content="{{ site.url }}/public/images/monix-logo.png" />
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="{{ site.baseurl }}public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="{{ site.baseurl }}public/js/init.js" type="text/javascript" language="javascript"></script>
+  
   <!-- CSS -->
   <link rel="stylesheet" href="{{ site.baseurl }}public/css/poole.css">
   <link rel="stylesheet" href="{{ site.baseurl }}public/css/syntax.css">
@@ -27,7 +42,7 @@
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.baseurl }}public/apple-touch-icon-144-precomposed.png">
-                                 <link rel="shortcut icon" href="{{ site.baseurl }}public/favicon.ico">
+  <link rel="shortcut icon" href="{{ site.baseurl }}public/favicon.ico">
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ site.baseurl }}blog/atom.xml">
