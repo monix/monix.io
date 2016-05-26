@@ -2,14 +2,14 @@
 layout: post
 title: "I'm Monix.io, Help Wanted!"
 author: alexelcu
+excerpt_separator: <!--more-->
+description: We've come a long way and now the library is better than ever but there's much to do.
 ---
 
-[Monix](https://github.com/monixio/monix) was started in 2014
-with the purpose of aiding me in dealing with processing
-asynchronous events in a soft real-time system.
-
-We've come a long way and now the library is better than ever
-but there's much to do.
+[Monix](https://github.com/monixio/monix) was started in 2014 with the
+purpose of aiding me in dealing with processing asynchronous events in
+a soft real-time system. We've come a long way and now the library is
+better than ever but there's much to do.
 
 <!--more-->
 
