@@ -21,7 +21,7 @@ Presentations:
 
 Samples:
 
-- [Client/Server Communications](https://github.com/monixio/monix-sample/):
+- [Client/Server Communications](https://github.com/monixio/monix-sample/){:target="_blank"}:
   a mixed [Play Framework](https://www.playframework.com/) /
   [Scala.js](http://www.scala-js.org/) application setup that uses Monix
   on both the client and the server to stream datapoints from the server
