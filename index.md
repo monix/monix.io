@@ -36,7 +36,7 @@ Featured presentation:
   width="640" height="360" class="presentation"
   frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
 </iframe>
-**[flatMap(Oslo), 2016](http://localhost:4000/docs/2x/presentations/2016-task-flatmap-oslo.html)**
+**[flatMap(Oslo), 2016](/docs/2x/presentations/2016-task-flatmap-oslo.html)**
 
 ### Download and Usage
 
