@@ -11,7 +11,7 @@ A one-time idempotent action that can be used to cancel async
 computations, or to release resources that active data-sources are
 holding, it is the equivalent of `java.io.Closable`, but without the
 I/O focus, or to `IDisposable` from .NET, or to
-`akka.actor.Cancellable` (but with an `l` droppped 😄).
+`akka.actor.Cancellable` (but with an `l` droppped :)).
 
 ## Base Cancelable
 

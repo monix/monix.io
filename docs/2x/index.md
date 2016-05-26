@@ -12,6 +12,7 @@ Usage:
 - Execution
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)
+  - [Future Utils](./execution/future-utils.html)
 
 Presentations:
 

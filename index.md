@@ -71,4 +71,19 @@ Monix 2.0 is modular by design, so you can pick and choose:
 Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
 more details.
 
+## Acknowledgements
 
+<img src="{{ site.baseurl }}public/images/logos/yklogo.png"
+align="right" /> YourKit supports the Monix project with its
+full-featured Java Profiler.  YourKit, LLC is the creator
+[YourKit Java Profiler](http://www.yourkit.com/java/profiler/index.jsp){:target="_blank"}
+and
+[YourKit .NET Profiler](http://www.yourkit.com/.net/profiler/index.jsp){:target="_blank"},
+innovative and intelligent tools for profiling Java and .NET
+applications.
+
+<img src="{{ site.baseurl }}public/images/logos/logo-eloquentix@2x.png" align="right" width="130" />
+Development of Monix has been initiated by
+[Eloquentix](http://eloquentix.com/){:target="_blank"} engineers, with
+Monix being introduced at E.ON Connecting Energies, powering the next
+generation energy grid solutions.
