@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Future Utils
-type_api: monix.execution.FutureUtils
+type_api: monix.execution.FutureUtils$
 type_source: monix-execution/shared/src/main/scala/monix/execution/FutureUtils.scala
 description: Utilities for Scala's standard Future.
 ---
