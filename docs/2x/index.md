@@ -19,4 +19,12 @@ Presentations:
 - [Monix Task: Lazy, Async &amp; Awesome](./presentations/2016-task-flatmap-oslo.html) (flatMap(Oslo), 2016)
 - [Akka & Monix: Controlling Power Plants](./presentations/2016-akka-monix-typelevel.html) (Typelevel Summit, Oslo, 2016)
 
+Samples:
+
+- [Client/Server Communications](https://github.com/monixio/monix-sample/):
+  a mixed [Play Framework](https://www.playframework.com/) /
+  [Scala.js](http://www.scala-js.org/) application setup that uses Monix
+  on both the client and the server to stream datapoints from the server
+  to the user's browser.
+
 Work in progress! Please help!
