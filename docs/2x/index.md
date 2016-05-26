@@ -3,7 +3,7 @@ layout: page
 title: Monix Documentation
 ---
 
-Usage:
+**Usage:**
 
 - [API Documentation (ScalaDoc)]({{ site.api2x }})
 - Getting Started
@@ -14,12 +14,12 @@ Usage:
   - [Cancelable](./execution/cancelable.html)
   - [Future Utils](./execution/future-utils.html)
 
-Presentations:
+**Presentations:**
 
 - [Monix Task: Lazy, Async &amp; Awesome](./presentations/2016-task-flatmap-oslo.html) (flatMap(Oslo), 2016)
 - [Akka & Monix: Controlling Power Plants](./presentations/2016-akka-monix-typelevel.html) (Typelevel Summit, Oslo, 2016)
 
-Samples:
+**Samples:**
 
 - [Client/Server Communications](https://github.com/monixio/monix-sample/){:target="_blank"}:
   a mixed [Play Framework](https://www.playframework.com/) /
