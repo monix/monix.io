@@ -36,9 +36,9 @@ cross-compiled for:
 Depends on:
 
 - [Sincron](https://sincron.org){:target="_blank"}
-- [monix-execution](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-execution)
-- [monix-eval](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-eval)
-- [monix-reactive](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-reactive)
+- [monix-execution](#sub-project-monix-execution)
+- [monix-eval](#sub-project-monix-eval)
+- [monix-reactive](#sub-project-monix-reactive)
 
 ### SBT
 
@@ -183,7 +183,7 @@ You can use just `monix-eval`, the sub-project that exposes
 Depends on:
 
 - [Sincron](https://sincron.org){:target="_blank"}
-- [monix-execution](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-execution)
+- [monix-execution](#sub-project-monix-execution)
 
 ### SBT
 
@@ -252,8 +252,8 @@ the [Observable]({{ site.api2x }}#monix.reactive.Observable) pattern:
 Depends on:
 
 - [Sincron](https://sincron.org){:target="_blank"}
-- [monix-execution](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-execution)
-- [monix-eval](http://localhost:4000/docs/2x/intro/usage.html#sub-project-monix-eval)
+- [monix-execution](#sub-project-monix-execution)
+- [monix-eval](#sub-project-monix-eval)
 
 ### SBT
 

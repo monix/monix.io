@@ -8,6 +8,11 @@ author: alexelcu
 with the purpose of aiding me in dealing with processing
 asynchronous events in a soft real-time system.
 
+We've come a long way and now the library is better than ever
+but there's much to do.
+
+<!--more-->
+
 At the time we were using [Akka Actors](http://doc.akka.io/) for
 communications and it soon became apparent that it's not enough,
 because often in such a system you've got signals coming from

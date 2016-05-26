@@ -4,9 +4,7 @@ title: Scheduler
 type_api: monix.execution.Scheduler
 type_source: monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala
 description: |
-  A cross-platform execution-context,
-  can execute logic asynchronously and with a delay,
-  typically but not necessarily on a thread-pool.
+  A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool.
 ---
 
 A cross-platform execution-context, can execute logic asynchronously
@@ -62,14 +60,19 @@ again, this API can surely use improvement.
 
 And neither Akka's `Scheduler` nor Java's `ScheduledExecutorService`
 can run on top of [Scala.js](http://www.scala-js.org/), whereas Monix
-provides a common API reusable on in both environments. 
-Remember, the `Scheduler` is not about multi-threading, but about
-asynchrony.
+provides a common API reusable in both environments. Remember, the
+`Scheduler` is not about multi-threading, but about asynchrony.
 
 ## Importing &amp; Implicits
 
 The `Scheduler` can be a replacement for Scala's `ExecutionContext`
-because it inherits from it:
+because:
+
+```scala
+abstract class Scheduler extends ExecutionContext
+```
+
+And there's also a lazy `global` that you can use as an implicit:
 
 ```scala
 import monix.execution.Scheduler.Implicits.global
@@ -229,7 +232,7 @@ The Monix `Scheduler` can inject the time by means of
 `Scheduler.currentTimeMillis`, which is a Unix timestamp and thus
 returns the number of milliseconds since the 1970-01-01 00:00:00 UTC.
 
-Doing this is bad because we use a singleton and we cannot
+Doing this is bad because it is a global singleton and we cannot
 override its behavior:
 
 ```scala
@@ -237,7 +240,7 @@ System.currentTimeMillis
 // res1: Long = 1464223070198
 ```
 
-But we can instead do this:
+But if given a scheduler, we can now do this:
 
 ```scala
 scheduler.currentTimeMillis
@@ -269,6 +272,18 @@ testScheduler.tick()
 // Simulate passage of time, current thread:
 testScheduler.tick(1.second)
 // => Delayed execution!
+```
+
+But non-determinism is still simulated. For example if we do this, the
+order of execution for tasks that have the same priority will be
+randomly chosen, so you can't say which is going to execute first or
+which is second.
+
+```scala
+// runnable1 might execute first, or second
+testScheduler.execute(runnable1)
+// runnable2 might execute first, or second
+testScheduler.execute(runnable2)
 ```
 
 ## Execution Model
@@ -362,6 +377,26 @@ Or even:
 val scheduler = Scheduler(executorService)
 ```
 
+Even if you specify just an `ExecutorService`, it still knows how to
+build a scheduler, because we also have a default
+`Executors.newSingleThreadScheduledExecutor` being used as the
+`ScheduledExecutorService` used to schedule things to be executed with
+a delay. It uses a single thread because it's in charge only of
+scheduling, the actual execution being done by the given
+`ExecutorService`.
+
+But maybe we want to only wrap just a Java `ScheduledExecutorService`
+instance, a service capable of everything we'd want out of our
+`Scheduler`. We can do that as well:
+
+```scala
+val javaService = Executors.newScheduledThreadPool(10)
+val scheduler = Scheduler(javaService)
+
+// Optional ExecutionModel
+val scheduler = Scheduler(javaService, AlwaysAsyncExecution)
+```
+
 Also on the JVM, we can create a `ForkJoinPool` meant for
 CPU-bound tasks like so:
 
@@ -371,7 +406,7 @@ Scheduler.computation(parallelism=10)
 
 // Specify an optional ExecutionModel
 Scheduler.computation(
-  parallelism=10
+  parallelism = 10
   executionModel = AlwaysAsyncExecution)
 ```
 
@@ -383,9 +418,8 @@ backed by a Java
 Scheduler.io()
 Scheduler.io(name="my-io")
 
-// Also takes an optional ExecutionModel
-Scheduler.computation(
-  parallelism=10
+Scheduler.io(
+  name="my-io",
   executionModel = AlwaysAsyncExecution)
 ```
 

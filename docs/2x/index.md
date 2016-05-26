@@ -5,12 +5,13 @@ title: Monix Documentation
 
 Usage:
 
-- [API Documentation (ScalaDoc)](./api/)
+- [API Documentation (ScalaDoc)]({{ site.api2x }})
 - Getting Started
   - [Usage with SBT and Maven](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)
 - Execution
   - [Scheduler](./execution/scheduler.html)
+  - [Cancelable](./execution/cancelable.html)
 
 Presentations:
 
