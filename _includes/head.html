@@ -5,7 +5,7 @@
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  {% capture processed_title %}{% if page.title contains "Monix" %}{{ page.title }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}{% endcapture %}
+  {% capture processed_title %}{% if page.title contains "Monix" %}{{ page.title }}{% else %}{{ page.title }} &mdash; {{ site.title }}{% endif %}{% endcapture %}
   {% capture processed_description %}{% if post.excerpt %}{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}{% elsif page.description %}{{ page.description | strip_newlines }}{% else %}{{ site.tagline }}{% endif %}{% endcapture %}
   <title>{{ processed_title }}</title>
 
