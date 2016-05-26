@@ -30,14 +30,22 @@ Highlights:
   JVM and [Scala.js](http://scala-js.org)
 - really good test coverage and API documentation as a project policy
 
-### Dependencies
+Featured presentation:
+
+<iframe src="https://player.vimeo.com/video/165922572" 
+  width="640" height="360" class="presentation"
+  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+</iframe>
+**[flatMap(Oslo), 2016](http://localhost:4000/docs/2x/presentations/2016-task-flatmap-oslo.html)**
+
+### Download and Usage
 
 The packages are published on Maven Central.
 
 - Current 1.x release: `{{ site.version1x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version1x }}.zip)
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version1x }}.zip))
 - Current 2.x release: `{{ site.version2x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip)
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
 
 For the 1.x release (use the `%%%` for Scala.js):
 
@@ -51,8 +59,6 @@ For the 2.x release (use the `%%%` for Scala.js):
 libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
 ```
 
-### Sub-projects
-
 Monix 2.0 is modular by design, so you can pick and choose:
 
 - `monix-execution` exposes the low-level execution environment, or more precisely
@@ -61,3 +67,8 @@ Monix 2.0 is modular by design, so you can pick and choose:
    and depends on `monix-execution`
 - `monix-reactive` exposes `Observable` streams and depends on `monix-eval`
 - `monix` provides all of the above
+
+Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
+more details.
+
+
