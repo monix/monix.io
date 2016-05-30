@@ -16,8 +16,8 @@ by [@alexelcu](https://twitter.com/alexelcu){:target="_blank"}:
 
 Media: 
 
-- [Slides (PDF file)](/assets/pdfs/Akka-Monix.pdf)
-- [Video (YouTube)](https://www.youtube.com/watch?v=CQxviYlAKaY)
+- [Slides (PDF file)](/public/pdfs/Akka-Monix.pdf){:target="_blank"}
+- [Video (YouTube)](https://www.youtube.com/watch?v=CQxviYlAKaY){:target="_blank"}
 
 Also see
 [Monix Task: Lazy, Async &amp; Awesome](./2016-task-flatmap-oslo.html)

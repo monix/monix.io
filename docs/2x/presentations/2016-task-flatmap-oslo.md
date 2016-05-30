@@ -18,8 +18,8 @@ by [@alexelcu](https://twitter.com/alexelcu){:target="_blank"}:
 
 Media: 
 
-- [Slides (PDF file)](/assets/pdfs/Monix-Task.pdf)
-- [Video (Vimeo)](https://vimeo.com/channels/flatmap2016/165922572)
+- [Slides (PDF file)](/public/pdfs/Monix-Task.pdf){:target="_blank"}
+- [Video (Vimeo)](https://vimeo.com/channels/flatmap2016/165922572){:target="_blank"}
 
 Also see
 [Akka &amp; Monix: Controlling Power Plants](./2016-akka-monix-typelevel.html)

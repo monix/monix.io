@@ -13,6 +13,8 @@ title: Monix Documentation
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)
   - [Future Utils](./execution/future-utils.html)
+- Best Practices
+  - [Should Not Block Threads](./best-practices/blocking.html)
 
 **Presentations:**
 
