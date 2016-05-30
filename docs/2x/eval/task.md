@@ -278,6 +278,8 @@ Await.result(future, 3.seconds)
 //=> Hello!
 ```
 
+**NOTE:** There is [no blocking](https://github.com/scala-js/scala-js/issues/186) on Scala.js by design.
+
 ### Try Immediate Execution (Coeval)
 
 Monix is against blocking, we've established that. But clearly some
