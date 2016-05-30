@@ -4,14 +4,14 @@ title: Task
 type_api: monix.eval.Task
 type_source: monix-eval/shared/src/main/scala/monix/eval/Task.scala
 description: |
-  A specification for a lazy and possibly asynchronous computation, useful for avoiding nondeterminism and the callback hell effect.
+  A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
 ---
 
 ## Introduction
 
-`Task` is a specification for a lazy and possibly asynchronous
-computation, useful for avoiding nondeterminism and the callback hell
-effect.
+Task is a data type for controlling possibly lazy &amp; asynchronous
+computations, useful for controlling side-effects, avoiding
+nondeterminism and callback-hell.
 
 ```scala
 // In order to evaluate tasks, we'll need a Scheduler
