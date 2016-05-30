@@ -23,7 +23,7 @@ def fetchSomething: Future[String] = ???
 fetchSomething.map(_.toUpperCase)
 ```
 
-**PRO-TIP:** checkout the
+**PRO-TIP:** for Scala's Future, checkout the
 [Scala-Async](https://github.com/scala/async) project to make this
 easier.
 
