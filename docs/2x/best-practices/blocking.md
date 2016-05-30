@@ -102,7 +102,8 @@ def multiply(x: Int, y: Int) = Future {
   val b = addOne(y)
   val result = for (r1 <- a; r2 <- b) yield r1 * r2
 
-  // this will dead-lock
+  // This can dead-lock due to the limited size 
+  // of our thread-pool!
   Await.result(result, Duration.Inf)
 }
 ```
