@@ -21,7 +21,7 @@ These install instructions are for Scala's
 [setup intructions](http://www.scala-sbt.org/0.13/docs/Setup.html))
 and for [Apache Maven](https://maven.apache.org/) build tools.
 
-## Get Everything
+## Everything in Monix Core
 
 The main `monix` project contains everything in the Monix core, 
 cross-compiled for:
@@ -95,6 +95,78 @@ For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
 <dependency>
     <groupId>io.monix</groupId>
     <artifactId>monix_{{ site.scalajs_pack_version }}_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+## Sub-project: monix-types
+
+The `monix-types` subproject is like a kernel exposing Monix's
+type-classes that are used for integration with
+[Cats](http://typelevel.org/cats/) or other libraries. For the moment
+this means shims for types such as `Monad`, `MonadError` or `Comonad`,
+or `Evaluable`, a type-class meant to abstract over both `Task` or
+`Coeval`.
+
+Usage:
+
+- JVM: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+- Javascript: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+
+Has no dependencies.
+
+### SBT
+
+```scala
+// Targetting just the JVM
+libraryDependencies += "io.monix" %% "monix-types" % "{{ site.version2x }}"
+
+// For Scala.js or cross-compiled projects
+libraryDependencies += "io.monix" %%% "monix-types" % "{{ site.version2x }}"
+```
+
+### Maven
+
+For Scala 2.11:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-types_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-types_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.11 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-types_{{ site.scalajs_pack_version }}_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-types_{{ site.scalajs_pack_version }}_2.10</artifactId>
     <version>{{ site.version2x }}</version>
 </dependency>
 ```
@@ -183,6 +255,7 @@ You can use just `monix-eval`, the sub-project that exposes
 Depends on:
 
 - [Sincron](https://sincron.org){:target="_blank"}
+- [monix-types](#sub-project-monix-types)
 - [monix-execution](#sub-project-monix-execution)
 
 ### SBT
@@ -252,6 +325,7 @@ the [Observable]({{ site.api2x }}#monix.reactive.Observable) pattern:
 Depends on:
 
 - [Sincron](https://sincron.org){:target="_blank"}
+- [monix-types](#sub-project-monix-types)
 - [monix-execution](#sub-project-monix-execution)
 - [monix-eval](#sub-project-monix-eval)
 
@@ -303,6 +377,74 @@ For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
 <dependency>
     <groupId>io.monix</groupId>
     <artifactId>monix-reactive_{{ site.scalajs_pack_version }}_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+## Sub-project: monix-cats (Optional)
+
+The `monix-cats` optional sub-projects is the integration 
+with the [Cats](http://typelevel.org/cats/) library.
+
+To import:
+
+- JVM: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+- Javascript: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+
+Depends just on [monix-types](#sub-project-monix-types).
+
+### SBT
+
+```scala
+// Targetting just the JVM
+libraryDependencies += "io.monix" %% "monix-cats" % "{{ site.version2x }}"
+
+// For Scala.js or cross-compiled projects
+libraryDependencies += "io.monix" %%% "monix-cats" % "{{ site.version2x }}"
+```
+
+### Maven
+
+For Scala 2.11:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-cats_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-cats_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.11 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-cats_{{ site.scalajs_pack_version }}_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-cats_{{ site.scalajs_pack_version }}_2.10</artifactId>
     <version>{{ site.version2x }}</version>
 </dependency>
 ```

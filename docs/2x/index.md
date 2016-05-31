@@ -9,6 +9,7 @@ title: Monix Documentation
 - Getting Started
   - [Usage with SBT and Maven](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)
+  - [Typelevel Cats Integration](./intro/cats.html)
 - Execution
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)

@@ -838,35 +838,81 @@ val aggregate =
   }
 ```
 
-### Transform a Seq of Tasks into a Task
+### Gather results from a Seq of Tasks
 
-`Task.sequence`, also called `Task.zipList`, takes a `Seq[Task[A]]`
-and returns a `Task[Seq[A]]`, thus transforming any sequence of tasks
-into a task with a sequence of results:
+`Task.sequence`, takes a `Seq[Task[A]]` and returns a `Task[Seq[A]]`,
+thus transforming any sequence of tasks into a task with a sequence of
+results and with ordered effects and results. This means that the
+tasks WILL NOT execute in parallel.
 
 ```scala
-val ta = Task(1 + 1).delayExecution(1.second)
-val tb = Task(10).delayExecution(1.second)
+val ta = Task { println("Effect1"); 1 }
+val tb = Task { println("Effect2"); 2 }
 
 val list: Task[Seq[Int]] = 
   Task.sequence(Seq(ta, tb))
 
+// We always get this ordering:
 list.runAsync.foreach(println)
-//=> List(2, 10)
+//=> Effect1
+//=> Effect2
+//=> List(1, 2)
 ```
 
 The results are ordered in the order of the initial sequence, so that
 means in the example above we are guaranteed in the result to first
 get the result of `ta` (the first task) and then the result of `tb`
-(the second task). But the execution itself (and any possible
-side-effects) are potentially done in parallel.
+(the second task). The execution itself is also ordered, so `ta`
+executes and completes before `tb`.
 
-`Task.sequence` is similar with Scala's
-[Future.sequence](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future$@sequence[A,M[X]<:TraversableOnce[X]](in:M[scala.concurrent.Future[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[scala.concurrent.Future[A]],A,M[A]],implicitexecutor:scala.concurrent.ExecutionContext):scala.concurrent.Future[M[A]])
-except that it operates on `Task` and upon execution it has a better
-model, as when any of the tasks trigger an error, all the other tasks
-get immediately canceled.
+`Task.gather`, also known as `Task.zipList`, is the nondeterministic
+version of `Task.sequence`.  It also takes a `Seq[Task[A]]` and
+returns a `Task[Seq[A]]`, thus transforming any sequence of tasks into
+a task with a sequence of ordered results. But the effects are not
+ordered, meaning that there's potential for parallel execution:
 
+```scala
+val ta = Task { println("Effect1"); 1 }
+  .delayExecution(1.second)
+val tb = Task { println("Effect2"); 2 }
+  .delayExecution(1.second)
+
+val list: Task[Seq[Int]] = Task.gather(Seq(ta, tb))
+
+list.runAsync.foreach(println)
+//=> Effect1
+//=> Effect2
+//=> List(1, 2)
+
+list.runAsync.foreach(println)
+//=> Effect2
+//=> Effect1
+//=> List(1, 2)
+```
+
+`Task.gatherUnordered` is like `gather`, except that you don't get
+ordering for results or effects. The result is highly
+nondeterministic:
+
+```scala
+val ta = Task { println("Effect1"); 1 }
+  .delayExecution(1.second)
+val tb = Task { println("Effect2"); 2 }
+  .delayExecution(1.second)
+
+val list: Task[Seq[Int]] = 
+  Task.gatherUnordered(Seq(ta, tb))
+
+list.runAsync.foreach(println)
+//=> Effect2
+//=> Effect1
+//=> Seq(2,1)
+
+list.runAsync.foreach(println)
+//=> Effect1
+//=> Effect2
+//=> Seq(1,2)
+```
 
 ### Choose First Of Two Tasks
 
