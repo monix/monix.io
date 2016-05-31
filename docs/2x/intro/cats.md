@@ -1,6 +1,8 @@
 ---
 layout: docs
 title: Typelevel Cats Integration
+type_api: monix.cats.package
+type_source: monix-cats/shared/src/main/scala/monix/cats/
 description: |
   Integration and usage of the type-classes described in the Typelevel Cats library.
 ---
