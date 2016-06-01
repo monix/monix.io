@@ -155,7 +155,7 @@ giants. But where the Monix Task implementation disagrees:
    
 ## Execution (runAsync)
 
-`Task` instances are doing anything until they are executed by means
+`Task` instances won't do anything until they are executed by means
 of `runAsync`. And there are multiple overloads of it. 
 
 `Task.runAsync` also wants an implicit
