@@ -15,8 +15,9 @@ title: Monix Documentation
   - [Cancelable](./execution/cancelable.html)
   - [Future Utils](./execution/future-utils.html)
 - Evaluation
-  - [Task](./eval/task.html)
+  - [Task](./eval/task.html)  
   - [Callback](./eval/callback.html)
+  - [Coeval](./eval/coeval.html)
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 

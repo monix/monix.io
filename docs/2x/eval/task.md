@@ -67,12 +67,12 @@ In summary the Monix `Task`:
 A visual representation of where they sit in the design
 space:
 
-|                    |        Eager        |           Lazy           |
-|:------------------:|:-------------------:|:------------------------:|
-| **Synchronous**    |          A          |          () => A         |
-|                    |                     | Function0[A] / Coeval[A] |
-| **Asynchronous**   | (A => Unit) => Unit |    (A => Unit) => Unit   |
-|                    |      Future[A]      |          Task[A]         |
+|                    |        Eager        |            Lazy            |
+|:------------------:|:-------------------:|:--------------------------:|
+| **Synchronous**    |          A          |           () => A          |
+|                    |                     | [Coeval[A]](./coeval.html) |
+| **Asynchronous**   | (A => Unit) => Unit |    (A => Unit) => Unit     |
+|                    |      Future[A]      |          Task[A]           |
 
 ### Comparison with Scala's Future
 
@@ -329,7 +329,7 @@ val task = Task.now { println("Effect"); "Hello!" }
 // task: monix.eval.Task[String] = Now(Hello!)
 ```
 
-### Taks.evalAlways
+### Task.evalAlways
 
 `Task.evalAlways`
 is the equivalent of `Function0`, taking a function
@@ -833,7 +833,7 @@ val addressTask: Task[String] = Task.evalAlways(???)
 
 // Potentially executed in parallel
 val aggregate = 
-  Task.zip4(locationTask, phoneTask, addressTask).map {
+  Task.zip3(locationTask, phoneTask, addressTask).map {
     (location, phone, address) => "Gotcha!"
   }
 ```
@@ -1064,6 +1064,30 @@ randomEven.runAsync.foreach(println)
 //=> 1246761488
 randomEven.runAsync.foreach(println)
 //=> 1053678416
+```
+
+### Clean-up Resources on Finish
+
+`Task.doOnFinish` executes the supplied 
+`Option[Throwable] => Task[Unit]` function when the source finishes, 
+being meant for cleaning up resources or executing 
+some scheduled side-effect:
+
+```scala
+val task = Task(1)
+
+val withFinishCb = task.doOnFinish {
+  case None => 
+    println("Was success!")
+    Task.unit
+  case Some(ex) =>
+    println(s"Had failure: $ex")
+    Task.unit
+}
+
+withFinishCb.runAsync.foreach(println)
+//=> Was success!
+//=> 1
 ```
 
 ### Convert to Reactive Publisher
@@ -1355,7 +1379,7 @@ val source = Task(Random.nextInt).flatMap {
     Task.raiseError(new IllegalStateException(other.toString))
 }
 
-// Will retry 10 times for a random even number,
+// Will retry 4 times for a random even number,
 // or fail if the maxRetries is reached!
 val randomEven = source.onErrorRestart(maxRetries = 4)
 ```
@@ -1372,8 +1396,8 @@ val source = Task(Random.nextInt).flatMap {
     Task.raiseError(new IllegalStateException(other.toString))
 }
 
-// Will retry 10 times for a random even number,
-// or fail if the maxRetries is reached!
+// Will keep retrying for as long as the source fails
+// with an IllegalStateException
 val randomEven = source.onErrorRestartIf {
   case _: IllegalStateException => true
   case _ => false
@@ -1434,7 +1458,7 @@ val materialized = task.materialize
 // materialize: Task[Try[Int]] = ???
 
 // Hiding errors again
-val dematerialized = materialize.dematerialized
+val dematerialized = materialized.dematerialize
 // dematerialized: Task[Int] = ???
 ```
 
