@@ -446,9 +446,6 @@ val aggregate = for {
 ```
 
 This gets transformed by the compiler into a batch of `flatMap` calls.
-It is often said that Monads are too powerful and have problems
-composing.
-
 But `Coeval` is also an `Applicative` and hence it has utilities, such
 as `zip2`, `zip3`, up until `zip6` (at the moment of writing) and also
 `zipList`. The example above could be written as:
