@@ -96,7 +96,7 @@ with that, if you think about how it takes that implicit execution
 context whenever you call its operators, like `map` and `flatMap`.
 
 But `Task` is different. `Task` is about lazy evaluation. Well, not
-always lazy, in fact `Task` allows for fine tuning the execution
+always lazy, in fact `Task` allows for fine-tuning the execution
 model, as you'll see, but that's the primary distinction between
 them. If `Future` is like a value, then `Task` is like a function. And
 in fact `Task` can function as a "factory" of `Future` instances.
@@ -149,7 +149,7 @@ giants. But where the Monix Task implementation disagrees:
    unfortunately, if we don't release resources soon enough, we can
    end up with serious leakage that can crash our process.
 4. The Scalaz Task piggybacks on top of Java's standard library for
-   dealing with asynchronous execution. This is bad for portabilty
+   dealing with asynchronous execution. This is bad for portability
    reasons, as this API is not supported on top of
    [Scala.js](http://www.scala-js.org/).
    
@@ -222,7 +222,7 @@ cancelable.cancel()
 ```
 
 We can also `runAsync` with a [Callback](./callback.html) instance.
-This is like a Java-ish API, useful in case, for any reason whatsover,
+This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
 specific to `Try[T]`. Sample:
@@ -288,7 +288,7 @@ thread, if allowed by the execution model. And for *optimization
 purposes*, we might want to act immediately on their results, avoiding
 dealing with callbacks.
 
-To do that, we can covert a `Task` into a `Coeval`:
+To do that, we can convert a `Task` into a `Coeval`:
 
 ```scala
 val task = Task.evalAlways("Hello!")
@@ -378,7 +378,7 @@ task.runAsync.foreach(println)
 
 `Task.defer`
 is about building a factory of tasks. For example this
-will behave aproximately like `Task.evalAlways`:
+will behave approximately like `Task.evalAlways`:
 
 ```scala
 val task = Task.defer {
@@ -414,7 +414,7 @@ task.runAsync.foreach(println)
 
 Note that `fromFuture` takes a strict argument and that may not be
 what you want. You might want a factory of `Future`. The design of
-`Task` however is to have fine grained control over the evaluation
+`Task` however is to have fine-grained control over the evaluation
 model, so in case you want a factory, you need to combine it with
 `Task.defer`:
 
@@ -498,7 +498,7 @@ garbage collector.
 ### Task.unit
 
 `Task.unit` is returning an already completed `Task[Unit]` instance,
-provided as an utility, to spare you creating new instances with
+provided as a utility, to spare you creating new instances with
 `Task.now(())`:
 
 ```scala
@@ -518,7 +518,7 @@ handles some of the nitty-gritty automatically.
 ### Task.create
 
 `Task.create` allows for creating an asynchronous `Task` using a
-callback-based API. For example, lets create an utility that evaluates
+callback-based API. For example, let's create a utility that evaluates
 expressions with a given delay:
 
 ```scala
@@ -724,7 +724,7 @@ eager.
 
 ### FlatMap and Tail-Recursive Loops
 
-So lets start with a stupid example that calculates the N-th number in
+So let's start with a stupid example that calculates the N-th number in
 the Fibonacci sequence:
 
 ```scala
@@ -1015,7 +1015,7 @@ delayed.runAsync.foreach(println)
 ```
 
 Here, you'll see the "side-effect happening after only 1 second, but
-the the signaling of the result will happen after another 5 seconds.
+the signaling of the result will happen after another 5 seconds.
 
 There's also another variant called `delayResultBySelector`, where you
 can have another task signal the right moment when to signal the
@@ -1108,7 +1108,7 @@ val publisher: org.reactivestreams.Publisher[Int] =
 ```
 
 This is meant for interoperability purposes with other libraries, but
-if you're inclined to use it directly, it's a little more lower level,
+if you're inclined to use it directly, it's a little lower level,
 but doable:
 
 ```scala

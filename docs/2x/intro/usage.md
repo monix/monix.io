@@ -18,7 +18,7 @@ for Scala 2.10 and 2.11, also cross-compiled to
 
 These install instructions are for Scala's
 [SBT](http://www.scala-sbt.org/) (see the
-[setup intructions](http://www.scala-sbt.org/0.13/docs/Setup.html))
+[setup instructions](http://www.scala-sbt.org/0.13/docs/Setup.html))
 and for [Apache Maven](https://maven.apache.org/) build tools.
 
 ## Everything in Monix Core

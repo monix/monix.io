@@ -11,7 +11,7 @@ A one-time idempotent action that can be used to cancel async
 computations, or to release resources that active data-sources are
 holding, it is the equivalent of `java.io.Closable`, but without the
 I/O focus, or to `IDisposable` from .NET, or to
-`akka.actor.Cancellable` (but with an `l` droppped :)).
+`akka.actor.Cancellable` (but with an `l` dropped :)).
 
 ## Base Cancelable
 
@@ -206,7 +206,7 @@ than the current one you're trying to make, then the assignment gets
 ignored, so:
 
 ```scala
-// Lets simulate a race condition
+// Let's simulate a race condition
 import monix.execution.Scheduler.{global => scheduler}
 
 val c = MultiAssignmentCancelable()
@@ -233,7 +233,7 @@ explicitly specify an `order` argument and thus force an ordering to
 it.
 
 The example above is obvious, right? But the following one isn't and
-it's in fact a pretty common pattern. Lets build a function that
+it's in fact a pretty common pattern. Let's build a function that
 executes things with a delay, tasks that can be canceled. To
 add a delay, we'd use a `Scheduler` and we want to return 
 a `Cancelable` that can cancel either the delay or the result
@@ -298,7 +298,7 @@ See the
 The contract:
 
 - it is thread-safe
-- if canceled after assignment, the the underlying cancelable gets
+- if canceled after assignment, the underlying cancelable gets
   canceled and the reference released for GC purposes
 - if canceled while empty, then the assigned cancelable will be
   canceled immediately on assignment
