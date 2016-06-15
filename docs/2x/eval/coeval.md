@@ -461,7 +461,7 @@ val aggregate =
   }
 ```
 
-### Gather results from a Seq of Tasks
+### Gather results from a Seq of Coevals
 
 `Coeval.sequence`, takes a `Seq[Coeval[A]]` and returns a
 `Coeval[Seq[A]]`, thus transforming any sequence of coevals into a
