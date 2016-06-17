@@ -109,7 +109,7 @@ instances where you don't want the asynchronous nature of `Task`. This
 means that `Coeval` scales from delaying simple arithmetic operations
 up to controlling side-effects, and if you want, it can also function
 as a replacement for an I/O Monad. And because it's the legitimate
-sibling of [Task](./task.html), convertion back and forth is smooth
+sibling of [Task](./task.html), conversion back and forth is smooth
 (within limits).
 
 Or in more concrete terms, at the moment of writing this, the Monix
@@ -262,7 +262,7 @@ coeval.value
 ### Coeval.defer
 
 `Coeval.defer` is about building a factory of coevals. For example
-this will behave aproximately like `Coeval.evalAlways`:
+this will behave approximately like `Coeval.evalAlways`:
 
 ```scala
 val coeval = Coeval.defer {
@@ -527,7 +527,7 @@ withFinishCb.value
 
 ## Error Handling
 
-`Coeval` does eror handling. Being the side-kick of `Task` means it
+`Coeval` does error handling. Being the side-kick of `Task` means it
 gets mostly the same facilities for recovering from error.
 
 First off, even though Monix expects for the arguments given to its
