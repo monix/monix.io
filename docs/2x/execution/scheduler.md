@@ -289,7 +289,7 @@ testScheduler.execute(runnable2)
 ## Execution Model
 
 Along with time, the `Scheduler` also specifies the
-[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel), 
+[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel){:target="_blank"}, 
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution in loops.
 For example in Monix, this affects how both `Task` and `Observable` 

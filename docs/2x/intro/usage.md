@@ -448,3 +448,71 @@ For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
     <version>{{ site.version2x }}</version>
 </dependency>
 ```
+
+## Sub-project: monix-scalaz-72 (Optional)
+
+The `monix-scalaz-72` optional sub-projects is the integration 
+with the [Scalaz](http://scalaz.org/) library.
+
+To import:
+
+- JVM: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+- Javascript: 
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C){:target="_blank"} /
+  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C){:target="_blank"}
+
+Depends just on [monix-types](#sub-project-monix-types).
+
+### SBT
+
+```scala
+// Targetting just the JVM
+libraryDependencies += "io.monix" %% "monix-scalaz-72" % "{{ site.version2x }}"
+
+// For Scala.js or cross-compiled projects
+libraryDependencies += "io.monix" %%% "monix-scalaz-72" % "{{ site.version2x }}"
+```
+
+### Maven
+
+For Scala 2.11:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-scalaz-72_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-scalaz-72_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.11 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-scalaz-72_{{ site.scalajs_pack_version }}_2.11</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```
+
+For Scala 2.10 and Scala.js {{ site.scalajs_full_version }}:
+
+```xml
+<dependency>
+    <groupId>io.monix</groupId>
+    <artifactId>monix-scalaz-72_{{ site.scalajs_pack_version }}_2.10</artifactId>
+    <version>{{ site.version2x }}</version>
+</dependency>
+```

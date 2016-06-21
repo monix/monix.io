@@ -10,14 +10,20 @@ title: Monix Documentation
   - [Usage with SBT and Maven](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)
   - [Typelevel Cats Integration](./intro/cats.html)
+  - [Scalaz 7.2 Integration](./intro/scalaz72.html)
 - Execution
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)
   - [Future Utils](./execution/future-utils.html)
+  - [Atomic](./execution/atomic.html)
 - Evaluation
-  - [Task](./eval/task.html)  
+  - [Task](./eval/task.html)
   - [Callback](./eval/callback.html)
   - [Coeval](./eval/coeval.html)
+- Reactive
+  - [Observable](./reactive/observable.html)
+  - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)
+  - [Observers and Subscribers](./reactive/observer.html)
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
