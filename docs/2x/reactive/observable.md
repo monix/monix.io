@@ -19,7 +19,7 @@ influenced by the Scala ecosystem of projects such as
 [Cats](http://typelevel.org/cats/) and
 [Scalaz](http://scalaz.org/). It's also compatible with the
 [Reactive Streams](http://www.reactive-streams.org/) specification,
-hence it has a good interoperability.
+hence it has good interoperability.
 
 ```scala
 // We need a Scheduler in scope in order to make 

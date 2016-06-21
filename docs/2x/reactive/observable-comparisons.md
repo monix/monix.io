@@ -188,7 +188,8 @@ Where FS2 is better:
   of the type system, you can see that in its `Stream[F,O]`, where `O`
   is the output, but `F` represent the side-effects - Monix doesn't do
   this, because in case you want purity, it expects the side-effects
-  to happen at the edges, much like the `IO` monad
+  to happen at the edges, much like the `IO` monad, and freely 
+  composable
 
 It's certainly a new and interesting approach, compatible with
 functional programming ideals. Where Monix is better:
