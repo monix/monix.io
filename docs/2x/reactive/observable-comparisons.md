@@ -162,8 +162,8 @@ build a `Materializer` that executes the needed tasks on top of
 
 By comparisson in the ReactiveX model (applicable to Monix as well)
 building observables happens by transforming one observable into
-another in functions that cannot be inspected. Which is approach is
-better is a matter of opinion however.
+another in functions that cannot be inspected. Which approach is
+better is a matter of opinion.
 
 For Akka Streams, in practice, the only used materializer will be the
 `ActorFlowMaterializer`. And this extra flexibility has led to an

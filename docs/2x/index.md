@@ -23,7 +23,7 @@ title: Monix Documentation
 - Reactive
   - [Observable](./reactive/observable.html)
   - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)
-  - [Observers and Subscribers](./reactive/observer.html)
+  - [Observers and Subscribers](./reactive/observers.html)
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
