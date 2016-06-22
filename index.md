@@ -83,14 +83,14 @@ more details.
 <img src="{{ site.baseurl }}public/images/logos/yklogo.png"
 align="right" /> YourKit supports the Monix project with its
 full-featured Java Profiler.  YourKit, LLC is the creator
-[YourKit Java Profiler](http://www.yourkit.com/java/profiler/index.jsp){:target="_blank"}
+[YourKit Java Profiler](http://www.yourkit.com/java/profiler/index.jsp)
 and
-[YourKit .NET Profiler](http://www.yourkit.com/.net/profiler/index.jsp){:target="_blank"},
+[YourKit .NET Profiler](http://www.yourkit.com/.net/profiler/index.jsp),
 innovative and intelligent tools for profiling Java and .NET
 applications.
 
 <img src="{{ site.baseurl }}public/images/logos/logo-eloquentix@2x.png" align="right" width="130" />
 Development of Monix has been initiated by
-[Eloquentix](http://eloquentix.com/){:target="_blank"} engineers, with
+[Eloquentix](http://eloquentix.com/) engineers, with
 Monix being introduced at E.ON Connecting Energies, powering the next
 generation energy grid solutions.

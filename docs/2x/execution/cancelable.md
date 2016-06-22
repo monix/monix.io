@@ -52,7 +52,7 @@ for its canceled status, adding the necessary `isCanceled` query for
 when we need it. 
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.BooleanCancelable){:target="_blank"}.
+[API Documentation]({{ site.api2x }}#monix.execution.cancelables.BooleanCancelable).
 
 ```scala
 package monix.execution.cancelables
@@ -108,7 +108,7 @@ references (to which you can add new references or remove existing ones)
 and that are handled in aggregate when doing a `cancel()`.
  
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.CompositeCancelable){:target="_blank"}.
+[API Documentation]({{ site.api2x }}#monix.execution.cancelables.CompositeCancelable).
 
 The contract for `CompositeCancelable`:
 
@@ -166,7 +166,7 @@ variable, referencing another cancelable reference that can be
 swapped as needed. 
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.MultiAssignmentCancelable){:target="_blank"}.
+[API Documentation]({{ site.api2x }}#monix.execution.cancelables.MultiAssignmentCancelable).
 
 Contract:
 
@@ -293,7 +293,7 @@ The `SingleAssignmentCancelable` is similar to the
 only once. 
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SingleAssignmentCancelable){:target="_blank"}.
+[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SingleAssignmentCancelable).
 
 The contract:
 
@@ -332,7 +332,7 @@ being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SerialCancelable){:target="_blank"}.
+[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SerialCancelable).
 
 Contract:
 

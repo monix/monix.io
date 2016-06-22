@@ -14,18 +14,18 @@ primitives required, however the interfaces of these primitives
 sometime leave something to be desired.
 
 One such example are the atomic references provided in
-[java.util.concurrent.atomic](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html){:target="_blank"}
+[java.util.concurrent.atomic](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html)
 package. This project is an attempt at improving these types for daily
 usage.
 
 ## Providing a Common interface
 
 So you have
-[j.u.c.a.AtomicReference&lt;V&gt;](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html){:target="_blank"},
-[j.u.c.a.AtomicInteger](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html){:target="_blank"},
-[j.u.c.a.AtomicLong](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html){:target="_blank"}
+[j.u.c.a.AtomicReference&lt;V&gt;](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html),
+[j.u.c.a.AtomicInteger](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html),
+[j.u.c.a.AtomicLong](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html)
 and
-[j.u.c.a.AtomicBoolean](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html){:target="_blank"}.
+[j.u.c.a.AtomicBoolean](http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html).
 The reason why `AtomicReference<V>` does not suffice is because
 compare-and-set works with reference equality, not structural equality
 like it happens with primitives. So you cannot simply box an integer
@@ -167,7 +167,7 @@ def pushElementAndGet[T <: AnyRef, U <: T](ref: AtomicReference[Queue[T]], elem:
 ```
 
 This is such a common pattern. Taking a page from the wonderful
-[ScalaSTM](https://nbronson.github.io/scala-stm/){:target="_blank"}, 
+[ScalaSTM](https://nbronson.github.io/scala-stm/), 
 with `Atomic` you can simply do this:
 
 ```scala
@@ -247,8 +247,8 @@ bypass `Numeric[T]`.
 In order to reduce cache contention, cache-padded versions for all Atomic
 classes are provided. For reference on what that means, see:
 
-- http://mail.openjdk.java.net/pipermail/hotspot-dev/2012-November/007309.html
-- http://openjdk.java.net/jeps/142
+- [mail.openjdk.java.net/pipermail/hotspot-dev/2012-November/007309.html](http://mail.openjdk.java.net/pipermail/hotspot-dev/2012-November/007309.html)
+- [JEP 142: Reduce Cache Contention on Specified Fields](http://openjdk.java.net/jeps/142)
 
 To use the cache-padded versions, you need to override the default
 `PaddingStrategy`:
@@ -257,11 +257,11 @@ To use the cache-padded versions, you need to override the default
 import monix.execution.atomic.PaddingStrategy.{Left64, LeftRight256}
 
 // Applies padding to the left of the value for a cache line of 64 bytes
-val ref = Atomic.withPadding(1, Left64)
+val ref1 = Atomic.withPadding(1, Left64)
 
 // Applies padding both to the left and the right of the value for
 // a total object size of at least 256 bytes
-val ref = Atomic.withPadding(1, LeftRight256)
+val ref2 = Atomic.withPadding(1, LeftRight256)
 ```
 
 The strategies available are:
@@ -275,4 +275,3 @@ The strategies available are:
 - `LeftRight256`: applies padding to both the left and the right, for a cache line of 256 bytes
 
 And now you can join the folks that have mechanical sympathy :-P
-

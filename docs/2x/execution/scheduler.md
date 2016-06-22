@@ -11,12 +11,12 @@ A cross-platform execution-context, can execute logic asynchronously
 and with a delay, typically but not necessarily on a thread-pool.
 
 The Monix `Scheduler` is inspired by
-[ReactiveX](http://reactivex.io/){:target="_blank"}, being an enhanced Scala
-[ExecutionContext]({{ site.scalaapi }}#scala.concurrent.ExecutionContext){:target="_blank"} and also a replacement for
+[ReactiveX](http://reactivex.io/), being an enhanced Scala
+[ExecutionContext]({{ site.scalaapi }}#scala.concurrent.ExecutionContext) and also a replacement for
 Java's
-[ScheduledExecutorService](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html){:target="_blank"},
+[ScheduledExecutorService](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html),
 but also for Javascript's 
-[setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout){:target="_blank"}.
+[setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout).
 
 ## Rationale
 
@@ -113,7 +113,7 @@ backed by an implementation using `setTimeout` under the hood.
 ## Execute Runnables
 
 In order to schedule a 
-[Runnable](https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html){:target="_blank"}
+[Runnable](https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html)
 to execute asynchronously:
 
 ```scala
@@ -289,7 +289,7 @@ testScheduler.execute(runnable2)
 ## Execution Model
 
 Along with time, the `Scheduler` also specifies the
-[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel){:target="_blank"}, 
+[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel), 
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution in loops.
 For example in Monix, this affects how both `Task` and `Observable` 
@@ -412,7 +412,7 @@ Scheduler.computation(
 
 Or we can create an unbounded thread-pool meant for I/O-bound tasks,
 backed by a Java
-[CachedThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()){:target="_blank"}:
+[CachedThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()):
 
 ```scala
 Scheduler.io()
@@ -425,7 +425,7 @@ Scheduler.io(
 
 Or in case we want to be precise or feel like emulating Javascript's
 environment, we could create a single threaded thread-pool, backed
-by a Java [SingleThreadScheduledExecutor](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newSingleThreadScheduledExecutor()){:target="_blank"}:
+by a Java [SingleThreadScheduledExecutor](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newSingleThreadScheduledExecutor()):
 
 ```scala
 Scheduler.singleThread(name="my-thread")
@@ -433,7 +433,7 @@ Scheduler.singleThread(name="my-thread")
 
 Or a thread-pool with an exact number of threads (and not a 
 variable one like the `ForkJoinPool` above), backed by a Java
-[ScheduledThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int)){:target="_blank"}
+[ScheduledThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int))
 for both executing and scheduling delays:
 
 ```scala

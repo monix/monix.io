@@ -86,7 +86,7 @@ complementary. A wise man once said:
 That's certainly a poetic notion, making one think about what values
 are and how they incorporate time. But more importantly, while we
 cannot say that a `Future` is a
-[value](https://en.wikipedia.org/wiki/Value_(computer_science)){:target="_blank"},
+[value](https://en.wikipedia.org/wiki/Value_(computer_science)),
 we can certainly say that it's a *value-wannabe*, meaning that when
 users receive a `Future` reference, they know that whatever process
 that's going to evaluate it has probably already started and it might
@@ -132,7 +132,7 @@ giants. But where the Monix Task implementation disagrees:
    on the other hand manages to do that automatically by default,
    which is very useful when running on top of
    [Javascript](http://www.scala-js.org/), where 
-   [cooperative multitasking](https://en.wikipedia.org/wiki/Cooperative_multitasking){:target="_blank"}
+   [cooperative multitasking](https://en.wikipedia.org/wiki/Cooperative_multitasking)
    is not only nice to have, but required.
 2. The Scalaz Task has a dual synchronous / asynchronous
    personality. That is fine for optimization purposes as far as the
@@ -737,7 +737,7 @@ def fib(cycles: Int, a: BigInt, b: BigInt): BigInt =
 ```
 
 We need this to be tail-recursive, hence the use of the
-[@tailrec](http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec){:target="_blank"}
+[@tailrec](http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec)
 annotation from Scala's standard library. And if we'd describe it with
 `Task`, one possible implementation would be:
 
@@ -1093,7 +1093,7 @@ withFinishCb.runAsync.foreach(println)
 ### Convert to Reactive Publisher
 
 Did you know that Monix integrates with the
-[Reactive Streams](http://www.reactive-streams.org/){:target="_blank"}
+[Reactive Streams](http://www.reactive-streams.org/)
 specification?
 
 Well, `Task` can be seen as an `org.reactivestreams.Publisher` that
@@ -1140,7 +1140,7 @@ Awesome, isn't it?
 ## Error Handling
 
 `Task` takes error handling very seriously. You see, there's this famous
-[thought experiment](https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest){:target="_blank"}
+[thought experiment](https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest)
 regarding *observation*:
 
 > "*If a tree falls in a forest and no one is around to hear it, does
@@ -1150,7 +1150,7 @@ Now this applies very well to error handling, because if an error is
 triggered by an asynchronous process and there's nobody to hear it, no
 handler to catch it and log it or recover from it, then it didn't
 happen. And what you'll get is
-[nondeterminism](https://en.wikipedia.org/wiki/Nondeterministic_algorithm){:target="_blank"}
+[nondeterminism](https://en.wikipedia.org/wiki/Nondeterministic_algorithm)
 without any hints of the error involved.
 
 This is why Monix will always attempt to catch and signal or at least

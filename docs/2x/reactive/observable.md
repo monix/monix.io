@@ -50,17 +50,17 @@ val cancelable = source
 ```
 
 At its simplest, `Observable` is a replacement for your regular
-[Iterable]({{ site.scalaapi }}#scala.collection.Iterable){:target="_blank"}
+[Iterable]({{ site.scalaapi }}#scala.collection.Iterable)
 or Scala 
-[Stream]({{ site.scalaapi }}#scala.collection.immutable.Stream){:target="_blank"}, 
+[Stream]({{ site.scalaapi }}#scala.collection.immutable.Stream), 
 but with the ability to process asynchronous events without blocking. 
 And in fact you can convert any `Iterable` into an `Observable`.
 
 But `Observable` scales to complex problems, touching on
-*[functional reactive programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming){:target="_blank"}*,
+*[functional reactive programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming)*,
 or it can model complex interactions between producers and consumers,
 being a potent alternative for
-[the actor model](http://akka.io/){:target="_blank"}.
+[the actor model](http://akka.io/).
 
 ### Design Summary
 
@@ -76,14 +76,14 @@ The Monix `Observable`:
 - models lazy & asynchronous streaming of events
 - it is highly composable and lawful
 - it's basically the
-  [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern){:target="_blank"}
+  [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern)
   on steroids
 - you can also think of it as being like a Scala
-  [Future]({{ scalaapi }}#scala.concurrent.Future){:target="_blank"} or like
+  [Future]({{ scalaapi }}#scala.concurrent.Future) or like
   a [Task](../eval/task.html), except with the ability to stream 
   multiple items instead of just one, or you can think of it as an asynchronous 
   and non-blocking
-  [Iterable]({{ site.scalaapi }}#scala.collection.Iterable){:target="_blank"}
+  [Iterable]({{ site.scalaapi }}#scala.collection.Iterable)
   with benefits
 - models producer-consumer relationships, where you can have a single
   producer pushing data into one or multiple consumers
@@ -93,7 +93,7 @@ The Monix `Observable`:
 - allows for cancelling of active streams
 - never blocks any threads in its implementation 
 - does not expose any API calls that can block threads
-- compatible with [Scala.js](http://www.scala-js.org/){:target="_blank"} like the rest of Monix
+- compatible with [Scala.js](http://www.scala-js.org/) like the rest of Monix
 
 See **[comparisons with similar tools, like Akka or FS2](./observable-comparisons.html)**.
 

@@ -7,8 +7,8 @@ description: |
 
 ## Observer
 
-<a href="{{ site.api2x }}#monix.reactive.Observer" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.Observer">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a>
 
 The `Observer` from the Rx pattern is the trio of callbacks that get
 subscribed to an [Observable](./observable.html) for receiving events.
@@ -27,37 +27,39 @@ trait Observer[-T] {
 
 ### Contract
 
-`Observer` also has a usage contract:
+Obviously the `Observer` interface doesn't do much other than
+establishing a communication protocol between producers and consumers.
+Therefore when pushing items into an `Observer`, we need a contract:
 
 1. Grammar: `onNext` CAN be called zero, one or multiple times,
    followed by an optional `onComplete` or `onError` if the stream is
-   finite, so in other words `onNext* (onComplete | onError)?`. 
+   finite, so in other words `onNext* (onComplete | onError)?`.
    And once a final event happens, either `onComplete` or `onError`, then
    no further calls are allowed.
 2. Back-pressure: each `onNext` call MUST wait on a `Continue` result
    returned by the `Future[Ack]` of the previous `onNext` call.
 3. Back-pressure for `onComplete` and `onError` is optional:
-   when calling calling `onComplete` or `onError` you are not
+   when calling `onComplete` or `onError` you are not
    required to wait on the `Future[Ack]` of the previous `onNext`.
-4. Stream cancelation: `onNext` calls can return `Stop` or
+4. Stream cancellation: `onNext` calls can return `Stop` or
    `Future[Stop]` and after receiving it the data-source MUST no
    longer send any events.  Tied with the back-pressure requirement,
-   it means that cancelation by means of `Stop` is always
+   it means that cancellation by means of `Stop` is always
    deterministic and immediate.
 5. Ordering/non-concurrent guarantee: calls to `onNext`, `onComplete`
    and `onError` MUST BE ordered and thus non-concurrent.
-   As a consequence `Observer` implementations don't need to
+   As a consequence `Observer` implementations don't normally need to
    `synchronize` their `onNext`, `onComplete` or `onError` methods.
 6. Exactly once delivery for final events: you are allowed to call
    either `onComplete` or `onError` at most one time. And you cannot
    call both `onComplete` and `onError`.
-7. The listeners `onNext`, `onError` or `onComplete` MUST NOT throw
+7. The implementation of `onNext`, `onError` or `onComplete` MUST NOT throw
    exceptions. Never throw exceptions in their implementation and
    protect against code that might do that.
-   
+
 Corollaries:
 
-1. An observer can subscribe to at most one observable and 
+1. An observer can subscribe to at most one observable and
    cannot subscribe to multiple observables.
 2. When returning `Stop` from `onNext`, no further `onNext` events can
    be received, but this requirement is optional for `onComplete` and
@@ -90,8 +92,8 @@ val observer = new Observer[Any] {
     // so we can return it directly ;-)
     Continue
   }
-  
-  def onError(ex: Throwable): Unit = 
+
+  def onError(ex: Throwable): Unit =
     ex.printStackTrace()
   def onComplete(): Unit =
     println("O completed")
@@ -252,8 +254,8 @@ though we prefer to log it when we catch such instances.
 
 ## Subscriber
 
-<a href="{{ site.api2x }}#monix.reactive.observers.Subscriber" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.observers.Subscriber">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a>
 
 Given that, in order to do anything with an `Observer` we always need
 a [Scheduler](../execution/scheduler.html), the `Subscriber` is a data
@@ -301,7 +303,7 @@ val subscriber = Subscriber.dump("O")
 ### Convert to a Reactive Streams Subscriber
 
 Given the integration with
-[Reactive Streams](http://www.reactive-streams.org/){:target="_blank"}, 
+[Reactive Streams](http://www.reactive-streams.org/),
 we can convert Monix Subscribers to Reactive Subscribers.
 
 These subscribers have a similar interface and contract, but with a
@@ -327,7 +329,7 @@ And usage of the `org.reactivestreams.Subscriber` interface:
 reactiveSubscriber.onSubscribe(
   new org.reactivestreams.Subscription {
     private var isCanceled = false
-    
+
     def request(n: Long): Unit = {
       if (n > 0 && !isCanceled) {
         isCanceled = true
@@ -335,11 +337,11 @@ reactiveSubscriber.onSubscribe(
         reactiveSubscriber.onComplete()
       }
     }
-    
+
     def cancel(): Unit =
       isCanceled = true
   })
-  
+
 //=> 0: O-->1
 //=> 1: O completed
 ```
@@ -347,7 +349,7 @@ reactiveSubscriber.onSubscribe(
 ### Convert from a Reactive Streams Subscriber
 
 Given the integration with
-[Reactive Streams](http://www.reactive-streams.org/){:target="_blank"}, 
+[Reactive Streams](http://www.reactive-streams.org/),
 we can convert Reactive Subscribers to Monix Subscribers.
 
 Let's implement an `org.reactivestreams.Subscriber`:
@@ -358,18 +360,18 @@ import org.reactivestreams.{Subscription => RSubscription}
 val reactiveSubscriber =
   new org.reactivestreams.Subscriber[Int] {
     private var s: RSubscription = null
-    
+
     def onSubscribe(s: RSubscription): Unit = {
       this.s = s
       s.request(1)
     }
-    
+
     def onNext(elem: Int): Unit = {
       println(s"O-->$elem")
       s.request(1)
     }
 
-    def onComplete(): Unit = 
+    def onComplete(): Unit =
       println("O completed")
     def onError(ex: Throwable): Unit =
       ex.printStackTrace()
@@ -383,12 +385,12 @@ import monix.execution.Scheduler.Implicits.global
 import monix.reactive.observers.Subscriber
 import monix.execution.Cancelable
 
-val monixSubscriber = 
+val monixSubscriber =
   Subscriber.fromReactiveSubscriber(
-    reactiveSubscriber, 
+    reactiveSubscriber,
     Cancelable(() => println("Was canceled!"))
   )
-  
+
 monixSubscriber.onNext(1)
 //=> O-->1
 monixSubscriber.onNext(2)
@@ -399,8 +401,8 @@ monixSubscriber.onComplete()
 
 ### Safe Subscriber
 
-<a href="{{ site.api2x }}#monix.reactive.observers.SafeSubscriber" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.observers.SafeSubscriber">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a>
 
 The `SafeSubscriber` wraps a `Subscriber` implementation into one that
 is safer for usage and protecting some parts of the contract:
@@ -420,11 +422,11 @@ import monix.execution.Ack
 import monix.execution.Scheduler.Implicits.global
 import monix.reactive.observers._
 
-def create[A]: SafeSubscriber[A] = 
+def create[A]: SafeSubscriber[A] =
   SafeSubscriber(new Subscriber[A] {
     val scheduler = global
-  
-    def onNext(elem: A): Ack = 
+
+    def onNext(elem: A): Ack =
       throw new IllegalStateException("onNext")
     def onComplete(): Unit =
       println("Completed!")
@@ -443,7 +445,7 @@ out.onNext(10)
 // res: Future[Ack] = Stop
 
 val out2 = create[Int]
-out2.onComplete() 
+out2.onComplete()
 //=> Completed!
 
 // No further events are accepted
@@ -458,8 +460,8 @@ have to do it by yourself.
 
 ### Connectable Subscriber
 
-<a href="{{ site.api2x }}#monix.reactive.observers.ConnectableSubscriber" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.observers.ConnectableSubscriber">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a>
 
 Wraps a `Subscriber` implementation into one that back-pressures the
 upstream until the call to `connect()` happens. Before `connect()` it
@@ -475,7 +477,7 @@ val connectable = ConnectableSubscriber(underlying)
 
 // Queue for delivery after connect happens and after
 // enqueued items by means of pushNext. At this point
-// the subscriber back-pressures the source with a 
+// the subscriber back-pressures the source with a
 // Future[Ack] that will complete only after connect()
 val ack = connectable.onNext("b1")
 
@@ -500,8 +502,8 @@ ack.isCompleted
 
 ### Cache Until Connect Subscriber
 
-<a href="{{ site.api2x }}#monix.reactive.observers.CacheUntilConnectSubscriber" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.observers.CacheUntilConnectSubscriber">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a>
 
 Wraps an underlying `Subscriber` into an implementation that caches
 all events until the call to `connect()` happens. After being
@@ -526,7 +528,7 @@ subscriber.onNext(30)
 // res2: Future[Ack] = Continue
 
 // Nothing happens until connect
-val result: CancelableFuture[Ack] = 
+val result: CancelableFuture[Ack] =
   subscriber.connect()
 //=> 0: O-->10
 //=> 1: O-->20
@@ -535,8 +537,8 @@ val result: CancelableFuture[Ack] =
 
 ### Buffered Subscriber
 
-<a href="{{ site.api2x }}#monix.reactive.observers.BufferedSubscriber" target="_blank">API Documentation</a> • 
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala" target="_blank">Source</a>
+<a href="{{ site.api2x }}#monix.reactive.observers.BufferedSubscriber">API Documentation</a> •
+<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a>
 
 Observers have a strong contract and consequently:
 
@@ -551,7 +553,7 @@ into) a `Subscriber` that:
    concurrently
 2. has implementations that always have synchronous behavior, returning
    an immediate `Continue`
-3. has an `onNext` that returns an immediate `Continue` for as long as 
+3. has an `onNext` that returns an immediate `Continue` for as long as
    the buffer isn't full
 4. buffers the connection between the upstream and the underlying
    subscriber such that the underlying subscriber can consume events
@@ -561,8 +563,8 @@ Given that the underlying consumer can be slower than the source and
 given that we have a buffer between the data source and the consumer,
 we can talk about *overflows* and *overflow strategies*.
 
-The 
-[OverflowStrategy]([ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel){:target="_blank"})
+The
+[OverflowStrategy]([ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel))
 parameter dictates the strategy of the used buffer. We've got these
 strategies available:
 
@@ -583,5 +585,5 @@ strategies available:
   it should drop incoming events.
 - `DropOld` indicates a limited size for the buffer and on overflow
   it should drop older enqueued events.
-- `ClearBuffer` indicats a limited size for the buffer and on overflow
+- `ClearBuffer` indicates a limited size for the buffer and on overflow
   it should drop the entire buffer and start fresh.

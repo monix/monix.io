@@ -9,7 +9,7 @@ description: |
 
 Presentation from
 [flatMap(Oslo) 2016](http://2016.flatmap.no/nedelcu.html#session)
-by [@alexelcu](https://twitter.com/alexelcu){:target="_blank"}:
+by [@alexelcu](https://twitter.com/alexelcu):
 
 <iframe src="https://player.vimeo.com/video/165922572" 
   width="640" height="360" class="presentation"
@@ -18,8 +18,8 @@ by [@alexelcu](https://twitter.com/alexelcu){:target="_blank"}:
 
 Media: 
 
-- [Slides (PDF file)](/public/pdfs/Monix-Task.pdf){:target="_blank"}
-- [Video (Vimeo)](https://vimeo.com/channels/flatmap2016/165922572){:target="_blank"}
+- [Slides (PDF file)](/public/pdfs/Monix-Task.pdf)
+- [Video (Vimeo)](https://vimeo.com/channels/flatmap2016/165922572)
 
 Also see
 [Akka &amp; Monix: Controlling Power Plants](./2016-akka-monix-typelevel.html)

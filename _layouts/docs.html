@@ -5,21 +5,20 @@ layout: default
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
   <nav role="navigation" id="type-info">
-    {% if page.type_api %}<a href="{{ site.api2x }}#{{ page.type_api }}" target="_blank">API Documentation</a>{% endif %}
+    {% if page.type_api %}<a href="{{ site.api2x }}#{{ page.type_api }}">API Documentation</a>{% endif %}
     {% if page.type_source and page.type_api %} • {% endif %}
-    {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/{{ page.type_source }}" target="_blank">Source</a>{% endif %}
+    {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/{{ page.type_source }}">Source</a>{% endif %}
   </nav>
-  
+
   <nav role="navigation" id="toc"></nav>
-  
+
   {{ content }}
 
   <div class="buttons">
-    <a href="../">
-      Contents</a> •
-    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}" target="_blank">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}">
       Edit Page</a> •
-    <a href="https://gitter.im/monixio/monix" target="_blank">
+    <a href="https://gitter.im/monixio/monix">
       Join Chat</a>
   </div>
 </div>

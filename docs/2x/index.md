@@ -34,7 +34,7 @@ title: Monix Documentation
 
 **Samples:**
 
-- [Client/Server Communications](https://github.com/monixio/monix-sample/){:target="_blank"}:
+- [Client/Server Communications](https://github.com/monixio/monix-sample/):
   a mixed [Play Framework](https://www.playframework.com/) /
   [Scala.js](http://www.scala-js.org/) app
 

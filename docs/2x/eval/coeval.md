@@ -369,7 +369,7 @@ def fib(cycles: Int, a: BigInt, b: BigInt): BigInt =
 ```
 
 We need this to be tail-recursive, hence the use of the
-[@tailrec](http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec){:target="_blank"}
+[@tailrec](http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec)
 annotation from Scala's standard library. And if we'd describe it with
 `Coeval`, one possible implementation would be:
 

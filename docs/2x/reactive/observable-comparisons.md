@@ -16,7 +16,7 @@ libraries. So take this with a grain of salt.
 
 ## Akka Actors
 
-[Akka actors](http://akka.io/){:target="_blank"} are a sort of a *de
+[Akka actors](http://akka.io/) are a sort of a *de
 facto* solution for modeling message passing with Scala and the JVM.
 What they are good at:
 
@@ -70,9 +70,9 @@ at having dialogs.
 
 ## Akka Streams
 
-The [Akka Streams](http://doc.akka.io/docs/akka/current/scala/stream/index.html){:target="_blank"}
+The [Akka Streams](http://doc.akka.io/docs/akka/current/scala/stream/index.html)
 project is also an implementation of 
-[reactive streams](www.reactive-streams.org){:target="_blank"}, but
+[reactive streams](www.reactive-streams.org), but
 one that is based on Akka actors and that has its own design 
 and opinions.
 
@@ -82,9 +82,9 @@ Why Monix is better:
 - The inner workings of Monix is easier to understand
 - Monix is lighter, as it doesn't depend on an actor framework
 - Monix is basically the
-  [Observer pattern (from GoF)](https://en.wikipedia.org/wiki/Observer_pattern){:target="_blank"}
+  [Observer pattern (from GoF)](https://en.wikipedia.org/wiki/Observer_pattern)
   on steroids and this has practical benefits
-- Monix works on [Scala.js](http://www.scala-js.org/){:target="_blank"}
+- Monix works on [Scala.js](http://www.scala-js.org/)
   and pretty soon on Scala Native as well
   
 Why Akka Streams might be better, depending on your preferences and needs:
@@ -100,7 +100,7 @@ HIGHLY OPINIONATED WARNING: The author of this document finds Akka
 Streams to be much more complicated.
 
 The Monix `Observable` is basically the
-[Observer pattern (from GoF)](https://en.wikipedia.org/wiki/Observer_pattern){:target="_blank"}
+[Observer pattern (from GoF)](https://en.wikipedia.org/wiki/Observer_pattern)
 on steroids. But the Akka Streams implementation is not that and this
 has consequences of usability.
 
@@ -175,7 +175,7 @@ plain users.
 
 ## FS2 (the new Scalaz-Stream)
 
-[FS2](https://github.com/functional-streams-for-scala/fs2){:target="_blank"}
+[FS2](https://github.com/functional-streams-for-scala/fs2)
 is a solid library for "streaming I/O" with a flourishing ecosystem.
 
 Where FS2 is better:
@@ -202,7 +202,7 @@ functional programming ideals. Where Monix is better:
   operators, many times we implement it from scratch using low level
   concurrency techniques, if that means we achieve a performance boost
 - Monix is better for
-  [Functional Reactive Programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming){:target="_blank"},
+  [Functional Reactive Programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming),
   exposing operators that deal with time, along with `Behavior` and
   `Replay` subjects that can model the concept of "*reactive
   variables*"
