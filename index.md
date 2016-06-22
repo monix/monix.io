@@ -61,12 +61,19 @@ libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
 
 Monix 2.0 is modular by design, so you can pick and choose:
 
-- `monix-execution` exposes the low-level execution environment, or more precisely
-  `Scheduler`, `Cancelable` and `CancelableFuture`
-- `monix-eval` exposes `Task`, `Coeval`, the base type-classes of `monix.types`
-   and depends on `monix-execution`
-- `monix-reactive` exposes `Observable` streams and depends on `monix-eval`
-- `monix` provides all of the above
+- **monix-execution**: the low-level execution environment, or more precisely
+  `Scheduler`, `Cancelable`, `CancelableFuture` and `Atomic`
+- **monix-eval**: for controlling evaluation by means of `Task`,
+  `Coeval` and `TaskApp`
+- **monix-reactive**: async `Observable` streams
+- **monix**: provides all of the above
+
+Optional integrations:
+
+- **monix-cats**: exposes Typelevel [Cats](http://typelevel.org/cats/)
+  type-class instances, see [the intro](/docs/2x/intro/cats.html)
+- **monix-scalaz-72**: exposes [Scalaz](https://github.com/scalaz/scalaz)
+  type-class instances, see [the intro](/docs/2x/intro/scalaz72.html)
 
 Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
 more details.
