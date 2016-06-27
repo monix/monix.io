@@ -97,4 +97,11 @@ The Monix `Observable`:
 
 See **[comparisons with similar tools, like Akka or FS2](./observable-comparisons.html)**.
 
+|                          |        Single       |           Multiple         |    Two Ways   |
+|:------------------------:|:-------------------:|:--------------------------:|:-------------:|
+| **Synchronous factory**  |       () => A       |       () => Iterable[A]    |       ?       |
+| **Synchronous value**    |          A          |         Iterable[A]        |       ?       |
+| **Asynchronous factory** |       Task[A]       |        Observable[A]       |  Pipe[A, B]   |
+| **Asynchronous value**   |      Future[A]      |  ConnectableObservable[A]  | Subject[A, B] |
+
 ... TO BE CONTINUED ...
