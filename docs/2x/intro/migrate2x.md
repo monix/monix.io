@@ -12,7 +12,8 @@ Package renamings:
 Moved types:
 
 - `monifu.reactive.Ack` -> `monix.execution.Ack`
-- `monifu.reactive.observers.SynchronousObserver` -> `monix.reactive.observers.SyncObserver`
+- `monifu.reactive.observers.SynchronousObserver` -> `monix.reactive.Observer.Sync`
+- `monifu.reactive.observers.SynchronousSubscriber` -> `monix.reactive.observers.Subscriber.Sync`
 - `monifu.reactive.Subscriber` -> `monix.reactive.observers.Subscriber`
 - `monifu.concurrent.extensions` -> `monix.execution.FutureUtils.extensions`
 - the `atomic.padded` package in `monifu.concurrent` is now gone, use
@@ -39,7 +40,7 @@ Renamed operators:
 
 The `Channel` type is now gone, replaced by:
 
-- `monix.reactive.observers.SyncObserver` for describing just
+- `monix.reactive.Observer.Sync` for describing just
   synchronous input
 - `monix.reactive.subjects.ConcurrentSubject` for describing
   synchronous input with attached output

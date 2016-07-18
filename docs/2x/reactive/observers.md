@@ -117,7 +117,7 @@ it receives. We'll use this in other samples:
 import monix.reactive.Observer
 
 val out = Observer.dump("O")
-// out: SyncObserver[Any]
+// out: Observer.Sync[Any]
 
 out.onNext(1)
 //=> 0: O-->1
