@@ -81,23 +81,23 @@ val sumConsumer: Consumer[Int,Long] =
       val out = new Subscriber.Sync[Int] {
         implicit val scheduler = s
         private var sum = 0L
-        
+
         def onNext(elem: Int): Continue = {
           sum += elem
           Continue
         }
-        
+
         def onComplete(): Unit = {
           // We are done so we can signal the final result
           cb.onSuccess(sum)
         }
-        
+
         def onError(ex: Throwable): Unit = {
           // Error happened, so we signal the error
           cb.onError(ex)
         }
       }
-      
+
       // Returning a tuple of our subscriber and a dummy 
       // AssignableCancelable because we don't indent to use it
       (out, AssignableCancelable.dummy)
@@ -113,7 +113,7 @@ Observable.fromIterable(0 until 10000)
   .runWith(sumConsumer)
   .runAsync
   .foreach(r => println(s"Result: $r"))
-  
+
 //=> Result: 49995000
 ```
 
@@ -162,21 +162,21 @@ val sumConsumer: Consumer[Int,Long] =
   Consumer.create[Int,Long] { (scheduler, cancelable, callback) =>
     new Observer.Sync[Int] {
       private var sum = 0L
-      
+
       def onNext(elem: Int): Ack = {
         sum += elem
         Continue
       }
-        
+
       def onComplete(): Unit = {
         // We are done so we can signal the final result
         callback.onSuccess(sum)
       }
-        
+
       def onError(ex: Throwable): Unit = {
         // Error happened, so we signal the error
         callback.onError(ex)
-      }      
+      }
     }
   }
 ```
@@ -191,7 +191,7 @@ trait directly. Differences:
    on it will attempt to cancel the stream, following the rules of
    cancelables returned by observable subscriptions and its usage
    remains optional
-   
+
 ### Consumer.fromObserver
 
 A simpler way to create a `Consumer[A, Unit]` out of any `Observer`
@@ -241,7 +241,7 @@ Observable.range(0, 4).dump("O")
   .runWith(Consumer.complete)
   .runAsync
   .foreach(_ => println("Consumer completed"))
-  
+
 //=> 0: O-->0
 //=> 1: O-->1
 //=> 2: O-->2
