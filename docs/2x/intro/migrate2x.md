@@ -17,7 +17,7 @@ Moved types:
 - `monifu.reactive.Subscriber` -> `monix.reactive.observers.Subscriber`
 - `monifu.concurrent.extensions` -> `monix.execution.FutureUtils.extensions`
 - the `atomic.padded` package in `monifu.concurrent` is now gone, use
-  the `Atomic.withPadding` constructor instead (default was `Right128`d .)
+  the `Atomic.withPadding` constructor instead (default was `Right128`)
 - `monifu.concurrent.async.AsyncQueue` is now `monix.execution.misc.AsyncQueue`  
 
 Renamed operators:
