@@ -17,7 +17,8 @@ Moved types:
 - `monifu.reactive.Subscriber` -> `monix.reactive.observers.Subscriber`
 - `monifu.concurrent.extensions` -> `monix.execution.FutureUtils.extensions`
 - the `atomic.padded` package in `monifu.concurrent` is now gone, use
-  the `Atomic.withPadding` constructor instead
+  the `Atomic.withPadding` constructor instead (default was `Right128`)
+- `monifu.concurrent.async.AsyncQueue` is now `monix.execution.misc.AsyncQueue`  
 
 Renamed operators:
 
@@ -37,6 +38,11 @@ Renamed operators:
   `Observable.whileBusyDropEventsAndSignal`
 - `Observable.toReactive` -> `toReactivePublisher`
 - `Cancelable.apply` now wants a `Function0` and not a by-name parameter
+- `Observable.doWork` -> `Observable.doOnNext`
+- `Observable.whileBusyBuffer` no longer takes an `onOverflow` handler. The
+  `onOverflow` handler is now a parameter of the `OverflowStrategy` (
+    `DropNewAndSignal` and `DropOldAndSignal`)
+- `Observable.buffer` -> `Observable.bufferTimedAndCounted`    
 
 The `Channel` type is now gone, replaced by:
 
