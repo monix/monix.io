@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: "Comparissons with Other Solutions"
+title: "Comparisons with Other Solutions"
 type_api: monix.reactive.Observable
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala
 description: |
@@ -11,7 +11,7 @@ Comparing the Monix `Observable` with other solutions is no easy task.
 Yet we can try.
 
 **WARNING:** This document contains opinions which are highly
-subjective! You won't find unbiased comparissons from the authors of
+subjective! You won't find unbiased comparisons from the authors of
 libraries. So take this with a grain of salt.
 
 ## Akka Actors
@@ -160,7 +160,7 @@ actors. And if you don't want actors, it's theoretically possible to
 build a `Materializer` that executes the needed tasks on top of
 `RxJava` or on top of plain threads.
 
-By comparisson in the ReactiveX model (applicable to Monix as well)
+By comparison in the ReactiveX model (applicable to Monix as well)
 building observables happens by transforming one observable into
 another in functions that cannot be inspected. Which approach is
 better is a matter of opinion.
