@@ -1,0 +1,950 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>TypeClassInstances - Monix 2.0-RC11 - monix.reactive.Observable.TypeClassInstances</title>
+          <meta name="description" content="TypeClassInstances - Monix 2.0 - RC11 - monix.reactive.Observable.TypeClassInstances" />
+          <meta name="keywords" content="TypeClassInstances Monix 2.0 RC11 monix.reactive.Observable.TypeClassInstances" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'monix.reactive.Observable$$TypeClassInstances';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img alt="Class" src="../../lib/class_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="monix">monix</a>.<a href="package.html" class="extype" name="monix.reactive">reactive</a>.<a href="Observable$.html" class="extype" name="monix.reactive.Observable">Observable</a></p>
+        <h1>TypeClassInstances</h1><h3><span class="morelinks"><div>Related Doc:
+            <a href="Observable$.html" class="extype" name="monix.reactive.Observable">package Observable</a>
+          </div></span></h3><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TypeClassInstances</span><span class="result"> extends <a href="../types/Streamable.html" class="extype" name="monix.types.Streamable">Streamable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Type-class instances for <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0-RC11/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala" target="_blank">Observable.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="../types/Streamable.html" class="extype" name="monix.types.Streamable">Streamable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/CoflatMap.html" class="extype" name="monix.types.shims.CoflatMap">CoflatMap</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/MonadPlus.html" class="extype" name="monix.types.shims.MonadPlus">MonadPlus</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/MonoidK.html" class="extype" name="monix.types.shims.MonoidK">MonoidK</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/SemigroupK.html" class="extype" name="monix.types.shims.SemigroupK">SemigroupK</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/MonadFilter.html" class="extype" name="monix.types.shims.MonadFilter">MonadFilter</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/MonadError.html" class="extype" name="monix.types.shims.MonadError">MonadError</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="../types/shims/Monad.html" class="extype" name="monix.types.shims.Monad">Monad</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="../types/shims/Functor.html" class="extype" name="monix.types.shims.Functor">Functor</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>], <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="monix.reactive.Observable.TypeClassInstances"><span>TypeClassInstances</span></li><li class="in" name="monix.types.Streamable"><span>Streamable</span></li><li class="in" name="monix.types.shims.CoflatMap"><span>CoflatMap</span></li><li class="in" name="monix.types.shims.MonadPlus"><span>MonadPlus</span></li><li class="in" name="monix.types.shims.MonoidK"><span>MonoidK</span></li><li class="in" name="monix.types.shims.SemigroupK"><span>SemigroupK</span></li><li class="in" name="monix.types.shims.MonadFilter"><span>MonadFilter</span></li><li class="in" name="monix.types.shims.MonadError"><span>MonadError</span></li><li class="in" name="monix.types.shims.Monad"><span>Monad</span></li><li class="in" name="monix.types.shims.ApplicativeError"><span>ApplicativeError</span></li><li class="in" name="monix.types.Deferrable"><span>Deferrable</span></li><li class="in" name="monix.types.shims.Applicative"><span>Applicative</span></li><li class="in" name="monix.types.shims.Functor"><span>Functor</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="monix.reactive.Observable.TypeClassInstances#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;():monix.reactive.Observable.TypeClassInstances"></a>
+      <a id="&lt;init&gt;:TypeClassInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TypeClassInstances</span><span class="params">()</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@&lt;init&gt;():monix.reactive.Observable.TypeClassInstances" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#ap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ap[A,B](fa:monix.reactive.Observable[A])(ff:monix.reactive.Observable[A=&gt;B]):monix.reactive.Observable[B]"></a>
+      <a id="ap[A,B](Observable[A])(Observable[(A)⇒B]):Observable[B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ap</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.ap.A">A</span>]</span>)</span><span class="params">(<span name="ff">ff: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[(<span class="extype" name="monix.reactive.Observable.TypeClassInstances.ap.A">A</span>) ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.ap.B">B</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.ap.B">B</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@ap[A,B](fa:monix.reactive.Observable[A])(ff:monix.reactive.Observable[A=&gt;B]):monix.reactive.Observable[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#coflatMap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="coflatMap[A,B](fa:monix.reactive.Observable[A])(f:monix.reactive.Observable[A]=&gt;B):monix.reactive.Observable[B]"></a>
+      <a id="coflatMap[A,B](Observable[A])((Observable[A])⇒B):Observable[B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coflatMap</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.coflatMap.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.coflatMap.A">A</span>]) ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.coflatMap.B">B</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.coflatMap.B">B</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@coflatMap[A,B](fa:monix.reactive.Observable[A])(f:monix.reactive.Observable[A]=&gt;B):monix.reactive.Observable[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/CoflatMap.html" class="extype" name="monix.types.shims.CoflatMap">CoflatMap</a></dd></dl></div>
+    </li><li name="monix.types.shims.CoflatMap#coflatten" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="coflatten[A](fa:F[A]):F[F[A]]"></a>
+      <a id="coflatten[A](Observable[A]):Observable[Observable[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coflatten</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.types.shims.CoflatMap.coflatten.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.types.shims.CoflatMap.coflatten.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@coflatten[A](fa:F[A]):F[F[A]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../types/shims/CoflatMap.html" class="extype" name="monix.types.shims.CoflatMap">CoflatMap</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#combineK" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="combineK[A](x:monix.reactive.Observable[A],y:monix.reactive.Observable[A]):monix.reactive.Observable[A]"></a>
+      <a id="combineK[A](Observable[A],Observable[A]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">combineK</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="x">x: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.combineK.A">A</span>]</span>, <span name="y">y: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.combineK.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.combineK.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@combineK[A](x:monix.reactive.Observable[A],y:monix.reactive.Observable[A]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Combine two F[A] values.</p><div class="fullcomment"><div class="comment cmt"><p>Combine two F[A] values.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/SemigroupK.html" class="extype" name="monix.types.shims.SemigroupK">SemigroupK</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#defer" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defer[A](fa:=&gt;monix.reactive.Observable[A]):monix.reactive.Observable[A]"></a>
+      <a id="defer[A](⇒Observable[A]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.defer.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.defer.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@defer[A](fa:=&gt;monix.reactive.Observable[A]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Builds deferrable instances from the given factory.</p><div class="fullcomment"><div class="comment cmt"><p>Builds deferrable instances from the given factory.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#empty" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="empty[A]:monix.reactive.Observable[A]"></a>
+      <a id="empty[A]:Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">empty</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.empty.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@empty[A]:monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Given a type A, create an &quot;empty&quot; F[A] value.</p><div class="fullcomment"><div class="comment cmt"><p>Given a type A, create an &quot;empty&quot; F[A] value.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/MonoidK.html" class="extype" name="monix.types.shims.MonoidK">MonoidK</a> → <a href="../types/shims/MonadFilter.html" class="extype" name="monix.types.shims.MonadFilter">MonadFilter</a></dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#evalAlways" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="evalAlways[A](f:=&gt;A):monix.reactive.Observable[A]"></a>
+      <a id="evalAlways[A](⇒A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evalAlways</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.evalAlways.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.evalAlways.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@evalAlways[A](f:=&gt;A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Lifts a non-strict value into the deferrable context.</p><div class="fullcomment"><div class="comment cmt"><p>Lifts a non-strict value into the deferrable context.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#evalOnce" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="evalOnce[A](f:=&gt;A):monix.reactive.Observable[A]"></a>
+      <a id="evalOnce[A](⇒A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evalOnce</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.evalOnce.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.evalOnce.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@evalOnce[A](f:=&gt;A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Lifts a non-strict value into the deferrable context,
+but memoizes it for subsequent evaluations.</p><div class="fullcomment"><div class="comment cmt"><p>Lifts a non-strict value into the deferrable context,
+but memoizes it for subsequent evaluations.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#filter" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="filter[A](fa:monix.reactive.Observable[A])(f:A=&gt;Boolean):monix.reactive.Observable[A]"></a>
+      <a id="filter[A](Observable[A])((A)⇒Boolean):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">filter</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filter.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filter.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filter.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@filter[A](fa:monix.reactive.Observable[A])(f:A=&gt;Boolean):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/MonadFilter.html" class="extype" name="monix.types.shims.MonadFilter">MonadFilter</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#filterM" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="filterM[A](fa:monix.reactive.Observable[A])(f:A=&gt;monix.reactive.Observable[Boolean]):monix.reactive.Observable[A]"></a>
+      <a id="filterM[A](Observable[A])((A)⇒Observable[Boolean]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">filterM</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filterM.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filterM.A">A</span>) ⇒ <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.filterM.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@filterM[A](fa:monix.reactive.Observable[A])(f:A=&gt;monix.reactive.Observable[Boolean]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/MonadFilter.html" class="extype" name="monix.types.shims.MonadFilter">MonadFilter</a></dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#flatMap" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="flatMap[A,B](fa:monix.reactive.Observable[A])(f:A=&gt;monix.reactive.Observable[B]):monix.reactive.Observable[B]"></a>
+      <a id="flatMap[A,B](Observable[A])((A)⇒Observable[B]):Observable[B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatMap.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatMap.A">A</span>) ⇒ <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatMap.B">B</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatMap.B">B</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@flatMap[A,B](fa:monix.reactive.Observable[A])(f:A=&gt;monix.reactive.Observable[B]):monix.reactive.Observable[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/Monad.html" class="extype" name="monix.types.shims.Monad">Monad</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#flatten" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="flatten[A](ffa:monix.reactive.Observable[monix.reactive.Observable[A]]):monix.reactive.Observable[A]"></a>
+      <a id="flatten[A](Observable[Observable[A]]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">flatten</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="ffa">ffa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatten.A">A</span>]]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.flatten.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@flatten[A](ffa:monix.reactive.Observable[monix.reactive.Observable[A]]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/Monad.html" class="extype" name="monix.types.shims.Monad">Monad</a></dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#handleError" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="handleError[A](fa:monix.reactive.Observable[A])(f:Throwable=&gt;A):monix.reactive.Observable[A]"></a>
+      <a id="handleError[A](Observable[A])((Throwable)⇒A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">handleError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleError.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleError.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleError.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@handleError[A](fa:monix.reactive.Observable[A])(f:Throwable=&gt;A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Handle any error, by mapping it to an <code>A</code> value.</p><div class="fullcomment"><div class="comment cmt"><p>Handle any error, by mapping it to an <code>A</code> value.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#handleErrorWith" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="handleErrorWith[A](fa:monix.reactive.Observable[A])(f:Throwable=&gt;monix.reactive.Observable[A]):monix.reactive.Observable[A]"></a>
+      <a id="handleErrorWith[A](Observable[A])((Throwable)⇒Observable[A]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">handleErrorWith</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleErrorWith.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleErrorWith.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.handleErrorWith.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@handleErrorWith[A](fa:monix.reactive.Observable[A])(f:Throwable=&gt;monix.reactive.Observable[A]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Handle any error, potentially recovering from it, by mapping it to an
+<code>F[A]</code> value.</p><div class="fullcomment"><div class="comment cmt"><p>Handle any error, potentially recovering from it, by mapping it to an
+<code>F[A]</code> value.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a></dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#map" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="map[A,B](fa:monix.reactive.Observable[A])(f:A=&gt;B):monix.reactive.Observable[B]"></a>
+      <a id="map[A,B](Observable[A])((A)⇒B):Observable[B]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map.A">A</span>) ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.map.B">B</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map.B">B</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@map[A,B](fa:monix.reactive.Observable[A])(f:A=&gt;B):monix.reactive.Observable[B]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/Functor.html" class="extype" name="monix.types.shims.Functor">Functor</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#map2" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="map2[A,B,Z](fa:monix.reactive.Observable[A],fb:monix.reactive.Observable[B])(f:(A,B)=&gt;Z):monix.reactive.Observable[Z]"></a>
+      <a id="map2[A,B,Z](Observable[A],Observable[B])((A,B)⇒Z):Observable[Z]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">map2</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>, <span name="Z">Z</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.A">A</span>]</span>, <span name="fb">fb: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.B">B</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.A">A</span>, <span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.B">B</span>) ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.Z">Z</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.map2.Z">Z</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@map2[A,B,Z](fa:monix.reactive.Observable[A],fb:monix.reactive.Observable[B])(f:(A,B)=&gt;Z):monix.reactive.Observable[Z]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#memoize" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="memoize[A](fa:monix.reactive.Observable[A]):monix.reactive.Observable[A]"></a>
+      <a id="memoize[A](Observable[A]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">memoize</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.memoize.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.memoize.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@memoize[A](fa:monix.reactive.Observable[A]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Given a deferrable, memoizes its result on the first evaluation,
+to be reused for subsequent evaluations.</p><div class="fullcomment"><div class="comment cmt"><p>Given a deferrable, memoizes its result on the first evaluation,
+to be reused for subsequent evaluations.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#now" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="now[A](a:A):monix.reactive.Observable[A]"></a>
+      <a id="now[A](A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">now</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.reactive.Observable.TypeClassInstances.now.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.now.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@now[A](a:A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Lifts a strict value into the deferrable context.</p><div class="fullcomment"><div class="comment cmt"><p>Lifts a strict value into the deferrable context.</p><p>Alias for <code>Applicative.pure</code>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#pure" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pure[A](a:A):monix.reactive.Observable[A]"></a>
+      <a id="pure[A](A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pure</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.reactive.Observable.TypeClassInstances.pure.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.pure.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@pure[A](a:A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a> → <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#pureEval" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pureEval[A](a:=&gt;A):monix.reactive.Observable[A]"></a>
+      <a id="pureEval[A](⇒A):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pureEval</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.reactive.Observable.TypeClassInstances.pureEval.A">A</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.pureEval.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@pureEval[A](a:=&gt;A):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a> → <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#raiseError" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="raiseError[A](e:Throwable):monix.reactive.Observable[A]"></a>
+      <a id="raiseError[A](Throwable):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">raiseError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="e">e: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.raiseError.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@raiseError[A](e:Throwable):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Lift an error into the <code>F</code> context.</p><div class="fullcomment"><div class="comment cmt"><p>Lift an error into the <code>F</code> context.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#recover" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="recover[A](fa:monix.reactive.Observable[A])(pf:PartialFunction[Throwable,A]):monix.reactive.Observable[A]"></a>
+      <a id="recover[A](Observable[A])(PartialFunction[Throwable,A]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recover</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.recover.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.reactive.Observable.TypeClassInstances.recover.A">A</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.recover.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@recover[A](fa:monix.reactive.Observable[A])(pf:PartialFunction[Throwable,A]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Recover from certain errors by mapping them to an <code>A</code> value.</p><div class="fullcomment"><div class="comment cmt"><p>Recover from certain errors by mapping them to an <code>A</code> value.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#recoverWith" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="recoverWith[A](fa:monix.reactive.Observable[A])(pf:PartialFunction[Throwable,monix.reactive.Observable[A]]):monix.reactive.Observable[A]"></a>
+      <a id="recoverWith[A](Observable[A])(PartialFunction[Throwable,Observable[A]]):Observable[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">recoverWith</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.recoverWith.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.recoverWith.A">A</span>]]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.TypeClassInstances.recoverWith.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@recoverWith[A](fa:monix.reactive.Observable[A])(pf:PartialFunction[Throwable,monix.reactive.Observable[A]]):monix.reactive.Observable[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Recover from certain errors by mapping them to an <code>F[A]</code> value.</p><div class="fullcomment"><div class="comment cmt"><p>Recover from certain errors by mapping them to an <code>F[A]</code> value.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable.TypeClassInstances#unit" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unit:monix.reactive.Observable[Unit]"></a>
+      <a id="unit:Observable[Unit]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unit</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@unit:monix.reactive.Observable[Unit]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">The <code>Unit</code> lifted into the deferrable context.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Unit</code> lifted into the deferrable context.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.Observable.TypeClassInstances">TypeClassInstances</a> → <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a></dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.reactive.Observable$$TypeClassInstances@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="monix.types.Streamable">
+              <h3>Inherited from <a href="../types/Streamable.html" class="extype" name="monix.types.Streamable">Streamable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.CoflatMap">
+              <h3>Inherited from <a href="../types/shims/CoflatMap.html" class="extype" name="monix.types.shims.CoflatMap">CoflatMap</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.MonadPlus">
+              <h3>Inherited from <a href="../types/shims/MonadPlus.html" class="extype" name="monix.types.shims.MonadPlus">MonadPlus</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.MonoidK">
+              <h3>Inherited from <a href="../types/shims/MonoidK.html" class="extype" name="monix.types.shims.MonoidK">MonoidK</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.SemigroupK">
+              <h3>Inherited from <a href="../types/shims/SemigroupK.html" class="extype" name="monix.types.shims.SemigroupK">SemigroupK</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.MonadFilter">
+              <h3>Inherited from <a href="../types/shims/MonadFilter.html" class="extype" name="monix.types.shims.MonadFilter">MonadFilter</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.MonadError">
+              <h3>Inherited from <a href="../types/shims/MonadError.html" class="extype" name="monix.types.shims.MonadError">MonadError</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>, <span class="extype" name="scala.Throwable">Throwable</span>]</h3>
+            </div><div class="parent" name="monix.types.shims.Monad">
+              <h3>Inherited from <a href="../types/shims/Monad.html" class="extype" name="monix.types.shims.Monad">Monad</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.ApplicativeError">
+              <h3>Inherited from <a href="../types/shims/ApplicativeError.html" class="extype" name="monix.types.shims.ApplicativeError">ApplicativeError</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>, <span class="extype" name="scala.Throwable">Throwable</span>]</h3>
+            </div><div class="parent" name="monix.types.Deferrable">
+              <h3>Inherited from <a href="../types/Deferrable.html" class="extype" name="monix.types.Deferrable">Deferrable</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.Applicative">
+              <h3>Inherited from <a href="../types/shims/Applicative.html" class="extype" name="monix.types.shims.Applicative">Applicative</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="monix.types.shims.Functor">
+              <h3>Inherited from <a href="../types/shims/Functor.html" class="extype" name="monix.types.shims.Functor">Functor</a>[<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>]</h3>
+            </div><div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
