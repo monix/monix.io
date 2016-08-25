@@ -18,7 +18,7 @@ for computations that are guaranteed to execute immediately
 Vocabulary definition:
 
 > 1) *Having the same age or date of origin; contemporary*
-> 
+>
 > 2) *Something of the same era*
 >
 > 3) *Synchronous*
@@ -32,12 +32,12 @@ Sample:
 ```scala
 import monix.eval.Coeval
 
-val coeval = Coeval { 
+val coeval = Coeval {
   println("Effect!")
   "Hello!"
 }
 
-// Coeval has lazy behavior, so nothing 
+// Coeval has lazy behavior, so nothing
 // happens until being evaluated:
 coeval.value
 //=> Effect!
@@ -64,7 +64,7 @@ In summary the Monix `Coeval`:
 - doesn’t trigger the execution, or any effects until `value` or `run`
 - allows for controlling of side-effects
 - handles errors
-  
+
 A visual representation of where `Coeval` sits in the design space:
 
 |                    |        Eager        |           Lazy           |
@@ -86,7 +86,7 @@ So what problems are we solving?
   mutually tail recursive calls and thus limited
 - The `scala.util.Try` type is overlapping in scope, given the
   `Coeval` focus on error handling, but doesn't have lazy behavior
-  
+
 `Coeval` can replace both `lazy val` and by-name parameters, allowing
 one to control evaluation and to do error handling. It's also stack
 safe and with it you can describe mutually tail-recursive algorithms,
@@ -122,9 +122,9 @@ replacement for Scala's `Try` type.
 To evaluate a `Coeval` instance you can invoke its `value` command:
 
 ```scala
-val coeval = Coeval { 
+val coeval = Coeval {
   println("Effect!")
-  1 + 1 
+  1 + 1
 }
 
 // Nothing happens until this point:
@@ -190,10 +190,10 @@ is the main difference between `Attempt` and `Try`.
 For converting any `Coeval` into a [Task](./task.html):
 
 ```scala
-val coeval = Coeval.evalAlways(1 + 1)
+val coeval = Coeval.eval(1 + 1)
 
 val task = coeval.task
-// task: Task[Int] = EvalAlways(<function0>)
+// task: Task[Int] = Always(<function0>)
 ```
 
 `Task` and `Coeval` being siblings, they have similar internal states
@@ -218,14 +218,14 @@ val coeval = Coeval.now { println("Effect"); "Hello!" }
 // coeval: monix.eval.Coeval[String] = Now(Hello!)
 ```
 
-### Coeval.evalAlways
+### Coeval.eval
 
-`Coeval.evalAlways` is the equivalent of `Function0`, taking a
+`Coeval.eval` is the equivalent of `Function0`, taking a
 function that will always be evaluated on invocation of `value`:
 
 ```scala
-val coeval = Coeval.evalAlways { println("Effect"); "Hello!" }
-// coeval: monix.eval.Coeval[String] = EvalOnce(<function0>)
+val coeval = Coeval.eval { println("Effect"); "Hello!" }
+// coeval: monix.eval.Coeval[String] = Once(<function0>)
 
 coeval.value
 //=> Effect
@@ -248,7 +248,7 @@ idempotency and thread-safety:
 
 ```scala
 val coeval = Coeval.evalOnce { println("Effect"); "Hello!" }
-// coeval: monix.eval.Coeval[String] = EvalOnce(<function0>)
+// coeval: monix.eval.Coeval[String] = Once(<function0>)
 
 coeval.value
 //=> Effect
@@ -262,7 +262,7 @@ coeval.value
 ### Coeval.defer
 
 `Coeval.defer` is about building a factory of coevals. For example
-this will behave approximately like `Coeval.evalAlways`:
+this will behave approximately like `Coeval.eval`:
 
 ```scala
 val coeval = Coeval.defer {
@@ -285,7 +285,7 @@ coeval.value
 
 ```scala
 val error = Coeval.raiseError[Int](new IllegalStateException)
-// error: monix.eval.Coeval[Int] = 
+// error: monix.eval.Coeval[Int] =
 //   Error(java.util.concurrent.TimeoutException)
 
 error.runTry
@@ -308,9 +308,9 @@ garbage collector.
 
 ## Memoization
 
-The 
-[Coeval#memoize]({{ site.api2x }}#monix.eval.Coeval@memoize:monix.eval.Coeval[A]) 
-operator can take any `Coeval` and apply memoization on the first evaluation 
+The
+[Coeval#memoize]({{ site.api2x }}#monix.eval.Coeval@memoize:monix.eval.Coeval[A])
+operator can take any `Coeval` and apply memoization on the first evaluation
 (such as `value`, `runTry`) such that:
 
 1. you have guaranteed idempotency, calling `value` multiple times
@@ -322,13 +322,13 @@ So `memoize` effectively caches the result of the first `value` or
 `runTry` call. In fact we can say that:
 
 ```scala
-Coeval.evalOnce(f) <-> Coeval.evalAlways(f).memoize
+Coeval.evalOnce(f) <-> Coeval.eval(f).memoize
 ```
 
 They are effectively the same. And at the moment of writing, the
 implementation of `memoize` actually pattern matches on the source to
-see if we are dealing with an `EvalAlways` transforming it into an
-`EvalOnce`. You shouldn't rely on this behavior, but this gives you an
+see if we are dealing with an `Always` transforming it into an
+`Once`. You shouldn't rely on this behavior, but this gives you an
 idea of the properties involved: for the layman, you can say that
 `memoize` turns your `Coeval` into a `lazy val`.
 
@@ -393,7 +393,7 @@ that, then that). And we can use it to describe recursive calls:
 
 ```scala
 def fib(cycles: Int, a: BigInt, b: BigInt): Coeval[BigInt] =
-  Coeval.evalAlways(cycles > 0).flatMap {
+  Coeval.eval(cycles > 0).flatMap {
     case true =>
       fib(cycles-1, b, a+b)
     case false =>
@@ -410,17 +410,17 @@ But we can also have **mutually tail-recursive calls**, w00t!
 ```scala
 // Mutual Tail Recursion, ftw!!!
 def odd(n: Int): Coeval[Boolean] =
-  Coeval.evalAlways(n == 0).flatMap {
+  Coeval.eval(n == 0).flatMap {
     case true => Coeval.now(false)
     case false => even(n - 1)
   }
- 
+
 def even(n: Int): Coeval[Boolean] =
-  Coeval.evalAlways(n == 0).flatMap {
+  Coeval.eval(n == 0).flatMap {
     case true => Coeval.now(true)
     case false => odd(n - 1)
   }
- 
+
 even(1000000)
 ```
 
@@ -431,9 +431,9 @@ Again, this is stack safe and uses a constant amount of memory.
 When using `flatMap`, we often end up with this:
 
 ```scala
-val locationTask: Coeval[String] = Coeval.evalAlways(???)
-val phoneTask: Coeval[String] = Coeval.evalAlways(???)
-val addressTask: Coeval[String] = Coeval.evalAlways(???)
+val locationTask: Coeval[String] = Coeval.eval(???)
+val phoneTask: Coeval[String] = Coeval.eval(???)
+val addressTask: Coeval[String] = Coeval.eval(???)
 
 // Ordered operations based on flatMap ...
 val aggregate = for {
@@ -451,11 +451,11 @@ as `zip2`, `zip3`, up until `zip6` (at the moment of writing) and also
 `zipList`. The example above could be written as:
 
 ```scala
-val locationCoeval: Coeval[String] = Coeval.evalAlways(???)
-val phoneCoeval: Coeval[String] = Coeval.evalAlways(???)
-val addressCoeval: Coeval[String] = Coeval.evalAlways(???)
+val locationCoeval: Coeval[String] = Coeval.eval(???)
+val phoneCoeval: Coeval[String] = Coeval.eval(???)
+val addressCoeval: Coeval[String] = Coeval.eval(???)
 
-val aggregate = 
+val aggregate =
   Coeval.zip3(locationCoeval, phoneCoeval, addressCoeval).map {
     (location, phone, address) => "Gotcha!"
   }
@@ -465,13 +465,13 @@ val aggregate =
 
 `Coeval.sequence`, takes a `Seq[Coeval[A]]` and returns a
 `Coeval[Seq[A]]`, thus transforming any sequence of coevals into a
-coeval with a sequence of results. 
+coeval with a sequence of results.
 
 ```scala
 val ca = Coeval(1)
 val cb = Coeval(2)
 
-val list: Coeval[Seq[Int]] = 
+val list: Coeval[Seq[Int]] =
   Coeval.sequence(Seq(ca, cb))
 
 list.value
@@ -490,7 +490,7 @@ over again, until the given predicate is true:
 import scala.util.Random
 
 val randomEven = Coeval
-  .evalAlways(Random.nextInt())
+  .eval(Random.nextInt())
   .restartUntil(_ % 2 == 0)
 
 randomEven.value
@@ -503,16 +503,16 @@ randomEven.value
 
 ### Clean-up Resources on Finish
 
-`Coeval.doOnFinish` executes the supplied 
-`Option[Throwable] => Coeval[Unit]` function when the source finishes, 
-being meant for cleaning up resources or executing 
+`Coeval.doOnFinish` executes the supplied
+`Option[Throwable] => Coeval[Unit]` function when the source finishes,
+being meant for cleaning up resources or executing
 some scheduled side-effect:
 
 ```scala
 val coeval = Coeval(1)
 
 val withFinishCb = coeval.doOnFinish {
-  case None => 
+  case None =>
     println("Was success!")
     Coeval.unit
   case Some(ex) =>
@@ -540,7 +540,7 @@ import monix.eval.Coeval
 import scala.util.Random
 
 val coeval = Coeval(Random.nextInt).flatMap {
-  case even if even % 2 == 0 => 
+  case even if even % 2 == 0 =>
     Coeval.now(even)
   case odd =>
     throw new IllegalStateException(odd.toString)
@@ -566,10 +566,10 @@ import scala.concurrent.TimeoutException
 val source = Coeval.raiseError[String](new IllegalStateException)
 
 val recovered = source.onErrorHandleWith {
-  case _: IllegalStateException => 
+  case _: IllegalStateException =>
     // Oh, we know about illegal states, recover it
     Coeval.now("Recovered!")
-  case other => 
+  case other =>
     // We have no idea what happened, raise error!
     Coeval.raiseError(other)
 }
@@ -583,7 +583,7 @@ instead, so we can omit the "other" branch:
 
 ```scala
 val recovered = source.onErrorRecoverWith {
-  case _: IllegalStateException => 
+  case _: IllegalStateException =>
     // Oh, we know about illegal states, recover it
     Coeval.now("Recovered!")
 }
@@ -599,7 +599,7 @@ operation `Coeval.onErrorHandle` like:
 
 ```scala
 val recovered = source.onErrorHandle {
-  case _: IllegalStateException => 
+  case _: IllegalStateException =>
     // Oh, we know about illegal states, recover it
     "Recovered!"
   case other =>
@@ -611,7 +611,7 @@ Or the partial function version with `onErrorRecover`:
 
 ```scala
 val recovered = source.onErrorRecover {
-  case _: IllegalStateException => 
+  case _: IllegalStateException =>
     // Oh, we know about illegal states, recover it
     "Recovered!"
 }
@@ -627,9 +627,9 @@ restart the source on error, for how many times are needed:
 import scala.util.Random
 
 val source = Coeval(Random.nextInt).flatMap {
-  case even if even % 2 == 0 => 
+  case even if even % 2 == 0 =>
     Coeval.now(even)
-  case other => 
+  case other =>
     Coeval.raiseError(new IllegalStateException(other.toString))
 }
 
@@ -644,9 +644,9 @@ We can also restart with a given predicate:
 import scala.util.Random
 
 val source = Coeval(Random.nextInt).flatMap {
-  case even if even % 2 == 0 => 
+  case even if even % 2 == 0 =>
     Coeval.now(even)
-  case other => 
+  case other =>
     Coeval.raiseError(new IllegalStateException(other.toString))
 }
 
@@ -670,7 +670,7 @@ import scala.util.{Try, Success, Failure}
 val source = Coeval.raiseError[Int](new IllegalStateException)
 val materialized: Coeval[Try[Int]] =
   coeval.materialize
-  
+
 // Now we can flatMap over both success and failure:
 val recovered = materialized.flatMap {
   case Success(value) => Coeval.now(value)
@@ -711,4 +711,3 @@ val throwable = source.failed
 throwable.runTry
 // res: Try[Throwable] = Success(java.lang.IllegalStateException)
 ```
-

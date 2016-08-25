@@ -78,6 +78,30 @@ Optional integrations:
 Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
 more details.
 
+### Documentation
+
+Links: 
+
+- [Latest 1.x ScalaDoc (old Monifu)]({{ site.api1x }})
+- [Latest 2.x ScalaDoc]({{ site.api2x }})
+- [2.x documentation and tutorials](/docs/2x/)
+
+Please contribute!
+
+## Latest News
+
+<ol class="news-summary">
+  {% for post in site.posts limit: 5 %}
+  <li>
+    <time itemprop="dateCreated"
+      datetime="{{ post.date | date: "%Y-%m-%d" }}">
+      {{ post.date | date_to_string }} »
+    </time>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ol>
+
 ## Acknowledgements
 
 <img src="{{ site.baseurl }}public/images/logos/yklogo.png"
