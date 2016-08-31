@@ -42,12 +42,12 @@ Featured presentation:
 
 The packages are published on Maven Central.
 
-- Current 1.x release: `{{ site.version1x }}` 
+- Old 1.x release: `{{ site.version1x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.version1x }}.zip))
 - Current 2.x release: `{{ site.version2x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
 
-For the 1.x release (use the `%%%` for Scala.js):
+For the old 1.x release (use the `%%%` for Scala.js):
 
 ```scala
 libraryDependencies += "org.monifu" %% "monifu" % "{{ site.version1x }}"

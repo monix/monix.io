@@ -1,0 +1,1483 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>Task - Monix 2.0.0 - monix.eval.Task</title>
+          <meta name="description" content="Task - Monix 2.0.0 - monix.eval.Task" />
+          <meta name="keywords" content="Task Monix 2.0.0 monix.eval.Task" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'monix.eval.Task$';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <a href="Task.html" title="See companion class"><img alt="Object/Class" src="../../lib/object_to_class_big.png" /></a>
+        <p id="owner"><a href="../package.html" class="extype" name="monix">monix</a>.<a href="package.html" class="extype" name="monix.eval">eval</a></p>
+        <h1><a href="Task.html" title="See companion class">Task</a></h1><h3><span class="morelinks"><div>
+            Related Docs:
+            <a href="Task.html" title="See companion class">class Task</a>
+            | <a href="package.html" class="extype" name="monix.eval">package eval</a>
+          </div></span></h3><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Task</span><span class="result"> extends <span class="extype" name="monix.eval.TaskInstances">TaskInstances</span> with <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.0/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="monix.eval.TaskInstances">TaskInstances</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By Inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="monix.eval.Task"><span>Task</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="monix.eval.TaskInstances"><span>TaskInstances</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show All</span></li>
+            </ol>
+          </div>
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.eval.Task.OnFinish" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OnFinish[+A]=(monix.execution.Scheduler,monix.execution.cancelables.StackedCancelable,monix.eval.Callback[A])=&gt;Unit"></a>
+      <a id="OnFinish[+A]:OnFinish[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name">OnFinish</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> = (<a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>, <a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a>, <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.OnFinish.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@OnFinish[+A]=(monix.execution.Scheduler,monix.execution.cancelables.StackedCancelable,monix.eval.Callback[A])=&gt;Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type alias representing callbacks for <a href="#create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#create">create</a> tasks.</p>
+    </li><li name="monix.eval.TaskInstances.TypeClassInstances" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TypeClassInstancesextendsDeferrableClass[monix.eval.Task]withMemoizableClass[monix.eval.Task]withRecoverableClass[monix.eval.Task,Throwable]withCoflatMapClass[monix.eval.Task]withMonadRecClass[monix.eval.Task]"></a>
+      <a id="TypeClassInstances:TypeClassInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TypeClassInstances</span><span class="result"> extends <a href="../types/DeferrableClass.html" class="extype" name="monix.types.DeferrableClass">DeferrableClass</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>] with <a href="../types/MemoizableClass.html" class="extype" name="monix.types.MemoizableClass">MemoizableClass</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>] with <a href="../types/RecoverableClass.html" class="extype" name="monix.types.RecoverableClass">RecoverableClass</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>] with <a href="../types/CoflatMapClass.html" class="extype" name="monix.types.CoflatMapClass">CoflatMapClass</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>] with <a href="../types/MonadRecClass.html" class="extype" name="monix.types.MonadRecClass">MonadRecClass</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@TypeClassInstancesextendsDeferrableClass[monix.eval.Task]withMemoizableClass[monix.eval.Task]withRecoverableClass[monix.eval.Task,Throwable]withCoflatMapClass[monix.eval.Task]withMonadRecClass[monix.eval.Task]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Groups the implementation for the type-classes defined in <a href="../types/package.html" class="extype" name="monix.types">monix.types</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Groups the implementation for the type-classes defined in <a href="../types/package.html" class="extype" name="monix.types">monix.types</a>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>TaskInstances</dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="scala.AnyRef#!=" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a>
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@!=(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@##():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a>
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@==(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#apply" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[A](f:=&gt;A):monix.eval.Task[A]"></a>
+      <a id="apply[A](⇒A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.eval.Task.apply.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.apply.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@apply[A](f:=&gt;A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns a new task that, when executed, will emit the result of
+the given function, executed asynchronously.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new task that, when executed, will emit the result of
+the given function, executed asynchronously.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the callback to execute asynchronously</p></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@asInstanceOf[T0]:T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.eval.Task#async" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="async[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]"></a>
+      <a id="async[A]((Scheduler,Callback[A])⇒Cancelable):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">async</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="register">register: (<a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>, <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.async.A">A</span>]) ⇒ <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.async.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@async[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Create a <code>Task</code> from an asynchronous computation.</p><div class="fullcomment"><div class="comment cmt"><p>Create a <code>Task</code> from an asynchronous computation.</p><p>Alias for <a href="#create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#create">create</a>.
+</p></div></div>
+    </li><li name="monix.eval.Task#chooseFirstOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="chooseFirstOf[A,B](fa:monix.eval.Task[A],fb:monix.eval.Task[B]):monix.eval.Task[Either[(A,monix.execution.CancelableFuture[B]),(monix.execution.CancelableFuture[A],B)]]"></a>
+      <a id="chooseFirstOf[A,B](Task[A],Task[B]):Task[Either[(A,CancelableFuture[B]),(CancelableFuture[A],B)]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">chooseFirstOf</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.chooseFirstOf.A">A</span>]</span>, <span name="fb">fb: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.chooseFirstOf.B">B</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.Either">Either</span>[(<span class="extype" name="monix.eval.Task.chooseFirstOf.A">A</span>, <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.eval.Task.chooseFirstOf.B">B</span>]), (<a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.eval.Task.chooseFirstOf.A">A</span>], <span class="extype" name="monix.eval.Task.chooseFirstOf.B">B</span>)]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@chooseFirstOf[A,B](fa:monix.eval.Task[A],fb:monix.eval.Task[B]):monix.eval.Task[Either[(A,monix.execution.CancelableFuture[B]),(monix.execution.CancelableFuture[A],B)]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Creates a <code>Task</code> that upon execution will execute both given tasks
+(possibly in parallel in case the tasks are asynchronous) and will
+return the result of the task that manages to complete first,
+along with a cancelable future of the other task.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <code>Task</code> that upon execution will execute both given tasks
+(possibly in parallel in case the tasks are asynchronous) and will
+return the result of the task that manages to complete first,
+along with a cancelable future of the other task.</p><p>If the first task that completes
+</p></div></div>
+    </li><li name="monix.eval.Task#chooseFirstOfList" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="chooseFirstOfList[A](tasks:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[A]"></a>
+      <a id="chooseFirstOfList[A](TraversableOnce[Task[A]]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">chooseFirstOfList</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="tasks">tasks: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.chooseFirstOfList.A">A</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.chooseFirstOfList.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@chooseFirstOfList[A](tasks:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Creates a <code>Task</code> that upon execution will return the result of the
+first completed task in the given list and then cancel the rest.</p>
+    </li><li name="scala.AnyRef#clone" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a>
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@clone():Object" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#coeval" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="coeval[A](a:monix.eval.Coeval[A]):monix.eval.Task[A]"></a>
+      <a id="coeval[A](Coeval[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coeval</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Task.coeval.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.coeval.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@coeval[A](a:monix.eval.Coeval[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Transforms a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> into a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p>
+    </li><li name="monix.eval.Task#create" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]"></a>
+      <a id="create[A]((Scheduler,Callback[A])⇒Cancelable):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">create</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="register">register: (<a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>, <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.create.A">A</span>]) ⇒ <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.create.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Create a <code>Task</code> from an asynchronous computation, which takes the
+form of a function with which we can register a callback.</p><div class="fullcomment"><div class="comment cmt"><p>Create a <code>Task</code> from an asynchronous computation, which takes the
+form of a function with which we can register a callback.</p><p>This can be used to translate from a callback-based API to a
+straightforward monadic version.</p><p>Contract:</p><ol class="decimal"><li>execution of the <code>register</code> callback is async,
+    forking a (logical) thread
+ 2. execution of the <code>onSuccess</code> and <code>onError</code> callbacks,
+    is async, forking another (logical) thread</li></ol><p>Point number 2 happens because <a href="#create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#create">create</a> is supposed to be safe
+or otherwise, depending on the executed logic, one can end up with
+a stack overflow exception. So this contract happens in order to
+guarantee safety. In order to bypass rule number 2, one can use
+<a href="#unsafeCreate[A](onFinish:monix.eval.Task.OnFinish[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#unsafeCreate">unsafeCreate</a>, but that's for people knowing what they are doing.
+</p></div><dl class="paramcmts block"><dt class="param">register</dt><dd class="cmt"><p>is a function that will be called when this <code>Task</code>
+       is executed, receiving a callback as a parameter, a
+       callback that the user is supposed to call in order to
+       signal the desired outcome of this <code>Task</code>.</p></dd></dl></div>
+    </li><li name="monix.eval.Task#defer" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defer[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]"></a>
+      <a id="defer[A](⇒Task[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.defer.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.defer.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@defer[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Promote a non-strict value representing a Task to a Task of the
+same type.</p>
+    </li><li name="monix.eval.Task#delay" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="delay[A](a:=&gt;A):monix.eval.Task[A]"></a>
+      <a id="delay[A](⇒A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delay</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Task.delay.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.delay.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@delay[A](a:=&gt;A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Alias for <a href="#coeval[A](a:monix.eval.Coeval[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#coeval">coeval</a>.</p>
+    </li><li name="scala.AnyRef#eq" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a>
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a>
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@equals(x$1:Any):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#eval" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval[A](a:=&gt;A):monix.eval.Task[A]"></a>
+      <a id="eval[A](⇒A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eval</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Task.eval.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.eval.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@eval[A](a:=&gt;A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Promote a non-strict value to a Task, catching exceptions in the
+process.</p><div class="fullcomment"><div class="comment cmt"><p>Promote a non-strict value to a Task, catching exceptions in the
+process.</p><p>Note that since <code>Task</code> is not memoized, this will recompute the
+value each time the <code>Task</code> is executed.
+</p></div></div>
+    </li><li name="monix.eval.Task#evalOnce" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="evalOnce[A](a:=&gt;A):monix.eval.Task[A]"></a>
+      <a id="evalOnce[A](⇒A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evalOnce</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Task.evalOnce.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.evalOnce.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@evalOnce[A](a:=&gt;A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Promote a non-strict value to a Task that is memoized on the first
+evaluation, the result being then available on subsequent evaluations.</p>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@finalize():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java$lang.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#fork" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fork[A](fa:monix.eval.Task[A],scheduler:monix.execution.Scheduler):monix.eval.Task[A]"></a>
+      <a id="fork[A](Task[A],Scheduler):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fork</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fork.A">A</span>]</span>, <span name="scheduler">scheduler: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fork.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@fork[A](fa:monix.eval.Task[A],scheduler:monix.execution.Scheduler):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><div class="fullcomment"><div class="comment cmt"><p>Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><p>The given <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>  will be
+used for execution of the <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>, effectively overriding the
+<code>Scheduler</code> that's passed in <code>runAsync</code>. Thus you can
+execute a whole <code>Task</code> on a separate thread-pool, useful for
+example in case of doing I/O.
+</p></div><dl class="paramcmts block"><dt class="param">fa</dt><dd class="cmt"><p>is the task that will get executed asynchronously</p></dd><dt class="param">scheduler</dt><dd class="cmt"><p>is the scheduler to use for execution</p></dd></dl></div>
+    </li><li name="monix.eval.Task#fork" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A]"></a>
+      <a id="fork[A](Task[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fork</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fork.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fork.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><div class="fullcomment"><div class="comment cmt"><p>Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><p>The <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> used will be
+the one that is used to start the run-loop in <code>runAsync</code>.
+</p></div><dl class="paramcmts block"><dt class="param">fa</dt><dd class="cmt"><p>is the task that will get executed asynchronously</p></dd></dl></div>
+    </li><li name="monix.eval.Task#fromFuture" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fromFuture[A](f:scala.concurrent.Future[A]):monix.eval.Task[A]"></a>
+      <a id="fromFuture[A](Future[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromFuture</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.eval.Task.fromFuture.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fromFuture.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@fromFuture[A](f:scala.concurrent.Future[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Converts the given Scala <code>Future</code> into a <code>Task</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts the given Scala <code>Future</code> into a <code>Task</code>.</p><p>NOTE: if you want to defer the creation of the future, use
+in combination with <a href="#defer[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#defer">defer</a>.
+</p></div></div>
+    </li><li name="monix.eval.Task#fromTry" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromTry[A](a:scala.util.Try[A]):monix.eval.Task[A]"></a>
+      <a id="fromTry[A](Try[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromTry</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Task.fromTry.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fromTry.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@fromTry[A](a:scala.util.Try[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Builds a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instance out of a Scala <code>Try</code>.</p>
+    </li><li name="monix.eval.Task#gather" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]"></a>
+      <a id="gather[A,M[X]&lt;:TraversableOnce[X]](M[Task[A]])(CanBuildFrom[M[Task[A]],A,M[A]]):Task[M[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">gather</span><span class="tparams">[<span name="A">A</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Task.gather.M.X">X</span>]</span>]</span><span class="params">(<span name="in">in: <span class="extype" name="monix.eval.Task.gather.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gather.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="monix.eval.Task.gather.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gather.A">A</span>]], <span class="extype" name="monix.eval.Task.gather.A">A</span>, <span class="extype" name="monix.eval.Task.gather.M">M</span>[<span class="extype" name="monix.eval.Task.gather.A">A</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gather.M">M</span>[<span class="extype" name="monix.eval.Task.gather.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Nondeterministically gather results from the given collection of tasks,
+returning a task that will signal the same type of collection of results
+once all tasks are finished.</p><div class="fullcomment"><div class="comment cmt"><p>Nondeterministically gather results from the given collection of tasks,
+returning a task that will signal the same type of collection of results
+once all tasks are finished.</p><p>This function is the nondeterministic analogue of <code>sequence</code> and should
+behave identically to <code>sequence</code> so long as there is no interaction between
+the effects being gathered. However, unlike <code>sequence</code>, which decides on
+a total order of effects, the effects in a <code>gather</code> are unordered with
+respect to each other.</p><p>Although the effects are unordered, we ensure the order of results
+matches the order of the input sequence. Also see <a href="#gatherUnordered[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gatherUnordered">gatherUnordered</a>
+for the more efficient alternative.
+</p></div></div>
+    </li><li name="monix.eval.Task#gatherUnordered" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="gatherUnordered[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]"></a>
+      <a id="gatherUnordered[A,M[X]&lt;:TraversableOnce[X]](M[Task[A]])(CanBuildFrom[M[Task[A]],A,M[A]]):Task[M[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">gatherUnordered</span><span class="tparams">[<span name="A">A</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Task.gatherUnordered.M.X">X</span>]</span>]</span><span class="params">(<span name="in">in: <span class="extype" name="monix.eval.Task.gatherUnordered.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gatherUnordered.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="monix.eval.Task.gatherUnordered.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gatherUnordered.A">A</span>]], <span class="extype" name="monix.eval.Task.gatherUnordered.A">A</span>, <span class="extype" name="monix.eval.Task.gatherUnordered.M">M</span>[<span class="extype" name="monix.eval.Task.gatherUnordered.A">A</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gatherUnordered.M">M</span>[<span class="extype" name="monix.eval.Task.gatherUnordered.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@gatherUnordered[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Nondeterministically gather results from the given collection of tasks,
+without keeping the original ordering of results.</p><div class="fullcomment"><div class="comment cmt"><p>Nondeterministically gather results from the given collection of tasks,
+without keeping the original ordering of results.</p><p>This function is similar to <a href="#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">gather</a>, but neither the effects nor the
+results will be ordered. Useful when you don't need ordering because it
+can be more efficient than <code>gather</code>.
+</p></div></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <a id="getClass():Class[_]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@getClass():Class[_]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@hashCode():Int" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.eval.Task#mapBoth" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mapBoth[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="mapBoth[A1,A2,R](Task[A1],Task[A2])((A1,A2)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mapBoth</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.mapBoth.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.mapBoth.A2">A2</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.mapBoth.A1">A1</span>, <span class="extype" name="monix.eval.Task.mapBoth.A2">A2</span>) ⇒ <span class="extype" name="monix.eval.Task.mapBoth.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.mapBoth.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@mapBoth[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Apply a mapping functions to the results of two tasks, nondeterministically
+ordering their effects.</p><div class="fullcomment"><div class="comment cmt"><p>Apply a mapping functions to the results of two tasks, nondeterministically
+ordering their effects.</p><p>If the two tasks are synchronous, they'll get executed one
+after the other, with the result being available asynchronously.
+If the two tasks are asynchronous, they'll get scheduled for execution
+at the same time and in a multi-threading environment they'll execute
+in parallel and have their results synchronized.
+</p></div></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a>
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Task#never" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="never[A]:monix.eval.Task[A]"></a>
+      <a id="never[A]:Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">never</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.never.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@never[A]:monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instance that upon evaluation will never complete.</p>
+    </li><li name="monix.eval.TaskInstances#nondeterminism" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="nondeterminism:TaskInstances.this.TypeClassInstances"></a>
+      <a id="nondeterminism:TypeClassInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">nondeterminism</span><span class="result">: <a href="#TypeClassInstancesextendsDeferrableClass[monix.eval.Task]withMemoizableClass[monix.eval.Task]withRecoverableClass[monix.eval.Task,Throwable]withCoflatMapClass[monix.eval.Task]withMonadRecClass[monix.eval.Task]" class="extmbr" name="monix.eval.Task.TypeClassInstances">TypeClassInstances</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@nondeterminism:TaskInstances.this.TypeClassInstances" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type-class instances for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> that have
+nondeterministic effects for <a href="../types/Applicative.html" class="extype" name="monix.types.Applicative">Applicative</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Type-class instances for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> that have
+nondeterministic effects for <a href="../types/Applicative.html" class="extype" name="monix.types.Applicative">Applicative</a>.</p><p>It can be optionally imported in scope to make <code>map2</code> and <code>ap</code> to
+potentially run tasks in parallel.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>TaskInstances</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@notify():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@notifyAll():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Task#now" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="now[A](a:A):monix.eval.Task[A]"></a>
+      <a id="now[A](A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">now</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.eval.Task.now.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.now.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@now[A](a:A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns a <code>Task</code> that on execution is always successful, emitting
+the given strict value.</p>
+    </li><li name="monix.eval.Task#pure" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pure[A](a:A):monix.eval.Task[A]"></a>
+      <a id="pure[A](A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pure</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.eval.Task.pure.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.pure.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@pure[A](a:A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Lifts a value into the task context.</p><div class="fullcomment"><div class="comment cmt"><p>Lifts a value into the task context. Alias for <a href="#now[A](a:A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#now">now</a>.</p></div></div>
+    </li><li name="monix.eval.Task#raiseError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="raiseError[A](ex:Throwable):monix.eval.Task[A]"></a>
+      <a id="raiseError[A](Throwable):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">raiseError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="ex">ex: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.raiseError.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@raiseError[A](ex:Throwable):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Returns a task that on execution is always finishing in error
+emitting the specified exception.</p>
+    </li><li name="monix.eval.Task#runLoop" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="runLoop(scheduler:monix.execution.Scheduler,em:monix.execution.schedulers.ExecutionModel,conn:monix.execution.cancelables.StackedCancelable,source:monix.eval.Task.Current,cb:monix.eval.Callback[Any],binds:List[monix.eval.Task.Bind],frameIndex:Int):Unit"></a>
+      <a id="runLoop(Scheduler,ExecutionModel,StackedCancelable,Current,Callback[Any],List[Bind],Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">runLoop</span><span class="params">(<span name="scheduler">scheduler: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="em">em: <a href="../execution/schedulers/ExecutionModel.html" class="extype" name="monix.execution.schedulers.ExecutionModel">ExecutionModel</a></span>, <span name="conn">conn: <a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a></span>, <span name="source">source: <span class="extype" name="monix.eval.Task.Current">Current</span></span>, <span name="cb">cb: <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a>]</span>, <span name="binds">binds: <span class="extype" name="scala.List">List</span>[<span class="extype" name="monix.eval.Task.Bind">Bind</span>]</span>, <span name="frameIndex">frameIndex: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@runLoop(scheduler:monix.execution.Scheduler,em:monix.execution.schedulers.ExecutionModel,conn:monix.execution.cancelables.StackedCancelable,source:monix.eval.Task.Current,cb:monix.eval.Callback[Any],binds:List[monix.eval.Task.Bind],frameIndex:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Internal utility - the actual trampoline run-loop implementation.</p><div class="fullcomment"><div class="comment cmt"><p>Internal utility - the actual trampoline run-loop implementation.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#sequence" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]"></a>
+      <a id="sequence[A,M[X]&lt;:TraversableOnce[X]](M[Task[A]])(CanBuildFrom[M[Task[A]],A,M[A]]):Task[M[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">sequence</span><span class="tparams">[<span name="A">A</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Task.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="in">in: <span class="extype" name="monix.eval.Task.sequence.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.sequence.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="monix.eval.Task.sequence.M">M</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.sequence.A">A</span>]], <span class="extype" name="monix.eval.Task.sequence.A">A</span>, <span class="extype" name="monix.eval.Task.sequence.M">M</span>[<span class="extype" name="monix.eval.Task.sequence.A">A</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.sequence.M">M</span>[<span class="extype" name="monix.eval.Task.sequence.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Given a <code>TraversableOnce</code> of tasks, transforms it to a task signaling
+the collection, executing the tasks one by one and gathering their
+results in the same collection.</p><div class="fullcomment"><div class="comment cmt"><p>Given a <code>TraversableOnce</code> of tasks, transforms it to a task signaling
+the collection, executing the tasks one by one and gathering their
+results in the same collection.</p><p>This operation will execute the tasks one by one, in order, which means that
+both effects and results will be ordered. See <a href="#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">gather</a> and <a href="#gatherUnordered[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gatherUnordered">gatherUnordered</a>
+for unordered results or effects, and thus potential of running in parallel.</p><p> It's a simple version of <a href="#traverse[A,B,M[X]&lt;:TraversableOnce[X]](in:M[A])(f:A=&gt;monix.eval.Task[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Task[M[B]]" class="extmbr" name="monix.eval.Task#traverse">traverse</a>.
+</p></div></div>
+    </li><li name="monix.eval.Task#suspend" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="suspend[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]"></a>
+      <a id="suspend[A](⇒Task[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">suspend</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.suspend.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.suspend.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@suspend[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Alias for <a href="#defer[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#defer">defer</a>.</p>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
+      <a id="synchronized[T0](⇒T0):T0"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@synchronized[T0](x$1:=&gt;T0):T0" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@toString():String" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#traverse" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="traverse[A,B,M[X]&lt;:TraversableOnce[X]](in:M[A])(f:A=&gt;monix.eval.Task[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Task[M[B]]"></a>
+      <a id="traverse[A,B,M[X]&lt;:TraversableOnce[X]](M[A])((A)⇒Task[B])(CanBuildFrom[M[A],B,M[B]]):Task[M[B]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">traverse</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Task.traverse.M.X">X</span>]</span>]</span><span class="params">(<span name="in">in: <span class="extype" name="monix.eval.Task.traverse.M">M</span>[<span class="extype" name="monix.eval.Task.traverse.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.traverse.A">A</span>) ⇒ <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.traverse.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.collection.generic.CanBuildFrom" class="extype" target="_top">CanBuildFrom</a>[<span class="extype" name="monix.eval.Task.traverse.M">M</span>[<span class="extype" name="monix.eval.Task.traverse.A">A</span>], <span class="extype" name="monix.eval.Task.traverse.B">B</span>, <span class="extype" name="monix.eval.Task.traverse.M">M</span>[<span class="extype" name="monix.eval.Task.traverse.B">B</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.traverse.M">M</span>[<span class="extype" name="monix.eval.Task.traverse.B">B</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@traverse[A,B,M[X]&lt;:TraversableOnce[X]](in:M[A])(f:A=&gt;monix.eval.Task[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Task[M[B]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Given a <code>TraversableOnce[A]</code> and a function <code>A =&gt; Task[B]</code>, sequentially
+ apply the function to each element of the collection and gather their
+ results in the same collection.</p><div class="fullcomment"><div class="comment cmt"><p>Given a <code>TraversableOnce[A]</code> and a function <code>A =&gt; Task[B]</code>, sequentially
+ apply the function to each element of the collection and gather their
+ results in the same collection.</p><p> It's a generalized version of <a href="#sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">sequence</a>.
+</p></div></div>
+    </li><li name="monix.eval.Task#typeClassInstances" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="typeClassInstances:monix.eval.Task.TypeClassInstances"></a>
+      <a id="typeClassInstances:TypeClassInstances"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">typeClassInstances</span><span class="result">: <a href="#TypeClassInstancesextendsDeferrableClass[monix.eval.Task]withMemoizableClass[monix.eval.Task]withRecoverableClass[monix.eval.Task,Throwable]withCoflatMapClass[monix.eval.Task]withMonadRecClass[monix.eval.Task]" class="extmbr" name="monix.eval.Task.TypeClassInstances">TypeClassInstances</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@typeClassInstances:monix.eval.Task.TypeClassInstances" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Type-class instances for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p>
+    </li><li name="monix.eval.Task#unit" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="unit:monix.eval.Task[Unit]"></a>
+      <a id="unit:Task[Unit]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unit</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@unit:monix.eval.Task[Unit]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">A <code>Task[Unit]</code> provided for convenience.</p>
+    </li><li name="monix.eval.Task#unsafeCreate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeCreate[A](onFinish:monix.eval.Task.OnFinish[A]):monix.eval.Task[A]"></a>
+      <a id="unsafeCreate[A](OnFinish[A]):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeCreate</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="onFinish">onFinish: <a href="#OnFinish[+A]=(monix.execution.Scheduler,monix.execution.cancelables.StackedCancelable,monix.eval.Callback[A])=&gt;Unit" class="extmbr" name="monix.eval.Task.OnFinish">OnFinish</a>[<span class="extype" name="monix.eval.Task.unsafeCreate.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.unsafeCreate.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@unsafeCreate[A](onFinish:monix.eval.Task.OnFinish[A]):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Constructs a lazy <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instance whose result
+will be computed asynchronously.</p><div class="fullcomment"><div class="comment cmt"><p>Constructs a lazy <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instance whose result
+will be computed asynchronously.</p><p>Unsafe to use directly, only use if you know what you're doing.
+For building <code>Task</code> instances safely see <a href="#create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#create">create</a>.
+</p></div></div>
+    </li><li name="monix.eval.Task#unsafeStartAsync" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeStartAsync[A](source:monix.eval.Task[A],scheduler:monix.execution.Scheduler,conn:monix.execution.cancelables.StackedCancelable,cb:monix.eval.Callback[A]):Unit"></a>
+      <a id="unsafeStartAsync[A](Task[A],Scheduler,StackedCancelable,Callback[A]):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeStartAsync</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="source">source: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.unsafeStartAsync.A">A</span>]</span>, <span name="scheduler">scheduler: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="conn">conn: <a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a></span>, <span name="cb">cb: <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.unsafeStartAsync.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@unsafeStartAsync[A](source:monix.eval.Task[A],scheduler:monix.execution.Scheduler,conn:monix.execution.cancelables.StackedCancelable,cb:monix.eval.Callback[A]):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Unsafe utility - starts the execution of a Task with a guaranteed
+asynchronous boundary, by providing
+the needed <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+<a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a>
+and <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Unsafe utility - starts the execution of a Task with a guaranteed
+asynchronous boundary, by providing
+the needed <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+<a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a>
+and <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>.</p><p>DO NOT use directly, as it is UNSAFE to use, unless you know
+what you're doing. Prefer <a href="Task.html#runAsync(cb:monix.eval.Callback[A])(implicits:monix.execution.Scheduler):monix.execution.Cancelable" class="extmbr" name="monix.eval.Task#runAsync">Task.runAsync</a>
+and <code>Task.fork</code>.
+</p></div></div>
+    </li><li name="monix.eval.Task#unsafeStartNow" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeStartNow[A](source:monix.eval.Task[A],scheduler:monix.execution.Scheduler,conn:monix.execution.cancelables.StackedCancelable,cb:monix.eval.Callback[A]):Unit"></a>
+      <a id="unsafeStartNow[A](Task[A],Scheduler,StackedCancelable,Callback[A]):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeStartNow</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="source">source: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.unsafeStartNow.A">A</span>]</span>, <span name="scheduler">scheduler: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="conn">conn: <a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a></span>, <span name="cb">cb: <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.unsafeStartNow.A">A</span>]</span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@unsafeStartNow[A](source:monix.eval.Task[A],scheduler:monix.execution.Scheduler,conn:monix.execution.cancelables.StackedCancelable,cb:monix.eval.Callback[A]):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Unsafe utility - starts the execution of a Task, by providing
+the needed <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+<a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a>
+and <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Unsafe utility - starts the execution of a Task, by providing
+the needed <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+<a href="../execution/cancelables/StackedCancelable.html" class="extype" name="monix.execution.cancelables.StackedCancelable">StackedCancelable</a>
+and <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>.</p><p>DO NOT use directly, as it is UNSAFE to use, unless you know
+what you're doing. Prefer <a href="Task.html#runAsync(cb:monix.eval.Callback[A])(implicits:monix.execution.Scheduler):monix.execution.Cancelable" class="extmbr" name="monix.eval.Task#runAsync">Task.runAsync</a>.
+</p></div></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@wait():Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a>
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a>
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@wait(x$1:Long):Unit" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#zip2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2]):monix.eval.Task[(A1,A2)]"></a>
+      <a id="zip2[A1,A2,R](Task[A1],Task[A2]):Task[(A1,A2)]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip2</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip2.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip2.A2">A2</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.zip2.A1">A1</span>, <span class="extype" name="monix.eval.Task.zip2.A2">A2</span>)]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zip2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2]):monix.eval.Task[(A1,A2)]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs two <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances.</p>
+    </li><li name="monix.eval.Task#zip3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip3[A1,A2,A3](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3]):monix.eval.Task[(A1,A2,A3)]"></a>
+      <a id="zip3[A1,A2,A3](Task[A1],Task[A2],Task[A3]):Task[(A1,A2,A3)]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip3</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip3.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip3.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip3.A3">A3</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.zip3.A1">A1</span>, <span class="extype" name="monix.eval.Task.zip3.A2">A2</span>, <span class="extype" name="monix.eval.Task.zip3.A3">A3</span>)]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zip3[A1,A2,A3](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3]):monix.eval.Task[(A1,A2,A3)]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs three <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances.</p>
+    </li><li name="monix.eval.Task#zip4" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip4[A1,A2,A3,A4](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4]):monix.eval.Task[(A1,A2,A3,A4)]"></a>
+      <a id="zip4[A1,A2,A3,A4](Task[A1],Task[A2],Task[A3],Task[A4]):Task[(A1,A2,A3,A4)]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip4</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip4.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip4.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip4.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip4.A4">A4</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.zip4.A1">A1</span>, <span class="extype" name="monix.eval.Task.zip4.A2">A2</span>, <span class="extype" name="monix.eval.Task.zip4.A3">A3</span>, <span class="extype" name="monix.eval.Task.zip4.A4">A4</span>)]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zip4[A1,A2,A3,A4](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4]):monix.eval.Task[(A1,A2,A3,A4)]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs four <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances.</p>
+    </li><li name="monix.eval.Task#zip5" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip5[A1,A2,A3,A4,A5](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5]):monix.eval.Task[(A1,A2,A3,A4,A5)]"></a>
+      <a id="zip5[A1,A2,A3,A4,A5](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5]):Task[(A1,A2,A3,A4,A5)]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip5</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip5.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip5.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip5.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip5.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip5.A5">A5</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.zip5.A1">A1</span>, <span class="extype" name="monix.eval.Task.zip5.A2">A2</span>, <span class="extype" name="monix.eval.Task.zip5.A3">A3</span>, <span class="extype" name="monix.eval.Task.zip5.A4">A4</span>, <span class="extype" name="monix.eval.Task.zip5.A5">A5</span>)]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zip5[A1,A2,A3,A4,A5](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5]):monix.eval.Task[(A1,A2,A3,A4,A5)]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs five <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances.</p>
+    </li><li name="monix.eval.Task#zip6" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip6[A1,A2,A3,A4,A5,A6](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6]):monix.eval.Task[(A1,A2,A3,A4,A5,A6)]"></a>
+      <a id="zip6[A1,A2,A3,A4,A5,A6](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5],Task[A6]):Task[(A1,A2,A3,A4,A5,A6)]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip6</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="A6">A6</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A5">A5</span>]</span>, <span name="fa6">fa6: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip6.A6">A6</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.zip6.A1">A1</span>, <span class="extype" name="monix.eval.Task.zip6.A2">A2</span>, <span class="extype" name="monix.eval.Task.zip6.A3">A3</span>, <span class="extype" name="monix.eval.Task.zip6.A4">A4</span>, <span class="extype" name="monix.eval.Task.zip6.A5">A5</span>, <span class="extype" name="monix.eval.Task.zip6.A6">A6</span>)]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zip6[A1,A2,A3,A4,A5,A6](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6]):monix.eval.Task[(A1,A2,A3,A4,A5,A6)]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs six <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances.</p>
+    </li><li name="monix.eval.Task#zipList" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipList[A](sources:monix.eval.Task[A]*):monix.eval.Task[List[A]]"></a>
+      <a id="zipList[A](Task[A]*):Task[List[A]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipList</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="sources">sources: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipList.A">A</span>]*</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="monix.eval.Task.zipList.A">A</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipList[A](sources:monix.eval.Task[A]*):monix.eval.Task[List[A]]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Gathers the results from a sequence of tasks into a single list.</p><div class="fullcomment"><div class="comment cmt"><p>Gathers the results from a sequence of tasks into a single list.
+The effects are not ordered, but the results are.
+</p></div></div>
+    </li><li name="monix.eval.Task#zipMap2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipMap2[A1,A2,R](Task[A1],Task[A2])((A1,A2)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap2</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap2.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap2.A2">A2</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipMap2.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipMap2.A2">A2</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap2.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap2.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipMap2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs two <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances, creating a new instance that will apply
+the given mapping function to the resulting pair.</p>
+    </li><li name="monix.eval.Task#zipMap3" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap3[A1,A2,A3,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipMap3[A1,A2,A3,R](Task[A1],Task[A2],Task[A3])((A1,A2,A3)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap3</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap3.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap3.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap3.A3">A3</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipMap3.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipMap3.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipMap3.A3">A3</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap3.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap3.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipMap3[A1,A2,A3,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs three <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Task#zipMap4" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap4[A1,A2,A3,A4,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipMap4[A1,A2,A3,A4,R](Task[A1],Task[A2],Task[A3],Task[A4])((A1,A2,A3,A4)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap4</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap4.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap4.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap4.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap4.A4">A4</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipMap4.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipMap4.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipMap4.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipMap4.A4">A4</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap4.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap4.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipMap4[A1,A2,A3,A4,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs four <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Task#zipMap5" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipMap5[A1,A2,A3,A4,A5,R](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5])((A1,A2,A3,A4,A5)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap5</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.A5">A5</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipMap5.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipMap5.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipMap5.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipMap5.A4">A4</span>, <span class="extype" name="monix.eval.Task.zipMap5.A5">A5</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap5.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap5.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipMap5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs five <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Task#zipMap6" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipMap6[A1,A2,A3,A4,A5,A6,R](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5],Task[A6])((A1,A2,A3,A4,A5,A6)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap6</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="A6">A6</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A5">A5</span>]</span>, <span name="fa6">fa6: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.A6">A6</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipMap6.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipMap6.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipMap6.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipMap6.A4">A4</span>, <span class="extype" name="monix.eval.Task.zipMap6.A5">A5</span>, <span class="extype" name="monix.eval.Task.zipMap6.A6">A6</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap6.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap6.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipMap6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Pairs six <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> instances,
+applying the given mapping function to the result.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="monix.eval.Task#evalAlways" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="evalAlways[A](a:=&gt;A):monix.eval.Task[A]"></a>
+      <a id="evalAlways[A](⇒A):Task[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed, please use Task.eval">evalAlways</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Task.evalAlways.A">A</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.evalAlways.A">A</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@evalAlways[A](a:=&gt;A):monix.eval.Task[A]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Alias for <a href="#coeval[A](a:monix.eval.Coeval[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#coeval">coeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Alias for <a href="#coeval[A](a:monix.eval.Coeval[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#coeval">coeval</a>. Deprecated.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed, please use Task.eval</p></dd></dl></div>
+    </li><li name="monix.eval.Task#zipWith2" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipWith2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipWith2[A1,A2,R](Task[A1],Task[A2])((A1,A2)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed to Task.zipMap2">zipWith2</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith2.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith2.A2">A2</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipWith2.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipWith2.A2">A2</span>) ⇒ <span class="extype" name="monix.eval.Task.zipWith2.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith2.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipWith2[A1,A2,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2])(f:(A1,A2)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed to Task.zipMap2</p></dd></dl></div>
+    </li><li name="monix.eval.Task#zipWith3" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipWith3[A1,A2,A3,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipWith3[A1,A2,A3,R](Task[A1],Task[A2],Task[A3])((A1,A2,A3)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed to Task.zipMap3">zipWith3</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith3.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith3.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith3.A3">A3</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipWith3.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipWith3.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipWith3.A3">A3</span>) ⇒ <span class="extype" name="monix.eval.Task.zipWith3.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith3.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipWith3[A1,A2,A3,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed to Task.zipMap3</p></dd></dl></div>
+    </li><li name="monix.eval.Task#zipWith4" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipWith4[A1,A2,A3,A4,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipWith4[A1,A2,A3,A4,R](Task[A1],Task[A2],Task[A3],Task[A4])((A1,A2,A3,A4)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed to Task.zipMap4">zipWith4</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith4.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith4.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith4.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith4.A4">A4</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipWith4.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipWith4.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipWith4.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipWith4.A4">A4</span>) ⇒ <span class="extype" name="monix.eval.Task.zipWith4.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith4.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipWith4[A1,A2,A3,A4,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed to Task.zipMap4</p></dd></dl></div>
+    </li><li name="monix.eval.Task#zipWith5" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipWith5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipWith5[A1,A2,A3,A4,A5,R](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5])((A1,A2,A3,A4,A5)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed to Task.zipMap5">zipWith5</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.A5">A5</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipWith5.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipWith5.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipWith5.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipWith5.A4">A4</span>, <span class="extype" name="monix.eval.Task.zipWith5.A5">A5</span>) ⇒ <span class="extype" name="monix.eval.Task.zipWith5.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith5.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipWith5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed to Task.zipMap5</p></dd></dl></div>
+    </li><li name="monix.eval.Task#zipWith6" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="zipWith6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Task[R]"></a>
+      <a id="zipWith6[A1,A2,A3,A4,A5,A6,R](Task[A1],Task[A2],Task[A3],Task[A4],Task[A5],Task[A6])((A1,A2,A3,A4,A5,A6)⇒R):Task[R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.0-RC12) Renamed to Task.zipMap6">zipWith6</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="A6">A6</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A5">A5</span>]</span>, <span name="fa6">fa6: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.A6">A6</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.zipWith6.A1">A1</span>, <span class="extype" name="monix.eval.Task.zipWith6.A2">A2</span>, <span class="extype" name="monix.eval.Task.zipWith6.A3">A3</span>, <span class="extype" name="monix.eval.Task.zipWith6.A4">A4</span>, <span class="extype" name="monix.eval.Task.zipWith6.A5">A5</span>, <span class="extype" name="monix.eval.Task.zipWith6.A6">A6</span>) ⇒ <span class="extype" name="monix.eval.Task.zipWith6.R">R</span></span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipWith6.R">R</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#monix.eval.Task$@zipWith6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Task[A1],fa2:monix.eval.Task[A2],fa3:monix.eval.Task[A3],fa4:monix.eval.Task[A4],fa5:monix.eval.Task[A5],fa6:monix.eval.Task[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Task[R]" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.0-RC12)</i> Renamed to Task.zipMap6</p></dd></dl></div>
+    </li></ol>
+            </div>
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="monix.eval.TaskInstances">
+              <h3>Inherited from <span class="extype" name="monix.eval.TaskInstances">TaskInstances</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

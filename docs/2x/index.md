@@ -7,7 +7,7 @@ title: Monix Documentation
 
 - [API Documentation (ScalaDoc)]({{ site.api2x }})
 - Getting Started
-  - [Usage with SBT and Maven](./intro/usage.html)
+  - [Usage with SBT](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)
   - [Typelevel Cats Integration](./intro/cats.html)
   - [Scalaz 7.2 Integration](./intro/scalaz72.html)
