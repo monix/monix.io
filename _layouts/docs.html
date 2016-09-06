@@ -8,6 +8,7 @@ layout: default
     {% if page.type_api %}<a href="{{ site.api2x }}#{{ page.type_api }}">API Documentation</a>{% endif %}
     {% if page.type_source and page.type_api %} • {% endif %}
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/{{ page.type_source }}">Source</a>{% endif %}
+    {% if page.play_url %}<a href="{{ page.play_url }}" target="_blank">Try It in ScalaFiddle</a>{% endif %}
   </nav>
 
   <nav role="navigation" id="toc"></nav>
@@ -18,7 +19,9 @@ layout: default
     <a href="/docs/2x/">Contents</a> •
     <a href="{{ site.github.docs }}/edit/master/{{ page.path }}">
       Edit Page</a> •
+    {% if page.play_url %}<a href="{{ page.play_url }}" title="Powered by ScalaFiddle" target="_blank">
+      Try It</a> •{% endif %}
     <a href="https://gitter.im/monixio/monix">
-      Join Chat</a>
+      Join Chat</a> 
   </div>
 </div>

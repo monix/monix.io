@@ -25,6 +25,7 @@ title: Monix Documentation
   - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)
   - [Consumer](./reactive/consumer.html)
   - [Observers and Subscribers](./reactive/observers.html)
+  - [Javascript Event Listeners](./reactive/javascript.html)
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
