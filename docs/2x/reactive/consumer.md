@@ -42,7 +42,7 @@ import monix.reactive._
 
 // A consumer that folds over the elements of the stream,
 // producing a sum as a result
-val sumConsumer = Consumer.foldLeft[Long,Long](Coeval(0L))(_ + _)
+val sumConsumer = Consumer.foldLeft[Long,Long](0L)(_ + _)
 
 // For processing sums in parallel, useless of course, but can become 
 // really helpful for logic sprinkled with I/O bound stuff
