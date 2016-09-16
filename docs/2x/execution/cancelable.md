@@ -281,7 +281,7 @@ def delayedExecution(cb: () => Cancelable)
 
   // This should be the first update, but
   // if not, then it is ignored!
-  ref.orderedUpdate(cb(), 1)
+  ref.orderedUpdate(delay, 1)
   ref
 }
 ```
