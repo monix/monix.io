@@ -42,7 +42,10 @@ Renamed operators:
 - `Observable.whileBusyBuffer` no longer takes an `onOverflow` handler. The
   `onOverflow` handler is now a parameter of the `OverflowStrategy` (
     `DropNewAndSignal` and `DropOldAndSignal`)
-- `Observable.buffer` -> `Observable.bufferTimedAndCounted`    
+- `Observable.buffer` -> `Observable.bufferTimedAndCounted`
+- `Observable.asFuture` is to be done as `Observable.headL.runAsync`
+- `Observable.count` is to be done as `Observable.fromTask(Observable.countL)`
+- `Observable.fold` is to be done as `Observable.foldL`, now returning Task[T] not Future[Option[T]]
 
 The `Channel` type is now gone, replaced by:
 
