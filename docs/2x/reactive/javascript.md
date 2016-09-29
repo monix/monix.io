@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Javascript Event Listeners
-play_url: "https://scalafiddle.io/sf/0tkpBUS/9"
+play_url: "https://scalafiddle.io/sf/0tkpBUS/10"
 description: |
   How do you convert Javascript event listeners to Observable?
 ---
