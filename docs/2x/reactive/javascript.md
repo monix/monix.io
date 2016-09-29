@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Javascript Event Listeners
-play_url: "https://scalafiddle.io/sf/0tkpBUS/5"
+play_url: "https://scalafiddle.io/sf/0tkpBUS/9"
 description: |
   How do you convert Javascript event listeners to Observable?
 ---
@@ -20,10 +20,13 @@ import monix.reactive.OverflowStrategy.Unbounded
 
 def eventListener(target: EventTarget, event: String): Observable[Event] =
   Observable.create(Unbounded) { subscriber =>
-    // Forced conversion, otherwise canceling will not work
-    val f: js.Function1[Event,Ack] = subscriber.onNext _
+    val c = SingleAssignmentCancelable()
+    // Forced conversion, otherwise canceling will not work!
+    val f: js.Function1[Event,Ack] = (e: Event) =>
+      subscriber.onNext(e).syncOnStopOrFailure(c.cancel())
+    
     target.addEventListener(event, f)
-    Cancelable(() => target.removeEventListener(event, f))
+    c := Cancelable(() => target.removeEventListener(event, f))
   }
 ```
 
