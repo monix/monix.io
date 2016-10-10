@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>ExecutorScheduler - Monix 2.0.3 - monix.execution.schedulers.ExecutorScheduler</title>
-          <meta name="description" content="ExecutorScheduler - Monix 2.0.3 - monix.execution.schedulers.ExecutorScheduler" />
-          <meta name="keywords" content="ExecutorScheduler Monix 2.0.3 monix.execution.schedulers.ExecutorScheduler" />
+          <title>ExecutorScheduler - Monix 2.0.4 - monix.execution.schedulers.ExecutorScheduler</title>
+          <meta name="description" content="ExecutorScheduler - Monix 2.0.4 - monix.execution.schedulers.ExecutorScheduler" />
+          <meta name="keywords" content="ExecutorScheduler Monix 2.0.4 monix.execution.schedulers.ExecutorScheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -54,7 +54,7 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An <a href="" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a> is for building a
 <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> out of
 a <code>ScheduledExecutorService</code>.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/ExecutorScheduler.scala" target="_blank">ExecutorScheduler.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.4/monix-execution/jvm/src/main/scala/monix/execution/schedulers/ExecutorScheduler.scala" target="_blank">ExecutorScheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="LocalBatchingExecutor.html" class="extype" name="monix.execution.schedulers.LocalBatchingExecutor">LocalBatchingExecutor</a>, <span class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</span>, <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>, <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
@@ -540,23 +540,6 @@ standard output after 5 minutes:</p><pre><span class="kw">val</span> task = sche
 <span class="cmt">// later if you change your mind ...</span>
 task.cancel()</pre></div><dl class="paramcmts block"><dt class="param">initialDelay</dt><dd class="cmt"><p>is the time to wait until the execution happens</p></dd><dt class="param">unit</dt><dd class="cmt"><p>is the time unit used for <code>initialDelay</code></p></dd><dt class="param">r</dt><dd class="cmt"><p>is the callback to be executed</p></dd><dt>returns</dt><dd class="cmt"><p>a <code>Cancelable</code> that can be used to cancel the created task
         before execution.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
-    </li><li name="monix.execution.schedulers.ExecutorScheduler#scheduleOnce" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="scheduleOnce(initialDelay:scala.concurrent.duration.FiniteDuration,r:Runnable):monix.execution.Cancelable"></a>
-      <a id="scheduleOnce(FiniteDuration,Runnable):Cancelable"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">scheduleOnce</span><span class="params">(<span name="initialDelay">initialDelay: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.duration.FiniteDuration" class="extype" target="_top">FiniteDuration</a></span>, <span name="r">r: <span class="extype" name="java.lang.Runnable">Runnable</span></span>)</span><span class="result">: <a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../index.html#monix.execution.schedulers.ExecutorScheduler@scheduleOnce(initialDelay:scala.concurrent.duration.FiniteDuration,r:Runnable):monix.execution.Cancelable" title="Permalink" target="_top">
-        <img src="../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="monix.execution.schedulers.ExecutorScheduler#scheduleWithFixedDelay" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scheduleWithFixedDelay(initialDelay:Long,delay:Long,unit:concurrent.duration.TimeUnit,r:Runnable):monix.execution.Cancelable"></a>
       <a id="scheduleWithFixedDelay(Long,Long,TimeUnit,Runnable):Cancelable"></a>

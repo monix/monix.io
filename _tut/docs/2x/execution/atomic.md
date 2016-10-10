@@ -5,6 +5,12 @@ type_api: monix.execution.atomic.Atomic
 type_source: monix-execution/jvm/src/main/scala/monix/execution/atomic/Atomic.scala
 description: |
   References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better.
+
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix-execution:2.0.4
 ---
 
 Scala is awesome at handling concurrency and parallelism, providing
@@ -167,7 +173,7 @@ def pushElementAndGet[T <: AnyRef, U <: T](ref: AtomicReference[Queue[T]], elem:
 ```
 
 This is such a common pattern. Taking a page from the wonderful
-[ScalaSTM](https://nbronson.github.io/scala-stm/), 
+[ScalaSTM](https://nbronson.github.io/scala-stm/),
 with `Atomic` you can simply do this:
 
 ```scala

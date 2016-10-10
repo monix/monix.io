@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>AsyncScheduler - Monix 2.0.3 - monix.execution.schedulers.AsyncScheduler</title>
-          <meta name="description" content="AsyncScheduler - Monix 2.0.3 - monix.execution.schedulers.AsyncScheduler" />
-          <meta name="keywords" content="AsyncScheduler Monix 2.0.3 monix.execution.schedulers.AsyncScheduler" />
+          <title>AsyncScheduler - Monix 2.0.4 - monix.execution.schedulers.AsyncScheduler</title>
+          <meta name="description" content="AsyncScheduler - Monix 2.0.4 - monix.execution.schedulers.AsyncScheduler" />
+          <meta name="keywords" content="AsyncScheduler Monix 2.0.4 monix.execution.schedulers.AsyncScheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -54,7 +54,7 @@
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>An <code>AsyncScheduler</code> schedules tasks to happen in the future with the
 given <code>ScheduledExecutorService</code> and the tasks themselves are executed on
 the given <code>ExecutionContext</code>.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/AsyncScheduler.scala" target="_blank">AsyncScheduler.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.4/monix-execution/jvm/src/main/scala/monix/execution/schedulers/AsyncScheduler.scala" target="_blank">AsyncScheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a href="LocalBatchingExecutor.html" class="extype" name="monix.execution.schedulers.LocalBatchingExecutor">LocalBatchingExecutor</a>, <span class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</span>, <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>, <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
@@ -467,7 +467,7 @@ asynchronously.
       </a>
     </span>
       <p class="shortcomment cmt">Reports that an asynchronous computation failed.</p><div class="fullcomment"><div class="comment cmt"><p>Reports that an asynchronous computation failed.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.AsyncScheduler">AsyncScheduler</a> → ReferenceScheduler → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> → <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> → ExecutionContext</dd></dl></div>
-    </li><li name="monix.execution.schedulers.AsyncScheduler#scheduleAtFixedRate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="monix.execution.schedulers.ReferenceScheduler#scheduleAtFixedRate" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scheduleAtFixedRate(initialDelay:Long,period:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable"></a>
       <a id="scheduleAtFixedRate(Long,Long,TimeUnit,Runnable):Cancelable"></a>
       <h4 class="signature">
@@ -498,7 +498,7 @@ output approximately every 10 seconds with an initial delay of 5 seconds:</p><pr
 
 <span class="cmt">// later if you change your mind ...</span>
 task.cancel()</pre></div><dl class="paramcmts block"><dt class="param">initialDelay</dt><dd class="cmt"><p>is the time to wait until the first execution happens</p></dd><dt class="param">period</dt><dd class="cmt"><p>is the time to wait between 2 successive executions of the task</p></dd><dt class="param">unit</dt><dd class="cmt"><p>is the time unit used for the <code>initialDelay</code> and the <code>period</code> parameters</p></dd><dt class="param">r</dt><dd class="cmt"><p>is the callback to be executed</p></dd><dt>returns</dt><dd class="cmt"><p>a cancelable that can be used to cancel the execution of
-        this repeated task at any time.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.AsyncScheduler">AsyncScheduler</a> → ReferenceScheduler → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
+        this repeated task at any time.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd>ReferenceScheduler → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
     </li><li name="monix.execution.schedulers.AsyncScheduler#scheduleOnce" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scheduleOnce(initialDelay:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable"></a>
       <a id="scheduleOnce(Long,TimeUnit,Runnable):Cancelable"></a>
@@ -523,7 +523,7 @@ standard output after 5 minutes:</p><pre><span class="kw">val</span> task = sche
 <span class="cmt">// later if you change your mind ...</span>
 task.cancel()</pre></div><dl class="paramcmts block"><dt class="param">initialDelay</dt><dd class="cmt"><p>is the time to wait until the execution happens</p></dd><dt class="param">unit</dt><dd class="cmt"><p>is the time unit used for <code>initialDelay</code></p></dd><dt class="param">r</dt><dd class="cmt"><p>is the callback to be executed</p></dd><dt>returns</dt><dd class="cmt"><p>a <code>Cancelable</code> that can be used to cancel the created task
         before execution.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.AsyncScheduler">AsyncScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
-    </li><li name="monix.execution.schedulers.AsyncScheduler#scheduleWithFixedDelay" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+    </li><li name="monix.execution.schedulers.ReferenceScheduler#scheduleWithFixedDelay" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scheduleWithFixedDelay(initialDelay:Long,delay:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable"></a>
       <a id="scheduleWithFixedDelay(Long,Long,TimeUnit,Runnable):Cancelable"></a>
       <h4 class="signature">
@@ -553,7 +553,7 @@ seconds:</p><pre><span class="kw">val</span> task = s.scheduleWithFixedDelay(<sp
 
 <span class="cmt">// later if you change your mind ...</span>
 task.cancel()</pre></div><dl class="paramcmts block"><dt class="param">initialDelay</dt><dd class="cmt"><p>is the time to wait until the first execution happens</p></dd><dt class="param">delay</dt><dd class="cmt"><p>is the time to wait between 2 successive executions of the task</p></dd><dt class="param">unit</dt><dd class="cmt"><p>is the time unit used for the <code>initialDelay</code> and the <code>delay</code> parameters</p></dd><dt class="param">r</dt><dd class="cmt"><p>is the callback to be executed</p></dd><dt>returns</dt><dd class="cmt"><p>a cancelable that can be used to cancel the execution of
-        this repeated task at any time.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.AsyncScheduler">AsyncScheduler</a> → ReferenceScheduler → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
+        this repeated task at any time.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd>ReferenceScheduler → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
