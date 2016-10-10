@@ -14,10 +14,12 @@ libraryDependencies ++= Seq(
   "org.yaml" % "snakeyaml" % "1.17"
 )
 
+lazy val configFile = SettingKey[File]("configFile")
 lazy val tutInput = SettingKey[File]("tutInput")
 lazy val tutOutput = SettingKey[File]("tutOutput")
 lazy val tutVersion = SettingKey[String]("tutVersion")
 
+configFile := (baseDirectory in ThisBuild).value / "_config.yml"
 tutInput := (baseDirectory in ThisBuild).value / "_tut"
 tutOutput := (baseDirectory in ThisBuild).value
 tutVersion := "0.4.4"
@@ -26,6 +28,6 @@ watchSources ++= (tutInput.value ** "*.md").get
 
 enablePlugins(BuildInfoPlugin)
 
-buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion)
+buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion, configFile)
 
 buildInfoPackage := "io.monix.website"

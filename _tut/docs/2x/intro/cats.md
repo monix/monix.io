@@ -5,11 +5,18 @@ type_api: monix.cats.package
 type_source: monix-cats/shared/src/main/scala/monix/cats/
 description: |
   Integration and usage of the type-classes described in the Typelevel Cats library.
+  
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix:version2x
+    - io.monix::monix-cats:version2x
 ---
 
-Monix provides integration with
-[Typelevel's Cats](http://typelevel.org/cats/) library, implementing
-useful type-classes for the data types exposed.
+Monix provides integration
+with [Typelevel's Cats](http://typelevel.org/cats/) library,
+implementing useful type-classes for the data types exposed.
 
 ## Adding the Optional Dependency
 
@@ -39,17 +46,16 @@ For more details, see
 
 You just need to import the defined implicits:
 
-```scala
+```tut:silent
 import monix.cats._
 ```
 
 This will bring Monix's type-class instances in scope.
+And now we can verify that `Task` is indeed a `cats.Monad`:
 
-```scala
+```tut
 import cats.Monad
 import monix.eval.Task
 
 implicitly[Monad[Task]]
-//=> res1: cats.Monad[monix.eval.Task] = 
-//     monix.cats.EvaluableInstances$ConvertMonixEvaluableToCats@49a2bc10
 ```

@@ -5,6 +5,13 @@ type_api: monix.scalaz.package
 type_source: monix-scalaz/series-7.2/shared/src/main/scala/monix/scalaz
 description: |
   Integration and usage of the type-classes described in the Scalaz library, version 7.2.
+  
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix:version2x
+    - io.monix::monix-scalaz-72:version2x
 ---
 
 Monix provides integration with [Scalaz](http://scalaz.org/) library,
@@ -38,17 +45,16 @@ For more details, see
 
 You just need to import the defined implicits:
 
-```scala
+```tut:silent
 import monix.scalaz._
 ```
 
 This will bring Monix's type-class instances in scope.
+And now we can verify that `Task` is indeed a `scalaz.Monad`:
 
-```scala
+```tut
 import scalaz.Monad
 import monix.eval.Task
 
 implicitly[Monad[Task]]
-//=> res1: scalaz.Monad[monix.eval.Task] = 
-//     monix.scalaz.EvaluableInstances$ConvertMonixEvaluableToScalaz@49a2bc10
 ```

@@ -2,6 +2,12 @@
 layout: docs
 title: Hello World!
 description: "Go reactive (✿◠‿◠)"
+
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix-reactive:version2x
 ---
 
 Let's do instant gratification stuff.
@@ -9,12 +15,13 @@ Let's do instant gratification stuff.
 First, we need a [Scheduler]({{ site.api2x }}#monix.execution.Scheduler)
 whenever asynchronous execution happens.
 
-```scala
+```tut:silent
 // We need a scheduler whenever asynchronous
 // execution happens, substituting your ExecutionContext
 import monix.execution.Scheduler.Implicits.global
 
 // Needed below
+import scala.concurrent.Await
 import scala.concurrent.duration._
 ```
 
@@ -25,7 +32,7 @@ For using [Task]({{ site.api2x }}#monix.eval.Task) or
 fairly similar with Scala's own `Future`, except that
 `Task` behaves lazily:
 
-```scala
+```tut:silent
 import monix.eval._
 
 // A specification for evaluating a sum,
@@ -37,15 +44,17 @@ val task = Task { 1 + 1 }
 so nothing gets evaluated yet. We can convert it into
 a `Future` and evaluate it:
 
-```scala
+```tut:book
 // Actual execution, making use of the Scheduler in
 // our scope, imported above
 val future = task.runAsync
-// future: monix.execution.CancelableFuture[Int]
+```
 
-// This is an evaluating Future, so we can use its result
-future.foreach(x => println(s"Result: $x"))
-// Result: 2
+We now have a standard `Future`, so we can use its result:
+
+```tut:book
+// Avoid blocking; this is done for demostrative purposes
+Await.result(future, 5.seconds)
 ```
 
 ## Observable, the Lazy & Async Iterable
@@ -53,22 +62,29 @@ future.foreach(x => println(s"Result: $x"))
 We already have the `Scheduler` in our local scope,
 so lets make a tick that gets triggered every second.
 
-```scala
+```tut:silent
 import monix.reactive._
 
 // Nothing happens here, as observable is lazily
 // evaluated only when the subscription happens!
-val tick = Observable.interval(1.second)
-  // common filtering and mapping
-  .filter(_ % 2 == 0)
-  .map(_ * 2)
-  // any respectable Scala type has flatMap, w00t!
-  .flatMap(x => Observable.fromIterable(Seq(x,x)))
-  // only take the first 5 elements, then stop
-  .take(5)
-  // to print the generated events to console
-  .dump("Out")
+val tick = {
+  Observable.interval(1.second)
+    // common filtering and mapping
+    .filter(_ % 2 == 0)
+    .map(_ * 2)
+    // any respectable Scala type has flatMap, w00t!
+    .flatMap(x => Observable.fromIterable(Seq(x,x)))
+    // only take the first 5 elements, then stop
+    .take(5)
+    // to print the generated events to console
+    .dump("Out")
+}
+```
 
+Our observable is at this point just a specification. We can evaluate
+it by subscribing to it:
+
+```scala
 // Execution happens here, after subscribe
 val cancelable = tick.subscribe()
 // 0: Out-->0
@@ -77,6 +93,9 @@ val cancelable = tick.subscribe()
 // 3: Out-->4
 // 4: Out-->8
 // 5: Out completed
+
+// Or maybe we change our mind
+cancelable.cancel()
 ```
 
 Isn't this awesome? (✿ ♥‿♥)

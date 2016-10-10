@@ -1,13 +1,14 @@
 package io.monix.website
 
 import coursier._
+import coursier.util.Parse
 import java.io.{File, FileInputStream}
+import java.net.URLClassLoader
 import java.nio.file.Files
 import org.yaml.snakeyaml.Yaml
 import scala.util.Try
 
-case class Post(file: File) {
-
+case class Post(file: File, config: ConfigFile) {
   lazy val frontMatter: Option[FrontMatter] = Try {
     val yaml = new Yaml()
     val stream = new FileInputStream(file)
@@ -30,14 +31,14 @@ case class Post(file: File) {
   def outdated(): Boolean =
     !(out.exists() && out.isFile() && file.lastModified() <= out.lastModified())
 
-  def process(): Unit =
+  def process(): Unit = 
     if (outdated()) {
       println(s"[blog] Processing ${file.getName} ...")
       BuildInfo.tutOutput.mkdirs()
 
       frontMatter match {
         case Some(FrontMatter(tut)) =>
-          tut.invoke(file, outDir)
+          invoke(tut, file, outDir)
         case None =>
           println("[blog] No tut header, copying.")
           Files.copy(file.toPath, out.toPath)
@@ -47,4 +48,41 @@ case class Post(file: File) {
       println(s"[blog] Skipping ${file.getName} (up to date).")
     }
 
+  def tutResolution(tut: Tut): Resolution = 
+    Resolution(Set(
+      Dependency(Module("org.tpolecat", s"tut-core_${tut.binaryScala}"), BuildInfo.tutVersion)
+    ))
+
+  def parsedDependencies(tut: Tut): List[String] =
+    tut.dependencies.map { uri =>
+      uri.replaceAll("version1x", config.version1x)
+         .replaceAll("version2x", config.version2x)
+    }
+
+
+  def libResolution(tut: Tut): Resolution =
+    Resolution(parsedDependencies(tut).map { dep =>
+      val (mod, v) = Parse.moduleVersion(dep, tut.binaryScala).right.get
+      Dependency(mod, v)
+    }.toSet)
+
+  def invoke(tut: Tut, file: File, outputDir: File): Unit = {
+    import tut._
+    val tutClasspath = resolve(tutResolution(tut)).get
+    val libClasspath = resolve(libResolution(tut)).get
+
+    val classLoader = new URLClassLoader(tutClasspath.map(_.toURI.toURL).toArray, null)
+    val tutClass = classLoader.loadClass("tut.TutMain")
+    val tutMain = tutClass.getDeclaredMethod("main", classOf[Array[String]])
+
+    val commandLine = Array(
+      file.toString,
+      outputDir.toString,
+      ".*",
+      "-classpath",
+      libClasspath.mkString(File.pathSeparator)
+    )
+
+    tutMain.invoke(null, commandLine)
+  }  
 }
