@@ -1,9 +1,9 @@
 <!DOCTYPE html >
 <html>
         <head>
-          <title>CancelableFuture - Monix 2.0.4 - monix.execution.CancelableFuture</title>
-          <meta name="description" content="CancelableFuture - Monix 2.0.4 - monix.execution.CancelableFuture" />
-          <meta name="keywords" content="CancelableFuture Monix 2.0.4 monix.execution.CancelableFuture" />
+          <title>CancelableFuture - Monix 2.0.5 - monix.execution.CancelableFuture</title>
+          <meta name="description" content="CancelableFuture - Monix 2.0.5 - monix.execution.CancelableFuture" />
+          <meta name="keywords" content="CancelableFuture Monix 2.0.5 monix.execution.CancelableFuture" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
@@ -47,15 +47,15 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">CancelableFuture</span><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>] with <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+        <span class="name">CancelableFuture</span><span class="tparams">[<span name="T">+T</span>]</span><span class="result"> extends <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>] with <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
       </span>
       </h4>
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Represents an asynchronous computation that can be canceled
 as long as it isn't complete.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.4/monix-execution/shared/src/main/scala/monix/execution/CancelableFuture.scala" target="_blank">CancelableFuture.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monixio/monix/tree/v2.0.5/monix-execution/shared/src/main/scala/monix/execution/CancelableFuture.scala" target="_blank">CancelableFuture.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Awaitable" class="extype" target="_top">Awaitable</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>, <span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <span class="extype" name="scala.concurrent.Awaitable">Awaitable</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -105,7 +105,7 @@ as long as it isn't complete.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">cancel</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">cancel</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@cancel():Unit" title="Permalink" target="_top">
@@ -125,7 +125,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isCompleted</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isCompleted</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@isCompleted:Boolean" title="Permalink" target="_top">
@@ -142,7 +142,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onComplete</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <span class="extype" name="scala.concurrent.Future.onComplete.U">U</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">onComplete</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <span class="extype" name="scala.concurrent.Future.onComplete.U">U</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@onComplete[U](f:scala.util.Try[T]=&gt;U)(implicitexecutor:scala.concurrent.ExecutionContext):Unit" title="Permalink" target="_top">
@@ -159,7 +159,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ready</span><span class="params">(<span name="atMost">atMost: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="permit">permit: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.CanAwait" class="extype" target="_top">CanAwait</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>.this.type</span>
+        <span class="name">ready</span><span class="params">(<span name="atMost">atMost: <span class="extype" name="scala.concurrent.duration.Duration">Duration</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="permit">permit: <span class="extype" name="scala.concurrent.CanAwait">CanAwait</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>.this.type</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@ready(atMost:scala.concurrent.duration.Duration)(implicitpermit:scala.concurrent.CanAwait):Awaitable.this.type" title="Permalink" target="_top">
@@ -187,7 +187,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">result</span><span class="params">(<span name="atMost">atMost: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.duration.Duration" class="extype" target="_top">Duration</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="permit">permit: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.CanAwait" class="extype" target="_top">CanAwait</a></span>)</span><span class="result">: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>
+        <span class="name">result</span><span class="params">(<span name="atMost">atMost: <span class="extype" name="scala.concurrent.duration.Duration">Duration</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="permit">permit: <span class="extype" name="scala.concurrent.CanAwait">CanAwait</span></span>)</span><span class="result">: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@result(atMost:scala.concurrent.duration.Duration)(implicitpermit:scala.concurrent.CanAwait):T" title="Permalink" target="_top">
@@ -210,7 +210,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">value</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Option" class="extype" target="_top">Option</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]]</span>
+        <span class="name">value</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@value:Option[scala.util.Try[T]]" title="Permalink" target="_top">
@@ -232,7 +232,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@!=(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -249,7 +249,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@##():Int" title="Permalink" target="_top">
@@ -266,7 +266,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@==(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -283,7 +283,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">andThen</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <span class="extype" name="monix.execution.CancelableFuture.andThen.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
+        <span class="name">andThen</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>], <span class="extype" name="monix.execution.CancelableFuture.andThen.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@andThen[U](pf:PartialFunction[scala.util.Try[T],U])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[T]" title="Permalink" target="_top">
@@ -317,7 +317,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@clone():Object" title="Permalink" target="_top">
@@ -340,7 +340,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">collect</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="monix.execution.CancelableFuture.collect.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.collect.S">S</span>]</span>
+        <span class="name">collect</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="monix.execution.CancelableFuture.collect.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.collect.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@collect[S](pf:PartialFunction[T,S])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -357,7 +357,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@eq(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -374,7 +374,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Any">Any</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@equals(x$1:Any):Boolean" title="Permalink" target="_top">
@@ -408,7 +408,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fallbackTo</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="that">that: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.fallbackTo.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.fallbackTo.U">U</span>]</span>
+        <span class="name">fallbackTo</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="that">that: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.fallbackTo.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.fallbackTo.U">U</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@fallbackTo[U&gt;:T](that:scala.concurrent.Future[U]):monix.execution.CancelableFuture[U]" title="Permalink" target="_top">
@@ -425,7 +425,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
+        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@filter(p:T=&gt;Boolean)(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[T]" title="Permalink" target="_top">
@@ -442,7 +442,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@finalize():Unit" title="Permalink" target="_top">
@@ -465,7 +465,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">flatMap</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.flatMap.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.flatMap.S">S</span>]</span>
+        <span class="name">flatMap</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.flatMap.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.flatMap.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@flatMap[S](f:T=&gt;scala.concurrent.Future[S])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -482,7 +482,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="scala.concurrent.Future.foreach.U">U</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">foreach</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="scala.concurrent.Future.foreach.U">U</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@foreach[U](f:T=&gt;U)(implicitexecutor:scala.concurrent.ExecutionContext):Unit" title="Permalink" target="_top">
@@ -516,7 +516,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@hashCode():Int" title="Permalink" target="_top">
@@ -533,7 +533,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@isInstanceOf[T0]:Boolean" title="Permalink" target="_top">
@@ -550,7 +550,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">map</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="monix.execution.CancelableFuture.map.S">S</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.map.S">S</span>]</span>
+        <span class="name">map</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="monix.execution.CancelableFuture.map.S">S</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.map.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@map[S](f:T=&gt;S)(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -567,7 +567,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">mapTo</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.reflect.ClassTag" class="extype" target="_top">ClassTag</a>[<span class="extype" name="monix.execution.CancelableFuture.mapTo.S">S</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.mapTo.S">S</span>]</span>
+        <span class="name">mapTo</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="tag">tag: <span class="extype" name="scala.reflect.ClassTag">ClassTag</span>[<span class="extype" name="monix.execution.CancelableFuture.mapTo.S">S</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.mapTo.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@mapTo[S](implicittag:scala.reflect.ClassTag[S]):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -584,7 +584,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.AnyRef">AnyRef</span></span>)</span><span class="result">: <span class="extype" name="scala.Boolean">Boolean</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@ne(x$1:AnyRef):Boolean" title="Permalink" target="_top">
@@ -601,7 +601,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@notify():Unit" title="Permalink" target="_top">
@@ -618,7 +618,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@notifyAll():Unit" title="Permalink" target="_top">
@@ -635,7 +635,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onFailure</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.concurrent.Future.onFailure.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">onFailure</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.concurrent.Future.onFailure.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@onFailure[U](pf:PartialFunction[Throwable,U])(implicitexecutor:scala.concurrent.ExecutionContext):Unit" title="Permalink" target="_top">
@@ -652,7 +652,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onSuccess</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="scala.concurrent.Future.onSuccess.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">onSuccess</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="scala.concurrent.Future.onSuccess.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@onSuccess[U](pf:PartialFunction[T,U])(implicitexecutor:scala.concurrent.ExecutionContext):Unit" title="Permalink" target="_top">
@@ -669,7 +669,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">recover</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.execution.CancelableFuture.recover.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.recover.U">U</span>]</span>
+        <span class="name">recover</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.execution.CancelableFuture.recover.U">U</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.recover.U">U</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@recover[U&gt;:T](pf:PartialFunction[Throwable,U])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[U]" title="Permalink" target="_top">
@@ -686,7 +686,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">recoverWith</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.PartialFunction" class="extype" target="_top">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.recoverWith.U">U</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.recoverWith.U">U</span>]</span>
+        <span class="name">recoverWith</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.execution.CancelableFuture.T">T</span></span>]</span><span class="params">(<span name="pf">pf: <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.recoverWith.U">U</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.recoverWith.U">U</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@recoverWith[U&gt;:T](pf:PartialFunction[Throwable,scala.concurrent.Future[U]])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[U]" title="Permalink" target="_top">
@@ -737,7 +737,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">transform</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>
+        <span class="name">transform</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@transform[S](f:scala.util.Try[T]=&gt;scala.util.Try[S])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -754,7 +754,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">transform</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span></span>, <span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>
+        <span class="name">transform</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="s">s: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span></span>, <span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transform.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@transform[S](s:T=&gt;S,f:Throwable=&gt;Throwable)(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -771,7 +771,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">transformWith</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.transformWith.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transformWith.S">S</span>]</span>
+        <span class="name">transformWith</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]) ⇒ <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.transformWith.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.CancelableFuture.transformWith.S">S</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@transformWith[S](f:scala.util.Try[T]=&gt;scala.concurrent.Future[S])(implicitexecutor:scala.concurrent.ExecutionContext):monix.execution.CancelableFuture[S]" title="Permalink" target="_top">
@@ -788,7 +788,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@wait():Unit" title="Permalink" target="_top">
@@ -811,7 +811,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Int" class="extype" target="_top">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>, <span name="arg1">arg1: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@wait(x$1:Long,x$2:Int):Unit" title="Permalink" target="_top">
@@ -834,7 +834,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Long" class="extype" target="_top">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result">: <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@wait(x$1:Long):Unit" title="Permalink" target="_top">
@@ -857,7 +857,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">withFilter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Boolean" class="extype" target="_top">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
+        <span class="name">withFilter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.execution.CancelableFuture.T">T</span>) ⇒ <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="executor">executor: <span class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</span></span>)</span><span class="result">: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@withFilter(p:T=&gt;Boolean)(implicitexecutor:scala.concurrent.ExecutionContext):scala.concurrent.Future[T]" title="Permalink" target="_top">
@@ -874,7 +874,7 @@ of this method should also be thread-safe.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">zip</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="that">that: <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.zip.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[(<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="monix.execution.CancelableFuture.zip.U">U</span>)]</span>
+        <span class="name">zip</span><span class="tparams">[<span name="U">U</span>]</span><span class="params">(<span name="that">that: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.zip.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[(<span class="extype" name="monix.execution.CancelableFuture.T">T</span>, <span class="extype" name="monix.execution.CancelableFuture.zip.U">U</span>)]</span>
       </span>
       </h4><span class="permalink">
       <a href="../../index.html#monix.execution.CancelableFuture@zip[U](that:scala.concurrent.Future[U]):monix.execution.CancelableFuture[(T,U)]" title="Permalink" target="_top">
@@ -894,17 +894,17 @@ of this method should also be thread-safe.
         <div class="parent" name="monix.execution.Cancelable">
               <h3>Inherited from <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></h3>
             </div><div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.concurrent.Future">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Future" class="extype" target="_top">Future</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</h3>
+              <h3>Inherited from <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</h3>
             </div><div class="parent" name="scala.concurrent.Awaitable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.concurrent.Awaitable" class="extype" target="_top">Awaitable</a>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</h3>
+              <h3>Inherited from <span class="extype" name="scala.concurrent.Awaitable">Awaitable</span>[<span class="extype" name="monix.execution.CancelableFuture.T">T</span>]</h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.11.8/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
             </div>
         
         </div>
