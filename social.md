@@ -3,7 +3,7 @@ layout: page
 title: Follow @Monix
 ---
 
-For news &amp; updates:
+For news &amp; updates follow:
 
 - [Atom/RSS](/blog/atom.xml)
 - [Twitter (@Monix)](https://twitter.com/monix){:target=>"blank"}
@@ -11,5 +11,3 @@ For news &amp; updates:
 - [Google+](https://plus.google.com/103851020538750345433){:target=>"blank"}
 
 Enjoy!
-
-

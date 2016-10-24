@@ -5,7 +5,7 @@ title: Monix
 
 Asynchronous Programming for Scala and [Scala.js](http://www.scala-js.org/).
 
-[![Gitter]({{ site.baseurl }}public/images/gitter.svg)](https://gitter.im/monixio/monix)
+[![Gitter]({{ site.baseurl }}public/images/gitter.svg)]({{ site.github.chat }})
 
 ## Overview
 
