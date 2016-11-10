@@ -5,6 +5,12 @@ type_api: monix.execution.Cancelable
 type_source: monix-execution/shared/src/main/scala/monix/execution/Cancelable.scala
 description: |
   A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding.
+  
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix-execution:version2x
 ---
 
 A one-time idempotent action that can be used to cancel async
@@ -32,7 +38,7 @@ The contract for well-behaved `Cancelable` instances:
 
 In order to quickly build `Cancelable` instances:
 
-```scala
+```tut:reset:silent
 import monix.execution.Cancelable
 
 // A cancelable that doesn't do anything on cancel
@@ -65,7 +71,7 @@ trait BooleanCancelable extends Cancelable {
 To have a reusable (immutable) `BooleanCancelable` instance that's
 already canceled:
 
-```scala
+```tut:reset:silent
 import monix.execution.cancelables._
 
 // Building an instance that's already canceled
@@ -82,22 +88,20 @@ To build an instance without a callback, but that can be
 used to check for `isCanceled`:
 
 
-```scala
+```tut:book
 val c = BooleanCancelable()
 
 c.isCanceled
-// res: Boolean = false
 
 c.cancel()
 
 c.isCanceled
-// res: Boolean = true
 ```
 
 To build an instance out of a callback that behaves like
 you'd expect it to:
 
-```scala
+```tut:silent
 val c = BooleanCancelable(() => println("Effect!"))
 ```
 
@@ -120,7 +124,7 @@ The contract for `CompositeCancelable`:
 
 Usage:
 
-```scala
+```tut:silent
 import monix.execution.Cancelable
 
 val c = CompositeCancelable()
@@ -142,7 +146,7 @@ We can add cancelables references to our composite, but
 we can also remove them, maybe because they are no longer 
 relevant, for GC purposes, etc:
 
-```scala
+```tut:silent
 val composite = CompositeCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
@@ -179,7 +183,7 @@ Contract:
   
 Usage:
 
-```scala
+```tut:silent
 val multiAssignment = MultiAssignmentCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
@@ -205,7 +209,7 @@ in case the update was made with an `order` that's strictly bigger
 than the current one you're trying to make, then the assignment gets
 ignored, so:
 
-```scala
+```tut:silent
 // Let's simulate a race condition
 import monix.execution.Scheduler.{global => scheduler}
 
@@ -239,7 +243,7 @@ add a delay, we'd use a `Scheduler` and we want to return
 a `Cancelable` that can cancel either the delay or the result
 of our passed function argument, like:
 
-```scala
+```tut:silent
 // INCORRECT EXAMPLE
 import concurrent.duration._
 import monix.execution._
@@ -267,7 +271,7 @@ Which means the cancelable returned by our function will be incorrect.
 
 Lets fix it:
 
-```scala
+```tut:silent
 import concurrent.duration._
 import monix.execution._
 
@@ -307,7 +311,7 @@ The contract:
 
 It is useful in cases you need a forward reference, like:
 
-```scala
+```tut:silent
 val ref = SingleAssignmentCancelable()
 
 ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
@@ -347,7 +351,7 @@ Contract:
   
 Usage:
 
-```scala
+```tut:silent
 val ref = SerialCancelable()
 
 ref := Cancelable(() => println("Canceled #1"))
@@ -389,8 +393,8 @@ Contract:
 
 Sample:
 
-```scala
-val refs = RefCountCancelable { 
+```tut:silent
+val refs = RefCountCancelable { () =>
   println("Everything was canceled") 
 }
 

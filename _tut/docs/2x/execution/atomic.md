@@ -10,7 +10,7 @@ tut:
   scala: 2.11.8
   binaryScala: "2.11"
   dependencies:
-    - io.monix::monix-execution:2.0.4
+    - io.monix::monix-execution:version2x
 ---
 
 Scala is awesome at handling concurrency and parallelism, providing
@@ -40,7 +40,7 @@ and use it safely, plus you've got the whole boxing/unboxing overhead.
 One problem is that all of these classes do not share a common
 interface and there's no reason for why they shouldn't.
 
-```scala
+```tut:silent
 import monix.execution.atomic._
 
 val refInt1: Atomic[Int] = Atomic(0)
@@ -66,52 +66,43 @@ In Scala, thanks to the
 [Numeric[T]](http://www.scala-lang.org/api/current/index.html#scala.math.Numeric)
 type-class, we can do this:
 
-```scala
+```tut:book
 val ref = Atomic(BigInt(1))
-// ref: monix.execution.atomic.AtomicNumberAny[scala.math.BigInt] = monix.execution.atomic.AtomicNumberAny@248a1241
 
 // now we can increment a BigInt
 ref.incrementAndGet()
-// res4: scala.math.BigInt = 2
 
 // or adding to it another value
 ref.addAndGet(BigInt("329084291234234"))
-// res6: scala.math.BigInt = 329084291234236
 ```
 
 But then if we have a type that isn't a number:
 
-```scala
+```tut:silent
 val string = Atomic("hello")
 ```
 
 Trying to apply numeric operations will of course fail:
 
-```scala
+```tut:fail
 string.incrementAndGet()
-<console>:16: error: value incrementAndGet is not a member of monix.execution.atomic.AtomicAny[String]
-       string.incrementAndGet()
-              ^
 ```
 
 ### Support for Other Primitives (Float, Double, Short, Char, Byte)
 
 Here's a common gotcha with Java's `AtomicReference<V>`. Suppose
-we've got this atomic:
+we've got this Java atomic:
 
-```scala
+```tut:silent
 import java.util.concurrent.atomic.AtomicReference
-// import java.util.concurrent.atomic.AtomicReference
 
 val ref = new AtomicReference(0.0)
-// ref: java.util.concurrent.atomic.AtomicReference[Double] = 0.0
 ```
 
 The unexpected happens on `compareAndSet`:
 
-```scala
+```tut:book
 val isSuccess = ref.compareAndSet(0.0, 100.0)
-// isSuccess: Boolean = false
 ```
 
 Calling `compareAndSet` fails because when using `AtomicReference<V>`
@@ -129,24 +120,18 @@ stored inside an `AtomicLong` by using Java's
 with special care to handle overflows correctly. All this is done to avoid boxing
 for performance reasons.
 
-```scala
+```tut:book
 val ref = Atomic(0.0)
-// ref: monix.execution.atomic.AtomicDouble = monix.execution.atomic.AtomicDouble@38b899fb
 
 ref.compareAndSet(0.0, 100.0)
-// res9: Boolean = true
 
 ref.incrementAndGet()
-// res10: Double = 101.0
 
 val ref = Atomic('a')
-// ref: monix.execution.atomic.AtomicChar = monix.execution.atomic.AtomicChar@57e4b34
 
 ref.incrementAndGet()
-// res11: Char = b
 
 ref.incrementAndGet()
-// res12: Char = c
 ```
 
 ### Common Pattern: Loops for Transforming the Value
@@ -155,11 +140,13 @@ ref.incrementAndGet()
 general pattern. To push items in a queue for example, one would
 normally do something like this in Java:
 
-```scala
+```tut:silent
 import collection.immutable.Queue
 import java.util.concurrent.atomic.AtomicReference
 
-def pushElementAndGet[T <: AnyRef, U <: T](ref: AtomicReference[Queue[T]], elem: U): Queue[T] = {
+def pushElementAndGet[T <: AnyRef, U <: T]
+  (ref: AtomicReference[Queue[T]], elem: U): Queue[T] = {
+  
   var continue = true
   var update = null
 
@@ -168,6 +155,7 @@ def pushElementAndGet[T <: AnyRef, U <: T](ref: AtomicReference[Queue[T]], elem:
     var update = current.enqueue(elem)
     continue = !ref.compareAndSet(current, update)
   }
+  
   update
 }
 ```
@@ -176,28 +164,23 @@ This is such a common pattern. Taking a page from the wonderful
 [ScalaSTM](https://nbronson.github.io/scala-stm/),
 with `Atomic` you can simply do this:
 
-```scala
+```tut:book
 val ref = Atomic(Queue.empty[String])
-// ref: monix.execution.atomic.AtomicAny[scala.collection.immutable.Queue[String]] = monix.execution.atomic.AtomicAny@3471144a
 
 // Transforms the value and returns the update
 ref.transformAndGet(_.enqueue("hello"))
-// res15: scala.collection.immutable.Queue[String] = Queue(hello)
 
 // Transforms the value and returns the current one
 ref.getAndTransform(_.enqueue("world"))
-// res17: scala.collection.immutable.Queue[String] = Queue(hello)
 
 // We can be specific about what we want extracted as a result
 ref.transformAndExtract { current =>
   val (result, update) = current.dequeue
   (result, update)
 }
-// res19: String = hello
 
 // Or the shortcut, because it looks so good
 ref.transformAndExtract(_.dequeue)
-// res21: String = world
 ```
 
 Voilà, you now have a concurrent, thread-safe and non-blocking
@@ -228,18 +211,14 @@ Working with a common `Atomic[T]` interface implies boxing/unboxing of
 primitives. This is why the constructor for atomic references always
 returns the most specialized version, as to avoid boxing and unboxing:
 
-```scala
+```tut:book
 val ref = Atomic(1)
-// ref: monix.execution.atomic.AtomicInt = AtomicInt(1)
 
 val ref = Atomic(1L)
-// ref: monix.execution.atomic.AtomicLong = AtomicLong(1)
 
 val ref = Atomic(true)
-// ref: monix.execution.atomic.AtomicBoolean = AtomicBoolean(true)
 
 val ref = Atomic("")
-// ref: monix.execution.atomic.AtomicAny[String] = monix.execution.atomic.AtomicAny@2c91fd2c
 ```
 
 Increments/decrements are done by going through the
@@ -259,14 +238,15 @@ classes are provided. For reference on what that means, see:
 To use the cache-padded versions, you need to override the default
 `PaddingStrategy`:
 
-```scala
+```tut:silent
 import monix.execution.atomic.PaddingStrategy.{Left64, LeftRight256}
 
-// Applies padding to the left of the value for a cache line of 64 bytes
+// Applies padding to the left of the value for a cache line 
+// of 64 bytes
 val ref1 = Atomic.withPadding(1, Left64)
 
-// Applies padding both to the left and the right of the value for
-// a total object size of at least 256 bytes
+// Applies padding both to the left and the right of the value 
+// for a total object size of at least 256 bytes
 val ref2 = Atomic.withPadding(1, LeftRight256)
 ```
 
@@ -281,3 +261,41 @@ The strategies available are:
 - `LeftRight256`: applies padding to both the left and the right, for a cache line of 256 bytes
 
 And now you can join the folks that have mechanical sympathy :-P
+
+## Platform Intrinsics
+
+Java 8 came with platform intrinsics, such that:
+
+1. Issue
+   [JDK-7023898](https://bugs.openjdk.java.net/browse/JDK-7023898)
+   changed the `getAndAdd` method in `Unsafe` and all related methods
+   in the `AtomicInt` and `AtomicLong` implementations, like
+   `getAndIncrement` and `incrementAndGet`, to be translated to 
+   `LOCK XADD` instructions on x86/x64 platforms, being far cheaper than 
+   CAS loops based on `LOCK CMPXCHG` (normal `compareAndSet`)
+2. Issue
+   [JDK-8004330](https://bugs.openjdk.java.net/browse/JDK-8004330)
+   changed the `getAndSet` in `Unsafe` and all atomic implementations
+   to be translated to `LOCK XCHG`, which is also cheaper than CAS
+   loops based on `LOCK CMPXCHG` (normal `compareAndSet`).  See
+   this
+   [article by Dave Dice](https://blogs.oracle.com/dave/entry/atomic_fetch_and_add_vs)
+   for why this is awesome
+   
+Monix's `Atomic` implementations are also using the same platform
+intrinsics when running on top of Java 8, but automatically fallback
+to normal `compareAndSet` loops if running on top of Java 6 or 7.
+
+So when you do this:
+
+```tut:book
+val numberRef = Atomic(0)
+
+val previous = numberRef.getAndSet(1)
+
+val current = numberRef.incrementAndGet()
+```
+
+This code, depending on the Java version used will either use
+optimized CPU instructions (Java 8 and above) or fallback to CAS
+loops (e.g. Java 6 and 7, Android).

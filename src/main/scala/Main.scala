@@ -18,8 +18,6 @@ object Main extends App {
     )
   }
 
-  println(configFile)
-  
   def listFilesRecursively(dir: File, files: List[File], rest: List[File]): List[File] = {
     val list = Option(dir.listFiles()).map(_.toList).toList.flatten
     val moreDirs = list.filter(_.isDirectory()) ::: rest

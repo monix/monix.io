@@ -5,6 +5,13 @@ type_api: monix.eval.Task
 type_source: monix-eval/shared/src/main/scala/monix/eval/Task.scala
 description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
+  
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix-eval:version2x
+    - org.slf4j:slf4j-api:1.7.21
 ---
 
 ## Introduction
@@ -13,15 +20,29 @@ Task is a data type for controlling possibly lazy &amp; asynchronous
 computations, useful for controlling side-effects, avoiding
 nondeterminism and callback-hell.
 
-```scala
+To get the imports out of the way:
+
+```tut:silent
 // In order to evaluate tasks, we'll need a Scheduler
 import monix.execution.Scheduler.Implicits.global
+
 // A Future type that is also Cancelable
 import monix.execution.CancelableFuture
+
 // Task is in monix.eval
 import monix.eval.Task
 import scala.util.{Success, Failure}
+```
 
+```tut:reset:invisible
+import monix.execution.CancelableFuture
+import monix.eval.Task
+import scala.util.{Success, Failure}
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
+```
+
+```tut:silent
 // Executing a sum, which (due to the semantics of apply)
 // will happen on another thread. Nothing happens on building
 // this instance though, this expression is pure, being
@@ -153,7 +174,7 @@ giants. But where the Monix Task implementation disagrees:
    reasons, as this API is not supported on top of
    [Scala.js](http://www.scala-js.org/).
 
-## Execution (runAsync)
+## Execution (runAsync & foreach)
 
 `Task` instances won't do anything until they are executed by means
 of `runAsync`. And there are multiple overloads of it.
@@ -169,8 +190,12 @@ being lazy, it only wants this `Scheduler` on execution with
 So first things first, we need a `Scheduler` in scope. The `global` is
 piggybacking on Scala's own `global`, so now you can do this:
 
-```scala
+```tut:silent
 import monix.execution.Scheduler.Implicits.global
+```
+```tut:invisible
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
 ```
 
 **NOTE:** The [Scheduler](../execution/scheduler.html) can inject a
@@ -185,7 +210,7 @@ tasks and get a
 in return, which is a standard `Future` paired with a
 [Cancelable](../execution/cancelable.html):
 
-```scala
+```tut:silent
 import monix.eval.Task
 import monix.execution.CancelableFuture
 import concurrent.duration._
@@ -203,7 +228,7 @@ Returning a `Future` might be too heavy for your needs, you might want
 to provide a simple callback. We can also `runAsync` with a `Try[T] =>
 Unit` callback, just like the standard `Future.onComplete`.
 
-```scala
+```tut:silent
 import scala.util.{Success, Failure}
 
 val task = Task(1 + 1).delayExecution(1.second)
@@ -227,7 +252,7 @@ you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
 specific to `Try[T]`. Sample:
 
-```scala
+```tut:silent
 import monix.eval.Callback
 
 val task = Task(1 + 1).delayExecution(1.second)
@@ -243,6 +268,26 @@ val cancelable = task.runAsync(
 // If we change our mind...
 cancelable.cancel()
 ```
+
+But if you just want to trigger some side-effects quickly, you can
+just use `foreach` directly:
+
+```tut:silent
+val task = Task { println("Effect!"); "Result" }
+
+task.foreach { result => println(result) }
+//=> Effect!
+//=> Result
+
+// Or we can use for-comprehensions
+for (result <- task) {
+  println(result)
+}
+```
+
+NOTE: `foreach` on `Task` does not block, but returns a
+`CancelableFuture[Unit]` that can be used to block on the execution,
+or for cancellation.
 
 ### Blocking for a Result
 
@@ -267,7 +312,8 @@ design choices:
 Therefore in order to block on a result, you have to first convert it
 into a `Future` by means of `runAsync` and then you can block on it:
 
-```scala
+```tut:silent
+import monix.execution.Scheduler.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
@@ -276,6 +322,17 @@ val future = task.runAsync
 
 Await.result(future, 3.seconds)
 //=> Hello!
+
+// Or by using foreach
+val completed = for (r <- task) { println("Completed!") }
+
+Await.result(completed, 3.seconds)
+//=> Hello!
+//=> Completed!
+```
+```tut:invisible
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
 ```
 
 **NOTE:** There is [no blocking](https://github.com/scala-js/scala-js/issues/186)
@@ -291,7 +348,7 @@ dealing with callbacks.
 
 To do that, we can convert a `Task` into a `Coeval`:
 
-```scala
+```tut:silent
 val task = Task.eval("Hello!")
 
 val tryingNow = task.coeval
@@ -324,7 +381,7 @@ val`. And any Scala `Future` is convertible to `Task`.
 lifts an already known value in the `Task` context,
 the equivalent of `Future.successful` or of `Applicative.pure`:
 
-```scala
+```tut:silent
 val task = Task.now { println("Effect"); "Hello!" }
 //=> Effect
 // task: monix.eval.Task[String] = Delay(Now(Hello!))
@@ -338,7 +395,7 @@ that will always be evaluated on `runAsync`, possibly on the same
 thread (depending on the chosen
 [execution model](../execution/scheduler.html#execution-model)):
 
-```scala
+```tut:silent
 val task = Task.eval { println("Effect"); "Hello!" }
 // task: monix.eval.Task[String] = Delay(Always(<function0>))
 
@@ -364,7 +421,7 @@ memoization on the first run, such that the result of the evaluation
 will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:
 
-```scala
+```tut:silent
 val task = Task.evalOnce { println("Effect"); "Hello!" }
 // task: monix.eval.Task[String] = EvalOnce(<function0>)
 
@@ -385,7 +442,7 @@ NOTE: this operation is effectively `Task.eval(f).memoize`.
 is about building a factory of tasks. For example this
 will behave approximately like `Task.eval`:
 
-```scala
+```tut:silent
 val task = Task.defer {
   Task.now { println("Effect"); "Hello!" }
 }
@@ -406,7 +463,7 @@ NOTE: for Scalaz converts, this function is also aliased as `Task.suspend`.
 
 `Task.fromFuture` can convert any Scala `Future` instance into a `Task`:
 
-```scala
+```tut:silent
 import scala.concurrent.Future
 
 val future = Future { println("Effect"); "Hello!" }
@@ -425,7 +482,7 @@ what you want. You might want a factory of `Future`. The design of
 model, so in case you want a factory, you need to combine it with
 `Task.defer`:
 
-```scala
+```tut:silent
 val task = Task.defer {
   val future = Future { println("Effect"); "Hello!" }
   Task.fromFuture(future)
@@ -440,19 +497,18 @@ task.runAsync.foreach(println)
 //=> Hello!
 ```
 
-### Task.fork
+### Task.fork && Task.asyncBoundary
 
-`Task.fork`
-ensures an asynchronous boundary, forcing the fork of a
+`Task.fork` ensures an asynchronous boundary, forcing the fork of a
 (logical) thread on execution. Sometimes we are doing something really
 wasteful and we want to guarantee that an asynchronous boundary
-happens, given that by default the
-[execution model](../execution/scheduler.html#execution-model) prefers
-to execute things on the current thread, at first.
+happens, given that by default
+the [execution model](../execution/scheduler.html#execution-model)
+prefers to execute things on the current thread, at first.
 
 So this guarantees that our task will get executed asynchronously:
 
-```scala
+```tut:silent
 val task = Task.fork(Task.eval("Hello!"))
 ```
 
@@ -472,13 +528,26 @@ for certain operations you might want to divert the processing to an alternative
 scheduler. For example you might want to execute blocking I/O operations
 on an alternative thread-pool.
 
-```scala
+Lets assume we have 2 thread-pools:
+
+```tut:silent
 // The default scheduler
 import monix.execution.Scheduler.Implicits.global
+
 // Creating a special scheduler meant for I/O
 import monix.execution.Scheduler
-val io = Scheduler.io(name="my-io")
+lazy val io = Scheduler.io(name="my-io")
+```
+```tut:reset:invisible
+import monix.eval._
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
+lazy val io = TestScheduler()
+```
 
+Then we can manage what executes on which:
+
+```tut:silent
 // Override the default Scheduler by fork:
 val source = Task(println(s"Running on thread: ${Thread.currentThread.getName}"))
 val forked = Task.fork(source, io)
@@ -493,13 +562,16 @@ Note that, unless another asynchronous boundary is scheduled on the
 default `Scheduler`, execution remains on the last scheduler (thread-pool)
 used. Notice what happens in this combination:
 
-```scala
+```tut:silent
 val onFinish = Task.eval(
   println(s"Ends on thread: ${Thread.currentThread.getName}")
+)
 
-source.flatMap(_ => forked)
-  .doOnFinish(_ => onFinish))
-  .runAsync
+val cancelable = {
+  source.flatMap(_ => forked)
+    .doOnFinish(_ => onFinish)
+    .runAsync
+}
 
 //=> Running on thread: ForkJoinPool-1-worker-7
 //=> Running on thread: my-io-1
@@ -509,20 +581,36 @@ source.flatMap(_ => forked)
 But if we insert another async boundary, then it switches back
 to the default:
 
-```scala
+```tut:silent
 val asyncBoundary = Task.fork(Task.unit)
 val onFinish = Task.eval(
   println(s"Ends on thread: ${Thread.currentThread.getName}"))
 
-source // executes on global
-  .flatMap(_ => forked) // executes on io
-  .flatMap(_ => asyncBoundary) // switch back to global
-  .doOnFinish(_ => onFinish) // executes on global
-  .runAsync
+val cancelable = {
+  source // executes on global
+    .flatMap(_ => forked) // executes on io
+    .flatMap(_ => asyncBoundary) // switch back to global
+    .doOnFinish(_ => onFinish) // executes on global
+    .runAsync
+}
 
 //=> Running on thread: ForkJoinPool-1-worker-5
 //=> Running on thread: my-io-2
 //=> Ends on thread: ForkJoinPool-1-worker-5
+```
+
+But `Task` also provides a convenient operator for introducing an
+asynchronous boundary without having to manually do this trick, called
+`Task.asyncBoundary`:
+
+```tut:silent
+val task = {
+  source // executes on global
+    .flatMap(_ => forked) // executes on io
+    .asyncBoundary // switch back to global
+    .doOnFinish(_ => onFinish) // executes on global
+    .runAsync
+}
 ```
 
 Note that overriding of the scheduler can only happen once, as
@@ -531,10 +619,20 @@ because for the `forked` instance the `Scheduler` was already
 set in stone and we only have flexibility to override the
 default if it hasn't been overridden already:
 
-```scala
+```tut:silent
 // Trying to execute on global
 Task.fork(forked, global).runAsync
 //=> Running on thread: my-io-4
+```
+
+There are also two `Task` methods specified as aliases for `Task.fork`,
+called `executeOn` and `executeWithFork` respectively. So you can do:
+
+```tut:silent
+val task = {
+  source.executeOn(io)
+    .asyncBoundary
+}
 ```
 
 **General advice:** unless you're doing blocking I/O, keep using
@@ -547,7 +645,7 @@ for actual I/O operations.
 
 `Task.raiseError` can lift errors in the monadic context of `Task`:
 
-```scala
+```tut:silent
 import scala.concurrent.TimeoutException
 
 val error = Task.raiseError[Int](new TimeoutException)
@@ -562,7 +660,7 @@ error.runAsync(result => println(result))
 
 `Task.never` returns a `Task` instance that never completes:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
@@ -586,7 +684,7 @@ garbage collector.
 provided as a utility, to spare you creating new instances with
 `Task.now(())`:
 
-```scala
+```tut:silent
 val task = Task.unit
 // task: monix.eval.Task[Unit] = Delay(Now(()))
 ```
@@ -607,7 +705,7 @@ function allows for creating an asynchronous `Task` using a
 callback-based API. For example, let's create a utility that evaluates
 expressions with a given delay:
 
-```scala
+```tut:silent
 import scala.util.Try
 import concurrent.duration._
 
@@ -633,7 +731,7 @@ And here's a possible implementation of
 [Task.fromFuture](#taskfromfuture), in case you choose to implement it
 yourself:
 
-```scala
+```tut:silent
 import monix.execution.Cancelable
 import scala.concurrent.Future
 import scala.util.{Success, Failure}
@@ -688,54 +786,67 @@ The callback that needs to be passed to `unsafeCreate` this time has
 this type:
 
 ```scala
-type OnFinish[+A] =
-  (Scheduler, StackedCancelable, Callback[A]) => Unit
+object Task { 
+  // ...
+  
+  type OnFinish[+A] = (Context, Callback[A]) => Unit
+
+  final case class Context(
+    scheduler: Scheduler,
+    connection: StackedCancelable,
+    frameRef: ThreadLocal[FrameIndex],
+    options: Options
+  )
+}
 ```
 
-So instead of returning a simple
-[Cancelable](../execution/cancelable.html)
-we get to deal with an injected
-[StackedCancelable]({{ site.api2x }} #monix.execution.cancelables.StackedCancelable)
-instead. This is important in some cases for resource
-management, this is how the Monix Task manages to be
-stack and heap safe in `flatMap`.
+So instead of returning a
+simple [Cancelable](../execution/cancelable.html) we get to deal with
+an injected
+[StackedCancelable]({{ site.api2x }} #monix.execution.cancelables.StackedCancelable),
+along with something called a `FrameIndex` that's a `ThreadLocal` and
+some special `Options` instead.
+
+This is because you 
 
 Let implement our own version of the `delayExecution` operator, just
 for the kicks:
 
-```scala
+```tut:silent
 import monix.execution.cancelables._
 
 def delayExecution[A](
   source: Task[A], timespan: FiniteDuration): Task[A] = {
 
-  Task.unsafeCreate { (scheduler, conn, cb) =>
-    // We need to initialize this
-    // because we need a forward reference
+  Task.unsafeCreate { (context, cb) =>
+    implicit val s = context.scheduler
+    // A stack that keeps track of what we need to cancel
+    val conn = context.connection
+    // We need the forward reference, because otherwise `conn.pop`
+    // below can happen before pushing that reference in `conn`
     val c = SingleAssignmentCancelable()
-    // Pushing it to the stack of cancelables means
-    // this will get canceled when execution gets canceled
     conn push c
 
-    // First off, our cancelable should be able
-    // cancel the delayed execution, until time's up.
-    c := scheduler.scheduleOnce(
-      timespan.length, timespan.unit,
-      new Runnable {
-        def run(): Unit = {
-          // We no longer need the scheduleOnce cancelable
-          // so we discard it completely from our stack
-          // (also preventing memory leaks ;-))
-          conn.pop()
-
-          // We can now resume execution, by finally starting
-          // our source. As you can see, we just inject our
-          // StackedCancelable, there's no need to create another
-          // Cancelable reference, so at this point it's as if
-          // the source is being executed without any overhead!
-          Task.unsafeStartNow(source, scheduler, conn, cb)
-        }
-      })
+    c := s.scheduleOnce(timespan.length, timespan.unit, new Runnable {
+      def run(): Unit = {
+        // Releasing our cancelable because our scheduled
+        // task is done and we need to let the GC collect it
+        conn.pop()
+        
+        // We had an async boundary, so we must reset the frame
+        // index in order to let Monix know we've had a real
+        // async boundary - on the JVM this is not needed, since
+        // this is a thread-local, but on JS we don't have threads
+        context.frameRef.reset()
+        
+        // We can now resume execution, by finally starting
+        // our source. As you can see, we just inject our
+        // StackedCancelable, there's no need to create another
+        // Cancelable reference, so at this point it's as if
+        // the source is being executed without any overhead!
+        Task.unsafeStartNow(source, context, Callback.async(cb))
+      }
+    })
   }
 }
 ```
@@ -768,7 +879,7 @@ Task.evalOnce(f) <-> Task.eval(f).memoize
 They are effectively the same.  And `memoize` works
 with any task reference:
 
-```scala
+```tut:silent
 // Has async execution, to do the .apply semantics
 val task = Task { println("Effect"); "Hello!" }
 
@@ -786,7 +897,7 @@ memoized.runAsync.foreach(println)
 
 You can say that when we do this:
 
-```scala
+```tut:silent
 val task = Task { println("Effect"); "Hello!" }
 val future = task.runAsync
 ```
@@ -807,13 +918,16 @@ eager.
 So let's start with a stupid example that calculates the N-th number in
 the Fibonacci sequence:
 
-```scala
+```tut:silent
+import scala.annotation.tailrec
+
 @tailrec
-def fib(cycles: Int, a: BigInt, b: BigInt): BigInt =
+def fib(cycles: Int, a: BigInt, b: BigInt): BigInt = {
  if (cycles > 0)
    fib(cycles-1, b, a + b)
  else
    b
+}
 ```
 
 We need this to be tail-recursive, hence the use of the
@@ -821,12 +935,13 @@ We need this to be tail-recursive, hence the use of the
 annotation from Scala's standard library. And if we'd describe it with
 `Task`, one possible implementation would be:
 
-```scala
-def fib(cycles: Int, a: BigInt, b: BigInt): Task[BigInt] =
+```tut:silent
+def fib(cycles: Int, a: BigInt, b: BigInt): Task[BigInt] = {
  if (cycles > 0)
    Task.defer(fib(cycles-1, b, a+b))
  else
    Task.now(b)
+}
 ```
 
 And now there are already differences. This is lazy, as the N-th
@@ -839,7 +954,7 @@ things like `Task` and `Future` is the operation that describes
 recursivity or that forces ordering (e.g. execute this, then that,
 then that). And we can use it to describe recursive calls:
 
-```scala
+```tut:silent
 def fib(cycles: Int, a: BigInt, b: BigInt): Task[BigInt] =
   Task.eval(cycles > 0).flatMap {
     case true =>
@@ -855,21 +970,23 @@ as nothing will get triggered until `runAsync` happens.
 
 But we can also have **mutually tail-recursive calls**, w00t!
 
-```scala
+```tut:silent
 // Mutual Tail Recursion, ftw!!!
-def odd(n: Int): Task[Boolean] =
-  Task.eval(n == 0).flatMap {
-    case true => Task.now(false)
-    case false => even(n - 1)
-  }
+{
+  def odd(n: Int): Task[Boolean] =
+    Task.eval(n == 0).flatMap {
+      case true => Task.now(false)
+      case false => even(n - 1)
+    }
 
-def even(n: Int): Task[Boolean] =
-  Task.eval(n == 0).flatMap {
-    case true => Task.now(true)
-    case false => odd(n - 1)
-  }
+  def even(n: Int): Task[Boolean] =
+    Task.eval(n == 0).flatMap {
+      case true => Task.now(true)
+      case false => odd(n - 1)
+    }
 
-even(1000000)
+  even(1000000)
+}
 ```
 
 Again, this is stack safe and uses a constant amount of memory.  And
@@ -882,7 +999,7 @@ execute things in batches.
 
 When using `flatMap`, we often end up with this:
 
-```scala
+```tut:silent
 val locationTask: Task[String] = Task.eval(???)
 val phoneTask: Task[String] = Task.eval(???)
 val addressTask: Task[String] = Task.eval(???)
@@ -906,7 +1023,7 @@ But `Task` is also an `Applicative` and hence it has utilities, such
 as `zip2`, `zip3`, up until `zip6` (at the moment of writing) and also
 `zipList`. The example above could be written as:
 
-```scala
+```tut:silent
 val locationTask: Task[String] = Task.eval(???)
 val phoneTask: Task[String] = Task.eval(???)
 val addressTask: Task[String] = Task.eval(???)
@@ -914,8 +1031,17 @@ val addressTask: Task[String] = Task.eval(???)
 // Potentially executed in parallel
 val aggregate =
   Task.zip3(locationTask, phoneTask, addressTask).map {
-    (location, phone, address) => "Gotcha!"
+    case (location, phone, address) => "Gotcha!"
   }
+```
+
+In order to avoid boxing into tuples, you can also use `zipMap2`,
+`zipMap3` ... `zip6`:
+
+```tut:silent
+Task.zipMap3(locationTask, phoneTask, addressTask) { 
+  (location, phone, address) => "Gotcha!"
+}
 ```
 
 ### Gather results from a Seq of Tasks
@@ -925,7 +1051,7 @@ thus transforming any sequence of tasks into a task with a sequence of
 results and with ordered effects and results. This means that the
 tasks WILL NOT execute in parallel.
 
-```scala
+```tut:silent
 val ta = Task { println("Effect1"); 1 }
 val tb = Task { println("Effect2"); 2 }
 
@@ -951,11 +1077,16 @@ returns a `Task[Seq[A]]`, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
 ordered, meaning that there's potential for parallel execution:
 
-```scala
-val ta = Task { println("Effect1"); 1 }
-  .delayExecution(1.second)
-val tb = Task { println("Effect2"); 2 }
-  .delayExecution(1.second)
+```tut:silent
+val ta = {
+  Task { println("Effect1"); 1 }
+    .delayExecution(1.second)
+}
+
+val tb = {
+  Task { println("Effect2"); 2 }
+    .delayExecution(1.second)
+}
 
 val list: Task[Seq[Int]] = Task.gather(Seq(ta, tb))
 
@@ -974,11 +1105,16 @@ list.runAsync.foreach(println)
 ordering for results or effects. The result is thus highly nondeterministic,
 but yields better performance than `gather`:
 
-```scala
-val ta = Task { println("Effect1"); 1 }
-  .delayExecution(1.second)
-val tb = Task { println("Effect2"); 2 }
-  .delayExecution(1.second)
+```tut:silent
+val ta = {
+  Task { println("Effect1"); 1 }
+    .delayExecution(1.second)
+}
+
+val tb = {
+  Task { println("Effect2"); 2 }
+    .delayExecution(1.second)
+}
 
 val list: Task[Seq[Int]] =
   Task.gatherUnordered(Seq(ta, tb))
@@ -999,7 +1135,7 @@ list.runAsync.foreach(println)
 The `chooseFirstOf` operation will choose the winner between two
 `Task` that will potentially run in parallel:
 
-```scala
+```tut:silent
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
@@ -1024,12 +1160,15 @@ The `chooseFirstOfList` operation takes as input a list of tasks,
 and upon execution will generate the result of the first task
 that completes and wins the race:
 
-```scala
+```tut:silent
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
-Task.chooseFirstOfList(Seq(ta, tb))
-  .runAsync.foreach(r => println(s"Winner: $r"))
+{
+  Task.chooseFirstOfList(Seq(ta, tb))
+    .runAsync
+    .foreach(r => println(s"Winner: $r"))
+}
 ```
 
 It is similar to Scala's
@@ -1046,7 +1185,7 @@ given task by the given timespan.
 In this example we are delaying the execution of the source by 3
 seconds:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 
 val source = Task {
@@ -1062,7 +1201,7 @@ Or, instead of a delay we might want to use another `Task` as the
 signal for starting the execution, so the following example is
 equivalent to the one above:
 
-```scala
+```tut:silent
 val trigger = Task.unit.delayExecution(3.seconds)
 
 val source = Task {
@@ -1079,7 +1218,7 @@ delayed.runAsync.foreach(println)
 `Task.delayResult` delays the signaling of the result, but not the
 execution of the `Task`. Consider this example:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 
 val source = Task {
@@ -1087,9 +1226,11 @@ val source = Task {
   "Hello, world!"
 }
 
-val delayed = source
-  .delayExecution(1.second)
-  .delayResult(5.seconds)
+val delayed = {
+  source
+    .delayExecution(1.second)
+    .delayResult(5.seconds)
+}
 
 delayed.runAsync.foreach(println)
 ```
@@ -1102,7 +1243,7 @@ can have another task signal the right moment when to signal the
 result downstream. This allows to customize the delay based on the
 result signaled by the source:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 import scala.util.Random
 
@@ -1114,9 +1255,11 @@ val source = Task {
 def selector(x: Int): Task[Unit] =
   Task.unit.delayExecution(x.seconds)
 
-val delayed = source
-  .delayExecution(1.second)
-  .delayResultBySelector(x => selector(x))
+val delayed = {
+  source
+    .delayExecution(1.second)
+    .delayResultBySelector(x => selector(x))
+}
 
 delayed.runAsync.foreach { x =>
   println(
@@ -1131,12 +1274,13 @@ The `Task` being a spec, we can restart it at will.
 `Task.restartUntil(predicate)` does just that, executing the source
 over and over again, until the given predicate is true:
 
-```scala
+```tut:silent
 import scala.util.Random
 
-val randomEven = Task
-  .eval(Random.nextInt())
-  .restartUntil(_ % 2 == 0)
+val randomEven = {
+  Task.eval(Random.nextInt())
+    .restartUntil(_ % 2 == 0)
+}
 
 randomEven.runAsync.foreach(println)
 //=> -2097793116
@@ -1153,7 +1297,7 @@ randomEven.runAsync.foreach(println)
 being meant for cleaning up resources or executing
 some scheduled side-effect:
 
-```scala
+```tut:silent
 val task = Task(1)
 
 val withFinishCb = task.doOnFinish {
@@ -1180,7 +1324,7 @@ Well, `Task` can be seen as an `org.reactivestreams.Publisher` that
 emits exactly one event upon subscription and then stops. And we can
 convert any `Task` to such a publisher directly:
 
-```scala
+```tut:silent
 val task = Task.eval(Random.nextInt())
 
 val publisher: org.reactivestreams.Publisher[Int] =
@@ -1191,7 +1335,7 @@ This is meant for interoperability purposes with other libraries, but
 if you're inclined to use it directly, it's a little lower level,
 but doable:
 
-```scala
+```tut:silent
 import org.reactivestreams._
 
 publisher.subscribe(new Subscriber[Int] {
@@ -1244,7 +1388,7 @@ Even though Monix expects for the arguments given to its operators,
 like `flatMap`, to be pure or at least protected from errors, it still
 catches errors, signaling them on `runAsync`:
 
-```scala
+```tut:silent
 val task = Task(Random.nextInt).flatMap {
   case even if even % 2 == 0 =>
     Task.now(even)
@@ -1264,7 +1408,7 @@ Monix can no longer signal an `onError`, because it would be a
 contract violation (see [Callback](./callback.html)). But it still
 logs the error:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 
 // Ensures asynchronous execution, just to show
@@ -1293,7 +1437,7 @@ provided callback, we cannot signal the error as it would be a
 contract violation (see [Callback](./callback.html)), but Monix does
 log the error:
 
-```scala
+```tut:silent
 val task = Task.create[Int] { (scheduler, callback) =>
   throw new IllegalStateException("FTW!")
 }
@@ -1325,7 +1469,8 @@ here's a quick snippet for building such a `Scheduler` that could do
 logging by means of a library, such as the standard
 [SLF4J](http://www.slf4j.org/):
 
-```scala
+```tut:silent
+import monix.execution.Scheduler
 import monix.execution.Scheduler.{global => default}
 import monix.execution.UncaughtExceptionReporter
 import org.slf4j.LoggerFactory
@@ -1344,12 +1489,12 @@ implicit val global: Scheduler =
 In case a `Task` is too slow to execute, we can cancel it and trigger
 a `TimeoutException` using `Task.timeout`:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
-val source = Task("Hello!")
-  .delayExecution(10.seconds)
+val source = 
+  Task("Hello!").delayExecution(10.seconds)
 
 // Triggers error if the source does not
 // complete in 3 seconds after runAsync
@@ -1363,15 +1508,17 @@ On timeout the source gets canceled (if it's a source that supports
 cancelation). And instead of an error, we can timeout to a `fallback`
 task. The following example is equivalent to the above one:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
-val source = Task("Hello!")
-  .delayExecution(10.seconds)
+val source = 
+  Task("Hello!").delayExecution(10.seconds)
 
-val timedOut = source.timeoutTo(3.seconds,
-  Task.raiseError(new TimeoutException))
+val timedOut = source.timeoutTo(
+  3.seconds,
+  Task.raiseError(new TimeoutException)
+)
 
 timedOut.runAsync(r => println(r))
 //=> Failure(TimeoutException)
@@ -1383,13 +1530,15 @@ timedOut.runAsync(r => println(r))
 possible exceptions to a desired fallback outcome, so we could do
 this:
 
-```scala
+```tut:silent
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
-val source = Task("Hello!")
-  .delayExecution(10.seconds)
-  .timeout(3.seconds)
+val source = {
+  Task("Hello!")
+    .delayExecution(10.seconds)
+    .timeout(3.seconds)
+}
 
 val recovered = source.onErrorHandleWith {
   case _: TimeoutException =>
@@ -1407,7 +1556,7 @@ recovered.runAsync.foreach(println)
 There's also `Task.onErrorRecoverWith` that takes a partial function
 instead, so we can omit the "other" branch:
 
-```scala
+```tut:silent
 val recovered = source.onErrorRecoverWith {
   case _: TimeoutException =>
     // Oh, we know about timeouts, recover it
@@ -1423,7 +1572,7 @@ equivalent of `flatMap`, only for errors. In case we know or can
 evaluate a fallback result eagerly, we could use the shortcut
 operation `Task.onErrorHandle` like:
 
-```scala
+```tut:silent
 val recovered = source.onErrorHandle {
   case _: TimeoutException =>
     // Oh, we know about timeouts, recover it
@@ -1435,7 +1584,7 @@ val recovered = source.onErrorHandle {
 
 Or the partial function version with `onErrorRecover`:
 
-```scala
+```tut:silent
 val recovered = source.onErrorRecover {
   case _: TimeoutException =>
     // Oh, we know about timeouts, recover it
@@ -1449,7 +1598,7 @@ The `Task` type, being just a specification, it can usually restart
 whatever process is supposed to deliver the final result and we can
 restart the source on error, for how many times are needed:
 
-```scala
+```tut:silent
 import scala.util.Random
 
 val source = Task(Random.nextInt).flatMap {
@@ -1466,7 +1615,7 @@ val randomEven = source.onErrorRestart(maxRetries = 4)
 
 We can also restart with a given predicate:
 
-```scala
+```tut:silent
 import scala.util.Random
 
 val source = Task(Random.nextInt).flatMap {
@@ -1487,7 +1636,7 @@ val randomEven = source.onErrorRestartIf {
 Or we could implement our own retry with exponential backoff, because
 it's cool doing so:
 
-```scala
+```tut:silent
 def retryBackoff[A](source: Task[A],
   maxRetries: Int, firstDelay: FiniteDuration): Task[A] = {
 
@@ -1509,7 +1658,7 @@ The `Task` monadic context is hiding errors that happen, much like
 Scala's `Try` or `Future`. But sometimes we want to expose those
 errors such that we can recover more efficiently:
 
-```scala
+```tut:silent
 import scala.util.{Try, Success, Failure}
 
 val source = Task.raiseError[Int](new IllegalStateException)
@@ -1528,7 +1677,7 @@ recovered.runAsync.foreach(println)
 
 There's also the reverse of materialize, which is `Task.dematerialize`:
 
-```scala
+```tut:silent
 import scala.util.Try
 
 val source = Task.raiseError[Int](new IllegalStateException)
@@ -1546,7 +1695,7 @@ We can also convert any `Task` into a `Task[Throwable]` that will
 expose any errors that happen and will also terminate with an
 `NoSuchElementException` in case the source completes with success:
 
-```scala
+```tut:silent
 val source = Task.raiseError[Int](new IllegalStateException)
 
 val throwable = source.failed

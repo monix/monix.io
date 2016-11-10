@@ -58,3 +58,40 @@ import monix.eval.Task
 
 implicitly[Monad[Task]]
 ```
+
+In case you want a more à la carte importing experience, that's
+possible as well:
+
+```tut:silent
+import monix.scalaz.monixToScalazMonad
+```
+
+What these imports are doing is to convert the types defined 
+in `monix.types` to the Scalaz type-classes. However the convertion
+can also work in reverse:
+
+```tut:reset:silent
+import monix.scalaz.reverse._
+
+import scalaz._
+import scalaz.std.AllInstances._
+```
+
+Here is a reverse conversion in action, pulling a
+`monix.types.Monad[List]` out of the instances defined for Scalaz:
+
+```tut:book
+implicitly[monix.types.Monad[List]]
+```
+
+Note that having both of these wildcard imports in scope generates
+problems, so avoid doing it:
+
+```scala
+// DO NOT DO THIS!
+import monix.scalaz._
+import monix.scalaz.reverse._
+```
+
+That's it, now you can use the Cats awesome type-classes along
+with Monix's abstractions, such as `Coeval`, `Task` and `Observable`.
