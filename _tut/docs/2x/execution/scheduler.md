@@ -439,7 +439,7 @@ lazy val scheduler =
 // Specify an optional ExecutionModel
 lazy val scheduler = 
   Scheduler.computation(
-    parallelism = 10
+    parallelism = 10,
     executionModel = AlwaysAsyncExecution
   )
 ```
