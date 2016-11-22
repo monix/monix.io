@@ -5,6 +5,13 @@ type_api: monix.reactive.Consumer
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Consumer.scala
 description: |
     A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks.
+    
+  
+tut:
+  scala: 2.11.8
+  binaryScala: "2.11"
+  dependencies:
+    - io.monix::monix-reactive:version2x
 ---
 
 ## Introduction
@@ -35,8 +42,11 @@ for consuming a stream. The problems that `Consumer` is solving:
 
 Teaser:
 
-```scala
-import monix.execution.Scheduler.Implicits.global
+```tut:invisible
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
+```
+```tut:silent
 import monix.eval._
 import monix.reactive._
 
@@ -46,13 +56,15 @@ val sumConsumer = Consumer.foldLeft[Long,Long](0L)(_ + _)
 
 // For processing sums in parallel, useless of course, but can become 
 // really helpful for logic sprinkled with I/O bound stuff
-val loadBalancer = Consumer
-  .loadBalance(parallelism=10, sumConsumer)
-  .map(_.sum)
+val loadBalancer = {
+  Consumer
+    .loadBalance(parallelism=10, sumConsumer)
+    .map(_.sum)
+}
 
 val observable: Observable[Long] = Observable.range(0, 100000)
 // Our consumer turns our observable into a Task processing sums, w00t!
-val task: Task[Long] = observable.runWith(loadBalancer)
+val task: Task[Long] = observable.consumeWith(loadBalancer)
 
 // Consume the whole stream and get the result
 task.runAsync.foreach(println)
@@ -67,7 +79,7 @@ The low-level way of implementing the `Consumer` is to simply
 implement that trait. Lets implement a `Consumer` that calculates the
 sum of all the `Int` elements of a stream:
 
-```scala
+```tut:silent
 import monix.execution.Scheduler
 import monix.execution.cancelables.AssignableCancelable
 import monix.execution.Ack.Continue
@@ -105,16 +117,17 @@ val sumConsumer: Consumer[Int,Long] =
   }
 
 // USAGE:
+{
+  import monix.reactive.Observable
+  import monix.execution.Scheduler.Implicits.global
 
-import monix.reactive.Observable
-import monix.execution.Scheduler.Implicits.global
-
-Observable.fromIterable(0 until 10000)
-  .runWith(sumConsumer)
-  .runAsync
-  .foreach(r => println(s"Result: $r"))
-
-//=> Result: 49995000
+  Observable.fromIterable(0 until 10000)
+    .consumeWith(sumConsumer)
+    .runAsync
+    .foreach(r => println(s"Result: $r"))
+    
+  //=> Result: 49995000
+}
 ```
 
 So for signaling the final result, we need to call the provided
@@ -153,7 +166,7 @@ subscriber implementation to cancel the stream.
 For a more refined experience when creating consumers, one can use the
 `Consumer.create` builder:
 
-```scala
+```tut:silent
 import monix.reactive._
 import monix.execution.Ack
 import monix.execution.Ack.Continue
@@ -199,7 +212,7 @@ instance is `fromObserver`. These consumers only signal when they are
 done processing the stream with a `Unit`. Let's build a simple
 consumer that does nothing but to log incoming items to `stdout`:
 
-```scala
+```tut:silent
 import monix.reactive.{Consumer, Observer}
 import monix.execution.Ack
 import monix.execution.Ack.Continue
@@ -236,18 +249,20 @@ The pre-built `Consumer.complete` will consume a stream until its
 completion and then finally trigger a notification when `onComplete`
 happens, or signal the error if `onError` happens:
 
-```scala
-Observable.range(0, 4).dump("O")
-  .runWith(Consumer.complete)
-  .runAsync
-  .foreach(_ => println("Consumer completed"))
+```tut:silent
+{
+  Observable.range(0, 4).dump("O")
+    .consumeWith(Consumer.complete)
+    .runAsync
+    .foreach(_ => println("Consumer completed"))
 
-//=> 0: O-->0
-//=> 1: O-->1
-//=> 2: O-->2
-//=> 3: O-->3
-//=> 4: O completed
-//=> Consumer completed
+  //=> 0: O-->0
+  //=> 1: O-->1
+  //=> 2: O-->2
+  //=> 3: O-->3
+  //=> 4: O completed
+  //=> Consumer completed
+}
 ```
 
 ### Cancel the stream on subscription
@@ -257,14 +272,14 @@ subscription, such that consuming a stream with this consumer will
 result in a subscription followed by its immediate cancellation:
 
 
-```scala
+```tut:silent
 Consumer.cancel
 ```
 
 A similar consumer, one that immediately cancels the upstream, but
 that also signals an error:
 
-```scala
+```tut:silent
 Consumer.raiseError(new RuntimeException("Don't know how!"))
 ```
 
@@ -277,18 +292,21 @@ item emitted by the source observable, continuing this process until
 the source emits its final item and completes, whereupon the consumer
 will emit the final value returned by the function:
 
-```scala
+```tut:silent
 import monix.execution.Scheduler.Implicits.global
 import monix.reactive._
 
 val sum = Consumer.foldLeft[Long,Long](0L)(_ + _)
 
-Observable.range(0, 1000)
-  .runWith(sum)
-  .runAsync
-  .foreach(r => println(s"SUM: $r"))
+// Usage
+{
+  Observable.range(0, 1000)
+    .consumeWith(sum)
+    .runAsync
+    .foreach(r => println(s"SUM: $r"))
   
-//=> SUM: 499500
+  //=> SUM: 499500
+}
 ```
 
 In the example the fold function is returning a simple sum between the
@@ -301,7 +319,7 @@ A second variant of the `foldLeft` consumer allows for returning a
 asynchronous processing as part of that logic. This sample isn't
 useful, but you can easily see that you can insert I/O logic in there:
 
-```scala
+```tut:silent
 import monix.eval.Task
 import concurrent.duration._
 
@@ -316,13 +334,15 @@ Observables have powerful facilities for transforming and processing a
 data-source and often all we need is to return the first generated
 item and then stop. In such instances we can use `Consumer.head`:
 
-```scala
+```tut:silent
 import monix.reactive._
 
-val sum: Task[Long] = Observable
+val sum: Task[Long] = {
+  Observable
   .range(0,1000)
   .sumF
-  .runWith(Consumer.head)
+  .consumeWith(Consumer.head)
+}
   
 import monix.execution.Scheduler.Implicits.global
 sum.runAsync.foreach(println)
@@ -333,19 +353,21 @@ The `Consumer.head` can be problematic for empty streams, since it
 assumes that the source will generate at least one item. Therefore for
 empty streams it ends up signaling a `NoSuchElementException`:
 
-```scala
-Observable.empty[Int]
-  .runWith(Consumer.head)
-  .failed.runAsync.foreach(println)
+```tut:silent
+{
+  Observable.empty[Int]
+    .consumeWith(Consumer.head)
+    .failed.runAsync.foreach(println)
   
-//=> java.util.NoSuchElementException: head
+  //=> java.util.NoSuchElementException: head
+}
 ```
 
 To play it safe, we can use `Consumer.headOption` instead:
 
-```scala
+```tut:silent
 val first: Task[Option[Int]] =
-  Observable.empty[Int].runWith(Consumer.headOption)
+  Observable.empty[Int].consumeWith(Consumer.headOption)
   
 first.runAsync.foreach(println)
 //=> None
@@ -355,30 +377,31 @@ Or we can simply get the first `Notification` that happened, be it
 `OnNext`, `OnComplete` or `OnError` and then stop, by means of
 `Consumer.firstNotification`:
 
-```scala
+```tut:silent
 import monix.reactive.Notification.{OnNext, OnComplete, OnError}
 
 val observable = Observable.empty[Int]
+val task =
+  observable.consumeWith(Consumer.firstNotification)
 
-observable.runWith(Consumer.firstNotification)
-  .runAsync.foreach {
-    case OnComplete => println("onComplete")
-    case OnError(ex) => println(s"onError($ex)")
-    case OnNext(elem) => println(s"onNext(elem)")
-  }
+task.runAsync.foreach {
+  case OnComplete => println("onComplete")
+  case OnError(ex) => println(s"onError($ex)")
+  case OnNext(elem) => println(s"onNext(elem)")
+}
 ```
 
 ### Foreach item execute a callback
 
 The classic foreach operation is available for consumers:
 
-```scala
+```tut:silent
 import monix.reactive._
 
 val source = Observable.range(0,1000)
 val logger = Consumer.foreach[Long](x => println(s"Elem: $x"))
 
-val task = source.runWith(logger)
+val task = source.consumeWith(logger)
 // task: Task[Unit] = Async(<function3>)
 ```
 
@@ -398,7 +421,7 @@ Consumer.foreachAsync[Long] { item =>
 Or if you want to impress your friends, you can execute that foreach
 in parallel:
 
-```scala
+```tut:silent
 Consumer.foreachParallel[Long](parallelism=10) { item => ??? }
 ```
 
@@ -425,18 +448,20 @@ As a generalization of `foreachParallel` and `foreachParallelAsync`,
 we can place a load-balancer in front of any consumer. Here's a
 consumer that processes sums in parallel:
 
-```scala
+```tut:silent
 val sumConsumer = 
   Consumer.foldLeft[Long,Long](0L)(_+_)
 val parallelConsumer = 
   Consumer.loadBalance(parallelism=10, sumConsumer).map(_.sum)
 
-Observable.range(0,10000)
-  .runWith(parallelConsumer)
-  .runAsync
-  .foreach(r => println(s"Result: $r"))
+{
+  Observable.range(0,10000)
+    .consumeWith(parallelConsumer)
+    .runAsync
+    .foreach(r => println(s"Result: $r"))
 
-//=> Result: 49995000
+  //=> Result: 49995000
+}
 ```
 
 This can be used:
@@ -448,7 +473,7 @@ This can be used:
 You can also combine different consumer instances that can have
 different behavior:
 
-```scala
+```tut:silent
 val sumConsumer1 = 
   Consumer.foldLeft[Long,Long](0L)(_+_+1)
 val sumConsumer2 = 

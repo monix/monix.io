@@ -35,7 +35,6 @@ To timeout a `Future` that doesn't complete in due time:
 
 ```tut:reset:invisible
 import monix.execution.schedulers.TestScheduler
-
 implicit val global = TestScheduler()
 import monix.execution.FutureUtils
 import monix.execution.FutureUtils.extensions._
