@@ -79,7 +79,7 @@ and opinions.
 Why Monix is better:
 
 - Monix is easier to use
-- The inner workings of Monix is easier to understand
+- The inner workings of Monix are easier to understand
 - Monix is lighter, as it doesn't depend on an actor framework
 - Monix is basically the
   [Observer pattern (from GoF)](https://en.wikipedia.org/wiki/Observer_pattern)
