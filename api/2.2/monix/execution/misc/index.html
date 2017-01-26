@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.execution.misc</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.execution.misc" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.execution.misc" />
+          <title>Monix 2.2.0 - monix.execution.misc</title>
+          <meta name="description" content="Monix 2.2.0 - monix.execution.misc" />
+          <meta name="keywords" content="Monix 2.2.0 monix.execution.misc" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -238,6 +238,14 @@ limits the parallelism on Future execution.">
                           AsyncSemaphore
                         </a>
                       </li><li class="current-entities indented3">
+                        <a class="object" href="AsyncVar$.html" title=""></a>
+                        <a class="class" href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains
+a value of type A."></a>
+                        <a href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains
+a value of type A.">
+                          AsyncVar
+                        </a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="trait" href="HygieneUtilMacros.html" title="Utilities for macro-hygiene."></a>
                         <a href="HygieneUtilMacros.html" title="Utilities for macro-hygiene.">
@@ -404,6 +412,36 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = Async
 <span class="cmt">// For such a task no more than 10 requests</span>
 <span class="cmt">// are allowed to be executed in parallel.</span>
 <span class="kw">val</span> future = semaphore.greenLight(() <span class="kw">=&gt;</span> makeRequest(???))</pre></div></div>
+    </li><li name="monix.execution.misc.AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncVar[A]extendsAnyRef"></a><a id="AsyncVar[A]:AsyncVar[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncVar[A]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Asynchronous mutable location, that is either empty or contains
+a value of type A." href="AsyncVar.html">
+              <span class="name">AsyncVar</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Asynchronous mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Asynchronous mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><p>It has 2 fundamental atomic operations:</p><ul><li><a href="AsyncVar.html#put(a:A):scala.concurrent.Future[Unit]" class="extmbr" name="monix.execution.misc.AsyncVar#put">put</a> which fills the var if empty, or blocks
+   (asynchronously) otherwise until the var is empty again</li><li><a href="AsyncVar.html#take:scala.concurrent.Future[A]" class="extmbr" name="monix.execution.misc.AsyncVar#take">take</a> which empties the var if full, returning the contained
+   value, or blocks (asynchronously) otherwise until there is
+   a value to pull</li></ul><p>The <code>AsyncVar</code> is appropriate for building synchronization
+primitives and performing simple inter-thread communications.
+If it helps, it's similar with a <code>BlockingQueue(capacity = 1)</code>,
+except that it doesn't block any threads, all waiting being
+callback-based.</p><p>Given its asynchronous, non-blocking nature, it can be used on
+top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code> from Haskell.
+</p></div></div>
     </li><li name="monix.execution.misc.HygieneUtilMacros" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="HygieneUtilMacrosextendsAnyRef"></a><a id="HygieneUtilMacros:HygieneUtilMacros"></a>
       <span class="permalink">
@@ -512,6 +550,24 @@ copy of the variable.
         <a title="" href="AsyncSemaphore$.html">
               <span class="name">AsyncSemaphore</span>
             </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.misc.AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AsyncVar"></a><a id="AsyncVar:AsyncVar"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncVar" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="AsyncVar$.html">
+              <span class="name">AsyncVar</span>
+            </a>
       </span>
       
       

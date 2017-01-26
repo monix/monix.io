@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.eval.Callback</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.eval.Callback" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.eval.Callback" />
+          <title>Monix 2.2.0 - monix.eval.Callback</title>
+          <meta name="description" content="Monix 2.2.0 - monix.eval.Callback" />
+          <meta name="keywords" content="Monix 2.2.0 monix.eval.Callback" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -125,7 +125,7 @@ for the types described in <code>monix.types</code>.</p></div><dl class="attribu
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
     </li><li class="current-entities indented2">
                         <a class="object" href="Callback$.html" title=""></a>
-                        <a class="trait" href="" title="Represents a callback that should be called asynchronously
+                        <a class="class" href="" title="Represents a callback that should be called asynchronously
 with the result of a computation."></a>
                         <a href="" title="Represents a callback that should be called asynchronously
 with the result of a computation.">
@@ -136,6 +136,14 @@ with the result of a computation.">
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">
                           Coeval
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A.">
+                          MVar
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Task$.html" title=""></a>
@@ -166,9 +174,9 @@ limits the parallelism on task execution.">
             </div>
           </div>
           <div id="content">
-            <body class="trait type">
+            <body class="class type">
       <div id="definition">
-        <a href="Callback$.html" title="See companion object"><div class="big-circle trait-companion-object">t</div></a>
+        <a href="Callback$.html" title="See companion object"><div class="big-circle class-companion-object">c</div></a>
         <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a>.<a href="index.html" class="extype" name="monix.eval">eval</a></p>
         <h1><a href="Callback$.html" title="See companion object">Callback</a><span class="permalink">
       <a href="../../monix/eval/Callback.html" title="Permalink">
@@ -182,11 +190,11 @@ limits the parallelism on task execution.">
 
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Callback</span><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+        <span class="name">Callback</span><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>] with (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       </h4>
 
@@ -195,11 +203,11 @@ limits the parallelism on task execution.">
 with the result of a computation. Used by <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> to signal
 the completion of asynchronous computations on <code>runAsync</code>.</p><p>The <code>onSuccess</code> method should be called only once, with the successful
 result, whereas <code>onError</code> should be called if the result is an error.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0-M1/monix-eval/shared/src/main/scala/monix/eval/Callback.scala" target="_blank">Callback.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0/monix-eval/shared/src/main/scala/monix/eval/Callback.scala" target="_blank">Callback.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a>, <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+          <div class="superTypes hiddenContent">(<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a>, <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>], <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Any" class="extype" target="_top">Any</a></div>
         </div></div>
         
 
@@ -225,7 +233,7 @@ result, whereas <code>onError</code> should be called if the result is an error.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.eval.Callback"><span>Callback</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Function1"><span>Function1</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.eval.Callback"><span>Callback</span></li><li class="in" name="scala.Function1"><span>Function1</span></li><li class="in" name="monix.execution.Listener"><span>Listener</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -243,7 +251,26 @@ result, whereas <code>onError</code> should be called if the result is an error.
 
       <div id="template">
         <div id="allMembers">
-        
+        <div id="constructors" class="members">
+              <h3>Instance Constructors</h3>
+              <ol><li name="monix.eval.Callback#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="&lt;init&gt;():monix.eval.Callback[T]"></a><a id="&lt;init&gt;:Callback[T]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Callback.html#&lt;init&gt;():monix.eval.Callback[T]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Callback</span><span class="params">()</span>
+      </span>
+      
+      
+    </li></ol>
+            </div>
 
         
 
@@ -362,7 +389,7 @@ result, whereas <code>onError</code> should be called if the result is an error.
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -378,7 +405,7 @@ result, whereas <code>onError</code> should be called if the result is an error.
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
+        <span class="modifier">final </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
@@ -593,6 +620,25 @@ result, whereas <code>onError</code> should be called if the result is an error.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Callback#onValue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onValue(value:T):Unit"></a><a id="onValue(T):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Callback.html#onValue(value:T):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onValue</span><span class="params">(<span name="value">value: <span class="extype" name="monix.eval.Callback.T">T</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">An alias for <a href="#onSuccess(value:T):Unit" class="extmbr" name="monix.eval.Callback#onSuccess">onSuccess</a>, inherited
+from <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">monix.execution.Listener</a>.</p><div class="fullcomment"><div class="comment cmt"><p>An alias for <a href="#onSuccess(value:T):Unit" class="extmbr" name="monix.eval.Callback#onSuccess">onSuccess</a>, inherited
+from <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">monix.execution.Listener</a>.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.Callback">Callback</a> → <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -701,12 +747,14 @@ result, whereas <code>onError</code> should be called if the result is an error.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
+        <div class="parent" name="scala.Function1">
+              <h3>Inherited from (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></h3>
+            </div><div class="parent" name="monix.execution.Listener">
+              <h3>Inherited from <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]</h3>
+            </div><div class="parent" name="scala.Serializable">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
-            </div><div class="parent" name="scala.Function1">
-              <h3>Inherited from (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">

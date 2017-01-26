@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.eval.Task</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.eval.Task" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.eval.Task" />
+          <title>Monix 2.2.0 - monix.eval.Task</title>
+          <meta name="description" content="Monix 2.2.0 - monix.eval.Task" />
+          <meta name="keywords" content="Monix 2.2.0 monix.eval.Task" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -125,7 +125,7 @@ for the types described in <code>monix.types</code>.</p></div><dl class="attribu
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
     </li><li class="current-entities indented2">
                         <a class="object" href="Callback$.html" title=""></a>
-                        <a class="trait" href="Callback.html" title="Represents a callback that should be called asynchronously
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously
 with the result of a computation."></a>
                         <a href="Callback.html" title="Represents a callback that should be called asynchronously
 with the result of a computation.">
@@ -136,6 +136,14 @@ with the result of a computation.">
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">
                           Coeval
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A.">
+                          MVar
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Task$.html" title=""></a>
@@ -205,7 +213,7 @@ computation was started. But one shouldn't make assumptions about
 how things will end up executed, as ultimately it is the
 implementation's job to decide on the best execution model. All
 you are guaranteed is asynchronous execution after executing
-<code>runAsync</code>.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0-M1/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+<code>runAsync</code>.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -583,7 +591,7 @@ for triggering callbacks when the source finishes.
       
       <p class="shortcomment cmt">Returns a new <code>Task</code> in which <code>f</code> is scheduled to be run on
 completion.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new <code>Task</code> in which <code>f</code> is scheduled to be run on
-completion.  This would typically be used to release any
+completion. This would typically be used to release any
 resources acquired by this <code>Task</code>.</p><p>The returned <code>Task</code> completes when both the source and the task
 returned by <code>f</code> complete.</p><p>NOTE: The given function is only called when the task is
 complete.  However the function does not get called if the task

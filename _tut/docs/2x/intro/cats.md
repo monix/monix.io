@@ -10,7 +10,7 @@ tut:
   scala: 2.11.8
   binaryScala: "2.11"
   dependencies:
-    - io.monix::monix:version2x
+    - io.monix::monix-reactive:version2x
     - io.monix::monix-cats:version2x
 ---
 

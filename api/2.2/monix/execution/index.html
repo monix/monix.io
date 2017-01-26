@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.execution</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.execution" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.execution" />
+          <title>Monix 2.2.0 - monix.execution</title>
+          <meta name="description" content="Monix 2.2.0 - monix.execution" />
+          <meta name="keywords" content="Monix 2.2.0 monix.execution" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -338,6 +338,14 @@ as long as it isn't complete.">
                           FutureUtils
                         </a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="Listener$.html" title=""></a>
+                        <a class="trait" href="Listener.html" title="A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks."></a>
+                        <a href="Listener.html" title="A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks.">
+                          Listener
+                        </a>
+                      </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="class" href="Macros.html" title="Various implementations for
 AckExtensions and
@@ -576,6 +584,32 @@ run loops should behave, but ultimately it's up to the client
 to choose the best execution model. This can be related to
 recursive loops or to events pushed into consumers.
 </p></div></div>
+    </li><li name="monix.execution.Listener" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Listener[-A]extendsSerializable"></a><a id="Listener[-A]:Listener[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#Listener[-A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks." href="Listener.html">
+              <span class="name">Listener</span>
+            </a><span class="tparams">[<span name="A">-A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks.</p><div class="fullcomment"><div class="comment cmt"><p>A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks.</p><p>This interface does not provide any usage contract or
+assumptions on how the <code>onValue(a)</code> function gets called.</p><p>It's a replacement for <code>Function1[A,Unit]</code> but it does
+not inherit from it, precisely because we want to attach
+<code>Listener</code> semantics to types that cannot be <code>Function1[A,Unit]</code>.</p><p>In particular <code>monix.eval.Callback</code> is a supertype of
+<code>Listener</code>, even though <code>Callback</code> is a <code>Try[T] =&gt; Unit</code>.
+</p></div></div>
     </li><li name="monix.execution.Macros" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="MacrosextendsInlineMacroswithHygieneUtilMacros"></a><a id="Macros:Macros"></a>
       <span class="permalink">
@@ -756,6 +790,24 @@ but that must not blow up the call-stack, like asynchronous tasks.</p><p>A defau
       </span>
       
       <p class="shortcomment cmt">Utilities for Scala's standard <code>concurrent.Future</code>.</p>
+    </li><li name="monix.execution.Listener" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Listener"></a><a id="Listener:Listener"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#Listener" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Listener$.html">
+              <span class="name">Listener</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="monix.execution.Scheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Scheduler"></a><a id="Scheduler:Scheduler"></a>
       <span class="permalink">

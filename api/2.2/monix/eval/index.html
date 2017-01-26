@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.eval</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.eval" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.eval" />
+          <title>Monix 2.2.0 - monix.eval</title>
+          <meta name="description" content="Monix 2.2.0 - monix.eval" />
+          <meta name="keywords" content="Monix 2.2.0 monix.eval" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -145,7 +145,7 @@ can experience conflicts if you do:</p><pre><span class="cmt">// Do not do this!
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
     </li><li class="current-entities indented2">
                         <a class="object" href="Callback$.html" title=""></a>
-                        <a class="trait" href="Callback.html" title="Represents a callback that should be called asynchronously
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously
 with the result of a computation."></a>
                         <a href="Callback.html" title="Represents a callback that should be called asynchronously
 with the result of a computation.">
@@ -156,6 +156,14 @@ with the result of a computation.">
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">
                           Coeval
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A.">
+                          MVar
                         </a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Task$.html" title=""></a>
@@ -321,21 +329,21 @@ can experience conflicts if you do:</p><pre><span class="cmt">// Do not do this!
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="monix.eval.Callback" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="Callback[-T]extendsutil.Try[T]=&gt;UnitwithSerializable"></a><a id="Callback[-T]:Callback[T]"></a>
+      <a id="Callback[-T]extendsListener[T]withutil.Try[T]=&gt;Unit"></a><a id="Callback[-T]:Callback[T]"></a>
       <span class="permalink">
-      <a href="../../monix/eval/index.html#Callback[-T]extendsutil.Try[T]=&gt;UnitwithSerializable" title="Permalink">
+      <a href="../../monix/eval/index.html#Callback[-T]extendsListener[T]withutil.Try[T]=&gt;Unit" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
         <a title="Represents a callback that should be called asynchronously
 with the result of a computation." href="Callback.html">
               <span class="name">Callback</span>
-            </a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>] with (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Represents a callback that should be called asynchronously
@@ -373,6 +381,37 @@ that can be used as a replacement for Scala's own <code>Try</code> type.</p><p><
 methods, which use an internal trampoline to avoid stack overflows.
 Computation done within .map and .flatMap is always done lazily,
 even when applied to a <code>Now</code> instance.
+</p></div></div>
+    </li><li name="monix.eval.MVar" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="MVar[A]extendsAnyRef"></a><a id="MVar[A]:MVar[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#MVar[A]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A mutable location, that is either empty or contains
+a value of type A." href="MVar.html">
+              <span class="name">MVar</span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>A mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><p>It has 2 fundamental atomic operations:</p><ul><li><a href="MVar.html#put(a:A):monix.eval.Task[Unit]" class="extmbr" name="monix.eval.MVar#put">put</a> which fills the var if empty, or blocks
+   (asynchronously) until the var is empty again</li><li><a href="MVar.html#take:monix.eval.Task[A]" class="extmbr" name="monix.eval.MVar#take">take</a> which empties the var if full, returning the contained
+   value, or blocks (asynchronously) otherwise until there is
+   a value to pull</li></ul><p>The <code>MVar</code> is appropriate for building synchronization
+primitives and performing simple inter-thread communications.
+If it helps, it's similar with a <code>BlockingQueue(capacity = 1)</code>,
+except that it doesn't block any threads, all waiting being
+done asynchronously by means of <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><p>Given its asynchronous, non-blocking nature, it can be used on
+top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code> from Haskell and
+by <code>scalaz.concurrent.MVar</code>.
 </p></div></div>
     </li><li name="monix.eval.Task" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Task[+A]extendsSerializable"></a><a id="Task[+A]:Task[A]"></a>
@@ -499,6 +538,24 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = TaskS
         <a title="" href="Coeval$.html">
               <span class="name">Coeval</span>
             </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.eval.MVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MVar"></a><a id="MVar:MVar"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#MVar" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="MVar$.html">
+              <span class="name">MVar</span>
+            </a>
       </span>
       
       

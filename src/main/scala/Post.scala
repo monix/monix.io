@@ -59,7 +59,6 @@ case class Post(file: File, config: ConfigFile) {
          .replaceAll("version2x", config.version2x)
     }
 
-
   def libResolution(tut: Tut): Resolution =
     Resolution(parsedDependencies(tut).map { dep =>
       val (mod, v) = Parse.moduleVersion(dep, tut.binaryScala).right.get

@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0-M1 - monix.execution.Scheduler</title>
-          <meta name="description" content="Monix 2.2.0 - M1 - monix.execution.Scheduler" />
-          <meta name="keywords" content="Monix 2.2.0 M1 monix.execution.Scheduler" />
+          <title>Monix 2.2.0 - monix.execution.Scheduler</title>
+          <meta name="description" content="Monix 2.2.0 - monix.execution.Scheduler" />
+          <meta name="keywords" content="Monix 2.2.0 monix.execution.Scheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0-M1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -300,6 +300,14 @@ as long as it isn't complete.">
                           FutureUtils
                         </a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="Listener$.html" title=""></a>
+                        <a class="trait" href="Listener.html" title="A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks."></a>
+                        <a href="Listener.html" title="A simple listener interface, to be used in observer pattern
+implementations or for specifying asynchronous callbacks.">
+                          Listener
+                        </a>
+                      </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="class" href="Macros.html" title="Various implementations for
 AckExtensions and
@@ -353,7 +361,7 @@ schedule the execution of units of work to run with a delay or periodically.">
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0-M1/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala" target="_blank">Scheduler.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.0/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala" target="_blank">Scheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -883,9 +891,9 @@ task using one of possibly several pooled threads.
               
         </dd></dl></div>
     </li><li name="monix.execution.schedulers.SchedulerCompanionImpl#computation" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="computation(name:String,parallelism:Int,daemonic:Boolean,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.SchedulerService"></a><a id="computation(String,Int,Boolean,UncaughtExceptionReporter,ExecutionModel):SchedulerService"></a>
+      <a id="computation(parallelism:Int,name:String,daemonic:Boolean,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.SchedulerService"></a><a id="computation(Int,String,Boolean,UncaughtExceptionReporter,ExecutionModel):SchedulerService"></a>
       <span class="permalink">
-      <a href="../../monix/execution/Scheduler$.html#computation(name:String,parallelism:Int,daemonic:Boolean,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.SchedulerService" title="Permalink">
+      <a href="../../monix/execution/Scheduler$.html#computation(parallelism:Int,name:String,daemonic:Boolean,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.SchedulerService" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -894,7 +902,7 @@ task using one of possibly several pooled threads.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">computation</span><span class="params">(<span name="name">name: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;monix-computation&quot;</span></span>, <span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Int" class="extype" target="_top">Int</a> = <span class="defval" name="Runtime.getRuntime.availableProcessors()">...</span></span>, <span name="daemonic">daemonic: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Boolean" class="extype" target="_top">Boolean</a> = <span class="symbol">true</span></span>, <span name="reporter">reporter: <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> = <span class="symbol"><span class="name"><a href="../index.html">LogExceptionsToStandardErr</a></span></span></span>, <span name="executionModel">executionModel: <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> = <span class="symbol"><span class="name"><a href="../index.html">ExecModel.Default</a></span></span></span>)</span><span class="result">: <a href="schedulers/SchedulerService.html" class="extype" name="monix.execution.schedulers.SchedulerService">SchedulerService</a></span>
+        <span class="name">computation</span><span class="params">(<span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Int" class="extype" target="_top">Int</a> = <span class="defval" name="Runtime.getRuntime.availableProcessors()">...</span></span>, <span name="name">name: <span class="extype" name="scala.Predef.String">String</span> = <span class="symbol">&quot;monix-computation&quot;</span></span>, <span name="daemonic">daemonic: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Boolean" class="extype" target="_top">Boolean</a> = <span class="symbol">true</span></span>, <span name="reporter">reporter: <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> = <span class="symbol"><span class="name"><a href="../index.html">LogExceptionsToStandardErr</a></span></span></span>, <span name="executionModel">executionModel: <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> = <span class="symbol"><span class="name"><a href="../index.html">ExecModel.Default</a></span></span></span>)</span><span class="result">: <a href="schedulers/SchedulerService.html" class="extype" name="monix.execution.schedulers.SchedulerService">SchedulerService</a></span>
       </span>
       
       <p class="shortcomment cmt">Creates a <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> meant for
@@ -902,7 +910,7 @@ computationally heavy CPU-bound tasks.</p><div class="fullcomment"><div class="c
 computationally heavy CPU-bound tasks.</p><p>Characteristics:</p><p>- backed by a <code>ForkJoinPool</code> implementation, in async mode
 - uses monix's default <code>ScheduledExecutorService</code> instance for scheduling
 - DOES NOT cooperate with Scala's <code>BlockContext</code>
-</p></div><dl class="paramcmts block"><dt class="param">name</dt><dd class="cmt"><p>the created threads name prefix, for easy identification.</p></dd><dt class="param">parallelism</dt><dd class="cmt"><p>is the number of threads that can run in parallel</p></dd><dt class="param">daemonic</dt><dd class="cmt"><p>specifies whether the created threads should be daemonic
+</p></div><dl class="paramcmts block"><dt class="param">parallelism</dt><dd class="cmt"><p>is the number of threads that can run in parallel</p></dd><dt class="param">name</dt><dd class="cmt"><p>the created threads name prefix, for easy identification.</p></dd><dt class="param">daemonic</dt><dd class="cmt"><p>specifies whether the created threads should be daemonic
        (non-daemonic threads are blocking the JVM process on exit).</p></dd><dt class="param">reporter</dt><dd class="cmt"><p>is the <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> that logs uncaught exceptions.
         Wrap the given <code>ExecutionContext.reportFailure</code> or use
         <a href="UncaughtExceptionReporter$.html#LogExceptionsToStandardErr:monix.execution.UncaughtExceptionReporter" class="extmbr" name="monix.execution.UncaughtExceptionReporter#LogExceptionsToStandardErr">UncaughtExceptionReporter.LogExceptionsToStandardErr</a> for
