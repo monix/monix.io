@@ -20,6 +20,7 @@ title: Monix Documentation
   - [Task](./eval/task.html)
   - [Callback](./eval/callback.html)
   - [Coeval](./eval/coeval.html)
+  - [MVar](./eval/mvar.html)
 - Reactive
   - [Observable](./reactive/observable.html)
   - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)
