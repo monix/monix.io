@@ -5,7 +5,7 @@ type_api: monix.execution.Scheduler
 type_source: monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala
 description: |
   A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool.
-  
+
 tut:
   scala: 2.11.8
   binaryScala: "2.11"
@@ -21,7 +21,7 @@ The Monix `Scheduler` is inspired by
 [ExecutionContext]({{ site.scalaapi }}#scala.concurrent.ExecutionContext) and also a replacement for
 Java's
 [ScheduledExecutorService](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html),
-but also for Javascript's 
+but also for Javascript's
 [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout).
 
 ## Rationale
@@ -115,7 +115,7 @@ by setting the following system properties:
   specifying the parallelism directly or a string with the format "xNUM"
   (e.g. "x1.5") specifying the multiplication factor of the number of
   available processors (taken with `Runtime.availableProcessors`)
-  
+
 Example of setting a system property:
 
 ```sh
@@ -127,7 +127,7 @@ backed by an implementation using `setTimeout` under the hood.
 
 ## Execute Runnables
 
-In order to schedule a 
+In order to schedule a
 [Runnable](https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html)
 to execute asynchronously:
 
@@ -141,7 +141,7 @@ scheduler.execute(new Runnable {
 })
 ```
 
-Once a task has been scheduled for execution like this, 
+Once a task has been scheduled for execution like this,
 there's no way to cancel it.
 
 ## Schedule with a Delay
@@ -159,7 +159,7 @@ val cancelable = scheduler.scheduleOnce(
       println("Hello, world!")
     }
   })
-  
+
 // In case we change our mind, before time's up
 cancelable.cancel()
 ```
@@ -189,13 +189,13 @@ val c = scheduler.scheduleWithFixedDelay(
       println("Fixed delay task")
     }
   })
-  
+
 // If we change our mind and want to cancel
 c.cancel()
 ```
 
 Note that it doesn't matter how much the execution takes,
-the delay between tasks will be constant. So in this 
+the delay between tasks will be constant. So in this
 sample, we are actually going to have an accumulated
 delay of 7 seconds between `println` calls:
 
@@ -220,7 +220,7 @@ scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
 
 So, in order to take execution duration into account,
 we can use the second variant, scheduling periodic
-execution at a fixed rate. 
+execution at a fixed rate.
 
 ```tut:silent
 val c = scheduler.scheduleAtFixedRate(
@@ -230,7 +230,7 @@ val c = scheduler.scheduleAtFixedRate(
       println("Fixed delay task")
     }
   })
-  
+
 // If we change our mind and want to cancel
 c.cancel()
 ```
@@ -309,16 +309,16 @@ testScheduler.execute(runnable2)
 ## Execution Model
 
 Along with time, the `Scheduler` also specifies the
-[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel), 
+[ExecutionModel]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel),
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution in loops.
-For example in Monix, this affects how both `Task` and `Observable` 
+For example in Monix, this affects how both `Task` and `Observable`
 are evaluated.
 
 Currently there are 3 execution models available:
 
 - [BatchedExecution]({{ site.api2x }}#monix.execution.schedulers.ExecutionModel$$BatchedExecution),
-  the Monix default, specifies a mixed execution mode under which tasks are 
+  the Monix default, specifies a mixed execution mode under which tasks are
   executed synchronously in batches up to a maximum size, after
   which an asynchronous boundary is forced. This execution mode
   is recommended because we don't want to block threads / run-loops
@@ -338,11 +338,11 @@ You can retrieve the configured `ExecutionModel` by calling
 
 ```tut:silent
 global.executionModel
-// res: monix.execution.schedulers.ExecutionModel = 
+// res: monix.execution.schedulers.ExecutionModel =
 //   BatchedExecution(1024)
 ```
 
-You can configure the batch size for this default 
+You can configure the batch size for this default
 by setting a system property like:
 
 ```
@@ -356,10 +356,10 @@ you need to build a new `Scheduler` instance.
 
 On top of the JVM you can build a `Scheduler` instance manually,
 by piggy-backing on an existing Scala `ExecutionContext` that will
-actually execute the tasks and on top of an existing 
+actually execute the tasks and on top of an existing
 Java `ScheduledExecutorService` that will be in charge of
 scheduling delayed executions, but that won't run the tasks
-themselves. There are multiple overloads available, but lets do 
+themselves. There are multiple overloads available, but lets do
 the most general:
 
 ```tut:silent
@@ -370,11 +370,11 @@ import monix.execution.{Scheduler, UncaughtExceptionReporter}
 // Will schedule things with delays
 lazy val scheduledExecutor =
   Executors.newSingleThreadScheduledExecutor()
-  
+
 // For actual execution of tasks
-lazy val executorService = 
+lazy val executorService =
   scala.concurrent.ExecutionContext.Implicits.global
-  
+
 // Logs errors to stderr or something
 lazy val uncaughtExceptionReporter =
   UncaughtExceptionReporter(executorService.reportFailure)
@@ -433,11 +433,11 @@ CPU-bound tasks like so:
 
 ```tut:silent
 // Simple constructor
-lazy val scheduler = 
+lazy val scheduler =
   Scheduler.computation(parallelism=10)
 
 // Specify an optional ExecutionModel
-lazy val scheduler = 
+lazy val scheduler =
   Scheduler.computation(
     parallelism = 10,
     executionModel = AlwaysAsyncExecution
@@ -451,7 +451,7 @@ backed by a Java
 ```tut:silent
 lazy val scheduler =
   Scheduler.io()
-  
+
 // Giving it a name
 lazy val scheduler =
   Scheduler.io(name="my-io")
@@ -472,7 +472,7 @@ lazy val scheduler =
   Scheduler.singleThread(name="my-thread")
 ```
 
-Or a thread-pool with an exact number of threads (and not a 
+Or a thread-pool with an exact number of threads (and not a
 variable one like the `ForkJoinPool` above), backed by a Java
 [ScheduledThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int))
 for both executing and scheduling delays:
@@ -484,7 +484,7 @@ lazy val scheduler =
 
 ## Builders for Javascript
 
-On top of Javascript things are simpler, since you can 
+On top of Javascript things are simpler, since you can
 rely on `setTimeout`. But you might still want to tweak settings,
 so this works:
 
@@ -506,3 +506,72 @@ lazy val scheduler =
 
 Note that the trampoline cannot fake delayed execution,
 so it will still use `setTimeout` when delays are involved.
+
+## Shutdown with SchedulerService
+
+The `SchedulerService` is a `scheduler` type that provides methods for managing termination.
+See the [API Documentation]({{ site.api2x }}monix/execution/schedulers/SchedulerService.html).
+
+Similar in spirit to
+[java.util.concurrent.ExecutorService]({{ site.apiJava }}java/util/concurrent/ExecutorService.html),
+the `SchedulerService` can be shut down, which will cause it to reject new tasks.
+The `shutdown` method allows previously submitted tasks to execute before
+terminating. The `awaitTermination` method allows waiting on all active tasks
+to finish.
+
+Upon termination, an executor has no tasks actively executing, no tasks
+awaiting execution, and no new tasks can be submitted. An unused
+`SchedulerService` should be shut down to allow reclamation of its resources.
+
+When building a new scheduler from scratch, most builders will return
+a `SchedulerService` instance whenever it makes sense:
+
+```tut:silent
+import monix.execution.Scheduler
+import monix.execution.schedulers.SchedulerService
+
+val io: SchedulerService = Scheduler.io("my-io")
+
+io.execute(new Runnable {
+  def run(): Unit = {
+    println("Hello, world!")
+  }
+})
+```
+
+At this point we can initiate an orderly shutdown that will execute our
+pending tasks first, but will accept no more tasks:
+
+```tut:silent
+io.shutdown()
+```
+
+We can also inspect the state of our service:
+
+```tut:book
+io.isShutdown
+```
+
+But if we have already committed tasks pending execution, sometimes it is
+useful to wait for those tasks to be finished. Note that waiting for
+termination in Monix is an asynchronous operation, since Monix as
+a general rule of thumb avoids blocking threads, so our `awaitTermination`
+operation returns a `Future` and thus requires an alternative `Scheduler`
+to use for waiting:
+
+```tut:silent
+import scala.concurrent._
+import scala.concurrent.duration._
+import monix.execution.Scheduler.global
+
+val termination: Future[Boolean] =
+  io.awaitTermination(30.seconds, global)
+
+Await.result(termination, Duration.Inf)
+```
+
+We can now further inspect the state of our `SchedulerService`:
+
+```tut:book
+io.isTerminated
+```

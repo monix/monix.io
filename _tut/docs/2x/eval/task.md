@@ -5,7 +5,7 @@ type_api: monix.eval.Task
 type_source: monix-eval/shared/src/main/scala/monix/eval/Task.scala
 description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
-  
+
 tut:
   scala: 2.11.8
   binaryScala: "2.11"
@@ -497,6 +497,29 @@ task.runAsync.foreach(println)
 //=> Hello!
 ```
 
+### Task.deferFuture
+
+A `Future` reference is like a strict value, meaning that when you receive one,
+whatever process that's supposed to complete it has probably started already.
+
+Therefore it makes sense to defer the evaluation of futures when building tasks:
+
+```tut:silent
+val task = Task.defer {
+  val future = Future { println("Effect"); "Hello!" }
+  Task.fromFuture(future)
+}
+```
+
+As a shortcut, you can also use the `deferFuture` builder, which is equivalent
+with the above:
+
+```tut:silent
+val task = Task.deferFuture {
+  Future { println("Effect"); "Hello!" }
+}
+```
+
 ### Task.fork && Task.asyncBoundary
 
 `Task.fork` ensures an asynchronous boundary, forcing the fork of a
@@ -786,9 +809,9 @@ The callback that needs to be passed to `unsafeCreate` this time has
 this type:
 
 ```scala
-object Task { 
+object Task {
   // ...
-  
+
   type OnFinish[+A] = (Context, Callback[A]) => Unit
 
   final case class Context(
@@ -807,7 +830,7 @@ an injected
 along with something called a `FrameIndex` that's a `ThreadLocal` and
 some special `Options` instead.
 
-This is because you 
+This is because you
 
 Let implement our own version of the `delayExecution` operator, just
 for the kicks:
@@ -832,13 +855,13 @@ def delayExecution[A](
         // Releasing our cancelable because our scheduled
         // task is done and we need to let the GC collect it
         conn.pop()
-        
+
         // We had an async boundary, so we must reset the frame
         // index in order to let Monix know we've had a real
         // async boundary - on the JVM this is not needed, since
         // this is a thread-local, but on JS we don't have threads
         context.frameRef.reset()
-        
+
         // We can now resume execution, by finally starting
         // our source. As you can see, we just inject our
         // StackedCancelable, there's no need to create another
@@ -1039,7 +1062,7 @@ In order to avoid boxing into tuples, you can also use `zipMap2`,
 `zipMap3` ... `zip6`:
 
 ```tut:silent
-Task.zipMap3(locationTask, phoneTask, addressTask) { 
+Task.zipMap3(locationTask, phoneTask, addressTask) {
   (location, phone, address) => "Gotcha!"
 }
 ```
@@ -1493,7 +1516,7 @@ a `TimeoutException` using `Task.timeout`:
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
-val source = 
+val source =
   Task("Hello!").delayExecution(10.seconds)
 
 // Triggers error if the source does not
@@ -1512,7 +1535,7 @@ task. The following example is equivalent to the above one:
 import scala.concurrent.duration._
 import scala.concurrent.TimeoutException
 
-val source = 
+val source =
   Task("Hello!").delayExecution(10.seconds)
 
 val timedOut = source.timeoutTo(

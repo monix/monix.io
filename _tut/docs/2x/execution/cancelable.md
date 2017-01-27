@@ -5,7 +5,7 @@ type_api: monix.execution.Cancelable
 type_source: monix-execution/shared/src/main/scala/monix/execution/Cancelable.scala
 description: |
   A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding.
-  
+
 tut:
   scala: 2.11.8
   binaryScala: "2.11"
@@ -55,10 +55,10 @@ val c = Cancelable(() => println("Canceled!"))
 
 The `BooleanCancelable` represents a cancelable that can be queried
 for its canceled status, adding the necessary `isCanceled` query for
-when we need it. 
+when we need it.
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.BooleanCancelable).
+[API Documentation]({{ site.api2x }}monix/execution/cancelables/BooleanCancelable.html).
 
 ```scala
 package monix.execution.cancelables
@@ -84,7 +84,7 @@ c.cancel()
 c.isCanceled
 ```
 
-To build an instance without a callback, but that can be 
+To build an instance without a callback, but that can be
 used to check for `isCanceled`:
 
 
@@ -108,17 +108,17 @@ val c = BooleanCancelable(() => println("Effect!"))
 ## CompositeCancelable
 
 The `CompositeCancelable` is an aggregate of cancelable
-references (to which you can add new references or remove existing ones) 
+references (to which you can add new references or remove existing ones)
 and that are handled in aggregate when doing a `cancel()`.
- 
+
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.CompositeCancelable).
+[API Documentation]({{ site.api2x }}monix/execution/cancelables/CompositeCancelable.html).
 
 The contract for `CompositeCancelable`:
 
-- adding and removing cancelables from the composite 
+- adding and removing cancelables from the composite
   is thread-safe
-- if the composite was already canceled, then adding new 
+- if the composite was already canceled, then adding new
   references to it will trigger their cancelation
 - upon cancelation all references are released
 
@@ -143,7 +143,7 @@ c += Cancelable(() => println("Canceled #4"))
 ```
 
 We can add cancelables references to our composite, but
-we can also remove them, maybe because they are no longer 
+we can also remove them, maybe because they are no longer
 relevant, for GC purposes, etc:
 
 ```tut:silent
@@ -165,12 +165,12 @@ composite.cancel()
 
 ## MultiAssignmentCancelable
 
-The `MultiAssignmentCancelable` is a cancelable that behaves like a 
-variable, referencing another cancelable reference that can be 
-swapped as needed. 
+The `MultiAssignmentCancelable` is a cancelable that behaves like a
+variable, referencing another cancelable reference that can be
+swapped as needed.
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.MultiAssignmentCancelable).
+[API Documentation]({{ site.api2x }}monix/execution/cancelables/MultiAssignmentCancelable.html).
 
 Contract:
 
@@ -180,7 +180,7 @@ Contract:
 - if our assignable cancelable was canceled, then upon
   subsequent assignments, the references will be canceled
   immediately
-  
+
 Usage:
 
 ```tut:silent
@@ -239,7 +239,7 @@ it.
 The example above is obvious, right? But the following one isn't and
 it's in fact a pretty common pattern. Let's build a function that
 executes things with a delay, tasks that can be canceled. To
-add a delay, we'd use a `Scheduler` and we want to return 
+add a delay, we'd use a `Scheduler` and we want to return
 a `Cancelable` that can cancel either the delay or the result
 of our passed function argument, like:
 
@@ -250,13 +250,13 @@ import monix.execution._
 
 def delayedExecution(cb: () => Cancelable)
   (implicit s: Scheduler): Cancelable = {
-    
+
   val ref = MultiAssignmentCancelable()
-  
+
   ref := s.scheduleOnce(5.seconds) {
     ref := cb()
   }
-  
+
   ref
 }
 ```
@@ -264,8 +264,8 @@ def delayedExecution(cb: () => Cancelable)
 You may not notice it, but this is a race condition that can
 yield non-deterministic behavior. Lets say the garbage collector
 has problems and freezes the whole process for 5 whole seconds.
-This can mean that `ref := cb()` might execute before the result 
-of `s.scheduleOnce` returns, as the call to `:=` does not have 
+This can mean that `ref := cb()` might execute before the result
+of `s.scheduleOnce` returns, as the call to `:=` does not have
 a happens-before relationship with the actual delayed scheduling.
 Which means the cancelable returned by our function will be incorrect.
 
@@ -277,7 +277,7 @@ import monix.execution._
 
 def delayedExecution(cb: () => Cancelable)
   (implicit s: Scheduler): Cancelable = {
-    
+
   val ref = MultiAssignmentCancelable()
   val delay = s.scheduleOnce(5.seconds) {
     ref.orderedUpdate(cb(), 2)
@@ -294,10 +294,10 @@ def delayedExecution(cb: () => Cancelable)
 
 The `SingleAssignmentCancelable` is similar to the
 `MultiAssignmentCancelable`, except that it can be assigned once and
-only once. 
+only once.
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SingleAssignmentCancelable).
+[API Documentation]({{ site.api2x }}monix/execution/cancelables/SingleAssignmentCancelable.html).
 
 The contract:
 
@@ -306,7 +306,7 @@ The contract:
   canceled and the reference released for GC purposes
 - if canceled while empty, then the assigned cancelable will be
   canceled immediately on assignment
-- if assignment happens a second time, then the operation 
+- if assignment happens a second time, then the operation
   will throw an `IllegalStateException`, so don't do that
 
 It is useful in cases you need a forward reference, like:
@@ -317,7 +317,7 @@ val ref = SingleAssignmentCancelable()
 ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
   // This wouldn't be correct without having an already
   // initialized value, as it would be a forward reference
-  // (e.g. a reference used before it's initialized), which 
+  // (e.g. a reference used before it's initialized), which
   // could lead to a NullPointerException, not cool!
   ref.cancel()
 }
@@ -336,7 +336,7 @@ being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.
 
 See the
-[API Documentation]({{ site.api2x }}#monix.execution.cancelables.SerialCancelable).
+[API Documentation]({{ site.api2x }}monix/execution/cancelables/SerialCancelable.html).
 
 Contract:
 
@@ -348,7 +348,7 @@ Contract:
   immediately
 - an assignment of a new cancelable will cause the previously
   stored cancelable to be canceled
-  
+
 Usage:
 
 ```tut:silent
@@ -395,7 +395,7 @@ Sample:
 
 ```tut:silent
 val refs = RefCountCancelable { () =>
-  println("Everything was canceled") 
+  println("Everything was canceled")
 }
 
 // acquiring two cancelable references
@@ -403,10 +403,10 @@ val ref1 = refs.acquire()
 val ref2 = refs.acquire()
 
 // Starting the cancelation process
-refs.cancel() 
+refs.cancel()
 
 // This is now true, but the callback hasn't been invoked yet
-refs.isCanceled 
+refs.isCanceled
 // res: Boolean = true
 
 // After our RefCountCancelable was canceled, this will return

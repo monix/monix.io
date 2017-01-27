@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.0 - monix.eval</title>
-          <meta name="description" content="Monix 2.2.0 - monix.eval" />
-          <meta name="keywords" content="Monix 2.2.0 monix.eval" />
+          <title>Monix 2.2.1 - monix.eval</title>
+          <meta name="description" content="Monix 2.2.1 - monix.eval" />
+          <meta name="keywords" content="Monix 2.2.1 monix.eval" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.0</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.1</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -343,7 +343,7 @@ can experience conflicts if you do:</p><pre><span class="cmt">// Do not do this!
         <a title="Represents a callback that should be called asynchronously
 with the result of a computation." href="Callback.html">
               <span class="name">Callback</span>
-            </a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>] with (<a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.util.Try" class="extype" target="_top">Try</a>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Unit" class="extype" target="_top">Unit</a></span>
+            </a><span class="tparams">[<span name="T">-T</span>]</span><span class="result"> extends <a href="../execution/Listener.html" class="extype" name="monix.execution.Listener">Listener</a>[<span class="extype" name="monix.eval.Callback.T">T</span>] with (<span class="extype" name="scala.util.Try">Try</span>[<span class="extype" name="monix.eval.Callback.T">T</span>]) ⇒ <span class="extype" name="scala.Unit">Unit</span></span>
       </span>
       
       <p class="shortcomment cmt">Represents a callback that should be called asynchronously
@@ -366,7 +366,7 @@ result, whereas <code>onError</code> should be called if the result is an error.
       <span class="symbol">
         <a title="Coeval represents lazy computations that can execute synchronously." href="Coeval.html">
               <span class="name">Coeval</span>
-            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends () ⇒ <span class="extype" name="monix.eval.Coeval.A">A</span> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends () ⇒ <span class="extype" name="monix.eval.Coeval.A">A</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"><code>Coeval</code> represents lazy computations that can execute synchronously.</p><div class="fullcomment"><div class="comment cmt"><p><code>Coeval</code> represents lazy computations that can execute synchronously.</p><p>Word definition and origin:</p><ul><li>Having the same age or date of origin; a contemporary; synchronous.</li><li>From the Latin &quot;coævus&quot;: com- ‎(&quot;equal&quot;) in combination with aevum ‎(aevum, &quot;age&quot;).</li><li>The constructor of <code>Coeval</code> is the dual of an expression that evaluates to an <code>A</code>.</li></ul><p>There are three evaluation strategies:</p><ul><li><a href="Coeval$$Now.html" class="extype" name="monix.eval.Coeval.Now">Now</a> or <a href="Coeval$$Error.html" class="extype" name="monix.eval.Coeval.Error">Error</a>:
@@ -397,7 +397,7 @@ even when applied to a <code>Now</code> instance.
         <a title="A mutable location, that is either empty or contains
 a value of type A." href="MVar.html">
               <span class="name">MVar</span>
-            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+            </a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">A mutable location, that is either empty or contains
@@ -429,7 +429,7 @@ by <code>scalaz.concurrent.MVar</code>.
 asynchronous computation, which when executed will produce an A
 as a result, along with possible side-effects." href="Task.html">
               <span class="name">Task</span>
-            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt"><code>Task</code> represents a specification for a possibly lazy or
@@ -463,7 +463,7 @@ you are guaranteed is asynchronous execution after executing
       <span class="symbol">
         <a title="Safe App type that runs a Task action." href="TaskApp.html">
               <span class="name">TaskApp</span>
-            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></span>
+            </a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       
       <p class="shortcomment cmt">Safe <code>App</code> type that runs a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> action.</p><div class="fullcomment"><div class="comment cmt"><p>Safe <code>App</code> type that runs a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a> action.</p><p>Clients should implement <code>run</code>, <code>runl</code>, or <code>runc</code>.</p><p>Also available for Scala.js, but without the ability
@@ -484,7 +484,7 @@ to take arguments and without the blocking in main.
         <a title="The TaskSemaphore is an asynchronous semaphore implementation that
 limits the parallelism on task execution." href="TaskSemaphore.html">
               <span class="name">TaskSemaphore</span>
-            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       <p class="shortcomment cmt">The <code>TaskSemaphore</code> is an asynchronous semaphore implementation that
@@ -519,7 +519,7 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = TaskS
       <span class="symbol">
         <a title="" href="Callback$.html">
               <span class="name">Callback</span>
-            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -537,7 +537,7 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = TaskS
       <span class="symbol">
         <a title="" href="Coeval$.html">
               <span class="name">Coeval</span>
-            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -573,7 +573,7 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = TaskS
       <span class="symbol">
         <a title="" href="Task$.html">
               <span class="name">Task</span>
-            </a><span class="result"> extends <span class="extype" name="monix.eval.TaskInstances">TaskInstances</span> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="result"> extends <span class="extype" name="monix.eval.TaskInstances">TaskInstances</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
@@ -591,7 +591,7 @@ maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = TaskS
       <span class="symbol">
         <a title="" href="TaskSemaphore$.html">
               <span class="name">TaskSemaphore</span>
-            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+            </a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       
       
