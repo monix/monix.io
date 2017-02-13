@@ -24,8 +24,8 @@ title: Monix Documentation
 - Reactive
   - [Observable](./reactive/observable.html)
   - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)
-  - [Consumer](./reactive/consumer.html)
   - [Observers and Subscribers](./reactive/observers.html)
+  - [Consumer](./reactive/consumer.html)
   - [Javascript Event Listeners](./reactive/javascript.html)
 - Tutorials
   - [Parallel Processing](./tutorials/parallelism.html)
