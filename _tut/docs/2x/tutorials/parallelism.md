@@ -62,7 +62,7 @@ aggregate.foreach(println)
 
 If ordering of results does not matter, you can also use 
 [Task.gatherUnordered]({{ site.api2x }}monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]])
-instead of `gather`, which might yield better results, given it's non-blocking execution.
+instead of `gather`, which might yield better results, given its non-blocking execution.
 
 ### Imposing a Parallelism Limit
 
@@ -165,7 +165,7 @@ complete.
 
 If `Observable.mapAsync` works with `Task`, then 
 [Observable.mergeMap](https://monix.io/api/2.2/monix/reactive/Observable.html#mergeMap[B](f:A=%3Emonix.reactive.Observable[B])(implicitos:monix.reactive.OverflowStrategy[B]):Self[B])
-works by concatenating `Observable` instances.
+works by merging `Observable` instances.
 
 ```tut:silent
 val source = Observable.range(0,1000)
