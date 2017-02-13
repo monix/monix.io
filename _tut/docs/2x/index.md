@@ -27,6 +27,8 @@ title: Monix Documentation
   - [Consumer](./reactive/consumer.html)
   - [Observers and Subscribers](./reactive/observers.html)
   - [Javascript Event Listeners](./reactive/javascript.html)
+- Tutorials
+  - [Parallel Processing](./tutorials/parallelism.html)
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
