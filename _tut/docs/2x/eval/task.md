@@ -961,7 +961,7 @@ memoized.runAsync.foreach(println)
 ### Memoize Only on Success
 
 Sometimes you just want memoization, along with idempotency
-guarantees, only successful values. For failures you might want to
+guarantees, only for successful values. For failures you might want to
 keep retrying until a successful value is available.
 
 This is where the `memoizeOnSuccess` operator comes in handy:
