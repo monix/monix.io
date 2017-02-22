@@ -21,6 +21,7 @@ title: Monix Documentation
   - [Callback](./eval/callback.html)
   - [Coeval](./eval/coeval.html)
   - [MVar](./eval/mvar.html)
+  - [Task Circuit Breaker](./eval/circuit-breaker.html)
 - Reactive
   - [Observable](./reactive/observable.html)
   - [Comparisons with Other Solutions](./reactive/observable-comparisons.html)

@@ -520,6 +520,48 @@ val task = Task.deferFuture {
 }
 ```
 
+### Task.deferFutureAction
+
+Wraps calls that generate `Future` results into `Task`, provided a
+callback with an injected `Scheduler` to act as the necessary
+`ExecutionContext`.
+
+This builder helps with wrapping `Future`-enabled APIs that need an
+implicit `ExecutionContext` to work. Consider this example:
+
+```tut:silent
+import scala.concurrent.{ExecutionContext, Future}
+
+def sumFuture(list: Seq[Int])(implicit ec: ExecutionContext): Future[Int] =
+  Future(list.sum)
+```
+
+We'd like to wrap this function into one that returns a lazy `Task`
+that evaluates this sum every time it is called, because that's how
+tasks work best. However in order to invoke this function an
+`ExecutionContext` is needed:
+
+```tut:silent
+def sumTask(list: Seq[Int])(implicit ec: ExecutionContext): Task[Int] =
+  Task.deferFuture(sumFuture(list))
+```
+
+But this is not only superfluous, but against the best practices of
+using `Task`. The difference is that `Task` takes a `Scheduler`
+(inheriting from `ExecutionContext`) only when `runAsync` gets called,
+but we don't need it just for building a `Task` reference.  With
+`deferFutureAction` we get to have an injected `Scheduler` in the
+passed callback:
+
+```tut:silent
+def sumTask(list: Seq[Int]): Task[Int] =
+  Task.deferFutureAction { implicit scheduler =>
+    sumFuture(list)
+  }
+```
+
+Voilà! No more implicit `ExecutionContext` passed around.
+
 ### Task.fork && Task.asyncBoundary
 
 `Task.fork` ensures an asynchronous boundary, forcing the fork of a
@@ -914,6 +956,30 @@ memoized.runAsync.foreach(println)
 
 memoized.runAsync.foreach(println)
 //=> Hello!
+```
+
+### Memoize Only on Success
+
+Sometimes you just want memoization, along with idempotency
+guarantees, only successful values. For failures you might want to
+keep retrying until a successful value is available.
+
+This is where the `memoizeOnSuccess` operator comes in handy:
+
+```tut:silent
+var effect = 0
+
+val source = Task.eval { 
+  effect += 1
+  if (effect < 3) throw new RuntimeException("dummy") else effect
+}
+
+val cached = source.memoizeOnSuccess
+
+val f1 = cached.runAsync // yields RuntimeException
+val f2 = cached.runAsync // yields RuntimeException
+val f3 = cached.runAsync // yields 3
+val f4 = cached.runAsync // yields 3
 ```
 
 ### Memoize versus runAsync

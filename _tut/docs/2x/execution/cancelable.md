@@ -323,6 +323,22 @@ ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
 }
 ```
 
+It is also possible to specify at construction time an extra
+cancelable reference to cancel, in addition to the assigned reference:
+
+```tut:silent
+val c = {
+  val guest = Cancelable(() => println("extra canceled"))
+  SingleAssignmentCancelable.plusOne(guest)
+}
+
+c := Cancelable(() => println("primary canceled"))
+
+c.cancel()
+//=> extra canceled
+//=> primary canceled
+```
+
 You can use `MultiAssignmentCancelable` for the same purpose of
 course, but the implementation of `SingleAssignmentCancelable` is more
 efficient (e.g. using `getAndSet`, cheaper than `compareAndSet`) and
