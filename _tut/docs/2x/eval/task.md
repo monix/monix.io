@@ -1752,7 +1752,7 @@ import scala.util.{Try, Success, Failure}
 
 val source = Task.raiseError[Int](new IllegalStateException)
 val materialized: Task[Try[Int]] =
-  task.materialize
+  source.materialize
 
 // Now we can flatMap over both success and failure:
 val recovered = materialized.flatMap {
@@ -1772,7 +1772,7 @@ import scala.util.Try
 val source = Task.raiseError[Int](new IllegalStateException)
 
 // Exposing errors
-val materialized = task.materialize
+val materialized = source.materialize
 // materialize: Task[Try[Int]] = ???
 
 // Hiding errors again
