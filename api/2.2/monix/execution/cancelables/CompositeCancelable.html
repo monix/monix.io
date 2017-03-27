@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 2.2.3 - monix.execution.cancelables.CompositeCancelable</title>
-          <meta name="description" content="Monix 2.2.3 - monix.execution.cancelables.CompositeCancelable" />
-          <meta name="keywords" content="Monix 2.2.3 monix.execution.cancelables.CompositeCancelable" />
+          <title>Monix 2.2.4 - monix.execution.cancelables.CompositeCancelable</title>
+          <meta name="description" content="Monix 2.2.4 - monix.execution.cancelables.CompositeCancelable" />
+          <meta name="keywords" content="Monix 2.2.4 monix.execution.cancelables.CompositeCancelable" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">2.2.3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">2.2.4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -265,7 +265,7 @@ s.cancel()
 <span class="cmt">// c1 gets canceled, because s is already canceled</span>
 s += c1
 <span class="cmt">// c2 gets canceled, because s is already canceled</span>
-s += c2</pre><p>Adding and removing references from this composite is thread-safe.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.execution.cancelables.CompositeCancelable">CompositeCancelable</a></dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.3/monix-execution/shared/src/main/scala/monix/execution/cancelables/CompositeCancelable.scala" target="_blank">CompositeCancelable.scala</a></dd></dl><div class="toggleContainer block">
+s += c2</pre><p>Adding and removing references from this composite is thread-safe.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.execution.cancelables.CompositeCancelable">CompositeCancelable</a></dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.4/monix-execution/shared/src/main/scala/monix/execution/cancelables/CompositeCancelable.scala" target="_blank">CompositeCancelable.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -462,7 +462,10 @@ s += c2</pre><p>Adding and removing references from this composite is thread-saf
       
       <p class="shortcomment cmt">Adds a cancelable reference to this composite.</p><div class="fullcomment"><div class="comment cmt"><p>Adds a cancelable reference to this composite.</p><p>        If this composite is already canceled, then the given
         reference will be canceled as well.
-</p></div></div>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="monix.execution.cancelables.CompositeCancelable#addAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="addAll(that:scala.collection.GenTraversableOnce[monix.execution.Cancelable]):CompositeCancelable.this.type"></a><a id="addAll(GenTraversableOnce[Cancelable]):CompositeCancelable.this.type"></a>
       <span class="permalink">
@@ -516,7 +519,10 @@ s += c2</pre><p>Adding and removing references from this composite is thread-saf
       <p class="shortcomment cmt">Cancels the unit of work represented by this reference.</p><div class="fullcomment"><div class="comment cmt"><p>Cancels the unit of work represented by this reference.</p><p>Guaranteed idempotency - calling it multiple times should have the
 same side-effect as calling it only once. Implementations
 of this method should also be thread-safe.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.cancelables.CompositeCancelable">CompositeCancelable</a> → <a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></dd></dl></div>
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.cancelables.CompositeCancelable">CompositeCancelable</a> → <a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
       <span class="permalink">
@@ -593,6 +599,23 @@ of this method should also be thread-safe.
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="monix.execution.cancelables.CompositeCancelable#getAndSet" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="getAndSet(that:scala.collection.GenTraversableOnce[monix.execution.Cancelable]):Set[monix.execution.Cancelable]"></a><a id="getAndSet(GenTraversableOnce[Cancelable]):Set[Cancelable]"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/cancelables/CompositeCancelable.html#getAndSet(that:scala.collection.GenTraversableOnce[monix.execution.Cancelable]):Set[monix.execution.Cancelable]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getAndSet</span><span class="params">(<span name="that">that: <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.collection.GenTraversableOnce" class="extype" target="_top">GenTraversableOnce</a>[<a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>]</span>)</span><span class="result">: <span class="extype" name="scala.Predef.Set">Set</span>[<a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Replaces the underlying set of cancelables with a new one,
+returning the old set just before the substitution happened.</p>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -724,7 +747,10 @@ of this method should also be thread-safe.
       <p class="shortcomment cmt">Removes a cancelable reference from this composite.</p><div class="fullcomment"><div class="comment cmt"><p>Removes a cancelable reference from this composite.</p><p>        By removing references from the composite, we ensure that
         the removed references don't get canceled when the composite
         gets canceled. Also useful for garbage collecting purposes.
-</p></div></div>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="monix.execution.cancelables.CompositeCancelable#removeAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="removeAll(that:scala.collection.GenTraversableOnce[monix.execution.Cancelable]):CompositeCancelable.this.type"></a><a id="removeAll(GenTraversableOnce[Cancelable]):CompositeCancelable.this.type"></a>
       <span class="permalink">
@@ -743,7 +769,7 @@ of this method should also be thread-safe.
       <p class="shortcomment cmt">Removes a collection of cancelables from this composite.</p><div class="fullcomment"><div class="comment cmt"><p>Removes a collection of cancelables from this composite.</p><p>        By removing references from the composite, we ensure that
         the removed references don't get canceled when the composite
         gets canceled. Also useful for garbage collecting purposes.</p></div></div>
-    </li><li name="monix.execution.cancelables.CompositeCancelable#reset" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="monix.execution.cancelables.CompositeCancelable#reset" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="reset():CompositeCancelable.this.type"></a>
       <span class="permalink">
       <a href="../../../monix/execution/cancelables/CompositeCancelable.html#reset():CompositeCancelable.this.type" title="Permalink">
@@ -759,7 +785,12 @@ of this method should also be thread-safe.
       </span>
       
       <p class="shortcomment cmt">Resets this composite to an empty state, if not canceled,
-otherwise leaves it in the canceled state.</p>
+otherwise leaves it in the canceled state.</p><div class="fullcomment"><div class="comment cmt"><p>Resets this composite to an empty state, if not canceled,
+otherwise leaves it in the canceled state.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
