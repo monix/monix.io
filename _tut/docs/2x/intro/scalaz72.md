@@ -93,5 +93,5 @@ import monix.scalaz._
 import monix.scalaz.reverse._
 ```
 
-That's it, now you can use the Cats awesome type-classes along
+That's it, now you can use the Scalaz awesome type-classes along
 with Monix's abstractions, such as `Coeval`, `Task` and `Observable`.
