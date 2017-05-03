@@ -42,18 +42,11 @@ Featured presentation:
 
 The packages are published on Maven Central.
 
-- Old 1.x release: `{{ site.version1x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version1x }}.zip))
 - Current 2.x release: `{{ site.version2x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
 
-For the old 1.x release (use the `%%%` for Scala.js):
 
-```scala
-libraryDependencies += "org.monifu" %% "monifu" % "{{ site.version1x }}"
-```
-
-For the 2.x release (use the `%%%` for Scala.js):
+In SBT (use the `%%%` for Scala.js):
 
 ```scala
 libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
@@ -64,7 +57,7 @@ Monix 2.0 is modular by design, so you can pick and choose:
 - **monix-execution**: the low-level execution environment, or more precisely
   `Scheduler`, `Cancelable`, `CancelableFuture` and `Atomic`
 - **monix-eval**: for controlling evaluation by means of `Task`,
-  `Coeval` and `TaskApp`
+  `Coeval` and primitives built on them
 - **monix-reactive**: async `Observable` streams
 - **monix**: provides all of the above
 
