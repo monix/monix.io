@@ -472,7 +472,7 @@ val aggregate =
 ```
 
 In order to avoid boxing into tuples, you can also use `zipMap2`,
-`zipMap3` ... `zip6`:
+`zipMap3` ... `zipMap6`:
 
 ```tut:silent
 Coeval.zipMap3(locationCoeval, phoneCoeval, addressCoeval) { 
