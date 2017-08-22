@@ -111,7 +111,7 @@ val sumConsumer: Consumer[Int,Long] =
       }
 
       // Returning a tuple of our subscriber and a dummy 
-      // AssignableCancelable because we don't indent to use it
+      // AssignableCancelable because we don't intend to use it
       (out, AssignableCancelable.dummy)
     }
   }
