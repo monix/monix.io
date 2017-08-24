@@ -91,8 +91,8 @@ libraryDependencies += "io.monix" %%% "monix-types" % "{{ site.version2x }}"
 
 You can use just `monix-execution`, the lower level primitives for dealing
 with asynchronous execution, thus exposing 
-[Scheduler]({{ site.api2x }}#monix.execution.Scheduler) and
-[Cancelable]({{ site.api2x }}#monix.execution.Cancelable):
+[Scheduler]({{ site.api2x }}monix/execution/Scheduler.html) and
+[Cancelable]({{ site.api2x }}monix/execution/Cancelable.html):
 
 - JVM: 
   [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.12.0-M5%7C{{ site.version2x }}%7C) /
@@ -116,8 +116,8 @@ libraryDependencies += "io.monix" %%% "monix-execution" % "{{ site.version2x }}"
 ## Sub-project: monix-eval
 
 You can use just `monix-eval`, the sub-project that exposes
-[Task]({{ site.api2x }}#monix.eval.Task) and
-[Coeval]({{ site.api2x }}#monix.eval.Coeval):
+[Task]({{ site.api2x }}monix/eval/Task$.html) and
+[Coeval]({{ site.api2x }}monix/eval/Coeval$.html):
 
 - JVM: 
   [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.12.0-M5%7C{{ site.version2x }}%7C) /
@@ -145,7 +145,7 @@ libraryDependencies += "io.monix" %%% "monix-eval" % "{{ site.version2x }}"
 ## Sub-project: monix-reactive
 
 You can use just `monix-reactive`, the sub-project that exposes
-the [Observable]({{ site.api2x }}#monix.reactive.Observable) pattern:
+the [Observable]({{ site.api2x }}monix/reactive/Observable.html) pattern:
 
 - JVM: 
   [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12.0-M5%7C{{ site.version2x }}%7C) /

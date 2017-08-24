@@ -206,7 +206,7 @@ it.
 
 The most straightforward and idiomatic way would be to execute
 tasks and get a
-[CancelableFuture]({{ site.api2x }}#monix.execution.CancelableFuture)
+[CancelableFuture]({{ site.api2x }}monix/execution/CancelableFuture.html)
 in return, which is a standard `Future` paired with a
 [Cancelable](../execution/cancelable.html):
 
@@ -925,7 +925,7 @@ help.
 ## Memoization
 
 The
-[Task#memoize]({{ site.api2x }}#monix.eval.Task@memoize:monix.eval.Task[A])
+[Task#memoize]({{ site.api2x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
 operator can take any `Task` and apply memoization on the first `runAsync`,
 such that:
 
