@@ -1,0 +1,1784 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-f836720-SNAPSHOT - monix.eval.Task</title>
+          <meta name="description" content="Monix 3.0.0 - f836720 - SNAPSHOT - monix.eval.Task" />
+          <meta name="keywords" content="Monix 3.0.0 f836720 SNAPSHOT monix.eval.Task" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../lib/index.js"></script>
+      <script type="text/javascript" src="../../index.js"></script>
+      <script type="text/javascript" src="../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-f836720-SNAPSHOT</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html">
+              <span class="name">root</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="" class="extype" name="monix.eval.Task">Task</a> and <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html">
+              <span class="name">monix</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.eval" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval"></a><a id="eval:eval"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#eval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="index.html">
+              <span class="name">eval</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.eval.instances" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="instances"></a><a id="instances:instances"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#instances" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="instances/index.html">
+              <span class="name">instances</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.eval">eval</a></dd></dl></div>
+    </li><li class="current-entities indented2">
+                        <a class="object" href="Callback$.html" title=""></a>
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously
+with the result of a computation."></a>
+                        <a href="Callback.html" title="Represents a callback that should be called asynchronously
+with the result of a computation.">
+                          Callback
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Coeval$.html" title="Coeval builders."></a>
+                        <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
+                        <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">
+                          Coeval
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains
+a value of type A.">
+                          MVar
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Task$.html" title="Builders for Task."></a>
+                        <a class="class" href="" title="Task represents a specification for a possibly lazy or
+asynchronous computation, which when executed will produce an A
+as a result, along with possible side-effects."></a>
+                        <a href="" title="Task represents a specification for a possibly lazy or
+asynchronous computation, which when executed will produce an A
+as a result, along with possible side-effects.">
+                          Task
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="TaskApp.html" title="Safe App type that runs a Task action."></a>
+                        <a href="TaskApp.html" title="Safe App type that runs a Task action.">
+                          TaskApp
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="TaskCircuitBreaker$.html" title=""></a>
+                        <a class="class" href="TaskCircuitBreaker.html" title="The TaskCircuitBreaker is used to provide stability and prevent
+cascading failures in distributed systems."></a>
+                        <a href="TaskCircuitBreaker.html" title="The TaskCircuitBreaker is used to provide stability and prevent
+cascading failures in distributed systems.">
+                          TaskCircuitBreaker
+                        </a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="TaskSemaphore$.html" title=""></a>
+                        <a class="class" href="TaskSemaphore.html" title="The TaskSemaphore is an asynchronous semaphore implementation that
+limits the parallelism on task execution."></a>
+                        <a href="TaskSemaphore.html" title="The TaskSemaphore is an asynchronous semaphore implementation that
+limits the parallelism on task execution.">
+                          TaskSemaphore
+                        </a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="class type">
+      <div id="definition">
+        <a href="Task$.html" title="See companion object"><div class="big-circle class-companion-object">c</div></a>
+        <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a>.<a href="index.html" class="extype" name="monix.eval">eval</a></p>
+        <h1><a href="Task$.html" title="See companion object">Task</a><span class="permalink">
+      <a href="../../monix/eval/Task.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        <h3><span class="morelinks"><div>
+            Companion <a href="Task$.html" title="See companion object">object Task</a>
+          </div></span></h3>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Task</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><code>Task</code> represents a specification for a possibly lazy or
+asynchronous computation, which when executed will produce an <code>A</code>
+as a result, along with possible side-effects.</p><p>Compared with <code>Future</code> from Scala's standard library, <code>Task</code> does
+not represent a running computation or a value detached from time,
+as <code>Task</code> does not execute anything when working with its builders
+or operators and it does not submit any work into any thread-pool,
+the execution eventually taking place only after <code>runAsync</code> is
+called and not before that.</p><p>Note that <code>Task</code> is conservative in how it spawns logical threads.
+Transformations like <code>map</code> and <code>flatMap</code> for example will default
+to being executed on the logical thread on which the asynchronous
+computation was started. But one shouldn't make assumptions about
+how things will end up executed, as ultimately it is the
+implementation's job to decide on the best execution model. All
+you are guaranteed is asynchronous execution after executing
+<code>runAsync</code>.</p><h3>Getting Started</h3><p>To build a <code>Task</code> from a by-name parameters (thunks), we can use
+<a href="Task$.html#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a> or
+<a href="Task$.html#apply[A](f:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#apply">Task.apply</a>:</p><pre><span class="kw">val</span> hello = Task.eval(<span class="lit">"Hello "</span>)
+<span class="kw">val</span> world = Task(<span class="lit">"World!"</span>)</pre><p>Nothing gets executed yet, as <code>Task</code> is lazy, nothing executes
+until you trigger <a href="#runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runAsync">.runAsync</a> on it.</p><p>To combine <code>Task</code> values we can use <a href="#map[B](f:A=&gt;B):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#map">.map</a> and
+<a href="#flatMap[B](f:A=&gt;monix.eval.Task[B]):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#flatMap">.flatMap</a>, which describe sequencing and this time
+it's in a very real sense because of the laziness involved:</p><pre><span class="kw">val</span> sayHello = hello
+  .flatMap(h <span class="kw">=&gt;</span> world.map(w <span class="kw">=&gt;</span> h + w))
+  .map(println)</pre><p>This <code>Task</code> reference will trigger a side effect on evaluation, but
+not yet. To make the above print its message:</p><pre><span class="kw">import</span> monix.execution.CancelableFuture
+
+<span class="kw">val</span> f: CancelableFuture[<span class="std">Unit</span>] = sayHello.run()
+<span class="cmt">//=> Hello World!</span></pre><p>The returned type is a
+<a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> which
+inherits from Scala's standard <a href="http://www.scala-lang.org/api/2.12.3/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a>,
+a value that can be completed already or might be completed at
+some point in the future, once the running asynchronous process
+finishes. Such a future value can also be canceled, see below.</p><h3>Laziness</h3><p>The fact that <code>Task</code> is lazy whereas <code>Future</code> is not
+has real consequences. For example with <code>Task</code> you can do this:</p><pre><span class="kw">def</span> retryOnFailure[A](times: <span class="std">Int</span>, source: Task[A]): Task[A] =
+  source.recoverWith { err <span class="kw">=&gt;</span>
+    <span class="cmt">// No more retries left? Re-throw error:</span>
+    <span class="kw">if</span> (times &lt;= <span class="num">0</span>) Task.raise(err) <span class="kw">else</span> {
+      <span class="cmt">// Recursive call, yes we can!</span>
+      retryOnFailure(times - <span class="num">1</span>, source)
+        <span class="cmt">// Adding 500 ms delay for good measure</span>
+        .delayExecution(<span class="num">500</span>)
+    }
+  }</pre><p><code>Future</code> being a strict value-wannabe means that the actual value
+gets &quot;memoized&quot; (means cached), however <code>Task</code> is basically a function
+that can be repeated for as many times as you want. <code>Task</code> can also
+do memoization of course:</p><pre>task.memoize</pre><p>The difference between this and just calling <code>runAsync()</code> is that
+<code>memoize()</code> still returns a <code>Task</code> and the actual memoization
+happens on the first <code>runAsync()</code> (with idempotency guarantees of
+course).</p><p>But here's something else that the <code>Future</code> data type cannot do:</p><pre>task.memoizeOnSuccess</pre><p>This keeps repeating the computation for as long as the result is a
+failure and caches it only on success. Yes we can!</p><h4>Parallelism</h4><p>Because of laziness, invoking
+<a href="Task$.html#sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">Task.sequence</a> will not work like
+it does for <code>Future.sequence</code>, the given <code>Task</code> values being
+evaluated one after another, in <i>sequence</i>, not in <i>parallel</i>.
+If you want parallelism, then you need to use
+<a href="Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">Task.gather</a> and
+thus be explicit about it.</p><p>This is great because it gives you the possibility of fine tuning the
+execution. For example, say you want to execute things in parallel,
+but with a maximum limit of 30 tasks being executed in parallel.
+One way of doing that is to process your list in batches:</p><pre><span class="cmt">// Some array of tasks, you come up with something good :-)</span>
+<span class="kw">val</span> list: <span class="std">Seq</span>[Task[<span class="std">Int</span>]] = ???
+
+<span class="cmt">// Split our list in chunks of 30 items per chunk,</span>
+<span class="cmt">// this being the maximum parallelism allowed</span>
+<span class="kw">val</span> chunks = list.sliding(<span class="num">30</span>, <span class="num">30</span>)
+
+<span class="cmt">// Specify that each batch should process stuff in parallel</span>
+<span class="kw">val</span> batchedTasks = chunks.map(chunk <span class="kw">=&gt;</span> Task.gather(chunk))
+<span class="cmt">// Sequence the batches</span>
+<span class="kw">val</span> allBatches = Task.sequence(batchedTasks)
+
+<span class="cmt">// Flatten the result, within the context of Task</span>
+<span class="kw">val</span> all: Task[<span class="std">Seq</span>[<span class="std">Int</span>]] = allBatches.map(_.flatten)</pre><p>Note that the built <code>Task</code> reference is just a specification at
+this point, or you can view it as a function, as nothing has
+executed yet, you need to call
+<a href="#runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runAsync">.runAsync</a> explicitly.</p><h3>Cancellation</h3><p>The logic described by an <code>Task</code> task could be cancelable,
+depending on how the <code>Task</code> gets built.</p><p><a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> references
+can also be canceled, in case the described computation can
+be canceled. When describing <code>Task</code> tasks with <code>Task.eval</code> nothing
+can be cancelled, since there's nothing about a plain function
+that you can cancel, but we can build cancelable tasks with
+<a href="Task$.html#async[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#async">Task.async</a> (alias
+<a href="Task$.html#create[A](register:(monix.execution.Scheduler,monix.eval.Callback[A])=&gt;monix.execution.Cancelable):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#create">Task.create</a>):</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="kw">val</span> delayedHello = Task.async { (scheduler, callback) <span class="kw">=&gt;</span>
+  <span class="kw">val</span> task = scheduler.scheduleOnce(<span class="num">1.</span>second) {
+    println(<span class="lit">"Delayed Hello!"</span>)
+    <span class="cmt">// Signaling successful completion</span>
+    callback(Success(()))
+  }
+
+  Cancelable { () <span class="kw">=&gt;</span> {
+    println(<span class="lit">"Cancelling!"</span>)
+    task.cancel()
+  }
+}</pre><p>The sample above prints a message with a delay, where the delay
+itself is scheduled with the injected <code>Scheduler</code>. The <code>Scheduler</code>
+is in fact an implicit parameter to <code>runAsync()</code>.</p><p>This action can be cancelled, because it specifies cancellation
+logic. In case we have no cancelable logic to express, then it's
+OK if we returned a
+<a href="../execution/Cancelable$.html#empty:monix.execution.Cancelable" class="extmbr" name="monix.execution.Cancelable#empty">Cancelable.empty</a> reference,
+in which case the resulting <code>Task</code> would not be cancelable.</p><p>But the <code>Task</code> we just described is cancelable:</p><pre><span class="cmt">// Triggering execution</span>
+<span class="kw">val</span> f: CancelableFuture[<span class="std">Unit</span>] = delayedHello.run()
+
+<span class="cmt">// If we change our mind before the timespan has passed:</span>
+f.cancel()</pre><p>Also, given an <code>Task</code> task, we can specify actions that need to be
+triggered in case of cancellation:</p><pre><span class="kw">val</span> task = Task.eval(println(<span class="lit">"Hello!"</span>)).executeWithFork
+
+task.doOnCancel(Task.eval {
+  println(<span class="lit">"A cancellation attempt was made!"</span>)
+}
+
+<span class="kw">val</span> f: CancelableFuture[<span class="std">Unit</span>] = task.run()
+
+<span class="cmt">// Note that in this case cancelling the resulting Future</span>
+<span class="cmt">// will not stop the actual execution, since it doesn't know</span>
+<span class="cmt">// how, but it will trigger our on-cancel callback:</span>
+
+f.cancel()
+<span class="cmt">//=> A cancellation attempt was made!</span></pre><h3>Note on the ExecutionModel</h3><p><code>Task</code> is conservative in how it introduces async boundaries.
+Transformations like <code>map</code> and <code>flatMap</code> for example will default
+to being executed on the current call stack on which the
+asynchronous computation was started. But one shouldn't make
+assumptions about how things will end up executed, as ultimately
+it is the implementation's job to decide on the best execution
+model. All you are guaranteed (and can assume) is asynchronous
+execution after executing <code>runAsync()</code>.</p><p>Currently the default
+<a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> specifies
+batched execution by default and <code>Task</code> in its evaluation respects
+the injected <code>ExecutionModel</code>. If you want a different behavior,
+you need to execute the <code>Task</code> reference with a different scheduler.</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-f836720-SNAPSHOT/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.eval.Task"><span>Task</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#!=(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html###():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#==(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#asInstanceOf[T0]:T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.eval.Task#asyncBoundary" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asyncBoundary(s:monix.execution.Scheduler):monix.eval.Task[A]"></a><a id="asyncBoundary(Scheduler):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#asyncBoundary(s:monix.execution.Scheduler):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asyncBoundary</span><span class="params">(<span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Introduces an asynchronous boundary at the current stage in the
+asynchronous processing pipeline, making processing to jump on
+the given <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> (until the
+next async boundary).</p><div class="fullcomment"><div class="comment cmt"><p>Introduces an asynchronous boundary at the current stage in the
+asynchronous processing pipeline, making processing to jump on
+the given <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> (until the
+next async boundary).</p><p>Consider the following example:</p><pre><span class="kw">import</span> monix.execution.Scheduler
+<span class="kw">val</span> io = Scheduler.io()
+
+<span class="kw">val</span> source = Task(<span class="num">1</span>).executeOn(io).map(_ + <span class="num">1</span>)</pre><p>That task is being forced to execute on the <code>io</code> scheduler,
+including the <code>map</code> transformation that follows after
+<code>executeOn</code>. But what if we want to jump with the execution
+run-loop on another scheduler for the following transformations?</p><p>Then we can do:</p><pre><span class="kw">import</span> monix.execution.Scheduler.global
+
+source.asyncBoundary(global).map(_ + <span class="num">2</span>)</pre><p>In this sample, whatever gets evaluated by the <code>source</code> will
+happen on the <code>io</code> scheduler, however the <code>asyncBoundary</code> call
+will make all subsequent operations to happen on the specified
+<code>global</code> scheduler.
+</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>is the scheduler triggering the asynchronous boundary</p></dd></dl></div>
+    </li><li name="monix.eval.Task#asyncBoundary" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asyncBoundary:monix.eval.Task[A]"></a><a id="asyncBoundary:Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#asyncBoundary:monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asyncBoundary</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Introduces an asynchronous boundary at the current stage in the
+asynchronous processing pipeline.</p><div class="fullcomment"><div class="comment cmt"><p>Introduces an asynchronous boundary at the current stage in the
+asynchronous processing pipeline.</p><p>Consider the following example:</p><pre><span class="kw">import</span> monix.execution.Scheduler
+<span class="kw">val</span> io = Scheduler.io()
+
+<span class="kw">val</span> source = Task(<span class="num">1</span>).executeOn(io).map(_ + <span class="num">1</span>)</pre><p>That task is being forced to execute on the <code>io</code> scheduler,
+including the <code>map</code> transformation that follows after
+<code>executeOn</code>. But what if we want to jump with the execution
+run-loop on the default scheduler for the following
+transformations?</p><p>Then we can do:</p><pre>source.asyncBoundary.map(_ + <span class="num">2</span>)</pre><p>In this sample, whatever gets evaluated by the <code>source</code> will
+happen on the <code>io</code> scheduler, however the <code>asyncBoundary</code> call
+will make all subsequent operations to happen on the default
+scheduler.
+</p></div></div>
+    </li><li name="monix.eval.Task#attempt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="attempt:monix.eval.Task[Either[Throwable,A]]"></a><a id="attempt:Task[Either[Throwable,A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#attempt:monix.eval.Task[Either[Throwable,A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">attempt</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <a href="" class="extype" name="monix.eval.Task">Task</a> that will expose any triggered error
+from the source.</p>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#clone():Object" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#coeval" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="coeval(implicits:monix.execution.Scheduler):monix.eval.Coeval[Either[monix.execution.CancelableFuture[A],A]]"></a><a id="coeval(Scheduler):Coeval[Either[CancelableFuture[A],A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#coeval(implicits:monix.execution.Scheduler):monix.eval.Coeval[Either[monix.execution.CancelableFuture[A],A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coeval</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="scala.Either">Either</span>[<a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.eval.Task.A">A</span>], <span class="extype" name="monix.eval.Task.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Transforms a <a href="" class="extype" name="monix.eval.Task">Task</a> into a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> that tries to execute the
+source synchronously, returning either <code>Right(value)</code> in case a
+value is available immediately, or <code>Left(future)</code> in case we
+have an asynchronous boundary or an error.</p>
+    </li><li name="monix.eval.Task#delayExecution" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="delayExecution(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]"></a><a id="delayExecution(FiniteDuration):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#delayExecution(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delayExecution</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.3/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a task that waits for the specified <code>timespan</code> before
+executing and mirroring the result of the source.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a task that waits for the specified <code>timespan</code> before
+executing and mirroring the result of the source.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#delayExecutionWith(trigger:monix.eval.Task[Any]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#delayExecutionWith">delayExecutionWith</a> for delaying the execution of the
+    source with a customizable trigger.</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#delayExecutionWith" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="delayExecutionWith(trigger:monix.eval.Task[Any]):monix.eval.Task[A]"></a><a id="delayExecutionWith(Task[Any]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#delayExecutionWith(trigger:monix.eval.Task[Any]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delayExecutionWith</span><span class="params">(<span name="trigger">trigger: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a task that waits for the specified <code>trigger</code> to succeed
+before mirroring the result of the source.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a task that waits for the specified <code>trigger</code> to succeed
+before mirroring the result of the source.</p><p>If the <code>trigger</code> ends in error, then the resulting task will
+also end in error.</p><p>As an example, these are equivalent (in the observed effects and
+result, not necessarily in implementation):</p><pre><span class="kw">val</span> ta = source.delayExecution(<span class="num">10.</span>seconds)
+<span class="kw">val</span> tb = source.delayExecutionWith(Task.unit.delayExecution(<span class="num">10.</span>seconds))</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#delayExecution(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#delayExecution">delayExecution</a> for delaying the execution of the
+    source with a simple timespan</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#delayResult" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="delayResult(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]"></a><a id="delayResult(FiniteDuration):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#delayResult(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delayResult</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.3/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a task that executes the source immediately on <code>runAsync</code>,
+but before emitting the <code>onSuccess</code> result for the specified
+duration.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a task that executes the source immediately on <code>runAsync</code>,
+but before emitting the <code>onSuccess</code> result for the specified
+duration.</p><p>Note that if an error happens, then it is streamed immediately
+with no delay.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#delayResultBySelector[B](selector:A=&gt;monix.eval.Task[B]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#delayResultBySelector">delayResultBySelector</a> for applying different
+    delay strategies depending on the signaled result.</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#delayResultBySelector" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="delayResultBySelector[B](selector:A=&gt;monix.eval.Task[B]):monix.eval.Task[A]"></a><a id="delayResultBySelector[B]((A)⇒Task[B]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#delayResultBySelector[B](selector:A=&gt;monix.eval.Task[B]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delayResultBySelector</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="selector">selector: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.delayResultBySelector.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a task that executes the source immediately on <code>runAsync</code>,
+but with the result delayed by the specified <code>selector</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a task that executes the source immediately on <code>runAsync</code>,
+but with the result delayed by the specified <code>selector</code>.</p><p>The <code>selector</code> generates another <code>Task</code> whose execution will
+delay the signaling of the result generated by the source.
+Compared with <a href="#delayResult(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#delayResult">delayResult</a> this gives you an opportunity
+to apply different delay strategies depending on the
+signaled result.</p><p>As an example, these are equivalent (in the observed effects
+and result, not necessarily in implementation):</p><pre><span class="kw">val</span> t1 = source.delayResult(<span class="num">10.</span>seconds)
+<span class="kw">val</span> t2 = source.delayResultBySelector(_ <span class="kw">=&gt;</span>
+  Task.unit.delayExecution(<span class="num">10.</span>seconds))</pre><p>Note that if an error happens, then it is streamed immediately
+with no delay.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#delayResult(timespan:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#delayResult">delayResult</a> for delaying with a simple timeout</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#dematerialize" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="dematerialize[B](implicitev:A&lt;:&lt;scala.util.Try[B]):monix.eval.Task[B]"></a><a id="dematerialize[B](&lt;:&lt;[A,Try[B]]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#dematerialize[B](implicitev:A&lt;:&lt;scala.util.Try[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">dematerialize</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="monix.eval.Task.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.3/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Dematerializes the source's result from a <code>Try</code>.</p>
+    </li><li name="monix.eval.Task#doOnCancel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="doOnCancel(callback:monix.eval.Task[Unit]):monix.eval.Task[A]"></a><a id="doOnCancel(Task[Unit]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#doOnCancel(callback:monix.eval.Task[Unit]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">doOnCancel</span><span class="params">(<span name="callback">callback: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new <code>Task</code> that will mirror the source, but that will
+execute the given <code>callback</code> if the task gets canceled before
+completion.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new <code>Task</code> that will mirror the source, but that will
+execute the given <code>callback</code> if the task gets canceled before
+completion.</p><p>This only works for premature cancellation. See <a href="#doOnFinish(f:Option[Throwable]=&gt;monix.eval.Task[Unit]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#doOnFinish">doOnFinish</a>
+for triggering callbacks when the source finishes.
+</p></div><dl class="paramcmts block"><dt class="param">callback</dt><dd class="cmt"><p>is the callback to execute if the task gets
+       canceled prematurely</p></dd></dl></div>
+    </li><li name="monix.eval.Task#doOnFinish" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="doOnFinish(f:Option[Throwable]=&gt;monix.eval.Task[Unit]):monix.eval.Task[A]"></a><a id="doOnFinish((Option[Throwable])⇒Task[Unit]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#doOnFinish(f:Option[Throwable]=&gt;monix.eval.Task[Unit]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">doOnFinish</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.12.3/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new <code>Task</code> in which <code>f</code> is scheduled to be run on
+completion.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new <code>Task</code> in which <code>f</code> is scheduled to be run on
+completion. This would typically be used to release any
+resources acquired by this <code>Task</code>.</p><p>The returned <code>Task</code> completes when both the source and the task
+returned by <code>f</code> complete.</p><p>NOTE: The given function is only called when the task is
+complete.  However the function does not get called if the task
+gets canceled.  Cancellation is a process that's concurrent with
+the execution of a task and hence needs special handling.</p><p>See <a href="#doOnCancel(callback:monix.eval.Task[Unit]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#doOnCancel">doOnCancel</a> for specifying a callback to call on
+canceling a task.
+</p></div></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#executeOn" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="executeOn(s:monix.execution.Scheduler,forceAsync:Boolean):monix.eval.Task[A]"></a><a id="executeOn(Scheduler,Boolean):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#executeOn(s:monix.execution.Scheduler,forceAsync:Boolean):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">executeOn</span><span class="params">(<span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="forceAsync">forceAsync: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">true</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Overrides the default <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+possibly forcing an asynchronous boundary before execution
+(if <code>forceAsync</code> is set to <code>true</code>, the default).</p><div class="fullcomment"><div class="comment cmt"><p>Overrides the default <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
+possibly forcing an asynchronous boundary before execution
+(if <code>forceAsync</code> is set to <code>true</code>, the default).</p><p>When a <code>Task</code> is executed with <a href="#runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runAsync">.runAsync</a>,
+it needs a <code>Scheduler</code>, which is going to be injected in all
+asynchronous tasks processed within the <code>flatMap</code> chain,
+a <code>Scheduler</code> that is used to manage asynchronous boundaries
+and delayed execution.</p><p>This scheduler passed in <code>runAsync</code> is said to be the &quot;default&quot;
+and <code>executeOn</code> overrides that default.</p><pre><span class="kw">import</span> monix.execution.Scheduler
+<span class="kw">import</span> java.io.{BufferedReader, FileInputStream, InputStreamReader}
+
+<span class="cmt">/** Reads the contents of a file using blocking I/O. */</span>
+<span class="kw">def</span> readFile(path: <span class="std">String</span>): Task[<span class="std">String</span>] = Task.eval {
+  <span class="kw">val</span> in = <span class="kw">new</span> BufferedReader(
+    <span class="kw">new</span> InputStreamReader(<span class="kw">new</span> FileInputStream(path), <span class="lit">"utf-8"</span>))
+
+  <span class="kw">val</span> buffer = <span class="kw">new</span> StringBuffer()
+  <span class="kw">var</span> line: <span class="std">String</span> = <span class="kw">null</span>
+  <span class="kw">do</span> {
+    line = in.readLine()
+    <span class="kw">if</span> (line != <span class="kw">null</span>) buffer.append(line)
+  } <span class="kw">while</span> (line != <span class="kw">null</span>)
+
+  buffer.toString
+}
+
+<span class="cmt">// Building a Scheduler meant for blocking I/O</span>
+<span class="kw">val</span> io = Scheduler.io()
+
+<span class="cmt">// Building the Task reference, specifying that `io` should be</span>
+<span class="cmt">// injected as the Scheduler for managing async boundaries</span>
+readFile(<span class="lit">"path/to/file"</span>).executeOn(io, forceAsync = <span class="kw">true</span>)</pre><p>In this example we are using <a href="Task$.html#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a>, which executes the
+given <code>thunk</code> immediately (on the current thread and call stack).</p><p>By calling <code>executeOn(io)</code>, we are ensuring that the used
+<code>Scheduler</code> (injected in <a href="Task$.html#unsafeCreate[A](register:(monix.eval.Task.Context,monix.eval.Callback[A])=&gt;Unit):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#unsafeCreate">async tasks</a> by
+means of <a href="Task$$Context.html" class="extype" name="monix.eval.Task.Context">Task.Context</a>) will be <code>io</code>, a <code>Scheduler</code> that we
+intend to use for blocking I/O actions. And we are also forcing
+an asynchronous boundary right before execution, by passing
+the <code>forceAsync</code> parameter as <code>true</code> (which happens to be
+the default value).</p><p>Thus, for our described function that reads files using Java's
+blocking I/O APIs, we are ensuring that execution is entirely
+managed by an <code>io</code> scheduler, executing that logic on a thread
+pool meant for blocking I/O actions.</p><p>Note that in case <code>forceAsync = false</code>, then the invocation will
+not introduce any async boundaries of its own and will not
+ensure that execution will actually happen on the given
+<code>Scheduler</code>, that depending of the implementation of the <code>Task</code>.
+For example:</p><pre>Task.eval(<span class="lit">"Hello, "</span> + <span class="lit">"World!"</span>)
+  .executeOn(io, forceAsync = <span class="kw">false</span>)</pre><p>The evaluation of this task will probably happen immediately
+(depending on the configured
+<a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>) and the
+given scheduler will probably not be used at all.</p><p>However in case we would use <a href="Task$.html#apply[A](f:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#apply">Task.apply</a>, which ensures
+that execution of the provided thunk will be async, then
+by using <code>executeOn</code> we'll indeed get a logical fork on
+the <code>io</code> scheduler:</p><pre>Task(<span class="lit">"Hello, "</span> + <span class="lit">"World!"</span>)
+  .executeOn(io, forceAsync = <span class="kw">false</span>)</pre><p>Also note that overriding the &quot;default&quot; scheduler can only
+happen once, because it's only the &quot;default&quot; that can be
+overridden.</p><p>Something like this won't have the desired effect:</p><pre><span class="kw">val</span> io1 = Scheduler.io()
+<span class="kw">val</span> io2 = Scheduler.io()
+
+task.executeOn(io1).executeOn(io2)</pre><p>In this example the implementation of <code>task</code> will receive
+the reference to <code>io</code> and will use it on evaluation, while
+the second invocation of <code>executeOn</code> will create an unnecessary
+async boundary (if <code>forceAsync = true</code>) or be basically a
+costly no-op. This might be confusing but consider the
+equivalence to these functions:</p><pre><span class="kw">import</span> scala.concurrent.ExecutionContext
+
+<span class="kw">val</span> io1 = Scheduler.io()
+<span class="kw">val</span> io2 = Scheduler.io()
+
+<span class="kw">def</span> sayHello(ec: ExecutionContext): <span class="std">Unit</span> =
+  ec.execute(<span class="kw">new</span> Runnable {
+    <span class="kw">def</span> run() = println(<span class="lit">"Hello!"</span>)
+  })
+
+<span class="kw">def</span> sayHello2(ec: ExecutionContext): <span class="std">Unit</span> =
+  <span class="cmt">// Overriding the default `ec`!</span>
+  sayHello(io)
+
+<span class="kw">def</span> sayHello3(ec: ExecutionContext): <span class="std">Unit</span> =
+  <span class="cmt">// Overriding the default no longer has the desired effect</span>
+  <span class="cmt">// because sayHello2 is ignoring it!</span>
+  sayHello2(io2)</pre></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>is the <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> to use
+       for overriding the default scheduler and for forcing
+       an asynchronous boundary if <code>forceAsync</code> is <code>true</code></p></dd><dt class="param">forceAsync</dt><dd class="cmt"><p>indicates whether an asynchronous boundary
+       should be forced right before the evaluation of the
+       <code>Task</code>, managed by the provided <code>Scheduler</code></p></dd><dt>returns</dt><dd class="cmt"><p>a new <code>Task</code> that mirrors the source on evaluation,
+        but that uses the provided scheduler for overriding
+        the default and possibly force an extra asynchronous
+        boundary on execution</p></dd></dl></div>
+    </li><li name="monix.eval.Task#executeWithFork" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="executeWithFork:monix.eval.Task[A]"></a><a id="executeWithFork:Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#executeWithFork:monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">executeWithFork</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><div class="fullcomment"><div class="comment cmt"><p>Mirrors the given source <code>Task</code>, but upon execution ensure
+that evaluation forks into a separate (logical) thread.</p><p>The <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> used will be
+the one that is used to start the run-loop in
+<a href="#runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runAsync">.runAsync</a>.</p><p>This operation is equivalent with:</p><pre>Task.shift.flatMap(_ <span class="kw">=&gt;</span> task)
+
+<span class="cmt">// ... or ...</span>
+
+<span class="kw">import</span> cats.syntax.all._
+
+Task.shift.followedBy(task)</pre><p>The <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> used for scheduling
+the async boundary will be the default, meaning the one used to
+start the run-loop in <code>runAsync</code>.
+</p></div></div>
+    </li><li name="monix.eval.Task#executeWithModel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="executeWithModel(em:monix.execution.ExecutionModel):monix.eval.Task[A]"></a><a id="executeWithModel(ExecutionModel):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#executeWithModel(em:monix.execution.ExecutionModel):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">executeWithModel</span><span class="params">(<span name="em">em: <a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new task that will execute the source with a different
+<a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new task that will execute the source with a different
+<a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>.</p><p>This allows fine-tuning the options injected by the scheduler
+locally. Example:</p><pre><span class="kw">import</span> monix.execution.ExecutionModel.AlwaysAsyncExecution
+task.executeWithModel(AlwaysAsyncExecution)</pre></div><dl class="paramcmts block"><dt class="param">em</dt><dd class="cmt"><p>is the
+       <a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>
+       with which the source will get evaluated on <code>runAsync</code></p></dd></dl></div>
+    </li><li name="monix.eval.Task#executeWithOptions" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="executeWithOptions(f:monix.eval.Task.Options=&gt;monix.eval.Task.Options):monix.eval.Task[A]"></a><a id="executeWithOptions((Options)⇒Options):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#executeWithOptions(f:monix.eval.Task.Options=&gt;monix.eval.Task.Options):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">executeWithOptions</span><span class="params">(<span name="f">f: (<a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a>) ⇒ <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new task that will execute the source with a different
+set of <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new task that will execute the source with a different
+set of <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a>.</p><p>This allows fine-tuning the default options. Example:</p><pre>task.executeWithOptions(_.enableAutoCancelableRunLoops)</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is a function that takes the source's current set of
+       <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">options</a> and returns a modified set of
+       options that will be used to execute the source
+       upon <code>runAsync</code></p></dd></dl></div>
+    </li><li name="monix.eval.Task#failed" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="failed:monix.eval.Task[Throwable]"></a><a id="failed:Task[Throwable]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#failed:monix.eval.Task[Throwable]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">failed</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.Throwable">Throwable</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a failed projection of this task.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a failed projection of this task.</p><p>The failed projection is a <code>Task</code> holding a value of type <code>Throwable</code>,
+emitting the error yielded by the source, in case the source fails,
+otherwise if the source succeeds the result will fail with a
+<code>NoSuchElementException</code>.
+</p></div></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#flatMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="flatMap[B](f:A=&gt;monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="flatMap[B]((A)⇒Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#flatMap[B](f:A=&gt;monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">flatMap</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.flatMap.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.flatMap.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new Task by applying a function to the successful result
+of the source Task, and returns a task equivalent to the result
+of the function.</p>
+    </li><li name="monix.eval.Task#flatten" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="flatten[B](implicitev:A&lt;:&lt;monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="flatten[B](&lt;:&lt;[A,Task[B]]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#flatten[B](implicitev:A&lt;:&lt;monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">flatten</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="monix.eval.Task.A">A</span>, <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.flatten.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.flatten.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given a source Task that emits another Task, this function
+flattens the result, returning a Task equivalent to the emitted
+Task by the source.</p>
+    </li><li name="monix.eval.Task#foreach" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="foreach(f:A=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[Unit]"></a><a id="foreach((A)⇒Unit)(Scheduler):CancelableFuture[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#foreach(f:A=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">foreach</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Triggers the evaluation of the source, executing the given
+function for the generated element.</p><div class="fullcomment"><div class="comment cmt"><p>Triggers the evaluation of the source, executing the given
+function for the generated element.</p><p>The application of this function has strict behavior, as the
+task is immediately executed.
+</p></div></div>
+    </li><li name="monix.eval.Task#foreachL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="foreachL(f:A=&gt;Unit):monix.eval.Task[Unit]"></a><a id="foreachL((A)⇒Unit):Task[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#foreachL(f:A=&gt;Unit):monix.eval.Task[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">foreachL</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new task that upon evaluation will execute the given
+function for the generated element, transforming the source into
+a <code>Task[Unit]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new task that upon evaluation will execute the given
+function for the generated element, transforming the source into
+a <code>Task[Unit]</code>.</p><p>Similar in spirit with normal <a href="#foreach(f:A=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.eval.Task#foreach">foreach</a>, but lazy, as
+obviously nothing gets executed at this point.
+</p></div></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#isInstanceOf[T0]:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.eval.Task#map" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="map[B](f:A=&gt;B):monix.eval.Task[B]"></a><a id="map[B]((A)⇒B):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#map[B](f:A=&gt;B):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">map</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <span class="extype" name="monix.eval.Task.map.B">B</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.map.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new Task that applies the mapping function to the
+element emitted by the source.</p>
+    </li><li name="monix.eval.Task#materialize" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="materialize:monix.eval.Task[scala.util.Try[A]]"></a><a id="materialize:Task[Try[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#materialize:monix.eval.Task[scala.util.Try[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">materialize</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.3/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <a href="" class="extype" name="monix.eval.Task">Task</a> that will expose any triggered error from
+the source.</p>
+    </li><li name="monix.eval.Task#memoize" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="memoize:monix.eval.Task[A]"></a><a id="memoize:Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#memoize:monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">memoize</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Memoizes (caches) the result of the source task and reuses it on
+subsequent invocations of <code>runAsync</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Memoizes (caches) the result of the source task and reuses it on
+subsequent invocations of <code>runAsync</code>.</p><p>The resulting task will be idempotent, meaning that
+evaluating the resulting task multiple times will have the
+same effect as evaluating it once.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#memoizeOnSuccess:monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#memoizeOnSuccess">memoizeOnSuccess</a> for a version that only caches
+    successful results</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#memoizeOnSuccess" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="memoizeOnSuccess:monix.eval.Task[A]"></a><a id="memoizeOnSuccess:Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#memoizeOnSuccess:monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">memoizeOnSuccess</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Memoizes (cache) the successful result of the source task
+and reuses it on subsequent invocations of <code>runAsync</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Memoizes (cache) the successful result of the source task
+and reuses it on subsequent invocations of <code>runAsync</code>.
+Thrown exceptions are not cached.</p><p>The resulting task will be idempotent, but only if the
+result is successful.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#memoize:monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#memoize">memoize</a> for a version that caches both successful
+    results and failures</p></span></dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Task#onErrorFallbackTo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="onErrorFallbackTo[B&gt;:A](that:monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="onErrorFallbackTo[B&gt;:A](Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorFallbackTo[B&gt;:A](that:monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorFallbackTo</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="that">that: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorFallbackTo.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorFallbackTo.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that in case of error will fallback to the
+given backup task.</p>
+    </li><li name="monix.eval.Task#onErrorHandle" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorHandle[U&gt;:A](f:Throwable=&gt;U):monix.eval.Task[U]"></a><a id="onErrorHandle[U&gt;:A]((Throwable)⇒U):Task[U]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorHandle[U&gt;:A](f:Throwable=&gt;U):monix.eval.Task[U]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorHandle</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="monix.eval.Task.onErrorHandle.U">U</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorHandle.U">U</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that will handle any matching throwable that
+this task might emit.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that will handle any matching throwable that
+this task might emit.</p><p>See <a href="#onErrorRecover[U&gt;:A](pf:PartialFunction[Throwable,U]):monix.eval.Task[U]" class="extmbr" name="monix.eval.Task#onErrorRecover">onErrorRecover</a> for the version that takes a partial function.
+</p></div></div>
+    </li><li name="monix.eval.Task#onErrorHandleWith" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorHandleWith[B&gt;:A](f:Throwable=&gt;monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="onErrorHandleWith[B&gt;:A]((Throwable)⇒Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorHandleWith[B&gt;:A](f:Throwable=&gt;monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorHandleWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorHandleWith.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorHandleWith.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that will handle any matching throwable that
+this task might emit by executing another task.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that will handle any matching throwable that
+this task might emit by executing another task.</p><p>See <a href="#onErrorRecoverWith[B&gt;:A](pf:PartialFunction[Throwable,monix.eval.Task[B]]):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#onErrorRecoverWith">onErrorRecoverWith</a> for the version that takes a partial function.
+</p></div></div>
+    </li><li name="monix.eval.Task#onErrorRecover" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorRecover[U&gt;:A](pf:PartialFunction[Throwable,U]):monix.eval.Task[U]"></a><a id="onErrorRecover[U&gt;:A](PartialFunction[Throwable,U]):Task[U]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorRecover[U&gt;:A](pf:PartialFunction[Throwable,U]):monix.eval.Task[U]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorRecover</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.3/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that on error will try to map the error
+to another value using the provided partial function.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that on error will try to map the error
+to another value using the provided partial function.</p><p>See <a href="#onErrorHandle[U&gt;:A](f:Throwable=&gt;U):monix.eval.Task[U]" class="extmbr" name="monix.eval.Task#onErrorHandle">onErrorHandle</a> for the version that takes a total function.
+</p></div></div>
+    </li><li name="monix.eval.Task#onErrorRecoverWith" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorRecoverWith[B&gt;:A](pf:PartialFunction[Throwable,monix.eval.Task[B]]):monix.eval.Task[B]"></a><a id="onErrorRecoverWith[B&gt;:A](PartialFunction[Throwable,Task[B]]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorRecoverWith[B&gt;:A](pf:PartialFunction[Throwable,monix.eval.Task[B]]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorRecoverWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.3/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that will try recovering from an error by
+matching it with another task using the given partial function.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that will try recovering from an error by
+matching it with another task using the given partial function.</p><p>See <a href="#onErrorHandleWith[B&gt;:A](f:Throwable=&gt;monix.eval.Task[B]):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#onErrorHandleWith">onErrorHandleWith</a> for the version that takes a total function.
+</p></div></div>
+    </li><li name="monix.eval.Task#onErrorRestart" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorRestart(maxRetries:Long):monix.eval.Task[A]"></a><a id="onErrorRestart(Long):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorRestart(maxRetries:Long):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorRestart</span><span class="params">(<span name="maxRetries">maxRetries: <a href="http://www.scala-lang.org/api/2.12.3/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that in case of error will retry executing the
+source again and again, until it succeeds.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that in case of error will retry executing the
+source again and again, until it succeeds.</p><p>In case of continuous failure the total number of executions
+will be <code>maxRetries + 1</code>.
+</p></div></div>
+    </li><li name="monix.eval.Task#onErrorRestartIf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="onErrorRestartIf(p:Throwable=&gt;Boolean):monix.eval.Task[A]"></a><a id="onErrorRestartIf((Throwable)⇒Boolean):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#onErrorRestartIf(p:Throwable=&gt;Boolean):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">onErrorRestartIf</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new task that in case of error will retry executing the
+source again and again, until it succeeds.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new task that in case of error will retry executing the
+source again and again, until it succeeds.</p><p>In case of continuous failure the total number of executions
+will be <code>maxRetries + 1</code>.
+</p></div></div>
+    </li><li name="monix.eval.Task#restartUntil" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="restartUntil(p:A=&gt;Boolean):monix.eval.Task[A]"></a><a id="restartUntil((A)⇒Boolean):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#restartUntil(p:A=&gt;Boolean):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">restartUntil</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given a predicate function, keep retrying the
+task until the function returns true.</p>
+    </li><li name="monix.eval.Task#runAsync" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]"></a><a id="runAsync(Scheduler):CancelableFuture[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#runAsync(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">runAsync</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Triggers the asynchronous execution.</p><div class="fullcomment"><div class="comment cmt"><p>Triggers the asynchronous execution.</p><p>        Without invoking <code>runAsync</code> on a <code>Task</code>, nothing
+        gets evaluated, as a <code>Task</code> has lazy behavior.
+</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>is an injected <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>
+       that gets used whenever asynchronous boundaries are needed
+       when evaluating the task</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>
+        that can be used to extract the result or to cancel
+        a running task.</p></dd></dl></div>
+    </li><li name="monix.eval.Task#runAsync" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="runAsync(cb:monix.eval.Callback[A])(implicits:monix.execution.Scheduler):monix.execution.Cancelable"></a><a id="runAsync(Callback[A])(Scheduler):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#runAsync(cb:monix.eval.Callback[A])(implicits:monix.execution.Scheduler):monix.execution.Cancelable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">runAsync</span><span class="params">(<span name="cb">cb: <a href="Callback.html" class="extype" name="monix.eval.Callback">Callback</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Triggers the asynchronous execution.</p><div class="fullcomment"><div class="comment cmt"><p>Triggers the asynchronous execution.</p><p>        Without invoking <code>runAsync</code> on a <code>Task</code>, nothing
+        gets evaluated, as a <code>Task</code> has lazy behavior.
+</p></div><dl class="paramcmts block"><dt class="param">cb</dt><dd class="cmt"><p>is a callback that will be invoked upon completion.</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>
+       that gets used whenever asynchronous boundaries are needed
+       when evaluating the task</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> that can
+        be used to cancel a running task</p></dd></dl></div>
+    </li><li name="monix.eval.Task#runOnComplete" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="runOnComplete(f:scala.util.Try[A]=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.Cancelable"></a><a id="runOnComplete((Try[A])⇒Unit)(Scheduler):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#runOnComplete(f:scala.util.Try[A]=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.Cancelable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">runOnComplete</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.12.3/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Similar to Scala's <code>Future#onComplete</code>, this method triggers
+the evaluation of a <code>Task</code> and invokes the given callback whenever
+the result is available.</p><div class="fullcomment"><div class="comment cmt"><p>Similar to Scala's <code>Future#onComplete</code>, this method triggers
+the evaluation of a <code>Task</code> and invokes the given callback whenever
+the result is available.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is a callback that will be invoked upon completion.</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>
+       that gets used whenever asynchronous boundaries are needed
+       when evaluating the task</p></dd><dt>returns</dt><dd class="cmt"><p>a <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> that can
+        be used to cancel a running task</p></dd></dl></div>
+    </li><li name="monix.eval.Task#runSyncMaybe" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="runSyncMaybe(implicits:monix.execution.Scheduler):Either[monix.execution.CancelableFuture[A],A]"></a><a id="runSyncMaybe(Scheduler):Either[CancelableFuture[A],A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#runSyncMaybe(implicits:monix.execution.Scheduler):Either[monix.execution.CancelableFuture[A],A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">runSyncMaybe</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="scala.Either">Either</span>[<a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.eval.Task.A">A</span>], <span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Tries to execute the source synchronously.</p><div class="fullcomment"><div class="comment cmt"><p>Tries to execute the source synchronously.</p><p>As an alternative to <code>runAsync</code>, this method tries to execute
+the source task immediately on the current thread and call-stack.</p><p>WARNING: This method is a partial function, throwing exceptions
+in case errors happen immediately (synchronously).</p><p>Usage sample:</p><pre><span class="kw">try</span> task.runSyncMaybe <span class="kw">match</span> {
+  <span class="kw">case</span> Right(a) <span class="kw">=&gt;</span> println(<span class="lit">"Success: "</span> + a)
+  <span class="kw">case</span> Left(future) <span class="kw">=&gt;</span>
+    future.onComplete {
+      <span class="kw">case</span> Success(a) <span class="kw">=&gt;</span> println(<span class="lit">"Async success: "</span> + a)
+      <span class="kw">case</span> Failure(e) <span class="kw">=&gt;</span> println(<span class="lit">"Async error: "</span> + e)
+    }
+} <span class="kw">catch</span> {
+  <span class="kw">case</span> NonFatal(e) <span class="kw">=&gt;</span>
+    println(<span class="lit">"Error: "</span> + e)
+}</pre><p>Obviously the purpose of this method is to be used for
+optimizations.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p><code>Right(result)</code> in case a result was processed,
+        or <code>Left(future)</code> in case an asynchronous boundary
+        was hit and further async execution is needed or
+        in case of failure</p></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Task#timeout" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="timeout(after:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]"></a><a id="timeout(FiniteDuration):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#timeout(after:scala.concurrent.duration.FiniteDuration):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeout</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.3/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a Task that mirrors the source Task but that triggers a
+<code>TimeoutException</code> in case the given duration passes without the
+task emitting any item.</p>
+    </li><li name="monix.eval.Task#timeoutTo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="timeoutTo[B&gt;:A](after:scala.concurrent.duration.FiniteDuration,backup:monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="timeoutTo[B&gt;:A](FiniteDuration,Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#timeoutTo[B&gt;:A](after:scala.concurrent.duration.FiniteDuration,backup:monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeoutTo</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.3/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>, <span name="backup">backup: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a Task that mirrors the source Task but switches to the
+given backup Task in case the given duration passes without the
+source emitting any item.</p>
+    </li><li name="monix.eval.Task#toIO" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="toIO(implicits:monix.execution.Scheduler):cats.effect.IO[A]"></a><a id="toIO(Scheduler):IO[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#toIO(implicits:monix.execution.Scheduler):cats.effect.IO[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toIO</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="cats.effect.IO">IO</span>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Converts the source <code>Task</code> to a <code>cats.effect.IO</code> value.</p>
+    </li><li name="monix.eval.Task#toReactivePublisher" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toReactivePublisher(implicits:monix.execution.Scheduler):org.reactivestreams.Publisher[A@scala.annotation.unchecked.uncheckedVariance]"></a><a id="toReactivePublisher(Scheduler):Publisher[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#toReactivePublisher(implicits:monix.execution.Scheduler):org.reactivestreams.Publisher[A@scala.annotation.unchecked.uncheckedVariance]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toReactivePublisher</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="org.reactivestreams.Publisher">Publisher</span>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Converts a <a href="" class="extype" name="monix.eval.Task">Task</a> to an <code>org.reactivestreams.Publisher</code> that
+emits a single item on success, or just the error on failure.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a <a href="" class="extype" name="monix.eval.Task">Task</a> to an <code>org.reactivestreams.Publisher</code> that
+emits a single item on success, or just the error on failure.</p><p>See <a href="http://www.reactive-streams.org/" target="_blank">reactive-streams.org</a> for the
+Reactive Streams specification.
+</p></div></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#toString():String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#transform" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="transform[R](fa:A=&gt;R,fe:Throwable=&gt;R):monix.eval.Task[R]"></a><a id="transform[R]((A)⇒R,(Throwable)⇒R):Task[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#transform[R](fa:A=&gt;R,fe:Throwable=&gt;R):monix.eval.Task[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">transform</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="fa">fa: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <span class="extype" name="monix.eval.Task.transform.R">R</span></span>, <span name="fe">fe: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <span class="extype" name="monix.eval.Task.transform.R">R</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.transform.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <code>Task</code> by applying the 'fa' function to the successful result of
+this future, or the 'fe' function to the potential errors that might happen.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>Task</code> by applying the 'fa' function to the successful result of
+this future, or the 'fe' function to the potential errors that might happen.</p><p>This function is similar with <a href="#map[B](f:A=&gt;B):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#map">map</a>, except that it can also transform
+errors and not just successful results.
+</p></div><dl class="paramcmts block"><dt class="param">fa</dt><dd class="cmt"><p>function that transforms a successful result of the receiver</p></dd><dt class="param">fe</dt><dd class="cmt"><p>function that transforms an error of the receiver</p></dd></dl></div>
+    </li><li name="monix.eval.Task#transformWith" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="transformWith[R](fa:A=&gt;monix.eval.Task[R],fe:Throwable=&gt;monix.eval.Task[R]):monix.eval.Task[R]"></a><a id="transformWith[R]((A)⇒Task[R],(Throwable)⇒Task[R]):Task[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#transformWith[R](fa:A=&gt;monix.eval.Task[R],fe:Throwable=&gt;monix.eval.Task[R]):monix.eval.Task[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">transformWith</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="fa">fa: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.transformWith.R">R</span>]</span>, <span name="fe">fe: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.transformWith.R">R</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.transformWith.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Creates a new <code>Task</code> by applying the 'fa' function to the successful result of
+this future, or the 'fe' function to the potential errors that might happen.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new <code>Task</code> by applying the 'fa' function to the successful result of
+this future, or the 'fe' function to the potential errors that might happen.</p><p>This function is similar with <a href="#flatMap[B](f:A=&gt;monix.eval.Task[B]):monix.eval.Task[B]" class="extmbr" name="monix.eval.Task#flatMap">flatMap</a>, except that it can also transform
+errors and not just successful results.
+</p></div><dl class="paramcmts block"><dt class="param">fa</dt><dd class="cmt"><p>function that transforms a successful result of the receiver</p></dd><dt class="param">fe</dt><dd class="cmt"><p>function that transforms an error of the receiver</p></dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.3/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.3/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.3/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Task#zip" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip[B](that:monix.eval.Task[B]):monix.eval.Task[(A,B)]"></a><a id="zip[B](Task[B]):Task[(A,B)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#zip[B](that:monix.eval.Task[B]):monix.eval.Task[(A,B)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="that">that: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zip.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[(<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="monix.eval.Task.zip.B">B</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Zips the values of <code>this</code> and <code>that</code> task, and creates a new task
+that will emit the tuple of their results.</p>
+    </li><li name="monix.eval.Task#zipMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap[B,C](that:monix.eval.Task[B])(f:(A,B)=&gt;C):monix.eval.Task[C]"></a><a id="zipMap[B,C](Task[B])((A,B)⇒C):Task[C]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#zipMap[B,C](that:monix.eval.Task[B])(f:(A,B)=&gt;C):monix.eval.Task[C]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap</span><span class="tparams">[<span name="B">B</span>, <span name="C">C</span>]</span><span class="params">(<span name="that">that: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap.B">B</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="monix.eval.Task.zipMap.B">B</span>) ⇒ <span class="extype" name="monix.eval.Task.zipMap.C">C</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.zipMap.C">C</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Zips the values of <code>this</code> and <code>that</code> and applies the given
+mapping function on their results.</p>
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.3/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>
