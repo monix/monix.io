@@ -246,7 +246,7 @@ val cancelable = task.runAsync { result =>
 cancelable.cancel()
 ```
 
-We can also `runAsync` with a [Callback](./callback.html) instance.
+We can also `runOnComplete` with a [Callback](./callback.html) instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
@@ -257,7 +257,7 @@ import monix.eval.Callback
 
 val task = Task(1 + 1).delayExecution(1.second)
 
-val cancelable = task.runAsync(
+val cancelable = task.runOnComplete(
   new Callback[Int] {
     def onSuccess(value: Int): Unit =
       println(value)
@@ -717,7 +717,7 @@ val error = Task.raiseError[Int](new TimeoutException)
 // error: monix.eval.Task[Int] =
 //   Delay(Error(java.util.concurrent.TimeoutException))
 
-error.runAsync(result => println(result))
+error.runOnComplete(result => println(result))
 //=> Failure(java.util.concurrent.TimeoutException)
 ```
 
@@ -735,7 +735,7 @@ val never = Task.never[Int]
 val timedOut = never.timeoutTo(3.seconds,
   Task.raiseError(new TimeoutException))
 
-timedOut.runAsync(r => println(r))
+timedOut.runOnComplete(r => println(r))
 // After 3 seconds:
 // => Failure(java.util.concurrent.TimeoutException)
 ```
@@ -969,7 +969,7 @@ This is where the `memoizeOnSuccess` operator comes in handy:
 ```tut:silent
 var effect = 0
 
-val source = Task.eval { 
+val source = Task.eval {
   effect += 1
   if (effect < 3) throw new RuntimeException("dummy") else effect
 }
@@ -1475,7 +1475,7 @@ concrete, like going through SLF4J or whatever.
 
 Even though Monix expects for the arguments given to its operators,
 like `flatMap`, to be pure or at least protected from errors, it still
-catches errors, signaling them on `runAsync`:
+catches errors, signaling them on `runOnComplete`:
 
 ```tut:silent
 val task = Task(Random.nextInt).flatMap {
@@ -1485,14 +1485,14 @@ val task = Task(Random.nextInt).flatMap {
     throw new IllegalStateException(odd.toString)
 }
 
-task.runAsync(r => println(r))
+task.runOnComplete(r => println(r))
 //=> Success(-924040280)
 
-task.runAsync(r => println(r))
+task.runOnComplete(r => println(r))
 //=> Failure(java.lang.IllegalStateException: 834919637)
 ```
 
-In case an error happens in the callback provided to `runAsync`, then
+In case an error happens in the callback provided to `runOnComplete`, then
 Monix can no longer signal an `onError`, because it would be a
 contract violation (see [Callback](./callback.html)). But it still
 logs the error:
@@ -1505,7 +1505,7 @@ import scala.concurrent.duration._
 // current thread
 val task = Task(2).delayExecution(1.second)
 
-task.runAsync { r =>
+task.runOnComplete { r =>
   throw new IllegalStateException(r.toString)
 }
 
@@ -1586,10 +1586,10 @@ val source =
   Task("Hello!").delayExecution(10.seconds)
 
 // Triggers error if the source does not
-// complete in 3 seconds after runAsync
+// complete in 3 seconds after runOnComplete
 val timedOut = source.timeout(3.seconds)
 
-timedOut.runAsync(r => println(r))
+timedOut.runOnComplete(r => println(r))
 //=> Failure(TimeoutException)
 ```
 
@@ -1609,7 +1609,7 @@ val timedOut = source.timeoutTo(
   Task.raiseError(new TimeoutException)
 )
 
-timedOut.runAsync(r => println(r))
+timedOut.runOnComplete(r => println(r))
 //=> Failure(TimeoutException)
 ```
 
