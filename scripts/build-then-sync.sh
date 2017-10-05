@@ -6,7 +6,7 @@ cd `dirname $0`/..
 rm -rf docs && rm -rf _site
 
 # Compiling tut files
-sbt -mem 4096 run
+sbt run
 
 # Compiling Jekyll website
 bundle exec jekyll build
