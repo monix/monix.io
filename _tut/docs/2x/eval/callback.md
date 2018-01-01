@@ -51,7 +51,7 @@ val callback = new Callback[Int] {
     System.err.println(ex)
 }
 
-// We need an exception reporter, but we can just a Scheduler
+// We need an exception reporter, but we can just use a Scheduler
 import monix.execution.Scheduler.Implicits.global
 
 val safeCallback1 = Callback.safe(callback)
