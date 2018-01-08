@@ -42,9 +42,10 @@ Featured presentation:
 
 The packages are published on Maven Central.
 
-- Current 2.x release: `{{ site.version2x }}` 
+- 2.x release: `{{ site.version2x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
-
+- 3.x release: `{{ site.version3x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version3x }}.zip))
 
 In SBT (use the `%%%` for Scala.js):
 
@@ -52,7 +53,14 @@ In SBT (use the `%%%` for Scala.js):
 libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
 ```
 
-Monix 2.0 is modular by design, so you can pick and choose:
+Or for the `3.x` release that works out of the box with 
+[Typelevel Cats](https://typelevel.org/cats/) 1.0:
+
+```scala
+libraryDependencies += "io.monix" %% "monix" % "{{ site.version3x }}"
+```
+
+Monix is modular by design, so you can pick and choose:
 
 - **monix-execution**: the low-level execution environment, or more precisely
   `Scheduler`, `Cancelable`, `CancelableFuture` and `Atomic`
@@ -61,12 +69,18 @@ Monix 2.0 is modular by design, so you can pick and choose:
 - **monix-reactive**: async `Observable` streams
 - **monix**: provides all of the above
 
-Optional integrations:
+Optional integrations (for the 2.x series only):
 
 - **monix-cats**: exposes Typelevel [Cats](http://typelevel.org/cats/)
   type-class instances, see [the intro](/docs/2x/intro/cats.html)
 - **monix-scalaz-72**: exposes [Scalaz](https://github.com/scalaz/scalaz)
   type-class instances, see [the intro](/docs/2x/intro/scalaz72.html)
+
+**NOTE:** for the 3.x series the `monix-cats` package is no longer
+needed, support for Typelevel Cats being delivered out of the box and 
+the support for Scalaz has been dropped; if you're a Scalaz user you
+can use the [shims](https://github.com/djspiewak/shims) project
+for interoperability.
 
 Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
 more details.
