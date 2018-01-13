@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: "Best Practice: Should Not Block Threads"
 description: "Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts."
 ---

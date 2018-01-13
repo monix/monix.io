@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Consumer
 type_api: monix.reactive.Consumer
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Consumer.scala

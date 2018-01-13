@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<div class="page">
+  <h1 class="page-title">{{ page.title }}</h1>
+  <nav role="navigation" id="type-info">
+    {% if page.type_api %}<a href="{{ site.api2x }}{{ page.type_api | replace: '.','/' }}.html">API Documentation</a>{% endif %}
+    {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/{{ page.type_source }}">Source Code</a>{% endif %}
+    {% if page.play_url %}<a href="{{ page.play_url }}" target="_blank">Try It in ScalaFiddle</a>{% endif %}
+    <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
+  </nav>
+
+  <div id="version3x">
+    You are viewing the documentation for the Monix 3.x series.
+    If you're looking for the older 2.x
+    <a href="{{ site.docs2x }}">click here</a>.
+  </div>
+
+  <nav role="navigation" id="toc"></nav>
+
+  {{ content }}
+
+  <div class="buttons">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">
+      Edit Page</a> •
+    {% if page.play_url %}<a href="{{ page.play_url }}" title="Powered by ScalaFiddle" target="_blank">
+      Try It</a> •{% endif %}
+    <a href="{{ site.github.chat }}">
+      Join Chat</a> •
+    <a href="{{ site.baseurl }}social.html">
+      Follow</a>
+  </div>
+</div>

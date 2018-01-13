@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Typelevel Cats Integration
 type_api: monix.cats.package
 type_source: monix-cats/shared/src/main/scala/monix/cats/

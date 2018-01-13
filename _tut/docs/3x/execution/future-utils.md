@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Future Utils
 type_api: monix.execution.FutureUtils$
 type_source: monix-execution/shared/src/main/scala/monix/execution/FutureUtils.scala
@@ -9,7 +9,7 @@ tut:
   scala: 2.12.4
   binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-execution:version2x
+    - io.monix::monix-execution:version3x
 ---
 
 Given that we've got [Scheduler](./scheduler.html), it would be a

@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Cancelable
 type_api: monix.execution.Cancelable
 type_source: monix-execution/shared/src/main/scala/monix/execution/Cancelable.scala

@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Task Circuit Breaker
 type_api: monix.eval.TaskCircuitBreaker
 type_source: monix-eval/shared/src/main/scala/monix/eval/TaskCircuitBreaker.scala

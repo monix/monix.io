@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Migrating from 1.x to 2.x
 description: "Guide on migrating from version 1.x (Monifu) to version 2.x"
 ---

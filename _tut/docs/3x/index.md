@@ -3,9 +3,15 @@ layout: page
 title: Monix Documentation
 ---
 
+<div id="version3x">
+  You are viewing the documentation for the Monix 3.x series.
+  If you're looking for the older 2.x
+  <a href="{{ site.docs2x }}">click here</a>.
+</div>
+
 **Usage:**
 
-- [API Documentation (ScalaDoc)]({{ site.api2x }})
+- [API Documentation (ScalaDoc)]({{ site.api3x }})
 - Getting Started
   - [Usage with SBT](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)

@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Callback
 type_api: monix.eval.Callback
 type_source: monix-eval/shared/src/main/scala/monix/eval/Callback.scala

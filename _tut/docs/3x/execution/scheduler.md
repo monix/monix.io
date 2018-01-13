@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Scheduler
 type_api: monix.execution.Scheduler
 type_source: monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala
@@ -10,7 +10,7 @@ tut:
   scala: 2.12.4
   binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-execution:version2x
+    - io.monix::monix-execution:version3x
 ---
 
 A cross-platform execution-context, can execute logic asynchronously
@@ -338,7 +338,7 @@ You can retrieve the configured `ExecutionModel` by calling
 
 ```tut:silent
 global.executionModel
-// res: monix.execution.schedulers.ExecutionModel =
+// res: monix.execution.ExecutionModel =
 //   BatchedExecution(1024)
 ```
 
@@ -364,7 +364,7 @@ the most general:
 
 ```tut:silent
 import java.util.concurrent.Executors
-import monix.execution.schedulers.ExecutionModel.AlwaysAsyncExecution
+import monix.execution.ExecutionModel.AlwaysAsyncExecution
 import monix.execution.{Scheduler, UncaughtExceptionReporter}
 
 // Will schedule things with delays

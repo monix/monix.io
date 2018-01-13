@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Observers and Subscribers
 description: |
     The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable.

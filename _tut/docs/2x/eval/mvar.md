@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: MVar
 type_api: monix.eval.MVar
 type_source: monix-eval/shared/src/main/scala/monix/eval/MVar.scala

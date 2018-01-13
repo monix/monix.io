@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Scalaz 7.2 Integration
 type_api: monix.scalaz.package
 type_source: monix-scalaz/series-7.2/shared/src/main/scala/monix/scalaz

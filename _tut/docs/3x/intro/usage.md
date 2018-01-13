@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Usage in SBT
 description: |
   Packages are published in Maven Central,

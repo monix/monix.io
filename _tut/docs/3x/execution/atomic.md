@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Atomic
 type_api: monix.execution.atomic.Atomic
 type_source: monix-execution/jvm/src/main/scala/monix/execution/atomic/Atomic.scala
@@ -10,7 +10,8 @@ tut:
   scala: 2.12.4
   binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-execution:version2x
+    - io.monix::monix-execution:version3x
+    - org.scala-lang:scala-reflect:2.12.4
 ---
 
 Scala is awesome at handling concurrency and parallelism, providing

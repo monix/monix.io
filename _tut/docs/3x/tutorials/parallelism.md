@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Parallel Processing
 description: |
   Recipes for achieving parallelism

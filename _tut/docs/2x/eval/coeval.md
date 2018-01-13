@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Coeval
 type_api: monix.eval.Coeval
 type_source: monix-eval/shared/src/main/scala/monix/eval/Coeval.scala

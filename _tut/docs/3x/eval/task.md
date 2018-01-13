@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Task
 type_api: monix.eval.Task
 type_source: monix-eval/shared/src/main/scala/monix/eval/Task.scala

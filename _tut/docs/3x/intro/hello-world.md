@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: Hello World!
 description: "Go reactive (✿◠‿◠)"
 

@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs3x
 title: "Akka &amp; Monix: Controlling Power Plants"
 description: |
   Presentation from Typelevel Summit, Oslo, 2016,

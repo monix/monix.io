@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: "Monix Task: Lazy, Async &amp; Awesome"
 description: |
   Presentation from flatMap(Oslo) 2016,
