@@ -4,8 +4,10 @@ import coursier._
 import coursier.util.Parse
 import java.io.{File, FileInputStream}
 import java.net.URLClassLoader
-import java.nio.file.Files
+import java.nio.file.{Files, StandardCopyOption}
+
 import org.yaml.snakeyaml.Yaml
+
 import scala.util.Try
 
 case class Post(file: File, config: ConfigFile) {
@@ -41,7 +43,7 @@ case class Post(file: File, config: ConfigFile) {
           invoke(tut, file, outDir)
         case None =>
           println("[blog] No tut header, copying.")
-          Files.copy(file.toPath, out.toPath)
+          Files.copy(file.toPath, out.toPath, StandardCopyOption.REPLACE_EXISTING)
       }
     }
     else {
@@ -57,6 +59,7 @@ case class Post(file: File, config: ConfigFile) {
     tut.dependencies.map { uri =>
       uri.replaceAll("version1x", config.version1x)
          .replaceAll("version2x", config.version2x)
+         .replaceAll("version3x", config.version3x)
     }
 
   def libResolution(tut: Tut): Resolution =

@@ -1,4 +1,4 @@
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.4"
 
 name := "monix-website"
 
@@ -8,10 +8,10 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.get-coursier" %% "coursier" % "1.0.0-RC12",
-  "io.get-coursier" %% "coursier-cache" % "1.0.0-RC12",
-  "com.chuusai" %% "shapeless" % "2.3.2",
-  "org.yaml" % "snakeyaml" % "1.18"
+  "io.get-coursier" %% "coursier" % "1.0.0",
+  "io.get-coursier" %% "coursier-cache" % "1.0.0",
+  "com.chuusai" %% "shapeless" % "2.3.3",
+  "org.yaml" % "snakeyaml" % "1.19"
 )
 
 lazy val configFile = SettingKey[File]("configFile")
@@ -22,7 +22,7 @@ lazy val tutVersion = SettingKey[String]("tutVersion")
 configFile := (baseDirectory in ThisBuild).value / "_config.yml"
 tutInput := (baseDirectory in ThisBuild).value / "_tut"
 tutOutput := (baseDirectory in ThisBuild).value
-tutVersion := "0.5.5"
+tutVersion := "0.5.6"
 
 watchSources ++= (tutInput.value ** "*.md").get
 

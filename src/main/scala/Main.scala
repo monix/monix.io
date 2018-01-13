@@ -14,14 +14,15 @@ object Main extends App {
 
     ConfigFile(
       version1x = map("version1x").asInstanceOf[String],
-      version2x = map("version2x").asInstanceOf[String]
+      version2x = map("version2x").asInstanceOf[String],
+      version3x = map("version3x").asInstanceOf[String]
     )
   }
 
   def listFilesRecursively(dir: File, files: List[File], rest: List[File]): List[File] = {
     val list = Option(dir.listFiles()).map(_.toList).toList.flatten
     val moreDirs = list.filter(_.isDirectory()) ::: rest
-    val moreFiles = list.filter(f => f.isFile() && f.getName.endsWith(".md")) ::: files
+    val moreFiles = list.filter(f => f.isFile && f.getName.endsWith(".md")) ::: files
 
     moreDirs match {
       case h :: remaining => listFilesRecursively(h, moreFiles, remaining)
