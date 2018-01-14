@@ -16,7 +16,6 @@ title: Monix Documentation
   - [Usage with SBT](./intro/usage.html)
   - [Hello World!](./intro/hello-world.html)
   - [Typelevel Cats Integration](./intro/cats.html)
-  - [Scalaz 7.2 Integration](./intro/scalaz72.html)
 - Execution
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)
