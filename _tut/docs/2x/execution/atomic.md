@@ -11,6 +11,7 @@ tut:
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version2x
+    - org.scala-lang:scala-reflect:2.12.4
 ---
 
 Scala is awesome at handling concurrency and parallelism, providing
