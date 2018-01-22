@@ -7,8 +7,8 @@ description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
 
 tut:
-  scala: 2.11.8
-  binaryScala: "2.11"
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-eval:version2x
     - org.slf4j:slf4j-api:1.7.21
