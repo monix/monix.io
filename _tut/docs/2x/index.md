@@ -1,13 +1,7 @@
 ---
-layout: page
+layout: docs2x
 title: Monix Documentation
 ---
-
-<div id="version2x">
-  You are viewing the documentation for the Monix 2.x series.
-  If you're looking for the latest 3.x
-  <a href="{{ site.docs3x }}">click here</a>.
-</div>
 
 **Usage:**
 
