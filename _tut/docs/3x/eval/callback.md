@@ -8,7 +8,7 @@ description: |
     
 tut:
   dependencies:
-    - io.monix::monix-eval:version2x
+    - io.monix::monix-eval:version3x
 ---
 
 `Callback` is a listener type that can be called asynchronously with

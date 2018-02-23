@@ -7,7 +7,7 @@ description: |
   A data type for providing stability and prevent cascading failures in distributed systems.
 tut:
   dependencies:
-    - io.monix::monix-eval:version2x
+    - io.monix::monix-eval:version3x
 ---
 
 The `TaskCircuitBreaker` is used to provide stability and prevent
