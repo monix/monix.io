@@ -8,7 +8,7 @@ cd `dirname $0`/..
 rm -rf docs && rm -rf _site
 
 # Compiling tut files
-sbt run
+sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g run
 
 # Compiling Jekyll website
 bundle exec jekyll build
