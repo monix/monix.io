@@ -7,8 +7,6 @@ description: |
   A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding.
 
 tut:
-  scala: 2.12.4
-  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
 ---

@@ -1,6 +1,5 @@
 package io.monix.website
 
-import org.yaml.snakeyaml.Yaml
 import scala.collection.JavaConverters._
 import scala.util.Try
 import shapeless._
@@ -14,12 +13,10 @@ trait YAML[T] {
 }
 
 trait LowPriorityYAML {
-
   implicit def deriveInstance[F, G](implicit gen: LabelledGeneric.Aux[F, G], yg: Lazy[YAML[G]]): YAML[F] =
     new YAML[F] {
-      def rawDecode(any: Any) = gen.from(yg.value.rawDecode(any))
+      def rawDecode(any: Any): F = gen.from(yg.value.rawDecode(any))
     }
-
 }
 
 object YAML extends LowPriorityYAML {
@@ -52,6 +49,7 @@ object YAML extends LowPriorityYAML {
       yv: Lazy[YAML[V]],
       yt: Lazy[YAML[T]]
     ): YAML[FieldType[K, V] :: T] = new YAML[FieldType[K, V] :: T] {
+
     def rawDecode(any: Any) = {
       val k = key.value.name
       val map = any.asInstanceOf[java.util.Map[String, _]]

@@ -3,10 +3,8 @@ layout: docs3x
 title: Parallel Processing
 description: |
   Recipes for achieving parallelism
-  
+
 tut:
-  scala: 2.12.4
-  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version2x
 ---

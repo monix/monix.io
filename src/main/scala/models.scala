@@ -1,7 +1,7 @@
 package io.monix.website
 
-case class Tut(scala: String, binaryScala: String, dependencies: List[String])
-case class FrontMatter(tut: Tut)
+case class TutConfig(dependencies: List[String])
+case class FrontMatter(tut: TutConfig)
 
 case class ConfigFile(
   version1x: String, 

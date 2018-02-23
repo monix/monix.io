@@ -3,7 +3,6 @@ package io.monix.website
 import org.yaml.snakeyaml.Yaml
 import java.io.{File, FileInputStream}
 import scala.collection.JavaConverters._
-import scala.util.Try
 
 object Main extends App {
   lazy val configFile: ConfigFile = {

@@ -7,8 +7,6 @@ description: |
   A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool.
 
 tut:
-  scala: 2.12.4
-  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version2x
 ---
@@ -174,6 +172,10 @@ val c = scheduler.scheduleOnce(5.seconds) {
 }
 ```
 
+```tut:invisible
+c.cancel()
+```
+
 ## Schedule Repeatedly
 
 We can schedule tasks to run repeatedly,
@@ -210,12 +212,20 @@ val c = scheduler.scheduleWithFixedDelay(
   })
 ```
 
+```tut:invisible
+c.cancel()
+```
+
 There's also a more Scala-friendly extension:
 
 ```tut:silent
-scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
+val c = scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
   println("Fixed delay task")
 }
+```
+
+```tut:invisible
+c.cancel()
 ```
 
 So, in order to take execution duration into account,
