@@ -98,3 +98,188 @@ The Monix `Observable`:
 See **[comparisons with similar tools, like Akka or FS2](./observable-comparisons.html)**.
 
 ... TO BE CONTINUED ...
+
+## Execution
+
+## Hot and Cold Observables
+
+## Simple builders
+
+There are many builders available in the Monix `Observable` companion object. 
+This section will cover only some of them so please refer to the latest API docs for more.
+
+### Observable.pure (now)
+
+`Observable.pure` (alias for `now`) simply lifts an already known 
+value in the `Observable` context.
+
+```tut:silent
+val obs = Observable.now { println("Effect"); "Hello!" }
+//=> Effect
+// obs: monix.reactive.Observable[String] = NowObservable@327a283b
+```
+ 
+### Observable.delay (eval)
+
+`Observable.delay` (alias for `eval`) lifts non-strict
+value in the `Observable`. It is evaluated upon subscription.
+
+```tut:silent
+val obs = Observable.delay { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=> Effect
+//=> Hello!
+
+// The evaluation (and thus all contained side effects)
+// gets triggered on each runAsync:
+task.runAsync
+//=> Effect
+//=> Hello!
+```
+
+### Observable.evalOnce
+
+`Observable.evalOnce` takes a non-strict value and converts it into an Observable
+that emits a single element and that memoizes the value for subsequent invocations.
+It also has guaranteed idempotency and thread-safety:
+
+```tut:silent
+val obs = Observable.evalOnce { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=> Effect
+//=> Hello!
+
+// Result was memoized on the first run!
+task.runAsync.foreach(println)
+//=> Hello!
+```
+
+### Observable.fromIterable
+
+`Observable.fromIterable` converts any `Iterable` into `Observable`:
+
+```tut:silent
+val obs = Observable.fromIterable(List(1, 2, 3))
+// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
+
+obs.foreachL(println).runAsync
+//=> 1
+//=> 2
+//=> 3
+
+```
+
+### Observable.suspend (defer)
+
+`Observable.suspend` (alias for defer) allows suspending side effects:
+
+```tut:silent
+def readFile(path: String): Observable[String] = 
+    Observable.suspend {
+        // The side effect won't happen until subscription
+        val lines = Source.fromFile(path).getLines
+        Observable.fromIterator(lines)
+    }
+```
+### Observable.raiseError
+
+### Observable.tailRecM
+
+### Observable.create && unsafeCreate
+
+### Observable.interval
+
+## Operations
+
+## Error Handling
+
+## Interoperability with other Streams API (Akka Streams, FS2)
+
+Due to compability with the [Reactive Streams](http://www.reactive-streams.org/)
+specification `Observable` allows good interoperability with other libraries.
+
+The next subsections contain examples how to convert between Monix `Observable` and
+other popular streaming libraries but it should work in similar way with every other library
+compatible with Reactive Streams protocol.
+
+### Akka Streams
+
+Necessary imports and initialization for `Akka Streams`:
+
+```tut:silent
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+import akka._
+import akka.stream._
+import akka.stream.scaladsl._
+import akka.actor.ActorSystem
+
+implicit val system = ActorSystem("akka-streams")
+implicit val materializer = ActorMaterializer()
+```
+
+To convert Akka `Source` to Monix `Observable`:
+
+```tut:silent
+val akkaSource = Source(1 to 3)
+// akkaSource: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
+
+val publisher = akkaSource.runWith(Sink.asPublisher[Int](fanout = false))
+// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
+```
+
+To go back from Monix `Observable` to Akka `Source`:
+
+```tut:silent
+val newAkkaSource = Source.fromPublisher(monixObservable.toReactivePublisher)
+// newAkkaSource: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
+```
+
+### FS2
+
+To go between [FS2](https://github.com/functional-streams-for-scala/fs2) Stream 
+and Monix `Observable` you need to use [fs2-reactive-streams](https://github.com/zainab-ali/fs2-reactive-streams)
+library but conversion remains very straightforward.
+
+Necessary imports:
+
+```tut:silent
+import cats.effect._, fs2._
+import fs2.interop.reactivestreams._
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+```
+
+To convert FS2 `Stream` to Monix `Observable`:
+
+```tut:silent
+val stream = Stream(1, 2, 3).covary[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+
+val publisher = stream.toUnicastPublisher()
+// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
+```
+
+To go back from Monix `Observable` to FS2 `Stream`:
+
+```tut:silent
+val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val stream = observable.toReactivePublisher.toStream[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+```
