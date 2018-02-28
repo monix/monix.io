@@ -229,10 +229,10 @@ implicit val materializer = ActorMaterializer()
 To convert Akka `Source` to Monix `Observable`:
 
 ```tut:silent
-val akkaSource = Source(1 to 3)
-// akkaSource: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
+val source = Source(1 to 3)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
 
-val publisher = akkaSource.runWith(Sink.asPublisher[Int](fanout = false))
+val publisher = source.runWith(Sink.asPublisher[Int](fanout = false))
 // publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
 
 val observable = Observable.fromReactivePublisher(publisher)
@@ -242,8 +242,11 @@ val observable = Observable.fromReactivePublisher(publisher)
 To go back from Monix `Observable` to Akka `Source`:
 
 ```tut:silent
-val newAkkaSource = Source.fromPublisher(monixObservable.toReactivePublisher)
-// newAkkaSource: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
+val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val source = Source.fromPublisher(observable.toReactivePublisher)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
 ```
 
 ### FS2
