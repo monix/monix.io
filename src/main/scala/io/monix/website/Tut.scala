@@ -5,6 +5,8 @@ import coursier.util.Parse
 import java.io.File
 import java.net.URLClassLoader
 
+import scala.util.control.NonFatal
+
 case class FrontMatter(tut: Tut)
 
 case class ConfigFile(
@@ -45,13 +47,19 @@ case class Tut(
 
     val commandLine = Array(
       in.getAbsolutePath,
-      out.getAbsolutePath,
+      out.getParentFile.getAbsolutePath,
       ".*",
       "-classpath",
       libClasspath.mkString(File.pathSeparator)
     )
 
-    try tutMain.invoke(null, commandLine)
-    finally classLoader.close()
+    try {
+      try tutMain.invoke(null, commandLine)
+      finally classLoader.close()
+    } catch {
+      case NonFatal(e) =>
+        out.delete()
+        throw e
+    }
   }
 }

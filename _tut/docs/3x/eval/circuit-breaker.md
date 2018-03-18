@@ -79,19 +79,34 @@ any of these 3 states:
 import monix.eval._
 import scala.concurrent.duration._
 
-val circuitBreaker = TaskCircuitBreaker(
-  maxFailures = 5,
-  resetTimeout = 10.seconds
-)
+val pureRef: Task[TaskCircuitBreaker] = 
+  TaskCircuitBreaker(
+    maxFailures = 5,
+    resetTimeout = 10.seconds
+  )
+```
 
-//...
+Note the builder's returned reference is given in the `Task` context,
+because `TaskCircuitBreaker` has shared state and doing otherwise
+would violate in some cases referential transparency.
+
+But you can share the same circuit breaker instance by using `memoize`:
+
+```tut:silent
+val circuitbreaker = pureRef.memoize
+```
+
+```tut:silent
 val problematic = Task {
   val nr = util.Random.nextInt()
   if (nr % 2 == 0) nr else
     throw new RuntimeException("dummy")
 }
 
-val task = circuitBreaker.protect(problematic)
+for {
+  ci <- circuitBreaker
+  r  <- ci.protect(problematic)
+} yield r
 ```
 
 When attempting to close the circuit breaker and resume normal
