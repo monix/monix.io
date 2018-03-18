@@ -93,8 +93,10 @@ would violate in some cases referential transparency.
 But you can share the same circuit breaker instance by using `memoize`:
 
 ```tut:silent
-val circuitbreaker = pureRef.memoize
+val circuitBreaker = pureRef.memoize
 ```
+
+And in order to protect tasks being processed, one can use `protect`:
 
 ```tut:silent
 val problematic = Task {
