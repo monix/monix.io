@@ -4,7 +4,6 @@ import coursier._
 import coursier.util.Parse
 import java.io.File
 import java.net.URLClassLoader
-import scala.concurrent.{ExecutionContext, Future}
 
 case class FrontMatter(tut: Tut)
 
@@ -36,9 +35,7 @@ case class Tut(
       Dependency(mod, v)
     }.toSet)
 
-  def invoke(config: ConfigFile, in: File, out: File)
-    (implicit ec: ExecutionContext): Future[Unit] = {
-
+  def invoke(config: ConfigFile, in: File, out: File): Unit = {
     val tutClasspath = resolve(tutResolution).get
     val libClasspath = resolve(libResolution(config)).get
 
@@ -54,9 +51,7 @@ case class Tut(
       libClasspath.mkString(File.pathSeparator)
     )
 
-    Future {
-      try tutMain.invoke(null, commandLine)
-      finally classLoader.close()
-    }
+    try tutMain.invoke(null, commandLine)
+    finally classLoader.close()
   }
 }

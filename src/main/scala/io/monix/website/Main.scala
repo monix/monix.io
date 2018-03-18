@@ -1,12 +1,8 @@
 package io.monix.website
 
-import org.yaml.snakeyaml.Yaml
 import java.io.{File, FileInputStream}
+import org.yaml.snakeyaml.Yaml
 import scala.collection.JavaConverters._
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object Main extends App {
   lazy val configFile: ConfigFile = {
@@ -34,6 +30,5 @@ object Main extends App {
   }
 
   val posts = listFilesRecursively(BuildInfo.tutInput, Nil, Nil).map(Post(_, configFile))
-  val future = Future.traverse(posts)(_.process)
-  Await.result(future, Duration.Inf)
+  posts.foreach(_.process())
 }
