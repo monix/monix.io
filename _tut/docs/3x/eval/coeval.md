@@ -8,7 +8,7 @@ description: |
   
 tut:
   dependencies:
-    - io.monix::monix-eval:version2x
+    - io.monix::monix-eval:version3x
 ---
 
 ## Introduction
@@ -159,35 +159,35 @@ coeval.runTry match {
 //=> Error: java.lang.RuntimeException: Hello!
 ```
 
-### Attempt, the replacement for scala.util.Try
+### Eager, the replacement for scala.util.Try
 
 The `runTry` method returns a `scala.util.Try`, but if you looked at
 the source code, the implementation of `Coeval` uses two states called
 `Now(value)` and `Error(ex)`, inheriting from `Coeval` and that are
 perfect equivalents for the `scala.util.Try` states called `Success`
-and `Failure`. And in fact an `Attempt` sub-type of `Coeval` is
+and `Failure`. And in fact an `Eager` sub-type of `Coeval` is
 exposed as an ADT that you can use instead of `scala.util.Try`:
 
 ```tut:silent
 import monix.eval.Coeval
-import monix.eval.Coeval.{Attempt, Now, Error}
+import monix.eval.Coeval.{Eager, Now, Error}
 
 val coeval1 = Coeval(1 + 1)
 
-val result1: Attempt[Int] = coeval1.runAttempt
+val result1: Eager[Int] = coeval1.run
 // result1 = Now(2)
 
 val coeval2 = Coeval.raiseError[Int](new RuntimeException("Hello!"))
 
-val result2: Attempt[Int] = coeval2.runAttempt
+val result2: Eager[Int] = coeval2.run
 // result = Error(java.lang.RuntimeException: Hello!)
 ```
 
-Hence the `Coeval` type, or more precisely `Coeval.Attempt`, can work
+Hence the `Coeval` type, or more precisely `Coeval.Eager`, can work
 as a replacement for `scala.util.Try`, although note that even if the
 values boxed by `Now` and `Error` are already evaluated, when invoking
 operators on them, like `flatMap`, the behavior is still lazy, which
-is the main difference between `Attempt` and `Try`.
+is the main difference between `Eager` and `Try`.
 
 ### Convert any Coeval into a Task
 
@@ -469,11 +469,11 @@ val aggregate =
   }
 ```
 
-In order to avoid boxing into tuples, you can also use `zipMap2`,
-`zipMap3` ... `zipMap6`:
+In order to avoid boxing into tuples, you can also use `map2`,
+`map3` ... `map6`:
 
 ```tut:silent
-Coeval.zipMap3(locationCoeval, phoneCoeval, addressCoeval) { 
+Coeval.map3(locationCoeval, phoneCoeval, addressCoeval) { 
   (location, phone, address) => "Gotcha!"
 }
 ```
@@ -551,7 +551,7 @@ gets mostly the same facilities for recovering from error.
 First off, even though Monix expects for the arguments given to its
 operators, like `flatMap`, to be pure or at least protected from
 errors, it still catches errors, signaling them on `runTry` or
-`runAttempt`:
+`run`:
 
 ```tut:silent
 import monix.eval.Coeval
