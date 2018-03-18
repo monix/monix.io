@@ -7,6 +7,8 @@ description: |
   References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better.
 
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
     - org.scala-lang:scala-reflect:2.12.4
