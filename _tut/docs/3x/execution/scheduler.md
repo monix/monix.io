@@ -7,6 +7,8 @@ description: |
   A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool.
 
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
 ---
@@ -307,7 +309,7 @@ testScheduler.execute(runnable2)
 ## Execution Model
 
 Along with time, the `Scheduler` also specifies the
-[ExecutionModel]({{ site.api2x }}monix/execution/ExecutionModel$.html),
+[ExecutionModel]({{ site.api3x }}monix/execution/ExecutionModel$.html),
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution in loops.
 For example in Monix, this affects how both `Task` and `Observable`
@@ -315,18 +317,18 @@ are evaluated.
 
 Currently there are 3 execution models available:
 
-- [BatchedExecution]({{ site.api2x }}monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable),
+- [BatchedExecution]({{ site.api3x }}monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable),
   the Monix default, specifies a mixed execution mode under which tasks are
   executed synchronously in batches up to a maximum size, after
   which an asynchronous boundary is forced. This execution mode
   is recommended because we don't want to block threads / run-loops
   indefinitely, especially on top of Javascript where a long loop
   can mean that the UI gets frozen and where we need to be cooperative.
-- [AlwaysAsyncExecution]({{ site.api2x }}monix/execution/ExecutionModel$.html#AlwaysAsyncExecution)
+- [AlwaysAsyncExecution]({{ site.api3x }}monix/execution/ExecutionModel$.html#AlwaysAsyncExecution)
   specifies that units of work within a loop should always execute
   asynchronously on each step, being basically the mode of operation
   for Scala's `Future`.
-- [SynchronousExecution]({{ site.api2x }}monix/execution/ExecutionModel$.html#SynchronousExecution)
+- [SynchronousExecution]({{ site.api3x }}monix/execution/ExecutionModel$.html#SynchronousExecution)
   specifies that synchronous execution should always be preferred,
   for as long as possible, being basically the mode of operation
   for the Scalaz `Task`.
@@ -508,7 +510,7 @@ so it will still use `setTimeout` when delays are involved.
 ## Shutdown with SchedulerService
 
 The `SchedulerService` is a `scheduler` type that provides methods for managing termination.
-See the [API Documentation]({{ site.api2x }}monix/execution/schedulers/SchedulerService.html).
+See the [API Documentation]({{ site.api3x }}monix/execution/schedulers/SchedulerService.html).
 
 Similar in spirit to
 [java.util.concurrent.ExecutorService]({{ site.apiJava }}java/util/concurrent/ExecutorService.html),

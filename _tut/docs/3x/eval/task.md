@@ -7,8 +7,10 @@ description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
 
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-eval:version2x
+    - io.monix::monix-eval:version3x
     - org.slf4j:slf4j-api:1.7.21
 ---
 
@@ -49,7 +51,7 @@ val task = Task { 1 + 1 }
 
 // Tasks get evaluated only on runAsync!
 // Callback style:
-val cancelable = task.runAsync { result =>
+val cancelable = task.runOnComplete { result =>
   result match {
     case Success(value) =>
       println(value)
@@ -163,7 +165,7 @@ giants. But where the Monix Task implementation disagrees:
    is very unsafe](../best-practices/blocking.html).
 3. The Scalaz Task cannot cancel running computations. This is
    important for nondeterministic operations. For example when you
-   create a race condition with a `chooseFirstOf`, you may want to
+   create a race condition with a `race`, you may want to
    cancel the slower task that didn't finish in time, because
    unfortunately, if we don't release resources soon enough, we can
    end up with serious leakage that can crash our process.
@@ -204,7 +206,7 @@ it.
 
 The most straightforward and idiomatic way would be to execute
 tasks and get a
-[CancelableFuture]({{ site.api2x }}monix/execution/CancelableFuture.html)
+[CancelableFuture]({{ site.api3x }}monix/execution/CancelableFuture.html)
 in return, which is a standard `Future` paired with a
 [Cancelable](../execution/cancelable.html):
 
@@ -231,7 +233,7 @@ import scala.util.{Success, Failure}
 
 val task = Task(1 + 1).delayExecution(1.second)
 
-val cancelable = task.runAsync { result =>
+val cancelable = task.runOnComplete { result =>
   result match {
     case Success(value) =>
       println(value)
@@ -866,7 +868,7 @@ object Task {
 So instead of returning a
 simple [Cancelable](../execution/cancelable.html) we get to deal with
 an injected
-[StackedCancelable]({{ site.api2x }} #monix.execution.cancelables.StackedCancelable),
+[StackedCancelable]({{ site.api3x }} #monix.execution.cancelables.StackedCancelable),
 along with something called a `FrameIndex` that's a `ThreadLocal` and
 some special `Options` instead.
 
@@ -923,7 +925,7 @@ help.
 ## Memoization
 
 The
-[Task#memoize]({{ site.api2x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
+[Task#memoize]({{ site.api3x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
 operator can take any `Task` and apply memoization on the first `runAsync`,
 such that:
 
@@ -1082,7 +1084,7 @@ best of all, because of the
 default these loops won't block the current thread forever, preferring to
 execute things in batches.
 
-### The Applicative: zip2, zip3, ... zip6
+### Parallelism (cats.Parallel)
 
 When using `flatMap`, we often end up with this:
 
@@ -1106,7 +1108,10 @@ order. This also happens with Scala's standard `Future`, being
 sometimes an unwanted effect, but because `Task` is lazily evaluated,
 this effect is even more pronounced with `Task`.
 
-But `Task` is also an `Applicative` and hence it has utilities, such
+But `Task` also has a
+[cats.Parallel](https://typelevel.org/cats/typeclasses/parallel.html)
+implementation, being able to trigger evaluation of multiple
+tasks in parallel and hence it has utilities, such
 as `zip2`, `zip3`, up until `zip6` (at the moment of writing) and also
 `zipList`. The example above could be written as:
 
@@ -1122,14 +1127,27 @@ val aggregate =
   }
 ```
 
-In order to avoid boxing into tuples, you can also use `zipMap2`,
-`zipMap3` ... `zipMap6`:
+In order to avoid boxing into tuples, you can also use `parMap2`,
+`parMap3` ... `parMap6`:
 
 ```tut:silent
-Task.zipMap3(locationTask, phoneTask, addressTask) {
+Task.parMap3(locationTask, phoneTask, addressTask) {
   (location, phone, address) => "Gotcha!"
 }
 ```
+
+And you can use Cats' syntax for `parMapN`:
+
+```tut:silent
+import cats.syntax.all._
+
+(locationTask, phoneTask, addressTask).parMapN {
+  (location, phone, address) => "Gotcha!"
+}
+```
+
+Alsoo see the documentation for
+[cats.Parallel](https://typelevel.org/cats/typeclasses/parallel.html).
 
 ### Gather results from a Seq of Tasks
 
@@ -1217,22 +1235,24 @@ list.runAsync.foreach(println)
 //=> Seq(1,2)
 ```
 
-### Choose First Of Two Tasks
+### Race
 
-The `chooseFirstOf` operation will choose the winner between two
+The `racePair` operation will choose the winner between two
 `Task` that will potentially run in parallel:
 
 ```tut:silent
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
-val race = Task.chooseFirstOf(ta, tb).runAsync.foreach {
-  case Left((a, futureB)) =>
-    futureB.cancel()
-    println(s"A succeeded: $a")
-  case Right((futureA, b)) =>
-    futureA.cancel()
-    println(s"B succeeded: $b")
+val race = Task.racePair(ta, tb).runAsync.foreach {
+  case Left((a, fiber)) =>
+    fiber.cancel.flatMap { _ =>
+      Task.eval(println(s"A succeeded: $a"))
+    }
+  case Right((fiber, b)) =>
+    fiber.cancel.flatMap { _ =>
+      Task.eval(println(s"B succeeded: $b"))
+    }
 }
 ```
 
@@ -1241,9 +1261,9 @@ opportunity to do something with the other task that lost the race.
 You can cancel it, or you can use its result somehow, or you can
 simply ignore it, your choice depending on use-case.
 
-### Choose First Of List
+### Race Many
 
-The `chooseFirstOfList` operation takes as input a list of tasks,
+The `raceMany` operation takes as input a list of tasks,
 and upon execution will generate the result of the first task
 that completes and wins the race:
 
@@ -1252,7 +1272,7 @@ val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
 {
-  Task.chooseFirstOfList(Seq(ta, tb))
+  Task.raceMany(Seq(ta, tb))
     .runAsync
     .foreach(r => println(s"Winner: $r"))
 }

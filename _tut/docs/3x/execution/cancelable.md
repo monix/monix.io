@@ -7,6 +7,8 @@ description: |
   A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding.
 
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
 ---
@@ -56,7 +58,7 @@ for its canceled status, adding the necessary `isCanceled` query for
 when we need it.
 
 See the
-[API Documentation]({{ site.api2x }}monix/execution/cancelables/BooleanCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/BooleanCancelable.html).
 
 ```scala
 package monix.execution.cancelables
@@ -110,7 +112,7 @@ references (to which you can add new references or remove existing ones)
 and that are handled in aggregate when doing a `cancel()`.
 
 See the
-[API Documentation]({{ site.api2x }}monix/execution/cancelables/CompositeCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/CompositeCancelable.html).
 
 The contract for `CompositeCancelable`:
 
@@ -168,7 +170,7 @@ variable, referencing another cancelable reference that can be
 swapped as needed.
 
 See the
-[API Documentation]({{ site.api2x }}monix/execution/cancelables/MultiAssignmentCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/MultiAssignmentCancelable.html).
 
 Contract:
 
@@ -295,7 +297,7 @@ The `SingleAssignmentCancelable` is similar to the
 only once.
 
 See the
-[API Documentation]({{ site.api2x }}monix/execution/cancelables/SingleAssignmentCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/SingleAssignmentCancelable.html).
 
 The contract:
 
@@ -350,7 +352,7 @@ being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.
 
 See the
-[API Documentation]({{ site.api2x }}monix/execution/cancelables/SerialCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/SerialCancelable.html).
 
 Contract:
 

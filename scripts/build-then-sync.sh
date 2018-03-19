@@ -4,11 +4,8 @@ set -e
 
 cd `dirname $0`/..
 
-# Cleanup
-rm -rf docs && rm -rf _site
-
 # Compiling tut files
-sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g run
+./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g clean run
 
 # Compiling Jekyll website
 bundle exec jekyll build

@@ -6,6 +6,8 @@ type_source: monix-execution/shared/src/main/scala/monix/execution/FutureUtils.s
 description: Utilities for Scala's standard Future.
 
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
 ---

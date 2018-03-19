@@ -5,6 +5,7 @@ type_api: monix.eval.MVar
 type_source: monix-eval/shared/src/main/scala/monix/eval/MVar.scala
 description: |
   A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full.
+  
 tut:
   dependencies:
     - io.monix::monix-eval:version2x

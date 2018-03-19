@@ -5,9 +5,12 @@ type_api: monix.eval.MVar
 type_source: monix-eval/shared/src/main/scala/monix/eval/MVar.scala
 description: |
   A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full.
+
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-eval:version2x
+    - io.monix::monix-eval:version3x
 ---
 
 An `MVar` is a mutable location that can be empty or contains a value,
@@ -77,11 +80,15 @@ def sum(state: MVar[Int], list: List[Int]): Task[Int] =
       }
   }
 
-val state = MVar(0)
-val task = sum(state, (0 until 100).toList)
+val task = 
+  for {
+    state <- MVar(0)
+    r <- sum(state, (0 until 100).toList)
+  } yield r
 
 // Evaluate
-val f: CancelableFuture[Int] = task.runAsync
+task.runAsync.foreach(println)
+//=> 4950
 ```
 
 This sample isn't very useful, except to show how `MVar` can be used
@@ -102,9 +109,7 @@ The `take` operation can act as "acquire" and `put` can act as the "release".
 Let's do it:
 
 ```tut:silent
-final class MLock {
-  private[this] val mvar = MVar(())
-
+final class MLock(mvar: MVar[Unit]) {
   def acquire: Task[Unit] =
     mvar.take
 
@@ -118,19 +123,28 @@ final class MLock {
       _ <- release
     } yield a
 }
+
+object MLock {
+  /** Builder. */
+  def apply(): Task[MLock] =
+    MVar(()).map(v => new MLock(v))
+}
 ```
 
 And now we can apply synchronization to the previous example:
 
 ```tut:silent
-val lock = new MLock
-val state = MVar(0)
-val task = sum(state, (0 until 100).toList)
-
-val atomicTask = lock.greenLight(task)
+val task = 
+  for {
+    lock <- MLock()
+    state <- MVar(0)
+    task = sum(state, (0 until 100).toList)
+    r <- lock.greenLight(task)
+  } yield r
 
 // Evaluate
-val f: CancelableFuture[Int] = atomicTask.runAsync
+task.runAsync.foreach(println)
+//=> 4950
 ```
 
 ## Use-case: Producer/Consumer Channel
@@ -164,17 +178,20 @@ def consumer(ch: Channel[Int], sum: Long): Task[Long] =
       Task.now(sum) // we are done!
   }
 
-val channel = MVar.empty[Option[Int]]
 val count = 100000
 
-val producerTask = producer(channel, (0 until count).toList).executeWithFork
-val consumerTask = consumer(channel, 0L).executeWithFork
-
-// Ensure they run in parallel, not really necessary, just for kicks
-val sumTask = Task.mapBoth(producerTask, consumerTask)((_,sum) => sum)
+val sumTask =
+  for {
+    channel <- MVar.empty[Option[Int]]
+    producerTask = producer(channel, (0 until count).toList).executeAsync
+    consumerTask = consumer(channel, 0L).executeAsync
+    // Ensure they run in parallel, not really necessary, just for kicks
+    sum <- Task.parMap2(producerTask, consumerTask)((_,sum) => sum)
+  } yield sum
 
 // Evaluate
-val f: CancelableFuture[Long] = sumTask.runAsync
+sumTask.runAsync.foreach(println)
+//=> 4999950000
 ```
 
 Running this will work as expected. Our `producer` pushes values

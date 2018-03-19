@@ -5,7 +5,10 @@ type_api: monix.eval.TaskCircuitBreaker
 type_source: monix-eval/shared/src/main/scala/monix/eval/TaskCircuitBreaker.scala
 description: |
   A data type for providing stability and prevent cascading failures in distributed systems.
+
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-eval:version3x
 ---
@@ -76,19 +79,36 @@ any of these 3 states:
 import monix.eval._
 import scala.concurrent.duration._
 
-val circuitBreaker = TaskCircuitBreaker(
-  maxFailures = 5,
-  resetTimeout = 10.seconds
-)
+val pureRef: Task[TaskCircuitBreaker] = 
+  TaskCircuitBreaker(
+    maxFailures = 5,
+    resetTimeout = 10.seconds
+  )
+```
 
-//...
+Note the builder's returned reference is given in the `Task` context,
+because `TaskCircuitBreaker` has shared state and doing otherwise
+would violate in some cases referential transparency.
+
+But you can share the same circuit breaker instance by using `memoize`:
+
+```tut:silent
+val circuitBreaker = pureRef.memoize
+```
+
+And in order to protect tasks being processed, one can use `protect`:
+
+```tut:silent
 val problematic = Task {
   val nr = util.Random.nextInt()
   if (nr % 2 == 0) nr else
     throw new RuntimeException("dummy")
 }
 
-val task = circuitBreaker.protect(problematic)
+for {
+  ci <- circuitBreaker
+  r  <- ci.protect(problematic)
+} yield r
 ```
 
 When attempting to close the circuit breaker and resume normal

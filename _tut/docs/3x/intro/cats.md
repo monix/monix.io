@@ -7,6 +7,8 @@ description: |
   Integration and usage of the type-classes described in the Typelevel Cats library.
   
 tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version3x
 ---
@@ -20,7 +22,7 @@ making use of the vast .
 
 We can verify that `Task` is indeed a `cats.Monad`:
 
-```tut
+```tut:book
 import cats.Monad
 import monix.eval.Task
 
