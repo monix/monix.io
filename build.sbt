@@ -38,3 +38,8 @@ enablePlugins(BuildInfoPlugin)
 buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion, configFile, scalaVersion)
 
 buildInfoPackage := "io.monix.website"
+
+cleanFiles ++= Seq(
+  (baseDirectory in ThisBuild).value / "docs",
+  (baseDirectory in ThisBuild).value / "presentations"
+)

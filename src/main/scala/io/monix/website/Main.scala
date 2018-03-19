@@ -53,10 +53,13 @@ object Main extends App {
   val parallelism = 
     Option(System.getenv("TUT_PARALLELISM")).filterNot(_.isEmpty) match {
       case Some(value) if value.matches("^\\d+$") =>
-        value.toInt
+        val nr = value.toInt
+        val procs = Runtime.getRuntime().availableProcessors()
+        if (nr < 1) 1
+        else if (procs > 1 && nr > procs) procs
+        else nr
       case _ =>
-        val nr = Runtime.getRuntime().availableProcessors() / 2
-        if (nr > 1) nr else 1
+        1
     }
 
   val f = Future.sequence((0 until parallelism).map(_ => worker(queue)))

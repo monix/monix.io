@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: docs
 title: Presentations
 ---
 
@@ -26,5 +26,7 @@ Featured:
 - [The Making of an IO](https://www.youtube.com/watch?v=g_jP47HFpWA) 
   by Daniel Spiewak, at [ScalaIO 2017](https://scala.io/2017/)
 - [What Referential Transparency can do for you](https://www.youtube.com/watch?v=X-cEGEJMx_4) by Luka Jacobowitz, at [ScalaIO 2017](https://scala.io/2017/)
+- [Free as in Monads](https://www.youtube.com/watch?v=aKUQUIHRGec)
+  by Daniel Spiewak, at [NEScala 2017](http://www.nescala.org/2017)
 
-Add your own 😉
+Add your own ;-)
