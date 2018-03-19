@@ -206,7 +206,7 @@ it.
 
 The most straightforward and idiomatic way would be to execute
 tasks and get a
-[CancelableFuture]({{ site.api2x }}monix/execution/CancelableFuture.html)
+[CancelableFuture]({{ site.api3x }}monix/execution/CancelableFuture.html)
 in return, which is a standard `Future` paired with a
 [Cancelable](../execution/cancelable.html):
 
@@ -868,7 +868,7 @@ object Task {
 So instead of returning a
 simple [Cancelable](../execution/cancelable.html) we get to deal with
 an injected
-[StackedCancelable]({{ site.api2x }} #monix.execution.cancelables.StackedCancelable),
+[StackedCancelable]({{ site.api3x }} #monix.execution.cancelables.StackedCancelable),
 along with something called a `FrameIndex` that's a `ThreadLocal` and
 some special `Options` instead.
 
@@ -925,7 +925,7 @@ help.
 ## Memoization
 
 The
-[Task#memoize]({{ site.api2x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
+[Task#memoize]({{ site.api3x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
 operator can take any `Task` and apply memoization on the first `runAsync`,
 such that:
 

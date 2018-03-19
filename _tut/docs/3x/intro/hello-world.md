@@ -12,7 +12,7 @@ tut:
 
 Let's do instant gratification stuff.
 
-First, we need a [Scheduler]({{ site.api2x }}monix/execution/Scheduler.html)
+First, we need a [Scheduler]({{ site.api3x }}monix/execution/Scheduler.html)
 whenever asynchronous execution happens.
 
 ```tut:silent
@@ -27,8 +27,8 @@ import scala.concurrent.duration._
 
 ## Task, the Lazy Future
 
-For using [Task]({{ site.api2x }}monix/eval/Task$.html) or
-[Coeval]({{ site.api2x }}monix/eval/Coeval$.html), usage is
+For using [Task]({{ site.api3x }}monix/eval/Task$.html) or
+[Coeval]({{ site.api3x }}monix/eval/Coeval$.html), usage is
 fairly similar with Scala's own `Future`, except that
 `Task` behaves lazily:
 
