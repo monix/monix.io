@@ -5,30 +5,36 @@ title: Monix
 
 Asynchronous Programming for Scala and [Scala.js](http://www.scala-js.org/).
 
-[![Gitter]({{ site.baseurl }}public/images/gitter.svg)]({{ site.github.chat }})
+{% include github-stars.html %}
 
 ## Overview
 
-Monix is a high-performance Scala / Scala.js library for
-composing asynchronous and event-based programs, exposing high-level
-types, such as observable sequences that are exposed as asynchronous streams,
-expanding on the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern),
-strongly inspired by [ReactiveX](http://reactivex.io/) and by [Scalaz](http://scalaz.org/),
-but designed from the ground up  for back-pressure and made to cleanly interact
-with Scala's standard library, compatible out-of-the-box with the
-[Reactive Streams](http://www.reactive-streams.org/) protocol.
+Monix is a high-performance Scala / Scala.js library for composing asynchronous,
+event-based programs.
+
+It started as a proper implementation of [ReactiveX](http://reactivex.io/), 
+with stronger functional programming influences and designed from the ground up 
+for  back-pressure and made to cleanly interact with Scala's standard library, 
+compatible out-of-the-box with the [Reactive Streams](http://www.reactive-streams.org/) 
+protocol. It then expanded to include abstractions for suspending side effects 
+and for resource handling, being one of the parents and implementors of
+[cats-effect](https://typelevel.org/cats-effect/).
+
+<a href="https://typelevel.org/"><img src="{{ site.baseurl }}public/images/typelevel.png" width="150" style="float:right;" align="right" /></a>
+
+A [Typelevel project](http://typelevel.org/projects/), Monix proudly 
+exemplifies pure, typeful, functional programming in Scala, while making no
+compromise on performance.
 
 Highlights:
 
-- exposes the kick-ass `Observable`, `Task` and `Coeval`
+- exposes the kick-ass `Observable`, `Iterant`, `Task` and `Coeval` data types,
+  along with all the support they need
 - modular, only use what you need
-- the base library has no third-party dependencies
-- strives to be idiomatic Scala and encourages referential transparency,
-  but is built to be faster than alternatives
-- is a [Typelevel project](http://typelevel.org/projects/)
 - designed for true asynchronicity, running on both the
   JVM and [Scala.js](http://scala-js.org)
-- really good test coverage and API documentation as a project policy
+- really good test coverage, code quality and API documentation 
+  as a primary project policy
 
 ### Presentations
 
@@ -110,3 +116,22 @@ Development of Monix has been initiated by
 [Eloquentix](http://eloquentix.com/) engineers, with
 Monix being introduced at E.ON Connecting Energies, powering the next
 generation energy grid solutions.
+
+## License
+
+```text
+Copyright (c) 2014-{{ site.time | date: '%Y' }} by The Monix Project Developers.
+See the project homepage at: https://monix.io
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

@@ -3,11 +3,20 @@
 
   {% include head.html %}
 
-  <body class="monix layout-reverse">
-    {% include sidebar.html %}
-      
-    <article class="content container">
-      {{ content }}
-    </article>
+  <body class="monix layout">
+    <div class="wrapper">
+      {% include sidebar.html %}
+    
+      <article class="content container">
+        {{ content }}
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
   </body>
 </html>

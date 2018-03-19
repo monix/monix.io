@@ -3,7 +3,7 @@ layout: page
 title: License
 ---
 
-Copyright (c) {{ site.time | date: '%Y' }} by its authors.
+Copyright (c) 2014-{{ site.time | date: '%Y' }} by The Monix Project Developers.<br/>
 Some rights reserved.
 
 All code samples on [Monix.io]({{ site.baseurl }}) are licensed under
