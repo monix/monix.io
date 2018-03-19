@@ -10,7 +10,7 @@ tut:
   scala: 2.12.4
   binaryScala: "2.12"
   dependencies:
-    - io.monix::monix-reactive:version2x
+    - io.monix::monix-reactive:version3x
 ---
 
 ## Introduction
@@ -81,6 +81,7 @@ sum of all the `Int` elements of a stream:
 ```tut:silent
 import monix.execution.Scheduler
 import monix.execution.cancelables.AssignableCancelable
+import monix.execution.Ack
 import monix.execution.Ack.Continue
 import monix.eval.Callback
 import monix.reactive.Consumer
@@ -93,7 +94,7 @@ val sumConsumer: Consumer[Int,Long] =
         implicit val scheduler = s
         private var sum = 0L
 
-        def onNext(elem: Int): Continue = {
+        def onNext(elem: Int): Ack = {
           sum += elem
           Continue
         }
@@ -322,7 +323,7 @@ useful, but you can easily see that you can insert I/O logic in there:
 import monix.eval.Task
 import concurrent.duration._
 
-val sum = Consumer.foldLeftAsync[Long,Long](0L) { (acc, elem) => 
+val sum = Consumer.foldLeftTask[Long,Long](0L) { (acc, elem) => 
   Task(acc + elem).delayExecution(10.millis)
 }
 ```

@@ -22,7 +22,7 @@ making use of the vast .
 
 We can verify that `Task` is indeed a `cats.Monad`:
 
-```tut
+```tut:book
 import cats.Monad
 import monix.eval.Task
 

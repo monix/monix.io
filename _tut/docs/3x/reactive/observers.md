@@ -3,6 +3,12 @@ layout: docs3x
 title: Observers and Subscribers
 description: |
     The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable.
+    
+tut:
+  scala: 2.12.4
+  binaryScala: "2.12"
+  dependencies:
+    - io.monix::monix-reactive:version3x    
 ---
 
 ## Observer
@@ -76,9 +82,21 @@ Corollaries:
 
 ### Building an Observer
 
+Some of the following samples will need an implicit `Scheduler` in 
+scope, so lets get that out of the way:
+
+```tut:silent
+import monix.execution.Scheduler.Implicits.global
+```
+
+```tut:invisible
+import monix.execution.schedulers.TestScheduler
+implicit val global = TestScheduler()
+```
+
 Let's build an observer that just logs events:
 
-```scala
+```tut:silent
 // Back-pressure related acknowledgement
 import monix.execution.Ack
 import monix.execution.Ack.{Continue, Stop}
@@ -103,17 +121,14 @@ val observer = new Observer[Any] {
 And in case you just want an empty `Observer` that does nothing but
 logs `onError` in case it happens:
 
-```scala
-// Needed for logging errors
-import monix.execution.Scheduler.Implicits.global
-
+```tut:silent
 val observer = Observer.empty[Int]
 ```
 
 Or you can quickly build an `Observer` that only logs the events that
 it receives. We'll use this in other samples:
 
-```scala
+```tut:silent
 import monix.reactive.Observer
 
 val out = Observer.dump("O")
@@ -135,16 +150,14 @@ out.onComplete()
 
 Feeding one element, then stopping. This is legal:
 
-```scala
+```tut:silent
 observer.onNext(1)
 observer.onComplete()
 ```
 
 Back-pressuring `onComplete` is optional, so you can also do this:
 
-```scala
-import monix.execution.Scheduler.Implicits.global
-
+```tut:silent
 observer.onNext(1).map {
   case Continue =>
     observer.onComplete()
@@ -158,7 +171,7 @@ observer.onNext(1).map {
 
 Feeding two elements, then stopping. This is NOT legal:
 
-```scala
+```tut:silent
 // BAD SAMPLE
 observer.onNext(1)
 observer.onNext(2)
@@ -167,9 +180,7 @@ observer.onComplete()
 
 The correct way of doing this:
 
-```scala
-import monix.execution.Scheduler.Implicits.global
-
+```tut:silent
 observer.onNext(1).map {
   case Continue =>
     // We have permission to continue
@@ -189,7 +200,7 @@ concurrent, we need imposed ordering. But here we have clear
 
 All together now. Lets feed an entire `Iterator`:
 
-```scala
+```tut:silent
 import monix.execution.Ack.{Continue, Stop}
 import monix.execution.{Ack, Scheduler}
 import scala.concurrent.Future
@@ -261,7 +272,7 @@ Given that, in order to do anything with an `Observer` we always need
 a [Scheduler](../execution/scheduler.html), the `Subscriber` is a data
 type that's an `Observer` with a `Scheduler` attached:
 
-```scala
+```tut:silent
 trait Subscriber[-T] extends Observer[T] {
   implicit def scheduler: Scheduler
 }
@@ -275,7 +286,7 @@ the covers a `Subscriber` instance is being built for you.
 
 To convert a plain `Observer` into a `Subscriber`:
 
-```scala
+```tut:silent
 import monix.execution.Scheduler.{global => scheduler}
 import monix.reactive.observers._
 import monix.reactive._
@@ -287,16 +298,14 @@ val subscriber = Subscriber(observer, scheduler)
 To build a `Subscriber` instance that does nothing but logs
 `onError` in case it happens:
 
-```scala
-import monix.execution.Scheduler.Implicits.global
-
+```tut:silent
 val subscriber = Subscriber.empty[Int]
 ```
 
 Or to build a `Subscriber` that logs events to standard output
 for debugging purposes:
 
-```scala
+```tut:silent
 val subscriber = Subscriber.dump("O")
 ```
 
@@ -309,10 +318,9 @@ we can convert Monix Subscribers to Reactive Subscribers.
 These subscribers have a similar interface and contract, but with a
 slightly different API, being in fact equivalent.
 
-```scala
+```tut:silent
 import monix.execution.Ack
 import monix.execution.Ack.{Continue, Stop}
-import monix.execution.Scheduler.Implicits.global
 import monix.reactive.observers.Subscriber
 import scala.concurrent.Future
 
@@ -325,7 +333,7 @@ val reactiveSubscriber: org.reactivestreams.Subscriber[Any] =
 
 And usage of the `org.reactivestreams.Subscriber` interface:
 
-```scala
+```tut:silent
 reactiveSubscriber.onSubscribe(
   new org.reactivestreams.Subscription {
     private var isCanceled = false
@@ -354,7 +362,7 @@ we can convert Reactive Subscribers to Monix Subscribers.
 
 Let's implement an `org.reactivestreams.Subscriber`:
 
-```scala
+```tut:silent
 import org.reactivestreams.{Subscription => RSubscription}
 
 val reactiveSubscriber =
@@ -380,8 +388,7 @@ val reactiveSubscriber =
 
 And now we can covert it into a `Subscriber` that Monix can use:
 
-```scala
-import monix.execution.Scheduler.Implicits.global
+```tut:silent
 import monix.reactive.observers.Subscriber
 import monix.execution.Cancelable
 
@@ -417,9 +424,8 @@ is safer for usage and protecting some parts of the contract:
 4. The `onComplete` and `onError` are back-pressured. Even though this
    is optional, for users of the API it's safer if they are.
 
-```scala
+```tut:silent
 import monix.execution.Ack
-import monix.execution.Scheduler.Implicits.global
 import monix.reactive.observers._
 
 def create[A]: SafeSubscriber[A] =
@@ -468,8 +474,7 @@ upstream until the call to `connect()` happens. Before `connect()` it
 also allows for scheduling the delivery of additional items before any
 other `onNext`.
 
-```scala
-import monix.execution.Scheduler.Implicits.global
+```tut:silent
 import monix.reactive.observers._
 
 val underlying = Subscriber.dump("O")
@@ -510,8 +515,7 @@ all events until the call to `connect()` happens. After being
 connected, the buffer is drained into the underlying subscriber, after
 which all subsequent events are pushed directly.
 
-```scala
-import monix.execution.Scheduler.Implicits.global
+```tut:silent
 import monix.execution._
 import monix.reactive.observers._
 
