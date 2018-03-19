@@ -39,4 +39,8 @@ title: Monix Documentation
   a mixed [Play Framework](https://www.playframework.com/) /
   [Scala.js](http://www.scala-js.org/) app
 
+## Presentations
+
+{% include presentations.html %}
+
 Work in progress! Please help!
