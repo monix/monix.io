@@ -25,14 +25,32 @@ layout: default
     <ul class="related-posts">
       {% for post in site.related_posts limit:3 %}
         <li>
-          <h3>
             <a href="{{ post.url }}">
               {{ post.title }}
               <small>{{ post.date | date_to_string }}</small>
             </a>
-          </h3>
         </li>
       {% endfor %}
     </ul>
   </div>
+  
+  {% if page.comments %}
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "{{ site.url }}{{ page.url }}";
+      this.page.identifier = "{{ page.url }}";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://monix.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+  {% endif %}
 </div>
