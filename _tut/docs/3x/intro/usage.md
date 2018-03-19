@@ -19,7 +19,7 @@ These install instructions are for Scala's
 [setup instructions](http://www.scala-sbt.org/0.13/docs/Setup.html))
 and for [Apache Maven](https://maven.apache.org/) build tools.
 
-## Everything in Monix Core
+## Everything in Monix
 
 The main `monix` project contains everything in the Monix core, 
 cross-compiled for:
@@ -40,7 +40,7 @@ Depends on:
 - [monix-reactive](#sub-project-monix-reactive)
 - [monix-tail](#sub-project-monix-tail)
 
-To use with insert the dependency in your `build.sbt` or `Build.scala`:
+Insert this line in `build.sbt` or `Build.scala`:
 
 ```scala
 // for the JVM
@@ -112,12 +112,10 @@ the [Observable]({{ site.api3x }}monix/reactive/Observable.html) pattern:
 
 - JVM: 
   [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12%7C{{ site.version3x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.11%7C{{ site.version3x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.10%7C{{ site.version3x }}%7C)
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.11%7C{{ site.version3x }}%7C)
 - Javascript: 
   [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version3x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version3x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version3x }}%7C)
+  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version3x }}%7C)
 
 Depends on:
 

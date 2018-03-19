@@ -34,8 +34,7 @@ title: Monix Documentation
 
 **Presentations:**
 
-- [Monix Task: Lazy, Async &amp; Awesome](./presentations/2016-task-flatmap-oslo.html) (flatMap(Oslo), 2016)
-- [Akka & Monix: Controlling Power Plants](./presentations/2016-akka-monix-typelevel.html) (Typelevel Summit, Oslo, 2016)
+{% include presentations.html %}
 
 **Samples:**
 

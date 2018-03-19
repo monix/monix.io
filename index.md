@@ -30,70 +30,62 @@ Highlights:
   JVM and [Scala.js](http://scala-js.org)
 - really good test coverage and API documentation as a project policy
 
+### Presentations
+
 Featured presentation:
 
-<iframe src="https://player.vimeo.com/video/165922572" 
-  width="640" height="360" class="presentation"
-  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+<iframe width="640" height="360" 
+  src="https://www.youtube-nocookie.com/embed/wi97X8_JQUk?rel=0" frameborder="0" 
+  class="presentation" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
-**[flatMap(Oslo), 2016](/docs/2x/presentations/2016-task-flatmap-oslo.html)**
+
+[See all presentations!](./docs/presentations/)
 
 ### Download and Usage
 
 The packages are published on Maven Central.
 
-- 2.x release: `{{ site.version2x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
-- 3.x release: `{{ site.version3x }}` 
+- 3.x release (latest): `{{ site.version3x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.version3x }}.zip))
+- 2.x release (older): `{{ site.version2x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
 
-In SBT (use the `%%%` for Scala.js):
-
-```scala
-libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
-```
-
-Or for the `3.x` release that works out of the box with 
-[Typelevel Cats](https://typelevel.org/cats/) 1.0:
+In SBT for the latest 3.x release that integrates with 
+[Typelevel Cats](https://typelevel.org/cats/) out of the box
+(use the `%%%` for Scala.js):
 
 ```scala
 libraryDependencies += "io.monix" %% "monix" % "{{ site.version3x }}"
 ```
 
-Monix is modular by design, so you can pick and choose:
+Or for the older `2.x` release:
 
-- **monix-execution**: the low-level execution environment, or more precisely
-  `Scheduler`, `Cancelable`, `CancelableFuture` and `Atomic`
-- **monix-eval**: for controlling evaluation by means of `Task`,
-  `Coeval` and primitives built on them
-- **monix-reactive**: async `Observable` streams
-- **monix**: provides all of the above
+```scala
+libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
+```
 
-Optional integrations (for the 2.x series only):
+Monix is modular by design, so you can have an à la carte experience, 
+the project being divided in multiple sub-projects.
 
-- **monix-cats**: exposes Typelevel [Cats](http://typelevel.org/cats/)
-  type-class instances, see [the intro](/docs/2x/intro/cats.html)
-- **monix-scalaz-72**: exposes [Scalaz](https://github.com/scalaz/scalaz)
-  type-class instances, see [the intro](/docs/2x/intro/scalaz72.html)
-
-**NOTE:** for the 3.x series the `monix-cats` package is no longer
-needed, support for Typelevel Cats being delivered out of the box and 
-the support for Scalaz has been dropped; if you're a Scalaz user you
-can use the [shims](https://github.com/djspiewak/shims) project
-for interoperability.
-
-Head over to **[Usage in SBT and Maven](/docs/2x/intro/usage.html)** for 
-more details.
+See [Usage in SBT and Maven](/docs/3x/intro/usage.html) for more details.
 
 ### Documentation
 
-Links: 
+Documentation and tutorials:
 
-- [Latest 1.x ScalaDoc (old Monifu)]({{ site.api1x }})
-- [Latest 2.x ScalaDoc]({{ site.api2x }})
-- [2.x documentation and tutorials](/docs/2x/)
+- [3.x series (latest)](/docs/3x/)
+- [2.x series (previous)](/docs/2x/)
 
-Please contribute!
+API ScalaDoc: 
+
+- [2.x series (latest)]({{ site.api3x }})
+- [2.x series (previous)]({{ site.api2x }})
+- [1.x (old Monifu)]({{ site.api1x }})
+
+Relevant links to dependencies:
+
+- [Cats](https://typelevel.org/cats/)
+- [Cats Effect](https://typelevel.org/cats-effect/)
 
 ## Latest News
 
