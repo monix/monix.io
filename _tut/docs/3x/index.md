@@ -3,7 +3,7 @@ layout: docs3x
 title: Monix Documentation
 ---
 
-**Usage:**
+## Usage
 
 - [API Documentation (ScalaDoc)]({{ site.api3x }})
 - Getting Started
@@ -32,11 +32,7 @@ title: Monix Documentation
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
-**Presentations:**
-
-{% include presentations.html %}
-
-**Samples:**
+## Samples
 
 - [Client/Server Communications](https://github.com/monixio/monix-sample/):
   a mixed [Play Framework](https://www.playframework.com/) /

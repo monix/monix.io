@@ -2,9 +2,8 @@
 layout: page
 title: "flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome"
 description: |
-  Presentation from flatMap(Oslo) 2016,
-  about the Monix Task, a new type for dealing
-  with asynchronous processing and side-effects.
+  Presentation from flatMap(Oslo) 2016, about the Monix Task, a new type 
+  for dealing with asynchronous processing and side-effects.
 ---
 
 Presentation from

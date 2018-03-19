@@ -3,8 +3,26 @@ package io.monix.website
 import java.io.{File, FileInputStream}
 import org.yaml.snakeyaml.Yaml
 import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.collection.immutable.Queue
+import java.util.concurrent.atomic.AtomicReference
 
 object Main extends App {
+  def worker(queue: AtomicReference[Queue[Post]]): Future[Unit] = {
+    val current = queue.get
+    if (current.nonEmpty) {
+      val (post, update) = current.dequeue
+      if (!queue.compareAndSet(current, update))
+        worker(queue)
+      else
+        Future(post.process()).flatMap(_ => worker(queue))
+    } else {
+      Future.successful(())
+    }
+  }
+
   lazy val configFile: ConfigFile = {
     val yaml = new Yaml()
     val stream = new FileInputStream(BuildInfo.configFile)
@@ -30,5 +48,17 @@ object Main extends App {
   }
 
   val posts = listFilesRecursively(BuildInfo.tutInput, Nil, Nil).map(Post(_, configFile))
-  posts.foreach(_.process())
+  val queue = new AtomicReference(Queue(posts:_*))
+  
+  val parallelism = 
+    Option(System.getenv("TUT_PARALLELISM")).filterNot(_.isEmpty) match {
+      case Some(value) if value.matches("^\\d+$") =>
+        value.toInt
+      case _ =>
+        val nr = Runtime.getRuntime().availableProcessors() / 2
+        if (nr > 1) nr else 1
+    }
+
+  val f = Future.sequence((0 until parallelism).map(_ => worker(queue)))
+  Await.result(f, Duration.Inf)
 }
