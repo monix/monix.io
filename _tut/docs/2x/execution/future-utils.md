@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Future Utils
 type_api: monix.execution.FutureUtils$
 type_source: monix-execution/shared/src/main/scala/monix/execution/FutureUtils.scala

@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Observable
 type_api: monix.reactive.Observable
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala

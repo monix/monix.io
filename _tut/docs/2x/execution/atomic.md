@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Atomic
 type_api: monix.execution.atomic.Atomic
 type_source: monix-execution/jvm/src/main/scala/monix/execution/atomic/Atomic.scala

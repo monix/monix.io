@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Javascript Event Listeners
 description: |
   How do you convert Javascript event listeners to Observable?

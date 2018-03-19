@@ -1,10 +1,17 @@
-scalaVersion := "2.12.4"
-
 name := "monix-website"
+
+scalaVersion := "2.12.4"
 
 scalacOptions ++= Seq(
   "-deprecation",
   "-feature"
+)
+
+resolvers ++= Seq(
+  DefaultMavenRepository,
+  Resolver.sbtPluginRepo("releases"),
+  Resolver.typesafeRepo("releases"),
+  Resolver.typesafeIvyRepo("releases")
 )
 
 libraryDependencies ++= Seq(
@@ -22,12 +29,17 @@ lazy val tutVersion = SettingKey[String]("tutVersion")
 configFile := (baseDirectory in ThisBuild).value / "_config.yml"
 tutInput := (baseDirectory in ThisBuild).value / "_tut"
 tutOutput := (baseDirectory in ThisBuild).value
-tutVersion := "0.5.6"
+tutVersion := "0.6.2"
 
 watchSources ++= (tutInput.value ** "*.md").get
 
 enablePlugins(BuildInfoPlugin)
 
-buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion, configFile)
+buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion, configFile, scalaVersion)
 
 buildInfoPackage := "io.monix.website"
+
+cleanFiles ++= Seq(
+  (baseDirectory in ThisBuild).value / "docs",
+  (baseDirectory in ThisBuild).value / "presentations"
+)

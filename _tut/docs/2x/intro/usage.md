@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Usage in SBT
 description: |
   Packages are published in Maven Central,
@@ -27,11 +27,11 @@ The main `monix` project contains everything in the Monix core,
 cross-compiled for:
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
   
@@ -69,11 +69,11 @@ or `Evaluable`, a type-class meant to abstract over both `Task` or
 Usage:
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
 
@@ -95,11 +95,11 @@ with asynchronous execution, thus exposing
 [Cancelable]({{ site.api2x }}monix/execution/Cancelable.html):
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
 
@@ -120,11 +120,11 @@ You can use just `monix-eval`, the sub-project that exposes
 [Coeval]({{ site.api2x }}monix/eval/Coeval$.html):
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
 
@@ -148,11 +148,11 @@ You can use just `monix-reactive`, the sub-project that exposes
 the [Observable]({{ site.api2x }}monix/reactive/Observable.html) pattern:
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
 
@@ -203,11 +203,11 @@ with the [Scalaz](http://scalaz.org/) library.
 To import:
 
 - JVM: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.10%7C{{ site.version2x }}%7C)
 - Javascript: 
-  [Scala 2.12.0-M5](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.12.0-M5%7C{{ site.version2x }}%7C) /
+  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.12%7C{{ site.version2x }}%7C) /
   [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.11%7C{{ site.version2x }}%7C) /
   [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.10%7C{{ site.version2x }}%7C)
 

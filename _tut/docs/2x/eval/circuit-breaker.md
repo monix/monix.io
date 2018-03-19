@@ -1,10 +1,11 @@
 ---
-layout: docs
+layout: docs2x
 title: Task Circuit Breaker
 type_api: monix.eval.TaskCircuitBreaker
 type_source: monix-eval/shared/src/main/scala/monix/eval/TaskCircuitBreaker.scala
 description: |
   A data type for providing stability and prevent cascading failures in distributed systems.
+
 tut:
   scala: 2.12.4
   binaryScala: "2.12"

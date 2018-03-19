@@ -1,5 +1,5 @@
 ---
-layout: docs
+layout: docs2x
 title: Scheduler
 type_api: monix.execution.Scheduler
 type_source: monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala
@@ -174,6 +174,10 @@ val c = scheduler.scheduleOnce(5.seconds) {
 }
 ```
 
+```tut:invisible
+c.cancel()
+```
+
 ## Schedule Repeatedly
 
 We can schedule tasks to run repeatedly,
@@ -210,12 +214,20 @@ val c = scheduler.scheduleWithFixedDelay(
   })
 ```
 
+```tut:invisible
+c.cancel()
+```
+
 There's also a more Scala-friendly extension:
 
 ```tut:silent
-scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
+val c = scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
   println("Fixed delay task")
 }
+```
+
+```tut:invisible
+c.cancel()
 ```
 
 So, in order to take execution duration into account,

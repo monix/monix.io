@@ -1,12 +1,11 @@
 ---
-layout: docs
+layout: docs2x
 title: Consumer
 type_api: monix.reactive.Consumer
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Consumer.scala
 description: |
     A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks.
     
-  
 tut:
   scala: 2.12.4
   binaryScala: "2.12"

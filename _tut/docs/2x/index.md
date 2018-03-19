@@ -1,9 +1,9 @@
 ---
-layout: page
+layout: docs2x
 title: Monix Documentation
 ---
 
-**Usage:**
+## Usage
 
 - [API Documentation (ScalaDoc)]({{ site.api2x }})
 - Getting Started
@@ -33,15 +33,14 @@ title: Monix Documentation
 - Best Practices
   - [Should Not Block Threads](./best-practices/blocking.html)
 
-**Presentations:**
-
-- [Monix Task: Lazy, Async &amp; Awesome](./presentations/2016-task-flatmap-oslo.html) (flatMap(Oslo), 2016)
-- [Akka & Monix: Controlling Power Plants](./presentations/2016-akka-monix-typelevel.html) (Typelevel Summit, Oslo, 2016)
-
-**Samples:**
+## Samples
 
 - [Client/Server Communications](https://github.com/monixio/monix-sample/):
   a mixed [Play Framework](https://www.playframework.com/) /
   [Scala.js](http://www.scala-js.org/) app
+
+## Presentations
+
+{% include presentations.html %}
 
 Work in progress! Please help!
