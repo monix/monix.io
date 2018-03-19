@@ -41,5 +41,6 @@ buildInfoPackage := "io.monix.website"
 
 cleanFiles ++= Seq(
   (baseDirectory in ThisBuild).value / "docs",
-  (baseDirectory in ThisBuild).value / "presentations"
+  (baseDirectory in ThisBuild).value / "presentations",
+  (baseDirectory in ThisBuild).value / "_site"
 )
