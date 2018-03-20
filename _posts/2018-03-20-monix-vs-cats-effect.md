@@ -288,7 +288,7 @@ optimize an `IO`'s run-loop and optimize I did, repeatedly.
 ### Trouble on the Horizon
 
 You see, I'm a very competitive individual, so for example when John
-DeGoes used benchmarks showing dramatic improvements over Cats-Effect
+De Goes used benchmarks showing dramatic improvements over Cats-Effect
 in [his presentation](https://www.youtube.com/watch?v=wi_vLNULh9Y) (at
 ScalaIO and Scale by the Bay), well I couldn't help myself but to
 follow up with no less than
