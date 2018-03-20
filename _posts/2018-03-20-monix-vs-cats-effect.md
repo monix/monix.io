@@ -40,6 +40,7 @@ def fib(n: Int, a: Long, b: Long): IO[Long] =
   IO.suspend {
     if (n <= 0) IO.pure(a) else {
       val next = fib(n - 1, b, a + b)
+      // Insert async boundary every 128 cycles
       if (n % 128 == 0) IO.shift *> next else next      
     }
   }
@@ -68,7 +69,8 @@ def fib(n: Int, a: Long, b: Long): IO[Long] =
   IO.suspend {
     if (n <= 0) IO.pure(a) else {
       val next = fib(n - 1, b, a + b)
-      if (n % 128 == 0) IO.cancelBoundary *> next else next      
+      // Check cancelation status every 128 cycles
+      if (n % 128 == 0) IO.cancelBoundary *> next else next
     }
   }
 
@@ -107,9 +109,16 @@ program".
 executing tasks, but that in certain cases could break RT (since
 allocation of a mutable ref is a side effect), so you have to be a big
 boy when using it, but it's awesome if you've got interactions with
-the other side. See [issue
-#120](https://github.com/typelevel/cats-effect/issues/120) for why
-this won't happen for IO.
+the other side. So to turn any `Task` into a lazily evaluated value
+(the thread-safe, asynchronous equivalent of Scala's `lazy val`) 
+all you need is:
+
+```scala
+task.memoize
+```
+
+See [issue #120](https://github.com/typelevel/cats-effect/issues/120)
+for why this won't happen for IO.
 
 Task also requires a `Scheduler` in its `runAsync`, which gets
 injected everywhere internally, so you don't need an
@@ -180,13 +189,13 @@ by [Miles Sabin](https://github.com/milessabin):
 > More generally, do we think that activity around this would usefully
 > feed into the design of a Cats alternative to Task/IO?
 
-Being very enthusiastic about having my project being a member of a
-young and cool community, I accepted.
+Being very enthusiastic about having my project accepted as a member of 
+a young and cool community, I accepted.
 
 Then on Dec 30, due to an existential crisis that happens to me around
-New Year's Eve, I also [
-renamed the project](https://github.com/monix/monix/issues/91) to Monix. 
-Not late after that, the first 
+New Year's Eve, I also 
+[renamed the project](https://github.com/monix/monix/issues/91) 
+to Monix. Not late after that, the first 
 ([slow, shitty and broken]((https://github.com/monix/monix/blob/v2.0-M1/monix-async/shared/src/main/scala/monix/async/Task.scala)))
 version of `Task` was unleashed on the unsuspecting public.
 
@@ -197,17 +206,17 @@ my hands. And
 [the presentation](/presentations/2016-task-flatmap-oslo.html)
 went great.
 
-Since Monix has evolved other capabilities, now in version 3.0.0 also
-providing [Iterant](https://monix.io/api/3.0/monix/tail/Iterant.html),
-an abstraction for purely functional pull-based streaming. But being a
-modular library, the interesting thing to me is that thus far some
-people only use it for `Task`, while others only use it for
-`Observable`, treating `Task` like RxJava's `Single`, aka an
-`Observable` of one event.
+Since then Monix has evolved other capabilities, now in version 3.0.0 
+also providing [Iterant](https://monix.io/api/3.0/monix/tail/Iterant.html),
+an abstraction for purely functional pull-based streaming. Documentation
+and details to follow at the final 3.0.0.
 
-Monix is one of the very few libraries that happens to be at the
-intersection of two worlds, exposing its users to the benefits of
-both:
+But being a modular library, the interesting thing to me is that thus
+far some people only use it for `Task`, while others only use it for
+`Observable`, treating `Task` like RxJava's `Single`, aka an
+`Observable` of one event. Monix is one of the very few libraries that
+happens to be at the intersection of two worlds, exposing its users to
+the benefits of both:
 
 1. The world of Java and .NET developers that have bitten from the
    forbidden fruit of FP due to ReactiveX libraries, but never really
@@ -271,12 +280,12 @@ interest and the
 eventually eclipsed by 
 [cats-effect by Daniel Spiewak](https://github.com/typelevel/cats/issues/1617).
 
-And indeed, it did not go well because my proposal was deeply flawed.
-I did not want a "reference IO" in it and the type classes themselves
-where modeled for _getting data out_, or in other words the emphasis
-was on _converting_ between data types and not on enabling
-_constrained parametric polymorphism_. I was wrong about my type class
-design and Daniel Spiewak was right.
+It did not go well because my proposal was deeply flawed. I did not
+want a "reference IO" in it and the type classes themselves where
+modeled for _getting data out_, or in other words the emphasis was on
+_converting_ between data types and not on enabling _constrained
+parametric polymorphism_. I was wrong about my type class design and
+Daniel Spiewak was right.
 
 Leaving pride aside, I warmed up to it and started contributing. And
 I've been the author of
@@ -327,4 +336,4 @@ making full use of
 [Timer and cancelability](https://github.com/monix/monix/pull/598).  So now
 you've got yourself a credible, pull-based competitor to FS2 as well 😉
 
-"_This is Sparta!_"
+" _This is Sparta!_ "
