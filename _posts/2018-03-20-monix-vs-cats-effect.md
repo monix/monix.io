@@ -129,13 +129,13 @@ my hands. And
 [the presentation](/presentations/2016-task-flatmap-oslo.html)
 went great.
 
-Since Monix has evolved other capabilities, now in version 3.0.0 also providing `Iterant`, an abstraction for purely functional pure based streaming. But being a modular library, the interesting thing to me is that some people only use it for `Task`, while others only use it for `Observable`, treating `Task` like RxJava's `Single`, aka an `Observable` of one event.
+Since Monix has evolved other capabilities, now in version 3.0.0 also providing `Iterant`, an abstraction for purely functional pull-based streaming. But being a modular library, the interesting thing to me is that some people only use it for `Task`, while others only use it for `Observable`, treating `Task` like RxJava's `Single`, aka an `Observable` of one event.
 
 Monix is one of the very few libraries that happens to be at the 
 intersection of two worlds: 
 
 1. The world of Java and .NET developers that have bitten from the forbidden fruit of FP due to ReactiveX libraries, but never really making the jump
-2. The world of [Cats](https://typelevel.org/cats/) developers that need abstractions for describing effects, that need `IO` monad
+2. The world of [Cats](https://typelevel.org/cats/) developers that need abstractions for describing effects, that need the `IO` monad
 
 And I'm damn proud of it.
 
