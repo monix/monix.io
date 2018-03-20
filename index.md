@@ -77,9 +77,9 @@ Documentation and tutorials:
 
 API ScalaDoc: 
 
-- [2.x series (latest)]({{ site.api3x }})
-- [2.x series (previous)]({{ site.api2x }})
-- [1.x (old Monifu)]({{ site.api1x }})
+- [3.x]({{ site.api3x }})
+- [2.x]({{ site.api2x }})
+- [1.x]({{ site.api1x }})
 
 Relevant links to dependencies:
 

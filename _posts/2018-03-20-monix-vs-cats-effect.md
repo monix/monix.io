@@ -198,11 +198,12 @@ my hands. And
 went great.
 
 Since Monix has evolved other capabilities, now in version 3.0.0 also
-providing `Iterant`, an abstraction for purely functional pull-based
-streaming. But being a modular library, the interesting thing to me is
-that thus far some people only use it for `Task`, while others only
-use it for `Observable`, treating `Task` like RxJava's `Single`, aka
-an `Observable` of one event.
+providing [Iterant](https://monix.io/api/3.0/monix/tail/Iterant.html),
+an abstraction for purely functional pull-based streaming. But being a
+modular library, the interesting thing to me is that thus far some
+people only use it for `Task`, while others only use it for
+`Observable`, treating `Task` like RxJava's `Single`, aka an
+`Observable` of one event.
 
 Monix is one of the very few libraries that happens to be at the
 intersection of two worlds, exposing its users to the benefits of
@@ -321,9 +322,9 @@ and [race](https://github.com/typelevel/cats-effect/pull/137), culminating in th
 [v0.10 release](https://github.com/typelevel/cats-effect/releases/tag/v0.10).
 
 All of this ties into Monix of course, `Task` along with the new
-`Iterant` data type making full use of 
-[Timer and cancelability](https://github.com/monix/monix/pull/598).
-So now you've got yourself a credible, pull-based competitor to FS2 as
-well 😉
+[Iterant](https://monix.io/api/3.0/monix/tail/Iterant.html) data type
+making full use of 
+[Timer and cancelability](https://github.com/monix/monix/pull/598).  So now
+you've got yourself a credible, pull-based competitor to FS2 as well 😉
 
 "_This is Sparta!_"
