@@ -271,11 +271,11 @@ eventually eclipsed by
 [cats-effect by Daniel Spiewak](https://github.com/typelevel/cats/issues/1617).
 
 And indeed, it did not go well because my proposal was deeply flawed.
-I did not want a "reference IO" in it and even though I was eventually
-convinced, the type classes themselves where modeled for _getting data
-out_, or in other words the emphasis was on _converting_ between data
-types. I was wrong about my type class design and Daniel Spiewak was
-right.
+I did not want a "reference IO" in it and the type classes themselves
+where modeled for _getting data out_, or in other words the emphasis
+was on _converting_ between data types and not on enabling
+_constrained parametric polymorphism_. I was wrong about my type class
+design and Daniel Spiewak was right.
 
 Leaving pride aside, I warmed up to it and started contributing. And
 I've been the author of
