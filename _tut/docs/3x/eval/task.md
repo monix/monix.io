@@ -1136,7 +1136,7 @@ import cats.syntax.all._
 }
 ```
 
-Alsoo see the documentation for
+Also see the documentation for
 [cats.Parallel](https://typelevel.org/cats/typeclasses/parallel.html).
 
 ### Gather results from a Seq of Tasks
