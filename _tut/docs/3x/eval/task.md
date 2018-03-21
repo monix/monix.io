@@ -149,7 +149,7 @@ giants. But where the Monix Task implementation disagrees:
    asynchronous and thus trampoline boundaries. So the API is limited
    by what the trampoline can do and for example in order to not block
    the current thread in a big loop, you have to *manually insert*
-   async boundaries yourself by means of `Task.fork`. The Monix Task
+   async boundaries yourself by means of `Task.executeAsync`. The Monix Task
    on the other hand manages to do that automatically by default,
    which is very useful when running on top of
    [Javascript](http://www.scala-js.org/), where
@@ -317,7 +317,7 @@ import monix.execution.Scheduler.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-val task = Task.fork(Task.eval("Hello!"))
+val task = Task.eval("Hello!").executeAsync
 val future = task.runAsync
 
 Await.result(future, 3.seconds)
@@ -562,9 +562,9 @@ def sumTask(list: Seq[Int]): Task[Int] =
 
 Voilà! No more implicit `ExecutionContext` passed around.
 
-### Task.fork && Task.asyncBoundary
+### Task.executeAsync, Task.asyncBoundary, Task.executeOn
 
-`Task.fork` ensures an asynchronous boundary, forcing the fork of a
+`Task.executeAsync` ensures an asynchronous boundary, forcing the fork of a
 (logical) thread on execution. Sometimes we are doing something really
 wasteful and we want to guarantee that an asynchronous boundary
 happens, given that by default
@@ -574,7 +574,7 @@ prefers to execute things on the current thread, at first.
 So this guarantees that our task will get executed asynchronously:
 
 ```tut:silent
-val task = Task.fork(Task.eval("Hello!"))
+val task = Task.eval("Hello!").executeAsync
 ```
 
 In fact that's how `apply` is defined:
@@ -587,7 +587,7 @@ object Task {
 }
 ```
 
-Fork also allows us to specify an alternative `Scheduler` to use.
+ExecuteOn allows us to specify an alternative `Scheduler` to use.
 You see, the run-loop of `Task` always has a `Scheduler` available, but
 for certain operations you might want to divert the processing to an alternative
 scheduler. For example you might want to execute blocking I/O operations
@@ -615,7 +615,7 @@ Then we can manage what executes on which:
 ```tut:silent
 // Override the default Scheduler by fork:
 val source = Task(println(s"Running on thread: ${Thread.currentThread.getName}"))
-val forked = Task.fork(source, io)
+val forked = source.executeOn(io)
 
 source.runAsync
 //=> Running on thread: ForkJoinPool-1-worker-1
@@ -647,7 +647,7 @@ But if we insert another async boundary, then it switches back
 to the default:
 
 ```tut:silent
-val asyncBoundary = Task.fork(Task.unit)
+val asyncBoundary = Task.unit.executeAsync
 val onFinish = Task.eval(
   println(s"Ends on thread: ${Thread.currentThread.getName}"))
 
@@ -686,18 +686,8 @@ default if it hasn't been overridden already:
 
 ```tut:silent
 // Trying to execute on global
-Task.fork(forked, global).runAsync
+forked.executeOn(global).runAsync
 //=> Running on thread: my-io-4
-```
-
-There are also two `Task` methods specified as aliases for `Task.fork`,
-called `executeOn` and `executeWithFork` respectively. So you can do:
-
-```tut:silent
-val task = {
-  source.executeOn(io)
-    .asyncBoundary
-}
 ```
 
 **General advice:** unless you're doing blocking I/O, keep using
@@ -1146,7 +1136,7 @@ import cats.syntax.all._
 }
 ```
 
-Alsoo see the documentation for
+Also see the documentation for
 [cats.Parallel](https://typelevel.org/cats/typeclasses/parallel.html).
 
 ### Gather results from a Seq of Tasks
