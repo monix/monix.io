@@ -1,0 +1,15 @@
+digraph Iterant {
+  //rankdir="LR";
+  //rank=same;
+
+  edge [color=gray45, fontcolor=gray45];
+  Next [label="Next,\nNextBatch,\nNextCursor,\nSuspend"];
+  EarlyStop [label="Early Stop", style=dotted, fontcolor=gray45];
+
+  HaltE [label="Halt(error)", color=red4, fontcolor=red4];
+  HaltN [label="Halt,\nLast", color=dodgerblue4, fontcolor=dodgerblue4];
+
+  Next -> {Next, HaltN, HaltE} [label=" rest"];
+
+  Next -> EarlyStop [label="stop", style=dotted];
+}
