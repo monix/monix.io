@@ -173,7 +173,7 @@ very real problem for me.
 
 In 2014 this project was named [Monifu]({{ site.api1x }}).
 
-<a href="https://typelevel.org/"><img src="{{ site.baseurl }}public/images/typelevel.png" width="150" style="float:right;" align="right" /></a>
+<a href="https://typelevel.org/"><img src="{{ site.baseurl }}public/images/typelevel.png" width="150" class="right" /></a>
 
 In 2016 something happened — I pushed the project in 
 [Typelevel's incubator](https://github.com/typelevel/general/issues/4)
@@ -293,7 +293,7 @@ I've been the author of
 because I may not be experienced in type class design, but I can sure
 optimize an `IO`'s run-loop and optimize I did, repeatedly.
 
-<img src="{{ site.baseurl }}public/images/scalaz.png" width="150" style="float:right;" align="right" />
+<img src="{{ site.baseurl }}public/images/scalaz.png" width="150" class="right" />
 
 ### Trouble on the Horizon
 
