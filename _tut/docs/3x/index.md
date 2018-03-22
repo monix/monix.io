@@ -29,6 +29,7 @@ title: Monix Documentation
   - [Javascript Event Listeners](./reactive/javascript.html)
 - Pull-based streaming
   - [Iterant](./tail/iterant.html)
+  - [Batch](./tail/batch.html)
 - Tutorials
   - [Parallel Processing](./tutorials/parallelism.html)
 - Best Practices

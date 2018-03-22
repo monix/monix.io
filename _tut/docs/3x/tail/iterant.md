@@ -226,6 +226,8 @@ any resources early.
 
 ### Syntactic Sugar for Builders
 
+Given that we require an `F` effect type type be specified when building
+an `Iterant` value, the `Iterant.apply` was provided to cope with it.
 As an example the normal operation to build an `Iterant` out of a sequence
 of elements would be this:
 
@@ -240,6 +242,8 @@ either yield an error or an unexpected type:
 ```tut:book
 Iterant.fromSeq(Seq(1, 2, 3))
 ```
+
+{% api3x monix.tail.Iterant$ %}
 
 The [Iterant companion object]({{ site.api3x }}monix/tail/Iterant$.html)
 has a little helper described via its `apply` for doing "currying" of the
