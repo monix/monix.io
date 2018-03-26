@@ -107,6 +107,13 @@ You'll usually pick between `Task`, `Coeval` or `IO` for your
 needs, although obviously you can also work with various
 monad transformers (e.g. `EitherT`).
 
+It should go without saying that streams using different effect
+types do not compose, so this won't work:
+
+```tut:fail
+Iterant[Coeval].of(1, 2, 3) ++ Iterant[Task].of(4, 5, 6)
+```
+
 ### Finite State Machine
 
 The `Iterant` is a pure data structure, an ADT, whose encoding describes a 
@@ -269,3 +276,13 @@ Don't worry, that's just `Iterant.apply` doing its magic, being equivalent to:
 ```tut:silent
 Iterant.pure[Task, Int](1)
 ```
+
+### Simple Builders
+
+The `Applicative#pure` lifts any value in the `Iterant` context:
+
+```tut:silent
+Iterant[IO].pure(1)
+```
+
+
