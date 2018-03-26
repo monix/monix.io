@@ -5,5 +5,3 @@ gem 'jekyll-paginate'
 gem 'jekyll-gist'
 gem 'nokogiri'
 gem 'jekyll-scalafiddle'
-
-gem 'nokogiri'
