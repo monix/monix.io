@@ -110,7 +110,7 @@ monad transformers (e.g. `EitherT`).
 It should go without saying that streams using different effect
 types do not compose, so this won't work:
 
-```tut:fail
+```tut:fail:book
 Iterant[Coeval].of(1, 2, 3) ++ Iterant[Task].of(4, 5, 6)
 ```
 
@@ -148,14 +148,14 @@ So the state machine described by `Iterant` is made of:
   an `item` and a `rest` representing the rest of the stream
 - [NextBatch]({{ site.api3x }}monix/tail/Iterant$$NextBatch.html)
   is a variation on `Next` for signaling a whole batch of elements by means of a
-  `Batch`, a type that's similar with Scala's `Iterable`, 
+  [Batch](./batch.html), a type that's similar with Scala's `Iterable`, 
   along with the `rest` of the stream
   (note this goes hand in hand with `NextCursor`)
 - [NextCursor]({{ site.api3x }}monix/tail/Iterant$$NextCursor.html)
   is a variation on `Next` for signaling a whole strict batch of elements 
   as a traversable `BatchCursor`, a type that's similar
   with Scala's `Iterator`, along with the `rest` of the stream
-  (note this goes hand in hand with `NextBatch`)
+  (note this goes hand in hand with `NextBatch`); see [Batch](./batch.html)
 - [Suspend]({{ site.api3x }}monix/tail/Iterant$$Suspend.html)
   is for suspending the evaluation of a stream
 - [Halt]({{ site.api3x }}monix/tail/Iterant$$Halt.html)
@@ -250,9 +250,7 @@ either yield an error or an unexpected type:
 Iterant.fromSeq(Seq(1, 2, 3))
 ```
 
-{% api3x monix.tail.Iterant$ %}
-
-The [Iterant companion object]({{ site.api3x }}monix/tail/Iterant$.html)
+The [Iterant companion object]({% api3x monix.tail.Iterant$ %})
 has a little helper described via its `apply` for doing "currying" of the
 "effect type" parameter. So it allows you to do this:
 
