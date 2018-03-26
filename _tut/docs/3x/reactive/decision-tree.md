@@ -23,19 +23,15 @@ Since `Task[A]` cannot represent "no values of A", `headL` and `lastL` throw exc
 which give you `Task[Option[A]]` instead.
 
 
-# I want to create a new Observable
-This is my documentation.
+# I want to create a new Observable...
+- that emits a particular item: `pure` aka `now`
 
-# I want to create an Observable by combining other Observables
+# I want to create an Observable by combining other Observables...
 - and emitting all of the items from all of the Observables in whatever order they are received: `merge`
 
+# I want to emit the items from an Observable after transforming them...
+- one at a time with a function: `map`
 
-# I want to emit the items from an Observable after transforming them
-- one at a time with a function: `Observable.map`
-
-
-# I want to re-emit only certain items from an Observable
+# I want to re-emit only certain items from an Observable...
 - by filtering out those that do not match a predicate: `filter`
 - take only the first item: `headF`
-
-# I want to shift the items emitted by an Observable forward in time before re-emitting them
