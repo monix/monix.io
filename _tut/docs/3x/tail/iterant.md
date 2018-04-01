@@ -184,7 +184,8 @@ processing an `Iterant` in a loop, the users are given a choice:
 2. follow `stop`, in which case the early interruption logic will get triggered
 
 This ensures that any resources get released.
-Consider this example that builds a stream out of lines from a given text file:
+Consider this example that builds a stream out of lines from a given 
+text file:
 
 ```tut:silent
 import java.io._
@@ -213,6 +214,9 @@ def readLines(file: File): Iterant[Coeval, String] =
     in.flatMap(loop)
   }
 ```
+
+NOTE: this sample would be better expressed via `Iterant.bracket`,
+see the section below.
 
 Now consider what would happen in an example like this:
 
@@ -275,7 +279,12 @@ Don't worry, that's just `Iterant.apply` doing its magic, being equivalent to:
 Iterant.pure[Task, Int](1)
 ```
 
-### Simple Builders
+### Eager Builders
+
+`Iterant` streams can be built out of already known values or
+sequences.
+
+#### Iterant.pure (now)
 
 The `Applicative#pure` lifts any value in the `Iterant` context:
 
@@ -283,4 +292,326 @@ The `Applicative#pure` lifts any value in the `Iterant` context:
 Iterant[IO].pure(1)
 ```
 
+This is actually an alias for `now`, which builds a stream of exactly
+one element that's already evaluated, also keeping consistency
+with the naming used by `Task` and `Coeval`:
+
+```tut:silent
+Iterant[Task].now(1)
+```
+
+#### Iterant.of
+
+To build an `Iterant` out of an enumeration of elements:
+
+```tut:silent
+Iterant[Coeval].of(1, 2, 3, 4)
+```
+
+#### Iterant.empty
+
+To build an empty `Iterant`:
+
+```tut:silent
+Iterant[IO].empty[Int]
+```
+
+This is the neutral element, the `empty` in
+[cats.MonoidK](https://typelevel.org/cats/typeclasses/monoidk.html)
+and thus you can rely on this equivalence:
+
+```scala
+stream ++ empty <-> empty ++ stream <-> stream
+```
+
+The function returns nothing more than an `Iterant.Halt(None)` state:
+
+```scala
+Iterant.empty[F, A] <-> Iterant.Halt[F, A](None)
+```
+
+#### Iterant.raiseError
+
+In order to build a stream that immediately ends in error:
+
+```tut:silent
+Iterant[Task].raiseError(new RuntimeException("Boom!))
+```
+
+The function returns nothing more than an `Iterant.Halt(Some(e))`:
+
+```scala
+Iterant.raiseError[F, A](e) <-> Iterant.Halt[F, A](Some(e))
+```
+
+### Building FSM States Directly
+
+In the section on "_Finite State Machine_" we described `Iterant`
+as being an ADT made of `Next`, `NextBatch`, `NextCursor`, `Suspend`,
+`Last` and `Halt` states.
+
+These states can be built directly. For example:
+
+```tut:silent
+Iterant.Next[IO, Int](
+  1, 
+  IO.pure(Iterant.Halt[IO, Int](None)),
+  IO.unit)
+```
+
+Due to the type parameters involved, with Scala not necessarily
+handling type inference very well, this might get a little bit 
+annoying, so helpers are provided that might prove useful:
+
+```tut:silent
+Iterant[IO].nextS(
+  1,
+  IO.pure(Iterant[IO].haltS[Int](None)),
+  IO.unit)
+```
+
+Not a big change. But when you see a function suffixed with `S`,
+that indicates direct correspondence with a data constructor of the ADT,
+or as we're saying here, a state of the FSM.
+
+Therefore we've got this correspondence:
+
+1. `Next` ↔ `nextS`
+2. `NextBatch` ↔ `nextBatchS`
+3. `NextCursor` ↔ `nextCursorS`
+4. `Suspend` ↔ `suspendS`
+5. `Last` ↔ `lastS`
+6. `Halt` ↔ `haltS`
+
+### Suspending Side Effects
+
+`Iterant` is a streaming data type that is built for suspending
+side effects. Everything it does it defers to the provided `F[_]`
+data type, this is why the restriction on most operations is 
+[cats.effect.Sync](https://typelevel.org/cats-effect/typeclasses/sync.html).
+
+#### Iterant.eval
+
+Just like `Task` and `Coeval` have `eval`, so to does `Iterant`,
+for suspending evaluation:
+
+```tut:silent
+val it = Iterant[Coeval].eval(println("Hello!"))
+
+it.completeL.value
+//=> Hello!
+```
+
+For example you can combine `eval` with `++` (concatenation) and
+produce a stream of random ints:
+
+```tut:invisible
+import scala.util.Random
+```
+```tut:silent
+def randomInts: Iterant[Coeval, Int] =
+  Iterant[Coeval].eval(Random.nextInt()) ++ Coeval(randomInts)
+
+randomInts.take(5).toListL.value
+//=> 1512054206, -1227491209, 1415359332, 1815569253, -759513730
+```
+
+#### Iterant.liftF
+
+Similarly you can simply lift an `F[_]` value in the `Iterant` context
+and thus explicitly suspend computations in `F[_]`:
+
+```tut:silent
+val it = Iterant.liftF(Coeval(println("Hello!")))
+
+it.completeL.value
+//=> Hello!
+```
+
+#### Iterant.repeatEval
+
+With `repeatEval` you can repeat a side-effectful operation 
+indefinitely. We don't need that loop above for generating 
+random numbers:
+
+```tut:silent
+val randomInts = Iterant[Coeval].repeatEval(Random.nextInt())
+
+randomInts.take(5).toListL.value
+//=> 459437190, -1801195788, -437476222, 239762258, -163222936
+```
+
+#### Iterant.repeatEvalF
+
+Similarly you can repeat evaluation of an `F[_]` value:
+
+```tut:silent
+val randomInts = 
+  Iterant.repeatEvalF(Coeval(Random.nextInt()))
+
+randomInts.take(5).toListL.value
+//=> 96507237, -122975998, 1668531004, 1330673282, -1260166269
+```
+
+#### Iterant.suspend
+
+`Iterant` actually implements the
+[cats.effect.Sync](https://typelevel.org/cats-effect/typeclasses/sync.html)
+type class, as a piece of interesting trivia. So naturally it has
+a `suspend` operation described:
+
+```tut:silent
+def range(from: Int, until: Int): Iterant[Coeval, Int] =
+  Iterant[Coeval].suspend {
+    if (from < until)
+      Iterant[Coeval].pure(from) ++ range(from + 1, until)
+    else
+      Iterant[Coeval].empty[Int]
+  }
+
+range(0, 10).toListL.value
+//=> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+```
+
+The `suspend` operation is also overloaded with a version
+that takes an `F[Iterant[F, ?]]` as parameter:
+
+```tut:silent
+val in = Iterant.suspend(Coeval {
+  var effect = 0
+
+  Iterant[Coeval].range(0, 10).mapEval(x => 
+    Coeval { 
+      effect += x
+      effect
+    })
+})
+
+in.toListL.value
+//=> 0, 1, 3, 6, 10, 15, 21, 28, 36, 45
+```
+
+### Safe Resource Allocation and Deallocation 
+
+As was described in the introduction, `Iterant` was built for 
+safe resource handling. Replaying the sample from the introduction,
+but this time made generic (for any `F[_] : Sync`):
+
+```tut:silent
+import cats.syntax.all._
+import cats.effect.Sync
+import java.io._
+
+def readLines[F[_]](file: File)(implicit F: Sync[F]): Iterant[F, String] =
+  Iterant[F].suspend {
+    def loop(in: BufferedReader): F[Iterant[F, String]] =
+      F.delay {
+        // For resource cleanup
+        val stop = F.delay(in.close())
+        in.readLine() match {
+          case null =>
+            Iterant.suspendS(stop.map(_ => Iterant.empty), stop)
+          case line =>
+            Iterant.nextS(line, loop(in), stop)
+        }
+      }
+
+    val in = F.delay {
+      // Freaking Java
+      new BufferedReader(
+        new InputStreamReader(new FileInputStream("file"), 
+        "utf-8"))
+    }
+    // Go, go, go
+    in.flatMap(loop)
+  }
+```
+
+This safety happens due to the `stop` reference being streamed at 
+each step, whose responsibility is to close any opened resources
+in case an "early stop" happens.
+
+Therefore doing something like this is totally safe, very
+unlike Scala's and Java's `Iterator`:
+
+```tut:silent
+def containsWord[F[_] : Sync](file: File, word: String): F[Boolean] =
+  readLines[F](new File("my.txt")).existsL(_.contains(word))
+```
+
+With an unsafe abstraction like `scala.collection.Iterator`
+one of these two things would happen for such an operation:
+
+1. this function would leak file handles, leaving them opened
+2. an extra cancelation token would be provided, totally separate
+   from `Iterator`, like all Java libraries that abuse `Iterator` 
+   are doing, thus leaking implementation details
+3. or it would process the file until the end, closing the file
+   handle on EOF, thus being unable to short-circuit the reads,
+   which isn't OK for really large files
+
+There's no need for any of that with Monix's `Iterant`.
+
+#### Iterant.bracket
+
+The above example with the lines being read can also be expressed
+via `Iterant.bracket`:
+
+```tut:silent
+def acquire(file: File): Coeval[BufferedReader] =
+  Coeval {
+    // Freaking Java
+    new BufferedReader(
+      new InputStreamReader(
+        new FileInputStream("file"),
+        "utf-8"))
+  }
+
+def readLines(file: File): Iterant[Coeval, String] =
+  Iterant[Coeval].bracket(acquire(file))(
+    in => {
+      // Usage of opened file handle
+      Iterant[Coeval]
+        .repeatEval(in.readLine())
+        .takeWhile(_ != null)
+    },
+    in => Coeval {
+      // release
+      in.close()
+    })
+```
+
+The `bracket` operation ensures that all resources are disposed.
+
+This is very similar with the `bracket` operation as described
+by the [Bracket](https://typelevel.org/cats-effect/typeclasses/bracket.html)
+type class, thus available for data types such as `Coeval`, `Task` or `IO`.
+
+However this one is meant to be used for streaming and is thus
+more potent. Consider this example:
+
+```tut:silent
+def openReader(file: File): Iterant[Coeval, BufferedReader] =
+  Iterant[Coeval].bracket(acquire(file))(
+    // just mirrors the opened file handle
+    in => Iterant.pure(in),
+    // release
+    in => Coeval(in.close))
+
+def readLines(file: File): Iterant[Coeval, String] =
+  openReader(file).flatMap { in =>
+    // repeatedly read text lines until `null` happens
+    Iterant[Coeval]
+      .repeatEval(in.readLine())
+      .takeWhile(_ != null)
+  }
+```
+
+This is decoupling between the logic for the resource acquisition 
+and release and the logic for using that resource. And is not
+possible when working with the `bracket` operation as described
+in [cats-effect](https://typelevel.org/cats-effect/typeclasses/bracket.html)
+and implemented for `Coeval`, `Task` and `IO`.
+
+## Error Handling
 
