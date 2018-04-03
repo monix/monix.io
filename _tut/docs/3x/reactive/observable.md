@@ -104,6 +104,7 @@ See **[comparisons with similar tools, like Akka or FS2](./observable-comparison
 `Observable` can be thought about as the next layer of abstraction in regard to `Observer` and `Subscriber`.
 
 You could describe `Observable` in the following way:
+
 ```scala
 trait Observable[+A] {
   def subscribe(o: Observer[A]): Cancelable
@@ -127,7 +128,7 @@ Due to this connection `Observable` respects `Observer` [contract](./observers.m
 ## Execution
 
 When you create `Observable` nothing actually happens until you call `subscribe`. 
-It means that `Observable` preserves referential transparency. 
+It means that (by default) `Observable` preserves referential transparency. 
 
 `Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as `unsafePerformIO`.
