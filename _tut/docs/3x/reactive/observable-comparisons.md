@@ -63,7 +63,7 @@ By contrast the Monix `Observable`:
   actors, with the exposed operators being awesome
   
 Reactive streaming libraries in general and the Monix `Observable` in
-particular is bad because they are good for modeling unidirectional
+particular are bad because they are good for modeling unidirectional
 communications, but it gets complicated if you want bidirectional
 communications (possible, but complicated), with actors being better
 at having dialogs.
@@ -199,7 +199,7 @@ functional programming ideals. Where Monix is better:
   efficient
 - the API exposed is clean, but the internals are more pragmatic - in
   Monix, even if some operators could be expressed in terms of other
-  operators, many times we implement it from scratch using low level
+  operators, many times we implement them from scratch using low level
   concurrency techniques, if that means we achieve a performance boost
 - Monix is better for
   [Functional Reactive Programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming),
