@@ -49,7 +49,7 @@ destDir = Dir.mktmpdir + "/" + "monix.io"
 begin
   exec("rm -rf \"#{destDir}\"")
   exec("git clone \"https://#{ghToken}@#{repository}\" \"#{destDir}\" -b gh-pages")
-  exec("rsync --filter='P .git' --delete-excluded -Pacv _site/ \"#{destDir}/\"")
+  exec("rsync --filter='P .*' --delete-excluded -Pacv _site/ \"#{destDir}/\"")
 
   Dir.chdir(destDir)
   exec("git add .")
