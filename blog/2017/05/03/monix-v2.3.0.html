@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.3.0, New Features, Bug Fixes</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.3.0, New Features, Bug Fixes" />
+  <meta name="twitter:description" content="New Features, bug fixes, depedencies upgrades" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2017/05/03/monix-v2.3.0.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.3.0, New Features, Bug Fixes" />
+  <meta property="og:description" content="New Features, bug fixes, depedencies upgrades" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.3.0, New Features, Bug Fixes</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2017-05-03">
+    03 May 2017
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <p>Version <code class="highlighter-rouge">2.3.0</code> is out now.</p>
+
+<p>It is a major release that remains binary and source compatible with
+<code class="highlighter-rouge">2.2.x</code>.</p>
+
+<p>In summary we’ve got a replacement for Scala’s <code class="highlighter-rouge">NonFatal</code>, 
+a new <code class="highlighter-rouge">Task.deferAction</code> builder for defering tasks with an injected scheduler,
+<code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> run-loop optimizations, the <code class="highlighter-rouge">Observable.observeOn</code>
+operation after popular request, a <code class="highlighter-rouge">Consumer.transformInput</code> for
+transforming consumers by transforming their input stream, 
+fixes for the reactive streams integration and more.
+See details below.</p>
+
+<!--more-->
+
+<h2 id="new-features">New Features</h2>
+
+<h3 id="replaces-scalas-nonfatal">Replaces Scala’s NonFatal</h3>
+
+<p><a href="https://github.com/monix/monix/issues/349">Issue #349</a>
+replaces <code class="highlighter-rouge">scala.util.control.NonFatal</code> with <code class="highlighter-rouge">monix.execution.misc.NonFatal</code>.</p>
+
+<p>This is because Scala’s <code class="highlighter-rouge">NonFatal</code> implementation considers these
+exceptions as being fatal:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ThreadDeath</code>, <code class="highlighter-rouge">InterruptedException</code> (related to managing interrupting threads)</li>
+  <li><code class="highlighter-rouge">LinkageError</code> (e.g. classpath problems)</li>
+  <li><code class="highlighter-rouge">ControlThrowable</code> (generated by Scala for flow control)</li>
+</ul>
+
+<p>And unfortunately by filtering exceptions with Scala’s <code class="highlighter-rouge">NonFatal</code>,
+this means that we cannot rely on resource handling logic.
+In reality, we should only care about <code class="highlighter-rouge">VirtualMachineError</code>, 
+which includes <code class="highlighter-rouge">OutOfMemoryError</code> and <code class="highlighter-rouge">StackOverflowError</code>.
+And that’s what <code class="highlighter-rouge">monix.execution.misc.NonFatal</code> does.</p>
+
+<h3 id="taskdeferaction">Task.deferAction</h3>
+
+<p><a href="https://github.com/monix/monix/issues/347">Issue #347</a> 
+adds a <code class="highlighter-rouge">Task.deferAction</code> builder.</p>
+
+<p>When building a <code class="highlighter-rouge">Task</code> from a <code class="highlighter-rouge">Future</code>, we currently have a 
+<code class="highlighter-rouge">Task.deferFutureAction</code> utility that can inject the default
+<code class="highlighter-rouge">Scheduler</code>, which is useful for delaying execution, or for
+injecting the current time.</p>
+
+<p><code class="highlighter-rouge">Task.deferAction</code> is like <code class="highlighter-rouge">Task.defer</code>, except that it injects
+the default <code class="highlighter-rouge">Scheduler</code> in that logic:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">measureLatency</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[(</span><span class="kt">A</span>, <span class="kt">Long</span><span class="o">)]</span> <span class="k">=</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">deferAction</span> <span class="o">{</span> <span class="n">scheduler</span> <span class="k">=&gt;</span>
+    <span class="k">val</span> <span class="n">start</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span>
+    <span class="n">fa</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">a</span> <span class="k">=&gt;</span> 
+      <span class="k">val</span> <span class="n">finish</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">currentTimeMillis</span><span class="o">()</span>
+      <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">finish</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="task--coeval-run-loop-optimization-for-attempt--materialize">Task / Coeval Run-Loop Optimization for Attempt / Materialize</h3>
+
+<p><a href="https://github.com/monix/monix/pull/353">PR #353</a> optimizes the
+<code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> run-loop after seeing that loops such as this
+don’t perform so well:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">10000</span><span class="o">).</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(()))</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="n">acc</span><span class="o">.</span><span class="n">materialize</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is part of the work we did for the new <code class="highlighter-rouge">cats-effect</code>. 
+You can see the discussion in 
+<a href="https://github.com/typelevel/cats-effect/issues/42">cats-effect#42</a>.</p>
+
+<p>The new implementation in Monix has high performance and is easy on the
+heap usage. Also introduced the <code class="highlighter-rouge">transformWith</code> operator (along with 
+regular <code class="highlighter-rouge">transform</code>):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span><span class="o">.</span><span class="n">transformWith</span><span class="o">(</span><span class="n">a</span> <span class="k">=&gt;</span> <span class="nc">Success</span><span class="o">(</span><span class="n">a</span><span class="o">),</span> <span class="n">e</span> <span class="k">=&gt;</span> <span class="nc">Failure</span><span class="o">(</span><span class="n">e</span><span class="o">))</span>
+</code></pre></div></div>
+
+<h3 id="introduce-observableobserveon">Introduce Observable.observeOn</h3>
+
+<p><a href="https://github.com/monix/monix/issues/339">Issue #339</a> introduces
+the <code class="highlighter-rouge">observeOn</code> operator, that allows specifying a separate
+<code class="highlighter-rouge">Scheduler</code> to use when consuming events from the source:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">observable</span><span class="o">.</span><span class="n">executeOn</span><span class="o">(</span><span class="n">io</span><span class="o">).</span><span class="n">observeOn</span><span class="o">(</span><span class="n">computation</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This is based on the same logic as <code class="highlighter-rouge">asyncBoundary</code>. Compared
+with Rx.NET it introduces a buffer and an async consumer run-loop
+polling that buffer between the. This keeps throughput and latency
+good enough. And given that it uses a buffer, an overload allows
+for specifying an overflow strategy.</p>
+
+<h3 id="introduce-consumertransforminput">Introduce Consumer.transformInput</h3>
+
+<p><a href="https://github.com/monix/monix/issues/348">Issue #348</a>
+introduces a new method on <code class="highlighter-rouge">Consumer</code> called <code class="highlighter-rouge">transformInput</code>, that
+takes a mapping function that works on <code class="highlighter-rouge">Observable</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nc">Number</span> <span class="k">=</span> <span class="s">"""^(\d+)$"""</span><span class="o">.</span><span class="n">r</span>
+
+<span class="k">val</span> <span class="n">transformed</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
+  <span class="n">source</span><span class="o">.</span><span class="n">transformInput</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="o">{</span> <span class="n">strings</span> <span class="k">=&gt;</span> 
+    <span class="n">strings</span><span class="o">.</span><span class="n">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Number</span><span class="o">(</span><span class="n">num</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">num</span><span class="o">.</span><span class="n">toLong</span> <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="full-list-of-changes">Full List of Changes</h2>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/issues/340">Issue #340</a>: 
+Optimization of <code class="highlighter-rouge">TaskSemaphore</code></li>
+  <li><a href="https://github.com/monix/monix/issues/349">Issue #349</a>:
+Replace usage of <code class="highlighter-rouge">scala.util.control.NonFatal</code> in handling
+fatal exceptions to <code class="highlighter-rouge">monix.execution.misc.NonFatal</code></li>
+  <li><a href="https://github.com/monix/monix/issues/347">Issue #347</a>:
+Add <code class="highlighter-rouge">Task.deferAction</code> builder</li>
+  <li><a href="https://github.com/monix/monix/issues/339">Issue #339</a>:
+Add <code class="highlighter-rouge">Observable.observeOn</code> method</li>
+  <li><a href="https://github.com/monix/monix/issues/338">Issue #338</a>:
+<code class="highlighter-rouge">Cancelable</code> refs built with <code class="highlighter-rouge">Cancelable.collection</code> should
+use <code class="highlighter-rouge">Cancelable.cancelAll</code> in its implementation</li>
+  <li><a href="https://github.com/monix/monix/issues/350">Issue #350</a>:
+Change <code class="highlighter-rouge">BackPressure</code> buffer implementation to be more fair
+and ensure that it doesn’t lose events</li>
+  <li><a href="https://github.com/monix/monix/pull/353">Issue #353</a>:
+Refactor <code class="highlighter-rouge">Coeval</code> / <code class="highlighter-rouge">Task</code> run-loop to introduce optimized
+<code class="highlighter-rouge">attempt</code> / <code class="highlighter-rouge">materialize</code> implementations and add 
+<code class="highlighter-rouge">transform</code> / <code class="highlighter-rouge">transformWith</code> methods making use of this</li>
+  <li><a href="https://github.com/monix/monix/issues/355">Issue #355</a>:
+Add <code class="highlighter-rouge">Coeval.run</code> method</li>
+  <li><a href="https://github.com/monix/monix/issues/356">Issue #356</a>:
+Add <code class="highlighter-rouge">Coeval#attempt</code> and <code class="highlighter-rouge">Task#attempt</code> methods</li>
+  <li><a href="https://github.com/monix/monix/issues/358">Issue #358</a>:
+Deprecate <code class="highlighter-rouge">materializeAttempt</code> and <code class="highlighter-rouge">dematerializeAttempt</code>
+on <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code></li>
+  <li><a href="https://github.com/monix/monix/issues/359">Issue #359</a>:
+Rename <code class="highlighter-rouge">Coeval.Attempt#isFailure</code> to <code class="highlighter-rouge">Coeval.Attempt#isError</code></li>
+  <li><a href="https://github.com/monix/monix/issues/348">Issue #348</a>:
+Add <code class="highlighter-rouge">Consumer#transformInput</code> method</li>
+  <li><a href="https://github.com/monix/monix/issues/352">Issue #352</a> / 
+<a href="https://github.com/monix/monix/pull/361">PR #361</a>:
+No back-pressure when converting from <code class="highlighter-rouge">org.reactivestreams.Publisher</code> 
+to <code class="highlighter-rouge">Observable</code></li>
+  <li><a href="https://github.com/monix/monix/pull/362">Issue #362</a>:
+Replace <code class="highlighter-rouge">[T]</code> generic param to <code class="highlighter-rouge">[A]</code>, as a convention, 
+everywhere</li>
+  <li><a href="https://github.com/monix/monix/pull/341">PR #341</a>, 
+<a href="https://github.com/monix/monix/pull/344">PR #344</a>,
+<a href="https://github.com/monix/monix/pull/346">PR #346</a>,
+<a href="https://github.com/monix/monix/commit/9357ba4e5632c605623157343247054e338d42f0">Commit 9357ba</a>,
+etc:
+Update dependencies (Scalaz 7.2.11, Scala 2.11.11, 
+Scala 2.12.2, Scala.js 0.6.16)</li>
+  <li><a href="https://github.com/monix/monix/issues/354">Issue #354</a>:
+Enable Mima and Unidoc error reporting in Travis build</li>
+  <li><a href="https://github.com/monix/monix/pull/351">PR #351</a>:
+Specify that Monix is now a Typelevel project with
+full membership</li>
+</ul>
+
+<h2 id="upgrading">Upgrading</h2>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
+<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.0"</span>
+</code></pre></div></div>
+
+<p>The other projects from the <a href="https://github.com/monix">@Monix</a> organization
+have also been upgraded to depend on this new version.</p>
+
+<p><strong><a href="https://github.com/monix/shade">shade</a></strong>, the Scala Memcached client:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"shade"</span> <span class="o">%</span> <span class="s">"1.9.5"</span>
+</code></pre></div></div>
+
+<p><strong><a href="https://github.com/monix/monix-kafka">monix-kafka</a></strong>, the Apache Kafka
+integration:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.14"</span>
+
+<span class="c1">// For Kafka 9
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.14"</span>
+
+<span class="c1">// For Kafka 10
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.14"</span>
+</code></pre></div></div>
+
+<p>Enjoy!</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2017-05-03-monix-v2.3.0.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

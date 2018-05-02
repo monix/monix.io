@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.0.4 Released for Bug Fixing</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.0.4 Released for Bug Fixing" />
+  <meta name="twitter:description" content="Fixes an issue with AsyncScheduler" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/10/10/monix-v2.0.4.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.0.4 Released for Bug Fixing" />
+  <meta property="og:description" content="Fixes an issue with AsyncScheduler" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.0.4 Released for Bug Fixing</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-10-10">
+    10 Oct 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>This release is binary compatible with 2.0.x, being a bug fix release
+for <a href="https://github.com/monix/monix/issues/244">Issue #244</a>:
+<em><code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
+have incorrect behavior</em>.</p>
+
+<p>In order to upgrade, just increment the version number in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.4"</span>
+</code></pre></div></div>
+
+<!--more-->
+
+<h3 id="details">Details</h3>
+
+<p>The <code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> method implementation has
+incorrect behavior and this includes <code class="highlighter-rouge">monix.execution.Scheduler.Implicits.global</code>.
+Sample:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
+<span class="n">monix</span><span class="o">.</span><span class="n">execution</span><span class="o">.</span><span class="nc">Scheduler</span><span class="o">.</span><span class="nc">Implicits</span><span class="o">.</span><span class="n">global</span>
+
+<span class="n">global</span><span class="o">.</span><span class="n">scheduleAtFixedRate</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span> <span class="n">runnable</span><span class="o">)</span>
+
+<span class="n">global</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span> <span class="n">runnable</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>What happens is that if the given <code class="highlighter-rouge">runnable</code> takes more than 2 seconds to
+execute, then subsequent runnables are going to be executed concurrently,
+without waiting for the current runnable to finish. So if runnables are
+slow, you can end up with 2 or even more runnables being executed
+at the same time.</p>
+
+<p>This happens because this periodic scheduling is deferred to the global
+<code class="highlighter-rouge">Scheduler.DefaultScheduledExecutor</code> instance, a single threaded Java
+<code class="highlighter-rouge">ScheduledExecutor</code> that then defers the actual execution of the task to the
+<code class="highlighter-rouge">ForkJoinPool</code> in charge of the actual execution. But by doing this deferring,
+the time it takes that runnable to execute is not taken into account at all.
+This behavior is inconsistent with how these operations work for Java’s
+<code class="highlighter-rouge">ScheduledExecutor</code> and with how they are documented in ScalaDoc.</p>
+
+<p>NOTE: this behavior does NOT happen for <code class="highlighter-rouge">ExecutorScheduler</code>
+(e.g. <code class="highlighter-rouge">Scheduler.io</code>, <code class="highlighter-rouge">Scheduler.fixedPool</code>, <code class="highlighter-rouge">Scheduler.singleThread</code>)
+or any of the 2 available scheduler implementations for Javascript.
+It also doesn’t affect <code class="highlighter-rouge">Observable.interval</code>, <code class="highlighter-rouge">Observable.intervalWithFixedDelay</code>
+and <code class="highlighter-rouge">Observable.intervalAtFixedRate</code>. These observable builders have had
+correct behavior, regardless of the scheduler used.</p>
+
+<p>The fix involves the <code class="highlighter-rouge">AsyncScheduler</code> implementation to piggy-back on the
+implementation in <code class="highlighter-rouge">ReferenceScheduler</code>, just like the Javascript scheduler
+implementations.</p>
+
+<p>Cheers,</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-10-10-monix-v2.0.4.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

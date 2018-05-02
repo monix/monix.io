@@ -1,0 +1,292 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>streams - Monifu 1.2 - monifu.reactive.streams</title>
+          <meta name="description" content="streams - Monifu 1.2 - monifu.reactive.streams" />
+          <meta name="keywords" content="streams Monifu 1.2 monifu.reactive.streams" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../index.html';
+            var hash = 'monifu.reactive.streams.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../../lib/package_big.png" />
+        <p id="owner"><a href="../../package.html" class="extype" name="monifu">monifu</a>.<a href="../package.html" class="extype" name="monifu.reactive">reactive</a></p>
+        <h1>streams</h1><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">streams</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monifu.reactive.streams.ReactiveSubscriberAsMonifuSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ReactiveSubscriberAsMonifuSubscriber[T]extendsSubscriber[T]"></a>
+      <a id="ReactiveSubscriberAsMonifuSubscriber[T]:ReactiveSubscriberAsMonifuSubscriber[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="ReactiveSubscriberAsMonifuSubscriber.html"><span class="name">ReactiveSubscriberAsMonifuSubscriber</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../Subscriber.html" class="extype" name="monifu.reactive.Subscriber">Subscriber</a>[<span class="extype" name="monifu.reactive.streams.ReactiveSubscriberAsMonifuSubscriber.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@ReactiveSubscriberAsMonifuSubscriber[T]extendsSubscriber[T]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Wraps a <code>org.reactivestreams.Subscriber</code> instance that respects the
+<a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a> contract
+into an <a href="../Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> instance that respect the <code>Observer</code>
+contract.</p>
+    </li><li name="monifu.reactive.streams.SingleAssignmentSubscription" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SingleAssignmentSubscriptionextendsSubscription"></a>
+      <a id="SingleAssignmentSubscription:SingleAssignmentSubscription"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="SingleAssignmentSubscription.html"><span class="name">SingleAssignmentSubscription</span></a><span class="result"> extends <span class="extype" name="org.reactivestreams.Subscription">Subscription</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SingleAssignmentSubscriptionextendsSubscription" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Represents a <code>org.reactivestreams.Subscription</code> that can be assigned
+only once to another subscription reference.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a <code>org.reactivestreams.Subscription</code> that can be assigned
+only once to another subscription reference.</p><p>If the assignment happens after this subscription has been canceled, then on
+assignment the reference will get canceled too. If the assignment
+after <code>request(n)</code> has been called on this subscription, then
+<code>request(n)</code> will get called immediately on the assigned reference as well.</p><p>Useful in case you need a thread-safe forward reference.
+</p></div></div>
+    </li><li name="monifu.reactive.streams.SubscriberAsReactiveSubscriber" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SubscriberAsReactiveSubscriber[T]extendsSubscriber[T]"></a>
+      <a id="SubscriberAsReactiveSubscriber[T]:SubscriberAsReactiveSubscriber[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="SubscriberAsReactiveSubscriber.html"><span class="name">SubscriberAsReactiveSubscriber</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="org.reactivestreams.Subscriber">org.reactivestreams.Subscriber</span>[<span class="extype" name="monifu.reactive.streams.SubscriberAsReactiveSubscriber.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SubscriberAsReactiveSubscriber[T]extendsSubscriber[T]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Wraps a <a href="../Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> instance into an
+<code>org.reactivestreams.Subscriber</code> instance.</p><div class="fullcomment"><div class="comment cmt"><p>Wraps a <a href="../Observer.html" class="extype" name="monifu.reactive.Observer">Observer</a> instance into an
+<code>org.reactivestreams.Subscriber</code> instance. The resulting
+subscriber respects the <a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a>
+contract.</p><p>Given that when emitting <a href="../Observer.html#onNext(elem:T):scala.concurrent.Future[monifu.reactive.Ack]" class="extmbr" name="monifu.reactive.Observer#onNext">Observer.onNext</a> calls,
+the call may pass asynchronous boundaries, the emitted events need to be buffered.
+The <code>requestCount</code> constructor parameter also represents the buffer size.</p><p>To create an instance, <a href="SubscriberAsReactiveSubscriber.html" class="extype" name="monifu.reactive.streams.SubscriberAsReactiveSubscriber">SubscriberAsReactiveSubscriber</a> must be used: </p><pre><span class="cmt">// uses the default requestCount of 128</span>
+<span class="kw">val</span> subscriber = SubscriberAsReactiveSubscriber(<span class="kw">new</span> Observer[<span class="std">Int</span>] {
+  <span class="kw">private</span>[<span class="kw">this</span>] <span class="kw">var</span> sum = <span class="num">0</span>
+
+  <span class="kw">def</span> onNext(elem: <span class="std">Int</span>) = {
+    sum += elem
+    Continue
+  }
+
+  <span class="kw">def</span> onError(ex: Throwable) = {
+    logger.error(ex)
+  }
+
+  <span class="kw">def</span> onComplete() = {
+    logger.info(<span class="lit">"Stream completed"</span>)
+  }
+})</pre></div></div>
+    </li><li name="monifu.reactive.streams.SynchronousSubscriberAsReactiveSubscriber" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="SynchronousSubscriberAsReactiveSubscriber[T]extendsSubscriber[T]"></a>
+      <a id="SynchronousSubscriberAsReactiveSubscriber[T]:SynchronousSubscriberAsReactiveSubscriber[T]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="SynchronousSubscriberAsReactiveSubscriber.html"><span class="name">SynchronousSubscriberAsReactiveSubscriber</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <span class="extype" name="org.reactivestreams.Subscriber">org.reactivestreams.Subscriber</span>[<span class="extype" name="monifu.reactive.streams.SynchronousSubscriberAsReactiveSubscriber.T">T</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SynchronousSubscriberAsReactiveSubscriber[T]extendsSubscriber[T]" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">Wraps a <a href="../observers/SynchronousObserver.html" class="extype" name="monifu.reactive.observers.SynchronousObserver">SynchronousObserver</a> instance into a
+<code>org.reactivestreams.Subscriber</code> instance.</p><div class="fullcomment"><div class="comment cmt"><p>Wraps a <a href="../observers/SynchronousObserver.html" class="extype" name="monifu.reactive.observers.SynchronousObserver">SynchronousObserver</a> instance into a
+<code>org.reactivestreams.Subscriber</code> instance. The resulting
+subscriber respects the <a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a>
+contract.</p><p>Given that we can guarantee a <a href="../observers/SynchronousObserver.html" class="extype" name="monifu.reactive.observers.SynchronousObserver">SynchronousObserver</a>
+is used, then no buffering is needed and thus the implementation is very efficient.</p><p>To create an instance, <a href="SynchronousSubscriberAsReactiveSubscriber.html" class="extype" name="monifu.reactive.streams.SynchronousSubscriberAsReactiveSubscriber">SynchronousSubscriberAsReactiveSubscriber</a> must be used: </p><pre><span class="cmt">// uses the default requestCount of 128</span>
+<span class="kw">val</span> subscriber = SynchronousSubscriberAsReactiveSubscriber(<span class="kw">new</span> Observer[<span class="std">Int</span>] {
+  <span class="kw">private</span>[<span class="kw">this</span>] <span class="kw">var</span> sum = <span class="num">0</span>
+
+  <span class="kw">def</span> onNext(elem: <span class="std">Int</span>) = {
+    sum += elem
+    Continue
+  }
+
+  <span class="kw">def</span> onError(ex: Throwable) = {
+    logger.error(ex)
+  }
+
+  <span class="kw">def</span> onComplete() = {
+    logger.info(<span class="lit">"Stream completed"</span>)
+  }
+})</pre></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="monifu.reactive.streams.ReactiveSubscriberAsMonifuSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ReactiveSubscriberAsMonifuSubscriber"></a>
+      <a id="ReactiveSubscriberAsMonifuSubscriber:ReactiveSubscriberAsMonifuSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ReactiveSubscriberAsMonifuSubscriber$.html"><span class="name">ReactiveSubscriberAsMonifuSubscriber</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@ReactiveSubscriberAsMonifuSubscriber" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.streams.SingleAssignmentSubscription" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SingleAssignmentSubscription"></a>
+      <a id="SingleAssignmentSubscription:SingleAssignmentSubscription"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SingleAssignmentSubscription$.html"><span class="name">SingleAssignmentSubscription</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SingleAssignmentSubscription" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.streams.SubscriberAsReactiveSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SubscriberAsReactiveSubscriber"></a>
+      <a id="SubscriberAsReactiveSubscriber:SubscriberAsReactiveSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SubscriberAsReactiveSubscriber$.html"><span class="name">SubscriberAsReactiveSubscriber</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SubscriberAsReactiveSubscriber" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="monifu.reactive.streams.SynchronousSubscriberAsReactiveSubscriber" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SynchronousSubscriberAsReactiveSubscriber"></a>
+      <a id="SynchronousSubscriberAsReactiveSubscriber:SynchronousSubscriberAsReactiveSubscriber"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="SynchronousSubscriberAsReactiveSubscriber$.html"><span class="name">SynchronousSubscriberAsReactiveSubscriber</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../index.html#monifu.reactive.streams.package@SynchronousSubscriberAsReactiveSubscriber" title="Permalink" target="_top">
+        <img src="../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>

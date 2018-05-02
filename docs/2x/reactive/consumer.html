@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Consumer &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Consumer &mdash; Monix" />
+  <meta name="twitter:description" content="A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/docs/2x/reactive/consumer" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Consumer &mdash; Monix" />
+  <meta property="og:description" content="A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Consumer</h1>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/2.3/monix/reactive/Consumer.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/Consumer.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/consumer.md">Edit Page</a>
+  </nav>
+  
+  <div id="version2x">
+    You are viewing the documentation for the older Monix 2.x series.<br />
+    If you're looking for the latest 3.x
+    <a href="/docs/3x/">click here</a>!
+  </div>
+
+  <nav role="navigation" id="toc"></nav>
+
+  <h2 id="introduction">Introduction</h2>
+
+<p>A <code class="highlighter-rouge">Consumer</code> specifies how to consume observables.  A <code class="highlighter-rouge">Consumer</code> is a factory of
+<a href="./observers.html#subscriber">subscribers</a> with a completion callback
+attached, being effectively a way to transform observables into tasks
+for less error prone consuming of streams.</p>
+
+<p>We already have <a href="./observers.html">observers and subscribers</a>,
+callbacks that we can feed into the <code class="highlighter-rouge">subscribe</code> method of <code class="highlighter-rouge">Observable</code>
+for consuming a stream. The problems that <code class="highlighter-rouge">Consumer</code> is solving:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Observer</code> (and <code class="highlighter-rouge">Subscriber</code>) instances are stateful and error
+prone; for example, by contract, with an observer instance you can
+subscribe only to a single data-source</li>
+  <li>there’s no standard way to describe observers that will produce a
+final result; sure, with observables we could <code class="highlighter-rouge">foldLeftF</code> and then
+<code class="highlighter-rouge">runAsyncGetFirst</code> or something along those lines, but those operators
+are usually meant for pure functions and there is no standard way to
+describe consumers that consume some streams and then finally
+produce a result; like for example a consumer that writes into a
+NIO async file channel and then when the stream is finished to
+return some statistics, like the number of bytes written to disk</li>
+  <li>and you can’t compose these subscribers very well; for example if
+you have a subscriber instance you can’t feed it into something that
+can build a load-balancer that processes things in parallel</li>
+</ul>
+
+<p>Teaser:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
+<span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="c1">// A consumer that folds over the elements of the stream,
+// producing a sum as a result
+</span><span class="k">val</span> <span class="n">sumConsumer</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+
+<span class="c1">// For processing sums in parallel, useless of course, but can become 
+// really helpful for logic sprinkled with I/O bound stuff
+</span><span class="k">val</span> <span class="n">loadBalancer</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Consumer</span>
+    <span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="n">sumConsumer</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100000</span><span class="o">)</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
+</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
+
+<span class="c1">// Consume the whole stream and get the result
+</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4999950000
+</span></code></pre></div></div>
+
+<h2 id="creating-consumers">Creating Consumers</h2>
+
+<h3 id="implementing-the-low-level-interface">Implementing the low-level interface</h3>
+
+<p>The low-level way of implementing the <code class="highlighter-rouge">Consumer</code> is to simply
+implement that trait. Lets implement a <code class="highlighter-rouge">Consumer</code> that calculates the
+sum of all the <code class="highlighter-rouge">Int</code> elements of a stream:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.cancelables.AssignableCancelable</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack.Continue</span>
+<span class="k">import</span> <span class="nn">monix.eval.Callback</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Consumer</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
+
+<span class="k">val</span> <span class="n">sumConsumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="k">new</span> <span class="nc">Consumer</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">createSubscriber</span><span class="o">(</span><span class="n">cb</span><span class="k">:</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">s</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">out</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="nc">Sync</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+        <span class="k">implicit</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="n">s</span>
+        <span class="k">private</span> <span class="k">var</span> <span class="n">sum</span> <span class="k">=</span> <span class="mi">0L</span>
+
+        <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Continue</span> <span class="o">=</span> <span class="o">{</span>
+          <span class="n">sum</span> <span class="o">+=</span> <span class="n">elem</span>
+          <span class="nc">Continue</span>
+        <span class="o">}</span>
+
+        <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+          <span class="c1">// We are done so we can signal the final result
+</span>          <span class="n">cb</span><span class="o">.</span><span class="n">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+        <span class="o">}</span>
+
+        <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+          <span class="c1">// Error happened, so we signal the error
+</span>          <span class="n">cb</span><span class="o">.</span><span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+
+      <span class="c1">// Returning a tuple of our subscriber and a dummy 
+</span>      <span class="c1">// AssignableCancelable because we don't intend to use it
+</span>      <span class="o">(</span><span class="n">out</span><span class="o">,</span> <span class="nc">AssignableCancelable</span><span class="o">.</span><span class="n">dummy</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="c1">// USAGE:
+</span><span class="o">{</span>
+  <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+  <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">10000</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">sumConsumer</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
+    
+  <span class="c1">//=&gt; Result: 49995000
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>So for signaling the final result, we need to call the provided
+callback. Some notes:</p>
+
+<ul>
+  <li>calling the callback must obey the contract for the
+<a href="../eval/callback.html">Callback</a> type, in particular either 
+<code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> must be called exactly once</li>
+  <li>the given callback should always get called unless the upstream
+gets canceled</li>
+  <li>the given callback can be called when the subscriber is finished
+processing, but not necessarily</li>
+  <li>if the given callback isn’t called after the subscriber is
+done processing, then the <code class="highlighter-rouge">Task</code> returned by <code class="highlighter-rouge">Consumer#apply</code>
+loses the ability to cancel the stream, as that <code class="highlighter-rouge">Task</code> will
+complete before the stream is finished</li>
+</ul>
+
+<p>Canceling the stream in an <code class="highlighter-rouge">Observer</code> usually happens by returning a
+<code class="highlighter-rouge">Stop</code> result from <code class="highlighter-rouge">onNext</code>. But there are cases where that is too
+limiting. For example maybe we want to timeout with an error in case
+the stream takes too long to emit the next event, in which case we
+want to terminate with an error and preferably cancel the stream in
+advance.</p>
+
+<p>The returned tuple contains an <code class="highlighter-rouge">AssignableCancelable</code>. This interface
+is about cancelables that can be assigned another reference, such as
+<code class="highlighter-rouge">SingleAssignmentCancelable</code>. And we can use this
+<code class="highlighter-rouge">AssignableCancelable</code> to cancel the streaming without waiting for an
+<code class="highlighter-rouge">onNext</code> event. In the example above we aren’t using it, so we simply
+use a <code class="highlighter-rouge">dummy</code>. But we could have returned a
+<code class="highlighter-rouge">SingleAssignmentCancelable</code> reference that we could have used in our
+subscriber implementation to cancel the stream.</p>
+
+<h3 id="consumercreate">Consumer.create</h3>
+
+<p>For a more refined experience when creating consumers, one can use the
+<code class="highlighter-rouge">Consumer.create</code> builder:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack.Continue</span>
+
+<span class="k">val</span> <span class="n">sumConsumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">create</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">cancelable</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">new</span> <span class="nc">Observer</span><span class="o">.</span><span class="nc">Sync</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">private</span> <span class="k">var</span> <span class="n">sum</span> <span class="k">=</span> <span class="mi">0L</span>
+
+      <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Ack</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">elem</span>
+        <span class="nc">Continue</span>
+      <span class="o">}</span>
+
+      <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="c1">// We are done so we can signal the final result
+</span>        <span class="n">callback</span><span class="o">.</span><span class="n">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+      <span class="o">}</span>
+
+      <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="c1">// Error happened, so we signal the error
+</span>        <span class="n">callback</span><span class="o">.</span><span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Using the <code class="highlighter-rouge">create</code> builder is similar to implementing the <code class="highlighter-rouge">Consumer</code>
+trait directly. Differences:</p>
+
+<ol>
+  <li>the factory function gets surrounded with <code class="highlighter-rouge">try/catch</code> and in case
+of failure, the error is raised by means of the callback and the
+stream gets canceled</li>
+  <li>a cancelable instance gets automatically injected; calling cancel
+on it will attempt to cancel the stream, following the rules of
+cancelables returned by observable subscriptions and its usage
+remains optional</li>
+</ol>
+
+<h3 id="consumerfromobserver">Consumer.fromObserver</h3>
+
+<p>A simpler way to create a <code class="highlighter-rouge">Consumer[A, Unit]</code> out of any <code class="highlighter-rouge">Observer</code>
+instance is <code class="highlighter-rouge">fromObserver</code>. These consumers only signal when they are
+done processing the stream with a <code class="highlighter-rouge">Unit</code>. Let’s build a simple
+consumer that does nothing but to log incoming items to <code class="highlighter-rouge">stdout</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.</span><span class="o">{</span><span class="nc">Consumer</span><span class="o">,</span> <span class="nc">Observer</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack.Continue</span>
+<span class="k">import</span> <span class="nn">java.io.PrintStream</span>
+
+<span class="k">def</span> <span class="n">dumpConsumer</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
+  <span class="n">prefix</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> 
+  <span class="n">out</span><span class="k">:</span> <span class="kt">PrintStream</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="n">out</span><span class="o">)</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">A</span>, <span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">fromObserver</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">scheduler</span> <span class="k">=&gt;</span>
+    <span class="k">new</span> <span class="nc">Observer</span><span class="o">.</span><span class="nc">Sync</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+      <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Ack</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O---&gt;$elem"</span><span class="o">)</span>
+        <span class="nc">Continue</span>
+      <span class="o">}</span>
+      
+      <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span> <span class="k">=</span> 
+        <span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O is complete"</span><span class="o">)</span>
+      <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span> <span class="k">=</span> 
+        <span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O terminated with $ex"</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice there is no callback or cancelable to worry about, as the
+underlying implementation of <code class="highlighter-rouge">Consumer.fromObserver</code> takes care of it.</p>
+
+<h2 id="pre-built-consumers">Pre-built Consumers</h2>
+
+<h3 id="consume-a-stream-until-completion">Consume a stream until completion</h3>
+
+<p>The pre-built <code class="highlighter-rouge">Consumer.complete</code> will consume a stream until its
+completion and then finally trigger a notification when <code class="highlighter-rouge">onComplete</code>
+happens, or signal the error if <code class="highlighter-rouge">onError</code> happens:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">complete</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Consumer completed"</span><span class="o">))</span>
+
+  <span class="c1">//=&gt; 0: O--&gt;0
+</span>  <span class="c1">//=&gt; 1: O--&gt;1
+</span>  <span class="c1">//=&gt; 2: O--&gt;2
+</span>  <span class="c1">//=&gt; 3: O--&gt;3
+</span>  <span class="c1">//=&gt; 4: O completed
+</span>  <span class="c1">//=&gt; Consumer completed
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="cancel-the-stream-on-subscription">Cancel the stream on subscription</h3>
+
+<p>Here’s a consumer that immediately cancels its upstream after
+subscription, such that consuming a stream with this consumer will
+result in a subscription followed by its immediate cancellation:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Consumer</span><span class="o">.</span><span class="n">cancel</span>
+</code></pre></div></div>
+
+<p>A similar consumer, one that immediately cancels the upstream, but
+that also signals an error:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Consumer</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Don't know how!"</span><span class="o">))</span>
+</code></pre></div></div>
+
+<h3 id="accumulate-items-with-foldleft">Accumulate Items with FoldLeft</h3>
+
+<p>Here’s a consumer that applies a function to an initial state and
+the first item emitted by the source observable, then feeding the
+result of this function back into the function along with the second
+item emitted by the source observable, continuing this process until
+the source emits its final item and completes, whereupon the consumer
+will emit the final value returned by the function:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+
+<span class="c1">// Usage
+</span><span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"SUM: $r"</span><span class="o">))</span>
+  
+  <span class="c1">//=&gt; SUM: 499500
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the example the fold function is returning a simple sum between the
+current state (also called the accumulator) and the current item and
+we start from zero, thus the built consumer will consume streams of
+long integers and signal a total sum on their completion.</p>
+
+<p>A second variant of the <code class="highlighter-rouge">foldLeft</code> consumer allows for returning a
+<code class="highlighter-rouge">Task</code> as the result of the fold function, thus being useful for doing
+asynchronous processing as part of that logic. This sample isn’t
+useful, but you can easily see that you can insert I/O logic in there:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeftAsync</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> 
+  <span class="nc">Task</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">elem</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">10.</span><span class="n">millis</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="returning-the-head">Returning the head</h3>
+
+<p>Observables have powerful facilities for transforming and processing a
+data-source and often all we need is to return the first generated
+item and then stop. In such instances we can use <code class="highlighter-rouge">Consumer.head</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="k">val</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span>
+  <span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">sumF</span>
+  <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">head</span><span class="o">)</span>
+<span class="o">}</span>
+  
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="n">sum</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 499500
+</span></code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">Consumer.head</code> can be problematic for empty streams, since it
+assumes that the source will generate at least one item. Therefore for
+empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchElementException</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+    <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">head</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">failed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  
+  <span class="c1">//=&gt; java.util.NoSuchElementException: head
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>To play it safe, we can use <code class="highlighter-rouge">Consumer.headOption</code> instead:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">first</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">].</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">headOption</span><span class="o">)</span>
+  
+<span class="n">first</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; None
+</span></code></pre></div></div>
+
+<p>Or we can simply get the first <code class="highlighter-rouge">Notification</code> that happened, be it
+<code class="highlighter-rouge">OnNext</code>, <code class="highlighter-rouge">OnComplete</code> or <code class="highlighter-rouge">OnError</code> and then stop, by means of
+<code class="highlighter-rouge">Consumer.firstNotification</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Notification.</span><span class="o">{</span><span class="nc">OnNext</span><span class="o">,</span> <span class="nc">OnComplete</span><span class="o">,</span> <span class="nc">OnError</span><span class="o">}</span>
+
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<span class="k">val</span> <span class="n">task</span> <span class="k">=</span>
+  <span class="n">observable</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">firstNotification</span><span class="o">)</span>
+
+<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">OnComplete</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"onComplete"</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">OnError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"onError($ex)"</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">OnNext</span><span class="o">(</span><span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"onNext(elem)"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="foreach-item-execute-a-callback">Foreach item execute a callback</h3>
+
+<p>The classic foreach operation is available for consumers:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">logger</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foreach</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Elem: $x"</span><span class="o">))</span>
+
+<span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">logger</span><span class="o">)</span>
+<span class="c1">// task: Task[Unit] = Async(&lt;function3&gt;)
+</span></code></pre></div></div>
+
+<p>In the context of asynchronous streaming, for each item many times you
+want to execute an asynchronous process, like a web request. In such a
+case there’s <code class="highlighter-rouge">Consumer.foreachAsync</code> whose callback can return a
+<code class="highlighter-rouge">Task[Unit]</code> instead:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Consumer</span><span class="o">.</span><span class="n">foreachAsync</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
+  <span class="c1">// Play WS, or whatever ...
+</span>  <span class="k">val</span> <span class="n">req</span> <span class="k">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="n">post</span><span class="o">()</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">fromFuture</span><span class="o">(</span><span class="n">req</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Or if you want to impress your friends, you can execute that foreach
+in parallel:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Consumer</span><span class="o">.</span><span class="n">foreachParallel</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span> <span class="o">???</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Well OK, this seems more glamour than substance, as for this to be worth
+it, that function needs to do something really expensive, as otherwise
+it will be much less efficient than the simple version. And the author
+hopes you’re not doing blocking I/O.</p>
+
+<p>For doing I/O on the other hand, this can be very useful. For example,
+with the parallelism specified as <code class="highlighter-rouge">10</code>, we could ensure parallel
+execution of 10 http requests at the same time and no more:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Consumer</span><span class="o">.</span><span class="n">foreachParallelAsync</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
+  <span class="c1">// Play WS, or whatever ...
+</span>  <span class="k">val</span> <span class="n">req</span> <span class="k">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="n">post</span><span class="o">()</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">fromFuture</span><span class="o">(</span><span class="n">req</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="load-balancing-consumers-and-parallel-processing">Load-balancing consumers and parallel processing</h3>
+
+<p>As a generalization of <code class="highlighter-rouge">foreachParallel</code> and <code class="highlighter-rouge">foreachParallelAsync</code>,
+we can place a load-balancer in front of any consumer. Here’s a
+consumer that processes sums in parallel:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">sumConsumer</span> <span class="k">=</span> 
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span><span class="o">+</span><span class="k">_</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">parallelConsumer</span> <span class="k">=</span> 
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="n">sumConsumer</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+
+<span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">10000</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">parallelConsumer</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
+
+  <span class="c1">//=&gt; Result: 49995000
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>This can be used:</p>
+
+<ol>
+  <li>to process things in parallel, but with a parallelism limit</li>
+  <li>it can also be used for I/O, like for doing at most 10 requests in parallel
+and back-pressure the source if the consumers are too slow</li>
+</ol>
+
+<p>You can also combine different consumer instances that can have
+different behavior:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">sumConsumer1</span> <span class="k">=</span> 
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span><span class="o">+</span><span class="k">_</span><span class="o">+</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">sumConsumer2</span> <span class="k">=</span> 
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span><span class="o">+</span><span class="k">_</span><span class="o">+</span><span class="mi">2</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">parallelConsumer</span> <span class="k">=</span> 
+  <span class="nc">Consumer</span><span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">sumConsumer1</span><span class="o">,</span> <span class="n">sumConsumer2</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>The final generated result is going to be a sequence of results collected
+from all subscribers, hence the final <code class="highlighter-rouge">.map(_.sum)</code> to aggregate them all.</p>
+
+
+  <div class="buttons">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/consumer.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

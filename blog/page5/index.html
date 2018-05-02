@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Blog &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Blog &mdash; Monix" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/page5/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Blog &mdash; Monix" />
+  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/08/01/monix-v2.0-RC9.html">
+        Monix: Version 2.0-RC9 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-08-01">
+      01 Aug 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release fixes a bug in <code class="highlighter-rouge">Task.mapBoth</code> and thus the operations
+depending on it, like <code class="highlighter-rouge">Task.gather</code>. It also fixes another bug in
+the Cats <code class="highlighter-rouge">Applicative</code> instance for <code class="highlighter-rouge">Task</code>, adding a required overload
+for running Tasks in parallel when using the applicative builder.</p>
+
+<p>This release also changes the signatures of Task’s <code class="highlighter-rouge">sequence</code>, <code class="highlighter-rouge">gather</code> and
+<code class="highlighter-rouge">gatherUnordered</code> to use the <code class="highlighter-rouge">CanBuildFrom</code> pattern, a contribution
+by <a href="https://github.com/guersam">@guersam</a>.</p>
+
+
+
+    <a href="/blog/2016/08/01/monix-v2.0-RC9.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/06/29/monix-v2.0-RC8.html">
+        Monix: Version 2.0-RC8 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-06-29">
+      29 Jun 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release candidate is probably the last one before <code class="highlighter-rouge">2.0</code>, assuming
+new bugs aren’t found. Amongst others, it introduces an awesome
+<code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
+consumers. For a teaser:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become 
+// really helpful for logic sprinkled with I/O bound stuff
+</span><span class="k">val</span> <span class="n">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
+  <span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Coeval</span><span class="o">(</span><span class="mi">0L</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
+</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+
+<span class="c1">// Consume the whole stream and get the result
+</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</code></pre></div></div>
+
+
+
+    <a href="/blog/2016/06/29/monix-v2.0-RC8.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/06/21/monix-v2.0-RC7.html">
+        Monix: Version 2.0-RC7 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-06-21">
+      21 Jun 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release candidate fixes a bug in <code class="highlighter-rouge">Task.materializeAttempt</code> and
+consequently <code class="highlighter-rouge">Task.onErrorHandleWith</code>. It also adds
+<a href="http://scalaz.org/">Scalaz</a> integration and a <code class="highlighter-rouge">TaskApp</code> to make your
+friends jealous. Also the <code class="highlighter-rouge">Atomic</code> references in project <code class="highlighter-rouge">Sincron</code> are
+being brought back into Monix proper, in <code class="highlighter-rouge">monix-execution</code>, because
+project <code class="highlighter-rouge">Sincron</code> is for all intents and purposes part of Monix and
+has no further ambitions.</p>
+
+
+
+    <a href="/blog/2016/06/21/monix-v2.0-RC7.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/06/15/monix-v2.0-RC6.html">
+        Monix: Version 2.0-RC6 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-06-15">
+      15 Jun 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>The sixth release candidate, simplifies the <a href="http://typelevel.org/">Cats</a> integration,
+introduces an alternative parallel <code class="highlighter-rouge">Applicative</code> instance for <code class="highlighter-rouge">Task</code>,
+changes the <code class="highlighter-rouge">Observable.buffer</code> operators to match the behavior in ReactiveX,
+adds observable builders from <code class="highlighter-rouge">java.io.InputStream</code> and <code class="highlighter-rouge">Reader</code>,
+adds <code class="highlighter-rouge">Observable.executeOn</code>, along with other utils and refactors the 
+<code class="highlighter-rouge">Pipe</code> and <code class="highlighter-rouge">ConcurrentSubject</code> builders. Also contains bug fixes.</p>
+
+
+
+    <a href="/blog/2016/06/15/monix-v2.0-RC6.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/05/31/monix-v2.0-RC5.html">
+        Monix: Version 2.0-RC5 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-05-31">
+      31 May 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>The fifth release candidate, re-introduces the
+<a href="http://typelevel.org/cats/">Cats</a> integration, introduces new <code class="highlighter-rouge">Task</code>
+operators <code class="highlighter-rouge">doOnFinish</code>, <code class="highlighter-rouge">gather</code> and <code class="highlighter-rouge">gatherUnordered</code> and changes
+the behavior of <code class="highlighter-rouge">Task.sequence</code>. Also contains a critical bug fix.</p>
+
+
+
+    <a href="/blog/2016/05/31/monix-v2.0-RC5.html">Read more &rarr;</a>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/blog/page6">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/blog/page4">Newer</a>
+    
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

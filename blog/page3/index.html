@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Blog &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Blog &mdash; Monix" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/page3/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Blog &mdash; Monix" />
+  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/11/02/monix-v2.0.6.html">
+        Monix: Version 2.0.6 Maintenance Release
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-11-02">
+      02 Nov 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a maintenance.
+In order to upgrade, just increment the version number in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.6"</span>
+</code></pre></div></div>
+
+<p>This version is published for <strong>Scala 2.12.0 final release</strong>, incrementing
+the dependency on Minitest to 0.27 and on Scalaz to 7.2.7.</p>
+
+
+    <a href="/blog/2016/11/02/monix-v2.0.6.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/10/23/monix-v2.0.5.html">
+        Monix: Version 2.0.5 Maintenance Release
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-10-23">
+      23 Oct 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a maintenance and
+bug fix release. In order to upgrade, just increment the version
+number in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.5"</span>
+</code></pre></div></div>
+
+
+
+    <a href="/blog/2016/10/23/monix-v2.0.5.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/10/10/monix-v2.0.4.html">
+        Monix: Version 2.0.4 Released for Bug Fixing
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-10-10">
+      10 Oct 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a bug fix release
+for <a href="https://github.com/monix/monix/issues/244">Issue #244</a>:
+<em><code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
+have incorrect behavior</em>.</p>
+
+<p>In order to upgrade, just increment the version number in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.4"</span>
+</code></pre></div></div>
+
+
+
+    <a href="/blog/2016/10/10/monix-v2.0.4.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/10/03/monix-v2.0.3.html">
+        Monix: Version 2.0.3 Released for Bug Fixing
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-10-03">
+      03 Oct 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a bug fix release
+release for <a href="https://github.com/monix/monix/issues/230">Issue #230</a>:
+Deadlocks when blocking threads due to <code class="highlighter-rouge">LocalBatchingExecutor</code>
+(affects <code class="highlighter-rouge">Task</code> usage).</p>
+
+
+
+    <a href="/blog/2016/10/03/monix-v2.0.3.html">Read more &rarr;</a>
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/09/25/monix-v2.0.2.html">
+        Monix: Version 2.0.2 Released for Bug Fixing
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-09-25">
+      25 Sep 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a bug fix release
+release:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
+<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
+gets canceled due to a subscriber triggering an error</li>
+</ul>
+
+<p>This bug if basically harmless, it’s only effect being to log
+unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
+<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+
+<p>Enjoy!</p>
+
+
+    <a href="/blog/2016/09/25/monix-v2.0.2.html">Read more &rarr;</a>
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/blog/page4">Older</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/blog/page2">Newer</a>
+    
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

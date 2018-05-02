@@ -1,0 +1,968 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 2.2.4 - monix.execution.schedulers</title>
+          <meta name="description" content="Monix 2.2.4 - monix.execution.schedulers" />
+          <meta name="keywords" content="Monix 2.2.4 monix.execution.schedulers" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../../lib/index.js"></script>
+      <script type="text/javascript" src="../../../index.js"></script>
+      <script type="text/javascript" src="../../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">2.2.4</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="HtmlTag(&lt;img src=&quot;https://monix.io/public/images/monix-logo.png&quot; align=&quot;right&quot; width=&quot;200&quot; /&gt;)" href="../../../index.html">
+              <span class="name">root</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/exceptions/index.html" class="extype" name="monix.reactive.exceptions">monix.reactive.exceptions</a> groups some exceptions thrown by the implementation</li><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../types/index.html" class="extype" name="monix.types">monix.types</a></b> implements type-class shims, to be translated to
+type-classes provided by libraries such as
+<a href="http://typelevel.org/cats/" target="_blank">Cats</a> or <a href="http://scalaz.org/" target="_blank">Scalaz</a>.</p><p><b><a href="../../cats/index.html" class="extype" name="monix.cats">monix.cats</a></b> is the optional integration with the
+<a href="http://typelevel.org/cats/" target="_blank">Cats</a> library, providing translations
+for the types described in <code>monix.types</code>.</p><p><b><a href="../../scalaz/index.html" class="extype" name="monix.scalaz">monix.scalaz</a></b> is the optional integration with the
+<a href="http://scalaz.org/" target="_blank">Scalaz</a> library, providing translations
+for the types described in <code>monix.types</code>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html">
+              <span class="name">monix</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.execution" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="execution"></a><a id="execution:execution"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#execution" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html">
+              <span class="name">execution</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution.atomic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="atomic"></a><a id="atomic:atomic"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#atomic" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="A small toolkit of classes that support compare-and-swap semantics
+for safe mutation of variables." href="../atomic/index.html">
+              <span class="name">atomic</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">A small toolkit of classes that support compare-and-swap semantics
+for safe mutation of variables.</p><div class="fullcomment"><div class="comment cmt"><p>A small toolkit of classes that support compare-and-swap semantics
+for safe mutation of variables.</p><p>On top of the JVM, this means dealing with lock-free thread-safe
+programming. Also works on top of Javascript, with <i>Scala.js</i>,
+for API compatibility purposes and because it's a useful way to
+box a value.</p><p>The backbone of Atomic references is this method:</p><pre><span class="kw">def</span> compareAndSet(expect: T, update: T): <span class="std">Boolean</span></pre><p>This method atomically sets a variable to the <code>update</code> value if it
+currently holds the <code>expect</code> value, reporting <code>true</code> on success or
+<code>false</code> on failure. The classes in this package also contain
+methods to get and unconditionally set values.</p><p>Building a reference is easy with the provided constructor, which
+will automatically return the most specific type needed (in the
+following sample, that's an <code>AtomicDouble</code>, inheriting from
+<code>AtomicNumber[T]</code>):</p><pre><span class="kw">val</span> atomicNumber = Atomic(<span class="num">12.2</span>)
+
+atomicNumber.incrementAndGet()
+<span class="cmt">// => 13.2</span></pre><p>These also provide useful helpers for atomically mutating of
+values (i.e. <code>transform</code>, <code>transformAndGet</code>, <code>getAndTransform</code>,
+etc...) or of numbers of any kind (<code>incrementAndGet</code>, <code>getAndAdd</code>,
+etc...).
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.cancelables" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cancelables"></a><a id="cancelables:cancelables"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#cancelables" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Cancelables represent asynchronous units of work or other things scheduled for
+execution and whose execution can be canceled." href="../cancelables/index.html">
+              <span class="name">cancelables</span>
+            </a>
+      </span>
+      
+      <p class="shortcomment cmt">Cancelables represent asynchronous units of work or other things scheduled for
+execution and whose execution can be canceled.</p><div class="fullcomment"><div class="comment cmt"><p>Cancelables represent asynchronous units of work or other things scheduled for
+execution and whose execution can be canceled.</p><p>One use-case is the scheduling done by <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">monix.execution.Scheduler</a>, in which
+the scheduling methods return a <code>Cancelable</code>, allowing the canceling of the
+scheduling.</p><p>Example:</p><pre><span class="kw">val</span> s = ConcurrentScheduler()
+<span class="kw">val</span> task = s.scheduleRepeated(<span class="num">10.</span>seconds, <span class="num">50.</span>seconds, {
+  doSomething()
+})
+
+<span class="cmt">// later, cancels the scheduling ...</span>
+task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.exceptions" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="exceptions"></a><a id="exceptions:exceptions"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#exceptions" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../exceptions/index.html">
+              <span class="name">exceptions</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.internal" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="internal"></a><a id="internal:internal"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#internal" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../internal/index.html">
+              <span class="name">internal</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.misc" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="misc"></a><a id="misc:misc"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#misc" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../misc/index.html">
+              <span class="name">misc</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.rstreams" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rstreams"></a><a id="rstreams:rstreams"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#rstreams" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../rstreams/index.html">
+              <span class="name">rstreams</span>
+            </a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.schedulers" visbl="pub" class="indented3 current" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="schedulers"></a><a id="schedulers:schedulers"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#schedulers" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">schedulers</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li class="current-entities indented3">
+                        <a class="object" href="AsyncScheduler$.html" title=""></a>
+                        <a class="class" href="AsyncScheduler.html" title="An AsyncScheduler schedules tasks to happen in the future with the
+given ScheduledExecutorService and the tasks themselves are executed on
+the given ExecutionContext."></a>
+                        <a href="AsyncScheduler.html" title="An AsyncScheduler schedules tasks to happen in the future with the
+given ScheduledExecutorService and the tasks themselves are executed on
+the given ExecutionContext.">
+                          AsyncScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="trait" href="BatchingScheduler.html" title="Adds trampoline execution capabilities to
+schedulers, when
+inherited."></a>
+                        <a href="BatchingScheduler.html" title="Adds trampoline execution capabilities to
+schedulers, when
+inherited.">
+                          BatchingScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="package$$ExecutionModel$.html" title="Deprecated."></a>
+                        <a href="package$$ExecutionModel$.html" title="Deprecated.">
+                          ExecutionModel
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="ExecutorScheduler$.html" title=""></a>
+                        <a class="class" href="ExecutorScheduler.html" title="An ExecutorScheduler is a class for building a
+SchedulerService
+out of a Java ExecutorService."></a>
+                        <a href="ExecutorScheduler.html" title="An ExecutorScheduler is a class for building a
+SchedulerService
+out of a Java ExecutorService.">
+                          ExecutorScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="ReferenceScheduler$.html" title=""></a>
+                        <a class="trait" href="ReferenceScheduler.html" title="Helper for building a Scheduler."></a>
+                        <a href="ReferenceScheduler.html" title="Helper for building a Scheduler.">
+                          ReferenceScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="SchedulerService$.html" title=""></a>
+                        <a class="trait" href="SchedulerService.html" title="A Scheduler type that provides
+methods for managing termination."></a>
+                        <a href="SchedulerService.html" title="A Scheduler type that provides
+methods for managing termination.">
+                          SchedulerService
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="StartAsyncBatchRunnable.html" title="Forces a real asynchronous boundary before executing the
+given TrampolinedRunnable."></a>
+                        <a href="StartAsyncBatchRunnable.html" title="Forces a real asynchronous boundary before executing the
+given TrampolinedRunnable.">
+                          StartAsyncBatchRunnable
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="TestScheduler$.html" title=""></a>
+                        <a class="class" href="TestScheduler.html" title="A scheduler meant for testing purposes."></a>
+                        <a href="TestScheduler.html" title="A scheduler meant for testing purposes.">
+                          TestScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="TrampolineExecutionContext$.html" title=""></a>
+                        <a class="class" href="TrampolineExecutionContext.html" title="A scala.concurrentExecutionContext implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation."></a>
+                        <a href="TrampolineExecutionContext.html" title="A scala.concurrentExecutionContext implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.">
+                          TrampolineExecutionContext
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="TrampolineScheduler$.html" title=""></a>
+                        <a class="class" href="TrampolineScheduler.html" title="A Scheduler implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation."></a>
+                        <a href="TrampolineScheduler.html" title="A Scheduler implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.">
+                          TrampolineScheduler
+                        </a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="TrampolinedRunnable.html" title="A marker for callbacks that can be batched and executed
+locally (on the current thread) by means of a trampoline
+(if the execution context / scheduler allows it)."></a>
+                        <a href="TrampolinedRunnable.html" title="A marker for callbacks that can be batched and executed
+locally (on the current thread) by means of a trampoline
+(if the execution context / scheduler allows it).">
+                          TrampolinedRunnable
+                        </a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="package value">
+      <div id="definition">
+        <div class="big-circle package">p</div>
+        <p id="owner"><a href="../../index.html" class="extype" name="monix">monix</a>.<a href="../index.html" class="extype" name="monix.execution">execution</a></p>
+        <h1>schedulers<span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">schedulers</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.2.4/monix-execution/shared/src/main/scala/monix/execution/schedulers/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Any" class="extype" target="_top">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.execution.schedulers"><span>schedulers</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.execution.schedulers.AsyncScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AsyncSchedulerextendsReferenceSchedulerwithBatchingScheduler"></a><a id="AsyncScheduler:AsyncScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#AsyncSchedulerextendsReferenceSchedulerwithBatchingScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="An AsyncScheduler schedules tasks to happen in the future with the
+given ScheduledExecutorService and the tasks themselves are executed on
+the given ExecutionContext." href="AsyncScheduler.html">
+              <span class="name">AsyncScheduler</span>
+            </a><span class="result"> extends <a href="ReferenceScheduler.html" class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</a> with <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">An <code>AsyncScheduler</code> schedules tasks to happen in the future with the
+given <code>ScheduledExecutorService</code> and the tasks themselves are executed on
+the given <code>ExecutionContext</code>.</p>
+    </li><li name="monix.execution.schedulers.BatchingScheduler" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="BatchingSchedulerextendsScheduler"></a><a id="BatchingScheduler:BatchingScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#BatchingSchedulerextendsScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Adds trampoline execution capabilities to
+schedulers, when
+inherited." href="BatchingScheduler.html">
+              <span class="name">BatchingScheduler</span>
+            </a><span class="result"> extends <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Adds trampoline execution capabilities to
+<a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">schedulers</a>, when
+inherited.</p><div class="fullcomment"><div class="comment cmt"><p>Adds trampoline execution capabilities to
+<a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">schedulers</a>, when
+inherited.</p><p>When it receives <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a> instances, it
+switches to a trampolined mode where all incoming
+<a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a> are executed on the current thread.</p><p>This is useful for light-weight callbacks. The idea is
+borrowed from the implementation of
+<code>scala.concurrent.Future</code>. Currently used as an
+optimization by <code>Task</code> in processing its internal callbacks.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.ExecutorScheduler" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ExecutorSchedulerextendsSchedulerServicewithReferenceSchedulerwithBatchingScheduler"></a><a id="ExecutorScheduler:ExecutorScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ExecutorSchedulerextendsSchedulerServicewithReferenceSchedulerwithBatchingScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="An ExecutorScheduler is a class for building a
+SchedulerService
+out of a Java ExecutorService." href="ExecutorScheduler.html">
+              <span class="name">ExecutorScheduler</span>
+            </a><span class="result"> extends <a href="SchedulerService.html" class="extype" name="monix.execution.schedulers.SchedulerService">SchedulerService</a> with <a href="ReferenceScheduler.html" class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</a> with <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">An <a href="ExecutorScheduler.html" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a> is a class for building a
+<a href="SchedulerService.html" class="extype" name="monix.execution.schedulers.SchedulerService">SchedulerService</a>
+out of a Java <code>ExecutorService</code>.</p>
+    </li><li name="monix.execution.schedulers.ReferenceScheduler" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ReferenceSchedulerextendsScheduler"></a><a id="ReferenceScheduler:ReferenceScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ReferenceSchedulerextendsScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Helper for building a Scheduler." href="ReferenceScheduler.html">
+              <span class="name">ReferenceScheduler</span>
+            </a><span class="result"> extends <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Helper for building a <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Helper for building a <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>.</p><p>You can inherit from this class and provided a correct
+<a href="../Scheduler.html#scheduleOnce(initialDelay:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable" class="extmbr" name="monix.execution.Scheduler#scheduleOnce">scheduleOnce</a>
+you'll get <a href="../Scheduler.html#scheduleWithFixedDelay(initialDelay:Long,delay:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable" class="extmbr" name="monix.execution.Scheduler#scheduleWithFixedDelay">Scheduler.scheduleWithFixedDelay</a> and
+<a href="../Scheduler.html#scheduleAtFixedRate(initialDelay:Long,period:Long,unit:java.util.concurrent.TimeUnit,r:Runnable):monix.execution.Cancelable" class="extmbr" name="monix.execution.Scheduler#scheduleAtFixedRate">Scheduler.scheduleAtFixedRate</a> for free.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.SchedulerService" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="SchedulerServiceextendsScheduler"></a><a id="SchedulerService:SchedulerService"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#SchedulerServiceextendsScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A Scheduler type that provides
+methods for managing termination." href="SchedulerService.html">
+              <span class="name">SchedulerService</span>
+            </a><span class="result"> extends <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> type that provides
+methods for managing termination.</p><div class="fullcomment"><div class="comment cmt"><p>A <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> type that provides
+methods for managing termination.</p><p>A <code>SchedulerService</code> can be shut down, which will cause it to reject
+new tasks. The <code>shutdown</code> method allows previously submitted tasks to
+execute before terminating. The <code>awaitTermination</code> method allows
+waiting on all active tasks to finish.</p><p>Upon termination, an executor has no tasks actively executing, no tasks
+awaiting execution, and no new tasks can be submitted. An unused
+<code>SchedulerService</code> should be shut down to allow reclamation of
+its resources.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.StartAsyncBatchRunnable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="StartAsyncBatchRunnableextendsRunnablewithSerializablewithProduct"></a><a id="StartAsyncBatchRunnable:StartAsyncBatchRunnable"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#StartAsyncBatchRunnableextendsRunnablewithSerializablewithProduct" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="Forces a real asynchronous boundary before executing the
+given TrampolinedRunnable." href="StartAsyncBatchRunnable.html">
+              <span class="name">StartAsyncBatchRunnable</span>
+            </a><span class="params">(<span name="start">start: <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a></span>, <span name="s">s: <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result"> extends <span class="extype" name="java.lang.Runnable">Runnable</span> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Product" class="extype" target="_top">Product</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Forces a real asynchronous boundary before executing the
+given <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Forces a real asynchronous boundary before executing the
+given <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>.</p><p>Sometimes you want to execute multiple <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>
+instances as a batch, with the functionality provided by
+schedulers implementing <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a>,
+however you might need the very first execution to force an
+asynchronous boundary.
+</p></div><dl class="paramcmts block"><dt class="param">start</dt><dd class="cmt"><p>is the <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a> instance that will get
+       executed and that is supposed to trigger the execution of
+       other trampolined runnables</p></dd><dt class="param">s</dt><dd class="cmt"><p>is the scheduler that gets used for execution.</p></dd></dl></div>
+    </li><li name="monix.execution.schedulers.TestScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TestSchedulerextendsReferenceSchedulerwithBatchingScheduler"></a><a id="TestScheduler:TestScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TestSchedulerextendsReferenceSchedulerwithBatchingScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A scheduler meant for testing purposes." href="TestScheduler.html">
+              <span class="name">TestScheduler</span>
+            </a><span class="result"> extends <a href="ReferenceScheduler.html" class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</a> with <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A scheduler meant for testing purposes.</p>
+    </li><li name="monix.execution.schedulers.TrampolineExecutionContext" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TrampolineExecutionContextextendsExecutionContext"></a><a id="TrampolineExecutionContext:TrampolineExecutionContext"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TrampolineExecutionContextextendsExecutionContext" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A scala.concurrentExecutionContext implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation." href="TrampolineExecutionContext.html">
+              <span class="name">TrampolineExecutionContext</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.concurrent.ExecutionContext" class="extype" target="_top">ExecutionContext</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A <code>scala.concurrentExecutionContext</code> implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.</p><div class="fullcomment"><div class="comment cmt"><p>A <code>scala.concurrentExecutionContext</code> implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.</p><p>Can be used in some cases to keep the asynchronous execution
+on the current thread, as an optimization, but be warned,
+you have to know what you're doing.</p><p>The <code>TrampolineExecutionContext</code> keeps a reference to another
+<code>underlying</code> context, to which it defers for:</p><ul><li>reporting errors</li><li>deferring the rest of the queue in problematic situations</li></ul><p>Deferring the rest of the queue happens:</p><ul><li>in case we have a runnable throwing an exception, the rest
+   of the tasks get re-scheduled for execution by using
+   the <code>underlying</code> context</li><li>in case we have a runnable triggering a Scala <code>blocking</code>
+   context, the rest of the tasks get re-scheduled for execution
+   on the <code>underlying</code> context to prevent any deadlocks</li></ul><p>Thus this implementation is compatible with the
+<code>scala.concurrent.BlockContext</code>, detecting <code>blocking</code> blocks and
+reacting by forking the rest of the queue to prevent deadlocks.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.TrampolineScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TrampolineSchedulerextendsScheduler"></a><a id="TrampolineScheduler:TrampolineScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TrampolineSchedulerextendsScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A Scheduler implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation." href="TrampolineScheduler.html">
+              <span class="name">TrampolineScheduler</span>
+            </a><span class="result"> extends <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.</p><div class="fullcomment"><div class="comment cmt"><p>A <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementation
+that executes runnables immediately, on the current thread,
+by means of a trampoline implementation.</p><p>Can be used in some cases to keep the asynchronous execution
+on the current thread, as an optimization, but be warned,
+you have to know what you're doing.</p><p>The <code>TrampolineScheduler</code> keeps a reference to another
+<code>underlying</code> scheduler, to which it defers for:</p><ul><li>reporting errors</li><li>time-delayed execution</li><li>deferring the rest of the queue in problematic situations</li></ul><p>Deferring the rest of the queue happens:</p><ul><li>in case we have a runnable throwing an exception, the rest
+   of the tasks get re-scheduled for execution by using
+   the <code>underlying</code> scheduler</li><li>in case we have a runnable triggering a Scala <code>blocking</code>
+   context, the rest of the tasks get re-scheduled for execution
+   on the <code>underlying</code> scheduler to prevent any deadlocks</li></ul><p>Thus this implementation is compatible with the
+<code>scala.concurrent.BlockContext</code>, detecting <code>blocking</code> blocks and
+reacting by forking the rest of the queue to prevent deadlocks.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.TrampolinedRunnable" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="TrampolinedRunnableextendsRunnablewithOnCompleteRunnable"></a><a id="TrampolinedRunnable:TrampolinedRunnable"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TrampolinedRunnableextendsRunnablewithOnCompleteRunnable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A marker for callbacks that can be batched and executed
+locally (on the current thread) by means of a trampoline
+(if the execution context / scheduler allows it)." href="TrampolinedRunnable.html">
+              <span class="name">TrampolinedRunnable</span>
+            </a><span class="result"> extends <span class="extype" name="java.lang.Runnable">Runnable</span> with <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.concurrent.OnCompleteRunnable" class="extype" target="_top">OnCompleteRunnable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A marker for callbacks that can be batched and executed
+locally (on the current thread) by means of a trampoline
+(if the execution context / scheduler allows it).</p><div class="fullcomment"><div class="comment cmt"><p>A marker for callbacks that can be batched and executed
+locally (on the current thread) by means of a trampoline
+(if the execution context / scheduler allows it).</p><p>Idea was taken from the <code>scala.concurrent.Future</code>
+implementation. Credit should be given where due.</p><p>DO NOT use unless you know what you're doing.
+</p></div></div>
+    </li><li name="monix.execution.schedulers.ExecutionModel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ExecutionModel=monix.execution.ExecutionModel"></a><a id="ExecutionModel:ExecutionModel"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ExecutionModel=monix.execution.ExecutionModel" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.1.3) Moved to monix.execution.ExecutionModel">ExecutionModel</span><span class="result alias"> = <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">execution.ExecutionModel</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Deprecated.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated. Moved to <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">monix.execution.ExecutionModel</a>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.1.3)</i> Moved to <code>monix.execution.ExecutionModel</code></p></dd></dl></div>
+    </li><li name="monix.execution.schedulers.LocalBatchingExecutor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LocalBatchingExecutor=monix.execution.schedulers.BatchingScheduler"></a><a id="LocalBatchingExecutor:LocalBatchingExecutor"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#LocalBatchingExecutor=monix.execution.schedulers.BatchingScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.1.0) Renamed to BatchingScheduler">LocalBatchingExecutor</span><span class="result alias"> = <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Deprecated.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated. Renamed to <a href="BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.1.0)</i> Renamed to <code>BatchingScheduler</code></p></dd></dl></div>
+    </li><li name="monix.execution.schedulers.LocalRunnable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LocalRunnable=monix.execution.schedulers.TrampolinedRunnable"></a><a id="LocalRunnable:LocalRunnable"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#LocalRunnable=monix.execution.schedulers.TrampolinedRunnable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 2.1.0) Renamed to TrampolinedRunnable">LocalRunnable</span><span class="result alias"> = <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Deprecated.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated. Renamed to <a href="TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.1.0)</i> Renamed to <code>TrampolinedRunnable</code></p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="monix.execution.schedulers.AsyncScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="AsyncScheduler"></a><a id="AsyncScheduler:AsyncScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#AsyncScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="AsyncScheduler$.html">
+              <span class="name">AsyncScheduler</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.ExecutorScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ExecutorScheduler"></a><a id="ExecutorScheduler:ExecutorScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ExecutorScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ExecutorScheduler$.html">
+              <span class="name">ExecutorScheduler</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.ReferenceScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ReferenceScheduler"></a><a id="ReferenceScheduler:ReferenceScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ReferenceScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ReferenceScheduler$.html">
+              <span class="name">ReferenceScheduler</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.SchedulerService" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SchedulerService"></a><a id="SchedulerService:SchedulerService"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#SchedulerService" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="SchedulerService$.html">
+              <span class="name">SchedulerService</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.TestScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TestScheduler"></a><a id="TestScheduler:TestScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TestScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="TestScheduler$.html">
+              <span class="name">TestScheduler</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.TrampolineExecutionContext" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TrampolineExecutionContext"></a><a id="TrampolineExecutionContext:TrampolineExecutionContext"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TrampolineExecutionContext" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="TrampolineExecutionContext$.html">
+              <span class="name">TrampolineExecutionContext</span>
+            </a>
+      </span>
+      
+      
+    </li><li name="monix.execution.schedulers.TrampolineScheduler" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TrampolineScheduler"></a><a id="TrampolineScheduler:TrampolineScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#TrampolineScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="TrampolineScheduler$.html">
+              <span class="name">TrampolineScheduler</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      
+    </li>
+              </ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="monix.execution.schedulers.ExecutionModel" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ExecutionModel"></a><a id="ExecutionModel:ExecutionModel"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/index.html#ExecutionModel" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Deprecated." href="package$$ExecutionModel$.html">
+              <span class="name deprecated" title="Deprecated: (Since version 2.1.3) Moved to monix.execution.ExecutionModel">ExecutionModel</span>
+            </a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Serializable" class="extype" target="_top">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Deprecated.</p><div class="fullcomment"><div class="comment cmt"><p>Deprecated. Moved to <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">monix.execution.ExecutionModel</a>.</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 2.1.3)</i> Moved to <code>monix.execution.ExecutionModel</code></p></dd></dl></div>
+    </li></ol>
+            </div>
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.AnyRef" class="extype" target="_top">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.1/index.html#scala.Any" class="extype" target="_top">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

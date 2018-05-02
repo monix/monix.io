@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>I'm Monix.io, Help Wanted!</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="I'm Monix.io, Help Wanted!" />
+  <meta name="twitter:description" content="We've come a long way and now the library is better than ever but there's much to do." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/05/19/help-wanted.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="I'm Monix.io, Help Wanted!" />
+  <meta property="og:description" content="We've come a long way and now the library is better than ever but there's much to do." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">I'm Monix.io, Help Wanted!</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-05-19">
+    19 May 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p><a href="https://github.com/monix/monix">Monix</a> was started in 2014 with the
+purpose of aiding me in dealing with processing asynchronous events in
+a soft real-time system. We’ve come a long way and now the library is
+better than ever but there’s much to do.</p>
+
+<!--more-->
+
+<p>At the time we were using <a href="http://doc.akka.io/">Akka Actors</a> for
+communications and it soon became apparent that it’s not enough,
+because often in such a system you’ve got signals coming from
+multiple sources that need to be merged, state machines have to
+be evolved and Akka Actors are too low level and too powerful,
+easily leading to cycles in your communications graph, easily
+making the flow so complex that it makes it hard to understand
+what’s going on. And another problem is that working with
+Akka Actors efficiently must be done with the wisdom of others,
+best practices, patterns that are sadly missing in the Scala
+community.</p>
+
+<p>At the time I looked for alternatives and stumbled upon
+<a href="http://reactivex.io/">ReactiveX / RxJava</a>. A very solid library
+built on top of a really cool model, but unfortunately at
+that point we needed to handle back-pressure and the Scala
+integration wasn’t there and so at that point in time it
+wasn’t suitable for our needs. Even now their 1.x line has
+limitations and design choices that I don’t like. But granted,
+it’s a very solid library, I’m very grateful for their
+work and I keep getting inspired by them. And I’ve also been
+inspired by <a href="https://github.com/scalaz/scalaz">Scalaz</a> and by
+<a href="https://github.com/non/cats">Cats</a>. The community is simply
+great and filled with awesome projects from which to draw
+inspiration.</p>
+
+<p>Monix has evolved with the help of myself and my colleagues
+in response to the needs of the project we’ve been working on,
+functioning in a very demanding environment. And now in version 2
+it expanded beyond the <code class="highlighter-rouge">Observable</code> pattern, to provide other needed
+abstractions like <code class="highlighter-rouge">Task</code>. It also works on top of <a href="scala-js.org">Scala.js</a>,
+all of it. If something cannot be supported on top of Javascript engines,
+then it won’t make it in Monix. Monix’s purpose is to make asynchronous
+programming easier and  is build in an idiomatic Scala style. I was asked
+for example if Monix supports Java and I said: <em>no, not at this point</em>.</p>
+
+<p>And here we are. Monix has been my love child and I’ve loved every
+minute of working on it. But it has to keep evolving. And one problem
+it has is one of documentation. It has great API documentation, mind you,
+but it needs more than that.</p>
+
+<p>So here it is, the start of <a href="https://monix.io">Monix.io</a>, its documentation
+website, which I hope to evolve into a useful resource.</p>
+
+<p><strong>HELP WANTED:</strong> if you like Monix, if you’re using it, please help us
+write some useful docs for it. You can start by being inspired from
+<a href="http://reactivex.io/">reactivex.io</a>. Oh yes, the inspiration continues,
+we are a big community ;-)</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-05-19-help-wanted.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

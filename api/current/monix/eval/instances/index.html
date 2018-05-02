@@ -1,0 +1,519 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-RC1 - monix.eval.instances</title>
+          <meta name="description" content="Monix 3.0.0 - RC1 - monix.eval.instances" />
+          <meta name="keywords" content="Monix 3.0.0 RC1 monix.eval.instances" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../../lib/index.js"></script>
+      <script type="text/javascript" src="../../../index.js"></script>
+      <script type="text/javascript" src="../../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="../../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="../index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.eval" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval"></a><a id="eval:eval"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#eval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">eval</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.eval.instances" visbl="pub" class="indented3 current" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="instances"></a><a id="instances:instances"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#instances" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">instances</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.eval">eval</a></dd></dl></div>
+    </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsAsyncForTask.html" title="Cats type class instance of Task for  cats.effect.Async and CoflatMap (and implicitly for Applicative, Monad, MonadError, etc)."></a>
+                        <a href="CatsAsyncForTask.html" title="Cats type class instance of Task for  cats.effect.Async and CoflatMap (and implicitly for Applicative, Monad, MonadError, etc).">CatsAsyncForTask</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsBaseForTask.html" title="Cats type class instances for Task for  cats.MonadError and CoflatMap (and implicitly for Applicative, Monad, etc)."></a>
+                        <a href="CatsBaseForTask.html" title="Cats type class instances for Task for  cats.MonadError and CoflatMap (and implicitly for Applicative, Monad, etc).">CatsBaseForTask</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsConcurrentEffectForTask.html" title="Cats type class instances of Task for cats.effect.ConcurrentEffect."></a>
+                        <a href="CatsConcurrentEffectForTask.html" title="Cats type class instances of Task for cats.effect.ConcurrentEffect.">CatsConcurrentEffectForTask</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="CatsConcurrentForTask$.html" title="Default and reusable instance for CatsConcurrentForTask."></a>
+                        <a class="class" href="CatsConcurrentForTask.html" title="Cats type class instance of Task for  cats.effect.Concurrent."></a>
+                        <a href="CatsConcurrentForTask.html" title="Cats type class instance of Task for  cats.effect.Concurrent.">CatsConcurrentForTask</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsEffectForTask.html" title="Cats type class instances of Task for cats.effect.Effect (and implicitly for Applicative, Monad, MonadError, Sync, etc)."></a>
+                        <a href="CatsEffectForTask.html" title="Cats type class instances of Task for cats.effect.Effect (and implicitly for Applicative, Monad, MonadError, Sync, etc).">CatsEffectForTask</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsMonadToMonoid.html" title="Given that A has a cats.Semigroup implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.Monad."></a>
+                        <a href="CatsMonadToMonoid.html" title="Given that A has a cats.Semigroup implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.Monad.">CatsMonadToMonoid</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CatsMonadToSemigroup.html" title="Given that A has a cats.Monoid implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.effect.Sync."></a>
+                        <a href="CatsMonadToSemigroup.html" title="Given that A has a cats.Monoid implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.effect.Sync.">CatsMonadToSemigroup</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="CatsParallelForTask$.html" title=""></a>
+                        <a class="class" href="CatsParallelForTask.html" title="cats.Parallel type class instance for Task."></a>
+                        <a href="CatsParallelForTask.html" title="cats.Parallel type class instance for Task.">CatsParallelForTask</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="CatsSyncForCoeval$.html" title="Default and reusable instance for CatsSyncForCoeval."></a>
+                        <a class="class" href="CatsSyncForCoeval.html" title="Cats type class instances for Coeval."></a>
+                        <a href="CatsSyncForCoeval.html" title="Cats type class instances for Coeval.">CatsSyncForCoeval</a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="package value">
+      <div id="definition">
+        <div class="big-circle package">p</div>
+        <p id="owner"><a href="../../index.html" class="extype" name="monix">monix</a>.<a href="../index.html" class="extype" name="monix.eval">eval</a></p>
+        <h1>instances<span class="permalink">
+      <a href="../../../monix/eval/instances/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">instances</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              
+            </ol>
+          </div>
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.eval.instances.CatsAsyncForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsAsyncForTaskextendsCatsBaseForTaskwithAsync[monix.eval.Task]"></a><a id="CatsAsyncForTask:CatsAsyncForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsAsyncForTaskextendsCatsBaseForTaskwithAsync[monix.eval.Task]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instance of Task for  cats.effect.Async and CoflatMap (and implicitly for Applicative, Monad, MonadError, etc)." href="CatsAsyncForTask.html"><span class="name">CatsAsyncForTask</span></a><span class="result"> extends <a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> with <span class="extype" name="cats.effect.Async">Async</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instance of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.effect.Async</code> and <code>CoflatMap</code> (and implicitly for
+<code>Applicative</code>, <code>Monad</code>, <code>MonadError</code>, etc).</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instance of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.effect.Async</code> and <code>CoflatMap</code> (and implicitly for
+<code>Applicative</code>, <code>Monad</code>, <code>MonadError</code>, etc).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsBaseForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]"></a><a id="CatsBaseForTask:CatsBaseForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instances for Task for  cats.MonadError and CoflatMap (and implicitly for Applicative, Monad, etc)." href="CatsBaseForTask.html"><span class="name">CatsBaseForTask</span></a><span class="result"> extends <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>] with <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instances for <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.MonadError</code> and <code>CoflatMap</code> (and implicitly for
+<code>Applicative</code>, <code>Monad</code>, etc).</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instances for <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.MonadError</code> and <code>CoflatMap</code> (and implicitly for
+<code>Applicative</code>, <code>Monad</code>, etc).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsConcurrentEffectForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsConcurrentEffectForTaskextendsCatsEffectForTaskwithConcurrentEffect[monix.eval.Task]"></a><a id="CatsConcurrentEffectForTask:CatsConcurrentEffectForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsConcurrentEffectForTaskextendsCatsEffectForTaskwithConcurrentEffect[monix.eval.Task]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instances of Task for cats.effect.ConcurrentEffect." href="CatsConcurrentEffectForTask.html"><span class="name">CatsConcurrentEffectForTask</span></a><span class="result"> extends <a href="CatsEffectForTask.html" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> with <span class="extype" name="cats.effect.ConcurrentEffect">ConcurrentEffect</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instances of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> for
+<code>cats.effect.ConcurrentEffect</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instances of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> for
+<code>cats.effect.ConcurrentEffect</code>.</p><p>Note this is a separate class from <a href="CatsConcurrentForTask.html" class="extype" name="monix.eval.instances.CatsConcurrentForTask">CatsConcurrentForTask</a>, because
+we need an implicit <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> in scope
+in order to trigger the execution of a <code>Task</code>. However we cannot
+inherit directly from <code>CatsConcurrentForTask</code>, because it would create
+conflicts due to that one having a higher priority but being a
+super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsConcurrentForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsConcurrentForTaskextendsCatsAsyncForTaskwithConcurrent[monix.eval.Task]"></a><a id="CatsConcurrentForTask:CatsConcurrentForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsConcurrentForTaskextendsCatsAsyncForTaskwithConcurrent[monix.eval.Task]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instance of Task for  cats.effect.Concurrent." href="CatsConcurrentForTask.html"><span class="name">CatsConcurrentForTask</span></a><span class="result"> extends <a href="CatsAsyncForTask.html" class="extype" name="monix.eval.instances.CatsAsyncForTask">CatsAsyncForTask</a> with <span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instance of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.effect.Concurrent</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instance of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
+for  <code>cats.effect.Concurrent</code>.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsEffectForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsEffectForTaskextendsCatsBaseForTaskwithEffect[monix.eval.Task]"></a><a id="CatsEffectForTask:CatsEffectForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsEffectForTaskextendsCatsBaseForTaskwithEffect[monix.eval.Task]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instances of Task for cats.effect.Effect (and implicitly for Applicative, Monad, MonadError, Sync, etc)." href="CatsEffectForTask.html"><span class="name">CatsEffectForTask</span></a><span class="result"> extends <a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> with <span class="extype" name="cats.effect.Effect">Effect</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instances of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> for
+<code>cats.effect.Effect</code> (and implicitly for <code>Applicative</code>, <code>Monad</code>,
+<code>MonadError</code>, <code>Sync</code>, etc).</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instances of <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> for
+<code>cats.effect.Effect</code> (and implicitly for <code>Applicative</code>, <code>Monad</code>,
+<code>MonadError</code>, <code>Sync</code>, etc).</p><p>Note this is a separate class from <a href="CatsAsyncForTask.html" class="extype" name="monix.eval.instances.CatsAsyncForTask">CatsAsyncForTask</a>, because we
+need an implicit <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> in scope
+in order to trigger the execution of a <code>Task</code>. However we cannot
+inherit directly from <code>CatsAsyncForTask</code>, because it would create
+conflicts due to that one having a higher priority but being a
+super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsMonadToMonoid" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsMonadToMonoid[F[_],A]extendsCatsMonadToSemigroup[F,A]withcats.Monoid[F[A]]"></a><a id="CatsMonadToMonoid[F[_],A]:CatsMonadToMonoid[F,A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsMonadToMonoid[F[_],A]extendsCatsMonadToSemigroup[F,A]withcats.Monoid[F[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Given that A has a cats.Semigroup implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.Monad." href="CatsMonadToMonoid.html"><span class="name">CatsMonadToMonoid</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="CatsMonadToSemigroup.html" class="extype" name="monix.eval.instances.CatsMonadToSemigroup">CatsMonadToSemigroup</a>[<span class="extype" name="monix.eval.instances.CatsMonadToMonoid.F">F</span>, <span class="extype" name="monix.eval.instances.CatsMonadToMonoid.A">A</span>] with <span class="extype" name="cats.Monoid">Monoid</span>[<span class="extype" name="monix.eval.instances.CatsMonadToMonoid.F">F</span>[<span class="extype" name="monix.eval.instances.CatsMonadToMonoid.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given that <code>A</code> has a <code>cats.Semigroup</code> implementation, this
+builds a <code>Semigroup[F[A]]</code> instance for any <code>F[_]</code> data type
+that implements <code>cats.Monad</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Given that <code>A</code> has a <code>cats.Semigroup</code> implementation, this
+builds a <code>Semigroup[F[A]]</code> instance for any <code>F[_]</code> data type
+that implements <code>cats.Monad</code>.</p><p>Used for both <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">monix.eval.Coeval</a>.</p><p>NOTE: nothing in this implementation is specific to Monix or to
+<code>cats-effect</code>, but these instances are not provided by default
+by Cats for any monad, probably because they aren't useful
+for every monad.
+</p></div></div>
+    </li><li name="monix.eval.instances.CatsMonadToSemigroup" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsMonadToSemigroup[F[_],A]extendscats.Semigroup[F[A]]"></a><a id="CatsMonadToSemigroup[F[_],A]:CatsMonadToSemigroup[F,A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsMonadToSemigroup[F[_],A]extendscats.Semigroup[F[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Given that A has a cats.Monoid implementation, this builds a Semigroup[F[A]] instance for any F[_] data type that implements cats.effect.Sync." href="CatsMonadToSemigroup.html"><span class="name">CatsMonadToSemigroup</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="cats.Semigroup">Semigroup</span>[<span class="extype" name="monix.eval.instances.CatsMonadToSemigroup.F">F</span>[<span class="extype" name="monix.eval.instances.CatsMonadToSemigroup.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given that <code>A</code> has a <code>cats.Monoid</code> implementation, this builds
+a <code>Semigroup[F[A]]</code> instance for any <code>F[_]</code> data type that
+implements <code>cats.effect.Sync</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Given that <code>A</code> has a <code>cats.Monoid</code> implementation, this builds
+a <code>Semigroup[F[A]]</code> instance for any <code>F[_]</code> data type that
+implements <code>cats.effect.Sync</code>.</p><p>Used for both <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">monix.eval.Coeval</a>.</p><p>NOTE: nothing in this implementation is specific to Monix or to
+<code>cats-effect</code>, but these instances are not provided by default
+by Cats for any monad, probably because they aren't useful
+for every monad.
+</p></div></div>
+    </li><li name="monix.eval.instances.CatsParallelForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsParallelForTaskextendsParallel[monix.eval.Task,monix.eval.Task.Par]"></a><a id="CatsParallelForTask:CatsParallelForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsParallelForTaskextendsParallel[monix.eval.Task,monix.eval.Task.Par]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="cats.Parallel type class instance for Task." href="CatsParallelForTask.html"><span class="name">CatsParallelForTask</span></a><span class="result"> extends <a href="http://typelevel.org/cats/api/cats/Parallel.html#cats.Parallel" class="extype" name="cats.Parallel">Parallel</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../Task$.html#Par[+A]=TaskParallelNewtype.this.Par.Type[A]" class="extmbr" name="monix.eval.Task.Par">Task.Par</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><code>cats.Parallel</code> type class instance for <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><div class="fullcomment"><div class="comment cmt"><p><code>cats.Parallel</code> type class instance for <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><p>A <code>cats.Parallel</code> instances means that <code>Task</code> can be used for
+processing tasks in parallel (with non-deterministic effects
+ordering).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li><li name="monix.eval.instances.CatsSyncForCoeval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]"></a><a id="CatsSyncForCoeval:CatsSyncForCoeval"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Cats type class instances for Coeval." href="CatsSyncForCoeval.html"><span class="name">CatsSyncForCoeval</span></a><span class="result"> extends <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Cats type class instances for <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instances for <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p>As can be seen the implemented type classes are for now
+<code>cats.effect.Sync</code> and <code>CoflatMap</code>. Notably missing is
+the <code>Comonad</code> type class, which <code>Coeval</code> should never
+implement.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
+</li></ul></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="monix.eval.instances.CatsConcurrentForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsConcurrentForTask"></a><a id="CatsConcurrentForTask:CatsConcurrentForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsConcurrentForTask" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Default and reusable instance for CatsConcurrentForTask." href="CatsConcurrentForTask$.html"><span class="name">CatsConcurrentForTask</span></a><span class="result"> extends <a href="CatsConcurrentForTask.html" class="extype" name="monix.eval.instances.CatsConcurrentForTask">CatsConcurrentForTask</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Default and reusable instance for <a href="CatsConcurrentForTask.html" class="extype" name="monix.eval.instances.CatsConcurrentForTask">CatsConcurrentForTask</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Default and reusable instance for <a href="CatsConcurrentForTask.html" class="extype" name="monix.eval.instances.CatsConcurrentForTask">CatsConcurrentForTask</a>.</p><p>Globally available in scope, as it is returned by
+<a href="../Task$.html#catsAsync:monix.eval.instances.CatsConcurrentForTask" class="extmbr" name="monix.eval.Task#catsAsync">Task.catsAsync</a>.
+</p></div></div>
+    </li><li name="monix.eval.instances.CatsParallelForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CatsParallelForTask"></a><a id="CatsParallelForTask:CatsParallelForTask"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsParallelForTask" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CatsParallelForTask$.html"><span class="name">CatsParallelForTask</span></a><span class="result"> extends <a href="CatsParallelForTask.html" class="extype" name="monix.eval.instances.CatsParallelForTask">CatsParallelForTask</a></span>
+      </span>
+      
+      
+    </li><li name="monix.eval.instances.CatsSyncForCoeval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CatsSyncForCoeval"></a><a id="CatsSyncForCoeval:CatsSyncForCoeval"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsSyncForCoeval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Default and reusable instance for CatsSyncForCoeval." href="CatsSyncForCoeval$.html"><span class="name">CatsSyncForCoeval</span></a><span class="result"> extends <a href="CatsSyncForCoeval.html" class="extype" name="monix.eval.instances.CatsSyncForCoeval">CatsSyncForCoeval</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Default and reusable instance for <a href="CatsSyncForCoeval.html" class="extype" name="monix.eval.instances.CatsSyncForCoeval">CatsSyncForCoeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Default and reusable instance for <a href="CatsSyncForCoeval.html" class="extype" name="monix.eval.instances.CatsSyncForCoeval">CatsSyncForCoeval</a>.</p><p>Globally available in scope, as it is returned by
+<a href="../Coeval$.html#catsSync:monix.eval.instances.CatsSyncForCoeval" class="extmbr" name="monix.eval.Coeval#catsSync">Coeval.catsSync</a>.
+</p></div></div>
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

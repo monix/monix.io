@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>ScalaDays 2017 — Monix Task: Lazy, Async &amp; Awesome</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="ScalaDays 2017 — Monix Task: Lazy, Async &amp; Awesome" />
+  <meta name="twitter:description" content="Presentation from ScalaDays 2017, about the Monix Task, a data type for dealing with asynchronous processing and side-effects." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/presentations/2017-task-scaladays" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ScalaDays 2017 — Monix Task: Lazy, Async &amp; Awesome" />
+  <meta property="og:description" content="Presentation from ScalaDays 2017, about the Monix Task, a data type for dealing with asynchronous processing and side-effects." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">ScalaDays 2017 — Monix Task: Lazy, Async &amp; Awesome</h1>
+
+  <p>Presentation from <a href="https://scaladays.org/archive/copenhagen2017.html">ScalaDays 2017</a>
+by <a href="https://twitter.com/alexelcu">@alexelcu</a>:</p>
+
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/wi97X8_JQUk?rel=0" frameborder="0" class="presentation" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+
+<p>Media:</p>
+
+<ul>
+  <li><a href="/public/pdfs/Monix-Task-ScalaDays2017.pdf">Slides (PDF file)</a></li>
+  <li><a href="https://www.youtube.com/watch?v=wi97X8_JQUk">Video (YouTube)</a></li>
+</ul>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Scala’s <code class="highlighter-rouge">Future</code> from the standard library is great, but sometimes we need more. A <code class="highlighter-rouge">Future</code> strives to be a value, one detached from time and for this reason its capabilities are restricted and for some use-cases its behavior ends up being unintuitive. Therefore, while the Future/Promise pattern is great for representing asynchronous results of processes that may or may not be started yet, it cannot be used as a specification for an asynchronous computation.</p>
+
+<p>The Monix <code class="highlighter-rouge">Task</code> is in essence about dealing with asynchronous computations and non-determinism, being inspired by the Scalaz Task and designed from the ground up for performance and to be compatible with Scala.js/JavaScript runtimes and with the Cats library. It also makes use of Scala’s Future to represent results, the two being complementary.</p>
+
+<p>In this talk I’ll show you its design, when you should use it and why in dealing with asynchrony it’s better to work with Task instead of blocking threads.</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2017-task-scaladays.md">
+      Edit Page</a> •
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

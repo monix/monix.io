@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.1.2</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.1.2" />
+  <meta name="twitter:description" content="Bug fix for Observable.bufferSliding, upgrade to Scala 2.12.1" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/12/19/monix-v2.1.2.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.1.2" />
+  <meta property="og:description" content="Bug fix for Observable.bufferSliding, upgrade to Scala 2.12.1" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.1.2</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-12-19">
+    19 Dec 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>Greetings,</p>
+
+<p>Version <code class="highlighter-rouge">2.1.2</code> is out now.</p>
+
+<p>It is a minor release, binary compatible with <code class="highlighter-rouge">2.1.x</code>,
+upgrading Scala to <code class="highlighter-rouge">2.12.1</code> and fixing a bug in <code class="highlighter-rouge">Observable.bufferSliding</code>.
+See <a href="https://github.com/monix/monix/issues/275">Bug #275</a>.</p>
+
+<!--more-->
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
+<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.1.2"</span>
+</code></pre></div></div>
+
+<p>The other projects from the <a href="https://github.com/monix">@Monix</a> organization 
+have also been upgraded to depend on this new version.</p>
+
+<p><strong><a href="https://github.com/monix/shade">shade</a></strong>, the Scala Memcached client:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"shade"</span> <span class="o">%</span> <span class="s">"1.8.1"</span>
+</code></pre></div></div>
+
+<p><strong><a href="https://github.com/monix/monix-kafka">monix-kafka</a></strong>, the Apache Kafka 
+integration:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.8"</span>
+
+<span class="c1">// For Kafka 9
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.8"</span>
+
+<span class="c1">// For Kafka 10
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.8"</span>
+</code></pre></div></div>
+
+<p>Enjoy!</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-12-19-monix-v2.1.2.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

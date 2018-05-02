@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.2.1 Final Release</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.2.1 Final Release" />
+  <meta name="twitter:description" content="MVar, SchedulerService, performance improvements, Cats 0.9.0" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2017/01/26/monix-v2.2.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.2.1 Final Release" />
+  <meta property="og:description" content="MVar, SchedulerService, performance improvements, Cats 0.9.0" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.2.1 Final Release</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2017-01-26">
+    26 Jan 2017
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <p>Version <code class="highlighter-rouge">2.2.1</code> is out now.</p>
+
+<p>It is a major release that shouldn’t be considered binary compatible with <code class="highlighter-rouge">2.1.x</code>,
+even though it is source compatible. This is due to several operators being
+changed in <code class="highlighter-rouge">Observable</code> and <code class="highlighter-rouge">Task</code>, but extension methods are provided for the older
+versions, therefore source compatibility is maintained.</p>
+
+<p>As a summary: the new <code class="highlighter-rouge">MVar</code> synchronization primitive, performance improvements
+in <code class="highlighter-rouge">Observable.concatMap</code> and in the <code class="highlighter-rouge">Task</code> run-loop, new <code class="highlighter-rouge">SchedulerService</code>
+interface for shutting down schedulers, bug fixes and upgrade to Cats 0.9.0.
+See details below.</p>
+
+<!--more-->
+
+<h3 id="new-synchronization-primitive-monixevalmvar">New Synchronization Primitive: monix.eval.MVar</h3>
+
+<p>The <code class="highlighter-rouge">MVar</code> is a new synchronization primitive, a mutable location that can
+be empty or contains a value, asynchronously blocking reads when empty and
+blocking writes when full.</p>
+
+<p>Use-cases:</p>
+
+<ol>
+  <li>As synchronized, thread-safe mutable variables</li>
+  <li>As channels, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “receive” and “send”</li>
+  <li>As a binary semaphore, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “acquire” and “release”</li>
+</ol>
+
+<p>Read <a href="/docs/2x/eval/mvar.html">the tutorial</a> or the
+<a href="/api/2.3/monix/eval/MVar.html">api documentation</a>.</p>
+
+<h3 id="schedulerservice-for-shutting-down-schedulers">SchedulerService: for shutting down Schedulers</h3>
+
+<p>Sometimes there’s a need to create a temporary <code class="highlighter-rouge">Scheduler</code> whose resources
+need to be discarded. The new <code class="highlighter-rouge">SchedulerService</code> is a new interface that
+adds <code class="highlighter-rouge">shutdown</code> and <code class="highlighter-rouge">awaitTermination</code> methods to the base <code class="highlighter-rouge">Scheduler</code>,
+similar in spirit with <code class="highlighter-rouge">java.util.concurrent.ExecutorService</code>.</p>
+
+<p>Read
+<a href="/docs/2x/execution/scheduler.html#shutdown-with-schedulerservice">the tutorial</a>
+or the
+<a href="/api/2.3/monix/execution/schedulers/SchedulerService.html">api documentation</a>.</p>
+
+<h3 id="performance-improvements">Performance Improvements</h3>
+
+<p>The <code class="highlighter-rouge">Task</code> run-loop has suffered from a performance regression in version 2.1.x,
+due to safety reasons.</p>
+
+<p>In this new release I managed to eliminate that regression and right now
+the Monix Task has the best throughput among all the similar data type
+implementations in Scala land, see
+<a href="https://github.com/rossabaker/benchmarks/pull/4">github.com/rossabaker/benchmarks/pull/4</a>.</p>
+
+<p><code class="highlighter-rouge">Observable</code> also has performance improvements in <code class="highlighter-rouge">concatMap</code>, which is now
+using the <code class="highlighter-rouge">getAndSet</code> platform intrinsics from Java 8 to speed up the
+concurrency for the handling of <code class="highlighter-rouge">onComplete</code>. If you’re into JVM concurrency, the
+<a href="https://github.com/monix/monix/blob/v2.2.1/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/ConcatMapObservable.scala">implementation is beautiful</a> ;-)</p>
+
+<p>In addition to that, <code class="highlighter-rouge">Observable</code> has performance improvements for the
+<code class="highlighter-rouge">bufferSliding</code> operator, as it was revealed in a recent benchmark
+that it had terrible performance. Now it is fine :-)</p>
+
+<h3 id="all-issues">All Issues</h3>
+
+<p>The full list of changes (with descriptions below):</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/298">Issue #298</a>:
+Don’t publish empty jars in root projects</li>
+  <li><a href="https://github.com/monix/monix/pull/300">Issue #300</a>:
+Update to cats 0.9.0</li>
+  <li><a href="https://github.com/monix/monix/pull/301">Issue #301</a>:
+<code class="highlighter-rouge">MVar</code>, a non-blocking Task-based implementation</li>
+  <li><a href="https://github.com/monix/monix/issues/303">Issue #303</a>:
+Observable “doOn” operators refactoring</li>
+  <li><a href="https://github.com/monix/monix/issues/281">Issue #281</a>:
+Fix performance regression in <code class="highlighter-rouge">Task.flatMap</code></li>
+  <li><a href="https://github.com/monix/monix/issues/284">Issue #284</a>:
+Move <code class="highlighter-rouge">ExecutionModel</code> to <code class="highlighter-rouge">monix.execution</code></li>
+  <li><a href="https://github.com/monix/monix/issues/285">Issue #285</a>:
+Rename <code class="highlighter-rouge">Task.runAsync(f: Try[A] =&gt; Unit)</code> to <code class="highlighter-rouge">Task.runOnComplete</code></li>
+  <li><a href="https://github.com/monix/monix/issues/286">Issue #286</a>:
+Add <code class="highlighter-rouge">Task.runSyncMaybe</code></li>
+  <li><a href="https://github.com/monix/monix/issues/287">Issue #287</a>:
+Add <code class="highlighter-rouge">Scheduler.forkJoin</code> builder</li>
+  <li><a href="https://github.com/monix/monix/issues/266">Issue #266</a>:
+Add <code class="highlighter-rouge">SchedulerService</code> interface in <code class="highlighter-rouge">monix.execution.schedulers</code></li>
+  <li><a href="https://github.com/monix/monix/issues/288">Issue #288</a>:
+<code class="highlighter-rouge">Task.create</code> should not force async boundary</li>
+  <li><a href="https://github.com/monix/monix/issues/289">Issue #289</a>:
+<code class="highlighter-rouge">Observable.foreach</code> should not fork</li>
+  <li><a href="https://github.com/monix/monix/issues/291">Issue #291</a>:
+Add <code class="highlighter-rouge">Observable.takeEveryNth</code> operator</li>
+  <li><a href="https://github.com/monix/monix/issues/292">Issue #292</a>:
+Optimize <code class="highlighter-rouge">Observable.concatMap</code></li>
+  <li><a href="https://github.com/monix/monix/issues/294">Issue #294</a>:
+Optimize <code class="highlighter-rouge">Observable.bufferSliding</code></li>
+  <li><a href="https://github.com/monix/monix/issues/295">Issue #295</a>:
+Add <code class="highlighter-rouge">Observable.publishSelector</code>, <code class="highlighter-rouge">Observable.pipeThroughSelector</code></li>
+  <li><a href="https://github.com/monix/monix/issues/296">Issue #296</a>:
+Add <code class="highlighter-rouge">Task.deferFuture</code> builder</li>
+  <li><a href="https://github.com/monix/monix/pull/305">Issue #305</a>:
+Fix stack-overflow error in <code class="highlighter-rouge">MVar</code></li>
+</ul>
+
+<h3 id="upgrading">Upgrading</h3>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
+<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.2.1"</span>
+</code></pre></div></div>
+
+<p>The other projects from the <a href="https://github.com/monix">@Monix</a> organization
+have also been upgraded to depend on this new version.</p>
+
+<p><strong><a href="https://github.com/monix/shade">shade</a></strong>, the Scala Memcached client:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"shade"</span> <span class="o">%</span> <span class="s">"1.9.1"</span>
+</code></pre></div></div>
+
+<p><strong><a href="https://github.com/monix/monix-kafka">monix-kafka</a></strong>, the Apache Kafka
+integration:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.10"</span>
+
+<span class="c1">// For Kafka 9
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.10"</span>
+
+<span class="c1">// For Kafka 10
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.10"</span>
+</code></pre></div></div>
+
+<p>Enjoy!</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2017-01-26-monix-v2.2.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

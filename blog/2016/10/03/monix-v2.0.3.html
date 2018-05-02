@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.0.3 Released for Bug Fixing</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.0.3 Released for Bug Fixing" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/10/03/monix-v2.0.3.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.0.3 Released for Bug Fixing" />
+  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.0.3 Released for Bug Fixing</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-10-03">
+    03 Oct 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>This release is binary compatible with 2.0.x, being a bug fix release
+release for <a href="https://github.com/monix/monix/issues/230">Issue #230</a>:
+Deadlocks when blocking threads due to <code class="highlighter-rouge">LocalBatchingExecutor</code>
+(affects <code class="highlighter-rouge">Task</code> usage).</p>
+
+<!--more-->
+
+<p>Basically the implementation of
+<a href="https://github.com/monix/monix/blob/v2.0.3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/LocalBatchingExecutor.scala">LocalBatchingExecutor</a>
+assumed that the given <code class="highlighter-rouge">LocalRunnable</code> instances will not block
+the current thread. However there are clearly cases in which
+users and up blocking during a <code class="highlighter-rouge">LocalRunnable</code>. For example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">source2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">200</span><span class="o">).</span><span class="n">onErrorHandleWith</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+
+<span class="k">val</span> <span class="n">derived</span> <span class="k">=</span> <span class="n">source1</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
+  <span class="k">val</span> <span class="n">r</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">source2</span><span class="o">.</span><span class="n">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+  <span class="n">r</span> <span class="o">+</span> <span class="n">x</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">derived</span><span class="o">.</span><span class="n">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>This is clearly not idiomatic usage because
+<a href="/docs/2x/best-practices/blocking.html">blocking threads is evil</a>,
+however it does happen in code and it has to work. As can be seen in the
+<a href="https://github.com/monix/monix/commit/6effcba053c26edec5fa9d9e5844bf8148d9be57">committed fix</a>
+the JVM-specific implementation for the <code class="highlighter-rouge">LocalBatchingExecutor</code> now
+uses Scala’s <code class="highlighter-rouge">BlockContext</code> to workaround this limitation of our
+local trampoline.</p>
+
+<p>Enjoy!</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-10-03-monix-v2.0.3.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

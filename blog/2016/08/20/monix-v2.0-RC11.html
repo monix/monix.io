@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.0-RC11 Released</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.0-RC11 Released" />
+  <meta name="twitter:description" content="Task optimizations, bug fixes, zipWith rename" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/08/20/monix-v2.0-RC11.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.0-RC11 Released" />
+  <meta property="og:description" content="Task optimizations, bug fixes, zipWith rename" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525279722836453417">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525279722836453417">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.0-RC11 Released</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-08-20">
+    20 Aug 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>This release fixes one issue with <code class="highlighter-rouge">Task</code>, as it was discovered that
+<code class="highlighter-rouge">flatMap</code> loops aren’t automatically cancelable, a small
+oversight. Also <code class="highlighter-rouge">CompositeCancelable.remove</code> wasn’t working, a bug
+introduced in the previous release. Another bug that was fixed is in
+<code class="highlighter-rouge">Consumer.foldLeftAsync</code>, which wasn’t capturing errors properly.</p>
+
+<p>This release introduces a major refactoring of the <code class="highlighter-rouge">Task</code> internal
+workings of its trampoline, as a serious optimization. As an example
+of what this brings, the conversion from a <code class="highlighter-rouge">Future</code> with
+<code class="highlighter-rouge">Task.fromFuture</code> has near-zero overhead and the performance of
+<code class="highlighter-rouge">Task.gather</code> and <code class="highlighter-rouge">Task.gatherUnordered</code> has improved significantly.</p>
+
+<p>There are also breaking API changes, sorry about that, but these
+should come sooner rather than later, before marking 2.0 final. The
+<code class="highlighter-rouge">zipWith</code> (e.g. <code class="highlighter-rouge">zipWith2</code>, <code class="highlighter-rouge">zipWith3</code>) operators on <code class="highlighter-rouge">Task</code> and
+<code class="highlighter-rouge">Observable</code> and the <code class="highlighter-rouge">combineLatestWith</code> operators on <code class="highlighter-rouge">Observable</code>
+have been renamed to <code class="highlighter-rouge">zipMap</code> (e.g. <code class="highlighter-rouge">zipMap2</code>, etc) and
+<code class="highlighter-rouge">combineLatestMap</code> respectively. This because <code class="highlighter-rouge">zipMap</code> describes the
+operation much better and this name has also been used in the
+Typelevel Cats / Dogs libraries at least.</p>
+
+<!--more-->
+
+<p>See the published <a href="/api/2.0-RC11/">API Documentation</a>.</p>
+
+<p>Bug fixes:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/issues/207">Issue #207</a>: Task
+flatMap loop isn’t cancelable</li>
+  <li><a href="https://github.com/monix/monix/pull/210">Issue #210</a>: Fixed
+<code class="highlighter-rouge">CompositeCancelable.remove</code>, a bug introduced in the last release
+(RC10)</li>
+</ul>
+
+<p>Enhancements:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/208">Issue #208</a>: Uniquely
+name threads generated from ThreadFactory</li>
+  <li><a href="https://github.com/monix/monix/pull/210">Issue #210</a>: Refactorings
+for performance and coherence reasons, described below</li>
+</ul>
+
+<p>Issue #210 changes for the <code class="highlighter-rouge">monix-execution</code> sub-project:</p>
+
+<ul>
+  <li>introduced the <code class="highlighter-rouge">CallbackRunnable</code> interface for marking <code class="highlighter-rouge">Runnable</code>
+instances that could be executed on the current thread, on a local
+trampoline, as an optimization</li>
+  <li>introduced <code class="highlighter-rouge">LocalBatchingExecutor</code>, a mixin for schedulers that can
+execute <code class="highlighter-rouge">CallbackRunnable</code> locally, using a trampoline</li>
+  <li>made <code class="highlighter-rouge">AsyncScheduler</code> for the JVM be able to execute
+<code class="highlighter-rouge">CallbackRunnable</code> instances by inheriting from
+<code class="highlighter-rouge">LocalBatchingExecutor</code>; but not on top of Javascript</li>
+  <li>fixed critical bug in <code class="highlighter-rouge">CompositeCancelable</code> that was introduced in
+the last release</li>
+</ul>
+
+<p>Issue #210 changes for the <code class="highlighter-rouge">monix-eval</code> sub-project:</p>
+
+<ul>
+  <li>
+    <p>optimized <code class="highlighter-rouge">Task.fromFuture</code> to the point that it has near zero
+overhead</p>
+  </li>
+  <li>optimized <code class="highlighter-rouge">Task.gather</code>, <code class="highlighter-rouge">Task.gatherUnordered</code>, <code class="highlighter-rouge">Task.sequence</code></li>
+  <li><code class="highlighter-rouge">Task.gather</code> now forces asynchronous execution for the given tasks</li>
+  <li><code class="highlighter-rouge">Task.gatherUnordered</code> also forces asynchronous execution</li>
+  <li>optimized the <code class="highlighter-rouge">Task</code> trampoline in general</li>
+  <li>introduced <code class="highlighter-rouge">Callback.async</code> wrapper and <code class="highlighter-rouge">asyncApply</code> extension
+method</li>
+  <li>renamed <code class="highlighter-rouge">Task.zipWith</code> to <code class="highlighter-rouge">Task.zipMap</code> (rename across the board,
+also for <code class="highlighter-rouge">Observable</code>)</li>
+  <li>added <code class="highlighter-rouge">Task.executeOn</code> for overriding the <code class="highlighter-rouge">Scheduler</code></li>
+  <li>added <code class="highlighter-rouge">Task.fork</code> overload with a scheduler override</li>
+  <li>added <code class="highlighter-rouge">Task.async</code> as an alias of <code class="highlighter-rouge">Task.create</code></li>
+</ul>
+
+<p>Issue #210 changes for the <code class="highlighter-rouge">monix-types</code> sub-project:</p>
+
+<ul>
+  <li>moved all shims to <code class="highlighter-rouge">monix.types.shims</code>, in order to differentiate
+them from type-classes that are not shims</li>
+  <li>added the <code class="highlighter-rouge">Deferrable</code> type-class, to express lazy evaluation
+concerns (e.g. <code class="highlighter-rouge">evalOnce</code>, <code class="highlighter-rouge">evalAlways</code>, <code class="highlighter-rouge">defer</code>, <code class="highlighter-rouge">memoize</code>)</li>
+  <li>added the <code class="highlighter-rouge">Evaluable</code> type-class, for computations that will
+eventually produce a value</li>
+</ul>
+
+<p>Issue #210 changes for the <code class="highlighter-rouge">monix-reactive</code> project:</p>
+
+<ul>
+  <li>for <code class="highlighter-rouge">foldLeft</code> methods, make the seed be just a normal
+by-name parameter instead of a <code class="highlighter-rouge">Coeval</code>, because otherwise
+it isn’t compatible with other type-classes / interfaces</li>
+  <li>affected methods are <code class="highlighter-rouge">foldLeft</code>, <code class="highlighter-rouge">foldLeftAsync</code></li>
+  <li>rename <code class="highlighter-rouge">zipWith</code> to <code class="highlighter-rouge">zipMap</code></li>
+  <li>rename <code class="highlighter-rouge">combineLatestWith</code> to <code class="highlighter-rouge">combineLatestMap</code></li>
+  <li>add <code class="highlighter-rouge">Observable.fromAsyncStateAction</code></li>
+  <li>fix <code class="highlighter-rouge">Consumer.foldLeftAsync</code></li>
+</ul>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-08-20-monix-v2.0-RC11.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>
