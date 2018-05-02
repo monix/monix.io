@@ -1,0 +1,1209 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 2.3.3 - monix.eval.Coeval</title>
+          <meta name="description" content="Monix 2.3.3 - monix.eval.Coeval" />
+          <meta name="keywords" content="Monix 2.3.3 monix.eval.Coeval" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../lib/index.js"></script>
+      <script type="text/javascript" src="../../index.js"></script>
+      <script type="text/javascript" src="../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">2.3.3</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li></ul><p><b><a href="index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/exceptions/index.html" class="extype" name="monix.reactive.exceptions">monix.reactive.exceptions</a> groups some exceptions thrown by the implementation</li><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../types/index.html" class="extype" name="monix.types">monix.types</a></b> implements type-class shims, to be translated to
+type-classes provided by libraries such as
+<a href="http://typelevel.org/cats/" target="_blank">Cats</a> or <a href="http://scalaz.org/" target="_blank">Scalaz</a>.</p><p><b><a href="../cats/index.html" class="extype" name="monix.cats">monix.cats</a></b> is the optional integration with the
+<a href="http://typelevel.org/cats/" target="_blank">Cats</a> library, providing translations
+for the types described in <code>monix.types</code>.</p><p><b><a href="../scalaz/index.html" class="extype" name="monix.scalaz">monix.scalaz</a></b> is the optional integration with the
+<a href="http://scalaz.org/" target="_blank">Scalaz</a> library, providing translations
+for the types described in <code>monix.types</code>.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.eval" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval"></a><a id="eval:eval"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#eval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="index.html"><span class="name">eval</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li class="current-entities indented2">
+                        <a class="object" href="Callback$.html" title=""></a>
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation."></a>
+                        <a href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation.">Callback</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="" title=""></a>
+                        <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
+                        <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">Coeval</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains a value of type A.">MVar</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Task$.html" title=""></a>
+                        <a class="class" href="Task.html" title="Task represents a specification for a possibly lazy or asynchronous computation, which when executed will produce an A as a result, along with possible side-effects."></a>
+                        <a href="Task.html" title="Task represents a specification for a possibly lazy or asynchronous computation, which when executed will produce an A as a result, along with possible side-effects.">Task</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="TaskApp.html" title="Safe App type that runs a Task action."></a>
+                        <a href="TaskApp.html" title="Safe App type that runs a Task action.">TaskApp</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="TaskCircuitBreaker$.html" title=""></a>
+                        <a class="class" href="TaskCircuitBreaker.html" title="The TaskCircuitBreaker is used to provide stability and prevent cascading failures in distributed systems."></a>
+                        <a href="TaskCircuitBreaker.html" title="The TaskCircuitBreaker is used to provide stability and prevent cascading failures in distributed systems.">TaskCircuitBreaker</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="TaskSemaphore$.html" title=""></a>
+                        <a class="class" href="TaskSemaphore.html" title="The TaskSemaphore is an asynchronous semaphore implementation that limits the parallelism on task execution."></a>
+                        <a href="TaskSemaphore.html" title="The TaskSemaphore is an asynchronous semaphore implementation that limits the parallelism on task execution.">TaskSemaphore</a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="object value">
+      <div id="definition">
+        <a href="Coeval.html" title="See companion class"><div class="big-circle object-companion-class">o</div></a>
+        <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a>.<a href="index.html" class="extype" name="monix.eval">eval</a></p>
+        <h1><a href="Coeval.html" title="See companion class">Coeval</a><span class="permalink">
+      <a href="../../monix/eval/Coeval$.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        <h3><span class="morelinks"><div>
+            Companion <a href="Coeval.html" title="See companion class">class Coeval</a>
+          </div></span></h3>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <span class="name">Coeval</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v2.3.3/monix-eval/shared/src/main/scala/monix/eval/Coeval.scala" target="_blank">Coeval.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.eval.Coeval"><span>Coeval</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.eval.Coeval.Always" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Always[+A]extendsCoeval[A]withProductwithSerializable"></a><a id="Always[+A]:Always[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Always[+A]extendsCoeval[A]withProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="Constructs a lazy Coeval instance." href="Coeval$$Always.html"><span class="name">Always</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="params">(<span name="f">f: () ⇒ <span class="extype" name="monix.eval.Coeval.Always.A">A</span></span>)</span><span class="result"> extends <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.Always.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Constructs a lazy <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance.</p><div class="fullcomment"><div class="comment cmt"><p>Constructs a lazy <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance.</p><p>This type can be used for &quot;lazy&quot; values. In some sense it is
+equivalent to using a Function0 value.
+</p></div></div>
+    </li><li name="monix.eval.Coeval.Attempt" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Attempt[+A]extendsCoeval[A]withProduct"></a><a id="Attempt[+A]:Attempt[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Attempt[+A]extendsCoeval[A]withProduct" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="The Attempt type represents a strict, already evaluated result of a Coeval that either resulted in success, wrapped in a Now, or in an error, wrapped in an Error." href="Coeval$$Attempt.html"><span class="name">Attempt</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.Attempt.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">The <code>Attempt</code> type represents a strict, already evaluated result
+of a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> that either resulted in success, wrapped in a
+<a href="Coeval$$Now.html" class="extype" name="monix.eval.Coeval.Now">Now</a>, or in an error, wrapped in an <a href="Coeval$$Error.html" class="extype" name="monix.eval.Coeval.Error">Error</a>.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Attempt</code> type represents a strict, already evaluated result
+of a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> that either resulted in success, wrapped in a
+<a href="Coeval$$Now.html" class="extype" name="monix.eval.Coeval.Now">Now</a>, or in an error, wrapped in an <a href="Coeval$$Error.html" class="extype" name="monix.eval.Coeval.Error">Error</a>.</p><p>It's the moral equivalent of <code>scala.util.Try</code>, except that
+application of functions such as <code>map</code> and <code>flatMap</code> produces
+<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> references that are still lazily evaluated.
+</p></div></div>
+    </li><li name="monix.eval.Coeval.Error" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ErrorextendsCoeval.Attempt[Nothing]withProductwithSerializable"></a><a id="Error:Error"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#ErrorextendsCoeval.Attempt[Nothing]withProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="Constructs an eager Coeval instance for a result that represents an error." href="Coeval$$Error.html"><span class="name">Error</span></a><span class="params">(<span name="ex">ex: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result"> extends <a href="Coeval$$Attempt.html" class="extype" name="monix.eval.Coeval.Attempt">Attempt</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Constructs an eager <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance for
+a result that represents an error.</p>
+    </li><li name="monix.eval.Coeval.Now" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Now[+A]extendsCoeval.Attempt[A]withProductwithSerializable"></a><a id="Now[+A]:Now[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Now[+A]extendsCoeval.Attempt[A]withProductwithSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a title="Constructs an eager Coeval instance from a strict value that's already known." href="Coeval$$Now.html"><span class="name">Now</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="params">(<span name="value">value: <span class="extype" name="monix.eval.Coeval.Now.A">A</span></span>)</span><span class="result"> extends <a href="Coeval$$Attempt.html" class="extype" name="monix.eval.Coeval.Attempt">Attempt</a>[<span class="extype" name="monix.eval.Coeval.Now.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Constructs an eager <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance from a strict
+value that's already known.</p>
+    </li><li name="monix.eval.Coeval.Once" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Once[+A]extendsCoeval[A]with()=&gt;A"></a><a id="Once[+A]:Once[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Once[+A]extendsCoeval[A]with()=&gt;A" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Constructs a lazy Coeval instance that gets evaluated only once." href="Coeval$$Once.html"><span class="name">Once</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.Once.A">A</span>] with () ⇒ <span class="extype" name="monix.eval.Coeval.Once.A">A</span></span>
+      </span>
+      
+      <p class="shortcomment cmt">Constructs a lazy <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance that gets evaluated
+only once.</p><div class="fullcomment"><div class="comment cmt"><p>Constructs a lazy <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instance that gets evaluated
+only once.</p><p>In some sense it is equivalent to using a lazy val.
+When caching is not required or desired,
+prefer <a href="Coeval$$Always.html" class="extype" name="monix.eval.Coeval.Always">Always</a> or <a href="Coeval$$Now.html" class="extype" name="monix.eval.Coeval.Now">Now</a>.
+</p></div></div>
+    </li><li name="monix.eval.Coeval.TypeClassInstances" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TypeClassInstancesextendsSuspendable.Instance[monix.eval.Coeval]withMemoizable.Instance[monix.eval.Coeval]withMonadError.Instance[monix.eval.Coeval,Throwable]withComonad.Instance[monix.eval.Coeval]withMonadRec.Instance[monix.eval.Coeval]"></a><a id="TypeClassInstances:TypeClassInstances"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#TypeClassInstancesextendsSuspendable.Instance[monix.eval.Coeval]withMemoizable.Instance[monix.eval.Coeval]withMonadError.Instance[monix.eval.Coeval,Throwable]withComonad.Instance[monix.eval.Coeval]withMonadRec.Instance[monix.eval.Coeval]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Groups the implementation for the type-classes defined in monix.types." href="Coeval$$TypeClassInstances.html"><span class="name">TypeClassInstances</span></a><span class="result"> extends <a href="../types/Suspendable$$Instance.html" class="extype" name="monix.types.Suspendable.Instance">Instance</a>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <a href="../types/Memoizable$$Instance.html" class="extype" name="monix.types.Memoizable.Instance">Instance</a>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <a href="../types/MonadError$$Instance.html" class="extype" name="monix.types.MonadError.Instance">Instance</a>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <span class="extype" name="scala.Throwable">Throwable</span>] with <a href="../types/Comonad$$Instance.html" class="extype" name="monix.types.Comonad.Instance">Instance</a>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <a href="../types/MonadRec$$Instance.html" class="extype" name="monix.types.MonadRec.Instance">Instance</a>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Groups the implementation for the type-classes defined in <a href="../types/index.html" class="extype" name="monix.types">monix.types</a>.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#!=(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html###():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#==(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Coeval#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply[A](f:=&gt;A):monix.eval.Coeval[A]"></a><a id="apply[A](⇒A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#apply[A](f:=&gt;A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.eval.Coeval.apply.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.apply.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Promotes a non-strict value to a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Promotes a non-strict value to a <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p>Alias of <a href="#eval[A](a:=&gt;A):monix.eval.Coeval[A]" class="extmbr" name="monix.eval.Coeval#eval">eval</a>.
+</p></div></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#asInstanceOf[T0]:T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#clone():Object" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Coeval#defer" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="defer[A](fa:=&gt;monix.eval.Coeval[A]):monix.eval.Coeval[A]"></a><a id="defer[A](⇒Coeval[A]):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#defer[A](fa:=&gt;monix.eval.Coeval[A]):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.defer.A">A</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.defer.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Promote a non-strict value representing a <code>Coeval</code>
+to a <code>Coeval</code> of the same type.</p>
+    </li><li name="monix.eval.Coeval#delay" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="delay[A](a:=&gt;A):monix.eval.Coeval[A]"></a><a id="delay[A](⇒A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#delay[A](a:=&gt;A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">delay</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Coeval.delay.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.delay.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Alias for <a href="#eval[A](a:=&gt;A):monix.eval.Coeval[A]" class="extmbr" name="monix.eval.Coeval#eval">eval</a>.</p>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Coeval#eval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval[A](a:=&gt;A):monix.eval.Coeval[A]"></a><a id="eval[A](⇒A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#eval[A](a:=&gt;A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eval</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Coeval.eval.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.eval.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Promote a non-strict value to a <code>Coeval</code>, catching exceptions in the
+process.</p><div class="fullcomment"><div class="comment cmt"><p>Promote a non-strict value to a <code>Coeval</code>, catching exceptions in the
+process.</p><p>Note that since <code>Coeval</code> is not memoized, this will recompute the
+value each time the <code>Coeval</code> is executed.
+</p></div></div>
+    </li><li name="monix.eval.Coeval#evalOnce" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="evalOnce[A](a:=&gt;A):monix.eval.Coeval[A]"></a><a id="evalOnce[A](⇒A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#evalOnce[A](a:=&gt;A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">evalOnce</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: ⇒ <span class="extype" name="monix.eval.Coeval.evalOnce.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.evalOnce.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Promote a non-strict value to a <code>Coeval</code> that is memoized on the first
+evaluation, the result being then available on subsequent evaluations.</p>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Coeval#fromTry" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="fromTry[A](a:scala.util.Try[A]):monix.eval.Coeval[A]"></a><a id="fromTry[A](Try[A]):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#fromTry[A](a:scala.util.Try[A]):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromTry</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <a href="http://www.scala-lang.org/api/2.12.4/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Coeval.fromTry.A">A</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.fromTry.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Builds a <code>Coeval</code> out of a Scala <code>Try</code> value.</p>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#isInstanceOf[T0]:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Coeval#now" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="now[A](a:A):monix.eval.Coeval[A]"></a><a id="now[A](A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#now[A](a:A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">now</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.eval.Coeval.now.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.now.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a <code>Coeval</code> that on execution is always successful, emitting
+the given strict value.</p>
+    </li><li name="monix.eval.Coeval#pure" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="pure[A](a:A):monix.eval.Coeval[A]"></a><a id="pure[A](A):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#pure[A](a:A):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">pure</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.eval.Coeval.pure.A">A</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.pure.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Lifts a value into the coeval context.</p><div class="fullcomment"><div class="comment cmt"><p>Lifts a value into the coeval context. Alias for <a href="#now[A](a:A):monix.eval.Coeval[A]" class="extmbr" name="monix.eval.Coeval#now">now</a>.</p></div></div>
+    </li><li name="monix.eval.Coeval#raiseError" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="raiseError[A](ex:Throwable):monix.eval.Coeval[A]"></a><a id="raiseError[A](Throwable):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#raiseError[A](ex:Throwable):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">raiseError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="ex">ex: <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.raiseError.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a <code>Coeval</code> that on execution is always finishing in error
+emitting the specified exception.</p>
+    </li><li name="monix.eval.Coeval#sequence" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="sequence[A,M[X]&lt;:TraversableOnce[X]](sources:M[monix.eval.Coeval[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Coeval[A]],A,M[A]]):monix.eval.Coeval[M[A]]"></a><a id="sequence[A,M[X]&lt;:TraversableOnce[X]](M[Coeval[A]])(CanBuildFrom[M[Coeval[A]],A,M[A]]):Coeval[M[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#sequence[A,M[X]&lt;:TraversableOnce[X]](sources:M[monix.eval.Coeval[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Coeval[A]],A,M[A]]):monix.eval.Coeval[M[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">sequence</span><span class="tparams">[<span name="A">A</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Coeval.sequence.M.X">X</span>]</span>]</span><span class="params">(<span name="sources">sources: <span class="extype" name="monix.eval.Coeval.sequence.M">M</span>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.sequence.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="monix.eval.Coeval.sequence.M">M</span>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.sequence.A">A</span>]], <span class="extype" name="monix.eval.Coeval.sequence.A">A</span>, <span class="extype" name="monix.eval.Coeval.sequence.M">M</span>[<span class="extype" name="monix.eval.Coeval.sequence.A">A</span>]]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.sequence.M">M</span>[<span class="extype" name="monix.eval.Coeval.sequence.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Transforms a <code>TraversableOnce</code> of coevals into a coeval producing
+the same collection of gathered results.</p><div class="fullcomment"><div class="comment cmt"><p>Transforms a <code>TraversableOnce</code> of coevals into a coeval producing
+the same collection of gathered results.</p><p>It's a simple version of <a href="#traverse[A,B,M[X]&lt;:TraversableOnce[X]](sources:M[A])(f:A=&gt;monix.eval.Coeval[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Coeval[M[B]]" class="extmbr" name="monix.eval.Coeval#traverse">traverse</a>.
+</p></div></div>
+    </li><li name="monix.eval.Coeval#suspend" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="suspend[A](fa:=&gt;monix.eval.Coeval[A]):monix.eval.Coeval[A]"></a><a id="suspend[A](⇒Coeval[A]):Coeval[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#suspend[A](fa:=&gt;monix.eval.Coeval[A]):monix.eval.Coeval[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">suspend</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.suspend.A">A</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.suspend.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Alias for <a href="#defer[A](fa:=&gt;monix.eval.Coeval[A]):monix.eval.Coeval[A]" class="extmbr" name="monix.eval.Coeval#defer">defer</a>.</p>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="monix.eval.Coeval#tailRecM" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tailRecM[A,B](a:A)(f:A=&gt;monix.eval.Coeval[Either[A,B]]):monix.eval.Coeval[B]"></a><a id="tailRecM[A,B](A)((A)⇒Coeval[Either[A,B]]):Coeval[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#tailRecM[A,B](a:A)(f:A=&gt;monix.eval.Coeval[Either[A,B]]):monix.eval.Coeval[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tailRecM</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="monix.eval.Coeval.tailRecM.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.tailRecM.A">A</span>) ⇒ <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="monix.eval.Coeval.tailRecM.A">A</span>, <span class="extype" name="monix.eval.Coeval.tailRecM.B">B</span>]]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.tailRecM.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Keeps calling <code>f</code> until it returns a <code>Right</code> result.</p><div class="fullcomment"><div class="comment cmt"><p>Keeps calling <code>f</code> until it returns a <code>Right</code> result.</p><p>Based on Phil Freeman's
+<a href="http://functorial.com/stack-safety-for-free/index.pdf" target="_blank">Stack Safety for Free</a>.
+</p></div></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#toString():String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Coeval#traverse" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="traverse[A,B,M[X]&lt;:TraversableOnce[X]](sources:M[A])(f:A=&gt;monix.eval.Coeval[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Coeval[M[B]]"></a><a id="traverse[A,B,M[X]&lt;:TraversableOnce[X]](M[A])((A)⇒Coeval[B])(CanBuildFrom[M[A],B,M[B]]):Coeval[M[B]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#traverse[A,B,M[X]&lt;:TraversableOnce[X]](sources:M[A])(f:A=&gt;monix.eval.Coeval[B])(implicitcbf:scala.collection.generic.CanBuildFrom[M[A],B,M[B]]):monix.eval.Coeval[M[B]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">traverse</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>, <span name="M">M<span class="tparams">[<span name="X">X</span>]</span> &lt;: <span class="extype" name="scala.TraversableOnce">TraversableOnce</span>[<span class="extype" name="monix.eval.Coeval.traverse.M.X">X</span>]</span>]</span><span class="params">(<span name="sources">sources: <span class="extype" name="monix.eval.Coeval.traverse.M">M</span>[<span class="extype" name="monix.eval.Coeval.traverse.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.traverse.A">A</span>) ⇒ <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.traverse.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="cbf">cbf: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/generic/CanBuildFrom.html#scala.collection.generic.CanBuildFrom" class="extype" name="scala.collection.generic.CanBuildFrom">CanBuildFrom</a>[<span class="extype" name="monix.eval.Coeval.traverse.M">M</span>[<span class="extype" name="monix.eval.Coeval.traverse.A">A</span>], <span class="extype" name="monix.eval.Coeval.traverse.B">B</span>, <span class="extype" name="monix.eval.Coeval.traverse.M">M</span>[<span class="extype" name="monix.eval.Coeval.traverse.B">B</span>]]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.traverse.M">M</span>[<span class="extype" name="monix.eval.Coeval.traverse.B">B</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Transforms a <code>TraversableOnce[A]</code> into a coeval of the same collection
+using the provided function <code>A =&gt; Coeval[B]</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Transforms a <code>TraversableOnce[A]</code> into a coeval of the same collection
+using the provided function <code>A =&gt; Coeval[B]</code>.</p><p>It's a generalized version of <a href="#sequence[A,M[X]&lt;:TraversableOnce[X]](sources:M[monix.eval.Coeval[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Coeval[A]],A,M[A]]):monix.eval.Coeval[M[A]]" class="extmbr" name="monix.eval.Coeval#sequence">sequence</a>.
+</p></div></div>
+    </li><li name="monix.eval.Coeval#typeClassInstances" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="typeClassInstances:monix.eval.Coeval.TypeClassInstances"></a><a id="typeClassInstances:TypeClassInstances"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#typeClassInstances:monix.eval.Coeval.TypeClassInstances" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">typeClassInstances</span><span class="result">: <a href="Coeval$$TypeClassInstances.html" class="extype" name="monix.eval.Coeval.TypeClassInstances">TypeClassInstances</a></span>
+      </span>
+      
+      
+    </li><li name="monix.eval.Coeval#unit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="unit:monix.eval.Coeval[Unit]"></a><a id="unit:Coeval[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#unit:monix.eval.Coeval[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unit</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">A <code>Coeval[Unit]</code> provided for convenience.</p>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.Coeval#zip2" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip2[A1,A2,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2]):monix.eval.Coeval[(A1,A2)]"></a><a id="zip2[A1,A2,R](Coeval[A1],Coeval[A2]):Coeval[(A1,A2)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zip2[A1,A2,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2]):monix.eval.Coeval[(A1,A2)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip2</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip2.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip2.A2">A2</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[(<span class="extype" name="monix.eval.Coeval.zip2.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zip2.A2">A2</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs two <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zip3" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip3[A1,A2,A3](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3]):monix.eval.Coeval[(A1,A2,A3)]"></a><a id="zip3[A1,A2,A3](Coeval[A1],Coeval[A2],Coeval[A3]):Coeval[(A1,A2,A3)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zip3[A1,A2,A3](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3]):monix.eval.Coeval[(A1,A2,A3)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip3</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip3.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip3.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip3.A3">A3</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[(<span class="extype" name="monix.eval.Coeval.zip3.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zip3.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zip3.A3">A3</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs three <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zip4" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip4[A1,A2,A3,A4](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4]):monix.eval.Coeval[(A1,A2,A3,A4)]"></a><a id="zip4[A1,A2,A3,A4](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4]):Coeval[(A1,A2,A3,A4)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zip4[A1,A2,A3,A4](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4]):monix.eval.Coeval[(A1,A2,A3,A4)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip4</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip4.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip4.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip4.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip4.A4">A4</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[(<span class="extype" name="monix.eval.Coeval.zip4.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zip4.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zip4.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zip4.A4">A4</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs four <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zip5" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip5[A1,A2,A3,A4,A5](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5]):monix.eval.Coeval[(A1,A2,A3,A4,A5)]"></a><a id="zip5[A1,A2,A3,A4,A5](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4],Coeval[A5]):Coeval[(A1,A2,A3,A4,A5)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zip5[A1,A2,A3,A4,A5](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5]):monix.eval.Coeval[(A1,A2,A3,A4,A5)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip5</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip5.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip5.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip5.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip5.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip5.A5">A5</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[(<span class="extype" name="monix.eval.Coeval.zip5.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zip5.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zip5.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zip5.A4">A4</span>, <span class="extype" name="monix.eval.Coeval.zip5.A5">A5</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs five <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zip6" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zip6[A1,A2,A3,A4,A5,A6](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5],fa6:monix.eval.Coeval[A6]):monix.eval.Coeval[(A1,A2,A3,A4,A5,A6)]"></a><a id="zip6[A1,A2,A3,A4,A5,A6](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4],Coeval[A5],Coeval[A6]):Coeval[(A1,A2,A3,A4,A5,A6)]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zip6[A1,A2,A3,A4,A5,A6](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5],fa6:monix.eval.Coeval[A6]):monix.eval.Coeval[(A1,A2,A3,A4,A5,A6)]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zip6</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="A6">A6</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A5">A5</span>]</span>, <span name="fa6">fa6: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zip6.A6">A6</span>]</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[(<span class="extype" name="monix.eval.Coeval.zip6.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zip6.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zip6.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zip6.A4">A4</span>, <span class="extype" name="monix.eval.Coeval.zip6.A5">A5</span>, <span class="extype" name="monix.eval.Coeval.zip6.A6">A6</span>)]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs six <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zipList" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipList[A](sources:monix.eval.Coeval[A]*):monix.eval.Coeval[List[A]]"></a><a id="zipList[A](Coeval[A]*):Coeval[List[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipList[A](sources:monix.eval.Coeval[A]*):monix.eval.Coeval[List[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipList</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="sources">sources: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipList.A">A</span>]*</span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="monix.eval.Coeval.zipList.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Zips together multiple <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances.</p>
+    </li><li name="monix.eval.Coeval#zipMap2" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap2[A1,A2,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2])(f:(A1,A2)=&gt;R):monix.eval.Coeval[R]"></a><a id="zipMap2[A1,A2,R](Coeval[A1],Coeval[A2])((A1,A2)⇒R):Coeval[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipMap2[A1,A2,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2])(f:(A1,A2)=&gt;R):monix.eval.Coeval[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap2</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap2.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap2.A2">A2</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.zipMap2.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zipMap2.A2">A2</span>) ⇒ <span class="extype" name="monix.eval.Coeval.zipMap2.R">R</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap2.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs two <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances, creating a new instance that will apply
+the given mapping function to the resulting pair.</p>
+    </li><li name="monix.eval.Coeval#zipMap3" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap3[A1,A2,A3,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Coeval[R]"></a><a id="zipMap3[A1,A2,A3,R](Coeval[A1],Coeval[A2],Coeval[A3])((A1,A2,A3)⇒R):Coeval[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipMap3[A1,A2,A3,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3])(f:(A1,A2,A3)=&gt;R):monix.eval.Coeval[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap3</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap3.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap3.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap3.A3">A3</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.zipMap3.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zipMap3.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zipMap3.A3">A3</span>) ⇒ <span class="extype" name="monix.eval.Coeval.zipMap3.R">R</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap3.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs three <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Coeval#zipMap4" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap4[A1,A2,A3,A4,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Coeval[R]"></a><a id="zipMap4[A1,A2,A3,A4,R](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4])((A1,A2,A3,A4)⇒R):Coeval[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipMap4[A1,A2,A3,A4,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4])(f:(A1,A2,A3,A4)=&gt;R):monix.eval.Coeval[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap4</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap4.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap4.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap4.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap4.A4">A4</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.zipMap4.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zipMap4.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zipMap4.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zipMap4.A4">A4</span>) ⇒ <span class="extype" name="monix.eval.Coeval.zipMap4.R">R</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap4.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs four <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Coeval#zipMap5" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Coeval[R]"></a><a id="zipMap5[A1,A2,A3,A4,A5,R](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4],Coeval[A5])((A1,A2,A3,A4,A5)⇒R):Coeval[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipMap5[A1,A2,A3,A4,A5,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5])(f:(A1,A2,A3,A4,A5)=&gt;R):monix.eval.Coeval[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap5</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.A5">A5</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.zipMap5.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zipMap5.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zipMap5.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zipMap5.A4">A4</span>, <span class="extype" name="monix.eval.Coeval.zipMap5.A5">A5</span>) ⇒ <span class="extype" name="monix.eval.Coeval.zipMap5.R">R</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap5.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs five <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Coeval#zipMap6" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="zipMap6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5],fa6:monix.eval.Coeval[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Coeval[R]"></a><a id="zipMap6[A1,A2,A3,A4,A5,A6,R](Coeval[A1],Coeval[A2],Coeval[A3],Coeval[A4],Coeval[A5],Coeval[A6])((A1,A2,A3,A4,A5,A6)⇒R):Coeval[R]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#zipMap6[A1,A2,A3,A4,A5,A6,R](fa1:monix.eval.Coeval[A1],fa2:monix.eval.Coeval[A2],fa3:monix.eval.Coeval[A3],fa4:monix.eval.Coeval[A4],fa5:monix.eval.Coeval[A5],fa6:monix.eval.Coeval[A6])(f:(A1,A2,A3,A4,A5,A6)=&gt;R):monix.eval.Coeval[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">zipMap6</span><span class="tparams">[<span name="A1">A1</span>, <span name="A2">A2</span>, <span name="A3">A3</span>, <span name="A4">A4</span>, <span name="A5">A5</span>, <span name="A6">A6</span>, <span name="R">R</span>]</span><span class="params">(<span name="fa1">fa1: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A1">A1</span>]</span>, <span name="fa2">fa2: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A2">A2</span>]</span>, <span name="fa3">fa3: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A3">A3</span>]</span>, <span name="fa4">fa4: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A4">A4</span>]</span>, <span name="fa5">fa5: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A5">A5</span>]</span>, <span name="fa6">fa6: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.A6">A6</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Coeval.zipMap6.A1">A1</span>, <span class="extype" name="monix.eval.Coeval.zipMap6.A2">A2</span>, <span class="extype" name="monix.eval.Coeval.zipMap6.A3">A3</span>, <span class="extype" name="monix.eval.Coeval.zipMap6.A4">A4</span>, <span class="extype" name="monix.eval.Coeval.zipMap6.A5">A5</span>, <span class="extype" name="monix.eval.Coeval.zipMap6.A6">A6</span>) ⇒ <span class="extype" name="monix.eval.Coeval.zipMap6.R">R</span></span>)</span><span class="result">: <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<span class="extype" name="monix.eval.Coeval.zipMap6.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pairs six <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> instances,
+applying the given mapping function to the result.</p>
+    </li><li name="monix.eval.Coeval.Attempt" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Attempt"></a><a id="Attempt:Attempt"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Attempt" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Coeval$$Attempt$.html"><span class="name">Attempt</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.eval.Coeval.Once" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Once"></a><a id="Once:Once"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Coeval$.html#Once" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Coeval$$Once$.html"><span class="name">Once</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

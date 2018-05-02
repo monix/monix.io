@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 2.0-RC8 Released</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix: Version 2.0-RC8 Released" />
+  <meta name="twitter:description" content="Adds an awesome Consumer type, Observable.interleave, introduces Coeval params in operators" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2016/06/29/monix-v2.0-RC8.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix: Version 2.0-RC8 Released" />
+  <meta property="og:description" content="Adds an awesome Consumer type, Observable.interleave, introduces Coeval params in operators" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix: Version 2.0-RC8 Released</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2016-06-29">
+    29 Jun 2016
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>This release candidate is probably the last one before <code class="highlighter-rouge">2.0</code>, assuming
+new bugs aren’t found. Amongst others, it introduces an awesome
+<code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
+consumers. For a teaser:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become 
+// really helpful for logic sprinkled with I/O bound stuff
+</span><span class="k">val</span> <span class="n">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
+  <span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Coeval</span><span class="o">(</span><span class="mi">0L</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
+</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+
+<span class="c1">// Consume the whole stream and get the result
+</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</code></pre></div></div>
+
+<!--more-->
+
+<p>See the published <a href="/api/2.0-RC8/">API Documentation</a>.</p>
+
+<p><strong>Critical bug fix:</strong></p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/issues/181">BUG #181</a>: the default operators
+on <code class="highlighter-rouge">CancelableFuture</code> are triggering <code class="highlighter-rouge">StackOverflow</code> exceptions</li>
+</ul>
+
+<p>New Features:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/184">Issue #184</a>: introducing the
+<code class="highlighter-rouge">Consumer</code> type, a factory of subscribers that makes it easier to specify 
+reusable and composable consumers and for example, it makes it possible, 
+out of the box, to load-balance the workload between multiple subscribers in
+parallel; see the description</li>
+  <li><a href="https://github.com/monix/monix/pull/186">Issue #186</a> (related to 
+<a href="https://github.com/monix/monix/issues/168">issue #168</a>): adds the 
+<code class="highlighter-rouge">Observable.interleave2</code> operator, similar with the one in <code class="highlighter-rouge">FS2</code> 
+(former scalaz-streams)</li>
+  <li><a href="https://github.com/monix/monix/issues/180">Issue #180</a>: the <code class="highlighter-rouge">Observer.feed</code>
+function now has an overload that does not take a cancelable, because
+it’s awkward coming up with one if it isn’t needed; there’s also a 
+<code class="highlighter-rouge">onNextAll</code> extension for both <code class="highlighter-rouge">Observer</code> and <code class="highlighter-rouge">Subscriber</code> which can push
+a whole collection of events</li>
+  <li><a href="https://github.com/monix/monix/issues/187">Issue #187</a>: integrates
+the <code class="highlighter-rouge">MonadCombine</code> type-class from <a href="http://typelevel.org/cats/">Cats</a>,
+being similar to the Scalaz <code class="highlighter-rouge">MonadPlus</code>, as somehow this was missed in 
+the initial integration</li>
+  <li><a href="https://github.com/monix/monix/issues/177">Issue #177</a> reviews exposed
+traits and abstract classes, making sure they inherit from <code class="highlighter-rouge">Serializable</code></li>
+  <li><a href="https://github.com/monix/monix/issues/85">Issue #85</a>: small change,<br />
+clarifies the ScalaDoc on the <code class="highlighter-rouge">RefCountCancelable</code> type</li>
+  <li><a href="https://github.com/monix/monix/issues/162">Issue #162</a>: implements
+the <code class="highlighter-rouge">Observable.takeUntil(trigger: Observable[Any])</code> operator, an operator
+that takes from the source until another observable triggers an event</li>
+  <li><a href="https://github.com/monix/monix/issues/189">Issue #189</a>: for <code class="highlighter-rouge">Observable</code>
+operators that return a single item (e.g. <code class="highlighter-rouge">sumF</code>, <code class="highlighter-rouge">foldLeftF</code>, etc.) adds
+variants that do the same thing, but return <code class="highlighter-rouge">Task</code> results instead, so now
+we have <code class="highlighter-rouge">foldLeftL</code>, <code class="highlighter-rouge">sumL</code>, etc. that return tasks</li>
+  <li><a href="https://github.com/monix/monix/issues/190">Issue #190</a>: changes many 
+observable operators, that were taking by-name parameters or initial state
+parameters (e.g. <code class="highlighter-rouge">headOrElseF</code>, <code class="highlighter-rouge">foldLeftF</code>, etc), to take <code class="highlighter-rouge">Coeval</code> params
+instead, in order to have fine control over the evaluation model</li>
+  <li><a href="https://github.com/monix/monix/issues/191">Issue #191</a>: introduces 
+by default an implicit conversion from <code class="highlighter-rouge">Any</code> to <code class="highlighter-rouge">Coeval.Now</code>, to make it 
+easier to use <code class="highlighter-rouge">Coeval</code> as function parameters - the default will thus 
+simply be strict evaluation, strictness being usually the default in Scala</li>
+</ul>
+
+<p>This release we’ve got a new contributor: 
+<a href="https://github.com/leakyabstraction">@leakyabstraction</a>; W00t!</p>
+
+<p>Enjoy!</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-06-29-monix-v2.0-RC8.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+              Monix vs Cats-Effect
+              <small>20 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

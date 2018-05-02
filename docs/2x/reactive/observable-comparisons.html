@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Comparisons with Other Solutions &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Comparisons with Other Solutions &mdash; Monix" />
+  <meta name="twitter:description" content="Comparing the Monix Observable with Akka Actors, Akka Streams and FS2." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/docs/2x/reactive/observable-comparisons" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Comparisons with Other Solutions &mdash; Monix" />
+  <meta property="og:description" content="Comparing the Monix Observable with Akka Actors, Akka Streams and FS2." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Comparisons with Other Solutions</h1>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/2.3/monix/reactive/Observable.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/observable-comparisons.md">Edit Page</a>
+  </nav>
+  
+  <div id="version2x">
+    You are viewing the documentation for the older Monix 2.x series.<br />
+    If you're looking for the latest 3.x
+    <a href="/docs/3x/">click here</a>!
+  </div>
+
+  <nav role="navigation" id="toc"></nav>
+
+  <p>Comparing the Monix <code class="highlighter-rouge">Observable</code> with other solutions is no easy task.
+Yet we can try.</p>
+
+<p><strong>WARNING:</strong> This document contains opinions which are highly
+subjective! You won’t find unbiased comparisons from the authors of
+libraries. So take this with a grain of salt.</p>
+
+<h2 id="akka-actors">Akka Actors</h2>
+
+<p><a href="http://akka.io/">Akka actors</a> are a sort of a <em>de
+facto</em> solution for modeling message passing with Scala and the JVM.
+What they are good at:</p>
+
+<ul>
+  <li>they make bidirectional communications over asynchronous boundaries
+easy - for example WebSocket is a prime candidate for actors</li>
+  <li>with Akka’s Actors you can easily model state machines (see <code class="highlighter-rouge">context.become</code>)</li>
+  <li>the processing of messages has a strong concurrency guarantee -
+messages are processed one by one, so there’s no need to worry about
+RAM concurrency issues while in the context of an actor</li>
+  <li>instead of implementing a half-assed in-memory queue for processing
+of things, you could just use an actor, since queuing of messages
+and acting on those messages is what they do</li>
+</ul>
+
+<p>But Akka actors aren’t suitable in many cases because:</p>
+
+<ul>
+  <li>they are fairly low-level - the high-level protocol of communication
+between actors is still something that you need to design, so for
+example if you want things like back-pressure, you have to implement
+it yourself</li>
+  <li>it’s extremely easy to model actors that keep a lot of state, ending
+up with a system that can’t be horizontally scaled</li>
+  <li>because of the bidirectional communications capability, it’s
+extremely easy to end up with data flows that are so complex as to
+be unmanageable</li>
+  <li>the model in general is actor A sending a message to actor B - but
+if you need to model a stream of events, this tight coupling between
+A and B is not acceptable</li>
+  <li>actors, as used in practice with Akka, tend to be inducing
+uncontrolled side effects and that’s error prone, the opposite of
+functional programming and not idiomatic Scala</li>
+</ul>
+
+<p>By contrast the Monix <code class="highlighter-rouge">Observable</code>:</p>
+
+<ul>
+  <li>easily models unidirectional communications between producers and
+consumers</li>
+  <li>events usually flow in one direction and so you much easily
+transform and compose these streams</li>
+  <li>they address back-pressure concerns by default</li>
+  <li>even in case you can’t pause the data source, this back-pressure
+handling is relevant because you get adjustable buffering policies
+(as in, what to do on overflow, drop events like they are hot?)</li>
+  <li>just as in the case of <code class="highlighter-rouge">Future</code>, because of the limitations, the
+model is simple to use and much more reasonable and composable than
+actors, with the exposed operators being awesome</li>
+</ul>
+
+<p>Reactive streaming libraries in general and the Monix <code class="highlighter-rouge">Observable</code> in
+particular is bad because they are good for modeling unidirectional
+communications, but it gets complicated if you want bidirectional
+communications (possible, but complicated), with actors being better
+at having dialogs.</p>
+
+<h2 id="akka-streams">Akka Streams</h2>
+
+<p>The <a href="http://doc.akka.io/docs/akka/current/scala/stream/index.html">Akka Streams</a>
+project is also an implementation of 
+<a href="www.reactive-streams.org">reactive streams</a>, but
+one that is based on Akka actors and that has its own design 
+and opinions.</p>
+
+<p>Why Monix is better:</p>
+
+<ul>
+  <li>Monix is easier to use</li>
+  <li>The inner workings of Monix are easier to understand</li>
+  <li>Monix is lighter, as it doesn’t depend on an actor framework</li>
+  <li>Monix is basically the
+<a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer pattern (from GoF)</a>
+on steroids and this has practical benefits</li>
+  <li>Monix works on <a href="http://www.scala-js.org/">Scala.js</a>
+and pretty soon on Scala Native as well</li>
+</ul>
+
+<p>Why Akka Streams might be better, depending on your preferences and needs:</p>
+
+<ul>
+  <li>When building data flows, Akka Streams retains the description
+(think abstract syntax trees) and by means of the injected
+<code class="highlighter-rouge">Materializer</code> you can get different runtimes</li>
+  <li>Akka Streams models the sharing of streams very explicitly</li>
+  <li>If you love Akka actors, then you might prefer Akka Streams, being
+meant as an extension of actors</li>
+</ul>
+
+<p>HIGHLY OPINIONATED WARNING: The author of this document finds Akka
+Streams to be much more complicated.</p>
+
+<p>The Monix <code class="highlighter-rouge">Observable</code> is basically the
+<a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer pattern (from GoF)</a>
+on steroids. But the Akka Streams implementation is not that and this
+has consequences of usability.</p>
+
+<p>A stream of information is like a river. Does the river care who
+observes it or who drinks from it? It doesn’t. And indeed, sometimes
+you need to share the source between multiple listeners, sometimes you
+want to create new sources for each listener. But the listener
+shouldn’t care what sort of producer it has on its hands or
+vice-versa. And people are really not good at reasoning about graphs.
+And making those graphs explicit doesn’t make it better, it makes it
+worse.</p>
+
+<p>In Monix you’ve got hot observables (hot data sources shared between
+an unlimited number of subscribers) and cold observables (each
+subscriber gets its very own private data source). You can also
+convert any cold data source into a hot one by using the <code class="highlighter-rouge">multicast</code>
+operator, in combination with <code class="highlighter-rouge">Subjects</code> that dictate behavior
+(e.g. <code class="highlighter-rouge">Publish</code>, <code class="highlighter-rouge">Behavior</code>, <code class="highlighter-rouge">Async</code> or <code class="highlighter-rouge">Replay</code>). And there’s no
+reason for the downstream subscribers to know the peculiarities of
+the upstream data-source. The philosophy of Monix is that this
+encapsulation is better.</p>
+
+<p>In Akka Streams the sources have a “single output” port and what you
+do is you build “<em>flow graphs</em>” and sinks. Akka Streams is thus all
+about modeling how streams are split. They call it “<em>explicit
+fan-out</em>” and it’s a design choice. However this can be seen as an
+encapsulation leak that makes things more complicated and sometimes it
+defeats the purpose of using a library for streams manipulation in the
+first place. In ReactiveX and Monix terms, this is like having
+single-subscriber observable and then working with Subjects (which is
+both a listener and a producer) and people that have used ReactiveX
+know that working with Subjects is to be avoided, as that introduces
+complexity and extra worries in the system and when you do, you
+usually encapsulate it really, really well.</p>
+
+<p>Akka Streams depends on Akka, the library. You suddenly worry about
+having an “<em>Actor System</em>” and a <code class="highlighter-rouge">Materializer</code> and a
+<code class="highlighter-rouge">MessageFlowTransformer</code>, with the tasks being executed by
+actors. This is way more heavy. One reason for why Scala’s <code class="highlighter-rouge">Future</code>
+and <code class="highlighter-rouge">ExecutionContext</code> are great is precisely because they model only
+asynchronous computations, but are completely oblivious to how the
+required asynchronous execution happens. This is why <code class="highlighter-rouge">Future</code> works on
+top of <code class="highlighter-rouge">Scala.js</code> without problems.</p>
+
+<p>To its credit, the Akka Streams implementation does something smart.
+When you build a source and a flow, the goal has been to build a
+transformation flow and pass it around as a properly typed and
+inspectable object. Think abstract syntax trees (ASTs).</p>
+
+<p>They have made this choice in order to encourage reuse of the actual
+stream blueprints instead of creating them again for every use, and it
+also nicely allows the addition of different Materializers that
+translate such a blueprint into its execution engine. In other words,
+it needs a <code class="highlighter-rouge">Materializer</code> to work, because the engine can thus
+transform those blueprints for execution on something other than
+actors. And if you don’t want actors, it’s theoretically possible to
+build a <code class="highlighter-rouge">Materializer</code> that executes the needed tasks on top of
+<code class="highlighter-rouge">RxJava</code> or on top of plain threads.</p>
+
+<p>By comparison in the ReactiveX model (applicable to Monix as well)
+building observables happens by transforming one observable into
+another in functions that cannot be inspected. Which approach is
+better is a matter of opinion.</p>
+
+<p>For Akka Streams, in practice, the only used materializer will be the
+<code class="highlighter-rouge">ActorFlowMaterializer</code>. And this extra flexibility has led to an
+opaque implementation. With Monix on the other hand, you can reason
+about what observables and subjects and subscribers are, you can
+reason about their implementation, whereas the inner workings of Akka
+Streams are harder to understand, confining developers using it to be
+plain users.</p>
+
+<h2 id="fs2-the-new-scalaz-stream">FS2 (the new Scalaz-Stream)</h2>
+
+<p><a href="https://github.com/functional-streams-for-scala/fs2">FS2</a>
+is a solid library for “streaming I/O” with a flourishing ecosystem.</p>
+
+<p>Where FS2 is better:</p>
+
+<ul>
+  <li>the model of communication between producers and consumers is
+<em>pull-based</em>, sometimes making it easier to implement new operators,
+with the internals being rather elegant and minimal, in true fashion
+of functional programming</li>
+  <li>it makes a greater effort in reasoning about side-effects by means
+of the type system, you can see that in its <code class="highlighter-rouge">Stream[F,O]</code>, where <code class="highlighter-rouge">O</code>
+is the output, but <code class="highlighter-rouge">F</code> represent the side-effects - Monix doesn’t do
+this, because in case you want purity, it expects the side-effects
+to happen at the edges, much like the <code class="highlighter-rouge">IO</code> monad, and freely 
+composable</li>
+</ul>
+
+<p>It’s certainly a new and interesting approach, compatible with
+functional programming ideals. Where Monix is better:</p>
+
+<ul>
+  <li>the model of communication between producers and consumers is
+<em>push-based</em> (with back-pressure) and this makes it inherently more
+efficient</li>
+  <li>the API exposed is clean, but the internals are more pragmatic - in
+Monix, even if some operators could be expressed in terms of other
+operators, many times we implement it from scratch using low level
+concurrency techniques, if that means we achieve a performance boost</li>
+  <li>Monix is better for
+<a href="https://en.wikipedia.org/wiki/Functional_reactive_programming">Functional Reactive Programming (FRP)</a>,
+exposing operators that deal with time, along with <code class="highlighter-rouge">Behavior</code> and
+<code class="highlighter-rouge">Replay</code> subjects that can model the concept of “<em>reactive
+variables</em>”</li>
+  <li>Monix is better for shared data-sources; even if the default is for
+observables to be cold (i.e. each subscriber gets its own data-source),
+you can easily share data-sources between multiple subscribers without
+much overhead</li>
+  <li>Monix is better for converting push-based data-sources. Monix is
+push-based itself, whereas with <code class="highlighter-rouge">FS2</code> what you do is to turn their
+pull-based model into something that is push-based, obviously by
+means of a buffer. This is akin to turning Monix into a pull-based
+model - it can be done, but it’s awkward and inefficient.</li>
+</ul>
+
+
+
+  <div class="buttons">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/observable-comparisons.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

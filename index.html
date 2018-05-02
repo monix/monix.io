@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix" />
+  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item active" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Monix</h1>
+
+  <p>Asynchronous Programming for Scala and <a href="http://www.scala-js.org/">Scala.js</a>.</p>
+
+<iframe allowtransparency="true" scrolling="no" src="public/html/github-stars.html" style="width: 160px; height: 56px; border: medium none;" frameborder="0">
+</iframe>
+
+<h2 id="overview">Overview</h2>
+
+<p>Monix is a high-performance Scala / Scala.js library for composing asynchronous,
+event-based programs.</p>
+
+<p>It started as a proper implementation of <a href="http://reactivex.io/">ReactiveX</a>, 
+with stronger functional programming influences and designed from the ground up 
+for  back-pressure and made to cleanly interact with Scala’s standard library, 
+compatible out-of-the-box with the <a href="http://www.reactive-streams.org/">Reactive Streams</a> 
+protocol. It then expanded to include abstractions for suspending side effects 
+and for resource handling, being one of the parents and implementors of
+<a href="https://typelevel.org/cats-effect/">cats-effect</a>.</p>
+
+<p><a href="https://typelevel.org/"><img src="/public/images/typelevel.png" width="150" style="float:right;" align="right" /></a></p>
+
+<p>A <a href="http://typelevel.org/projects/">Typelevel project</a>, Monix proudly 
+exemplifies pure, typeful, functional programming in Scala, while making no
+compromise on performance.</p>
+
+<p>Highlights:</p>
+
+<ul>
+  <li>exposes the kick-ass <code class="highlighter-rouge">Observable</code>, <code class="highlighter-rouge">Iterant</code>, <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> data types,
+along with all the support they need</li>
+  <li>modular, only use what you need</li>
+  <li>designed for true asynchronicity, running on both the
+JVM and <a href="http://scala-js.org">Scala.js</a></li>
+  <li>really good test coverage, code quality and API documentation 
+as a primary project policy</li>
+</ul>
+
+<h3 id="presentations">Presentations</h3>
+
+<p>Featured presentation:</p>
+
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" frameborder="0" class="presentation" allow="autoplay; encrypted-media" allowfullscreen="">
+</iframe>
+
+<p>
+  <a href="/presentations/">See all presentations!</a>
+</p>
+
+<h3 id="download-and-usage">Download and Usage</h3>
+
+<p>The packages are published on Maven Central.</p>
+
+<ul>
+  <li>3.x release (latest): <code class="highlighter-rouge">3.0.0-RC1</code> 
+(<a href="https://github.com/monix/monix/archive/v3.0.0-RC1.zip">download source archive</a>)</li>
+  <li>2.x release (older): <code class="highlighter-rouge">2.3.3</code> 
+(<a href="https://github.com/monix/monix/archive/v2.3.3.zip">download source archive</a>)</li>
+</ul>
+
+<p>In SBT for the latest 3.x release that integrates with 
+<a href="https://typelevel.org/cats/">Typelevel Cats</a> out of the box
+(use the <code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC1"</span>
+</code></pre></div></div>
+
+<p>Or for the older <code class="highlighter-rouge">2.x</code> release:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+</code></pre></div></div>
+
+<p>Monix is modular by design, so you can have an à la carte experience, 
+the project being divided in multiple sub-projects.</p>
+
+<p>See <a href="/docs/3x/intro/usage.html">Usage in SBT and Maven</a> for more details.</p>
+
+<h3 id="documentation">Documentation</h3>
+
+<p>Documentation and tutorials:</p>
+
+<ul>
+  <li><a href="/docs/3x/">3.x series (latest)</a></li>
+  <li><a href="/docs/2x/">2.x series (previous)</a></li>
+</ul>
+
+<p>API ScalaDoc:</p>
+
+<ul>
+  <li><a href="/api/3.0/">3.x</a></li>
+  <li><a href="/api/2.3/">2.x</a></li>
+  <li><a href="/api/1.2/">1.x</a></li>
+</ul>
+
+<p>Relevant links to dependencies:</p>
+
+<ul>
+  <li><a href="https://typelevel.org/cats/">Cats</a></li>
+  <li><a href="https://typelevel.org/cats-effect/">Cats Effect</a></li>
+</ul>
+
+<h2 id="latest-news">Latest News</h2>
+
+<ol class="news-summary">
+  
+  <li>
+    <time itemprop="dateCreated" datetime="2018-03-20">
+      20 Mar 2018 »
+    </time>
+    <a href="/blog/2018/03/20/monix-vs-cats-effect.html">Monix vs Cats-Effect</a>
+  </li>
+  
+  <li>
+    <time itemprop="dateCreated" datetime="2018-03-19">
+      19 Mar 2018 »
+    </time>
+    <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">Monix: Version 3.0.0-RC1</a>
+  </li>
+  
+  <li>
+    <time itemprop="dateCreated" datetime="2018-01-22">
+      22 Jan 2018 »
+    </time>
+    <a href="/blog/2018/01/22/monix-v2.3.3.html">Monix: Version 2.3.3, Critical Bug Fixes</a>
+  </li>
+  
+  <li>
+    <time itemprop="dateCreated" datetime="2017-05-03">
+      03 May 2017 »
+    </time>
+    <a href="/blog/2017/05/03/monix-v2.3.0.html">Monix: Version 2.3.0, New Features, Bug Fixes</a>
+  </li>
+  
+  <li>
+    <time itemprop="dateCreated" datetime="2017-03-27">
+      27 Mar 2017 »
+    </time>
+    <a href="/blog/2017/03/27/monix-v2.2.4.html">Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js</a>
+  </li>
+  
+</ol>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p><img src="/public/images/logos/yklogo.png" align="right" /> YourKit supports the Monix project with its
+full-featured Java Profiler.  YourKit, LLC is the creator
+<a href="http://www.yourkit.com/java/profiler/index.jsp">YourKit Java Profiler</a>
+and
+<a href="http://www.yourkit.com/.net/profiler/index.jsp">YourKit .NET Profiler</a>,
+innovative and intelligent tools for profiling Java and .NET
+applications.</p>
+
+<p><img src="/public/images/logos/logo-eloquentix@2x.png" align="right" width="130" />
+Development of Monix has been initiated by
+<a href="http://eloquentix.com/">Eloquentix</a> engineers, with
+Monix being introduced at E.ON Connecting Energies, powering the next
+generation energy grid solutions.</p>
+
+<h2 id="license">License</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Copyright (c) 2014-2018 by The Monix Project Developers.
+See the project homepage at: https://monix.io
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre></div></div>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/index.md">
+      Edit Page</a> •
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

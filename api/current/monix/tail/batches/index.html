@@ -1,0 +1,783 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-RC1 - monix.tail.batches</title>
+          <meta name="description" content="Monix 3.0.0 - RC1 - monix.tail.batches" />
+          <meta name="keywords" content="Monix 3.0.0 RC1 monix.tail.batches" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../../lib/index.js"></script>
+      <script type="text/javascript" src="../../../index.js"></script>
+      <script type="text/javascript" src="../../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="../../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.tail" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tail"></a><a id="tail:tail"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#tail" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">tail</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.tail.batches" visbl="pub" class="indented3 current" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="batches"></a><a id="batches:batches"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/index.html#batches" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">batches</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.tail">tail</a></dd></dl></div>
+    </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="ArrayBatch.html" title="Batch implementation that wraps an array, based on ArrayCursor."></a>
+                        <a href="ArrayBatch.html" title="Batch implementation that wraps an array, based on ArrayCursor.">ArrayBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="ArrayCursor.html" title="BatchCursor type that works over an underlying Array."></a>
+                        <a href="ArrayCursor.html" title="BatchCursor type that works over an underlying Array.">ArrayCursor</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="Batch$.html" title="Batch builders."></a>
+                        <a class="class" href="Batch.html" title="The Batch is a BatchCursor factory, similar in spirit with Scala's Iterable."></a>
+                        <a href="Batch.html" title="The Batch is a BatchCursor factory, similar in spirit with Scala's Iterable.">Batch</a>
+                      </li><li class="current-entities indented3">
+                        <a class="object" href="BatchCursor$.html" title="BatchCursor builders."></a>
+                        <a class="class" href="BatchCursor.html" title="Similar to Java's and Scala's Iterator, the BatchCursor type can can be used to iterate over the data in a collection, but it cannot be used to modify the underlying collection."></a>
+                        <a href="BatchCursor.html" title="Similar to Java's and Scala's Iterator, the BatchCursor type can can be used to iterate over the data in a collection, but it cannot be used to modify the underlying collection.">BatchCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="BooleansBatch.html" title="Batch implementation specialized for Boolean."></a>
+                        <a href="BooleansBatch.html" title="Batch implementation specialized for Boolean.">BooleansBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="BooleansCursor.html" title="BatchCursor implementation specialized for Boolean."></a>
+                        <a href="BooleansCursor.html" title="BatchCursor implementation specialized for Boolean.">BooleansCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="BytesBatch.html" title="Batch implementation specialized for Byte."></a>
+                        <a href="BytesBatch.html" title="Batch implementation specialized for Byte.">BytesBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="BytesCursor.html" title="BatchCursor implementation specialized for Byte."></a>
+                        <a href="BytesCursor.html" title="BatchCursor implementation specialized for Byte.">BytesCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CharsBatch.html" title="Batch implementation specialized for Char."></a>
+                        <a href="CharsBatch.html" title="Batch implementation specialized for Char.">CharsBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="CharsCursor.html" title="BatchCursor implementation specialized for Char."></a>
+                        <a href="CharsCursor.html" title="BatchCursor implementation specialized for Char.">CharsCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="DoublesBatch.html" title="Batch implementation specialized for Double."></a>
+                        <a href="DoublesBatch.html" title="Batch implementation specialized for Double.">DoublesBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="DoublesCursor.html" title="BatchCursor implementation specialized for Double."></a>
+                        <a href="DoublesCursor.html" title="BatchCursor implementation specialized for Double.">DoublesCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="EmptyBatch$.html" title="Reusable Batch implementation that's always empty."></a>
+                        <a href="EmptyBatch$.html" title="Reusable Batch implementation that's always empty.">EmptyBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="object" href="EmptyCursor$.html" title="BatchCursor implementation that's always empty."></a>
+                        <a href="EmptyCursor$.html" title="BatchCursor implementation that's always empty.">EmptyCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="GenericBatch.html" title="Reusable Batch base class that can be used for implementing generators that simply modify their underlying cursor reference."></a>
+                        <a href="GenericBatch.html" title="Reusable Batch base class that can be used for implementing generators that simply modify their underlying cursor reference.">GenericBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="IntegersBatch.html" title="Batch implementation specialized for Int."></a>
+                        <a href="IntegersBatch.html" title="Batch implementation specialized for Int.">IntegersBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="IntegersCursor.html" title="BatchCursor implementation specialized for Int."></a>
+                        <a href="IntegersCursor.html" title="BatchCursor implementation specialized for Int.">IntegersCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="IteratorCursor.html" title="BatchCursor type that works over an underlying Iterator."></a>
+                        <a href="IteratorCursor.html" title="BatchCursor type that works over an underlying Iterator.">IteratorCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="LongsBatch.html" title="Batch implementation specialized for Long."></a>
+                        <a href="LongsBatch.html" title="Batch implementation specialized for Long.">LongsBatch</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="LongsCursor.html" title="BatchCursor implementation specialized for Long."></a>
+                        <a href="LongsCursor.html" title="BatchCursor implementation specialized for Long.">LongsCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="SeqBatch.html" title="Batch implementation that wraps any Scala Seq."></a>
+                        <a href="SeqBatch.html" title="Batch implementation that wraps any Scala Seq.">SeqBatch</a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="package value">
+      <div id="definition">
+        <div class="big-circle package">p</div>
+        <p id="owner"><a href="../../index.html" class="extype" name="monix">monix</a>.<a href="../index.html" class="extype" name="monix.tail">tail</a></p>
+        <h1>batches<span class="permalink">
+      <a href="../../../monix/tail/batches/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">batches</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-tail/shared/src/main/scala/monix/tail/batches/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.tail.batches"><span>batches</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.tail.batches.ArrayBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ArrayBatch[A]extendsBatch[A]"></a><a id="ArrayBatch[A]:ArrayBatch[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#ArrayBatch[A]extendsBatch[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation that wraps an array, based on ArrayCursor." href="ArrayBatch.html"><span class="name">ArrayBatch</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.batches.ArrayBatch.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation that wraps
+an array, based on <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>.</p>
+    </li><li name="monix.tail.batches.ArrayCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ArrayCursor[A]extendsBatchCursor[A]"></a><a id="ArrayCursor[A]:ArrayCursor[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#ArrayCursor[A]extendsBatchCursor[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor type that works over an underlying Array." href="ArrayCursor.html"><span class="name">ArrayCursor</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.ArrayCursor.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> type that works over an underlying <code>Array</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> type that works over an underlying <code>Array</code>.</p><p>NOTE: all transformations happen by copying from the source array
+into a modified copy, hence all transformations have strict behavior!</p><p>To build an instance, prefer <code>BatchCursor.fromArray</code>.
+</p></div></div>
+    </li><li name="monix.tail.batches.Batch" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="Batch[+A]extendsSerializable"></a><a id="Batch[+A]:Batch[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#Batch[+A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="The Batch is a BatchCursor factory, similar in spirit with Scala's Iterable." href="Batch.html"><span class="name">Batch</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">The <code>Batch</code> is a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> factory, similar in spirit
+with Scala's <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Batch</code> is a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> factory, similar in spirit
+with Scala's <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><p>Its <a href="Batch.html#cursor():monix.tail.batches.BatchCursor[A]" class="extmbr" name="monix.tail.batches.Batch#cursor">cursor()</a> method can be called
+repeatedly to yield the same sequence.</p><p>This class is provided as an alternative to Scala's
+<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
+   to avoid boxing</li><li>it's a factory of <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>, which provides hints
+   for <code>recommendedBatchSize</code>, meaning how many batch can
+   be processed in a batches</li></ul><p>Used in the <a href="../Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> implementation.
+</p></div></div>
+    </li><li name="monix.tail.batches.BatchCursor" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="BatchCursor[+A]extendsSerializable"></a><a id="BatchCursor[+A]:BatchCursor[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BatchCursor[+A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Similar to Java's and Scala's Iterator, the BatchCursor type can can be used to iterate over the data in a collection, but it cannot be used to modify the underlying collection." href="BatchCursor.html"><span class="name">BatchCursor</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Similar to Java's and Scala's <code>Iterator</code>, the <code>BatchCursor</code> type can
+can be used to iterate over the data in a collection, but it cannot
+be used to modify the underlying collection.</p><div class="fullcomment"><div class="comment cmt"><p>Similar to Java's and Scala's <code>Iterator</code>, the <code>BatchCursor</code> type can
+can be used to iterate over the data in a collection, but it cannot
+be used to modify the underlying collection.</p><p>Inspired by the standard <code>Iterator</code>, provides a way to efficiently
+apply operations such as <code>map</code>, <code>filter</code>, <code>collect</code> on the underlying
+collection without such operations having necessarily lazy behavior.
+So in other words, when wrapping a standard <code>Array</code>, an application of <code>map</code>
+will copy the data to a new <code>Array</code> instance with its elements
+modified, immediately and is thus having strict (eager) behavior.
+In other cases, when wrapping potentially infinite collections, like
+<code>Iterable</code> or <code>Stream</code>, that's when lazy behavior happens.</p><p>Sample:</p><pre><span class="kw">try</span> <span class="kw">while</span> (cursor.hasNext()) {
+  println(cursor.next())
+}
+<span class="kw">catch</span> {
+  <span class="kw">case</span> NonFatal(ex) <span class="kw">=&gt;</span> report(ex)
+}</pre><p>This class is provided as an alternative to Scala's
+<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
+   to avoid boxing</li><li>depending on the implementation, the behaviour of operators
+   can be eager (e.g. <code>map</code>, <code>filter</code>), but only in case the
+   source cursor doesn't need to be consumed (if the cursor is
+   backed by an array, then a new array gets created, etc.)</li><li>the <code>recommendedBatchSize</code> can signal how many batch
+   can be processed in batches</li></ul><p>Used in the <a href="../Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> implementation.</p></div></div>
+    </li><li name="monix.tail.batches.BooleansBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BooleansBatchextendsBatch[Boolean]"></a><a id="BooleansBatch:BooleansBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BooleansBatchextendsBatch[Boolean]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Boolean." href="BooleansBatch.html"><span class="name">BooleansBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Boolean</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>BooleansBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.BooleansCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BooleansCursorextendsBatchCursor[Boolean]"></a><a id="BooleansCursor:BooleansCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BooleansCursorextendsBatchCursor[Boolean]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Boolean." href="BooleansCursor.html"><span class="name">BooleansCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Boolean</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>BooleansCursor</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.BytesBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BytesBatchextendsBatch[Byte]"></a><a id="BytesBatch:BytesBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BytesBatchextendsBatch[Byte]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Byte." href="BytesBatch.html"><span class="name">BytesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Byte</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>BytesBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.BytesCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BytesCursorextendsBatchCursor[Byte]"></a><a id="BytesCursor:BytesCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BytesCursorextendsBatchCursor[Byte]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Byte." href="BytesCursor.html"><span class="name">BytesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Byte</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>BytesCursor</code> might
+be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.CharsBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CharsBatchextendsBatch[Char]"></a><a id="CharsBatch:CharsBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#CharsBatchextendsBatch[Char]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Char." href="CharsBatch.html"><span class="name">CharsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Char</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>CharsBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.CharsCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CharsCursorextendsBatchCursor[Char]"></a><a id="CharsCursor:CharsCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#CharsCursorextendsBatchCursor[Char]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Char." href="CharsCursor.html"><span class="name">CharsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Char</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>CharsCursor</code> might
+be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.DoublesBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DoublesBatchextendsBatch[Double]"></a><a id="DoublesBatch:DoublesBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#DoublesBatchextendsBatch[Double]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Double." href="DoublesBatch.html"><span class="name">DoublesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Double</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>DoublesBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.DoublesCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="DoublesCursorextendsBatchCursor[Double]"></a><a id="DoublesCursor:DoublesCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#DoublesCursorextendsBatchCursor[Double]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Double." href="DoublesCursor.html"><span class="name">DoublesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Double</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>DoublesCursor</code> might
+be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.GenericBatch" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GenericBatch[+A]extendsBatch[A]"></a><a id="GenericBatch[+A]:GenericBatch[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#GenericBatch[+A]extendsBatch[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Reusable Batch base class that can be used for implementing generators that simply modify their underlying cursor reference." href="GenericBatch.html"><span class="name">GenericBatch</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.batches.GenericBatch.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Reusable <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> base class that can
+be used for implementing generators that simply modify their underlying
+cursor reference.</p>
+    </li><li name="monix.tail.batches.IntegersBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="IntegersBatchextendsBatch[Int]"></a><a id="IntegersBatch:IntegersBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#IntegersBatchextendsBatch[Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Int." href="IntegersBatch.html"><span class="name">IntegersBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Int</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>IntegersBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.IntegersCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="IntegersCursorextendsBatchCursor[Int]"></a><a id="IntegersCursor:IntegersCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#IntegersCursorextendsBatchCursor[Int]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Int." href="IntegersCursor.html"><span class="name">IntegersCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Int</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>IntegersCursor</code> might
+be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.IteratorCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="IteratorCursor[+A]extendsBatchCursor[A]"></a><a id="IteratorCursor[+A]:IteratorCursor[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#IteratorCursor[+A]extendsBatchCursor[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor type that works over an underlying Iterator." href="IteratorCursor.html"><span class="name">IteratorCursor</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.IteratorCursor.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> type that works over an
+underlying <code>Iterator</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> type that works over an
+underlying <code>Iterator</code>.</p><p>NOTE: all transformations are delegated to the underlying
+<code>Iterator</code> and may thus have lazy behavior.
+</p></div></div>
+    </li><li name="monix.tail.batches.LongsBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LongsBatchextendsBatch[Long]"></a><a id="LongsBatch:LongsBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#LongsBatchextendsBatch[Long]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation specialized for Long." href="LongsBatch.html"><span class="name">LongsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Long</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
+implementation, which is <code>@specialized</code>. Using <code>LongsBatch</code>
+might be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.LongsCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="LongsCursorextendsBatchCursor[Long]"></a><a id="LongsCursor:LongsCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#LongsCursorextendsBatchCursor[Long]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation specialized for Long." href="LongsCursor.html"><span class="name">LongsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Long</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
+implementation, which is <code>@specialized</code>. Using <code>LongsCursor</code> might
+be desirable instead for <code>isInstanceOf</code> checks.
+</p></div></div>
+    </li><li name="monix.tail.batches.SeqBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SeqBatch[+A]extendsBatch[A]"></a><a id="SeqBatch[+A]:SeqBatch[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#SeqBatch[+A]extendsBatch[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch implementation that wraps any Scala Seq." href="SeqBatch.html"><span class="name">SeqBatch</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.batches.SeqBatch.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation that wraps any
+Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="monix.tail.batches.Batch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Batch"></a><a id="Batch:Batch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#Batch" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Batch builders." href="Batch$.html"><span class="name">Batch</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> builders.</p>
+    </li><li name="monix.tail.batches.BatchCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="BatchCursor"></a><a id="BatchCursor:BatchCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#BatchCursor" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor builders." href="BatchCursor$.html"><span class="name">BatchCursor</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> builders.</p>
+    </li><li name="monix.tail.batches.EmptyBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EmptyBatch"></a><a id="EmptyBatch:EmptyBatch"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#EmptyBatch" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="Reusable Batch implementation that's always empty." href="EmptyBatch$.html"><span class="name">EmptyBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Reusable <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation
+that's always empty.</p>
+    </li><li name="monix.tail.batches.EmptyCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EmptyCursor"></a><a id="EmptyCursor:EmptyCursor"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#EmptyCursor" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="BatchCursor implementation that's always empty." href="EmptyCursor$.html"><span class="name">EmptyCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation that's always empty.</p>
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Hello World! &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Hello World! &mdash; Monix" />
+  <meta name="twitter:description" content="Go reactive (✿◠‿◠)" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/docs/3x/intro/hello-world" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hello World! &mdash; Monix" />
+  <meta property="og:description" content="Go reactive (✿◠‿◠)" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Hello World!</h1>
+  <nav role="navigation" id="type-info">
+    
+    
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/intro/hello-world.md">Edit Page</a>
+  </nav>
+
+  <nav role="navigation" id="toc"></nav>
+
+  <p>Let’s do instant gratification stuff.</p>
+
+<p>First, we need a <a href="/api/3.0/monix/execution/Scheduler.html">Scheduler</a>
+whenever asynchronous execution happens.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// We need a scheduler whenever asynchronous
+// execution happens, substituting your ExecutionContext
+</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="c1">// Needed below
+</span><span class="k">import</span> <span class="nn">scala.concurrent.Await</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+</code></pre></div></div>
+
+<h2 id="task-the-lazy-future">Task, the Lazy Future</h2>
+
+<p>For using <a href="/api/3.0/monix/eval/Task$.html">Task</a> or
+<a href="/api/3.0/monix/eval/Coeval$.html">Coeval</a>, usage is
+fairly similar with Scala’s own <code class="highlighter-rouge">Future</code>, except that
+<code class="highlighter-rouge">Task</code> behaves lazily:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
+
+<span class="c1">// A specification for evaluating a sum,
+// nothing gets triggered at this point!
+</span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task</code> in comparison with Scala’s <code class="highlighter-rouge">Future</code> is lazy,
+so nothing gets evaluated yet. We can convert it into
+a <code class="highlighter-rouge">Future</code> and evaluate it:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Actual execution, making use of the Scheduler in
+// our scope, imported above
+</span><span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+<span class="c1">// future: monix.execution.CancelableFuture[Int] = Async(Future(Success(2)),monix.execution.cancelables.StackedCancelable$Impl@6f587979)
+</span></code></pre></div></div>
+
+<p>We now have a standard <code class="highlighter-rouge">Future</code>, so we can use its result:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Avoid blocking; this is done for demostrative purposes
+</span><span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="c1">// res10: Int = 2
+</span></code></pre></div></div>
+
+<h2 id="observable-the-lazy--async-iterable">Observable, the Lazy &amp; Async Iterable</h2>
+
+<p>We already have the <code class="highlighter-rouge">Scheduler</code> in our local scope,
+so lets make a tick that gets triggered every second.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="c1">// Nothing happens here, as observable is lazily
+// evaluated only when the subscription happens!
+</span><span class="k">val</span> <span class="n">tick</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">.</span><span class="n">interval</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+    <span class="c1">// common filtering and mapping
+</span>    <span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+    <span class="c1">// any respectable Scala type has flatMap, w00t!
+</span>    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">x</span><span class="o">)))</span>
+    <span class="c1">// only take the first 5 elements, then stop
+</span>    <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+    <span class="c1">// to print the generated events to console
+</span>    <span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"Out"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our observable is at this point just a specification. We can evaluate
+it by subscribing to it:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Execution happens here, after subscribe
+</span><span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">tick</span><span class="o">.</span><span class="n">subscribe</span><span class="o">()</span>
+<span class="c1">// 0: Out--&gt;0
+// 1: Out--&gt;0
+// 2: Out--&gt;4
+// 3: Out--&gt;4
+// 4: Out--&gt;8
+// 5: Out completed
+</span>
+<span class="c1">// Or maybe we change our mind
+</span><span class="n">cancelable</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Isn’t this awesome? (✿ ♥‿♥)</p>
+
+
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    If you're looking for the older 2.x
+    <a href="/docs/2x/">click here</a>!
+  </div>
+
+  <div class="buttons">
+    <a href="/docs/3x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/intro/hello-world.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

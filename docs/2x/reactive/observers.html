@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Observers and Subscribers &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Observers and Subscribers &mdash; Monix" />
+  <meta name="twitter:description" content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/docs/2x/reactive/observers" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Observers and Subscribers &mdash; Monix" />
+  <meta property="og:description" content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Observers and Subscribers</h1>
+
+  <nav role="navigation" id="type-info">
+    
+    
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/observers.md">Edit Page</a>
+  </nav>
+  
+  <div id="version2x">
+    You are viewing the documentation for the older Monix 2.x series.<br />
+    If you're looking for the latest 3.x
+    <a href="/docs/3x/">click here</a>!
+  </div>
+
+  <nav role="navigation" id="toc"></nav>
+
+  <h2 id="observer">Observer</h2>
+
+<p><a href="/api/2.3/monix/reactive/Observer.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a></p>
+
+<p>The <code class="highlighter-rouge">Observer</code> from the Rx pattern is the trio of callbacks that get
+subscribed to an <a href="./observable.html">Observable</a> for receiving events.</p>
+
+<p>In essence the <code class="highlighter-rouge">Observer</code> is this type:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+
+  <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="contract">Contract</h3>
+
+<p>Obviously the <code class="highlighter-rouge">Observer</code> interface doesn’t do much other than
+establishing a communication protocol between producers and consumers.
+Therefore when pushing items into an <code class="highlighter-rouge">Observer</code>, we need a contract:</p>
+
+<ol>
+  <li>Grammar: <code class="highlighter-rouge">onNext</code> CAN be called zero, one or multiple times,
+followed by an optional <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> if the stream is
+finite, so in other words <code class="highlighter-rouge">onNext* (onComplete | onError)?</code>.
+And once a final event happens, either <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code>, then
+no further calls are allowed.</li>
+  <li>Back-pressure: each <code class="highlighter-rouge">onNext</code> call MUST wait on a <code class="highlighter-rouge">Continue</code> result
+returned by the <code class="highlighter-rouge">Future[Ack]</code> of the previous <code class="highlighter-rouge">onNext</code> call.</li>
+  <li>Back-pressure for <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> is optional:
+when calling <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> you are not
+required to wait on the <code class="highlighter-rouge">Future[Ack]</code> of the previous <code class="highlighter-rouge">onNext</code>.</li>
+  <li>Stream cancellation: <code class="highlighter-rouge">onNext</code> calls can return <code class="highlighter-rouge">Stop</code> or
+<code class="highlighter-rouge">Future[Stop]</code> and after receiving it the data-source MUST no
+longer send any events.  Tied with the back-pressure requirement,
+it means that cancellation by means of <code class="highlighter-rouge">Stop</code> is always
+deterministic and immediate.</li>
+  <li>Ordering/non-concurrent guarantee: calls to <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code>
+and <code class="highlighter-rouge">onError</code> MUST BE ordered and thus non-concurrent.
+As a consequence <code class="highlighter-rouge">Observer</code> implementations don’t normally need to
+<code class="highlighter-rouge">synchronize</code> their <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> methods.</li>
+  <li>Exactly once delivery for final events: you are allowed to call
+either <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> at most one time. And you cannot
+call both <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code>.</li>
+  <li>The implementation of <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onError</code> or <code class="highlighter-rouge">onComplete</code> MUST NOT throw
+exceptions. Never throw exceptions in their implementation and
+protect against code that might do that.</li>
+</ol>
+
+<p>Corollaries:</p>
+
+<ol>
+  <li>An observer can subscribe to at most one observable and
+cannot subscribe to multiple observables.</li>
+  <li>When returning <code class="highlighter-rouge">Stop</code> from <code class="highlighter-rouge">onNext</code>, no further <code class="highlighter-rouge">onNext</code> events can
+be received, but this requirement is optional for <code class="highlighter-rouge">onComplete</code> and
+<code class="highlighter-rouge">onError</code> because back-pressure is also optional for these final
+events - in other words, after returning <code class="highlighter-rouge">Stop</code>, the observer can
+receive a final <code class="highlighter-rouge">onComplete</code> if that <code class="highlighter-rouge">onNext</code> happened to be the
+last one, or an <code class="highlighter-rouge">onError</code> if an error just happened.</li>
+  <li>Once a final event happened, like <code class="highlighter-rouge">onComplete</code>, we have nowhere to
+send eventual errors through <code class="highlighter-rouge">onError</code> and we cannot send <code class="highlighter-rouge">onError</code>
+twice, so such errors will at best get logged and at worst get lost.
+Behavior is undefined for errors that break the contract.</li>
+  <li>The data-source can get canceled without the observer receiving
+any notification about it.</li>
+</ol>
+
+<h3 id="building-an-observer">Building an Observer</h3>
+
+<p>Let’s build an observer that just logs events:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Back-pressure related acknowledgement
+</span><span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack.</span><span class="o">{</span><span class="nc">Continue</span><span class="o">,</span> <span class="nc">Stop</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observer</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
+
+<span class="k">val</span> <span class="n">observer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O--&gt;$elem"</span><span class="o">)</span>
+    <span class="c1">// Continue already inherits from Future[Ack],
+</span>    <span class="c1">// so we can return it directly ;-)
+</span>    <span class="nc">Continue</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="n">ex</span><span class="o">.</span><span class="n">printStackTrace</span><span class="o">()</span>
+  <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"O completed"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And in case you just want an empty <code class="highlighter-rouge">Observer</code> that does nothing but
+logs <code class="highlighter-rouge">onError</code> in case it happens:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Needed for logging errors
+</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="k">val</span> <span class="n">observer</span> <span class="k">=</span> <span class="nc">Observer</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Or you can quickly build an <code class="highlighter-rouge">Observer</code> that only logs the events that
+it receives. We’ll use this in other samples:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observer</span>
+
+<span class="k">val</span> <span class="n">out</span> <span class="k">=</span> <span class="nc">Observer</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="c1">// out: Observer.Sync[Any]
+</span>
+<span class="n">out</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">//=&gt; 0: O--&gt;1
+// res0: Ack = Continue
+</span>
+<span class="n">out</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="c1">//=&gt; 1: O--&gt;2
+// res0: Ack = Continue
+</span>
+<span class="n">out</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+<span class="c1">//=&gt; 2: O completed
+</span></code></pre></div></div>
+
+<h3 id="feeding-an-observer">Feeding an Observer</h3>
+
+<p>Feeding one element, then stopping. This is legal:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">observer</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Back-pressuring <code class="highlighter-rouge">onComplete</code> is optional, so you can also do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
+    <span class="n">observer</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+    <span class="nc">Stop</span>
+  <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
+    <span class="c1">// At this point we know the observer wants
+</span>    <span class="c1">// to stop, so no onComplete!
+</span>    <span class="nc">Stop</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Feeding two elements, then stopping. This is NOT legal:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE
+</span><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="n">observer</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>The correct way of doing this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
+    <span class="c1">// We have permission to continue
+</span>    <span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+    <span class="c1">// No back-pressure required here
+</span>    <span class="n">observer</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+    <span class="nc">Stop</span>
+  <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
+    <span class="c1">// Nothing else to do
+</span>    <span class="nc">Stop</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that the contract says that these calls must never be
+concurrent, we need imposed ordering. But here we have clear
+<em>happens-before</em> relationships between calls, so this code is correct.</p>
+
+<p>All together now. Lets feed an entire <code class="highlighter-rouge">Iterator</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Ack.</span><span class="o">{</span><span class="nc">Continue</span><span class="o">,</span> <span class="nc">Stop</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.execution.</span><span class="o">{</span><span class="nc">Ack</span><span class="o">,</span> <span class="nc">Scheduler</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
+<span class="k">import</span> <span class="nn">scala.util.control.NonFatal</span>
+
+<span class="k">def</span> <span class="n">feed</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">in</span><span class="k">:</span> <span class="kt">Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">out</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
+  <span class="o">(</span><span class="k">implicit</span> <span class="n">s</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+
+  <span class="c1">// Indicates whether errors that happen inside the
+</span>  <span class="c1">// logic below should be streamed downstream with
+</span>  <span class="c1">// onError, or whether we aren't allowed because of
+</span>  <span class="c1">// the grammar. Basically we need to differentiate
+</span>  <span class="c1">// between errors triggered by our data source, the
+</span>  <span class="c1">// Iterator, and errors triggered by our Observer,
+</span>  <span class="c1">// which isn't allowed to triggered exceptions.
+</span>  <span class="k">var</span> <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// Iterator protocol, we need to ask if it hasNext
+</span>    <span class="k">if</span> <span class="o">(!</span><span class="n">in</span><span class="o">.</span><span class="n">hasNext</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// From this point on, we aren't allowed to call onError
+</span>      <span class="c1">// because it can break the contract
+</span>      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
+      <span class="c1">// Signaling the end of the stream, then we are done
+</span>      <span class="n">out</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+      <span class="nc">Stop</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="c1">// Iterator protocol, we get a next element
+</span>      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">in</span><span class="o">.</span><span class="n">next</span><span class="o">()</span>
+      <span class="c1">// From this point on, we aren't allowed to call onError
+</span>      <span class="c1">// because it can break the contract
+</span>      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
+      <span class="c1">// Signaling onNext, then back-pressuring
+</span>      <span class="n">out</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">next</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
+          <span class="c1">// We got permission, go next
+</span>          <span class="n">feed</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="n">out</span><span class="o">)(</span><span class="n">s</span><span class="o">)</span>
+        <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
+          <span class="c1">// Nothing else to do, stop the loop
+</span>          <span class="nc">Stop</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">NonFatal</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="c1">// The Iterator triggered the error, so stream it
+</span>      <span class="k">if</span> <span class="o">(</span><span class="n">streamErrors</span><span class="o">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+      <span class="k">else</span> <span class="c1">// The Observer triggered the error, so log it
+</span>        <span class="n">s</span><span class="o">.</span><span class="n">reportFailure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+      <span class="c1">// Nothing else to do
+</span>      <span class="nc">Stop</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You’ll notice that the implementation tries really hard to not break
+the contract. The <code class="highlighter-rouge">streamErrors</code> pattern is peculiar. We are making a
+difference between errors thrown by the <code class="highlighter-rouge">Iterator</code>, which we should
+stream with <code class="highlighter-rouge">onError</code> and errors thrown by the <code class="highlighter-rouge">Observer</code>
+implementation. By contract the <code class="highlighter-rouge">Observer</code> is not allowed to throw
+errors, ever, therefore if it happens, the behavior is undefined -
+though we prefer to log it when we catch such instances.</p>
+
+<h2 id="subscriber">Subscriber</h2>
+
+<p><a href="/api/2.3/monix/reactive/observers/Subscriber.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a></p>
+
+<p>Given that, in order to do anything with an <code class="highlighter-rouge">Observer</code> we always need
+a <a href="../execution/scheduler.html">Scheduler</a>, the <code class="highlighter-rouge">Subscriber</code> is a data
+type that’s an <code class="highlighter-rouge">Observer</code> with a <code class="highlighter-rouge">Scheduler</code> attached:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Subscriber</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">def</span> <span class="n">scheduler</span><span class="k">:</span> <span class="kt">Scheduler</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>When subscribing to an <code class="highlighter-rouge">Observable</code>, the base subscribe method wants a
+<code class="highlighter-rouge">Subscriber</code>, because observables need a <code class="highlighter-rouge">Scheduler</code> when consumed. So
+on <code class="highlighter-rouge">subscribe</code> you either have to specify it directly, or you specify
+a plain <code class="highlighter-rouge">Observer</code> with a <code class="highlighter-rouge">Scheduler</code> taken implicitly and then under
+the covers a <code class="highlighter-rouge">Subscriber</code> instance is being built for you.</p>
+
+<p>To convert a plain <code class="highlighter-rouge">Observer</code> into a <code class="highlighter-rouge">Subscriber</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
+<span class="k">import</span> <span class="nn">monix.reactive._</span>
+
+<span class="k">val</span> <span class="n">observer</span> <span class="k">=</span> <span class="nc">Observer</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">subscriber</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">(</span><span class="n">observer</span><span class="o">,</span> <span class="n">scheduler</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>To build a <code class="highlighter-rouge">Subscriber</code> instance that does nothing but logs
+<code class="highlighter-rouge">onError</code> in case it happens:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="k">val</span> <span class="n">subscriber</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>Or to build a <code class="highlighter-rouge">Subscriber</code> that logs events to standard output
+for debugging purposes:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">subscriber</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="convert-to-a-reactive-streams-subscriber">Convert to a Reactive Streams Subscriber</h3>
+
+<p>Given the integration with
+<a href="http://www.reactive-streams.org/">Reactive Streams</a>,
+we can convert Monix Subscribers to Reactive Subscribers.</p>
+
+<p>These subscribers have a similar interface and contract, but with a
+slightly different API, being in fact equivalent.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack.</span><span class="o">{</span><span class="nc">Continue</span><span class="o">,</span> <span class="nc">Stop</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
+
+<span class="c1">// Building a Monix Subscriber instance
+</span><span class="k">val</span> <span class="n">monixSubscriber</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">reactiveSubscriber</span><span class="k">:</span> <span class="kt">org.reactivestreams.Subscriber</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">monixSubscriber</span><span class="o">.</span><span class="n">toReactive</span>
+</code></pre></div></div>
+
+<p>And usage of the <code class="highlighter-rouge">org.reactivestreams.Subscriber</code> interface:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reactiveSubscriber</span><span class="o">.</span><span class="n">onSubscribe</span><span class="o">(</span>
+  <span class="k">new</span> <span class="n">org</span><span class="o">.</span><span class="n">reactivestreams</span><span class="o">.</span><span class="nc">Subscription</span> <span class="o">{</span>
+    <span class="k">private</span> <span class="k">var</span> <span class="n">isCanceled</span> <span class="k">=</span> <span class="kc">false</span>
+
+    <span class="k">def</span> <span class="n">request</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isCanceled</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">isCanceled</span> <span class="k">=</span> <span class="kc">true</span>
+        <span class="n">reactiveSubscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+        <span class="n">reactiveSubscriber</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">def</span> <span class="n">cancel</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="n">isCanceled</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="o">})</span>
+
+<span class="c1">//=&gt; 0: O--&gt;1
+//=&gt; 1: O completed
+</span></code></pre></div></div>
+
+<h3 id="convert-from-a-reactive-streams-subscriber">Convert from a Reactive Streams Subscriber</h3>
+
+<p>Given the integration with
+<a href="http://www.reactive-streams.org/">Reactive Streams</a>,
+we can convert Reactive Subscribers to Monix Subscribers.</p>
+
+<p>Let’s implement an <code class="highlighter-rouge">org.reactivestreams.Subscriber</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">org.reactivestreams.</span><span class="o">{</span><span class="nc">Subscription</span> <span class="k">=&gt;</span> <span class="nc">RSubscription</span><span class="o">}</span>
+
+<span class="k">val</span> <span class="n">reactiveSubscriber</span> <span class="k">=</span>
+  <span class="k">new</span> <span class="n">org</span><span class="o">.</span><span class="n">reactivestreams</span><span class="o">.</span><span class="nc">Subscriber</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">private</span> <span class="k">var</span> <span class="n">s</span><span class="k">:</span> <span class="kt">RSubscription</span> <span class="o">=</span> <span class="kc">null</span>
+
+    <span class="k">def</span> <span class="n">onSubscribe</span><span class="o">(</span><span class="n">s</span><span class="k">:</span> <span class="kt">RSubscription</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="n">s</span> <span class="k">=</span> <span class="n">s</span>
+      <span class="n">s</span><span class="o">.</span><span class="n">request</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+    <span class="o">}</span>
+
+    <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O--&gt;$elem"</span><span class="o">)</span>
+      <span class="n">s</span><span class="o">.</span><span class="n">request</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+    <span class="o">}</span>
+
+    <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"O completed"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="n">ex</span><span class="o">.</span><span class="n">printStackTrace</span><span class="o">()</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>And now we can covert it into a <code class="highlighter-rouge">Subscriber</code> that Monix can use:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
+<span class="k">import</span> <span class="nn">monix.execution.Cancelable</span>
+
+<span class="k">val</span> <span class="n">monixSubscriber</span> <span class="k">=</span>
+  <span class="nc">Subscriber</span><span class="o">.</span><span class="n">fromReactiveSubscriber</span><span class="o">(</span>
+    <span class="n">reactiveSubscriber</span><span class="o">,</span>
+    <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Was canceled!"</span><span class="o">))</span>
+  <span class="o">)</span>
+
+<span class="n">monixSubscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">//=&gt; O--&gt;1
+</span><span class="n">monixSubscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="c1">//=&gt; O--&gt;2
+</span><span class="n">monixSubscriber</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+<span class="c1">//=&gt; O completed
+</span></code></pre></div></div>
+
+<h3 id="safe-subscriber">Safe Subscriber</h3>
+
+<p><a href="/api/2.3/monix/reactive/observers/SafeSubscriber.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a></p>
+
+<p>The <code class="highlighter-rouge">SafeSubscriber</code> wraps a <code class="highlighter-rouge">Subscriber</code> implementation into one that
+is safer for usage and protecting some parts of the contract:</p>
+
+<ol>
+  <li>Exceptions thrown in the underlying subscriber implementation are
+being caught and treated, since exceptions break the contract.</li>
+  <li>If the downstream subscriber returns <code class="highlighter-rouge">Stop</code> from <code class="highlighter-rouge">onNext</code>, then
+this will enforce the grammar by stopping further <code class="highlighter-rouge">onNext</code> and even
+<code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> events.</li>
+  <li>Once final events, <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> are noticed, no
+further events are accepted.</li>
+  <li>The <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> are back-pressured. Even though this
+is optional, for users of the API it’s safer if they are.</li>
+</ol>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
+
+<span class="k">def</span> <span class="n">create</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span><span class="k">:</span> <span class="kt">SafeSubscriber</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">SafeSubscriber</span><span class="o">(</span><span class="k">new</span> <span class="nc">Subscriber</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="n">global</span>
+
+    <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Ack</span> <span class="o">=</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="s">"onNext"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"Completed!"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+      <span class="nc">System</span><span class="o">.</span><span class="n">err</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Error: $ex"</span><span class="o">)</span>
+  <span class="o">})</span>
+
+<span class="k">val</span> <span class="n">out</span> <span class="k">=</span> <span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<span class="c1">// Error in onNext gets caught and handled
+</span><span class="n">out</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">//=&gt; Error: java.lang.IllegalStateException: onNext
+// res: Future[Ack] = Stop
+</span>
+<span class="c1">// Repeating it will have no further effect
+</span><span class="n">out</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="c1">// res: Future[Ack] = Stop
+</span>
+<span class="k">val</span> <span class="n">out2</span> <span class="k">=</span> <span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<span class="n">out2</span><span class="o">.</span><span class="n">onComplete</span><span class="o">()</span>
+<span class="c1">//=&gt; Completed!
+</span>
+<span class="c1">// No further events are accepted
+</span><span class="n">out2</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">// res: Future[Ack] = Stop
+</span></code></pre></div></div>
+
+<p>Note that when subscribing to observables, if you use the regular
+<code class="highlighter-rouge">subscribe</code> methods (and not <code class="highlighter-rouge">unsafeSubscribeFn</code>) the callbacks you
+give are automatically wrapped in a <code class="highlighter-rouge">SafeSubscriber</code>, so you don’t
+have to do it by yourself.</p>
+
+<h3 id="connectable-subscriber">Connectable Subscriber</h3>
+
+<p><a href="/api/2.3/monix/reactive/observers/ConnectableSubscriber.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a></p>
+
+<p>Wraps a <code class="highlighter-rouge">Subscriber</code> implementation into one that back-pressures the
+upstream until the call to <code class="highlighter-rouge">connect()</code> happens. Before <code class="highlighter-rouge">connect()</code> it
+also allows for scheduling the delivery of additional items before any
+other <code class="highlighter-rouge">onNext</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
+
+<span class="k">val</span> <span class="n">underlying</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">connectable</span> <span class="k">=</span> <span class="nc">ConnectableSubscriber</span><span class="o">(</span><span class="n">underlying</span><span class="o">)</span>
+
+<span class="c1">// Queue for delivery after connect happens and after
+// enqueued items by means of pushNext. At this point
+// the subscriber back-pressures the source with a
+// Future[Ack] that will complete only after connect()
+</span><span class="k">val</span> <span class="n">ack</span> <span class="k">=</span> <span class="n">connectable</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="s">"b1"</span><span class="o">)</span>
+
+<span class="c1">// Acknowledgement not given because we are back-pressuring
+</span><span class="n">ack</span><span class="o">.</span><span class="n">isCompleted</span>
+<span class="c1">// res: Boolean = false
+</span>
+<span class="c1">// Queueing items to be delivered first on connect()
+</span><span class="n">connectable</span><span class="o">.</span><span class="n">pushFirst</span><span class="o">(</span><span class="s">"a1"</span><span class="o">)</span>
+<span class="n">connectable</span><span class="o">.</span><span class="n">pushFirst</span><span class="o">(</span><span class="s">"a2"</span><span class="o">)</span>
+
+<span class="c1">// Nothing gets streamed until now:
+</span><span class="n">connectable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+<span class="c1">//=&gt; 0: O--&gt;a1
+//=&gt; 1: O--&gt;a2
+//=&gt; 2: O--&gt;b1
+</span>
+<span class="c1">// The data-source is now no longer paused
+</span><span class="n">ack</span><span class="o">.</span><span class="n">isCompleted</span>
+<span class="c1">// res: Boolean = true
+</span></code></pre></div></div>
+
+<h3 id="cache-until-connect-subscriber">Cache Until Connect Subscriber</h3>
+
+<p><a href="/api/2.3/monix/reactive/observers/CacheUntilConnectSubscriber.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a></p>
+
+<p>Wraps an underlying <code class="highlighter-rouge">Subscriber</code> into an implementation that caches
+all events until the call to <code class="highlighter-rouge">connect()</code> happens. After being
+connected, the buffer is drained into the underlying subscriber, after
+which all subsequent events are pushed directly.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.execution._</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
+
+<span class="k">val</span> <span class="n">underlying</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">subscriber</span> <span class="k">=</span> <span class="nc">CacheUntilConnectSubscriber</span><span class="o">(</span><span class="n">underlying</span><span class="o">)</span>
+
+<span class="c1">// Gets cached in an underlying buffer
+// to be streamed after connect
+</span><span class="n">subscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="c1">// res0: Future[Ack] = Continue
+</span><span class="n">subscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span>
+<span class="c1">// res1: Future[Ack] = Continue
+</span><span class="n">subscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="mi">30</span><span class="o">)</span>
+<span class="c1">// res2: Future[Ack] = Continue
+</span>
+<span class="c1">// Nothing happens until connect
+</span><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">subscriber</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+<span class="c1">//=&gt; 0: O--&gt;10
+//=&gt; 1: O--&gt;20
+//=&gt; 2: O--&gt;30
+</span></code></pre></div></div>
+
+<h3 id="buffered-subscriber">Buffered Subscriber</h3>
+
+<p><a href="/api/2.3/monix/reactive/observers/BufferedSubscriber.html">API Documentation</a> •
+<a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a></p>
+
+<p>Observers have a strong contract and consequently:</p>
+
+<ul>
+  <li>are not thread-safe</li>
+  <li>have a back-pressure requirement</li>
+</ul>
+
+<p>There are instances in which these requirements are limiting. A
+<code class="highlighter-rouge">BufferedSubscriber</code> describes (and Monix can wrap any implementation
+into) a <code class="highlighter-rouge">Subscriber</code> that:</p>
+
+<ol>
+  <li>has <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> methods that can be called
+concurrently</li>
+  <li>has implementations that always have synchronous behavior, returning
+an immediate <code class="highlighter-rouge">Continue</code></li>
+  <li>has an <code class="highlighter-rouge">onNext</code> that returns an immediate <code class="highlighter-rouge">Continue</code> for as long as
+the buffer isn’t full</li>
+  <li>buffers the connection between the upstream and the underlying
+subscriber such that the underlying subscriber can consume events
+at its own pace</li>
+</ol>
+
+<p>Given that the underlying consumer can be slower than the source and
+given that we have a buffer between the data source and the consumer,
+we can talk about <em>overflows</em> and <em>overflow strategies</em>.</p>
+
+<p>The
+<a href="/api/2.3/monix/reactive/OverflowStrategy$.html">OverflowStrategy</a>
+parameter dictates the strategy of the used buffer. We’ve got these
+strategies available:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Unbounded</code> indicates that the buffer should be unlimited. In this
+case the buffer can expand to fill the whole available heap
+memory. And so in case of slow consumers, the process can naturally
+run out of memory.</li>
+  <li><code class="highlighter-rouge">Fail</code> indicates a limited size for the buffer and on overflow the
+connection will be closed, the underlying subscriber receiving an
+<code class="highlighter-rouge">onError</code> notification and the data source receiving a <code class="highlighter-rouge">Stop</code> on
+<code class="highlighter-rouge">onNext</code>.</li>
+  <li><code class="highlighter-rouge">BackPressure</code> indicates a limited size for the buffer and on
+overflow it should try to back-pressure the source until the buffer
+is empty again. This isn’t a <code class="highlighter-rouge">Synchronous</code> strategy obviously and so
+it cannot be used in cases where one really needs <code class="highlighter-rouge">Synchronous</code>
+behavior.</li>
+  <li><code class="highlighter-rouge">DropNew</code> indicates a limited size for the buffer and on overflow
+it should drop incoming events.</li>
+  <li><code class="highlighter-rouge">DropOld</code> indicates a limited size for the buffer and on overflow
+it should drop older enqueued events.</li>
+  <li><code class="highlighter-rouge">ClearBuffer</code> indicates a limited size for the buffer and on overflow
+it should drop the entire buffer and start fresh.</li>
+</ul>
+
+
+  <div class="buttons">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/observers.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

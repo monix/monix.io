@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix vs Cats-Effect</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Monix vs Cats-Effect" />
+  <meta name="twitter:description" content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Monix vs Cats-Effect" />
+  <meta property="og:description" content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="post">
+  <h1 class="post-title">Monix vs Cats-Effect</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2018-03-20">
+    20 Mar 2018
+    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+  </time>
+
+  <p>I’m the author of Monix and a major contributor to 
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a>.</p>
+
+<p>This post describes the relationship between Monix and Cats-Effect,
+their history and when each should be used.</p>
+
+<!--more-->
+
+<p>But to start with the most pressing concern …</p>
+
+<h2 id="monixs-task-vs-catseffectio">Monix’s Task vs cats.effect.IO</h2>
+
+<p><a href="https://typelevel.org/cats-effect/datatypes/io.html">cats.effect.IO</a>
+and <a href="https://monix.io/docs/3x/eval/task.html">monix.eval.Task</a> are
+very similar, plus I ended up working on both, so design decisions I
+made for <code class="highlighter-rouge">Task</code> ended up in <code class="highlighter-rouge">IO</code> as well. That said <code class="highlighter-rouge">IO</code> is designed
+to be a simple, reliable, pure reference implementation, whereas
+<code class="highlighter-rouge">Task</code> is more advanced if you care about certain things.</p>
+
+<p>For example <code class="highlighter-rouge">Task</code>’s run-loop is designed to provide certain fairness
+guarantees, depending on configuration. By default its run-loop does
+processing in batches, introducing thread forks once over a
+threshold. If you’re using <code class="highlighter-rouge">Task</code> or <code class="highlighter-rouge">IO</code> as some sort of green
+threads, and you should because they are really good for that, then
+<code class="highlighter-rouge">Task</code> provides <em>scheduling fairness</em> out of the box, whereas your
+logic via <code class="highlighter-rouge">IO</code> will have to include manual <code class="highlighter-rouge">IO.shift</code> calls.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect
+</span><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">IO</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">IO</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+      <span class="c1">// Insert async boundary every 128 cycles
+</span>      <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">IO</span><span class="o">.</span><span class="n">shift</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>      
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="c1">// Monix simply does it ;-)
+</span><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> 
+    <span class="k">else</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>This week I’ve released version <code class="highlighter-rouge">0.10</code> of cats-effect with the
+cancelable <code class="highlighter-rouge">IO</code>. Before this it was only Monix’s <code class="highlighter-rouge">Task</code> that was
+cancelable and actually usable in concurrent scenarios (e.g. race
+conditions), so I imported the same underlying design that the other
+maintainers agreed to. That said the IO implementation is more
+conservative still. In both implementations the cancelability of a
+task has to be opt-in, however with <code class="highlighter-rouge">Task</code> you can opt into
+auto-cancelable <code class="highlighter-rouge">flatMap</code> loops, whereas with <code class="highlighter-rouge">IO</code> you need manual
+calls to <code class="highlighter-rouge">IO.cancelBoundary</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect
+</span><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">IO</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">IO</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="n">next</span> <span class="k">=</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+      <span class="c1">// Check cancelation status every 128 cycles
+</span>      <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">IO</span><span class="o">.</span><span class="n">cancelBoundary</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="c1">// Monix
+</span><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> 
+    <span class="k">else</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+  <span class="o">}</span>
+
+<span class="c1">// Cancelability is still opt-in, but can be decided at 
+// the call-site for this one:
+</span><span class="n">fib</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="n">cancelable</span>
+</code></pre></div></div>
+
+<p>So IO’s design is to be very explicit about forking or cancelability,
+whereas <code class="highlighter-rouge">Task</code> affords some smartness in it, doing the right thing out
+of the box, but with easy configuration options.</p>
+
+<p><code class="highlighter-rouge">Task</code> is also designed to interact better with the impure side and
+you’ll have an easier time to get it adopted in hybrid projects. For
+example <code class="highlighter-rouge">Task#runAsync</code> calls return <code class="highlighter-rouge">CancelableFuture</code> results. And
+<code class="highlighter-rouge">Task.fromFuture</code> can recognize <code class="highlighter-rouge">CancelableFuture</code> too, which means
+that this equivalence really holds as you lose no information:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Task</span><span class="o">.</span><span class="n">deferFuture</span><span class="o">(</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="n">task</span>
+</code></pre></div></div>
+
+<p>With IO you have <code class="highlighter-rouge">unsafeToFuture</code>, but the above equivalence does not
+hold for <code class="highlighter-rouge">IO</code>. It’s not the same thing, the same level of integration,
+because <code class="highlighter-rouge">IO</code> doesn’t care about what happens after the “edge of the FP
+program”.</p>
+
+<p><code class="highlighter-rouge">Task</code> also has a <code class="highlighter-rouge">memoize</code> that allows you to (lazily) cache
+executing tasks, but that in certain cases could break RT (since
+allocation of a mutable ref is a side effect), so you have to be a big
+boy when using it, but it’s awesome if you’ve got interactions with
+the other side. So to turn any <code class="highlighter-rouge">Task</code> into a lazily evaluated value
+(the thread-safe, asynchronous equivalent of Scala’s <code class="highlighter-rouge">lazy val</code>) 
+all you need is:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span><span class="o">.</span><span class="n">memoize</span>
+</code></pre></div></div>
+
+<p>See <a href="https://github.com/typelevel/cats-effect/issues/120">issue #120</a>
+for why this won’t happen for IO.</p>
+
+<p>Task also requires a <code class="highlighter-rouge">Scheduler</code> in its <code class="highlighter-rouge">runAsync</code>, which gets
+injected everywhere internally, so you don’t need an
+<code class="highlighter-rouge">ExecutionContext</code> for operations like <code class="highlighter-rouge">sleep</code> or <code class="highlighter-rouge">shift</code> or
+whatnot. We fixed this <code class="highlighter-rouge">ExecutionContext</code> dependency for <code class="highlighter-rouge">IO</code> recently
+by creating an indirection in <code class="highlighter-rouge">Timer</code>, but it’s still there. This
+matters in certain scenarios - for example with <code class="highlighter-rouge">Task</code> you get a
+<code class="highlighter-rouge">Task.deferFutureAction</code> which gives you an <code class="highlighter-rouge">ExecutionContext</code> for
+wrapping <code class="highlighter-rouge">Future</code> enabled APIs, so you no longer have any need to
+carry around that <code class="highlighter-rouge">ExecutionContext</code>, which isn’t possible with <code class="highlighter-rouge">IO</code>.</p>
+
+<p>Also Monix has <code class="highlighter-rouge">TaskLocal</code>, which is like a <code class="highlighter-rouge">ThreadLocal</code>, but for
+<code class="highlighter-rouge">Task</code>. You can’t implement such a thing for <code class="highlighter-rouge">IO</code> without modifying
+its run-loop, because you need to ensure that values get transported
+over async boundaries.</p>
+
+<p>This will not be the end of it. Improvements in run-loop execution
+that we (the Monix developers) come up with, will make it into <code class="highlighter-rouge">Task</code>
+first and might not make it into <code class="highlighter-rouge">IO</code> if it is against its principles.</p>
+
+<h3 id="what-should-i-use">What should I use?</h3>
+
+<p><code class="highlighter-rouge">Task</code> is designed for smart control in concurrent scenarios, for
+fairness and for interoperability with the impure side of the project,
+design goals that go against <code class="highlighter-rouge">IO</code>’s design.  If you’re a user of
+<code class="highlighter-rouge">monix.eval.Task</code>, then know that <code class="highlighter-rouge">Task</code> will always be the more
+advanced one.</p>
+
+<p>The <code class="highlighter-rouge">IO</code> in Cats-effect is designed for simplicity and the API follows
+the WYSIWYG principle.</p>
+
+<p>Both have virtues. But that is why the <code class="highlighter-rouge">cats-effect</code> project also
+provides <a href="https://typelevel.org/cats-effect/typeclasses/">type classes</a>,
+such that projects that can provide polymorphic abstractions can work
+with both. At this point projects like Doobie, FS2, Http4s or Monix’s
+own <code class="highlighter-rouge">Iterant</code> allow you to use both <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">IO</code>.</p>
+
+<p>So keep using <code class="highlighter-rouge">Task</code> if you already do, or look into it, because it’s
+awesome ;-) And if you decide to use <code class="highlighter-rouge">cats.effect.IO</code> instead, that’s
+fine too.</p>
+
+<h2 id="history-of-monix">History of Monix</h2>
+
+<p>Monix started at the beginning of 2014 as a collection of concurrency
+tools, augmenting Scala’s standard library, but then it evolved into
+providing a full fledged <a href="http://reactivex.io/">ReactiveX</a>
+implementation that was back-pressured with a protocol based on
+Scala’s <code class="highlighter-rouge">Future</code> and with opinions™ in order to keep an idiomatic
+Scala style, very unlike RxJava / RxScala.  Back then, RxJava was not
+back-pressured and Akka Streams did not exist, so this was solving a
+very real problem for me.</p>
+
+<p>In 2014 this project was named <a href="/api/1.2/">Monifu</a>.</p>
+
+<p><a href="https://typelevel.org/"><img src="/public/images/typelevel.png" width="150" class="right" /></a></p>
+
+<p>In 2016 something happened — I pushed the project in 
+<a href="https://github.com/typelevel/general/issues/4">Typelevel’s incubator</a>
+and its path was set by 
+<a href="https://github.com/typelevel/general/issues/4#issuecomment-165976262">this comment</a> 
+by <a href="https://github.com/milessabin">Miles Sabin</a>:</p>
+
+<blockquote>
+  <p>@alexandru would you be willing to explore evolving Monifu in a
+direction which makes a more statically enforced separation between
+effectful and non-effectful parts of the API? @tpolecat would that
+address your concerns, and would you be willing to help?</p>
+
+  <p>More generally, do we think that activity around this would usefully
+feed into the design of a Cats alternative to Task/IO?</p>
+</blockquote>
+
+<p>Being very enthusiastic about having my project accepted as a member of 
+a young and cool community, I accepted.</p>
+
+<p>Then on Dec 30, due to an existential crisis that happens to me around
+New Year’s Eve, I also 
+<a href="https://github.com/monix/monix/issues/91">renamed the project</a> 
+to Monix. Not late after that, the first 
+(<a href="(https://github.com/monix/monix/blob/v2.0-M1/monix-async/shared/src/main/scala/monix/async/Task.scala)">slow, shitty and broken</a>)
+version of <code class="highlighter-rouge">Task</code> was unleashed on the unsuspecting public.</p>
+
+<p>Well, from March until May, when I attended 
+<a href="http://2016.flatmap.no/nedelcu.html#session">flatMap(Oslo)</a>, apparently 
+I got my shit together and had a pretty awesome <code class="highlighter-rouge">Task</code> implementation on
+my hands. And 
+<a href="/presentations/2016-task-flatmap-oslo.html">the presentation</a>
+went great.</p>
+
+<p>Since then Monix has evolved other capabilities, now in version 3.0.0 
+also providing <a href="https://monix.io/api/3.0/monix/tail/Iterant.html">Iterant</a>,
+an abstraction for purely functional pull-based streaming. Documentation
+and details to follow at the final 3.0.0.</p>
+
+<p>But being a modular library, the interesting thing to me is that thus
+far some people only use it for <code class="highlighter-rouge">Task</code>, while others only use it for
+<code class="highlighter-rouge">Observable</code>, treating <code class="highlighter-rouge">Task</code> like RxJava’s <code class="highlighter-rouge">Single</code>, aka an
+<code class="highlighter-rouge">Observable</code> of one event. Monix is one of the very few libraries that
+happens to be at the intersection of two worlds, exposing its users to
+the benefits of both:</p>
+
+<ol>
+  <li>The world of Java and .NET developers that have bitten from the
+forbidden fruit of FP due to ReactiveX libraries, but never really
+making the jump</li>
+  <li>The world of <a href="https://typelevel.org/cats/">Cats</a> developers that
+need abstractions for describing effects, that need the <code class="highlighter-rouge">IO</code> monad</li>
+</ol>
+
+<p>And I’m damn proud of it.</p>
+
+<h2 id="history-of-cats-effect">History of Cats-Effect</h2>
+
+<p>Sometimes in Feb 2017 the situation looked like this:</p>
+
+<ol>
+  <li>Monix had <code class="highlighter-rouge">Task</code></li>
+  <li>FS2 had their own <code class="highlighter-rouge">Task</code></li>
+  <li>Scalaz 7 had its own <code class="highlighter-rouge">Task</code></li>
+</ol>
+
+<p>My <code class="highlighter-rouge">Task</code> implementation was cancelable and was very competitive, continuously 
+<a href="https://github.com/rossabaker/benchmarks/pull/4">improved for best performance</a>,
+as you may know. FS2’s <code class="highlighter-rouge">Task</code> and Scalaz’s <code class="highlighter-rouge">Task</code> were behind. The
+problem, especially for Cats’ ecosystem was that we had two working
+<code class="highlighter-rouge">Task</code> implementations on our hands, but libraries like Http4s and
+Doobie, had to pick one.</p>
+
+<p>I happened to attend <a href="http://www.nescala.org/2017">NEScala 2017</a>,
+where I’ve heard of
+<a href="https://http4s.github.io/fp-ecosystem/">libraries standardizing on Cats</a>
+at the expense of Scalaz. Up until this point Monix (series 2.x) had
+support for both Cats and Scalaz via optional sub-projects, by
+providing <em>orphaned instances</em>. This was very far from ideal however,
+pushing all of this complexity to the users, when an approach such as
+<a href="https://github.com/djspiewak/shims">shims</a> is far superior for both
+Cats and Scalaz users.</p>
+
+<p>At the same NEScala event, at its “<em>Unconference</em>”, I participated in
+a discussion with other members of Typelevel, to decide what to do
+next. I remember having a heated argument with Daniel about
+cancelability. As you may or may not know, he wasn’t agreeing to the
+idea of cancelable tasks, due to the bad experience of Scalaz 7.</p>
+
+<p>Anyway, it was decided that something had to be done. So given my
+experience and short involvement in the discussions for
+<a href="http://reactivestreams.org/">reactive-streams.org</a>, which Monix’s
+<code class="highlighter-rouge">Observable</code> was already implementing, I felt the need for a similar
+interoperability protocol between Task-like data types.  I also
+thought of this for selfish reasons. I did not want my <code class="highlighter-rouge">Task</code>
+implementation to wither away by <em>de jure</em> standardization, because I
+believed in my approach and wanted it to succeed, therefore if there
+was going to be a proposal, I wanted to be a part of it.</p>
+
+<p>Therefore I submitted a proposal for a project named
+<a href="https://github.com/typelevel/general/issues/66">Schrodinger</a> (later
+renamed to <code class="highlighter-rouge">effects4s</code>), an interop project that was supposed to be
+the “reactive streams” protocol, but for task data types and a neutral
+ground between Cats and Scalaz.</p>
+
+<p>Well, it did not go well. The 
+<a href="https://github.com/scalaz/scalaz/issues/1355">Scalaz issue</a> received no
+interest and the
+<a href="https://github.com/typelevel/general/issues/66">Typelevel issue</a> was
+eventually eclipsed by 
+<a href="https://github.com/typelevel/cats/issues/1617">cats-effect by Daniel Spiewak</a>.</p>
+
+<p>It did not go well because my proposal was deeply flawed. I did not
+want a “reference IO” in it and the type classes themselves where
+modeled for <em>getting data out</em>, or in other words the emphasis was on
+<em>converting</em> between data types and not on enabling <em>constrained
+parametric polymorphism</em>. I was wrong about my type class design and
+Daniel Spiewak was right.</p>
+
+<p>Leaving pride aside, I warmed up to it and started contributing. And
+I’ve been the author of
+<a href="https://github.com/typelevel/cats-effect/pulls?q=is%3Apr+author%3Aalexandru">41 PRs</a>, 
+because I may not be experienced in type class design, but I can sure
+optimize an <code class="highlighter-rouge">IO</code>’s run-loop and optimize I did, repeatedly.</p>
+
+<p><img src="/public/images/scalaz.png" width="150" class="right" /></p>
+
+<h3 id="trouble-on-the-horizon">Trouble on the Horizon</h3>
+
+<p>You see, I’m a very competitive individual, so for example when John
+De Goes used benchmarks showing dramatic improvements over Cats-Effect
+in <a href="https://www.youtube.com/watch?v=wi_vLNULh9Y">his presentation</a> (at
+ScalaIO and Scale by the Bay), well I couldn’t help myself but to
+follow up with no less than
+<a href="https://github.com/typelevel/cats-effect/pull/90">one</a>,
+<a href="https://github.com/typelevel/cats-effect/pull/91">two</a>,
+<a href="https://github.com/typelevel/cats-effect/pull/95">three</a> batches of
+optimizations.</p>
+
+<p>Most of the changes I did were already in use by Monix’s <code class="highlighter-rouge">Task</code>. Via
+these optimizations I effectively replaced the internals of
+<code class="highlighter-rouge">cats.effect.IO</code>. Daniel’s first implementation was more elegant, but
+mine was more efficient.</p>
+
+<p>I also had breakthroughs in Monix of course, with
+<a href="https://github.com/monix/monix/pull/474">one</a>,
+<a href="https://github.com/monix/monix/pull/492">two</a> batches. Less impact
+though, due to Monix’s <code class="highlighter-rouge">Task</code> already reaching its potential for many
+use cases.</p>
+
+<p>I then realized that my <code class="highlighter-rouge">monix.tail.Iterant</code> is effectively blocked by
+the type class hierarchy not exposing type classes for IO/Task data
+types that can be canceled.</p>
+
+<p>So being on a roll, I followed with PRs for the
+<a href="https://github.com/typelevel/cats-effect/pull/121">cancelable IO</a> proposal,
+followed by <a href="https://github.com/typelevel/cats-effect/pull/132">Timer</a>,
+<a href="https://github.com/typelevel/cats-effect/pull/134">type class changes</a>
+(preceded by a <a href="https://github.com/typelevel/cats-effect/pull/126">failed attempt</a>),
+and <a href="https://github.com/typelevel/cats-effect/pull/137">race</a>, culminating in the 
+<a href="https://github.com/typelevel/cats-effect/releases/tag/v0.10">v0.10 release</a>.</p>
+
+<p>All of this ties into Monix of course, <code class="highlighter-rouge">Task</code> along with the new
+<a href="https://monix.io/api/3.0/monix/tail/Iterant.html">Iterant</a> data type
+making full use of 
+<a href="https://github.com/monix/monix/pull/598">Timer and cancelability</a>.  So now
+you’ve got yourself a credible, pull-based competitor to FS2 as well 😉</p>
+
+<p>” <em>This is Sparta!</em> “</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2018-03-20-monix-vs-cats-effect.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/alexelcu">
+      Follow @alexelcu</a>
+  </div>
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">
+              Monix: Version 3.0.0-RC1
+              <small>19 Mar 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/01/22/monix-v2.3.3.html">
+              Monix: Version 2.3.3, Critical Bug Fixes
+              <small>22 Jan 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2017/05/03/monix-v2.3.0.html">
+              Monix: Version 2.3.0, New Features, Bug Fixes
+              <small>03 May 2017</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+  
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html";
+      this.page.identifier = "/blog/2018/03/20/monix-vs-cats-effect.html";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://monix.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+  </noscript>
+  
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

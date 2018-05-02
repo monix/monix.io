@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Scheduler &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:title" content="Scheduler &mdash; Monix" />
+  <meta name="twitter:description" content="A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="og:url" content="https://monix.io/docs/2x/execution/scheduler" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Scheduler &mdash; Monix" />
+  <meta property="og:description" content="A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool." />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+
+  <!-- Google authorship -->
+  <link href="https://aboutme.google.com/b/114636882626291639915/" rel="publisher">
+
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1525277822596184000">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1525277822596184000">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <h1 class="page-title">Scheduler</h1>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/2.3/monix/execution/Scheduler.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v2.3.3/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/execution/scheduler.md">Edit Page</a>
+  </nav>
+  
+  <div id="version2x">
+    You are viewing the documentation for the older Monix 2.x series.<br />
+    If you're looking for the latest 3.x
+    <a href="/docs/3x/">click here</a>!
+  </div>
+
+  <nav role="navigation" id="toc"></nav>
+
+  <p>A cross-platform execution-context, can execute logic asynchronously
+and with a delay, typically but not necessarily on a thread-pool.</p>
+
+<p>The Monix <code class="highlighter-rouge">Scheduler</code> is inspired by
+<a href="http://reactivex.io/">ReactiveX</a>, being an enhanced Scala
+<a href="#scala.concurrent.ExecutionContext">ExecutionContext</a> and also a replacement for
+Java’s
+<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a>,
+but also for Javascript’s
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout">setTimeout</a>.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>An <code class="highlighter-rouge">ExecutionContext</code> is too limited, having the following problems:</p>
+
+<ol>
+  <li>It cannot execute things with a given delay</li>
+  <li>It cannot execute units of work periodically (e.g. once every
+second)</li>
+  <li>The <code class="highlighter-rouge">execute()</code> method doesn’t return a token you could use to
+cancel the pending execution of a task</li>
+</ol>
+
+<p>Developers using Akka do have a
+<a href="http://doc.akka.io/docs/akka/current/scala/scheduler.html">nicer interface</a>
+that solve the above problems in the form of
+<a href="http://doc.akka.io/api/akka/current/index.html#akka.actor.Scheduler">akka.actor.Scheduler</a>,
+so you can do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">akka.actor.Cancellable</span> <span class="o">=</span>
+  <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"default"</span><span class="o">).</span><span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Executing asynchronously ..."</span><span class="o">)</span>
+  <span class="o">}</span>
+
+<span class="c1">// canceling it before execution happens
+</span><span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>There are problems with the above approach - Akka’s Scheduler is an
+integral part of Akka’s actors system and their usage implies a
+dependency on Akka, which is a pretty heavy dependency and there’s no
+good reason for that, Cancelables are useful outside the context of
+Schedulers or Akka and in terms of the API, as you’ll see, we can do better.</p>
+
+<p>Another approach is to use a
+<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a>
+from Java’s standard library and is fairly capable and standard, however the API is not idiomatic Scala,
+with the results returned being of type
+<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledFuture.html">j.u.c.ScheduledFuture</a>,
+which are pretty heavy and have nothing to do with Scala’s Futures and
+again, this API can surely use improvement.</p>
+
+<p>And neither Akka’s <code class="highlighter-rouge">Scheduler</code> nor Java’s <code class="highlighter-rouge">ScheduledExecutorService</code>
+can run on top of <a href="http://www.scala-js.org/">Scala.js</a>, whereas Monix
+provides a common API reusable in both environments. Remember, the
+<code class="highlighter-rouge">Scheduler</code> is not about multi-threading, but about asynchrony.</p>
+
+<h2 id="importing--implicits">Importing &amp; Implicits</h2>
+
+<p>The <code class="highlighter-rouge">Scheduler</code> can be a replacement for Scala’s <code class="highlighter-rouge">ExecutionContext</code>
+because:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
+
+<span class="k">trait</span> <span class="nc">Scheduler</span> <span class="k">extends</span> <span class="nc">ExecutionContext</span> <span class="o">{</span>
+  <span class="c1">// ...
+</span><span class="o">}</span>
+</code></pre></div></div>
+
+<p>And there’s also a lazy <code class="highlighter-rouge">global</code> that you can use as an implicit:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+</code></pre></div></div>
+
+<p>We can now execute futures, because this will be our execution
+context:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">concurrent.Future</span>
+<span class="nc">Future</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">// 2
+</span></code></pre></div></div>
+
+<p>On the JVM this lazily initialized <code class="highlighter-rouge">global</code> instance executes tasks by
+means of a Scala “ForkJoinPool” (actually being backed by Scala’s own
+<code class="highlighter-rouge">ExecutionContext.Implicits.global</code>), and it can be tuned
+by setting the following system properties:</p>
+
+<ul>
+  <li>“<em>scala.concurrent.context.minThreads</em>” an integer specifying the minimum
+number of active threads in the pool</li>
+  <li>“<em>scala.concurrent.context.maxThreads</em>” an integer specifying the maximum
+number of active threads in the pool</li>
+  <li>“<em>scala.concurrent.context.numThreads</em>” can be either an integer,
+specifying the parallelism directly or a string with the format “xNUM”
+(e.g. “x1.5”) specifying the multiplication factor of the number of
+available processors (taken with <code class="highlighter-rouge">Runtime.availableProcessors</code>)</li>
+</ul>
+
+<p>Example of setting a system property:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-Dscala</span>.concurrent.context.minThreads<span class="o">=</span>10 ...
+</code></pre></div></div>
+
+<p>On top of Javascript with Scala.js, the <code class="highlighter-rouge">global</code> scheduler is simply
+backed by an implementation using <code class="highlighter-rouge">setTimeout</code> under the hood.</p>
+
+<h2 id="execute-runnables">Execute Runnables</h2>
+
+<p>In order to schedule a
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html">Runnable</a>
+to execute asynchronously:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">})</span>
+</code></pre></div></div>
+
+<p>Once a task has been scheduled for execution like this,
+there’s no way to cancel it.</p>
+
+<h2 id="schedule-with-a-delay">Schedule with a Delay</h2>
+
+<p>To execute a <code class="highlighter-rouge">Runnable</code> with a given delay, let’s
+say for example 5 seconds:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
+
+<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span>
+  <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+  <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+
+<span class="c1">// In case we change our mind, before time's up
+</span><span class="n">cancelable</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Monix also supplies a more Scala-friendly extension:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="schedule-repeatedly">Schedule Repeatedly</h2>
+
+<p>We can schedule tasks to run repeatedly,
+let’s say with an initial delay of 3 seconds before the
+first execution and then with a fixed delay between subsequent
+executions of 5 seconds:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+  <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+
+<span class="c1">// If we change our mind and want to cancel
+</span><span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Note that it doesn’t matter how much the execution takes,
+the delay between tasks will be constant. So in this
+sample, we are actually going to have an accumulated
+delay of 7 seconds between <code class="highlighter-rouge">println</code> calls:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+  <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">)</span> <span class="c1">// 2 seconds
+</span>      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+</code></pre></div></div>
+
+<p>There’s also a more Scala-friendly extension:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, in order to take execution duration into account,
+we can use the second variant, scheduling periodic
+execution at a fixed rate.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleAtFixedRate</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+  <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+
+<span class="c1">// If we change our mind and want to cancel
+</span><span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>With <code class="highlighter-rouge">scheduleAtFixedRate</code> executions will commence after
+<code class="highlighter-rouge">initialDelay</code> then <code class="highlighter-rouge">initialDelay+period</code>, then <code class="highlighter-rouge">initialDelay + 2 *
+period</code>, and so on. If any execution of this task takes longer than
+its period, then subsequent executions may start late, but will not
+concurrently execute.</p>
+
+<h2 id="injecting-time-and-tests">Injecting Time and Tests</h2>
+
+<p>The Monix <code class="highlighter-rouge">Scheduler</code> can inject the time by means of
+<code class="highlighter-rouge">Scheduler.currentTimeMillis</code>, which is a Unix timestamp and thus
+returns the number of milliseconds since the 1970-01-01 00:00:00 UTC.</p>
+
+<p>Doing this is bad because it is a global singleton and we cannot
+override its behavior:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span>
+<span class="c1">// res1: Long = 1464223070198
+</span></code></pre></div></div>
+
+<p>But if given a scheduler, we can now do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scheduler</span><span class="o">.</span><span class="n">currentTimeMillis</span>
+<span class="c1">// res2: Long = 1464223092089
+</span></code></pre></div></div>
+
+<p>All of Monix’s time-based operations are relying on this.
+Which means that in tests we can <em>mock time</em> along with
+faking asynchronous execution. Here’s how:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
+
+<span class="k">val</span> <span class="n">testScheduler</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+
+<span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">run</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">"Immediate!"</span><span class="o">)</span>
+<span class="o">})</span>
+
+<span class="n">testScheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">println</span><span class="o">(</span><span class="s">"Delayed execution!"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Now we can fake it. Executes immediate tasks,
+// on the current thread:
+</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">tick</span><span class="o">()</span>
+<span class="c1">// =&gt; Immediate!
+</span>
+<span class="c1">// Simulate passage of time, current thread:
+</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<span class="c1">// =&gt; Delayed execution!
+</span></code></pre></div></div>
+
+<p>But non-determinism is still simulated. For example if we do this, the
+order of execution for tasks that have the same priority will be
+randomly chosen, so you can’t say which is going to execute first or
+which is second.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// runnable1 might execute first, or second
+</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">runnable1</span><span class="o">)</span>
+<span class="c1">// runnable2 might execute first, or second
+</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">runnable2</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="execution-model">Execution Model</h2>
+
+<p>Along with time, the <code class="highlighter-rouge">Scheduler</code> also specifies the
+<a href="/api/2.3/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
+which is a specification that acts as a guideline for pieces of computations
+that are doing possibly asynchronous execution in loops.
+For example in Monix, this affects how both <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Observable</code>
+are evaluated.</p>
+
+<p>Currently there are 3 execution models available:</p>
+
+<ul>
+  <li><a href="/api/2.3/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
+the Monix default, specifies a mixed execution mode under which tasks are
+executed synchronously in batches up to a maximum size, after
+which an asynchronous boundary is forced. This execution mode
+is recommended because we don’t want to block threads / run-loops
+indefinitely, especially on top of Javascript where a long loop
+can mean that the UI gets frozen and where we need to be cooperative.</li>
+  <li><a href="/api/2.3/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
+specifies that units of work within a loop should always execute
+asynchronously on each step, being basically the mode of operation
+for Scala’s <code class="highlighter-rouge">Future</code>.</li>
+  <li><a href="/api/2.3/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
+specifies that synchronous execution should always be preferred,
+for as long as possible, being basically the mode of operation
+for the Scalaz <code class="highlighter-rouge">Task</code>.</li>
+</ul>
+
+<p>You can retrieve the configured <code class="highlighter-rouge">ExecutionModel</code> by calling
+<code class="highlighter-rouge">Scheduler.executionModel</code>.  Here’s the default:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">global</span><span class="o">.</span><span class="n">executionModel</span>
+<span class="c1">// res: monix.execution.schedulers.ExecutionModel =
+//   BatchedExecution(1024)
+</span></code></pre></div></div>
+
+<p>You can configure the batch size for this default
+by setting a system property like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -Dmonix.environment.batchSize=256 ...
+</code></pre></div></div>
+
+<p>So if you want to specify a configuration different from the default,
+you need to build a new <code class="highlighter-rouge">Scheduler</code> instance.</p>
+
+<h2 id="builders-on-the-jvm">Builders on the JVM</h2>
+
+<p>On top of the JVM you can build a <code class="highlighter-rouge">Scheduler</code> instance manually,
+by piggy-backing on an existing Scala <code class="highlighter-rouge">ExecutionContext</code> that will
+actually execute the tasks and on top of an existing
+Java <code class="highlighter-rouge">ScheduledExecutorService</code> that will be in charge of
+scheduling delayed executions, but that won’t run the tasks
+themselves. There are multiple overloads available, but lets do
+the most general:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.Executors</span>
+<span class="k">import</span> <span class="nn">monix.execution.schedulers.ExecutionModel.AlwaysAsyncExecution</span>
+<span class="k">import</span> <span class="nn">monix.execution.</span><span class="o">{</span><span class="nc">Scheduler</span><span class="o">,</span> <span class="nc">UncaughtExceptionReporter</span><span class="o">}</span>
+
+<span class="c1">// Will schedule things with delays
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduledExecutor</span> <span class="k">=</span>
+  <span class="nc">Executors</span><span class="o">.</span><span class="n">newSingleThreadScheduledExecutor</span><span class="o">()</span>
+
+<span class="c1">// For actual execution of tasks
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">executorService</span> <span class="k">=</span>
+  <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">ExecutionContext</span><span class="o">.</span><span class="nc">Implicits</span><span class="o">.</span><span class="n">global</span>
+
+<span class="c1">// Logs errors to stderr or something
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">uncaughtExceptionReporter</span> <span class="k">=</span>
+  <span class="nc">UncaughtExceptionReporter</span><span class="o">(</span><span class="n">executorService</span><span class="o">.</span><span class="n">reportFailure</span><span class="o">)</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span>
+  <span class="n">scheduledExecutor</span><span class="o">,</span>
+  <span class="n">executorService</span><span class="o">,</span>
+  <span class="n">uncaughtExceptionReporter</span><span class="o">,</span>
+  <span class="nc">AlwaysAsyncExecution</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>There are multiple overloads available, so you may skip
+some of those params:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">scheduledExecutor</span><span class="o">,</span> <span class="n">executorService</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Or even:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">executorService</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Even if you specify just an <code class="highlighter-rouge">ExecutorService</code>, it still knows how to
+build a scheduler, because we also have a default
+<code class="highlighter-rouge">Executors.newSingleThreadScheduledExecutor</code> being used as the
+<code class="highlighter-rouge">ScheduledExecutorService</code> used to schedule things to be executed with
+a delay. It uses a single thread because it’s in charge only of
+scheduling, the actual execution being done by the given
+<code class="highlighter-rouge">ExecutorService</code>.</p>
+
+<p>But maybe we want to only wrap just a Java <code class="highlighter-rouge">ScheduledExecutorService</code>
+instance, a service capable of everything we’d want out of our
+<code class="highlighter-rouge">Scheduler</code>. We can do that as well:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">javaService</span> <span class="k">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="n">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+  <span class="nc">Scheduler</span><span class="o">(</span><span class="n">javaService</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Or with an optional execution model:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">javaService</span> <span class="k">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="n">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+  <span class="nc">Scheduler</span><span class="o">(</span><span class="n">javaService</span><span class="o">,</span> <span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Also on the JVM, we can create a <code class="highlighter-rouge">ForkJoinPool</code> meant for
+CPU-bound tasks like so:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Simple constructor
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">computation</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
+
+<span class="c1">// Specify an optional ExecutionModel
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">computation</span><span class="o">(</span>
+    <span class="n">parallelism</span> <span class="k">=</span> <span class="mi">10</span><span class="o">,</span>
+    <span class="n">executionModel</span> <span class="k">=</span> <span class="nc">AlwaysAsyncExecution</span>
+  <span class="o">)</span>
+</code></pre></div></div>
+
+<p>Or we can create an unbounded thread-pool meant for I/O-bound tasks,
+backed by a Java
+<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()">CachedThreadPool</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">()</span>
+
+<span class="c1">// Giving it a name
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">)</span>
+
+<span class="c1">// Explicit execution model
+</span><span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span>
+  <span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">,</span>
+  <span class="n">executionModel</span> <span class="k">=</span> <span class="nc">AlwaysAsyncExecution</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Or in case we want to be precise or feel like emulating Javascript’s
+environment, we could create a single threaded thread-pool, backed
+by a Java <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newSingleThreadScheduledExecutor()">SingleThreadScheduledExecutor</a>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">singleThread</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-thread"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Or a thread-pool with an exact number of threads (and not a
+variable one like the <code class="highlighter-rouge">ForkJoinPool</code> above), backed by a Java
+<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int)">ScheduledThreadPool</a>
+for both executing and scheduling delays:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">fixedPool</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-fixed"</span><span class="o">,</span> <span class="n">poolSize</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="builders-for-javascript">Builders for Javascript</h2>
+
+<p>On top of Javascript things are simpler, since you can
+rely on <code class="highlighter-rouge">setTimeout</code>. But you might still want to tweak settings,
+so this works:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">(</span><span class="n">executionModel</span><span class="k">=</span><span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>We might also want to execute undelayed tasks immediately
+by means of an internal trampoline:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">trampoline</span><span class="o">()</span>
+
+<span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">trampoline</span><span class="o">(</span><span class="n">executionModel</span><span class="k">=</span><span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Note that the trampoline cannot fake delayed execution,
+so it will still use <code class="highlighter-rouge">setTimeout</code> when delays are involved.</p>
+
+<h2 id="shutdown-with-schedulerservice">Shutdown with SchedulerService</h2>
+
+<p>The <code class="highlighter-rouge">SchedulerService</code> is a <code class="highlighter-rouge">scheduler</code> type that provides methods for managing termination.
+See the <a href="/api/2.3/monix/execution/schedulers/SchedulerService.html">API Documentation</a>.</p>
+
+<p>Similar in spirit to
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">java.util.concurrent.ExecutorService</a>,
+the <code class="highlighter-rouge">SchedulerService</code> can be shut down, which will cause it to reject new tasks.
+The <code class="highlighter-rouge">shutdown</code> method allows previously submitted tasks to execute before
+terminating. The <code class="highlighter-rouge">awaitTermination</code> method allows waiting on all active tasks
+to finish.</p>
+
+<p>Upon termination, an executor has no tasks actively executing, no tasks
+awaiting execution, and no new tasks can be submitted. An unused
+<code class="highlighter-rouge">SchedulerService</code> should be shut down to allow reclamation of its resources.</p>
+
+<p>When building a new scheduler from scratch, most builders will return
+a <code class="highlighter-rouge">SchedulerService</code> instance whenever it makes sense:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.schedulers.SchedulerService</span>
+
+<span class="k">val</span> <span class="n">io</span><span class="k">:</span> <span class="kt">SchedulerService</span> <span class="o">=</span> <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span><span class="s">"my-io"</span><span class="o">)</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">})</span>
+</code></pre></div></div>
+
+<p>At this point we can initiate an orderly shutdown that will execute our
+pending tasks first, but will accept no more tasks:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">shutdown</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>We can also inspect the state of our service:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">isShutdown</span>
+<span class="c1">// res63: Boolean = true
+</span></code></pre></div></div>
+
+<p>But if we have already committed tasks pending execution, sometimes it is
+useful to wait for those tasks to be finished. Note that waiting for
+termination in Monix is an asynchronous operation, since Monix as
+a general rule of thumb avoids blocking threads, so our <code class="highlighter-rouge">awaitTermination</code>
+operation returns a <code class="highlighter-rouge">Future</code> and thus requires an alternative <code class="highlighter-rouge">Scheduler</code>
+to use for waiting:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent._</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.global</span>
+
+<span class="k">val</span> <span class="n">termination</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">io</span><span class="o">.</span><span class="n">awaitTermination</span><span class="o">(</span><span class="mf">30.</span><span class="n">seconds</span><span class="o">,</span> <span class="n">global</span><span class="o">)</span>
+
+<span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">termination</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="nc">Inf</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>We can now further inspect the state of our <code class="highlighter-rouge">SchedulerService</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">isTerminated</span>
+<span class="c1">// res67: Boolean = true
+</span></code></pre></div></div>
+
+
+  <div class="buttons">
+    <a href="/docs/2x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/execution/scheduler.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>
