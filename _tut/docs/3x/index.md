@@ -27,6 +27,7 @@ title: Monix Documentation
   - [Observers and Subscribers](./reactive/observers.html)
   - [Consumer](./reactive/consumer.html)
   - [Javascript Event Listeners](./reactive/javascript.html)
+  - [A Decision Tree of Monix Observable Operators](./reactive/decision-tree.html)
 - Tutorials
   - [Parallel Processing](./tutorials/parallelism.html)
 - Best Practices
