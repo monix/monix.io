@@ -1102,8 +1102,8 @@ But `Task` also has a
 [cats.Parallel](https://typelevel.org/cats/typeclasses/parallel.html)
 implementation, being able to trigger evaluation of multiple
 tasks in parallel and hence it has utilities, such
-as `zip2`, `zip3`, up until `zip6` (at the moment of writing) and also
-`zipList`. The example above could be written as:
+as `parZip2`, `parZip3`, up until `parZip6` (at the moment of writing). 
+The example above could be written as:
 
 ```tut:silent
 val locationTask: Task[String] = Task.eval(???)
@@ -1112,7 +1112,7 @@ val addressTask: Task[String] = Task.eval(???)
 
 // Potentially executed in parallel
 val aggregate =
-  Task.zip3(locationTask, phoneTask, addressTask).map {
+  Task.parZip3(locationTask, phoneTask, addressTask).map {
     case (location, phone, address) => "Gotcha!"
   }
 ```
@@ -1166,7 +1166,7 @@ get the result of `ta` (the first task) and then the result of `tb`
 (the second task). The execution itself is also ordered, so `ta`
 executes and completes before `tb`.
 
-`Task.gather`, also known as `Task.zipList`, is the nondeterministic
+`Task.gather`, similar to `Parallel.parSequence`, is the nondeterministic
 version of `Task.sequence`.  It also takes a `Seq[Task[A]]` and
 returns a `Task[Seq[A]]`, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
