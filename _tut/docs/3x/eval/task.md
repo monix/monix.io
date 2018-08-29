@@ -1225,6 +1225,70 @@ list.runAsync.foreach(println)
 //=> Seq(1,2)
 ```
 
+`Task.traverse`, takes a `Seq[Task[A]]`, `f: A => Task[B]` and returns a `Task[Seq[B]]`.
+This is similar to `Task.sequence` but it also executes `f` on each `Task`.
+
+All `Task.sequence` semantics hold meaning the effects are ordered and the tasks
+WIL NOT execute in parallel.
+
+```tut:silent
+val ta = Task { println("Effect1"); 1 }
+val tb = Task { println("Effect2"); 2 }
+
+val list: Task[Seq[Int]] =
+  Task.traverse(Seq(ta, tb))(_ * 2)
+
+// We always get this ordering:
+list.runAsync.foreach(println)
+//=> Effect1
+//=> Effect2
+//=> List(2, 4)
+```
+
+`Task.wander`, similar to `Parallel.parTraverse`, is the nondeterministic
+version of `Task.traverse`.  It also takes a `Seq[Task[A]]`, `f: A => Task[B]` and
+returns a `Task[Seq[B]]`, thus transforming any sequence of tasks into
+a task with a sequence of ordered results. But the effects are not
+ordered, meaning that there's potential for parallel execution:
+
+```tut:silent
+val ta = {
+  Task { println("Effect1"); 1 }
+    .delayExecution(1.second)
+}
+
+val tb = {
+  Task { println("Effect2"); 2 }
+    .delayExecution(1.second)
+}
+
+val list: Task[Seq[Int]] = Task.wander(Seq(ta, tb))(_ * 2)
+
+list.runAsync.foreach(println)
+//=> Effect1
+//=> Effect2
+//=> List(2, 4)
+
+list.runAsync.foreach(println)
+//=> Effect2
+//=> Effect1
+//=> List(2, 4)
+```
+
+**NOTE:** If you have the possibility, prefer explicitly using `Task` operators instead of
+those provided by Cats syntax. Their default implementations are derived from other
+methods and thus often much slower than optimized `Task` versions.
+
+Refer to the table below to see corresponding methods:
+
+
+|        Monix        |            Cats            |
+|:-------------------:|:--------------------------:|
+|    Task.sequence    |    Traverse[F].sequence    |
+|    Task.traverse    |    Traverse[F].traverse    |
+|    Task.gather      |    Parallel.parSequence    |
+|    Task.wander      |    Parallel.parTraverse    |
+
 ### Race
 
 The `racePair` operation will choose the winner between two
