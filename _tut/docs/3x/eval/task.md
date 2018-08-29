@@ -1275,6 +1275,8 @@ list.runAsync.foreach(println)
 //=> List(2, 4)
 ```
 
+Similar to `gather` there is also unordered version called `wanderUnordered`.
+
 **NOTE:** If you have the possibility, prefer explicitly using `Task` operators instead of
 those provided by Cats syntax. Their default implementations are derived from other
 methods and thus often much slower than optimized `Task` versions.
