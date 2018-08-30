@@ -121,7 +121,11 @@ trait Observer[-T] {
 }
 ```
 
-Due to this connection `Observable` respects `Observer` [contract](./observers.md#Contract).
+Due to this connection `Observable` respects `Observer` [contract](./observers.md#Contract) but you can consider it 
+being higher level interface which abstracts away details of the contract and handles it for the user. `Observable` exposes
+rich API and following sections will cover only small portion of them so if it's missing something you need, look 
+[at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
+directly or ask on gitter channel.
 
 ## Execution
 
@@ -180,8 +184,7 @@ val task: Task[Long] =
 ```
 ## Building Observable
 
-There are many builders available in the Monix `Observable` companion object. 
-This section will cover only some of them so please refer to the latest API docs for the rest of them.
+You can find them in `Observable` companion object. Below are several examples:
 
 ### Observable.pure (now)
 
@@ -419,9 +422,52 @@ observable
 
 ... TO BE CONTINUED ...
 
+## Subjects
+
+`Subject` is a sort of bridge or proxy that acts both as an `Observer` and as an `Observable`.
+We can use `Subject` to get handle for feeding elements into our `Observable`:
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.Ack
+import monix.reactive.subjects.ConcurrentSubject
+import monix.reactive.{MulticastStrategy, Observable, Observer}
+
+val subject: ConcurrentSubject[Int, Int] =
+  ConcurrentSubject[Int](MulticastStrategy.replay)
+
+def feedItem[A](observer: Observer[A], item: A): Task[Ack] = {
+  Task.deferFuture(observer.onNext(item))
+}
+
+def processStream[A](observable: Observable[A]): Task[Unit] = {
+  observable
+    .mapParallelUnordered(3)(i => Task(println(i)))
+    .completedL
+}
+
+Task
+  .parZip2(
+    feedItem(subject, 2),
+    processStream(subject)
+  )
+```
+
+Below are short characteristics for available types of `Subject`. For more information refer to descriptions and methods in
+`monix.reactive.subjects` package:
+
+- `AsyncSubject`
+- `BehaviorSubject`
+- `ConcurrentSubject`
+- `PublishSubject`
+- `PublishToOneSubject`
+- `ReplaySubject`
+- `Var`
+
 ## Hot and Cold Observables
 
-As mentioned before - by default `Observable` doesn't emit any items until something subscribes to it. This is called *cold Observable.*
+As mentioned before - by default `Observable` doesn't emit any items until something subscribes to it. 
+This type is called *cold Observable.*
 In cold Observable there is only one subscriber who is guaranteed to see all the emitted items.
 
 On the other hand there is also a notion of *hot Observable* denoted as `ConnectableObservable` whose source is shared between many subscribers. 
@@ -431,23 +477,6 @@ For this reason tread carefully when using `ConnectableObservable` because it br
 ### Turning cold Observable into hot Observable
 
 There are several methods which turn `Observable` into `ConnectableObservable` using corresponding `Subject`.
-
-`Subject` is a sort of bridge or proxy that acts both as an `Observer` and as an `Observable`.
-We can use `Subject` to feed elements into our `Observable`:
-
-```tut:silent
-// creating BehaviorSubject which will emit the most recently emitted item by the source,
-// or the initialValue (as the seed) in case no value has yet been emitted, then continuing
-// to emit events subsequent to the time of invocation.
-
-val subject = BehaviorSubject[Int](0)
-
-subject.onNext(1)
-subject.onNext(2)
-
-// returns Task(2)
-subject.firstL 
-```
 
 ### Observable.publish (PublishSubject)
 `Observable.publish` will convert this `Observable` into a multicast `Observable` using
