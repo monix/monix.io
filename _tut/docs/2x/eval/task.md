@@ -1266,6 +1266,63 @@ operation, except that it operates on `Task` and upon execution it has
 a better model, as when a task wins the race the other tasks get
 immediately canceled.
 
+If you want to ignore errors and wait for the first successful result you could 
+combine it with `onErrorHandleWith` and `timeout`:
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.Scheduler.Implicits.global
+import monix.execution.exceptions.DummyException
+import scala.concurrent.duration._
+
+val timeout = 30.second
+
+val task1 = Task.eval(10).delayExecution(3.second)
+val task2 = Task.raiseError[Int](DummyException("error")).delayExecution(2.second)
+val task3 = Task.raiseError[Int](DummyException("error")).delayExecution(1.second)
+val tasks: List[Task[Int]] = List(task1, task2, task3)
+
+val result: Task[Int] = Task.chooseFirstOfList(tasks.map(_.onErrorHandleWith(_ => Task.never))).timeout(timeout)
+
+result.runAsync.foreach(println) // will print 10
+```
+It will turn any failed tasks into non-terminating.
+
+Timeout is necessary in case all tasks fail. In above example, if `task1` fails we will have to wait for the timeout
+to expire despite knowing that we won't get any successful result.
+
+We can optimize it doing second `chooseFirstOf` versus counter reaching zero:
+
+```tut:silent
+import cats.syntax.apply._
+import monix.eval.Task
+import monix.execution.Scheduler.Implicits.global
+import monix.execution.atomic.AtomicInt
+import monix.execution.exceptions.DummyException
+import scala.concurrent.duration._
+
+val task1 = Task.raiseError[Int](DummyException("error")).delayExecution(3.second)
+val task2 = Task.raiseError[Int](DummyException("error")).delayExecution(2.second)
+val task3 = Task.raiseError[Int](DummyException("error")).delayExecution(1.second)
+val tasks: List[Task[Int]] = List(task1, task2, task3)
+
+val counter = AtomicInt(tasks.length)
+
+def checkCounter: Task[Unit] = Task(counter.get)
+  .flatMap { value =>
+    if (value == 0) Task.unit
+    else checkCounter
+}
+
+val result: Task[Either[(Unit, CancelableFuture[Int]), (CancelableFuture[Unit], Int)]] =
+  Task.chooseFirstOf(
+    checkCounter,
+    Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)) *> Task.never)))
+  )
+  
+result.runAsync.foreach(println) // will finish and print after 3 seconds
+```
+
 ### Delay Execution
 
 `Task.delayExecution`, as the name says, delays the execution of a
