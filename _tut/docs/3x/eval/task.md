@@ -1316,8 +1316,7 @@ val tasks: List[Task[Int]] = List(task1, task2, task3)
 
 val counter = AtomicInt(tasks.length)
 
-def checkCounter: Task[Unit] = Task(counter.get)
-  .flatMap { value =>
+def checkCounter: Task[Unit] = Task(counter.get).flatMap { value =>
     if (value == 0) Task.unit
     else checkCounter
 }
