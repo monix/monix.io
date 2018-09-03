@@ -127,6 +127,17 @@ rich API and following sections will cover only small portion of them so if it's
 [at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
 directly or ask on gitter channel.
 
+## Observable and Functional Programming
+
+`Observable` internals aren't done in FP style which is a trade off resulting in greater performance. Fortunately, exposed
+API allows to use `Observable` as a purely functional stream but have in mind that not all functions are referentially transparent.
+Fortunately, there are either other variants or techniques that you can always use to keep purity if that is what you desire.
+
+For instance, `doOnNext` isn't pure because it only makes sense to do side-effect there but there is `doOnNextEval` 
+variant which is pure. 
+Sharing streams using Hot Observable is not referentially transparent but you could cover its
+use cases leveraging purely functional concurrency primitives from `Cats-Effect` such as `Ref` or `MVar`.
+
 ## Execution
 
 When you create `Observable` nothing actually happens until you call `subscribe`. 
@@ -135,10 +146,10 @@ It means that (by default) `Observable` preserves referential transparency.
 `Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as `unsafePerformIO`.
 
-Preferred way to deal with `Observable` is to convert it into [Task](./../eval/task.md) and compose it all the way through your program
-until the very end (Main method). 
+Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.md) and compose it all the way 
+through your program until the very end (Main method).
 
-Two main ways to convert `Observable` into `Task` are described below.
+Two main ways to convert `Observable` to `Task` are described below.
 
 ### Consumer
 
@@ -384,9 +395,11 @@ observable
 // ... fails and restarts infinitely
 ```
 
-## Callback Operators
+## Reacting to internal events
 
-There are many many options for executing given callback when the stream acquires specific type of event.
+If you remember, `Observable` internally calls `onNext` on every element, `onError` during error and `onComplete` after
+stream completion. There are many many methods for executing given callback when the stream acquires specific type of event.
+Usually they start with `doOn` or `doAfter`.
 
 ### doOnNext
 
@@ -405,22 +418,26 @@ observable
 //=> elem: 3, counter: 6
 ```
 
-There are also `doOnNextEval` and `doOnNextTask` async variants for usage with `Task` or any datatype with `cats.effect.Effect` instance.
+You could also write it preserving referential transparency with `doOnNextEval` or `doOnNextTask` async variant
+for usage with `Task` or any data type with `cats.effect.Effect` instance:
 
 ```tut:silent
-var counter = 0
-val observable = Observable(1, 2, 3)
-// obs: monix.reactive.Observable[Int]
+import cats.effect.concurrent.Ref
+import monix.eval.Task
+import monix.reactive.Observable
 
-observable
-  .doOnNextEval(e => IO(counter += e))
-  .foreachL(e => println(s"elem: $e, counter: $counter"))
+def observable(counterRef: Ref[Task, Int]): Task[Unit] =
+  Observable(1, 2, 3)
+    .doOnNextTask(e => counterRef.update(_ + e))
+    .mapTask(e => counterRef.get.map(counter => println(s"elem: $e, counter: $counter")))
+    .completedL
+
+Ref[Task].of(0)
+  .flatMap(observable)
 //=> elem: 1, counter: 1
 //=> elem: 2, counter: 3
 //=> elem: 3, counter: 6
 ```
-
-... TO BE CONTINUED ...
 
 ## Subjects
 
