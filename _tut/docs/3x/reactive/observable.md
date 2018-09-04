@@ -129,12 +129,17 @@ directly or ask on gitter channel.
 
 ## Observable and Functional Programming
 
-`Observable` internals aren't done in FP style which is a trade off resulting in greater performance. Fortunately, exposed
-API allows to use `Observable` as a purely functional stream but have in mind that not all functions are referentially transparent.
-Fortunately, there are either other variants or techniques that you can always use to keep purity if that is what you desire.
+`Observable` internals aren't done in FP style which is a trade off resulting in greater performance. 
 
-For instance, `doOnNext` isn't pure because it only makes sense to do side-effect there but there is `doOnNextEval` 
+Despite the internals, `Observable` is perfectly fine to use even in purely functional application because they don't 
+leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
+
+However, if you value referential transparency, watch out for impure functions. Fortunately, there should always be
+pure replacement. 
+
+For instance, `doOnNext` which isn't pure because it only makes sense to do side-effect there but we have `doOnNextEval` 
 variant which is pure. 
+
 Sharing streams using Hot Observable is not referentially transparent but you could cover its
 use cases leveraging purely functional concurrency primitives from `Cats-Effect` such as `Ref` or `MVar`.
 
