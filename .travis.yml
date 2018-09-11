@@ -8,3 +8,5 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_5102c81fea1c_key -iv $encrypted_5102c81fea1c_iv -in ./scripts/.ssh/id_ed25519_travis.enc -out ./scripts/.ssh/id_ed25519_travis -d
 - chmod -R go-rwx ./scripts/.ssh/
+after_script:
+- rm ./scripts/.ssh/id_ed25519_travis
