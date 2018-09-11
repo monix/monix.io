@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1533072583664433742">
+  <link rel="stylesheet" href="/public/css/all.css?1536650152887377296">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1533072583664433742">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1536650152887377296">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -260,6 +260,7 @@ use a <code class="highlighter-rouge">dummy</code>. But we could have returned a
 <code class="highlighter-rouge">SingleAssignmentCancelable</code> reference that we could have used in our
 subscriber implementation to cancel the stream.</p>
 
+<p>Result: 49995000</p>
 <h3 id="consumercreate">Consumer.create</h3>
 
 <p>For a more refined experience when creating consumers, one can use the
@@ -451,8 +452,7 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
     <span class="o">.</span><span class="n">failed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
   
   <span class="c1">//=&gt; java.util.NoSuchElementException: head
-</span><span class="mi">499500</span>
-<span class="o">}</span>
+</span><span class="o">}</span>
 </code></pre></div></div>
 
 <p>To play it safe, we can use <code class="highlighter-rouge">Consumer.headOption</code> instead:</p>

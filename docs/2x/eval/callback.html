@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1533072583664433742">
+  <link rel="stylesheet" href="/public/css/all.css?1536650152887377296">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1533072583664433742">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1536650152887377296">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -170,10 +170,10 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@1032066368, monix.eval.Task$$$Lambda$37525/472516579@7896da27)
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@2076850795, monix.eval.Task$$$Lambda$37511/2018944022@1b5097a8)
 </span>
 <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@22342cf1
+<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@13c71522
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
