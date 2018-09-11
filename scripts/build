@@ -64,7 +64,9 @@ begin
   puts "Synchronizing to the monix.io server!"
 
   ssh_opts = '-e "ssh -i ./scripts/.ssh/id_ed25519_travis -oStrictHostKeyChecking=no"'
-  exec("rsync #{ssh_opts} --filter='P .*' --delete-excluded -Pacv -- _site/ synchronize@vm.monix.io:")
+  exec(
+    "rsync #{ssh_opts} --filter='P .*' --delete-excluded -Pacv --chown=synchronize:www-data " +
+    "_site/ synchronize@vm.monix.io:/var/www/monix.io/")
 ensure
   exec("rm -rf \"#{destDir}\"")
 end
