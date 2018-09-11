@@ -47,16 +47,24 @@ end
 
 destDir = Dir.mktmpdir + "/" + "monix.io"
 begin
+  puts "Synchronizing gh-pages branch!"
+
   exec("rm -rf \"#{destDir}\"")
   exec("git clone \"https://#{ghToken}@#{repository}\" \"#{destDir}\" -b gh-pages")
   exec("rsync --filter='P .*' --delete-excluded -Pacv _site/ \"#{destDir}/\"")
 
-  Dir.chdir(destDir)
-  exec("git add .")
-  exec('git config user.name "Alexandru Nedelcu"')
-  exec('git config user.email "noreply@alexn.org"')
-  exec('git commit -m "docs: update gh-pages"')
-  exec("git push --force --quiet \"https://#{ghToken}@#{repository}\" gh-pages:gh-pages")
+  Dir.chdir(destDir) do |path|
+    exec("git add .")
+    exec('git config user.name "Alexandru Nedelcu"')
+    exec('git config user.email "noreply@alexn.org"')
+    exec('git commit -m "docs: update gh-pages"')
+    exec("git push --force --quiet \"https://#{ghToken}@#{repository}\" gh-pages:gh-pages")
+  end
+
+  puts "Synchronizing to the monix.io server!"
+
+  ssh_opts = '-e "ssh -i ./scripts/.ssh/id_ed25519_travis -oStrictHostKeyChecking=no"'
+  exec("rsync #{ssh_opts} --filter='P .*' --delete-excluded -Pacv -- _site/ synchronize@vm.monix.io:")
 ensure
   exec("rm -rf \"#{destDir}\"")
 end
