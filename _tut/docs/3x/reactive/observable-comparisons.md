@@ -63,7 +63,7 @@ By contrast the Monix `Observable`:
   actors, with the exposed operators being awesome
   
 Reactive streaming libraries in general and the Monix `Observable` in
-particular are bad because they are good for modeling unidirectional
+particular are good for modeling unidirectional
 communications, but it gets complicated if you want bidirectional
 communications (possible, but complicated), with actors being better
 at having dialogs.
