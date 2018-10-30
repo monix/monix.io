@@ -135,12 +135,12 @@ Despite the internals, `Observable` is perfectly fine to use even in purely func
 leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
 
 However, if you value referential transparency, watch out for impure functions. 
-Fortunately, they are marked as impure with `@UnsafeBecauseImpure` annotation and explanation in ScalaDoc. 
+Fortunately, they are marked as such with `@UnsafeBecauseImpure` annotation and explanation in ScalaDoc. 
 Also, there should always be a pure replacement to solve your use case.
 
 For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
 Still, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as
-`Ref` or `MVar` to share state in more controller manner.
+`Ref` or `MVar` to share state in more controlled manner.
 
 Still, decision is up to the user to choose what's better for him and his team.
 
@@ -454,7 +454,7 @@ Ref[Task].of(0)
 //=> elem: 3, counter: 6
 ```
 
-There is also `doOnNextF` variant which works for other data types than `Task`.
+There is also `doOnNextF` variant which works for data types other than `Task`.
 
 ## Subjects
 
