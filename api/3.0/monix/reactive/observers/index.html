@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.reactive.observers</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.reactive.observers" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.reactive.observers" />
+          <title>Monix 3.0.0-RC2 - monix.reactive.observers</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.reactive.observers" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.reactive.observers" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -79,7 +79,8 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
 <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming.</p><p>You can control evaluation with type you choose - be it <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -112,6 +113,22 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.reactive.instances" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="instances"></a><a id="instances:instances"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/index.html#instances" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../instances/index.html"><span class="name">instances</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.reactive">reactive</a></dd></dl></div>
     </li><li name="monix.reactive.observables" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="observables"></a><a id="observables:observables"></a>
       <span class="permalink">
@@ -330,7 +347,22 @@ subsequent events are pushed directly.
 to <code>connect()</code> happens.</p><div class="fullcomment"><div class="comment cmt"><p>Wraps a <a href="Subscriber.html" class="extype" name="monix.reactive.observers.Subscriber">Subscriber</a> into an implementation that abstains from emitting items until the call
 to <code>connect()</code> happens. Prior to <code>connect()</code> you can enqueue
 events for delivery once <code>connect()</code> happens, but before any items
-emitted by <code>onNext</code> / <code>onComplete</code> and <code>onError</code>.</p><p>Example: </p><pre><span class="kw">val</span> out = ConnectableSubscriber(subscriber)
+emitted by <code>onNext</code> / <code>onComplete</code> and <code>onError</code>.</p><p>Example: </p><pre><span class="kw">import</span> monix.execution.Ack.Continue
+<span class="kw">import</span> monix.execution.Scheduler.Implicits.global
+
+<span class="kw">val</span> subscriber = <span class="kw">new</span> Subscriber[<span class="std">String</span>] {
+  <span class="kw">val</span> scheduler = global
+  <span class="kw">def</span> onNext(a: <span class="std">String</span>) = {
+    println(s<span class="lit">"Received: $$a"</span>)
+    Continue
+  }
+  <span class="kw">def</span> onError(e: Throwable) =
+    e.printStackTrace()
+  <span class="kw">def</span> onComplete() =
+    println(<span class="lit">"Completed!"</span>)
+}
+
+<span class="kw">val</span> out = ConnectableSubscriber(subscriber)
 
 <span class="cmt">// schedule onNext event, after connect()</span>
 out.onNext(<span class="lit">"c"</span>)
@@ -341,21 +373,21 @@ out.pushFirst(<span class="lit">"a"</span>)
 out.pushFirst(<span class="lit">"b"</span>)
 
 <span class="cmt">// underlying observer now gets events "a", "b", "c" in order</span>
-out.connect()</pre><p>Example of an observer ended in error: </p><pre><span class="kw">val</span> out = ConnectableSubscriber(subscriber)
+out.connect()</pre><p>Example of an observer ended in error: </p><pre><span class="kw">val</span> out2 = ConnectableSubscriber(subscriber)
 
 <span class="cmt">// schedule onNext event, after connect()</span>
-out.onNext(<span class="lit">"c"</span>)
+out2.onNext(<span class="lit">"c"</span>)
 
-out.pushFirst(<span class="lit">"a"</span>) <span class="cmt">// event "a" to be emitted first</span>
-out.pushFirst(<span class="lit">"b"</span>) <span class="cmt">// event "b" to be emitted second</span>
+out2.pushFirst(<span class="lit">"a"</span>) <span class="cmt">// event "a" to be emitted first</span>
+out2.pushFirst(<span class="lit">"b"</span>) <span class="cmt">// event "b" to be emitted second</span>
 
 <span class="cmt">// schedule an onError sent downstream, once connect()</span>
 <span class="cmt">// happens, but after "a" and "b"</span>
-out.pushError(<span class="kw">new</span> RuntimeException())
+out2.pushError(<span class="kw">new</span> RuntimeException())
 
 <span class="cmt">// underlying observer receives ...</span>
 <span class="cmt">// onNext("a") -> onNext("b") -> onError(RuntimeException)</span>
-out.connect()
+out2.connect()
 
 <span class="cmt">// NOTE: that onNext("c") never happens</span></pre></div></div>
     </li><li name="monix.reactive.observers.SafeSubscriber" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -416,7 +448,7 @@ in order to send events, along with an execution context.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="BufferedSubscriber$.html"><span class="name">BufferedSubscriber</span></a><span class="result"> extends <span class="extype" name="monix.reactive.observers.Builders">Builders</span> with <span class="extype" name="monix.reactive.observers.buffers.BuildersImpl">BuildersImpl</span> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="BufferedSubscriber$.html"><span class="name">BufferedSubscriber</span></a><span class="result"> extends <span class="extype" name="monix.reactive.observers.Builders">Builders</span> with <span class="extype" name="monix.reactive.observers.buffers.BuildersImpl">BuildersImpl</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -432,7 +464,7 @@ in order to send events, along with an execution context.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CacheUntilConnectSubscriber$.html"><span class="name">CacheUntilConnectSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="CacheUntilConnectSubscriber$.html"><span class="name">CacheUntilConnectSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -448,7 +480,7 @@ in order to send events, along with an execution context.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="ConnectableSubscriber$.html"><span class="name">ConnectableSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="ConnectableSubscriber$.html"><span class="name">ConnectableSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -464,7 +496,7 @@ in order to send events, along with an execution context.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SafeSubscriber$.html"><span class="name">SafeSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="SafeSubscriber$.html"><span class="name">SafeSubscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -480,7 +512,7 @@ in order to send events, along with an execution context.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Subscriber$.html"><span class="name">Subscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Subscriber$.html"><span class="name">Subscriber</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
