@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.eval.instances</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.eval.instances" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.eval.instances" />
+          <title>Monix 3.0.0-RC2 - monix.eval.instances</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.eval.instances" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.eval.instances" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -79,7 +79,8 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
 <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming.</p><p>You can control evaluation with type you choose - be it <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -249,9 +250,9 @@ for  <code>cats.effect.Async</code> and <code>CoflatMap</code> (and implicitly f
 <code>Applicative</code>, <code>Monad</code>, <code>MonadError</code>, etc).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
 </li></ul></div></div>
     </li><li name="monix.eval.instances.CatsBaseForTask" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]"></a><a id="CatsBaseForTask:CatsBaseForTask"></a>
+      <a id="CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]withSemigroupK[monix.eval.Task]"></a><a id="CatsBaseForTask:CatsBaseForTask"></a>
       <span class="permalink">
-      <a href="../../../monix/eval/instances/index.html#CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]" title="Permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsBaseForTaskextendsMonadError[monix.eval.Task,Throwable]withCoflatMap[monix.eval.Task]withSemigroupK[monix.eval.Task]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -260,7 +261,7 @@ for  <code>cats.effect.Async</code> and <code>CoflatMap</code> (and implicitly f
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Cats type class instances for Task for  cats.MonadError and CoflatMap (and implicitly for Applicative, Monad, etc)." href="CatsBaseForTask.html"><span class="name">CatsBaseForTask</span></a><span class="result"> extends <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>] with <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+        <a title="Cats type class instances for Task for  cats.MonadError and CoflatMap (and implicitly for Applicative, Monad, etc)." href="CatsBaseForTask.html"><span class="name">CatsBaseForTask</span></a><span class="result"> extends <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>] with <span class="extype" name="cats.CoflatMap">CoflatMap</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>] with <span class="extype" name="cats.SemigroupK">SemigroupK</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Cats type class instances for <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>
@@ -406,9 +407,9 @@ processing tasks in parallel (with non-deterministic effects
 ordering).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
 </li></ul></div></div>
     </li><li name="monix.eval.instances.CatsSyncForCoeval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]"></a><a id="CatsSyncForCoeval:CatsSyncForCoeval"></a>
+      <a id="CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]withSemigroupK[monix.eval.Coeval]"></a><a id="CatsSyncForCoeval:CatsSyncForCoeval"></a>
       <span class="permalink">
-      <a href="../../../monix/eval/instances/index.html#CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]" title="Permalink">
+      <a href="../../../monix/eval/instances/index.html#CatsSyncForCoevalextendsSync[monix.eval.Coeval]withCoflatMap[monix.eval.Coeval]withSemigroupK[monix.eval.Coeval]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -417,7 +418,7 @@ ordering).</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" ta
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Cats type class instances for Coeval." href="CatsSyncForCoeval.html"><span class="name">CatsSyncForCoeval</span></a><span class="result"> extends <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>]</span>
+        <a title="Cats type class instances for Coeval." href="CatsSyncForCoeval.html"><span class="name">CatsSyncForCoeval</span></a><span class="result"> extends <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <span class="extype" name="cats.CoflatMap">CoflatMap</span>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>] with <span class="extype" name="cats.SemigroupK">SemigroupK</span>[<a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Cats type class instances for <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Cats type class instances for <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p>As can be seen the implemented type classes are for now
