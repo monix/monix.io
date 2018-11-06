@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541504726787106674">
+  <link rel="stylesheet" href="/public/css/all.css?1541505934463640830">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541504726787106674">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541505934463640830">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -234,19 +234,17 @@ to execute asynchronously:</p>
     <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">})</span>
-<span class="nc">Hello</span><span class="o">,</span> <span class="n">world</span><span class="o">!```</span>
+</code></pre></div></div>
 
+<p>Once a task has been scheduled for execution like this,
+there’s no way to cancel it.</p>
 
-<span class="nc">Once</span> <span class="n">a</span> <span class="n">task</span> <span class="n">has</span> <span class="n">been</span> <span class="n">scheduled</span> <span class="k">for</span> <span class="n">execution</span> <span class="n">like</span> <span class="k">this</span><span class="o">,</span>
-<span class="n">there</span><span class="ss">'s </span><span class="n">no</span> <span class="n">way</span> <span class="n">to</span> <span class="n">cancel</span> <span class="n">it</span><span class="o">.</span>
+<h2 id="schedule-with-a-delay">Schedule with a Delay</h2>
 
-<span class="o">#</span><span class="k">#</span> <span class="nc">Schedule</span> <span class="k">with</span> <span class="n">a</span> <span class="nc">Delay</span>
+<p>To execute a <code class="highlighter-rouge">Runnable</code> with a given delay, let’s
+say for example 5 seconds:</p>
 
-<span class="nc">To</span> <span class="n">execute</span> <span class="n">a</span> <span class="n">`Runnable`</span> <span class="k">with</span> <span class="n">a</span> <span class="n">given</span> <span class="n">delay</span><span class="o">,</span> <span class="n">let</span><span class="ss">'s
-</span><span class="n">say</span> <span class="k">for</span> <span class="n">example</span> <span class="mi">5</span> <span class="n">seconds</span><span class="k">:</span>
-
-<span class="kt">```scala</span>
-<span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
 
 <span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span>
   <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
