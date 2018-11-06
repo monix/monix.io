@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.execution.cancelables</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.execution.cancelables" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.execution.cancelables" />
+          <title>Monix 3.0.0-RC2 - monix.execution.cancelables</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.execution.cancelables" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.execution.cancelables" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -79,7 +79,8 @@ with asynchronous execution:</p><ul><li><a href="../atomic/index.html" class="ex
 <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming.</p><p>You can control evaluation with type you choose - be it <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -112,6 +113,22 @@ with asynchronous execution:</p><ul><li><a href="../atomic/index.html" class="ex
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution.annotations" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="annotations"></a><a id="annotations:annotations"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#annotations" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../annotations/index.html"><span class="name">annotations</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li name="monix.execution.atomic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="atomic"></a><a id="atomic:atomic"></a>
       <span class="permalink">
@@ -318,11 +335,11 @@ scheduling.</p><p>Example:</p><pre><span class="kw">val</span> s = ConcurrentSch
 })
 
 <span class="cmt">// later, cancels the scheduling ...</span>
-task.cancel()</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-execution/shared/src/main/scala/monix/execution/cancelables/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+task.cancel()</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-execution/shared/src/main/scala/monix/execution/cancelables/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -409,8 +426,7 @@ reference should be canceled as well.
         <a title="Represents a Cancelable that can be queried for the canceled status." href="BooleanCancelable.html"><span class="name">BooleanCancelable</span></a><span class="result"> extends <a href="../Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
       </span>
       
-      <p class="shortcomment cmt">Represents a Cancelable that can be queried
-for the canceled status.</p>
+      <p class="shortcomment cmt">Represents a Cancelable that can be queried for the canceled status.</p>
     </li><li name="monix.execution.cancelables.ChainedCancelable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ChainedCancelableextendsAssignableCancelable"></a><a id="ChainedCancelable:ChainedCancelable"></a>
       <span class="permalink">
@@ -727,7 +743,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="AssignableCancelable$.html"><span class="name">AssignableCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="AssignableCancelable$.html"><span class="name">AssignableCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -743,7 +759,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="BooleanCancelable$.html"><span class="name">BooleanCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="BooleanCancelable$.html"><span class="name">BooleanCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -759,7 +775,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="ChainedCancelable$.html"><span class="name">ChainedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="ChainedCancelable$.html"><span class="name">ChainedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -775,7 +791,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CompositeCancelable$.html"><span class="name">CompositeCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="CompositeCancelable$.html"><span class="name">CompositeCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -791,7 +807,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="MultiAssignCancelable$.html"><span class="name">MultiAssignCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="MultiAssignCancelable$.html"><span class="name">MultiAssignCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -807,7 +823,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="OrderedCancelable$.html"><span class="name">OrderedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="OrderedCancelable$.html"><span class="name">OrderedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -823,7 +839,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="RefCountCancelable$.html"><span class="name">RefCountCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="RefCountCancelable$.html"><span class="name">RefCountCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -839,7 +855,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SerialCancelable$.html"><span class="name">SerialCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="SerialCancelable$.html"><span class="name">SerialCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -855,7 +871,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="SingleAssignCancelable$.html"><span class="name">SingleAssignCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="SingleAssignCancelable$.html"><span class="name">SingleAssignCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -871,7 +887,7 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="StackedCancelable$.html"><span class="name">StackedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="StackedCancelable$.html"><span class="name">StackedCancelable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -927,9 +943,9 @@ you can only pull out references in a FIFO fashion.</p><p>Used in the implementa
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>
