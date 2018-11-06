@@ -587,7 +587,10 @@ strategies available:
   behavior.
 - `DropNew` indicates a limited size for the buffer and on overflow
   it should drop incoming events.
+- `DropNewAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped incoming events.
 - `DropOld` indicates a limited size for the buffer and on overflow
   it should drop older enqueued events.
+- `DropOldAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped older enqueued events.
 - `ClearBuffer` indicates a limited size for the buffer and on overflow
   it should drop the entire buffer and start fresh.
+- `DropOldAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.
