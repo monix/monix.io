@@ -9,10 +9,15 @@ import scala.util.control.NonFatal
 
 case class FrontMatter(tut: Tut)
 
-case class ConfigFile(
+case class VersionsSet(
   version1x: String,
   version2x: String,
   version3x: String
+)
+
+case class ConfigFile(
+  code: VersionsSet,
+  promoted: VersionsSet
 )
 
 case class Tut(
@@ -26,9 +31,9 @@ case class Tut(
 
   def parsedDependencies(config: ConfigFile): List[String] =
     dependencies.map { uri =>
-      uri.replaceAll("version1x", config.version1x)
-        .replaceAll("version2x", config.version2x)
-        .replaceAll("version3x", config.version3x)
+      uri.replaceAll("version1x", config.code.version1x)
+         .replaceAll("version2x", config.code.version2x)
+         .replaceAll("version3x", config.code.version3x)
     }
 
   def libResolution(config: ConfigFile): Resolution =

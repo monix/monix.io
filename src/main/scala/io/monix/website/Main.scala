@@ -24,15 +24,28 @@ object Main extends App {
   }
 
   lazy val configFile: ConfigFile = {
+    import java.util.LinkedHashMap
+
     val yaml = new Yaml()
     val stream = new FileInputStream(BuildInfo.configFile)
-    val map = yaml.load(stream).asInstanceOf[java.util.Map[String,Any]].asScala
+    val map = yaml.load(stream).asInstanceOf[java.util.Map[String,Any]].asScala   
     stream.close()
 
+    def getValue(key1: String, key2: String): String =
+      Option(map(key1).asInstanceOf[LinkedHashMap[String, String]].get(key2).asInstanceOf[String])
+        .getOrElse("")
+
     ConfigFile(
-      version1x = map("version1x").asInstanceOf[String],
-      version2x = map("version2x").asInstanceOf[String],
-      version3x = map("version3x").asInstanceOf[String]
+      code = VersionsSet(
+        version1x = getValue("code", "version1x"),
+        version2x = getValue("code", "version2x"),
+        version3x = getValue("code", "version3x")
+      ),
+      promoted = VersionsSet(
+        version1x = getValue("promoted", "version1x"),
+        version2x = getValue("promoted", "version2x"),
+        version3x = getValue("promoted", "version3x")
+      )
     )
   }
 

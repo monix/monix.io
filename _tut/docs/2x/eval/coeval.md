@@ -88,7 +88,7 @@ So what problems are we solving?
   compiler understand, but a proper type isn't properly exposed by
   Scala
 - Scala has `@tailrec` as a compiler workaround to the JVM not
-  supporting tail-calls elimination, but it only works for
+  supporting tail-calls elimination, but it does not work for
   mutually tail recursive calls and thus limited
 - The `scala.util.Try` type is overlapping in scope, given the
   `Coeval` focus on error handling, but doesn't have lazy behavior

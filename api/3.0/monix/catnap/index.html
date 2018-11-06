@@ -1,0 +1,808 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-RC2 - monix.catnap</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.catnap" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.catnap" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../lib/index.js"></script>
+      <script type="text/javascript" src="../../index.js"></script>
+      <script type="text/javascript" src="../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming.</p><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.catnap" visbl="pub" class="indented2 current" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="catnap"></a><a id="catnap:catnap"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#catnap" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">catnap</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.catnap.cancelables" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="cancelables"></a><a id="cancelables:cancelables"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#cancelables" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="cancelables/index.html"><span class="name">cancelables</span></a>
+      </span>
+      
+      
+    </li><li class="current-entities indented2">
+                        <a class="object" href="CancelableF$.html" title=""></a>
+                        <a class="trait" href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources."></a>
+                        <a href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources.">CancelableF</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="CircuitBreaker$.html" title=""></a>
+                        <a class="class" href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems."></a>
+                        <a href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems.">CircuitBreaker</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ConcurrentQueue$.html" title=""></a>
+                        <a class="class" href="ConcurrentQueue.html" title="A high-performance, back-pressured, generic concurrent queue implementation."></a>
+                        <a href="ConcurrentQueue.html" title="A high-performance, back-pressured, generic concurrent queue implementation.">ConcurrentQueue</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="FutureLift$.html" title=""></a>
+                        <a class="trait" href="FutureLift.html" title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g."></a>
+                        <a href="FutureLift.html" title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g.">FutureLift</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains a value of type A.">MVar</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="OrElse$.html" title=""></a>
+                        <a class="trait" href="OrElse.html" title="A type class for prioritized implicit search."></a>
+                        <a href="OrElse.html" title="A type class for prioritized implicit search.">OrElse</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Semaphore$.html" title=""></a>
+                        <a class="class" href="Semaphore.html" title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution."></a>
+                        <a href="Semaphore.html" title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution.">Semaphore</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="object" href="syntax$.html" title=""></a>
+                        <a href="syntax$.html" title="">syntax</a>
+                      </li><li name="monix.eval" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eval"></a><a id="eval:eval"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#eval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../eval/index.html"><span class="name">eval</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="execution"></a><a id="execution:execution"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#execution" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../execution/index.html"><span class="name">execution</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.reactive" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="reactive"></a><a id="reactive:reactive"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#reactive" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../reactive/index.html"><span class="name">reactive</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.tail" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tail"></a><a id="tail:tail"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#tail" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../tail/index.html"><span class="name">tail</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="package value">
+      <div id="definition">
+        <div class="big-circle package">p</div>
+        <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a></p>
+        <h1>catnap<span class="permalink">
+      <a href="../../monix/catnap/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">catnap</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              
+            </ol>
+          </div>
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="monix.catnap.CancelableF" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CancelableF[F[_]]extendsAnyRef"></a><a id="CancelableF[F[_]]:CancelableF[F]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#CancelableF[F[_]]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources." href="CancelableF.html"><span class="name">CancelableF</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Represents a pure data structure that describes an effectful,
+idempotent action that can be used to cancel async computations,
+or to release resources.</p><div class="fullcomment"><div class="comment cmt"><p>Represents a pure data structure that describes an effectful,
+idempotent action that can be used to cancel async computations,
+or to release resources.</p><p>This is the pure, higher-kinded equivalent of
+<a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">monix.execution.Cancelable</a> and can be used in combination
+with data types meant for managing effects, like
+<code>Task</code>, <code>Coeval</code> or <code>cats.effect.IO</code>.</p><p>Note: the <code>F</code> suffix comes from this data type being abstracted
+over <code>F[_]</code>.
+</p></div></div>
+    </li><li name="monix.catnap.CircuitBreaker" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="CircuitBreaker[F[_]]extendsAnyRef"></a><a id="CircuitBreaker[F[_]]:CircuitBreaker[F]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#CircuitBreaker[F[_]]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems." href="CircuitBreaker.html"><span class="name">CircuitBreaker</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">The <code>CircuitBreaker</code> is used to provide stability and prevent
+cascading failures in distributed systems.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>CircuitBreaker</code> is used to provide stability and prevent
+cascading failures in distributed systems.</p><h3>Purpose</h3><p>As an example, we have a web application interacting with a remote
+third party web service. Let's say the third party has oversold
+their capacity and their database melts down under load. Assume
+that the database fails in such a way that it takes a very long
+time to hand back an error to the third party web service. This in
+turn makes calls fail after a long period of time.  Back to our
+web application, the users have noticed that their form
+submissions take much longer seeming to hang. Well the users do
+what they know to do which is use the refresh button, adding more
+requests to their already running requests.  This eventually
+causes the failure of the web application due to resource
+exhaustion. This will affect all users, even those who are not
+using functionality dependent on this third party web service.</p><p>Introducing circuit breakers on the web service call would cause
+the requests to begin to fail-fast, letting the user know that
+something is wrong and that they need not refresh their
+request. This also confines the failure behavior to only those
+users that are using functionality dependent on the third party,
+other users are no longer affected as there is no resource
+exhaustion. Circuit breakers can also allow savvy developers to
+mark portions of the site that use the functionality unavailable,
+or perhaps show some cached content as appropriate while the
+breaker is open.</p><h3>How It Works</h3><p>The circuit breaker models a concurrent state machine that
+can be in any of these 3 states:</p><ol class="decimal"><li><a href="CircuitBreaker$$Closed.html" class="extype" name="monix.catnap.CircuitBreaker.Closed">Closed</a>: During normal
+    operations or when the <code>CircuitBreaker</code> starts<ul><li>Exceptions increment the <code>failures</code> counter</li><li>Successes reset the failure count to zero</li><li>When the <code>failures</code> counter reaches the <code>maxFailures</code> count,
+     the breaker is tripped into <code>Open</code> state</li></ul></li><li><a href="CircuitBreaker$$Open.html" class="extype" name="monix.catnap.CircuitBreaker.Open">Open</a>: The circuit breaker
+    rejects all tasks with an
+    <a href="../execution/exceptions/ExecutionRejectedException.html" class="extype" name="monix.execution.exceptions.ExecutionRejectedException">ExecutionRejectedException</a><ul><li>all tasks fail fast with <code>ExecutionRejectedException</code></li><li>after the configured <code>resetTimeout</code>, the circuit breaker
+     enters a <a href="CircuitBreaker$$HalfOpen.html" class="extype" name="monix.catnap.CircuitBreaker.HalfOpen">HalfOpen</a> state,
+     allowing one task to go through for testing the connection</li></ul></li><li><a href="CircuitBreaker$$HalfOpen.html" class="extype" name="monix.catnap.CircuitBreaker.HalfOpen">HalfOpen</a>: The circuit breaker
+    has already allowed a task to go through, as a reset attempt,
+    in order to test the connection<ul><li>The first task when <code>Open</code> has expired is allowed through
+     without failing fast, just before the circuit breaker is
+     evolved into the <code>HalfOpen</code> state</li><li>All tasks attempted in <code>HalfOpen</code> fail-fast with an exception
+     just as in <a href="CircuitBreaker$$Open.html" class="extype" name="monix.catnap.CircuitBreaker.Open">Open</a> state</li><li>If that task attempt succeeds, the breaker is reset back to
+     the <code>Closed</code> state, with the <code>resetTimeout</code> and the
+     <code>failures</code> count also reset to initial values</li><li>If the first call fails, the breaker is tripped again into
+     the <code>Open</code> state (the <code>resetTimeout</code> is multiplied by the
+     exponential backoff factor)</li></ul></li></ol><h3>Usage</h3><pre><span class="kw">import</span> monix.catnap._
+<span class="kw">import</span> scala.concurrent.duration._
+
+<span class="cmt">// Using cats.effect.IO for this sample, but you can use any effect</span>
+<span class="cmt">// type that integrates with Cats-Effect, including monix.eval.Task:</span>
+<span class="kw">import</span> cats.effect.{Clock, IO}
+<span class="kw">implicit</span> <span class="kw">val</span> clock = Clock.create[IO]
+
+<span class="cmt">// Using the "unsafe" builder for didactic purposes, but prefer</span>
+<span class="cmt">// the safe "apply" builder:</span>
+<span class="kw">val</span> circuitBreaker = CircuitBreaker[IO].unsafe(
+  maxFailures = <span class="num">5</span>,
+  resetTimeout = <span class="num">10.</span>seconds
+)
+
+<span class="cmt">//...</span>
+<span class="kw">val</span> problematic = IO {
+  <span class="kw">val</span> nr = util.Random.nextInt()
+  <span class="kw">if</span> (nr % <span class="num">2</span> == <span class="num">0</span>) nr <span class="kw">else</span>
+    <span class="kw">throw</span> <span class="kw">new</span> RuntimeException(<span class="lit">"dummy"</span>)
+}
+
+<span class="kw">val</span> task = circuitBreaker.protect(problematic)</pre><p>When attempting to close the circuit breaker and resume normal
+operations, we can also apply an exponential backoff for repeated
+failed attempts, like so:</p><pre><span class="kw">val</span> exponential = CircuitBreaker[IO].of(
+  maxFailures = <span class="num">5</span>,
+  resetTimeout = <span class="num">10.</span>seconds,
+  exponentialBackoffFactor = <span class="num">2</span>,
+  maxResetTimeout = <span class="num">10.</span>minutes
+)</pre><p>In this sample we attempt to reconnect after 10 seconds, then after
+20, 40 and so on, a delay that keeps increasing up to a configurable
+maximum of 10 minutes.</p><h4>Sync versus Async</h4><p>The <code>CircuitBreaker</code> works with both
+<a href="https://typelevel.org/cats-effect/typeclasses/sync.html" target="_blank">Sync</a> and
+<a href="https://typelevel.org/cats-effect/typeclasses/async.html" target="_blank">Async</a>
+type class instances.</p><p>If the <code>F[_]</code> type used implements <code>Async</code>, then the <code>CircuitBreaker</code>
+gains the ability to wait for it to be closed, via
+<a href="CircuitBreaker.html#awaitClose(implicitF:monix.catnap.OrElse[cats.effect.Concurrent[F],cats.effect.Async[F]]):F[Unit]" class="extmbr" name="monix.catnap.CircuitBreaker#awaitClose">awaitClose</a>.</p><h4>Retrying Tasks</h4><p>Generally it's best if tasks are retried with an exponential back-off
+strategy for async tasks.</p><pre><span class="kw">import</span> cats.implicits._
+<span class="kw">import</span> cats.effect._
+<span class="kw">import</span> monix.execution.exceptions.ExecutionRejectedException
+
+<span class="kw">def</span> protectWithRetry[F[_], A](task: F[A], cb: CircuitBreaker[F], delay: FiniteDuration)
+  (<span class="kw">implicit</span> F: Async[F], timer: Timer[F]): F[A] = {
+
+  cb.protect(task).recoverWith {
+    <span class="kw">case</span> _: ExecutionRejectedException <span class="kw">=&gt;</span>
+      <span class="cmt">// Sleep, then retry</span>
+      timer.sleep(delay).flatMap(_ <span class="kw">=&gt;</span> protectWithRetry(task, cb, delay * <span class="num">2</span>))
+  }
+}</pre><p>But an alternative is to wait for the precise moment at which the
+<code>CircuitBreaker</code> is closed again and you can do so via the
+<a href="CircuitBreaker.html#awaitClose(implicitF:monix.catnap.OrElse[cats.effect.Concurrent[F],cats.effect.Async[F]]):F[Unit]" class="extmbr" name="monix.catnap.CircuitBreaker#awaitClose">awaitClose</a> method:</p><pre><span class="kw">def</span> protectWithRetry2[F[_], A](task: F[A], cb: CircuitBreaker[F])
+  (<span class="kw">implicit</span> F: Async[F]): F[A] = {
+
+  cb.protect(task).recoverWith {
+    <span class="kw">case</span> _: ExecutionRejectedException <span class="kw">=&gt;</span>
+      <span class="cmt">// Waiting for the CircuitBreaker to close, then retry</span>
+      cb.awaitClose.flatMap(_ <span class="kw">=&gt;</span> protectWithRetry2(task, cb))
+  }
+}</pre><p>Be careful when doing this, plan carefully, because you might end up with the
+&quot;<a href="https://en.wikipedia.org/wiki/Thundering_herd_problem" target="_blank">thundering herd problem</a>&quot;.</p><h3>Credits</h3><p>This Monix data type was inspired by the availability of
+<a href="http://doc.akka.io/docs/akka/current/common/circuitbreaker.html" target="_blank">Akka's Circuit Breaker</a>.
+</p></div></div>
+    </li><li name="monix.catnap.ConcurrentQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ConcurrentQueue[F[_],A]extendsSerializable"></a><a id="ConcurrentQueue[F[_],A]:ConcurrentQueue[F,A]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#ConcurrentQueue[F[_],A]extendsSerializable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A high-performance, back-pressured, generic concurrent queue implementation." href="ConcurrentQueue.html"><span class="name">ConcurrentQueue</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A high-performance, back-pressured, generic concurrent queue implementation.</p><div class="fullcomment"><div class="comment cmt"><p>A high-performance, back-pressured, generic concurrent queue implementation.</p><p>This is the pure and generic version of <a href="../execution/AsyncQueue.html" class="extype" name="monix.execution.AsyncQueue">monix.execution.AsyncQueue</a>.</p><h4>Example</h4><pre><span class="kw">import</span> cats.implicits._
+<span class="kw">import</span> cats.effect._
+<span class="kw">import</span> monix.execution.Scheduler.global
+
+<span class="cmt">// For being able to do IO.start</span>
+<span class="kw">implicit</span> <span class="kw">val</span> cs = global.contextShift[IO]
+<span class="cmt">// We need a `Timer` for this to work</span>
+<span class="kw">implicit</span> <span class="kw">val</span> timer = global.timer[IO]
+
+<span class="kw">def</span> consumer(queue: ConcurrentQueue[IO, <span class="std">Int</span>], index: <span class="std">Int</span>): IO[<span class="std">Unit</span>] =
+  queue.poll.flatMap { a <span class="kw">=&gt;</span>
+    println(s<span class="lit">"Worker $$index: $$a"</span>)
+    consumer(queue, index)
+  }
+
+<span class="kw">for</span> {
+  queue     <span class="kw">&lt;-</span> ConcurrentQueue[IO].bounded[<span class="std">Int</span>](capacity = <span class="num">32</span>)
+  consumer1 <span class="kw">&lt;-</span> consumer(queue, <span class="num">1</span>).start
+  consumer2 <span class="kw">&lt;-</span> consumer(queue, <span class="num">1</span>).start
+  <span class="cmt">// Pushing some samples</span>
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">1</span>)
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">2</span>)
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">3</span>)
+  <span class="cmt">// Stopping the consumer loops</span>
+  _         <span class="kw">&lt;-</span> consumer1.cancel
+  _         <span class="kw">&lt;-</span> consumer2.cancel
+} <span class="kw">yield</span> ()</pre><h4>Back-Pressuring and the Polling Model</h4><p>The initialized queue can be limited to a maximum buffer size, a size
+that could be rounded to a power of 2, so you can't rely on it to be
+precise. Such a bounded queue can be initialized via
+<a href="ConcurrentQueue$.html#bounded[F[_],A](capacity:Int)(implicitF:cats.effect.Async[F],implicittimer:cats.effect.Timer[F]):F[monix.catnap.ConcurrentQueue[F,A]]" class="extmbr" name="monix.catnap.ConcurrentQueue#bounded">ConcurrentQueue.bounded</a>.
+Also see <a href="../execution/BufferCapacity.html" class="extype" name="monix.execution.BufferCapacity">BufferCapacity</a>, the
+configuration parameter that can be passed in the
+<a href="ConcurrentQueue$.html#custom[F[_],A](capacity:monix.execution.BufferCapacity,channelType:monix.execution.ChannelType)(implicitF:cats.effect.Async[F],implicittimer:cats.effect.Timer[F]):F[monix.catnap.ConcurrentQueue[F,A]]" class="extmbr" name="monix.catnap.ConcurrentQueue#custom">ConcurrentQueue.custom</a>
+builder.</p><p>On <a href="ConcurrentQueue.html#offer(a:A):F[Unit]" class="extmbr" name="monix.catnap.ConcurrentQueue#offer">offer</a>, when the queue is full, the implementation back-pressures
+until the queue has room again in its internal buffer, the future being
+completed when the value was pushed successfully. Similarly <a href="ConcurrentQueue.html#poll:F[A]" class="extmbr" name="monix.catnap.ConcurrentQueue#poll">poll</a> awaits
+the queue to have items in it. This works for both bounded and unbounded queues.</p><p>For both <code>offer</code> and <code>poll</code>, in case awaiting a result happens, the
+implementation does so asynchronously, without any threads being blocked.</p><p>Currently the implementation is optimized for speed. In a producer-consumer
+pipeline the best performance is achieved if the producer(s) and the
+consumer(s) do not contend for the same resources. This is why when
+doing asynchronous waiting for the queue to be empty or full, the
+implementation does so by repeatedly retrying the operation, with
+asynchronous boundaries and delays, until it succeeds. Fairness is
+ensured by the implementation.</p><h4>Multi-threading Scenario</h4><p>This queue support a <a href="../execution/ChannelType.html" class="extype" name="monix.execution.ChannelType">ChannelType</a>
+configuration, for fine tuning depending on the needed multi-threading
+scenario. And this can yield better performance:</p><ul><li><a href="../execution/ChannelType$$MPMC$.html" class="extype" name="monix.execution.ChannelType.MPMC">MPMC</a>:
+    multi-producer, multi-consumer</li><li><a href="../execution/ChannelType$$MPSC$.html" class="extype" name="monix.execution.ChannelType.MPSC">MPSC</a>:
+    multi-producer, single-consumer</li><li><a href="../execution/ChannelType$$SPMC$.html" class="extype" name="monix.execution.ChannelType.SPMC">SPMC</a>:
+    single-producer, multi-consumer</li><li><a href="../execution/ChannelType$$SPSC$.html" class="extype" name="monix.execution.ChannelType.SPSC">SPSC</a>:
+    single-producer, single-consumer</li></ul><p>The default is <code>MPMC</code>, because that's the safest scenario.</p><pre><span class="kw">import</span> monix.execution.ChannelType.MPSC
+<span class="kw">import</span> monix.execution.BufferCapacity.Bounded
+
+<span class="kw">val</span> queue = ConcurrentQueue[IO].custom[<span class="std">Int</span>](
+  capacity = Bounded(<span class="num">128</span>),
+  channelType = MPSC
+)</pre><p><b>WARNING</b>: default is <code>MPMC</code>, however any other scenario implies
+a relaxation of the internal synchronization between threads.</p><p>This means that using the wrong scenario can lead to severe
+concurrency bugs. If you're not sure what multi-threading scenario you
+have, then just stick with the default <code>MPMC</code>.
+</p></div></div>
+    </li><li name="monix.catnap.FutureLift" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="FutureLift[F[_],Future[_]]extendsAnyRef"></a><a id="FutureLift[F[_],Future[_]]:FutureLift[F,Future]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#FutureLift[F[_],Future[_]]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g." href="FutureLift.html"><span class="name">FutureLift</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="Future">Future<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A type class for conversions from <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">scala.concurrent.Future</a> or
+other Future-like data type (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>A type class for conversions from <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">scala.concurrent.Future</a> or
+other Future-like data type (e.g. Java's <code>CompletableFuture</code>).</p><p>N.B. to use its syntax, you can import <a href="syntax$.html" class="extype" name="monix.catnap.syntax">monix.catnap.syntax</a>:</p><pre><span class="kw">import</span> monix.catnap.syntax._
+<span class="kw">import</span> scala.concurrent.Future
+<span class="cmt">// Used here only for Future.apply as the ExecutionContext</span>
+<span class="kw">import</span> monix.execution.Scheduler.Implicits.global
+<span class="cmt">// Can use any data type implementing Async or Concurrent</span>
+<span class="kw">import</span> cats.effect.IO
+
+<span class="kw">val</span> io = IO(Future(<span class="num">1</span> + <span class="num">1</span>)).futureLift</pre><p><code>IO</code> provides its own <code>IO.fromFuture</code> of course, however
+<code>FutureLift</code> is generic and works with
+<a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> as well.</p><pre><span class="kw">import</span> monix.execution.{CancelableFuture, Scheduler, FutureUtils}
+<span class="kw">import</span> scala.concurrent.Promise
+<span class="kw">import</span> scala.concurrent.duration._
+<span class="kw">import</span> scala.util.Try
+
+<span class="kw">def</span> delayed[A](event: <span class="kw">=&gt;</span> A)(<span class="kw">implicit</span> s: Scheduler): CancelableFuture[A] = {
+  <span class="kw">val</span> p = Promise[A]()
+  <span class="kw">val</span> c = s.scheduleOnce(<span class="num">1.</span>second) { p.complete(Try(event)) }
+  CancelableFuture(p.future, c)
+}
+
+<span class="cmt">// The result will be cancelable:</span>
+<span class="kw">val</span> sum: IO[<span class="std">Int</span>] = IO(delayed(<span class="num">1</span> + <span class="num">1</span>)).futureLift</pre></div></div>
+    </li><li name="monix.catnap.MVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="MVar[F[_],A]extendsMVar[F,A]"></a><a id="MVar[F[_],A]:MVar[F,A]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#MVar[F[_],A]extendsMVar[F,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="A mutable location, that is either empty or contains a value of type A." href="MVar.html"><span class="name">MVar</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="cats.effect.concurrent.MVar">cats.effect.concurrent.MVar</span>[<span class="extype" name="monix.catnap.MVar.F">F</span>, <span class="extype" name="monix.catnap.MVar.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">A mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>A mutable location, that is either empty or contains
+a value of type <code>A</code>.</p><p>It has the following fundamental atomic operations:</p><ul><li><a href="MVar.html#put(a:A):F[Unit]" class="extmbr" name="monix.catnap.MVar#put">put</a> which fills the var if empty, or blocks
+   (asynchronously) until the var is empty again</li><li><a href="MVar.html#tryPut(a:A):F[Boolean]" class="extmbr" name="monix.catnap.MVar#tryPut">tryPut</a> which fills the var if empty. returns true if successful</li><li><a href="MVar.html#take:F[A]" class="extmbr" name="monix.catnap.MVar#take">take</a> which empties the var if full, returning the contained
+   value, or blocks (asynchronously) otherwise until there is
+   a value to pull</li><li><a href="MVar.html#tryTake:F[Option[A]]" class="extmbr" name="monix.catnap.MVar#tryTake">tryTake</a> empties if full, returns None if empty.</li><li><a href="MVar.html#read:F[A]" class="extmbr" name="monix.catnap.MVar#read">read</a> which reads the current value without touching it,
+   assuming there is one, or otherwise it waits until a value
+   is made available via <code>put</code></li><li><a href="MVar.html#tryRead:F[Option[A]]" class="extmbr" name="monix.catnap.MVar#tryRead">tryRead</a> returns <code>Some(a)</code> if full, without modifying the var,
+   or else returns <code>None</code></li><li><a href="MVar.html#isEmpty:F[Boolean]" class="extmbr" name="monix.catnap.MVar#isEmpty">isEmpty</a> returns true if currently empty</li></ul><p>The <code>MVar</code> is appropriate for building synchronization
+primitives and performing simple inter-thread communications.
+If it helps, it's similar with a <code>BlockingQueue(capacity = 1)</code>,
+except that it is pure and that doesn't block any threads, all
+waiting being done asynchronously.</p><p>Given its asynchronous, non-blocking nature, it can be used on
+top of Javascript as well.</p><p>N.B. this is a reimplementation of the interface exposed in Cats-Effect, see:
+<a href="https://typelevel.org/cats-effect/concurrency/mvar.html" target="_blank">cats.effect.concurrent.MVar</a></p><p>Inspired by
+<a href="https://hackage.haskell.org/package/base/docs/Control-Concurrent-MVar.html" target="_blank">Control.Concurrent.MVar</a>
+from Haskell.
+</p></div></div>
+    </li><li name="monix.catnap.OrElse" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="OrElse[+A,+B]extendsAnyRef"></a><a id="OrElse[+A,+B]:OrElse[A,B]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#OrElse[+A,+B]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A type class for prioritized implicit search." href="OrElse.html"><span class="name">OrElse</span></a><span class="tparams">[<span name="A">+A</span>, <span name="B">+B</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A type class for prioritized implicit search.</p><div class="fullcomment"><div class="comment cmt"><p>A type class for prioritized implicit search.</p><p>Useful for specifying type class instance alternatives.
+Examples:</p><ul><li><code>Async[F] OrElse Sync[F]</code></li><li><code>Concurrent[F] OrElse Async[F]</code></li></ul><p>Inspired by the implementations in Shapeless and Algebra.
+</p></div></div>
+    </li><li name="monix.catnap.Semaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="Semaphore[F[_]]extendsSemaphore[F]"></a><a id="Semaphore[F[_]]:Semaphore[F]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#Semaphore[F[_]]extendsSemaphore[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution." href="Semaphore.html"><span class="name">Semaphore</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.effect.concurrent.Semaphore">cats.effect.concurrent.Semaphore</span>[<span class="extype" name="monix.catnap.Semaphore.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">The <code>Semaphore</code> is an asynchronous semaphore implementation that
+limits the parallelism on task execution.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Semaphore</code> is an asynchronous semaphore implementation that
+limits the parallelism on task execution.</p><p>The following example instantiates a semaphore with a
+maximum parallelism of 10:</p><pre><span class="kw">import</span> cats.implicits._
+<span class="kw">import</span> cats.effect.IO
+
+<span class="cmt">// Needed for ContextShift[IO]</span>
+<span class="kw">import</span> monix.execution.Scheduler
+<span class="kw">implicit</span> <span class="kw">val</span> cs = IO.contextShift(Scheduler.global)
+
+<span class="cmt">// Dummies for didactic purposes</span>
+<span class="kw">case</span> <span class="kw">class</span> HttpRequest()
+<span class="kw">case</span> <span class="kw">class</span> HttpResponse()
+<span class="kw">def</span> makeRequest(r: HttpRequest): IO[HttpResponse] = IO(???)
+
+<span class="kw">for</span> {
+  semaphore <span class="kw">&lt;-</span> Semaphore[IO](provisioned = <span class="num">10</span>)
+  tasks = <span class="kw">for</span> (_ <span class="kw">&lt;-</span> <span class="num">0</span> until <span class="num">1000</span>) <span class="kw">yield</span> {
+    semaphore.withPermit(makeRequest(???))
+  }
+  <span class="cmt">// Execute in parallel; note that due to the `semaphore`</span>
+  <span class="cmt">// no more than 10 tasks will be allowed to execute in parallel</span>
+  _ <span class="kw">&lt;-</span> tasks.toList.parSequence
+} <span class="kw">yield</span> ()</pre><h4>Credits</h4><p><code>Semaphore</code> is now implementing <code>cats.effect.Semaphore</code>, deprecating
+the old Monix <code>TaskSemaphore</code>.</p><p>The changes to the interface and some implementation details are
+inspired by the implementation in Cats-Effect, which was ported
+from FS2.
+</p></div></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="monix.catnap.CancelableF" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CancelableF"></a><a id="CancelableF:CancelableF"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#CancelableF" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CancelableF$.html"><span class="name">CancelableF</span></a>
+      </span>
+      
+      
+    </li><li name="monix.catnap.CircuitBreaker" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CircuitBreaker"></a><a id="CircuitBreaker:CircuitBreaker"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#CircuitBreaker" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CircuitBreaker$.html"><span class="name">CircuitBreaker</span></a><span class="result"> extends <span class="extype" name="monix.catnap.CircuitBreakerDocs">CircuitBreakerDocs</span></span>
+      </span>
+      
+      
+    </li><li name="monix.catnap.ConcurrentQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ConcurrentQueue"></a><a id="ConcurrentQueue:ConcurrentQueue"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#ConcurrentQueue" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ConcurrentQueue$.html"><span class="name">ConcurrentQueue</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      <p class="shortcomment cmt"></p>
+    </li><li name="monix.catnap.FutureLift" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="FutureLift"></a><a id="FutureLift:FutureLift"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#FutureLift" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="FutureLift$.html"><span class="name">FutureLift</span></a><span class="result"> extends <span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span></span>
+      </span>
+      
+      
+    </li><li name="monix.catnap.MVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="MVar"></a><a id="MVar:MVar"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#MVar" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="MVar$.html"><span class="name">MVar</span></a>
+      </span>
+      
+      
+    </li><li name="monix.catnap.OrElse" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="OrElse"></a><a id="OrElse:OrElse"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#OrElse" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="OrElse$.html"><span class="name">OrElse</span></a><span class="result"> extends <span class="extype" name="monix.catnap.OrElse0">OrElse0</span></span>
+      </span>
+      
+      
+    </li><li name="monix.catnap.Semaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Semaphore"></a><a id="Semaphore:Semaphore"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#Semaphore" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="Semaphore$.html"><span class="name">Semaphore</span></a>
+      </span>
+      
+      
+    </li><li name="monix.catnap.syntax" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="syntax"></a><a id="syntax:syntax"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#syntax" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="syntax$.html"><span class="name">syntax</span></a>
+      </span>
+      
+      
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>
