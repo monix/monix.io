@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1540238465825177791">
+  <link rel="stylesheet" href="/public/css/all.css?1541496969313899452">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1540238465825177791">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541496969313899452">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -98,6 +98,52 @@
     
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
+        Monix: Version 3.0.0-RC2
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2018-11-06">
+      06 Nov 2018
+      • <a href="https://twitter.com/monix">@monix</a>
+    </time>
+
+    <p>This is the second release candidate for Monix 3, version <code class="highlighter-rouge">3.0.0-RC2</code>.</p>
+
+<p>The major theme of this release is compatibility with Cats-Effect
+<code class="highlighter-rouge">1.0.0</code>.</p>
+
+<p>Unfortunately we are late. See the announcement for the
+<a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">previous RC</a>.</p>
+
+<p>This release is 6 months late because of the work done on Cats-Effect
+<code class="highlighter-rouge">1.0.0</code>, which involved several iterations of getting the contract of
+those type classes right and then translating those changes into
+Monix’s implementation. This included a major change in <code class="highlighter-rouge">Iterant</code>’s
+encoding and a rewrite of most of its internals, and major changes in
+<code class="highlighter-rouge">Task</code>’s internals as well.</p>
+
+<p>Hopefully we can put all of this behind us and enjoy Monix 3 going
+forward. The current plan is:</p>
+
+<ul>
+  <li>if nothing major (no bug) is discovered, the final <code class="highlighter-rouge">3.0.0</code> is
+scheduled in exactly two weeks from now, on <em>November 20-th</em></li>
+  <li>hopefully binary compatibility is preserved from RC2, but 
+note that promises of binary compatibility can’t really be made
+for release candidates, so this is a best effort promise</li>
+</ul>
+
+<p>The good news is that this release comes with a ton of features …</p>
+
+
+
+    <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">Read more &rarr;</a>
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -215,52 +261,6 @@ See details below.</p>
 
 
     <a href="/blog/2017/05/03/monix-v2.3.0.html">Read more &rarr;</a>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2017/03/27/monix-v2.2.4.html">
-        Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2017-03-27">
-      27 Mar 2017
-      • <a href="https://twitter.com/monix">@monix</a>
-    </time>
-
-    <p>Version <code class="highlighter-rouge">2.2.4</code> is out now.</p>
-
-<p>It is a minor release that’s binary and source compatible with
-<code class="highlighter-rouge">2.2.x</code>, fixing a bugs and upgrading Scala.js:</p>
-
-<ul>
-  <li><a href="https://github.com/monix/monix/issues/328">Bug #338</a>:
-Fix broken test that can yield errors in Scala’s community build</li>
-  <li><a href="https://github.com/monix/monix/issues/333">Bug #333</a>:
-<code class="highlighter-rouge">Observable.firstStartedOf</code> fails due to off-by-one error</li>
-  <li><a href="https://github.com/monix/monix/issues/335">Bug #335</a>:
-Observable <code class="highlighter-rouge">concatMap</code> / <code class="highlighter-rouge">mapTask</code> trigger invalid state warning
-on <code class="highlighter-rouge">raiseError</code> children</li>
-</ul>
-
-<p>Changes:</p>
-
-<ul>
-  <li><a href="https://github.com/monix/monix/issues/334">Issue #334</a>:
-Add <code class="highlighter-rouge">CompositeCancelable.getAndResetTo</code>, needed for the new
-<code class="highlighter-rouge">firstStartedOf</code> implementation</li>
-  <li>Upgrade Scala.js to latest version <code class="highlighter-rouge">0.6.15</code>, handing deprecation
-warnings in <code class="highlighter-rouge">TaskApp</code></li>
-</ul>
-
-<p>Upgrade should be safe, being binary compatible with all previous
-<code class="highlighter-rouge">2.2.x</code> versions.</p>
-
-
-
-    <a href="/blog/2017/03/27/monix-v2.2.4.html">Read more &rarr;</a>
   </div>
   
 </div>
