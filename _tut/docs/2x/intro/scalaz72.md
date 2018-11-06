@@ -24,8 +24,8 @@ the main Monix dependency. So in `build.sbt`:
 
 ```scala
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix" % "{{ site.version2x }}",
-  "io.monix" %% "monix-scalaz-72" % "{{ site.version2x }}"
+  "io.monix" %% "monix" % "{{ site.promoted.version2x }}",
+  "io.monix" %% "monix-scalaz-72" % "{{ site.promoted.version2x }}"
 )
 ```
 
@@ -33,8 +33,8 @@ Or maybe you want to use just `Task` along with this integration:
 
 ```scala
 libraryDependencies ++= Seq(
-  "io.monix" %% "monix-eval" % "{{ site.version2x }}",
-  "io.monix" %% "monix-scalaz-72" % "{{ site.version2x }}"
+  "io.monix" %% "monix-eval" % "{{ site.promoted.version2x }}",
+  "io.monix" %% "monix-scalaz-72" % "{{ site.promoted.version2x }}"
 )
 ```
 
