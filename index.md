@@ -44,23 +44,23 @@ Highlights:
 
 The packages are published on Maven Central.
 
-- 3.x release (latest): `{{ site.version3x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version3x }}.zip))
-- 2.x release (older): `{{ site.version2x }}` 
-  ([download source archive]({{ site.github.repo }}/archive/v{{ site.version2x }}.zip))
+- 3.x release (latest): `{{ site.promoted.version3x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version3x }}.zip))
+- 2.x release (older): `{{ site.promoted.version2x }}` 
+  ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version2x }}.zip))
 
 In SBT for the latest 3.x release that integrates with 
 [Typelevel Cats](https://typelevel.org/cats/) out of the box
 (use the `%%%` for Scala.js):
 
 ```scala
-libraryDependencies += "io.monix" %% "monix" % "{{ site.version3x }}"
+libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version3x }}"
 ```
 
 Or for the older `2.x` release:
 
 ```scala
-libraryDependencies += "io.monix" %% "monix" % "{{ site.version2x }}"
+libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version2x }}"
 ```
 
 Monix is modular by design, so you can have an à la carte experience, 
