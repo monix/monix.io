@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541509467670880917">
+  <link rel="stylesheet" href="/public/css/all.css?1541510680316876086">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541509467670880917">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541510680316876086">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -669,10 +669,13 @@ it cannot be used in cases where one really needs <code class="highlighter-rouge
 behavior.</li>
   <li><code class="highlighter-rouge">DropNew</code> indicates a limited size for the buffer and on overflow
 it should drop incoming events.</li>
+  <li><code class="highlighter-rouge">DropNewAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped incoming events.</li>
   <li><code class="highlighter-rouge">DropOld</code> indicates a limited size for the buffer and on overflow
 it should drop older enqueued events.</li>
+  <li><code class="highlighter-rouge">DropOldAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped older enqueued events.</li>
   <li><code class="highlighter-rouge">ClearBuffer</code> indicates a limited size for the buffer and on overflow
 it should drop the entire buffer and start fresh.</li>
+  <li><code class="highlighter-rouge">DropOldAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.</li>
 </ul>
 
 

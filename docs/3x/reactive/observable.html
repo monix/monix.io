@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541509467670880917">
+  <link rel="stylesheet" href="/public/css/all.css?1541510680316876086">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541509467670880917">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541510680316876086">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -216,7 +216,563 @@ producer pushing data into one or multiple consumers</li>
 
 <p>See <strong><a href="./observable-comparisons.html">comparisons with similar tools, like Akka or FS2</a></strong>.</p>
 
-<p>… TO BE CONTINUED …</p>
+<h2 id="observable-contract">Observable Contract</h2>
+
+<p><code class="highlighter-rouge">Observable</code> can be thought about as the next layer of abstraction in regard to <code class="highlighter-rouge">Observer</code> and <code class="highlighter-rouge">Subscriber</code>.</p>
+
+<p>You could describe <code class="highlighter-rouge">Observable</code> in the following way:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">subscribe</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Cancelable</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>where <code class="highlighter-rouge">Observer</code> is:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
+
+  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+
+  <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Due to this connection <code class="highlighter-rouge">Observable</code> respects <code class="highlighter-rouge">Observer</code> <a href="./observers.md#Contract">contract</a> but you can consider it 
+being higher level interface which abstracts away details of the contract and handles it for the user. <code class="highlighter-rouge">Observable</code> exposes
+rich API and following sections will cover only small portion of them so if it’s missing something you need, look 
+<a href="https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">at the source code</a>
+directly or ask on gitter channel.</p>
+
+<h2 id="observable-and-functional-programming">Observable and Functional Programming</h2>
+
+<p><code class="highlighter-rouge">Observable</code> internals aren’t written in FP style which is a trade off resulting in greater performance.</p>
+
+<p>Despite the internals, <code class="highlighter-rouge">Observable</code> is perfectly fine to use even in purely functional application because they don’t 
+leak outside and majority of API is pure and the process of constructing and executing <code class="highlighter-rouge">Observable</code> is also pure.</p>
+
+<p>However, if you value referential transparency, watch out for impure functions. 
+Fortunately, they are marked as such with <code class="highlighter-rouge">@UnsafeBecauseImpure</code> annotation and explanation in ScalaDoc. 
+Also, there should always be a pure replacement to solve your use case.</p>
+
+<p>For instance, convenient way to share <code class="highlighter-rouge">Observable</code> is using <code class="highlighter-rouge">Hot Observable</code> but it’s not referentially transparent.
+Still, you could do the same using <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> and purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as
+<code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share state in more controlled manner.</p>
+
+<p>Still, decision is up to the user to choose what’s better for him and his team.</p>
+
+<h2 id="execution">Execution</h2>
+
+<p>When you create <code class="highlighter-rouge">Observable</code> nothing actually happens until you call <code class="highlighter-rouge">subscribe</code>. 
+It means that (by default) <code class="highlighter-rouge">Observable</code> preserves referential transparency.</p>
+
+<p><code class="highlighter-rouge">Subscribe</code> is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
+You can think about it as <code class="highlighter-rouge">unsafePerformIO</code>.</p>
+
+<p>Preferred way to deal with <code class="highlighter-rouge">Observable</code> is to convert it to <a href="./../eval/task.md">Task</a> and compose it all the way 
+through your program until the very end (Main method).</p>
+
+<p>Two main ways to convert <code class="highlighter-rouge">Observable</code> to <code class="highlighter-rouge">Task</code> are described below.</p>
+
+<h3 id="consumer">Consumer</h3>
+
+<p>One of the ways to trigger <code class="highlighter-rouge">Observable</code> is to use <a href="./consumer.md">Consumer</a> which can be described as a function that converts <code class="highlighter-rouge">Observable</code> into <code class="highlighter-rouge">Task</code>.</p>
+
+<p>You can either create your own <code class="highlighter-rouge">Consumer</code> or use one of many prebuilt ones:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+      
+<span class="k">val</span> <span class="n">consumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+    
+<span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">list</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>You can find more examples in <a href="./consumer.md">Consumer documentation</a>.</p>
+
+<h3 id="foldleft-methods">FoldLeft Methods</h3>
+
+<p>Any method suffixed with <code class="highlighter-rouge">L</code> in <code class="highlighter-rouge">Observable</code> API converts it into <code class="highlighter-rouge">Task</code>.</p>
+
+<p>For example you can use <code class="highlighter-rouge">firstL</code> to obtain the first element of the <code class="highlighter-rouge">Observable</code>:</p>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Task(0)
+</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">).</span><span class="n">firstL</span>
+</code></pre></div></div>
+
+<p>Equivalent to the <code class="highlighter-rouge">Task</code> described in previous section would be:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+       
+<span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">list</span><span class="o">.</span><span class="n">foldLeftL</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</code></pre></div></div>
+<h2 id="building-observable">Building Observable</h2>
+
+<p>You can find them in <code class="highlighter-rouge">Observable</code> companion object. Below are several examples:</p>
+
+<h3 id="observablepure-now">Observable.pure (now)</h3>
+
+<p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known 
+value in the <code class="highlighter-rouge">Observable</code> context.</p>
+
+<pre><code class="language-tut:silent">val obs = Observable.now { println("Effect"); "Hello!" }
+//=&gt; Effect
+// obs: monix.reactive.Observable[String] = NowObservable@327a283b
+</code></pre>
+
+<h3 id="observabledelay-eval">Observable.delay (eval)</h3>
+
+<p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict
+value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
+
+<pre><code class="language-tut:silent">val obs = Observable.delay { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=&gt; Effect
+//=&gt; Hello!
+
+// The evaluation (and thus all contained side effects)
+// gets triggered on each runAsync:
+task.runAsync
+//=&gt; Effect
+//=&gt; Hello!
+</code></pre>
+
+<h3 id="observableevalonce">Observable.evalOnce</h3>
+
+<p><code class="highlighter-rouge">Observable.evalOnce</code> takes a non-strict value and converts it into an Observable
+that emits a single element and that memoizes the value for subsequent invocations.
+It also has guaranteed idempotency and thread-safety:</p>
+
+<pre><code class="language-tut:silent">val obs = Observable.evalOnce { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=&gt; Effect
+//=&gt; Hello!
+
+// Result was memoized on the first run!
+task.runAsync.foreach(println)
+//=&gt; Hello!
+</code></pre>
+
+<h3 id="observablefromiterable">Observable.fromIterable</h3>
+
+<p><code class="highlighter-rouge">Observable.fromIterable</code> converts any <code class="highlighter-rouge">Iterable</code> into <code class="highlighter-rouge">Observable</code>:</p>
+
+<pre><code class="language-tut:silent">val obs = Observable.fromIterable(List(1, 2, 3))
+// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
+
+obs.foreachL(println).runAsync
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+</code></pre>
+
+<h3 id="observablesuspend-defer">Observable.suspend (defer)</h3>
+
+<p><code class="highlighter-rouge">Observable.suspend</code> (alias for defer) allows suspending side effects:</p>
+
+<pre><code class="language-tut:silent">def readFile(path: String): Observable[String] = 
+    Observable.suspend {
+        // The side effect won't happen until subscription
+        val lines = Source.fromFile(path).getLines
+        Observable.fromIterator(lines)
+    }
+</code></pre>
+
+<h3 id="observableraiseerror">Observable.raiseError</h3>
+
+<p><code class="highlighter-rouge">Observable.raiseError</code> constructs an Observable that calls <code class="highlighter-rouge">onError</code> on any subscriber emitting specified <code class="highlighter-rouge">Exception</code>:</p>
+
+<pre><code class="language-tut:silent">val observable = Observable.raiseError[Int](new Exception("my exception"))
+// observable: monix.reactive.Observable[Int]
+
+observable
+  .onErrorHandle {ex =&gt; println(s"Got exception: ${ex.getMessage}"); 1}
+  .foreachL(println)
+//=&gt; Got exception: my exception
+//=&gt; 1
+</code></pre>
+
+<h2 id="error-handling">Error Handling</h2>
+
+<p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator.
+If you are curious what it gives you in practise, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
+
+<p>Most of those methods (and more) are defined on <code class="highlighter-rouge">Observable</code> directly.</p>
+
+<p>Note that most errors should be handled at <code class="highlighter-rouge">effect</code> level, not using <code class="highlighter-rouge">Observable</code> error handling operators. If <code class="highlighter-rouge">Observable</code> encounters an error it cannot
+ignore the error and keep going, the best you can do without bigger machinery is to restart <code class="highlighter-rouge">Observable</code> or replace it with different one. Handling errors at
+<code class="highlighter-rouge">effect</code> level means doing so in <code class="highlighter-rouge">Task</code> or other <code class="highlighter-rouge">IO</code>-like data type in operators like <code class="highlighter-rouge">mapEval</code>.</p>
+
+<h3 id="handleerror-onerrorhandle">handleError (onErrorHandle)</h3>
+
+<p><code class="highlighter-rouge">Observable.handleError</code> (alias for <code class="highlighter-rouge">onErrorHandle</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> emitting one specified element generated by given total function.</p>
+
+<pre><code class="language-tut:silent">import monix.reactive.Observable
+
+val observable = Observable(1, 2, 3) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorHandle(_ =&gt; 4)
+  .foreachL(println)
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+//=&gt; 4
+</code></pre>
+
+<h3 id="handleerrorwith-onerrorhandlewith">handleErrorWith (onErrorHandleWith)</h3>
+
+<p><code class="highlighter-rouge">Observable.handleErrorWith</code> (alias for <code class="highlighter-rouge">onErrorHandleWith</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> generated by given total function.</p>
+
+<pre><code class="language-tut:silent">import monix.reactive.Observable
+
+val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorHandleWith(_ =&gt; Observable(3, 4))
+  .foreachL(println)
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+//=&gt; 4
+</code></pre>
+
+<h3 id="recover-onerrorrecover">recover (onErrorRecover)</h3>
+
+<p><code class="highlighter-rouge">Observable.recover</code> (alias for <code class="highlighter-rouge">onErrorRecover</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> emitting one specified element generated by given partial function. The difference between <code class="highlighter-rouge">recover</code> and <code class="highlighter-rouge">handleError</code> is that the latter takes total function as a parameter.</p>
+
+<h3 id="recoverwith-onerrorrecoverwith">recoverWith (onErrorRecoverWith)</h3>
+
+<p><code class="highlighter-rouge">Observable.recoverWith</code> (alias for <code class="highlighter-rouge">onErrorRecoverWith</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> generated by given partial function. The difference between <code class="highlighter-rouge">recoverWith</code> and <code class="highlighter-rouge">handleErrorWith</code> is that the latter takes total function as a parameter.</p>
+
+<h3 id="onerrorfallbackto">onErrorFallbackTo</h3>
+
+<p><code class="highlighter-rouge">Observable.onErrorFallbackTo</code> mirrors the behavior of the source, unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case the streaming of events continues with the specified backup sequence regardless of error.</p>
+
+<pre><code class="language-tut:silent">import monix.reactive.Observable
+
+val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorFallbackTo(Observable(3, 4))
+  .foreachL(println)
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+//=&gt; 4
+</code></pre>
+
+<p>This is equivalent to:</p>
+<pre><code class="language-tut:silent">observable
+  .handleErrorWith(_ =&gt; Observable(3, 4))
+</code></pre>
+
+<h3 id="onerrorrestart">onErrorRestart</h3>
+
+<p><code class="highlighter-rouge">Observable.onErrorRestart</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it tries subscribing to the source again in the hope that it will complete without an error.</p>
+
+<p>The number of retries is limited by the specifiec <code class="highlighter-rouge">maxRetries</code> parameter.</p>
+
+<p>There is also <code class="highlighter-rouge">onErrorRestartUnlimited</code> variant for unlimited number of retries.</p>
+
+<h3 id="onerrorrestartif">onErrorRestartIf</h3>
+
+<p><code class="highlighter-rouge">Observable.onErrorRestartIf</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it invokes provided function and tries subscribing to the source again in the hope that it will complete without an error.</p>
+
+<pre><code class="language-tut:silent">import monix.reactive.Observable
+
+case object TimeoutException extends Exception
+
+val observable = Observable(1, 2) ++ Observable.raiseError(TimeoutException) ++ Observable(0)
+
+observable
+  .onErrorRestartIf {
+    case TimeoutException =&gt; true
+    case _ =&gt; false
+  }
+  .foreachL(println)
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+//=&gt; 1
+//=&gt; 2
+//=&gt; 3
+// ... fails and restarts infinitely
+</code></pre>
+
+<h2 id="reacting-to-internal-events">Reacting to internal events</h2>
+
+<p>If you remember, <code class="highlighter-rouge">Observable</code> internally calls <code class="highlighter-rouge">onNext</code> on every element, <code class="highlighter-rouge">onError</code> during error and <code class="highlighter-rouge">onComplete</code> after
+stream completion. There are many many methods for executing given callback when the stream acquires specific type of event.
+Usually they start with <code class="highlighter-rouge">doOn</code> or <code class="highlighter-rouge">doAfter</code>.</p>
+
+<h3 id="doonnext">doOnNext</h3>
+
+<p>Executes given callback for each element generated by the source <code class="highlighter-rouge">Observable</code>, useful for doing side-effects.</p>
+
+<pre><code class="language-tut:silent">var counter = 0
+val observable = Observable(1, 2, 3)
+
+observable
+  .doOnNext(e =&gt; Task(counter += e)
+  .foreachL(e =&gt; println(s"elem: $e, counter: $counter"))
+//=&gt; elem: 1, counter: 1
+//=&gt; elem: 2, counter: 3
+//=&gt; elem: 3, counter: 6
+</code></pre>
+
+<p>You could also write it completely referentially transparency using <code class="highlighter-rouge">Ref</code> from <code class="highlighter-rouge">Cats-Effect</code>:</p>
+
+<pre><code class="language-tut:silent">import cats.effect.concurrent.Ref
+import monix.eval.Task
+import monix.reactive.Observable
+
+def observable(counterRef: Ref[Task, Int]): Task[Unit] =
+  Observable(1, 2, 3)
+    .doOnNext(e =&gt; counterRef.update(_ + e))
+    .mapEval(e =&gt; counterRef.get.map(counter =&gt; println(s"elem: $e, counter: $counter")))
+    .completedL
+
+Ref[Task].of(0)
+  .flatMap(observable)
+//=&gt; elem: 1, counter: 1
+//=&gt; elem: 2, counter: 3
+//=&gt; elem: 3, counter: 6
+</code></pre>
+
+<p>There is also <code class="highlighter-rouge">doOnNextF</code> variant which works for data types other than <code class="highlighter-rouge">Task</code>.</p>
+
+<h2 id="subjects">Subjects</h2>
+
+<p><code class="highlighter-rouge">Subject</code> acts both as an <code class="highlighter-rouge">Observer</code> and as an <code class="highlighter-rouge">Observable</code>. Use <code class="highlighter-rouge">Subject</code> if you need to send elements to <code class="highlighter-rouge">Observable</code>
+from other parts of the application.
+It is presented in the following example:</p>
+
+<pre><code class="language-tut:silent">import monix.eval.Task
+import monix.execution.Ack
+import monix.reactive.subjects.ConcurrentSubject
+import monix.reactive.{MulticastStrategy, Observable, Observer}
+
+val subject: ConcurrentSubject[Int, Int] =
+  ConcurrentSubject[Int](MulticastStrategy.replay)
+
+def feedItem[A](observer: Observer[A], item: A): Task[Ack] = {
+  Task.deferFuture(observer.onNext(item))
+}
+
+def processStream[A](observable: Observable[A]): Task[Unit] = {
+  observable
+    .mapParallelUnordered(3)(i =&gt; Task(println(i)))
+    .completedL
+}
+
+Task
+  .parZip2(
+    feedItem(subject, 2),
+    processStream(subject)
+  )
+</code></pre>
+
+<p>Below are short characteristics for available types of <code class="highlighter-rouge">Subject</code>. For more information refer to descriptions and methods in
+<code class="highlighter-rouge">monix.reactive.subjects</code> package:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">AsyncSubject</code> emits the last value (and only the last value) emitted by the source and only after the source completes.</li>
+  <li><code class="highlighter-rouge">BehaviorSubject</code> emits the most recently emitted item by the source, or the <code class="highlighter-rouge">initialValue</code> in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation.</li>
+  <li><code class="highlighter-rouge">ConcurrentSubject</code> allows feeding events without the need to respect the back-pressure (waiting on <code class="highlighter-rouge">Ack</code> after <code class="highlighter-rouge">onNext</code>). It is similar to <a href="https://en.wikipedia.org/wiki/Actor_model">Actor</a> and can serve as its replacement in many cases.</li>
+  <li><code class="highlighter-rouge">PublishSubject</code> emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.</li>
+  <li><code class="highlighter-rouge">PublishToOneSubject</code> is a <code class="highlighter-rouge">PublishSubject</code> that can be susbcribed at most once.</li>
+  <li><code class="highlighter-rouge">ReplaySubject</code> emits to a subscriber all of the items that were emitted by the source, regardless of when the observer subsribes.</li>
+  <li><code class="highlighter-rouge">Var</code> emits the most recently emmited item by the source, or the <code class="highlighter-rouge">initial</code> in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying <code class="highlighter-rouge">ConcurrentSubject</code>. This is equivalent to a <code class="highlighter-rouge">ConcurrentSubject.behavior(Unbounder)</code> with ability to expose the current value for immediate usage on top of that.</li>
+</ul>
+
+<h2 id="hot-and-cold-observables">Hot and Cold Observables</h2>
+
+<p>As mentioned before - by default <code class="highlighter-rouge">Observable</code> doesn’t emit any items until something subscribes to it. 
+This type is called <em>cold Observable.</em>
+In cold Observable there is only one subscriber who is guaranteed to see all the emitted items.</p>
+
+<p>On the other hand there is also a notion of <em>hot Observable</em> denoted as <code class="highlighter-rouge">ConnectableObservable</code> whose source is shared between many subscribers. 
+It means that it matters when you subscribe to it and the order of subscription can affect your program.
+For this reason tread carefully when using <code class="highlighter-rouge">ConnectableObservable</code> because it breaks referential transparency.</p>
+
+<h3 id="turning-cold-observable-into-hot-observable">Turning cold Observable into hot Observable</h3>
+
+<p>There are several methods which turn <code class="highlighter-rouge">Observable</code> into <code class="highlighter-rouge">ConnectableObservable</code> using corresponding <code class="highlighter-rouge">Subject</code>.</p>
+
+<h3 id="observablepublish-publishsubject">Observable.publish (PublishSubject)</h3>
+<p><code class="highlighter-rouge">Observable.publish</code> will convert this <code class="highlighter-rouge">Observable</code> into a multicast <code class="highlighter-rouge">Observable</code> using
+<code class="highlighter-rouge">PublishSubject</code> which emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.</p>
+
+<pre><code class="language-tut:silent">var result = 0
+val observable = Observable(1, 2, 3).publish
+
+observable.foreach(e =&gt; result += e)
+
+// Start the streaming
+observable.connect()
+
+// result == 6
+
+// happens after all items are emitted so it doesn't add anything
+observable.foreach(e =&gt; result += e)
+
+// result == 6 
+</code></pre>
+
+<h3 id="observablepublishlast-asyncsubject">Observable.publishLast (AsyncSubject)</h3>
+<p><code class="highlighter-rouge">Observable.publishLast</code> uses <code class="highlighter-rouge">AsyncSubject</code> as underlying <code class="highlighter-rouge">Subject</code> which emits only the last value emitted by the source
+and only after the source completes.</p>
+
+<pre><code class="language-tut:silent">var result = 0
+val observable = Observable(1, 2, 3).publishLast
+
+observable.foreach(e =&gt; result += e)
+
+// Start the streaming
+observable.connect()
+
+// result == 3
+</code></pre>
+
+<h3 id="observablereplay-replaysubject">Observable.replay (ReplaySubject)</h3>
+<p><code class="highlighter-rouge">Observable.replay</code> is powered by <code class="highlighter-rouge">ReplaySubject</code> which emits to any observer all of the items that were emitted by the source, 
+regardless of when the observer subscribes.</p>
+
+<pre><code class="language-tut:silent">var result = 0
+val observable = Observable(1, 2, 3).replay
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e =&gt; result += e)
+
+// result == 6
+</code></pre>
+
+<p>It optionally takes <code class="highlighter-rouge">bufferSize</code> parameter which limits the number
+of items that can be replayed (on overflow the head starts being dropped):</p>
+
+<pre><code class="language-tut:silent">var result = 0
+val observable = Observable(1, 2, 3).replay(1)
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e =&gt; result += e)
+
+// result == 3
+</code></pre>
+
+<h3 id="observablebehavior-behaviorsubject">Observable.behavior (BehaviorSubject)</h3>
+<p><code class="highlighter-rouge">Observable.behavior</code> relies on <code class="highlighter-rouge">BehaviorSubject</code> which is emitting the most recently emitted item by the source, or
+the <code class="highlighter-rouge">initialValue</code> (as the seed) in case no value has yet been emitted.</p>
+
+<pre><code class="language-tut:silent">var result = 0
+val observable = Observable(1, 2, 3).behavior(0)
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e =&gt; result += e)
+
+// result == 3
+</code></pre>
+
+<h2 id="interoperability-with-other-streams-api-akka-streams-fs2">Interoperability with other Streams API (Akka Streams, FS2)</h2>
+
+<p>Due to compability with the <a href="http://www.reactive-streams.org/">Reactive Streams</a>
+specification <code class="highlighter-rouge">Observable</code> allows good interoperability with other libraries.</p>
+
+<p>The next subsections contain examples how to convert between Monix <code class="highlighter-rouge">Observable</code> and
+two other popular streaming libraries but it should work in similar way with every other library
+compatible with Reactive Streams protocol.</p>
+
+<h3 id="akka-streams">Akka Streams</h3>
+
+<p>Necessary imports and initialization for <code class="highlighter-rouge">Akka Streams</code>:</p>
+
+<pre><code class="language-tut:silent">import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+import akka._
+import akka.stream._
+import akka.stream.scaladsl._
+import akka.actor.ActorSystem
+
+implicit val system = ActorSystem("akka-streams")
+implicit val materializer = ActorMaterializer()
+</code></pre>
+
+<p>To convert Akka <code class="highlighter-rouge">Source</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
+
+<pre><code class="language-tut:silent">val source = Source(1 to 3)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
+
+val publisher = source.runWith(Sink.asPublisher[Int](fanout = false))
+// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
+</code></pre>
+
+<p>To go back from Monix <code class="highlighter-rouge">Observable</code> to Akka <code class="highlighter-rouge">Source</code>:</p>
+
+<pre><code class="language-tut:silent">val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val source = Source.fromPublisher(observable.toReactivePublisher)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
+</code></pre>
+
+<h3 id="fs2">FS2</h3>
+
+<p>To go between <a href="https://github.com/functional-streams-for-scala/fs2">FS2</a> Stream 
+and Monix <code class="highlighter-rouge">Observable</code> you need to use <a href="https://github.com/zainab-ali/fs2-reactive-streams">fs2-reactive-streams</a>
+library but conversion remains very straightforward.</p>
+
+<p>Necessary imports:</p>
+
+<pre><code class="language-tut:silent">import cats.effect._, fs2._
+import fs2.interop.reactivestreams._
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+</code></pre>
+
+<p>To convert FS2 <code class="highlighter-rouge">Stream</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
+
+<pre><code class="language-tut:silent">val stream = Stream(1, 2, 3).covary[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+
+val publisher = stream.toUnicastPublisher()
+// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
+</code></pre>
+
+<p>To go back from Monix <code class="highlighter-rouge">Observable</code> to FS2 <code class="highlighter-rouge">Stream</code>:</p>
+
+<pre><code class="language-tut:silent">val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val stream = observable.toReactivePublisher.toStream[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+</code></pre>
 
 
   <div id="version3x">
