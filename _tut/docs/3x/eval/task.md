@@ -319,14 +319,8 @@ val future = task.runToFuture
 
 Await.result(future, 3.seconds)
 //=> Hello!
-
-// Or by using foreach
-val completed = for (r <- task) { println("Completed!") }
-
-Await.result(completed, 3.seconds)
-//=> Hello!
-//=> Completed!
 ```
+
 ```tut:invisible
 import monix.execution.schedulers.TestScheduler
 implicit val global = TestScheduler()
@@ -1123,7 +1117,7 @@ val tb = {
     .delayExecution(1.second)
 }
 
-val list: Task[Seq[Int]] =
+val list: Task[Seq[Int]] = 
   Task.gatherUnordered(Seq(ta, tb))
 
 list.runToFuture.foreach(println)
