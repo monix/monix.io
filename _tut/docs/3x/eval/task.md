@@ -225,19 +225,17 @@ result.cancel()
 ```
 
 Returning a `Future` might be too heavy for your needs, you might want
-to provide a simple callback. We can also `runToFuture` with a `Try[T] =>
-Unit` callback, just like the standard `Future.onComplete`.
+to provide a simple callback. We can also `runAsync` with a `Either[Throwable, A] =>
+Unit` callback, similar to the standard `Future.onComplete`.
 
 ```tut:silent
-import scala.util.{Success, Failure}
-
 val task = Task(1 + 1).delayExecution(1.second)
 
-val cancelable = task.runOnComplete { result =>
+val cancelable = task.runAsync { result =>
   result match {
-    case Success(value) =>
+    case Right(value) =>
       println(value)
-    case Failure(ex) =>
+    case Left(ex) =>
       System.err.println(s"ERROR: ${ex.getMessage}")
   }
 }
@@ -246,19 +244,19 @@ val cancelable = task.runOnComplete { result =>
 cancelable.cancel()
 ```
 
-We can also `runOnComplete` with a [Callback]((../execution/callback.html)) instance.
+We can also `runAsync` with a [Callback]((../execution/callback.html)) instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
-specific to `Try[T]`. Sample:
+specific to `Try[T]` or `Either[E, A]`. Sample:
 
 ```tut:silent
 import monix.execution.Callback
 
 val task = Task(1 + 1).delayExecution(1.second)
 
-val cancelable = task.runOnComplete(
-  new Callback[Int] {
+val cancelable = task.runAsync(
+  new Callback[Throwable, Int] {
     def onSuccess(value: Int): Unit =
       println(value)
     def onError(ex: Throwable): Unit =
