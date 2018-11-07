@@ -37,7 +37,6 @@ import scala.util.{Success, Failure}
 ```tut:reset:invisible
 import monix.execution.CancelableFuture
 import monix.eval.Task
-import scala.util.{Success, Failure}
 import monix.execution.schedulers.TestScheduler
 implicit val global = TestScheduler()
 ```
@@ -51,11 +50,11 @@ val task = Task { 1 + 1 }
 
 // Tasks get evaluated only on runToFuture!
 // Callback style:
-val cancelable = task.runOnComplete { result =>
+val cancelable = task.runAsync { result =>
   result match {
-    case Success(value) =>
+    case Right(value) =>
       println(value)
-    case Failure(ex) =>
+    case Left(ex) =>
       System.out.println(s"ERROR: ${ex.getMessage}")
   }
 }
@@ -705,8 +704,8 @@ val error = Task.raiseError[Int](new TimeoutException)
 // error: monix.eval.Task[Int] =
 //   Delay(Error(java.util.concurrent.TimeoutException))
 
-error.runOnComplete(result => println(result))
-//=> Failure(java.util.concurrent.TimeoutException)
+error.runAsync(result => println(result))
+//=> Left(java.util.concurrent.TimeoutException)
 ```
 
 ### Task.never
@@ -723,9 +722,9 @@ val never = Task.never[Int]
 val timedOut = never.timeoutTo(3.seconds,
   Task.raiseError(new TimeoutException))
 
-timedOut.runOnComplete(r => println(r))
+timedOut.runAsync(r => println(r))
 // After 3 seconds:
-// => Failure(java.util.concurrent.TimeoutException)
+// => Left(java.util.concurrent.TimeoutException)
 ```
 
 This instance is shared, so that can relieve some stress from the
@@ -1547,7 +1546,7 @@ concrete, like going through SLF4J or whatever.
 
 Even though Monix expects for the arguments given to its operators,
 like `flatMap`, to be pure or at least protected from errors, it still
-catches errors, signaling them on `runOnComplete`:
+catches errors, signaling them on `runAsync`:
 
 ```tut:silent
 val task = Task(Random.nextInt).flatMap {
@@ -1557,14 +1556,14 @@ val task = Task(Random.nextInt).flatMap {
     throw new IllegalStateException(odd.toString)
 }
 
-task.runOnComplete(r => println(r))
-//=> Success(-924040280)
+task.runAsync(r => println(r))
+//=> Left(-924040280)
 
-task.runOnComplete(r => println(r))
-//=> Failure(java.lang.IllegalStateException: 834919637)
+task.runAsync(r => println(r))
+//=> Right(java.lang.IllegalStateException: 834919637)
 ```
 
-In case an error happens in the callback provided to `runOnComplete`, then
+In case an error happens in the callback provided to `runAsync`, then
 Monix can no longer signal an `onError`, because it would be a
 contract violation (see [Callback]((../execution/callback.html))). But it still
 logs the error:
@@ -1577,12 +1576,12 @@ import scala.concurrent.duration._
 // current thread
 val task = Task(2).delayExecution(1.second)
 
-task.runOnComplete { r =>
+task.runAsync { r =>
   throw new IllegalStateException(r.toString)
 }
 
 // After 1 second, this will log the whole stack trace:
-//=> java.lang.IllegalStateException: Success(2)
+//=> java.lang.IllegalStateException: Right(2)
 //=>    ...
 //=>	at monix.eval.Task$$anon$3.onSuccess(Task.scala:78)
 //=>	at monix.eval.Callback$SafeCallback.onSuccess(Callback.scala:66)
@@ -1658,10 +1657,10 @@ val source =
   Task("Hello!").delayExecution(10.seconds)
 
 // Triggers error if the source does not
-// complete in 3 seconds after runOnComplete
+// complete in 3 seconds after runAsync
 val timedOut = source.timeout(3.seconds)
 
-timedOut.runOnComplete(r => println(r))
+timedOut.runAsync(r => println(r))
 //=> Failure(TimeoutException)
 ```
 
@@ -1681,8 +1680,8 @@ val timedOut = source.timeoutTo(
   Task.raiseError(new TimeoutException)
 )
 
-timedOut.runOnComplete(r => println(r))
-//=> Failure(TimeoutException)
+timedOut.runAsync(r => println(r))
+//=> Left(TimeoutException)
 ```
 
 ### Recovering from Error
