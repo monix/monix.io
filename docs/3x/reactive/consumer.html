@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541617810238078956">
+  <link rel="stylesheet" href="/public/css/all.css?1541627992174478000">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541617810238078956">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541627992174478000">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -243,7 +243,8 @@ complete before the stream is finished</li>
 limiting. For example maybe we want to timeout with an error in case
 the stream takes too long to emit the next event, in which case we
 want to terminate with an error and preferably cancel the stream in
-advance.</p>
+advance.
+Result: 49995000</p>
 
 <p>The returned tuple contains an <code class="highlighter-rouge">AssignableCancelable</code>. This interface
 is about cancelables that can be assigned another reference, such as
@@ -408,8 +409,7 @@ asynchronous processing as part of that logic. This sample isn’t
 useful, but you can easily see that you can insert I/O logic in there:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
-<span class="nc">SUM</span><span class="k">:</span> <span class="err">499500</span>
-<span class="kt">import</span> <span class="kt">concurrent.duration._</span>
+<span class="k">import</span> <span class="nn">concurrent.duration._</span>
 
 <span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeftTask</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> 
   <span class="nc">Task</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">elem</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">10.</span><span class="n">millis</span><span class="o">)</span>
