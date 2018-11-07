@@ -1135,56 +1135,48 @@ list.runToFuture.foreach(println)
 //=> Seq(1,2)
 ```
 
-`Task.traverse`, takes a `Seq[Task[A]]`, `f: A => Task[B]` and returns a `Task[Seq[B]]`.
-This is similar to `Task.sequence` but it also executes `f` on each `Task`.
+`Task.traverse`, takes a `Seq[A]`, `f: A => Task[B]` and returns a `Task[Seq[B]]`.
+This is similar to `Task.sequence` but it uses `f` to generate each `Task`.
 
 All `Task.sequence` semantics hold meaning the effects are ordered and the tasks
 WIL NOT execute in parallel.
 
 ```tut:silent
-val ta = Task { println("Effect1"); 1 }
-val tb = Task { println("Effect2"); 2 }
+def task(i: Int) = Task { println("Effect" + i); i }
 
 val list: Task[Seq[Int]] =
-  Task.traverse(Seq(ta, tb))(i => Task.now(i * 2))
+  Task.traverse(Seq(1, 2))(i => task(i))
 
 // We always get this ordering:
 list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
-//=> List(2, 4)
+//=> List(1, 2)
 ```
 
 `Task.wander`, similar to `Parallel.parTraverse`, is the nondeterministic
-version of `Task.traverse`.  It also takes a `Seq[Task[A]]`, `f: A => Task[B]` and
-returns a `Task[Seq[B]]`, thus transforming any sequence of tasks into
-a task with a sequence of ordered results. But the effects are not
-ordered, meaning that there's potential for parallel execution:
+version of `Task.traverse`.  It also takes a `Seq[A]`, `f: A => Task[B]` and
+returns a `Task[Seq[B]]`. It applies `f` to each element in the sequence transforming it
+into `Task` and then collecting results. The order in the output sequence is preserved but 
+the effects are not ordered, meaning that there's potential for parallel execution:
 
 ```tut:silent
 import scala.concurrent.duration._
 
-val ta = {
-  Task { println("Effect1"); 1 }
-    .delayExecution(1.second)
-}
+def task(i: Int) = 
+  Task { println("Effect" + i); i }.delayExecution(1.second)
 
-val tb = {
-  Task { println("Effect2"); 2 }
-    .delayExecution(1.second)
-}
-
-val list: Task[Seq[Int]] = Task.wander(Seq(ta, tb))(_ * 2)
+val list: Task[Seq[Int]] = Task.wander(Seq(1, 2))(i => task(i))
 
 list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
-//=> List(2, 4)
+//=> List(1, 2)
 
 list.runToFuture.foreach(println)
 //=> Effect2
 //=> Effect1
-//=> List(2, 4)
+//=> List(1, 2)
 ```
 
 Similar to `gather` there is also unordered version called `wanderUnordered`.
@@ -1518,7 +1510,7 @@ log the error:
 
 ```tut:silent
 val task = Task.create[Int] { (scheduler, callback) =>
-  throw new IllegalStateException("FTW!")
+  (throw new IllegalStateException("FTW!")): Unit
 }
 
 val future = task.runToFuture

@@ -83,13 +83,13 @@ import monix.execution.Scheduler
 import monix.execution.cancelables.AssignableCancelable
 import monix.execution.Ack
 import monix.execution.Ack.Continue
-import monix.eval.Callback
+import monix.execution.Callback
 import monix.reactive.Consumer
 import monix.reactive.observers.Subscriber
 
 val sumConsumer: Consumer[Int,Long] =
   new Consumer[Int,Long] {
-    def createSubscriber(cb: Callback[Long], s: Scheduler) = {
+    def createSubscriber(cb: Callback[Throwable, Long], s: Scheduler) = {
       val out = new Subscriber.Sync[Int] {
         implicit val scheduler = s
         private var sum = 0L

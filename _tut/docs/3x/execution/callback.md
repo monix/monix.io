@@ -1,7 +1,7 @@
 ---
 layout: docs3x
 title: Callback
-type_api: monix.eval.Callback
+type_api: monix.execution.Callback
 type_source: monix-execution/shared/src/main/scala/monix/execution/Callback.scala
 description: |
   A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.
@@ -11,6 +11,7 @@ tut:
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x
+    - io.monix::monix-eval:version3x
 ---
 
 `Callback` is a listener type that can be called asynchronously with
@@ -22,9 +23,9 @@ computation, on completion. Its definition is something like:
 
 
 ```tut:silent
-trait Callback[-T] extends (Either[E, A] => Unit) {
-  def onSuccess(value: T): Unit
-  def onError(ex: Throwable): Unit
+trait Callback[-E, -A] extends (Either[E, A] => Unit) {
+  def onSuccess(value: A): Unit
+  def onError(ex: E): Unit
 }
 ```
 
@@ -41,7 +42,7 @@ a "safe" implementation that protects against violations:
 ```tut:reset:silent
 import monix.execution.Callback
 
-val callback = new Callback[Int] {
+val callback = new Callback[Throwable, Int] {
   def onSuccess(value: Int): Unit = 
     println(value)
   def onError(ex: Throwable): Unit =
@@ -71,7 +72,7 @@ maybe because you just want the side-effects:
 ```tut:book
 val task = monix.eval.Task(println("Sample"))
 
-task.runToFuture(Callback.empty)
+task.runAsync(Callback.empty[Throwable, Unit])
 ```
 
 Or maybe you want to convert a Scala `Promise` to a `Callback`:
@@ -89,7 +90,7 @@ errors. So to force a protective asynchronous boundary when calling
 
 ```tut:silent
 // Lets pretend we have something meaningful
-val ref = Callback.empty[String]
+val ref = Callback.empty[Throwable, String]
 
-val asyncCallback = Callback.async(ref)
+val asyncCallback = Callback.forked(ref)
 ```
