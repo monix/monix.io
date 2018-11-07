@@ -10,7 +10,7 @@ Featured:
   class="presentation" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 
-## Monix
+## Conferences
 
 - [A Tale of Two Monix Streams](./2017-tale-two-monix-streams.html)
   by Alexandru Nedelcu, [Scala World 2017](https://scala.world/)
@@ -21,12 +21,18 @@ Featured:
 - [Akka &amp; Monix: Controlling Power Plants](./2016-akka-monix-typelevel.html)
   by Alexandru Nedelcu, at [flatMap(Oslo) 2016](http://2016.flatmap.no/)
 
-## Other
+## Video Tutorials
+
+{% for post in site.posts -%}{% if post.video %}
+- [{{ post.title }}]({{ post.url }}) ({{ post.date | date: "%b %Y" }}) by [@{{ post.author }}](https://twitter.com/{{ post.author }})
+{% endif %}{% endfor %}
+
+## Related
 
 - [The Making of an IO](https://www.youtube.com/watch?v=g_jP47HFpWA) 
   by Daniel Spiewak, at [ScalaIO 2017](https://scala.io/2017/)
 - [What Referential Transparency can do for you](https://www.youtube.com/watch?v=X-cEGEJMx_4) by Luka Jacobowitz, at [ScalaIO 2017](https://scala.io/2017/)
 - [Free as in Monads](https://www.youtube.com/watch?v=aKUQUIHRGec)
   by Daniel Spiewak, at [NEScala 2017](http://www.nescala.org/2017)
-
+  
 Add your own ;-)
