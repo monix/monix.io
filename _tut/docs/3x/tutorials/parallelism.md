@@ -218,7 +218,7 @@ val observable: Observable[Long] = Observable.range(0, 100000)
 val task: Task[Long] = observable.consumeWith(loadBalancer)
 
 // Consume the whole stream and get the result
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> 4999950000
 ```
 

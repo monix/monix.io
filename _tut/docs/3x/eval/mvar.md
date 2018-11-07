@@ -87,7 +87,7 @@ val task =
   } yield r
 
 // Evaluate
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> 4950
 ```
 
@@ -143,7 +143,7 @@ val task =
   } yield r
 
 // Evaluate
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> 4950
 ```
 
@@ -190,7 +190,7 @@ val sumTask =
   } yield sum
 
 // Evaluate
-sumTask.runAsync.foreach(println)
+sumTask.runToFuture.foreach(println)
 //=> 4999950000
 ```
 

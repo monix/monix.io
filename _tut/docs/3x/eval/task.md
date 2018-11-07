@@ -49,7 +49,7 @@ implicit val global = TestScheduler()
 // just a spec! Task by default has lazy behavior ;-)
 val task = Task { 1 + 1 }
 
-// Tasks get evaluated only on runAsync!
+// Tasks get evaluated only on runToFuture!
 // Callback style:
 val cancelable = task.runOnComplete { result =>
   result match {
@@ -63,7 +63,7 @@ val cancelable = task.runOnComplete { result =>
 
 // Or you can convert it into a Future
 val future: CancelableFuture[Int] =
-  task.runAsync
+  task.runToFuture
 
 // Printing the result asynchronously
 future.foreach(println)
@@ -77,7 +77,7 @@ In summary the Monix `Task`:
 - models lazy &amp; asynchronous evaluation
 - models a producer pushing only one value to one or multiple consumers
 - allows fine-grained control over the [execution model](../execution/scheduler.html#execution-model)
-- doesn’t trigger the execution, or any effects until `runAsync`
+- doesn’t trigger the execution, or any effects until `runToFuture`
 - doesn’t necessarily execute on another logical thread
 - allows for cancelling of a running computation
 - allows for controlling of side-effects, being just as
@@ -174,17 +174,17 @@ giants. But where the Monix Task implementation disagrees:
    reasons, as this API is not supported on top of
    [Scala.js](http://www.scala-js.org/).
 
-## Execution (runAsync & foreach)
+## Execution (runToFuture & foreach)
 
 `Task` instances won't do anything until they are executed by means
-of `runAsync`. And there are multiple overloads of it.
+of `runToFuture`. And there are multiple overloads of it.
 
-`Task.runAsync` also wants an implicit
+`Task.runToFuture` also wants an implicit
 [Scheduler](../execution/scheduler.html) in scope, that can supplant
 your `ExecutionContext` (since it inherits from it). But this is where
 the design of `Task` diverges from Scala's own `Future`. The `Task`
 being lazy, it only wants this `Scheduler` on execution with
-`runAsync`, instead of wanting it on every operation (like `map` or
+`runToFuture`, instead of wanting it on every operation (like `map` or
 `flatMap`), the way that Scala's `Future` does.
 
 So first things first, we need a `Scheduler` in scope. The `global` is
@@ -218,14 +218,14 @@ import concurrent.duration._
 val task = Task(1 + 1).delayExecution(1.second)
 
 val result: CancelableFuture[Int] =
-  task.runAsync
+  task.runToFuture
 
 // If we change our mind
 result.cancel()
 ```
 
 Returning a `Future` might be too heavy for your needs, you might want
-to provide a simple callback. We can also `runAsync` with a `Try[T] =>
+to provide a simple callback. We can also `runToFuture` with a `Try[T] =>
 Unit` callback, just like the standard `Future.onComplete`.
 
 ```tut:silent
@@ -310,7 +310,7 @@ design choices:
    specified timespan is exceeded without the source being ready.
 
 Therefore in order to block on a result, you have to first convert it
-into a `Future` by means of `runAsync` and then you can block on it:
+into a `Future` by means of `runToFuture` and then you can block on it:
 
 ```tut:silent
 import monix.execution.Scheduler.Implicits.global
@@ -318,7 +318,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 val task = Task.eval("Hello!").executeAsync
-val future = task.runAsync
+val future = task.runToFuture
 
 Await.result(future, 3.seconds)
 //=> Hello!
@@ -391,7 +391,7 @@ val task = Task.now { println("Effect"); "Hello!" }
 
 `Task.eval`
 is the equivalent of `Function0`, taking a function
-that will always be evaluated on `runAsync`, possibly on the same
+that will always be evaluated on `runToFuture`, possibly on the same
 thread (depending on the chosen
 [execution model](../execution/scheduler.html#execution-model)):
 
@@ -399,13 +399,13 @@ thread (depending on the chosen
 val task = Task.eval { println("Effect"); "Hello!" }
 // task: monix.eval.Task[String] = Delay(Always(<function0>))
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 
 // The evaluation (and thus all contained side effects)
-// gets triggered on each runAsync:
-task.runAsync.foreach(println)
+// gets triggered on each runToFuture:
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 ```
@@ -425,12 +425,12 @@ idempotency and thread-safety:
 val task = Task.evalOnce { println("Effect"); "Hello!" }
 // task: monix.eval.Task[String] = EvalOnce(<function0>)
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 
 // Result was memoized on the first run!
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Hello!
 ```
 
@@ -448,11 +448,11 @@ val task = Task.defer {
 }
 // task: monix.eval.Task[String] = Suspend(<function0>)
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 ```
@@ -470,9 +470,9 @@ val future = Future { println("Effect"); "Hello!" }
 val task = Task.fromFuture(future)
 //=> Effect
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Hello!
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Hello!
 ```
 
@@ -489,10 +489,10 @@ val task = Task.defer {
 }
 //=> task: monix.eval.Task[Int] = Suspend(<function0>)
 
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 ```
@@ -548,7 +548,7 @@ def sumTask(list: Seq[Int])(implicit ec: ExecutionContext): Task[Int] =
 
 But this is not only superfluous, but against the best practices of
 using `Task`. The difference is that `Task` takes a `Scheduler`
-(inheriting from `ExecutionContext`) only when `runAsync` gets called,
+(inheriting from `ExecutionContext`) only when `runToFuture` gets called,
 but we don't need it just for building a `Task` reference.  With
 `deferFutureAction` we get to have an injected `Scheduler` in the
 passed callback:
@@ -617,9 +617,9 @@ Then we can manage what executes on which:
 val source = Task(println(s"Running on thread: ${Thread.currentThread.getName}"))
 val forked = source.executeOn(io)
 
-source.runAsync
+source.runToFuture
 //=> Running on thread: ForkJoinPool-1-worker-1
-forked.runAsync
+forked.runToFuture
 //=> Running on thread: my-io-4
 ```
 
@@ -635,7 +635,7 @@ val onFinish = Task.eval(
 val cancelable = {
   source.flatMap(_ => forked)
     .doOnFinish(_ => onFinish)
-    .runAsync
+    .runToFuture
 }
 
 //=> Running on thread: ForkJoinPool-1-worker-7
@@ -656,7 +656,7 @@ val cancelable = {
     .flatMap(_ => forked) // executes on io
     .flatMap(_ => asyncBoundary) // switch back to global
     .doOnFinish(_ => onFinish) // executes on global
-    .runAsync
+    .runToFuture
 }
 
 //=> Running on thread: ForkJoinPool-1-worker-5
@@ -674,7 +674,7 @@ val task = {
     .flatMap(_ => forked) // executes on io
     .asyncBoundary // switch back to global
     .doOnFinish(_ => onFinish) // executes on global
-    .runAsync
+    .runToFuture
 }
 ```
 
@@ -686,7 +686,7 @@ default if it hasn't been overridden already:
 
 ```tut:silent
 // Trying to execute on global
-forked.executeOn(global).runAsync
+forked.executeOn(global).runToFuture
 //=> Running on thread: my-io-4
 ```
 
@@ -916,15 +916,15 @@ help.
 
 The
 [Task#memoize]({{ site.api3x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
-operator can take any `Task` and apply memoization on the first `runAsync`,
+operator can take any `Task` and apply memoization on the first `runToFuture`,
 such that:
 
-1. you have guaranteed idempotency, calling `runAsync` multiple times
+1. you have guaranteed idempotency, calling `runToFuture` multiple times
    will have the same effect as calling it once
-2. subsequent `runAsync` calls will reuse the result computed by the
-   first `runAsync`
+2. subsequent `runToFuture` calls will reuse the result computed by the
+   first `runToFuture`
 
-So `memoize` effectively caches the result of the first `runAsync`.
+So `memoize` effectively caches the result of the first `runToFuture`.
 In fact we can say that:
 
 ```scala
@@ -940,11 +940,11 @@ val task = Task { println("Effect"); "Hello!" }
 
 val memoized = task.memoize
 
-memoized.runAsync.foreach(println)
+memoized.runToFuture.foreach(println)
 //=> Effect
 //=> Hello!
 
-memoized.runAsync.foreach(println)
+memoized.runToFuture.foreach(println)
 //=> Hello!
 ```
 
@@ -966,28 +966,28 @@ val source = Task.eval {
 
 val cached = source.memoizeOnSuccess
 
-val f1 = cached.runAsync // yields RuntimeException
-val f2 = cached.runAsync // yields RuntimeException
-val f3 = cached.runAsync // yields 3
-val f4 = cached.runAsync // yields 3
+val f1 = cached.runToFuture // yields RuntimeException
+val f2 = cached.runToFuture // yields RuntimeException
+val f3 = cached.runToFuture // yields 3
+val f4 = cached.runToFuture // yields 3
 ```
 
-### Memoize versus runAsync
+### Memoize versus runToFuture
 
 You can say that when we do this:
 
 ```tut:silent
 val task = Task { println("Effect"); "Hello!" }
-val future = task.runAsync
+val future = task.runToFuture
 ```
 
 That `future` instance is also going to be a memoized value of the
-first `runAsync` execution, which can be reused for other `onComplete`
+first `runToFuture` execution, which can be reused for other `onComplete`
 subscribers.
 
 The difference is the same as the difference between `Task` and
 `Future`. The `memoize` operation is lazy, evaluation only being
-triggered on the first `runAsync`, whereas the result of `runAsync` is
+triggered on the first `runToFuture`, whereas the result of `runToFuture` is
 eager.
 
 ## Operations
@@ -1024,7 +1024,7 @@ def fib(cycles: Int, a: BigInt, b: BigInt): Task[BigInt] = {
 ```
 
 And now there are already differences. This is lazy, as the N-th
-Fibonacci number won't get calculated until we `runAsync`. The
+Fibonacci number won't get calculated until we `runToFuture`. The
 `@tailrec` annotation is also not needed, as this is stack (and heap)
 safe.
 
@@ -1045,7 +1045,7 @@ def fib(cycles: Int, a: BigInt, b: BigInt): Task[BigInt] =
 
 Again, this is stack safe and uses a constant amount of memory, so no
 `@tailrec` annotation is needed or wanted. And it has lazy behavior,
-as nothing will get triggered until `runAsync` happens.
+as nothing will get triggered until `runToFuture` happens.
 
 But we can also have **mutually tail-recursive calls**, w00t!
 
@@ -1154,7 +1154,7 @@ val list: Task[Seq[Int]] =
   Task.sequence(Seq(ta, tb))
 
 // We always get this ordering:
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
 //=> List(1, 2)
@@ -1185,12 +1185,12 @@ val tb = {
 
 val list: Task[Seq[Int]] = Task.gather(Seq(ta, tb))
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
 //=> List(1, 2)
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect2
 //=> Effect1
 //=> List(1, 2)
@@ -1214,12 +1214,12 @@ val tb = {
 val list: Task[Seq[Int]] =
   Task.gatherUnordered(Seq(ta, tb))
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect2
 //=> Effect1
 //=> Seq(2,1)
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
 //=> Seq(1,2)
@@ -1239,7 +1239,7 @@ val list: Task[Seq[Int]] =
   Task.traverse(Seq(ta, tb))(_ * 2)
 
 // We always get this ordering:
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
 //=> List(2, 4)
@@ -1264,12 +1264,12 @@ val tb = {
 
 val list: Task[Seq[Int]] = Task.wander(Seq(ta, tb))(_ * 2)
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect1
 //=> Effect2
 //=> List(2, 4)
 
-list.runAsync.foreach(println)
+list.runToFuture.foreach(println)
 //=> Effect2
 //=> Effect1
 //=> List(2, 4)
@@ -1300,7 +1300,7 @@ The `racePair` operation will choose the winner between two
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
-val race = Task.racePair(ta, tb).runAsync.foreach {
+val race = Task.racePair(ta, tb).runToFuture.foreach {
   case Left((a, fiber)) =>
     fiber.cancel.flatMap { _ =>
       Task.eval(println(s"A succeeded: $a"))
@@ -1329,7 +1329,7 @@ val tb = Task(10).delayExecution(1.second)
 
 {
   Task.raceMany(Seq(ta, tb))
-    .runAsync
+    .runToFuture
     .foreach(r => println(s"Winner: $r"))
 }
 ```
@@ -1357,7 +1357,7 @@ val source = Task {
 }
 
 val delayed = source.delayExecution(3.seconds)
-delayed.runAsync.foreach(println)
+delayed.runToFuture.foreach(println)
 ```
 
 Or, instead of a delay we might want to use another `Task` as the
@@ -1373,7 +1373,7 @@ val source = Task {
 }
 
 val delayed = source.delayExecutionWith(trigger)
-delayed.runAsync.foreach(println)
+delayed.runToFuture.foreach(println)
 ```
 
 ### Delay Signaling of the Result
@@ -1395,7 +1395,7 @@ val delayed = {
     .delayResult(5.seconds)
 }
 
-delayed.runAsync.foreach(println)
+delayed.runToFuture.foreach(println)
 ```
 
 Here, you'll see the "side-effect happening after only 1 second, but
@@ -1424,7 +1424,7 @@ val delayed = {
     .delayResultBySelector(x => selector(x))
 }
 
-delayed.runAsync.foreach { x =>
+delayed.runToFuture.foreach { x =>
   println(
     s"Result: $x " +
     s"(signaled after at least ${x+1} seconds)")
@@ -1445,11 +1445,11 @@ val randomEven = {
     .restartUntil(_ % 2 == 0)
 }
 
-randomEven.runAsync.foreach(println)
+randomEven.runToFuture.foreach(println)
 //=> -2097793116
-randomEven.runAsync.foreach(println)
+randomEven.runToFuture.foreach(println)
 //=> 1246761488
-randomEven.runAsync.foreach(println)
+randomEven.runToFuture.foreach(println)
 //=> 1053678416
 ```
 
@@ -1472,7 +1472,7 @@ val withFinishCb = task.doOnFinish {
     Task.unit
 }
 
-withFinishCb.runAsync.foreach(println)
+withFinishCb.runToFuture.foreach(println)
 //=> Was success!
 //=> 1
 ```
@@ -1605,7 +1605,7 @@ val task = Task.create[Int] { (scheduler, callback) =>
   throw new IllegalStateException("FTW!")
 }
 
-val future = task.runAsync
+val future = task.runToFuture
 
 // Logs the following to System.err:
 //=> java.lang.IllegalStateException: FTW!
@@ -1712,7 +1712,7 @@ val recovered = source.onErrorHandleWith {
     Task.raiseError(other)
 }
 
-recovered.runAsync.foreach(println)
+recovered.runToFuture.foreach(println)
 //=> Recovered!
 ```
 
@@ -1726,7 +1726,7 @@ val recovered = source.onErrorRecoverWith {
     Task.now("Recovered!")
 }
 
-recovered.runAsync.foreach(println)
+recovered.runToFuture.foreach(println)
 //=> Recovered!
 ```
 
@@ -1834,7 +1834,7 @@ val recovered = materialized.flatMap {
   case Failure(_) => Task.now(0)
 }
 
-recovered.runAsync.foreach(println)
+recovered.runToFuture.foreach(println)
 //=> 0
 ```
 
@@ -1864,6 +1864,6 @@ val source = Task.raiseError[Int](new IllegalStateException)
 val throwable = source.failed
 // throwable: Task[Throwable] = ???
 
-throwable.runAsync.foreach(println)
+throwable.runToFuture.foreach(println)
 //=> java.lang.IllegalStateException
 ```

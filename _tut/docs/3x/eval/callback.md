@@ -63,7 +63,7 @@ import UncaughtExceptionReporter.{LogExceptionsToStandardErr => r}
 val safeCallback2 = Callback.safe(callback)(r)
 ```
 
-**NOTE:** when executing `Task.runAsync(callback)`, the provided
+**NOTE:** when executing `Task.runToFuture(callback)`, the provided
 callback is automatically wrapped in `Callback.safe`, so you don't
 need to worry about it.
 
@@ -74,7 +74,7 @@ maybe because you just want the side-effects:
 ```tut:book
 val task = monix.eval.Task(println("Sample"))
 
-task.runAsync(Callback.empty)
+task.runToFuture(Callback.empty)
 ```
 
 Or maybe you want to convert a Scala `Promise` to a `Callback`:
