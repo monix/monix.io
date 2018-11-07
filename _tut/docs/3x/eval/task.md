@@ -7,7 +7,7 @@ description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
 
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-eval:version3x
@@ -823,91 +823,6 @@ Some notes:
   process really can't be canceled in time, but you should strive to
   return a cancelable that does cancel your execution, if possible.
 
-### Task.unsafeCreate
-
-`Task.unsafeCreate` has the same purpose and function as
-[Task.create](#taskcreate), only this is for people knowing what they
-are doing, being the *unsafe version*. In the development of Monix
-there were doubts whether this should be exposed or not. It gets
-exposed because otherwise there's no way to replace its functionality
-for certain use-cases.
-
-**WARNING:** this isn't for normal usage. Prefer [Task.create](#taskcreate).
-
-The callback that needs to be passed to `unsafeCreate` this time has
-this type:
-
-```scala
-object Task {
-  // ...
-
-  type OnFinish[+A] = (Context, Callback[A]) => Unit
-
-  final case class Context(
-    scheduler: Scheduler,
-    connection: StackedCancelable,
-    frameRef: ThreadLocal[FrameIndex],
-    options: Options
-  )
-}
-```
-
-So instead of returning a
-simple [Cancelable](../execution/cancelable.html) we get to deal with
-an injected
-[StackedCancelable]({{ site.api3x }} #monix.execution.cancelables.StackedCancelable),
-along with something called a `FrameIndex` that's a `ThreadLocal` and
-some special `Options` instead.
-
-This is because you
-
-Let implement our own version of the `delayExecution` operator, just
-for the kicks:
-
-```tut:silent
-import monix.execution.cancelables._
-
-def delayExecution[A](
-  source: Task[A], timespan: FiniteDuration): Task[A] = {
-
-  Task.unsafeCreate { (context, cb) =>
-    implicit val s = context.scheduler
-    // A stack that keeps track of what we need to cancel
-    val conn = context.connection
-    // We need the forward reference, because otherwise `conn.pop`
-    // below can happen before pushing that reference in `conn`
-    val c = SingleAssignmentCancelable()
-    conn push c
-
-    c := s.scheduleOnce(timespan.length, timespan.unit, new Runnable {
-      def run(): Unit = {
-        // Releasing our cancelable because our scheduled
-        // task is done and we need to let the GC collect it
-        conn.pop()
-
-        // We had an async boundary, so we must reset the frame
-        // index in order to let Monix know we've had a real
-        // async boundary - on the JVM this is not needed, since
-        // this is a thread-local, but on JS we don't have threads
-        context.frameRef.reset()
-
-        // We can now resume execution, by finally starting
-        // our source. As you can see, we just inject our
-        // StackedCancelable, there's no need to create another
-        // Cancelable reference, so at this point it's as if
-        // the source is being executed without any overhead!
-        Task.unsafeStartNow(source, context, Callback.async(cb))
-      }
-    })
-  }
-}
-```
-
-As you can see, this really is unsafe and actually unneeded in most
-cases. So don't use it, or if you think you need it, maybe ask for
-help.
-
-¯＼(º_o)/¯
 
 ## Memoization
 
