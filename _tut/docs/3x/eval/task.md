@@ -246,14 +246,14 @@ val cancelable = task.runOnComplete { result =>
 cancelable.cancel()
 ```
 
-We can also `runOnComplete` with a [Callback](./callback.html) instance.
+We can also `runOnComplete` with a [Callback]((../execution/callback.html)) instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
 specific to `Try[T]`. Sample:
 
 ```tut:silent
-import monix.eval.Callback
+import monix.execution.Callback
 
 val task = Task(1 + 1).delayExecution(1.second)
 
@@ -816,7 +816,7 @@ Some notes:
 - But as said, this callback will already execute asynchronously, so
   you don't need to explicitly schedule things to run on the provided
   `Scheduler`, unless you really need to do it.
-- [The Callback](./callback.html) gets injected on execution and that
+- [The Callback]((../execution/callback.html)) gets injected on execution and that
   callback has a contract. In particular you need to execute
   `onSuccess` or `onError` or `apply` only once. The implementation
   does a reasonably good job to protect against contract violations,
@@ -1568,7 +1568,7 @@ task.runOnComplete(r => println(r))
 
 In case an error happens in the callback provided to `runOnComplete`, then
 Monix can no longer signal an `onError`, because it would be a
-contract violation (see [Callback](./callback.html)). But it still
+contract violation (see [Callback]((../execution/callback.html))). But it still
 logs the error:
 
 ```tut:silent
@@ -1597,7 +1597,7 @@ task.runOnComplete { r =>
 Similarly, when using `Task.create`, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
 provided callback, we cannot signal the error as it would be a
-contract violation (see [Callback](./callback.html)), but Monix does
+contract violation (see [Callback]((../execution/callback.html))), but Monix does
 log the error:
 
 ```tut:silent

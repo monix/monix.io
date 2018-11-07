@@ -134,7 +134,7 @@ So for signaling the final result, we need to call the provided
 callback. Some notes:
 
 - calling the callback must obey the contract for the
-  [Callback](../eval/callback.html) type, in particular either 
+  [Callback](../execution/callback.html) type, in particular either 
   `onSuccess` or `onError` must be called exactly once
 - the given callback should always get called unless the upstream
   gets canceled
