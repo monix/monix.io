@@ -26,10 +26,17 @@
   <!-- Facebook Open-Graph -->
   {% if page.video %}
   <meta property="og:type" content="video" />
+  {% if page.video_raw %}
+  <meta property="og:video" content="{{ page.video_raw }}" />
+  <meta property="og:video:url" content="{{ page.video_raw }}" />
+  <meta property="og:video:secure_url" content="{{ page.video_raw }}" />
+  <meta property="og:video:type" content="video/mp4" />
+  {% else %}
   <meta property="og:video" content="{{ page.video }}" />
   <meta property="og:video:url" content="{{ page.video }}" />
   <meta property="og:video:secure_url" content="{{ page.video }}" />
   <meta property="og:video:type" content="text/html" />
+  {% endif -%}
   <meta property="og:video:width" content="1280" />
   <meta property="og:video:height" content="830" />
   {% else %}
