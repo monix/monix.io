@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Task's Bracket, Cats-Effect's Resource and Streaming"
+title: "Task's Bracket, Cats-Effect's Resource and Streaming (Video)"
 author: alexelcu
 excerpt_separator: <!--more-->
-description: A video tutorial.
+description: A video tutorial showing the connection between Task.bracket, Resource and the streaming data types.
 video: https://player.vimeo.com/video/299313903?title=0&byline=0&portrait=0
 ---
 
