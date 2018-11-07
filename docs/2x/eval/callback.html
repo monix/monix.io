@@ -35,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541595785504059000">
+  <link rel="stylesheet" href="/public/css/all.css?1541596519221827407">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541595785504059000">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541596519221827407">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -170,17 +170,17 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@914081529, monix.eval.Task$$$Lambda$10594/1079528326@3214a2dc)
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@761524839, monix.eval.Task$$$Lambda$12403/1645991254@755e06c3)
 </span>
 <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-<span class="c1">// Sample
-// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@1dc9996c
+<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@7a49c887
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="c1">// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
+<span class="c1">// Sample
+// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
 </span>
 <span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
 <span class="c1">// callback: monix.eval.Callback[String] = &lt;function1&gt;
