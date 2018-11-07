@@ -1121,7 +1121,7 @@ val tb = {
     .delayExecution(1.second)
 }
 
-val list: Task[Seq[Int]] =I think 
+val list: Task[Seq[Int]] =
   Task.gatherUnordered(Seq(ta, tb))
 
 list.runToFuture.foreach(println)
