@@ -1079,6 +1079,8 @@ a task with a sequence of ordered results. But the effects are not
 ordered, meaning that there's potential for parallel execution:
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val ta = {
   Task { println("Effect1"); 1 }
     .delayExecution(1.second)
@@ -1107,6 +1109,8 @@ ordering for results or effects. The result is thus highly nondeterministic,
 but yields better performance than `gather`:
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val ta = {
   Task { println("Effect1"); 1 }
     .delayExecution(1.second)
@@ -1117,7 +1121,7 @@ val tb = {
     .delayExecution(1.second)
 }
 
-val list: Task[Seq[Int]] = 
+val list: Task[Seq[Int]] =I think 
   Task.gatherUnordered(Seq(ta, tb))
 
 list.runToFuture.foreach(println)
@@ -1142,7 +1146,7 @@ val ta = Task { println("Effect1"); 1 }
 val tb = Task { println("Effect2"); 2 }
 
 val list: Task[Seq[Int]] =
-  Task.traverse(Seq(ta, tb))(_ * 2)
+  Task.traverse(Seq(ta, tb))(i => Task.now(i * 2))
 
 // We always get this ordering:
 list.runToFuture.foreach(println)
@@ -1158,6 +1162,8 @@ a task with a sequence of ordered results. But the effects are not
 ordered, meaning that there's potential for parallel execution:
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val ta = {
   Task { println("Effect1"); 1 }
     .delayExecution(1.second)
@@ -1203,6 +1209,8 @@ The `racePair` operation will choose the winner between two
 `Task` that will potentially run in parallel:
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
@@ -1230,6 +1238,8 @@ and upon execution will generate the result of the first task
 that completes and wins the race:
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val ta = Task(1 + 1).delayExecution(1.second)
 val tb = Task(10).delayExecution(1.second)
 
