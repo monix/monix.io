@@ -11,13 +11,11 @@ Presentation from the
 [Typelevel Summit, Oslo, 2016](http://typelevel.org/event/2016-05-summit-oslo/)
 by [@alexelcu](https://twitter.com/alexelcu):
 
-<iframe width="640" height="360" class="presentation"
-    src="https://www.youtube.com/embed/CQxviYlAKaY" frameborder="0" allowfullscreen></iframe>
+{% include youtube.html link="https://www.youtube-nocookie.com/embed/CQxviYlAKaY" ratio=56.25 %}
 
-Media: 
+Resources:
 
 - [Slides (PDF file)](/public/pdfs/Akka-Monix.pdf)
-- [Video (YouTube)](https://www.youtube.com/watch?v=CQxviYlAKaY)
 
 Also see
 [Monix Task: Lazy, Async &amp; Awesome](./2016-task-flatmap-oslo.html)

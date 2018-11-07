@@ -10,9 +10,9 @@
   <title>{{ processed_title }}</title>
 
   <!-- Twitter Card -->
-  {% if page.video %}
+  {% if page.vimeo %}
   <meta name="twitter:card" content="player" />
-  <meta name="twitter:player" content="{{ page.video }}">
+  <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
   <meta name="twitter:player:width" content="1280">
   <meta name="twitter:player:height" content="830">  
   {% else %}
@@ -24,22 +24,24 @@
   <meta name="twitter:description" content="{{ processed_description }}" />
 
   <!-- Facebook Open-Graph -->
-  {% if page.video %}
-  <meta property="og:type" content="video" />
-  <meta property="og:video" content="{{ page.video }}" />
-  <meta property="og:video:url" content="{{ page.video }}" />
-  <meta property="og:video:secure_url" content="{{ page.video }}" />
-  <meta property="og:video:type" content="text/html" />
+  <meta property="fb:app_id" content="2160100887367418" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% if page.vimeo -%}
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="{{ page.vimeo | vimeo_raw_link }}" />
+  <meta property="og:video:secure_url" content="{{ page.vime | vimeo_raw_link }}" />
+  <meta property="og:video:type" content="video/mp4" />
   <meta property="og:video:width" content="1280" />
   <meta property="og:video:height" content="830" />
+  <meta property="og:image" content="{{ site.url }}/public/images/monix-logo-play.png" />
+  <meta property="og:image:secure_url" content="{{ site.url }}/public/images/monix-logo-play.png">
   {% else %}
   <meta property="og:type" content="article" />
-  {% endif -%}
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
-  <meta property="og:title" content="{{ processed_title }}" />
-  <meta property="og:description" content="{{ processed_description }}" />
   <meta property="og:image" content="{{ site.url }}/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="{{ site.url }}/public/images/monix-logo.png">
+  {% endif -%}
+  <meta property="og:title" content="{{ processed_title }}" />
+  <meta property="og:description" content="{{ processed_description }}" />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>

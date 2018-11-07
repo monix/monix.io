@@ -9,15 +9,11 @@ description: |
 Presentation from [ScalaDays 2017](https://scaladays.org/archive/copenhagen2017.html)
 by [@alexelcu](https://twitter.com/alexelcu):
 
-<iframe width="640" height="360" 
-  src="https://www.youtube-nocookie.com/embed/wi97X8_JQUk?rel=0" frameborder="0" 
-  class="presentation" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
+{% include youtube.html link="https://www.youtube-nocookie.com/embed/wi97X8_JQUk" ratio=56.25 %}
 
 Media: 
 
 - [Slides (PDF file)](/public/pdfs/Monix-Task-ScalaDays2017.pdf)
-- [Video (YouTube)](https://www.youtube.com/watch?v=wi97X8_JQUk)
 
 ## Abstract
 

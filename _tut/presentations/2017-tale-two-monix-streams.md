@@ -9,15 +9,11 @@ description: |
 Presentation from [Scala World 2017](https://scala.world/)
 by [@alexelcu](https://twitter.com/alexelcu):
 
-<iframe width="640" height="360" 
-  src="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" frameborder="0" 
-  class="presentation" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
+{% include youtube.html link="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" ratio=56.25 %}
 
-Media: 
+Resources:
 
 - [Slides (PDF file)](/public/pdfs/ScalaWorld2017-Tale-TwoStreams.pdf)
-- [Video (YouTube)](https://www.youtube.com/watch?v=JFbYQGG2Nb4)
 
 ## Abstract
 

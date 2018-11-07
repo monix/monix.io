@@ -16,7 +16,7 @@ tut:
 Since series 3.x Monix depends on and provides direct integration
 with [Typelevel's Cats](http://typelevel.org/cats/) library,
 implementing useful type-classes for the data types exposed and
-making use of the vast .
+making use of the vast ecosystem.
 
 ## Sample
 

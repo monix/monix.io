@@ -4,7 +4,7 @@ title: "Task's Bracket, Cats-Effect's Resource and Streaming (Video)"
 author: alexelcu
 excerpt_separator: <!--more-->
 description: A video tutorial showing the connection between Task.bracket, Resource and the streaming data types.
-video: https://player.vimeo.com/video/299313903?title=0&byline=0&portrait=0
+vimeo: 299313903
 ---
 
 A tutorial on usage of Task.bracket, Cats-Effect's Resource and how
@@ -13,7 +13,7 @@ Observable and Iterant.
 
 <!--more-->
 
-<iframe src="https://player.vimeo.com/video/299313903?title=0&byline=0&portrait=0" width="640" height="415" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+{% include vimeo.html ratio=64.84 %}
 
 ## Getting Started
 

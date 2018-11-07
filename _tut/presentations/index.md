@@ -5,10 +5,7 @@ title: Presentations
 
 Featured:
 
-<iframe width="640" height="360" 
-  src="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" frameborder="0" 
-  class="presentation" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
+{% include youtube.html link="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" ratio=56.25 %}
 
 ## Conferences
 
@@ -23,7 +20,7 @@ Featured:
 
 ## Video Tutorials
 
-{% for post in site.posts -%}{% if post.video %}
+{% for post in site.posts -%}{% if post.vimeo %}
 - [{{ post.title }}]({{ post.url }}) ({{ post.date | date: "%b %Y" }}) by [@{{ post.author }}](https://twitter.com/{{ post.author }})
 {% endif %}{% endfor %}
 

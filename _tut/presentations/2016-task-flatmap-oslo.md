@@ -4,16 +4,14 @@ title: "flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome"
 description: |
   Presentation from flatMap(Oslo) 2016, about the Monix Task, a new type 
   for dealing with asynchronous processing and side-effects.
+vimeo: 165922572
 ---
 
 Presentation from
 [flatMap(Oslo) 2016](http://2016.flatmap.no/nedelcu.html#session)
 by [@alexelcu](https://twitter.com/alexelcu):
 
-<iframe src="https://player.vimeo.com/video/165922572" 
-  width="640" height="360" class="presentation"
-  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
-</iframe>
+{% include vimeo.html ratio=56.25 %}
 
 Media: 
 

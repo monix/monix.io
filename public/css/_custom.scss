@@ -83,9 +83,26 @@
     margin: 10px 0;
 }
 
-.page .presentation {
-    max-width: 100%;
-    border: 1px solid #999;
+.presentation {
+    overflow: hidden;
+    position: relative;
+    
+    iframe {
+        border: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.presentation.ratio4x3 {
+    padding-bottom: 75%;    
+}
+
+.presentation.ratio16x9 {
+    padding-bottom: 56.25%;    
 }
 
 .news-summary {
@@ -142,4 +159,19 @@ img.left {
 
 img.center {
     display: block; margin: auto;
+}
+
+#video-download {
+    display: none;
+    
+    > a {
+        cursor: pointer;
+    }
+
+    ul {
+        font-size: 80%;
+        padding: 0;
+        margin: 0;
+        list-style-position: inside;
+    }
 }
