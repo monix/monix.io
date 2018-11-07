@@ -13,15 +13,19 @@
   <title>Blog &mdash; Monix</title>
 
   <!-- Twitter Card -->
+  
   <meta name="twitter:card" content="summary" />
+  
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:title" content="Blog &mdash; Monix" />
   <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
 
   <!-- Facebook Open-Graph -->
-  <meta property="og:url" content="https://monix.io/blog/page5/" />
+  
   <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="https://monix.io/blog/page5/" />
   <meta property="og:title" content="Blog &mdash; Monix" />
   <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -35,9 +39,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/all.css?1541592364681601907">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541592364681601907">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,6 +105,47 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="/blog/2016/08/20/monix-v2.0-RC11.html">
+        Monix: Version 2.0-RC11 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-08-20">
+      20 Aug 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release fixes one issue with <code class="highlighter-rouge">Task</code>, as it was discovered that
+<code class="highlighter-rouge">flatMap</code> loops aren’t automatically cancelable, a small
+oversight. Also <code class="highlighter-rouge">CompositeCancelable.remove</code> wasn’t working, a bug
+introduced in the previous release. Another bug that was fixed is in
+<code class="highlighter-rouge">Consumer.foldLeftAsync</code>, which wasn’t capturing errors properly.</p>
+
+<p>This release introduces a major refactoring of the <code class="highlighter-rouge">Task</code> internal
+workings of its trampoline, as a serious optimization. As an example
+of what this brings, the conversion from a <code class="highlighter-rouge">Future</code> with
+<code class="highlighter-rouge">Task.fromFuture</code> has near-zero overhead and the performance of
+<code class="highlighter-rouge">Task.gather</code> and <code class="highlighter-rouge">Task.gatherUnordered</code> has improved significantly.</p>
+
+<p>There are also breaking API changes, sorry about that, but these
+should come sooner rather than later, before marking 2.0 final. The
+<code class="highlighter-rouge">zipWith</code> (e.g. <code class="highlighter-rouge">zipWith2</code>, <code class="highlighter-rouge">zipWith3</code>) operators on <code class="highlighter-rouge">Task</code> and
+<code class="highlighter-rouge">Observable</code> and the <code class="highlighter-rouge">combineLatestWith</code> operators on <code class="highlighter-rouge">Observable</code>
+have been renamed to <code class="highlighter-rouge">zipMap</code> (e.g. <code class="highlighter-rouge">zipMap2</code>, etc) and
+<code class="highlighter-rouge">combineLatestMap</code> respectively. This because <code class="highlighter-rouge">zipMap</code> describes the
+operation much better and this name has also been used in the
+Typelevel Cats / Dogs libraries at least.</p>
+
+
+
+    
+    <a href="/blog/2016/08/20/monix-v2.0-RC11.html">Read more &rarr;</a>
+    
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="/blog/2016/08/10/monix-v2.0-RC10.html">
         Monix: Version 2.0-RC10 Released
       </a>
@@ -126,7 +171,9 @@ Upgrade to the latest version as soon as possible.</p>
 
 
 
+    
     <a href="/blog/2016/08/10/monix-v2.0-RC10.html">Read more &rarr;</a>
+    
   </div>
   
   <div class="post">
@@ -153,7 +200,9 @@ by <a href="https://github.com/guersam">@guersam</a>.</p>
 
 
 
+    
     <a href="/blog/2016/08/01/monix-v2.0-RC9.html">Read more &rarr;</a>
+    
   </div>
   
   <div class="post">
@@ -190,7 +239,9 @@ consumers. For a teaser:</p>
 
 
 
+    
     <a href="/blog/2016/06/29/monix-v2.0-RC8.html">Read more &rarr;</a>
+    
   </div>
   
   <div class="post">
@@ -216,32 +267,9 @@ has no further ambitions.</p>
 
 
 
+    
     <a href="/blog/2016/06/21/monix-v2.0-RC7.html">Read more &rarr;</a>
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/06/15/monix-v2.0-RC6.html">
-        Monix: Version 2.0-RC6 Released
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-06-15">
-      15 Jun 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>The sixth release candidate, simplifies the <a href="http://typelevel.org/">Cats</a> integration,
-introduces an alternative parallel <code class="highlighter-rouge">Applicative</code> instance for <code class="highlighter-rouge">Task</code>,
-changes the <code class="highlighter-rouge">Observable.buffer</code> operators to match the behavior in ReactiveX,
-adds observable builders from <code class="highlighter-rouge">java.io.InputStream</code> and <code class="highlighter-rouge">Reader</code>,
-adds <code class="highlighter-rouge">Observable.executeOn</code>, along with other utils and refactors the 
-<code class="highlighter-rouge">Pipe</code> and <code class="highlighter-rouge">ConcurrentSubject</code> builders. Also contains bug fixes.</p>
-
-
-
-    <a href="/blog/2016/06/15/monix-v2.0-RC6.html">Read more &rarr;</a>
+    
   </div>
   
 </div>

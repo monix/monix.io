@@ -13,15 +13,19 @@
   <title>Scalaz 7.2 Integration &mdash; Monix</title>
 
   <!-- Twitter Card -->
+  
   <meta name="twitter:card" content="summary" />
+  
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:title" content="Scalaz 7.2 Integration &mdash; Monix" />
   <meta name="twitter:description" content="Integration and usage of the type-classes described in the Scalaz library, version 7.2." />
 
   <!-- Facebook Open-Graph -->
-  <meta property="og:url" content="https://monix.io/docs/2x/intro/scalaz72" />
+  
   <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="https://monix.io/docs/2x/intro/scalaz72" />
   <meta property="og:title" content="Scalaz 7.2 Integration &mdash; Monix" />
   <meta property="og:description" content="Integration and usage of the type-classes described in the Scalaz library, version 7.2." />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -35,9 +39,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/all.css?1541592364681601907">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541592364681601907">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -157,7 +161,7 @@ And now we can verify that <code class="highlighter-rouge">Task</code> is indeed
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
 <span class="n">scala</span><span class="o">&gt;</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">scalaz.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">scalaz</span><span class="o">.</span><span class="nc">MonixToScalaz10$MonixToScalazBindRec</span><span class="k">@</span><span class="mi">260885</span><span class="n">a8</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">scalaz.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">scalaz</span><span class="o">.</span><span class="nc">MonixToScalaz10$MonixToScalazBindRec</span><span class="k">@</span><span class="mi">71573354</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -180,7 +184,7 @@ can also work in reverse:</p>
 <code class="highlighter-rouge">monix.types.Monad[List]</code> out of the instances defined for Scalaz:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">List</span><span class="o">]]</span>
-<span class="c1">// res1: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@3ec32a93
+<span class="c1">// res1: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@4985ec0f
 </span></code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates

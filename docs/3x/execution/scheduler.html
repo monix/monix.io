@@ -13,15 +13,19 @@
   <title>Scheduler &mdash; Monix</title>
 
   <!-- Twitter Card -->
+  
   <meta name="twitter:card" content="summary" />
+  
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:title" content="Scheduler &mdash; Monix" />
   <meta name="twitter:description" content="A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool." />
 
   <!-- Facebook Open-Graph -->
-  <meta property="og:url" content="https://monix.io/docs/3x/execution/scheduler" />
+  
   <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="https://monix.io/docs/3x/execution/scheduler" />
   <meta property="og:title" content="Scheduler &mdash; Monix" />
   <meta property="og:description" content="A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool." />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -35,9 +39,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/all.css?1541592364681601907">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541510680316876086">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541592364681601907">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -235,7 +239,6 @@ there’s no way to cancel it.</p>
 <h2 id="schedule-with-a-delay">Schedule with a Delay</h2>
 
 <p>To execute a <code class="highlighter-rouge">Runnable</code> with a given delay, let’s
-Hello, world!
 say for example 5 seconds:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
@@ -610,7 +613,8 @@ pending tasks first, but will accept no more tasks:</p>
 <p>We can also inspect the state of our service:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">isShutdown</span>
-<span class="c1">// res61: Boolean = true
+<span class="c1">// Fixed delay task
+// res61: Boolean = true
 </span></code></pre></div></div>
 
 <p>But if we have already committed tasks pending execution, sometimes it is
