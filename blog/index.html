@@ -20,7 +20,11 @@ title: Blog
 
     {{ post.excerpt }}
 
+    {% if post.video %}
+    <a href="{{ post.url }}">Read more and watch video &rarr;</a>
+    {% else %}
     <a href="{{ post.url }}">Read more &rarr;</a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>

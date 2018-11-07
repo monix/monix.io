@@ -10,15 +10,31 @@
   <title>{{ processed_title }}</title>
 
   <!-- Twitter Card -->
+  {% if page.video %}
+  <meta name="twitter:card" content="video" />
+  <meta name="twitter:player" content="{{ page.video }}">
+  <meta name="twitter:player:width" content="1280">
+  <meta name="twitter:player:height" content="830">  
+  {% else %}
   <meta name="twitter:card" content="summary" />
+  {% endif %}
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:image" content="{{ site.url }}/public/images/monix-logo-rect.png" />
   <meta name="twitter:title" content="{{ processed_title }}" />
   <meta name="twitter:description" content="{{ processed_description }}" />
 
   <!-- Facebook Open-Graph -->
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% if page.video %}
+  <meta property="og:type" content="video" />
+  <meta property="og:video:url" content="{{ page.video }}">
+  <meta property="og:video:secure_url" content="{{ page.video }}">
+  <meta property="og:video:type" content="text/html">
+  <meta property="og:video:width" content="1280">
+  <meta property="og:video:height" content="830">
+  {% else %}
   <meta property="og:type" content="article" />
+  {% endif %}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:title" content="{{ processed_title }}" />
   <meta property="og:description" content="{{ processed_description }}" />
   <meta property="og:image" content="{{ site.url }}/public/images/monix-logo.png" />

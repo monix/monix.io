@@ -47,8 +47,9 @@ module Jekyll
 
         elem["style"] = elem["style"].strip
       }
-    
-      doc.at_css("body").inner_html
+
+      body = doc.at_css("body")
+      body ? body.inner_html : ""
     end
   end
 end

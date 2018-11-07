@@ -25,7 +25,13 @@ layout: null
    <id>{{ site.url }}{{ post.id }}</id>
    <content type="html"><![CDATA[
    {{ post | rss_summary }}
-   <p><a rel="full-article" href="{{ site.url }}{{ post.url }}?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication"><b>Read This Article &raquo;</b></a></p>
+   <p><a rel="full-article" href="{{ site.url }}{{ post.url }}?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication">
+     {% if post.video %}
+     <b>Read This Article and Watch Video &raquo;</b>
+     {% else %}
+     <b>Read This Article &raquo;</b>
+     {% endif %}
+   </a></p>
    ]]></content>
  </entry>
  {% endfor %}
