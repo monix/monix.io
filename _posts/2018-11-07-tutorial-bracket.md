@@ -29,3 +29,7 @@ sbt new monix/monix-3x.g8
 - [Coeval.bracket]({{ site.api3x }}monix/eval/Coeval.html#bracket[B](use:A=%3Emonix.eval.Coeval[B])(release:A=%3Emonix.eval.Coeval[Unit]):monix.eval.Coeval[B])
 - [cats.effect.Bracket](https://typelevel.org/cats-effect/typeclasses/bracket.html)
 - [cats.effect.Resource](https://typelevel.org/cats-effect/datatypes/resource.html)
+
+## Discussions
+
+- [Reddit /r/Scala](https://www.reddit.com/r/scala/comments/9uz6m6/monix_tasks_bracket_catseffects_resource_and/)
