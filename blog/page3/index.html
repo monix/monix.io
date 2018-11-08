@@ -36,9 +36,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541683146334987144">
+  <link rel="stylesheet" href="/public/css/all.css?1541702419157141194">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541683146334987144">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541702419157141194">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -99,6 +99,38 @@
     
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2017/01/26/monix-v2.2.html">
+        Monix: Version 2.2.1 Final Release
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2017-01-26">
+      26 Jan 2017
+      • <a href="https://twitter.com/monix">@monix</a>
+    </time>
+
+    <p>Version <code class="highlighter-rouge">2.2.1</code> is out now.</p>
+
+<p>It is a major release that shouldn’t be considered binary compatible with <code class="highlighter-rouge">2.1.x</code>,
+even though it is source compatible. This is due to several operators being
+changed in <code class="highlighter-rouge">Observable</code> and <code class="highlighter-rouge">Task</code>, but extension methods are provided for the older
+versions, therefore source compatibility is maintained.</p>
+
+<p>As a summary: the new <code class="highlighter-rouge">MVar</code> synchronization primitive, performance improvements
+in <code class="highlighter-rouge">Observable.concatMap</code> and in the <code class="highlighter-rouge">Task</code> run-loop, new <code class="highlighter-rouge">SchedulerService</code>
+interface for shutting down schedulers, bug fixes and upgrade to Cats 0.9.0.
+See details below.</p>
+
+
+
+    
+    <a href="/blog/2017/01/26/monix-v2.2.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -229,36 +261,6 @@ number in <code class="highlighter-rouge">build.sbt</code>:</p>
 
     
     <a href="/blog/2016/10/23/monix-v2.0.5.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/10/10/monix-v2.0.4.html">
-        Monix: Version 2.0.4 Released for Bug Fixing
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-10-10">
-      10 Oct 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>This release is binary compatible with 2.0.x, being a bug fix release
-for <a href="https://github.com/monix/monix/issues/244">Issue #244</a>:
-<em><code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
-have incorrect behavior</em>.</p>
-
-<p>In order to upgrade, just increment the version number in <code class="highlighter-rouge">build.sbt</code>:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.4"</span>
-</code></pre></div></div>
-
-
-
-    
-    <a href="/blog/2016/10/10/monix-v2.0.4.html">Read more &rarr;</a>
     
   </div>
   
