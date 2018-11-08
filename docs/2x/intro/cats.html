@@ -21,13 +21,14 @@
   <meta name="twitter:description" content="Integration and usage of the type-classes described in the Typelevel Cats library." />
 
   <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+  <meta property="og:url" content="https://monix.io/docs/2x/intro/cats" />
   
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://monix.io/docs/2x/intro/cats" />
-  <meta property="og:title" content="Typelevel Cats Integration &mdash; Monix" />
-  <meta property="og:description" content="Integration and usage of the type-classes described in the Typelevel Cats library." />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
+  <meta property="og:title" content="Typelevel Cats Integration &mdash; Monix" />
+  <meta property="og:description" content="Integration and usage of the type-classes described in the Typelevel Cats library." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -35,9 +36,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541679527979069965">
+  <link rel="stylesheet" href="/public/css/all.css?1541681716802306935">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541679527979069965">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541681716802306935">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -158,7 +159,7 @@ And now we can verify that <code class="highlighter-rouge">Task</code> is indeed
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
 <span class="n">scala</span><span class="o">&gt;</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">cats.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="nc">MonixToCatsCore11$MonixToCatsMonadRec</span><span class="k">@</span><span class="mi">2</span><span class="n">adbe3aa</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">cats.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">cats</span><span class="o">.</span><span class="nc">MonixToCatsCore11$MonixToCatsMonadRec</span><span class="k">@</span><span class="mf">443811f</span><span class="mi">9</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -178,7 +179,7 @@ can also work in reverse:</p>
 <code class="highlighter-rouge">monix.types.Monad[cats.Eval]</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">cats.Eval</span><span class="o">]]</span>
-<span class="c1">// res0: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@376c04ab
+<span class="c1">// res0: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@1063c9ed
 </span></code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates
