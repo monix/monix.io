@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541714147728103771" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541714147728103771" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541711941703172400">
+  <link rel="stylesheet" href="/public/css/all.css?1541714147728103771">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541711941703172400">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541714147728103771">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -1762,8 +1762,7 @@ restart the source on error, for how many times are needed:</p>
 
 <span class="c1">// Will keep retrying for as long as the source fails
 // with an IllegalStateException
-</span><span class="nc">Failure</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">TimeoutException</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">randomEven</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRestartIf</span> <span class="o">{</span>
+</span><span class="k">val</span> <span class="n">randomEven</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRestartIf</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span> <span class="kc">true</span>
   <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
 <span class="o">}</span>
