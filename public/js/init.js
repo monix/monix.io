@@ -1,14 +1,5 @@
 function initVimeo(uid) {
   $(document).ready(function () {
-    // Auto-play
-    setTimeout(function () {
-      if ((window.location + "").match(/autoplay[=]1/)) {
-        var iframe = document.getElementById("vimeo-frame");
-        var player = new Vimeo.Player(iframe);
-        player.play();      
-      }      
-    }, 100);
-
     // Building the list    
     function add(list, item) {
       var kind = encodeURIComponent(item.public_name.toLowerCase())
@@ -50,9 +41,9 @@ function initVimeo(uid) {
 }
 
 $(document).ready(function() {
-    $('#toc').toc({
-        title: '',
-        listType: 'ul',
-        showSpeed: 0
-    });
+  $('#toc').toc({
+    title: '',
+    listType: 'ul',
+    showSpeed: 0
+  });
 });
