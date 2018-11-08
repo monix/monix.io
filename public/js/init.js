@@ -1,5 +1,15 @@
-function initVimeoDownloadLinks(uid) {
+function initVimeo(uid) {
   $(document).ready(function () {
+    // Auto-play
+    setTimeout(function () {
+      if ((window.location + "").match(/autoplay[=]1/)) {
+        var iframe = document.getElementById("vimeo-frame");
+        var player = new Vimeo.Player(iframe);
+        player.play();      
+      }      
+    }, 100);
+
+    // Building the list    
     function add(list, item) {
       list.append(
         "<li>" +
@@ -7,7 +17,7 @@ function initVimeoDownloadLinks(uid) {
         item.public_name + "</a> (" + item.size + ")" +
         "</li>"
       );
-    }
+    }    
 
     $.ajax({
       url: "https://videos.monix.io/get/" + uid,
