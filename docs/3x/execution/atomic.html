@@ -21,6 +21,7 @@
   <meta name="twitter:description" content="References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better." />
 
   <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
   
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://monix.io/docs/3x/execution/atomic" />
@@ -35,9 +36,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541664484886476422">
+  <link rel="stylesheet" href="/public/css/all.css?1541667387219951000">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541664484886476422">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541667387219951000">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -161,7 +162,7 @@ you normally need. How about <code class="highlighter-rouge">Float</code> and <c
 type-class, we can do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicNumberAny[scala.math.BigInt] = monix.execution.atomic.AtomicNumberAny@5eaed002
+<span class="c1">// ref: monix.execution.atomic.AtomicNumberAny[scala.math.BigInt] = monix.execution.atomic.AtomicNumberAny@3803807e
 </span>
 <span class="c1">// now we can increment a BigInt
 </span><span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
@@ -217,7 +218,7 @@ with special care to handle overflows correctly. All this is done to avoid boxin
 for performance reasons.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicDouble = monix.execution.atomic.AtomicDouble@377a989d
+<span class="c1">// ref: monix.execution.atomic.AtomicDouble = monix.execution.atomic.AtomicDouble@1c8eac1e
 </span>
 <span class="n">ref</span><span class="o">.</span><span class="n">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
 <span class="c1">// res9: Boolean = true
@@ -226,7 +227,7 @@ for performance reasons.</p>
 <span class="c1">// res10: Double = 101.0
 </span>
 <span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicChar = monix.execution.atomic.AtomicChar@434d128
+<span class="c1">// ref: monix.execution.atomic.AtomicChar = monix.execution.atomic.AtomicChar@98d0b2
 </span>
 <span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res11: Char = b
@@ -265,7 +266,7 @@ normally do something like this in Java:</p>
 with <code class="highlighter-rouge">Atomic</code> you can simply do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">Queue</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicAny[scala.collection.immutable.Queue[String]] = monix.execution.atomic.AtomicAny@71d159d4
+<span class="c1">// ref: monix.execution.atomic.AtomicAny[scala.collection.immutable.Queue[String]] = monix.execution.atomic.AtomicAny@70fd1f02
 </span>
 <span class="c1">// Transforms the value and returns the update
 </span><span class="n">ref</span><span class="o">.</span><span class="n">transformAndGet</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
@@ -327,7 +328,7 @@ returns the most specialized version, as to avoid boxing and unboxing:</p>
 <span class="c1">// ref: monix.execution.atomic.AtomicBoolean = AtomicBoolean(true)
 </span>
 <span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicAny[String] = monix.execution.atomic.AtomicAny@3ad46804
+<span class="c1">// ref: monix.execution.atomic.AtomicAny[String] = monix.execution.atomic.AtomicAny@53facd33
 </span></code></pre></div></div>
 
 <p>Increments/decrements are done by going through the
