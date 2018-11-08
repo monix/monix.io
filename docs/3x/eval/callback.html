@@ -21,14 +21,13 @@
   <meta name="twitter:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " />
 
   <!-- Facebook Open-Graph -->
-  <meta property="fb:app_id" content="2160100887367418" />
   
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://monix.io/docs/3x/eval/callback" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
   <meta property="og:title" content="Callback &mdash; Monix" />
   <meta property="og:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -36,9 +35,9 @@
   <script src="/public/js/init.js" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541678172989863000">
+  <link rel="stylesheet" href="/public/css/all.css?1541679527979069965">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541678172989863000">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541679527979069965">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -164,17 +163,17 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap$232316429
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap$1212243868
 </span>
 <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable$Impl@65f1c45
-// Sample
+<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable$Impl@1f7cdd30
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="c1">// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
+<span class="c1">// Sample
+// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
 </span>
 <span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
 <span class="c1">// callback: monix.eval.Callback[String] = &lt;function1&gt;
