@@ -1,15 +1,16 @@
 ---
 layout: docs3x
 title: Callback
-type_api: monix.eval.Callback
-type_source: monix-eval/shared/src/main/scala/monix/eval/Callback.scala
+type_api: monix.execution.Callback
+type_source: monix-execution/shared/src/main/scala/monix/execution/Callback.scala
 description: |
   A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.
     
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
+    - io.monix::monix-execution:version3x
     - io.monix::monix-eval:version3x
 ---
 
@@ -20,14 +21,11 @@ When building an asynchronous `Task`, on execution the API gives you a
 `Callback` instance that you can invoke with the result of a
 computation, on completion. Its definition is something like:
 
-```tut:invisible
-import scala.util.Try
-```
 
 ```tut:silent
-trait Callback[-T] extends (Try[T] => Unit) {
-  def onSuccess(value: T): Unit
-  def onError(ex: Throwable): Unit
+trait Callback[-E, -A] extends (Either[E, A] => Unit) {
+  def onSuccess(value: A): Unit
+  def onError(ex: E): Unit
 }
 ```
 
@@ -42,9 +40,9 @@ In order to protect the contract, you can wrap any such callback into
 a "safe" implementation that protects against violations:
 
 ```tut:reset:silent
-import monix.eval.Callback
+import monix.execution.Callback
 
-val callback = new Callback[Int] {
+val callback = new Callback[Throwable, Int] {
   def onSuccess(value: Int): Unit = 
     println(value)
   def onError(ex: Throwable): Unit =
@@ -63,7 +61,7 @@ import UncaughtExceptionReporter.{LogExceptionsToStandardErr => r}
 val safeCallback2 = Callback.safe(callback)(r)
 ```
 
-**NOTE:** when executing `Task.runAsync(callback)`, the provided
+**NOTE:** when executing `Task.runToFuture(callback)`, the provided
 callback is automatically wrapped in `Callback.safe`, so you don't
 need to worry about it.
 
@@ -74,7 +72,7 @@ maybe because you just want the side-effects:
 ```tut:book
 val task = monix.eval.Task(println("Sample"))
 
-task.runAsync(Callback.empty)
+task.runAsync(Callback.empty[Throwable, Unit])
 ```
 
 Or maybe you want to convert a Scala `Promise` to a `Callback`:
@@ -92,7 +90,7 @@ errors. So to force a protective asynchronous boundary when calling
 
 ```tut:silent
 // Lets pretend we have something meaningful
-val ref = Callback.empty[String]
+val ref = Callback.empty[Throwable, String]
 
-val asyncCallback = Callback.async(ref)
+val asyncCallback = Callback.forked(ref)
 ```
