@@ -13,11 +13,11 @@ title: Monix Documentation
 - Execution
   - [Scheduler](./execution/scheduler.html)
   - [Cancelable](./execution/cancelable.html)
+   - [Callback](./execution/callback.html)
   - [Future Utils](./execution/future-utils.html)
   - [Atomic](./execution/atomic.html)
 - Evaluation
   - [Task](./eval/task.html)
-  - [Callback](./eval/callback.html)
   - [Coeval](./eval/coeval.html)
   - [MVar](./eval/mvar.html)
   - [Task Circuit Breaker](./eval/circuit-breaker.html)

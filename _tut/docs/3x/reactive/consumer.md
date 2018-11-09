@@ -66,7 +66,7 @@ val observable: Observable[Long] = Observable.range(0, 100000)
 val task: Task[Long] = observable.consumeWith(loadBalancer)
 
 // Consume the whole stream and get the result
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> 4999950000
 ```
 
@@ -83,13 +83,13 @@ import monix.execution.Scheduler
 import monix.execution.cancelables.AssignableCancelable
 import monix.execution.Ack
 import monix.execution.Ack.Continue
-import monix.eval.Callback
+import monix.execution.Callback
 import monix.reactive.Consumer
 import monix.reactive.observers.Subscriber
 
 val sumConsumer: Consumer[Int,Long] =
   new Consumer[Int,Long] {
-    def createSubscriber(cb: Callback[Long], s: Scheduler) = {
+    def createSubscriber(cb: Callback[Throwable, Long], s: Scheduler) = {
       val out = new Subscriber.Sync[Int] {
         implicit val scheduler = s
         private var sum = 0L
@@ -123,7 +123,7 @@ val sumConsumer: Consumer[Int,Long] =
 
   Observable.fromIterable(0 until 10000)
     .consumeWith(sumConsumer)
-    .runAsync
+    .runToFuture
     .foreach(r => println(s"Result: $r"))
     
   //=> Result: 49995000
@@ -134,7 +134,7 @@ So for signaling the final result, we need to call the provided
 callback. Some notes:
 
 - calling the callback must obey the contract for the
-  [Callback](../eval/callback.html) type, in particular either 
+  [Callback](../execution/callback.html) type, in particular either 
   `onSuccess` or `onError` must be called exactly once
 - the given callback should always get called unless the upstream
   gets canceled
@@ -253,7 +253,7 @@ happens, or signal the error if `onError` happens:
 {
   Observable.range(0, 4).dump("O")
     .consumeWith(Consumer.complete)
-    .runAsync
+    .runToFuture
     .foreach(_ => println("Consumer completed"))
 
   //=> 0: O-->0
@@ -302,7 +302,7 @@ val sum = Consumer.foldLeft[Long,Long](0L)(_ + _)
 {
   Observable.range(0, 1000)
     .consumeWith(sum)
-    .runAsync
+    .runToFuture
     .foreach(r => println(s"SUM: $r"))
   
   //=> SUM: 499500
@@ -345,7 +345,7 @@ val sum: Task[Long] = {
 }
   
 import monix.execution.Scheduler.Implicits.global
-sum.runAsync.foreach(println)
+sum.runToFuture.foreach(println)
 //=> 499500
 ```
 
@@ -357,7 +357,7 @@ empty streams it ends up signaling a `NoSuchElementException`:
 {
   Observable.empty[Int]
     .consumeWith(Consumer.head)
-    .failed.runAsync.foreach(println)
+    .failed.runToFuture.foreach(println)
   
   //=> java.util.NoSuchElementException: head
 }
@@ -369,7 +369,7 @@ To play it safe, we can use `Consumer.headOption` instead:
 val first: Task[Option[Int]] =
   Observable.empty[Int].consumeWith(Consumer.headOption)
   
-first.runAsync.foreach(println)
+first.runToFuture.foreach(println)
 //=> None
 ```
 
@@ -384,7 +384,7 @@ val observable = Observable.empty[Int]
 val task =
   observable.consumeWith(Consumer.firstNotification)
 
-task.runAsync.foreach {
+task.runToFuture.foreach {
   case OnComplete => println("onComplete")
   case OnError(ex) => println(s"onError($ex)")
   case OnNext(elem) => println(s"onNext(elem)")
@@ -457,7 +457,7 @@ val parallelConsumer =
 {
   Observable.range(0,10000)
     .consumeWith(parallelConsumer)
-    .runAsync
+    .runToFuture
     .foreach(r => println(s"Result: $r"))
 
   //=> Result: 49995000
