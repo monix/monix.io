@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541714147728103771" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541714147728103771" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541756432744494678" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541756432744494678" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/all.css?1541756432744494678">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541756432744494678">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -159,7 +159,7 @@ can build a load-balancer that processes things in parallel</li>
 </span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
 
 <span class="c1">// Consume the whole stream and get the result
-</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 4999950000
 </span></code></pre></div></div>
 
@@ -175,13 +175,13 @@ sum of all the <code class="highlighter-rouge">Int</code> elements of a stream:<
 <span class="k">import</span> <span class="nn">monix.execution.cancelables.AssignableCancelable</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack.Continue</span>
-<span class="k">import</span> <span class="nn">monix.eval.Callback</span>
+<span class="k">import</span> <span class="nn">monix.execution.Callback</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Consumer</span>
 <span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
 
 <span class="k">val</span> <span class="n">sumConsumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="k">new</span> <span class="nc">Consumer</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Long</span><span class="o">]</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">createSubscriber</span><span class="o">(</span><span class="n">cb</span><span class="k">:</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">Long</span><span class="o">],</span> <span class="n">s</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">createSubscriber</span><span class="o">(</span><span class="n">cb</span><span class="k">:</span> <span class="kt">Callback</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Long</span><span class="o">],</span> <span class="n">s</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
       <span class="k">val</span> <span class="n">out</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Subscriber</span><span class="o">.</span><span class="nc">Sync</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
         <span class="k">implicit</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="n">s</span>
         <span class="k">private</span> <span class="k">var</span> <span class="n">sum</span> <span class="k">=</span> <span class="mi">0L</span>
@@ -215,7 +215,7 @@ sum of all the <code class="highlighter-rouge">Int</code> elements of a stream:<
 
   <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">10000</span><span class="o">)</span>
     <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">sumConsumer</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
     <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
     
   <span class="c1">//=&gt; Result: 49995000
@@ -227,7 +227,7 @@ callback. Some notes:</p>
 
 <ul>
   <li>calling the callback must obey the contract for the
-<a href="../eval/callback.html">Callback</a> type, in particular either 
+<a href="../execution/callback.html">Callback</a> type, in particular either 
 <code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> must be called exactly once</li>
   <li>the given callback should always get called unless the upstream
 gets canceled</li>
@@ -346,7 +346,7 @@ happens, or signal the error if <code class="highlighter-rouge">onError</code> h
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
   <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
     <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">complete</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
     <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Consumer completed"</span><span class="o">))</span>
 
   <span class="c1">//=&gt; 0: O--&gt;0
@@ -391,7 +391,7 @@ will emit the final value returned by the function:</p>
 </span><span class="o">{</span>
   <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
     <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
     <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"SUM: $r"</span><span class="o">))</span>
   
   <span class="c1">//=&gt; SUM: 499500
@@ -401,6 +401,7 @@ will emit the final value returned by the function:</p>
 <p>In the example the fold function is returning a simple sum between the
 current state (also called the accumulator) and the current item and
 we start from zero, thus the built consumer will consume streams of
+SUM: 499500
 long integers and signal a total sum on their completion.</p>
 
 <p>A second variant of the <code class="highlighter-rouge">foldLeft</code> consumer allows for returning a
@@ -432,7 +433,7 @@ item and then stop. In such instances we can use <code class="highlighter-rouge"
 <span class="o">}</span>
   
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
-<span class="n">sum</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">sum</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 499500
 </span></code></pre></div></div>
 
@@ -443,7 +444,7 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
   <span class="nc">Observable</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
     <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">head</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">failed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">failed</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
   
   <span class="c1">//=&gt; java.util.NoSuchElementException: head
 </span><span class="o">}</span>
@@ -454,7 +455,7 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">first</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nc">Observable</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">].</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">headOption</span><span class="o">)</span>
   
-<span class="n">first</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">first</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; None
 </span></code></pre></div></div>
 
@@ -468,7 +469,7 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span>
   <span class="n">observable</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">firstNotification</span><span class="o">)</span>
 
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">OnComplete</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"onComplete"</span><span class="o">)</span>
   <span class="k">case</span> <span class="nc">OnError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"onError($ex)"</span><span class="o">)</span>
   <span class="k">case</span> <span class="nc">OnNext</span><span class="o">(</span><span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"onNext(elem)"</span><span class="o">)</span>
@@ -536,7 +537,7 @@ consumer that processes sums in parallel:</p>
 <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">10000</span><span class="o">)</span>
     <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">parallelConsumer</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
     <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
 
   <span class="c1">//=&gt; Result: 49995000

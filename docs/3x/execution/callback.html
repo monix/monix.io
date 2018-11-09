@@ -22,7 +22,7 @@
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/eval/callback" />
+  <meta property="og:url" content="https://monix.io/docs/3x/execution/callback" />
   
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541714147728103771" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541714147728103771" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541756432744494678" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541756432744494678" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/all.css?1541756432744494678">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541756432744494678">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,10 +101,10 @@
         <div class="page">
   <h1 class="page-title">Callback</h1>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.0/monix/eval/Callback.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/Callback.scala">Source Code</a>
+    <a href="/api/3.0/monix/execution/Callback.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-execution/shared/src/main/scala/monix/execution/Callback.scala">Source Code</a>
     
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/callback.md">Edit Page</a>
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/execution/callback.md">Edit Page</a>
   </nav>
 
   <nav role="navigation" id="toc"></nav>
@@ -116,9 +116,9 @@ the result of a computation.</p>
 <code class="highlighter-rouge">Callback</code> instance that you can invoke with the result of a
 computation, on completion. Its definition is something like:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Try</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
-  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">-E</span>, <span class="kt">-A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">E</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -134,9 +134,9 @@ that would be a contract violation</li>
 <p>In order to protect the contract, you can wrap any such callback into
 a “safe” implementation that protects against violations:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Callback</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Callback</span>
 
-<span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+<span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
     <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
   <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
@@ -155,7 +155,7 @@ a “safe” implementation that protects against violations:</p>
 <span class="k">val</span> <span class="n">safeCallback2</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)(</span><span class="n">r</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p><strong>NOTE:</strong> when executing <code class="highlighter-rouge">Task.runAsync(callback)</code>, the provided
+<p><strong>NOTE:</strong> when executing <code class="highlighter-rouge">Task.runToFuture(callback)</code>, the provided
 callback is automatically wrapped in <code class="highlighter-rouge">Callback.safe</code>, so you don’t
 need to worry about it.</p>
 
@@ -164,20 +164,20 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap$1459957613
+<span class="c1">// task: monix.eval.Task[Unit] = Task.Eval$1104805726
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-<span class="c1">// res7: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable$Impl@4e501205
+<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Unit</span><span class="o">])</span>
+<span class="c1">// Sample
+// res7: monix.execution.Cancelable = monix.execution.Cancelable.empty
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="c1">// Sample
-// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
+<span class="c1">// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
 </span>
 <span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
-<span class="c1">// callback: monix.eval.Callback[String] = &lt;function1&gt;
+<span class="c1">// callback: monix.execution.Callback[Throwable,String] = &lt;function1&gt;
 </span></code></pre></div></div>
 
 <p>An interesting effect when dealing with callbacks is that callbacks
@@ -186,9 +186,9 @@ errors. So to force a protective asynchronous boundary when calling
 <code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> (which may or may not fork a thread):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Lets pretend we have something meaningful
-</span><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">String</span><span class="o">]</span>
 
-<span class="k">val</span> <span class="n">asyncCallback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">async</span><span class="o">(</span><span class="n">ref</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">asyncCallback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">forked</span><span class="o">(</span><span class="n">ref</span><span class="o">)</span>
 </code></pre></div></div>
 
 
@@ -200,7 +200,7 @@ errors. So to force a protective asynchronous boundary when calling
 
   <div class="buttons">
     <a href="/docs/3x/">Contents</a> •
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/callback.md">
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/execution/callback.md">
       Edit Page</a> •
     
     <a href="https://gitter.im/monix/monix">

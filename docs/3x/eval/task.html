@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541714147728103771" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541714147728103771" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541756432744494678" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541756432744494678" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/all.css?1541756432744494678">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541714147728103771">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541756432744494678">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -134,13 +134,13 @@ nondeterminism and callback-hell.</p>
 // just a spec! Task by default has lazy behavior ;-)
 </span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span>
 
-<span class="c1">// Tasks get evaluated only on runAsync!
+<span class="c1">// Tasks get evaluated only on runToFuture!
 // Callback style:
-</span><span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+</span><span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
   <span class="n">result</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="nc">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: ${ex.getMessage}"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -148,7 +148,7 @@ nondeterminism and callback-hell.</p>
 </span>
 <span class="c1">// Or you can convert it into a Future
 </span><span class="k">val</span> <span class="n">future</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+  <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
 
 <span class="c1">// Printing the result asynchronously
 </span><span class="n">future</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
@@ -163,7 +163,7 @@ nondeterminism and callback-hell.</p>
   <li>models lazy &amp; asynchronous evaluation</li>
   <li>models a producer pushing only one value to one or multiple consumers</li>
   <li>allows fine-grained control over the <a href="../execution/scheduler.html#execution-model">execution model</a></li>
-  <li>doesn’t trigger the execution, or any effects until <code class="highlighter-rouge">runAsync</code></li>
+  <li>doesn’t trigger the execution, or any effects until <code class="highlighter-rouge">runToFuture</code></li>
   <li>doesn’t necessarily execute on another logical thread</li>
   <li>allows for cancelling of a running computation</li>
   <li>allows for controlling of side-effects, being just as
@@ -290,17 +290,17 @@ reasons, as this API is not supported on top of
 <a href="http://www.scala-js.org/">Scala.js</a>.</li>
 </ol>
 
-<h2 id="execution-runasync--foreach">Execution (runAsync &amp; foreach)</h2>
+<h2 id="execution-runtofuture--foreach">Execution (runToFuture &amp; foreach)</h2>
 
 <p><code class="highlighter-rouge">Task</code> instances won’t do anything until they are executed by means
-of <code class="highlighter-rouge">runAsync</code>. And there are multiple overloads of it.</p>
+of <code class="highlighter-rouge">runToFuture</code>. And there are multiple overloads of it.</p>
 
-<p><code class="highlighter-rouge">Task.runAsync</code> also wants an implicit
+<p><code class="highlighter-rouge">Task.runToFuture</code> also wants an implicit
 <a href="../execution/scheduler.html">Scheduler</a> in scope, that can supplant
 your <code class="highlighter-rouge">ExecutionContext</code> (since it inherits from it). But this is where
 the design of <code class="highlighter-rouge">Task</code> diverges from Scala’s own <code class="highlighter-rouge">Future</code>. The <code class="highlighter-rouge">Task</code>
 being lazy, it only wants this <code class="highlighter-rouge">Scheduler</code> on execution with
-<code class="highlighter-rouge">runAsync</code>, instead of wanting it on every operation (like <code class="highlighter-rouge">map</code> or
+<code class="highlighter-rouge">runToFuture</code>, instead of wanting it on every operation (like <code class="highlighter-rouge">map</code> or
 <code class="highlighter-rouge">flatMap</code>), the way that Scala’s <code class="highlighter-rouge">Future</code> does.</p>
 
 <p>So first things first, we need a <code class="highlighter-rouge">Scheduler</code> in scope. The <code class="highlighter-rouge">global</code> is
@@ -328,25 +328,23 @@ in return, which is a standard <code class="highlighter-rouge">Future</code> pai
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+  <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
 
 <span class="c1">// If we change our mind
 </span><span class="n">result</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>Returning a <code class="highlighter-rouge">Future</code> might be too heavy for your needs, you might want
-to provide a simple callback. We can also <code class="highlighter-rouge">runAsync</code> with a <code class="highlighter-rouge">Try[T] =&gt;
-Unit</code> callback, just like the standard <code class="highlighter-rouge">Future.onComplete</code>.</p>
+to provide a simple callback. We can also <code class="highlighter-rouge">runAsync</code> with a <code class="highlighter-rouge">Either[Throwable, A] =&gt;
+Unit</code> callback, similar to the standard <code class="highlighter-rouge">Future.onComplete</code>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
   <span class="n">result</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
-    <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="nc">System</span><span class="o">.</span><span class="n">err</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: ${ex.getMessage}"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -355,18 +353,18 @@ Unit</code> callback, just like the standard <code class="highlighter-rouge">Fut
 </span><span class="n">cancelable</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>We can also <code class="highlighter-rouge">runOnComplete</code> with a <a href="./callback.html">Callback</a> instance.
+<p>We can also <code class="highlighter-rouge">runAsync</code> with a <a href="(../execution/callback.html)">Callback</a> instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. <code class="highlighter-rouge">Callback</code> is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
-specific to <code class="highlighter-rouge">Try[T]</code>. Sample:</p>
+specific to <code class="highlighter-rouge">Try[T]</code> or <code class="highlighter-rouge">Either[E, A]</code>. Sample:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Callback</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Callback</span>
 
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span>
-  <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span>
+  <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
     <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
       <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
     <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
@@ -419,24 +417,17 @@ specified timespan is exceeded without the source being ready.</li>
 </ol>
 
 <p>Therefore in order to block on a result, you have to first convert it
-into a <code class="highlighter-rouge">Future</code> by means of <code class="highlighter-rouge">runAsync</code> and then you can block on it:</p>
+into a <code class="highlighter-rouge">Future</code> by means of <code class="highlighter-rouge">runToFuture</code> and then you can block on it:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.Await</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">).</span><span class="n">executeAsync</span>
-<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
 
 <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
-</span>
-<span class="c1">// Or by using foreach
-</span><span class="k">val</span> <span class="n">completed</span> <span class="k">=</span> <span class="k">for</span> <span class="o">(</span><span class="n">r</span> <span class="k">&lt;-</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Completed!"</span><span class="o">)</span> <span class="o">}</span>
-
-<span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">completed</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-//=&gt; Completed!
 </span></code></pre></div></div>
 
 <p><strong>NOTE:</strong> There is <a href="https://github.com/scala-js/scala-js/issues/186">no blocking</a>
@@ -492,20 +483,20 @@ the equivalent of <code class="highlighter-rouge">Future.successful</code> or of
 
 <p><code class="highlighter-rouge">Task.eval</code>
 is the equivalent of <code class="highlighter-rouge">Function0</code>, taking a function
-that will always be evaluated on <code class="highlighter-rouge">runAsync</code>, possibly on the same
+that will always be evaluated on <code class="highlighter-rouge">runToFuture</code>, possibly on the same
 thread (depending on the chosen
 <a href="../execution/scheduler.html#execution-model">execution model</a>):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// task: monix.eval.Task[String] = Delay(Always(&lt;function0&gt;))
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// The evaluation (and thus all contained side effects)
-// gets triggered on each runAsync:
-</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+// gets triggered on each runToFuture:
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -524,12 +515,12 @@ idempotency and thread-safety:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">evalOnce</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// task: monix.eval.Task[String] = EvalOnce(&lt;function0&gt;)
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// Result was memoized on the first run!
-</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -546,11 +537,11 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 <span class="o">}</span>
 <span class="c1">// task: monix.eval.Task[String] = Suspend(&lt;function0&gt;)
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -567,9 +558,9 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">fromFuture</span><span class="o">(</span><span class="n">future</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
-</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -585,10 +576,10 @@ model, so in case you want a factory, you need to combine it with
 <span class="o">}</span>
 <span class="c1">//=&gt; task: monix.eval.Task[Int] = Suspend(&lt;function0&gt;)
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
-</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -640,7 +631,7 @@ tasks work best. However in order to invoke this function an
 
 <p>But this is not only superfluous, but against the best practices of
 using <code class="highlighter-rouge">Task</code>. The difference is that <code class="highlighter-rouge">Task</code> takes a <code class="highlighter-rouge">Scheduler</code>
-(inheriting from <code class="highlighter-rouge">ExecutionContext</code>) only when <code class="highlighter-rouge">runAsync</code> gets called,
+(inheriting from <code class="highlighter-rouge">ExecutionContext</code>) only when <code class="highlighter-rouge">runToFuture</code> gets called,
 but we don’t need it just for building a <code class="highlighter-rouge">Task</code> reference.  With
 <code class="highlighter-rouge">deferFutureAction</code> we get to have an injected <code class="highlighter-rouge">Scheduler</code> in the
 passed callback:</p>
@@ -698,9 +689,9 @@ on an alternative thread-pool.</p>
 </span><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Running on thread: ${Thread.currentThread.getName}"</span><span class="o">))</span>
 <span class="k">val</span> <span class="n">forked</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">executeOn</span><span class="o">(</span><span class="n">io</span><span class="o">)</span>
 
-<span class="n">source</span><span class="o">.</span><span class="n">runAsync</span>
+<span class="n">source</span><span class="o">.</span><span class="n">runToFuture</span>
 <span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-1
-</span><span class="n">forked</span><span class="o">.</span><span class="n">runAsync</span>
+</span><span class="n">forked</span><span class="o">.</span><span class="n">runToFuture</span>
 <span class="c1">//=&gt; Running on thread: my-io-4
 </span></code></pre></div></div>
 
@@ -715,7 +706,7 @@ used. Notice what happens in this combination:</p>
 <span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="o">{</span>
   <span class="n">source</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span>
     <span class="o">.</span><span class="n">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
 <span class="o">}</span>
 
 <span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-7
@@ -735,7 +726,7 @@ to the default:</p>
 </span>    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io
 </span>    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">asyncBoundary</span><span class="o">)</span> <span class="c1">// switch back to global
 </span>    <span class="o">.</span><span class="n">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="n">runAsync</span>
+</span>    <span class="o">.</span><span class="n">runToFuture</span>
 <span class="o">}</span>
 
 <span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-5
@@ -752,7 +743,7 @@ asynchronous boundary without having to manually do this trick, called
 </span>    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io
 </span>    <span class="o">.</span><span class="n">asyncBoundary</span> <span class="c1">// switch back to global
 </span>    <span class="o">.</span><span class="n">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="n">runAsync</span>
+</span>    <span class="o">.</span><span class="n">runToFuture</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -763,7 +754,7 @@ set in stone and we only have flexibility to override the
 default if it hasn’t been overridden already:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Trying to execute on global
-</span><span class="n">forked</span><span class="o">.</span><span class="n">executeOn</span><span class="o">(</span><span class="n">global</span><span class="o">).</span><span class="n">runAsync</span>
+</span><span class="n">forked</span><span class="o">.</span><span class="n">executeOn</span><span class="o">(</span><span class="n">global</span><span class="o">).</span><span class="n">runToFuture</span>
 <span class="c1">//=&gt; Running on thread: my-io-4
 </span></code></pre></div></div>
 
@@ -783,8 +774,8 @@ for actual I/O operations.</p>
 <span class="c1">// error: monix.eval.Task[Int] =
 //   Delay(Error(java.util.concurrent.TimeoutException))
 </span>
-<span class="n">error</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">result</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(java.util.concurrent.TimeoutException)
+<span class="n">error</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">result</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
+<span class="c1">//=&gt; Left(java.util.concurrent.TimeoutException)
 </span></code></pre></div></div>
 
 <h3 id="tasknever">Task.never</h3>
@@ -800,9 +791,9 @@ for actual I/O operations.</p>
 <span class="k">val</span> <span class="n">timedOut</span> <span class="k">=</span> <span class="n">never</span><span class="o">.</span><span class="n">timeoutTo</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span>
   <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
 
-<span class="n">timedOut</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="n">timedOut</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
 <span class="c1">// After 3 seconds:
-// =&gt; Failure(java.util.concurrent.TimeoutException)
+// =&gt; Left(java.util.concurrent.TimeoutException)
 </span></code></pre></div></div>
 
 <p>This instance is shared, so that can relieve some stress from the
@@ -889,7 +880,7 @@ etc…</li>
   <li>But as said, this callback will already execute asynchronously, so
 you don’t need to explicitly schedule things to run on the provided
 <code class="highlighter-rouge">Scheduler</code>, unless you really need to do it.</li>
-  <li><a href="./callback.html">The Callback</a> gets injected on execution and that
+  <li><a href="(../execution/callback.html)">The Callback</a> gets injected on execution and that
 callback has a contract. In particular you need to execute
 <code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> or <code class="highlighter-rouge">apply</code> only once. The implementation
 does a reasonably good job to protect against contract violations,
@@ -900,105 +891,21 @@ process really can’t be canceled in time, but you should strive to
 return a cancelable that does cancel your execution, if possible.</li>
 </ul>
 
-<h3 id="taskunsafecreate">Task.unsafeCreate</h3>
-
-<p><code class="highlighter-rouge">Task.unsafeCreate</code> has the same purpose and function as
-<a href="#taskcreate">Task.create</a>, only this is for people knowing what they
-are doing, being the <em>unsafe version</em>. In the development of Monix
-there were doubts whether this should be exposed or not. It gets
-exposed because otherwise there’s no way to replace its functionality
-for certain use-cases.</p>
-
-<p><strong>WARNING:</strong> this isn’t for normal usage. Prefer <a href="#taskcreate">Task.create</a>.</p>
-
-<p>The callback that needs to be passed to <code class="highlighter-rouge">unsafeCreate</code> this time has
-this type:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">Task</span> <span class="o">{</span>
-  <span class="c1">// ...
-</span>
-  <span class="k">type</span> <span class="kt">OnFinish</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Context</span><span class="o">,</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
-
-  <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Context</span><span class="o">(</span>
-    <span class="n">scheduler</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">,</span>
-    <span class="n">connection</span><span class="k">:</span> <span class="kt">StackedCancelable</span><span class="o">,</span>
-    <span class="n">frameRef</span><span class="k">:</span> <span class="kt">ThreadLocal</span><span class="o">[</span><span class="kt">FrameIndex</span><span class="o">],</span>
-    <span class="n">options</span><span class="k">:</span> <span class="kt">Options</span>
-  <span class="o">)</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>So instead of returning a
-simple <a href="../execution/cancelable.html">Cancelable</a> we get to deal with
-an injected
-<a href="/api/3.0/ #monix.execution.cancelables.StackedCancelable">StackedCancelable</a>,
-along with something called a <code class="highlighter-rouge">FrameIndex</code> that’s a <code class="highlighter-rouge">ThreadLocal</code> and
-some special <code class="highlighter-rouge">Options</code> instead.</p>
-
-<p>This is because you</p>
-
-<p>Let implement our own version of the <code class="highlighter-rouge">delayExecution</code> operator, just
-for the kicks:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.cancelables._</span>
-
-<span class="k">def</span> <span class="n">delayExecution</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span>
-  <span class="n">source</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">timespan</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-
-  <span class="nc">Task</span><span class="o">.</span><span class="n">unsafeCreate</span> <span class="o">{</span> <span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">cb</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="k">implicit</span> <span class="k">val</span> <span class="n">s</span> <span class="k">=</span> <span class="n">context</span><span class="o">.</span><span class="n">scheduler</span>
-    <span class="c1">// A stack that keeps track of what we need to cancel
-</span>    <span class="k">val</span> <span class="n">conn</span> <span class="k">=</span> <span class="n">context</span><span class="o">.</span><span class="n">connection</span>
-    <span class="c1">// We need the forward reference, because otherwise `conn.pop`
-</span>    <span class="c1">// below can happen before pushing that reference in `conn`
-</span>    <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
-    <span class="n">conn</span> <span class="n">push</span> <span class="n">c</span>
-
-    <span class="n">c</span> <span class="o">:=</span> <span class="n">s</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="n">timespan</span><span class="o">.</span><span class="n">length</span><span class="o">,</span> <span class="n">timespan</span><span class="o">.</span><span class="n">unit</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-      <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-        <span class="c1">// Releasing our cancelable because our scheduled
-</span>        <span class="c1">// task is done and we need to let the GC collect it
-</span>        <span class="n">conn</span><span class="o">.</span><span class="n">pop</span><span class="o">()</span>
-
-        <span class="c1">// We had an async boundary, so we must reset the frame
-</span>        <span class="c1">// index in order to let Monix know we've had a real
-</span>        <span class="c1">// async boundary - on the JVM this is not needed, since
-</span>        <span class="c1">// this is a thread-local, but on JS we don't have threads
-</span>        <span class="n">context</span><span class="o">.</span><span class="n">frameRef</span><span class="o">.</span><span class="n">reset</span><span class="o">()</span>
-
-        <span class="c1">// We can now resume execution, by finally starting
-</span>        <span class="c1">// our source. As you can see, we just inject our
-</span>        <span class="c1">// StackedCancelable, there's no need to create another
-</span>        <span class="c1">// Cancelable reference, so at this point it's as if
-</span>        <span class="c1">// the source is being executed without any overhead!
-</span>        <span class="nc">Task</span><span class="o">.</span><span class="n">unsafeStartNow</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">async</span><span class="o">(</span><span class="n">cb</span><span class="o">))</span>
-      <span class="o">}</span>
-    <span class="o">})</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p>As you can see, this really is unsafe and actually unneeded in most
-cases. So don’t use it, or if you think you need it, maybe ask for
-help.</p>
-
-<p>¯＼(º_o)/¯</p>
-
 <h2 id="memoization">Memoization</h2>
 
 <p>The
 <a href="/api/3.0/monix/eval/Task.html#memoize:monix.eval.Task[A]">Task#memoize</a>
-operator can take any <code class="highlighter-rouge">Task</code> and apply memoization on the first <code class="highlighter-rouge">runAsync</code>,
+operator can take any <code class="highlighter-rouge">Task</code> and apply memoization on the first <code class="highlighter-rouge">runToFuture</code>,
 such that:</p>
 
 <ol>
-  <li>you have guaranteed idempotency, calling <code class="highlighter-rouge">runAsync</code> multiple times
+  <li>you have guaranteed idempotency, calling <code class="highlighter-rouge">runToFuture</code> multiple times
 will have the same effect as calling it once</li>
-  <li>subsequent <code class="highlighter-rouge">runAsync</code> calls will reuse the result computed by the
-first <code class="highlighter-rouge">runAsync</code></li>
+  <li>subsequent <code class="highlighter-rouge">runToFuture</code> calls will reuse the result computed by the
+first <code class="highlighter-rouge">runToFuture</code></li>
 </ol>
 
-<p>So <code class="highlighter-rouge">memoize</code> effectively caches the result of the first <code class="highlighter-rouge">runAsync</code>.
+<p>So <code class="highlighter-rouge">memoize</code> effectively caches the result of the first <code class="highlighter-rouge">runToFuture</code>.
 In fact we can say that:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Task</span><span class="o">.</span><span class="n">evalOnce</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="n">memoize</span>
@@ -1012,11 +919,11 @@ with any task reference:</p>
 
 <span class="k">val</span> <span class="n">memoized</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">memoize</span>
 
-<span class="n">memoized</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">memoized</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
-<span class="n">memoized</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">memoized</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -1037,27 +944,27 @@ keep retrying until a successful value is available.</p>
 
 <span class="k">val</span> <span class="n">cached</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">memoizeOnSuccess</span>
 
-<span class="k">val</span> <span class="n">f1</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="n">f2</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="n">f3</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields 3
-</span><span class="k">val</span> <span class="n">f4</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields 3
+<span class="k">val</span> <span class="n">f1</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runToFuture</span> <span class="c1">// yields RuntimeException
+</span><span class="k">val</span> <span class="n">f2</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runToFuture</span> <span class="c1">// yields RuntimeException
+</span><span class="k">val</span> <span class="n">f3</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runToFuture</span> <span class="c1">// yields 3
+</span><span class="k">val</span> <span class="n">f4</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runToFuture</span> <span class="c1">// yields 3
 </span></code></pre></div></div>
 
-<h3 id="memoize-versus-runasync">Memoize versus runAsync</h3>
+<h3 id="memoize-versus-runtofuture">Memoize versus runToFuture</h3>
 
 <p>You can say that when we do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
 </code></pre></div></div>
 
 <p>That <code class="highlighter-rouge">future</code> instance is also going to be a memoized value of the
-first <code class="highlighter-rouge">runAsync</code> execution, which can be reused for other <code class="highlighter-rouge">onComplete</code>
+first <code class="highlighter-rouge">runToFuture</code> execution, which can be reused for other <code class="highlighter-rouge">onComplete</code>
 subscribers.</p>
 
 <p>The difference is the same as the difference between <code class="highlighter-rouge">Task</code> and
 <code class="highlighter-rouge">Future</code>. The <code class="highlighter-rouge">memoize</code> operation is lazy, evaluation only being
-triggered on the first <code class="highlighter-rouge">runAsync</code>, whereas the result of <code class="highlighter-rouge">runAsync</code> is
+triggered on the first <code class="highlighter-rouge">runToFuture</code>, whereas the result of <code class="highlighter-rouge">runToFuture</code> is
 eager.</p>
 
 <h2 id="operations">Operations</h2>
@@ -1092,7 +999,7 @@ annotation from Scala’s standard library. And if we’d describe it with
 </code></pre></div></div>
 
 <p>And now there are already differences. This is lazy, as the N-th
-Fibonacci number won’t get calculated until we <code class="highlighter-rouge">runAsync</code>. The
+Fibonacci number won’t get calculated until we <code class="highlighter-rouge">runToFuture</code>. The
 <code class="highlighter-rouge">@tailrec</code> annotation is also not needed, as this is stack (and heap)
 safe.</p>
 
@@ -1112,7 +1019,7 @@ then that). And we can use it to describe recursive calls:</p>
 
 <p>Again, this is stack safe and uses a constant amount of memory, so no
 <code class="highlighter-rouge">@tailrec</code> annotation is needed or wanted. And it has lazy behavior,
-as nothing will get triggered until <code class="highlighter-rouge">runAsync</code> happens.</p>
+as nothing will get triggered until <code class="highlighter-rouge">runToFuture</code> happens.</p>
 
 <p>But we can also have <strong>mutually tail-recursive calls</strong>, w00t!</p>
 
@@ -1167,8 +1074,8 @@ this effect is even more pronounced with <code class="highlighter-rouge">Task</c
 <a href="https://typelevel.org/cats/typeclasses/parallel.html">cats.Parallel</a>
 implementation, being able to trigger evaluation of multiple
 tasks in parallel and hence it has utilities, such
-as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">zip3</code>, up until <code class="highlighter-rouge">zip6</code> (at the moment of writing) and also
-<code class="highlighter-rouge">zipList</code>. The example above could be written as:</p>
+as <code class="highlighter-rouge">parZip2</code>, <code class="highlighter-rouge">parZip3</code>, up until <code class="highlighter-rouge">parZip6</code> (at the moment of writing). 
+The example above could be written as:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">locationTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="n">phoneTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
@@ -1176,7 +1083,7 @@ as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">
 
 <span class="c1">// Potentially executed in parallel
 </span><span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span>
-  <span class="nc">Task</span><span class="o">.</span><span class="n">zip3</span><span class="o">(</span><span class="n">locationTask</span><span class="o">,</span> <span class="n">phoneTask</span><span class="o">,</span> <span class="n">addressTask</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">parZip3</span><span class="o">(</span><span class="n">locationTask</span><span class="o">,</span> <span class="n">phoneTask</span><span class="o">,</span> <span class="n">addressTask</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span>
     <span class="k">case</span> <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
   <span class="o">}</span>
 </code></pre></div></div>
@@ -1215,7 +1122,7 @@ tasks WILL NOT execute in parallel.</p>
   <span class="nc">Task</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
 <span class="c1">// We always get this ordering:
-</span><span class="n">list</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect1
 //=&gt; Effect2
 //=&gt; List(1, 2)
@@ -1227,13 +1134,15 @@ get the result of <code class="highlighter-rouge">ta</code> (the first task) and
 (the second task). The execution itself is also ordered, so <code class="highlighter-rouge">ta</code>
 executes and completes before <code class="highlighter-rouge">tb</code>.</p>
 
-<p><code class="highlighter-rouge">Task.gather</code>, also known as <code class="highlighter-rouge">Task.zipList</code>, is the nondeterministic
+<p><code class="highlighter-rouge">Task.gather</code>, similar to <code class="highlighter-rouge">Parallel.parSequence</code>, is the nondeterministic
 version of <code class="highlighter-rouge">Task.sequence</code>.  It also takes a <code class="highlighter-rouge">Seq[Task[A]]</code> and
 returns a <code class="highlighter-rouge">Task[Seq[A]]</code>, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
 ordered, meaning that there’s potential for parallel execution:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Task</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect1"</span><span class="o">);</span> <span class="mi">1</span> <span class="o">}</span>
     <span class="o">.</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="o">}</span>
@@ -1245,12 +1154,12 @@ ordered, meaning that there’s potential for parallel execution:</p>
 
 <span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">gather</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
-<span class="n">list</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect1
 //=&gt; Effect2
 //=&gt; List(1, 2)
 </span>
-<span class="n">list</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect2
 //=&gt; Effect1
 //=&gt; List(1, 2)
@@ -1260,7 +1169,9 @@ ordered, meaning that there’s potential for parallel execution:</p>
 ordering for results or effects. The result is thus highly nondeterministic,
 but yields better performance than <code class="highlighter-rouge">gather</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Task</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect1"</span><span class="o">);</span> <span class="mi">1</span> <span class="o">}</span>
     <span class="o">.</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="o">}</span>
@@ -1273,26 +1184,105 @@ but yields better performance than <code class="highlighter-rouge">gather</code>
 <span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nc">Task</span><span class="o">.</span><span class="n">gatherUnordered</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
-<span class="n">list</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect2
 //=&gt; Effect1
 //=&gt; Seq(2,1)
 </span>
-<span class="n">list</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect1
 //=&gt; Effect2
 //=&gt; Seq(1,2)
 </span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task.traverse</code>, takes a <code class="highlighter-rouge">Seq[A]</code>, <code class="highlighter-rouge">f: A =&gt; Task[B]</code> and returns a <code class="highlighter-rouge">Task[Seq[B]]</code>.
+This is similar to <code class="highlighter-rouge">Task.sequence</code> but it uses <code class="highlighter-rouge">f</code> to generate each <code class="highlighter-rouge">Task</code>.</p>
+
+<p>All <code class="highlighter-rouge">Task.sequence</code> semantics hold meaning the effects are ordered and the tasks
+WIL NOT execute in parallel.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span> <span class="n">i</span> <span class="o">}</span>
+
+<span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">traverse</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">))(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
+
+<span class="c1">// We always get this ordering:
+</span><span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect1
+//=&gt; Effect2
+//=&gt; List(1, 2)
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">Task.wander</code>, similar to <code class="highlighter-rouge">Parallel.parTraverse</code>, is the nondeterministic
+version of <code class="highlighter-rouge">Task.traverse</code>.  It also takes a <code class="highlighter-rouge">Seq[A]</code>, <code class="highlighter-rouge">f: A =&gt; Task[B]</code> and
+returns a <code class="highlighter-rouge">Task[Seq[B]]</code>. It applies <code class="highlighter-rouge">f</code> to each element in the sequence transforming it
+into <code class="highlighter-rouge">Task</code> and then collecting results. The order in the output sequence is preserved but 
+the effects are not ordered, meaning that there’s potential for parallel execution:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> 
+  <span class="nc">Task</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span> <span class="n">i</span> <span class="o">}.</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">wander</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">))(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
+
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect1
+//=&gt; Effect2
+//=&gt; List(1, 2)
+</span>
+<span class="n">list</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect2
+//=&gt; Effect1
+//=&gt; List(1, 2)
+</span></code></pre></div></div>
+
+<p>Similar to <code class="highlighter-rouge">gather</code> there is also unordered version called <code class="highlighter-rouge">wanderUnordered</code>.</p>
+
+<p><strong>NOTE:</strong> If you have the possibility, prefer explicitly using <code class="highlighter-rouge">Task</code> operators instead of
+those provided by Cats syntax. Their default implementations are derived from other
+methods and are often much slower than optimized <code class="highlighter-rouge">Task</code> versions.</p>
+
+<p>Refer to the table below to see corresponding methods:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Monix</th>
+      <th style="text-align: center">Cats</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Task.sequence</td>
+      <td style="text-align: center">Traverse[F].sequence</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Task.traverse</td>
+      <td style="text-align: center">Traverse[F].traverse</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Task.gather</td>
+      <td style="text-align: center">Parallel.parSequence</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Task.wander</td>
+      <td style="text-align: center">Parallel.parTraverse</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="race">Race</h3>
 
 <p>The <code class="highlighter-rouge">racePair</code> operation will choose the winner between two
 <code class="highlighter-rouge">Task</code> that will potentially run in parallel:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">tb</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">race</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">racePair</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">).</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span>
+<span class="k">val</span> <span class="n">race</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">racePair</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">).</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Left</span><span class="o">((</span><span class="n">a</span><span class="o">,</span> <span class="n">fiber</span><span class="o">))</span> <span class="k">=&gt;</span>
     <span class="n">fiber</span><span class="o">.</span><span class="n">cancel</span><span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
       <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"A succeeded: $a"</span><span class="o">))</span>
@@ -1315,12 +1305,14 @@ simply ignore it, your choice depending on use-case.</p>
 and upon execution will generate the result of the first task
 that completes and wins the race:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">ta</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">tb</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
 <span class="o">{</span>
   <span class="nc">Task</span><span class="o">.</span><span class="n">raceMany</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
-    <span class="o">.</span><span class="n">runAsync</span>
+    <span class="o">.</span><span class="n">runToFuture</span>
     <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Winner: $r"</span><span class="o">))</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -1347,7 +1339,7 @@ seconds:</p>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="n">delayed</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="n">delayed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">delayed</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Or, instead of a delay we might want to use another <code class="highlighter-rouge">Task</code> as the
@@ -1362,7 +1354,7 @@ equivalent to the one above:</p>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="n">delayed</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">delayExecutionWith</span><span class="o">(</span><span class="n">trigger</span><span class="o">)</span>
-<span class="n">delayed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">delayed</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h3 id="delay-signaling-of-the-result">Delay Signaling of the Result</h3>
@@ -1383,7 +1375,7 @@ execution of the <code class="highlighter-rouge">Task</code>. Consider this exam
     <span class="o">.</span><span class="n">delayResult</span><span class="o">(</span><span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">delayed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">delayed</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Here, you’ll see the “side-effect happening after only 1 second, but
@@ -1411,7 +1403,7 @@ result signaled by the source:</p>
     <span class="o">.</span><span class="n">delayResultBySelector</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="n">selector</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="n">delayed</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
+<span class="n">delayed</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
   <span class="n">println</span><span class="o">(</span>
     <span class="n">s</span><span class="s">"Result: $x "</span> <span class="o">+</span>
     <span class="n">s</span><span class="s">"(signaled after at least ${x+1} seconds)"</span><span class="o">)</span>
@@ -1431,11 +1423,11 @@ over and over again, until the given predicate is true:</p>
     <span class="o">.</span><span class="n">restartUntil</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">randomEven</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">randomEven</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; -2097793116
-</span><span class="n">randomEven</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">randomEven</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 1246761488
-</span><span class="n">randomEven</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="n">randomEven</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 1053678416
 </span></code></pre></div></div>
 
@@ -1457,7 +1449,7 @@ some scheduled side-effect:</p>
     <span class="nc">Task</span><span class="o">.</span><span class="n">unit</span>
 <span class="o">}</span>
 
-<span class="n">withFinishCb</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">withFinishCb</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Was success!
 //=&gt; 1
 </span></code></pre></div></div>
@@ -1534,7 +1526,7 @@ concrete, like going through SLF4J or whatever.</p>
 
 <p>Even though Monix expects for the arguments given to its operators,
 like <code class="highlighter-rouge">flatMap</code>, to be pure or at least protected from errors, it still
-catches errors, signaling them on <code class="highlighter-rouge">runOnComplete</code>:</p>
+catches errors, signaling them on <code class="highlighter-rouge">runAsync</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">even</span> <span class="k">if</span> <span class="n">even</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">=&gt;</span>
@@ -1543,16 +1535,16 @@ catches errors, signaling them on <code class="highlighter-rouge">runOnComplete<
     <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="n">odd</span><span class="o">.</span><span class="n">toString</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Success(-924040280)
+<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="c1">//=&gt; Left(-924040280)
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(java.lang.IllegalStateException: 834919637)
+<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="c1">//=&gt; Right(java.lang.IllegalStateException: 834919637)
 </span></code></pre></div></div>
 
-<p>In case an error happens in the callback provided to <code class="highlighter-rouge">runOnComplete</code>, then
+<p>In case an error happens in the callback provided to <code class="highlighter-rouge">runAsync</code>, then
 Monix can no longer signal an <code class="highlighter-rouge">onError</code>, because it would be a
-contract violation (see <a href="./callback.html">Callback</a>). But it still
+contract violation (see <a href="(../execution/callback.html)">Callback</a>). But it still
 logs the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1562,12 +1554,12 @@ logs the error:</p>
 // current thread
 </span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
-<span class="n">task</span><span class="o">.</span><span class="n">runOnComplete</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
   <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="n">toString</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="c1">// After 1 second, this will log the whole stack trace:
-//=&gt; java.lang.IllegalStateException: Success(2)
+//=&gt; java.lang.IllegalStateException: Right(2)
 //=&gt;    ...
 //=&gt;	at monix.eval.Task$$anon$3.onSuccess(Task.scala:78)
 //=&gt;	at monix.eval.Callback$SafeCallback.onSuccess(Callback.scala:66)
@@ -1580,14 +1572,14 @@ logs the error:</p>
 <p>Similarly, when using <code class="highlighter-rouge">Task.create</code>, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
 provided callback, we cannot signal the error as it would be a
-contract violation (see <a href="./callback.html">Callback</a>), but Monix does
+contract violation (see <a href="(../execution/callback.html)">Callback</a>), but Monix does
 log the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="s">"FTW!"</span><span class="o">)</span>
+  <span class="o">(</span><span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="s">"FTW!"</span><span class="o">))</span><span class="k">:</span> <span class="kt">Unit</span>
 <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span>
+<span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
 
 <span class="c1">// Logs the following to System.err:
 //=&gt; java.lang.IllegalStateException: FTW!
@@ -1640,10 +1632,10 @@ a <code class="highlighter-rouge">TimeoutException</code> using <code class="hig
   <span class="nc">Task</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
 
 <span class="c1">// Triggers error if the source does not
-// complete in 3 seconds after runOnComplete
+// complete in 3 seconds after runAsync
 </span><span class="k">val</span> <span class="n">timedOut</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
 
-<span class="n">timedOut</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="n">timedOut</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
 <span class="c1">//=&gt; Failure(TimeoutException)
 </span></code></pre></div></div>
 
@@ -1662,8 +1654,8 @@ task. The following example is equivalent to the above one:</p>
   <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">)</span>
 <span class="o">)</span>
 
-<span class="n">timedOut</span><span class="o">.</span><span class="n">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(TimeoutException)
+<span class="n">timedOut</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="c1">//=&gt; Left(TimeoutException)
 </span></code></pre></div></div>
 
 <h3 id="recovering-from-error">Recovering from Error</h3>
@@ -1690,7 +1682,7 @@ this:</p>
 </span>    <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">recovered</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Recovered!
 </span></code></pre></div></div>
 
@@ -1703,7 +1695,7 @@ instead, so we can omit the “other” branch:</p>
 </span>    <span class="nc">Task</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">recovered</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Recovered!
 </span></code></pre></div></div>
 
@@ -1805,7 +1797,7 @@ errors such that we can recover more efficiently:</p>
   <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">recovered</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 0
 </span></code></pre></div></div>
 
@@ -1833,7 +1825,7 @@ expose any errors that happen and will also terminate with an
 <span class="k">val</span> <span class="n">throwable</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">failed</span>
 <span class="c1">// throwable: Task[Throwable] = ???
 </span>
-<span class="n">throwable</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="n">throwable</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; java.lang.IllegalStateException
 </span></code></pre></div></div>
 
