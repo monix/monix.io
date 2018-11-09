@@ -35,21 +35,23 @@ layout: default
       Follow @{{ page.author }}</a>
   </div>  
 
-  <div id="disqus_thread"></div>
-  <script>
-    var disqus_config = function () {
-      this.page.url = "{{ site.url }}{{ page.url }}";
-      this.page.identifier = "{{ page.url }}";
-    };
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://monix.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>
-    Please enable JavaScript to view the
-    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-  </noscript>
+  <div id="contributions">
+    <script data-isso="/comments/"
+            data-isso-css="true"
+            data-isso-lang="en"
+            data-isso-reply-to-self="false"
+            data-isso-require-author="true"
+            data-isso-require-email="true"
+            data-isso-max-comments-top="10"
+            data-isso-max-comments-nested="5"
+            data-isso-reveal-on-click="5"
+            data-isso-avatar="true"
+            data-isso-avatar-bg="#f0f0f0"
+            data-isso-avatar-fg="#9abf88 #5698c4 #e279a3 #9163b6 ..."
+            data-isso-vote="true"
+            data-vote-levels=""
+            src="https://monix.io/comments/js/embed.min.js"></script>
+    <section id="isso-thread" data-title="{{ page.title }}">
+    </section>
+  </div>
 </div>
