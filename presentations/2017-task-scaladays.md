@@ -4,6 +4,7 @@ title: "ScalaDays 2017 — Monix Task: Lazy, Async &amp; Awesome"
 description: |
   Presentation from ScalaDays 2017, about the Monix Task, a data type 
   for dealing with asynchronous processing and side-effects.
+comments: true
 ---
 
 Presentation from [ScalaDays 2017](https://scaladays.org/archive/copenhagen2017.html)

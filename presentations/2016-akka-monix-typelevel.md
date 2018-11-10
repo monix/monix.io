@@ -5,6 +5,7 @@ description: |
   Presentation from Typelevel Summit, Oslo, 2016,
   about an experience in dealing with modeling behavior
   by processing asynchronous soft-real time signals.
+comments: true
 ---
 
 Presentation from the

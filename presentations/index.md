@@ -1,9 +1,8 @@
 ---
 layout: docs
 title: Presentations
+comments: true
 ---
-
-Featured:
 
 {% include youtube.html link="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" ratio=56.25 %}
 

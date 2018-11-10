@@ -4,6 +4,7 @@ title: "Scala World 2017 — A Tale of Two Monix Streams"
 description: |
   Presentation from Scala World 2017, on Monix's Observable, 
   compared with Iterant and a lesson in FP design
+comments: true
 ---
 
 Presentation from [Scala World 2017](https://scala.world/)

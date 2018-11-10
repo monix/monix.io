@@ -5,6 +5,7 @@ description: |
   Presentation from flatMap(Oslo) 2016, about the Monix Task, a new type 
   for dealing with asynchronous processing and side-effects.
 vimeo: 165922572
+comments: true
 ---
 
 Presentation from
