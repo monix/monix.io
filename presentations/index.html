@@ -10,25 +10,25 @@
 
   
   
-  <title>Monix: Version 2.0.2 Released for Bug Fixing</title>
+  <title>Presentations &mdash; Monix</title>
 
   <!-- Twitter Card -->
   
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta name="twitter:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta name="twitter:title" content="Presentations &mdash; Monix" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/09/25/monix-v2.0.2.html" />
+  <meta property="og:url" content="https://monix.io/presentations/" />
   
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
-  <meta property="og:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta property="og:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta property="og:title" content="Presentations &mdash; Monix" />
+  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -87,9 +87,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -98,66 +98,64 @@
 
     
       <article class="content container">
-        <div class="post">
-  <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.2 Released for Bug Fixing</h1>
+        <div class="page">
+  <h1 class="page-title">Presentations</h1>
+  <nav role="navigation" id="type-info">
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/presentations/index.md">Edit Page</a>
+  </nav>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-09-25">
-    25 Sep 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <nav role="navigation" id="toc"></nav>
 
-  <p>This release is binary compatible with 2.0.x, being a bug fix release
-release:</p>
+  <p><a href="https://monix.io/presentations/2017-tale-two-monix-streams.html?autoplay=1">
+  <img src="https://videos.monix.io/thumb-play/300015010" />
+</a></p>
+
+<h2 id="conferences">Conferences</h2>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
-<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
-gets canceled due to a subscriber triggering an error</li>
+  <li><a href="./2017-tale-two-monix-streams.html">A Tale of Two Monix Streams</a>
+by Alexandru Nedelcu, <a href="https://scala.world/">Scala World 2017</a></li>
+  <li><a href="./2017-task-scaladays.html">Monix Task: Lazy, Async &amp; Awesome</a>
+by Alexandru Nedelcu, <a href="https://scaladays.org/archive/copenhagen2017.html">Scala Days 2017</a></li>
+  <li><a href="./2016-task-flatmap-oslo.html">Monix Task: Lazy, Async &amp; Awesome</a>
+by Alexandru Nedelcu, at <a href="http://2016.flatmap.no/">flatMap(Oslo) 2016</a></li>
+  <li><a href="./2016-akka-monix-typelevel.html">Akka &amp; Monix: Controlling Power Plants</a>
+by Alexandru Nedelcu, at <a href="http://2016.flatmap.no/">flatMap(Oslo) 2016</a></li>
 </ul>
 
-<p>This bug if basically harmless, it’s only effect being to log
-unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
-<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+<h2 id="video-tutorials">Video Tutorials</h2>
 
-<p>Enjoy!</p>
+<ul>
+  <li>
+    <p><a href="/blog/2018/11/08/tutorial-future-to-task.html">Converting Scala’s Future to Task (Video)</a> (Nov 2018) by <a href="https://twitter.com/alexelcu">@alexelcu</a></p>
+  </li>
+  <li>
+    <p><a href="/blog/2018/11/07/tutorial-bracket.html">Task’s Bracket, Cats-Effect’s Resource and Streaming (Video)</a> (Nov 2018) by <a href="https://twitter.com/alexelcu">@alexelcu</a></p>
+  </li>
+</ul>
 
+<h2 id="related">Related</h2>
 
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=g_jP47HFpWA">The Making of an IO</a> 
+by Daniel Spiewak, at <a href="https://scala.io/2017/">ScalaIO 2017</a></li>
+  <li><a href="https://www.youtube.com/watch?v=X-cEGEJMx_4">What Referential Transparency can do for you</a> by Luka Jacobowitz, at <a href="https://scala.io/2017/">ScalaIO 2017</a></li>
+  <li><a href="https://www.youtube.com/watch?v=aKUQUIHRGec">Free as in Monads</a>
+by Daniel Spiewak, at <a href="http://www.nescala.org/2017">NEScala 2017</a></li>
+</ul>
+
+<p>Add your own ;-)</p>
+
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-09-25-monix-v2.0.2.md">
+    <a href="/docs/3x/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/presentations/index.md">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -175,10 +173,9 @@ unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by mea
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.2 Released for Bug Fixing">
+  <section id="isso-thread" data-title="Presentations">
   </section>
 </div>
-
 </div>
 
       </article>    

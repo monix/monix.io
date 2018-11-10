@@ -10,25 +10,32 @@
 
   
   
-  <title>Monix: Version 2.0.2 Released for Bug Fixing</title>
+  <title>Scala World 2017 — A Tale of Two Monix Streams</title>
 
   <!-- Twitter Card -->
   
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://player.vimeo.com/video/300015010?title=0&byline=0&portrait=0">
+  <meta name="twitter:player:width" content="1280">
+  <meta name="twitter:player:height" content="830">  
+  <meta name="twitter:image" content="https://videos.monix.io/thumb/300015010" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta name="twitter:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta name="twitter:title" content="Scala World 2017 — A Tale of Two Monix Streams" />
+  <meta name="twitter:description" content="Presentation from Scala World 2017, on Monix's Observable, compared with Iterant and a lesson in FP design" />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/09/25/monix-v2.0.2.html" />
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
-  <meta property="og:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta property="og:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta property="og:url" content="https://monix.io/presentations/2017-tale-two-monix-streams" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://videos.monix.io/redirect/300015010/HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:secure_url" content="https://videos.monix.io/redirect//HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:type" content="video/mp4" />
+  <meta property="og:video:width" content="1280" />
+  <meta property="og:video:height" content="830" /> 
+  <meta property="og:image" content="https://videos.monix.io/thumb-play/300015010" />
+  <meta property="og:image:secure_url" content="https://videos.monix.io/thumb-play/300015010">
+  <meta property="og:title" content="Scala World 2017 — A Tale of Two Monix Streams" />
+  <meta property="og:description" content="Presentation from Scala World 2017, on Monix's Observable, compared with Iterant and a lesson in FP design" />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -87,9 +94,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -98,66 +105,62 @@
 
     
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.2 Released for Bug Fixing</h1>
+  <h1 class="page-title">Scala World 2017 — A Tale of Two Monix Streams</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-09-25">
-    25 Sep 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from <a href="https://scala.world/">Scala World 2017</a>
+by <a href="https://twitter.com/alexelcu">@alexelcu</a>:</p>
 
-  <p>This release is binary compatible with 2.0.x, being a bug fix release
-release:</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://player.vimeo.com/video/300015010?title=0&amp;byline=0&amp;portrait=0" id="vimeo-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
+
+<div id="video-download">
+  View or Download Raw Video ▾
+  <ul>
+  </ul>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<script language="javascript">
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    initVimeo("300015010");
+  });
+</script>
+
+<p>Resources:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
-<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
-gets canceled due to a subscriber triggering an error</li>
+  <li><a href="/public/pdfs/ScalaWorld2017-Tale-TwoStreams.pdf">Slides (PDF file)</a></li>
 </ul>
 
-<p>This bug if basically harmless, it’s only effect being to log
-unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
-<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+<h2 id="abstract">Abstract</h2>
 
-<p>Enjoy!</p>
+<p>Monix started as a project exposing an idiomatic, opinionated 
+and back-pressured ReactiveX implementation for Scala, but has 
+grown beyond those boundaries to fully incorporate the lessons of 
+functional programming.</p>
 
+<p>I’m presenting a contrast between the <code class="highlighter-rouge">Observable</code> data type, which works 
+with an underlying push-based and very efficient protocol and the new 
+<code class="highlighter-rouge">Iterant</code> data type, a generic, purely functional, pull-based streaming 
+alternative coming in Monix 3.0.</p>
 
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
+<p>Besides outlining the direction of where Monix is going, the presentation 
+is a lesson in functional programming design for FP enthusiasts.</p>
+
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-09-25-monix-v2.0.2.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2017-tale-two-monix-streams.md">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -175,10 +178,9 @@ unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by mea
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.2 Released for Bug Fixing">
+  <section id="isso-thread" data-title="Scala World 2017 — A Tale of Two Monix Streams">
   </section>
 </div>
-
 </div>
 
       </article>    

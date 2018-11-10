@@ -10,25 +10,32 @@
 
   
   
-  <title>Monix: Version 2.0.2 Released for Bug Fixing</title>
+  <title>flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome</title>
 
   <!-- Twitter Card -->
   
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://player.vimeo.com/video/165922572?title=0&byline=0&portrait=0">
+  <meta name="twitter:player:width" content="1280">
+  <meta name="twitter:player:height" content="830">  
+  <meta name="twitter:image" content="https://videos.monix.io/thumb/165922572" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta name="twitter:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta name="twitter:title" content="flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome" />
+  <meta name="twitter:description" content="Presentation from flatMap(Oslo) 2016, about the Monix Task, a new type for dealing with asynchronous processing and side-effects." />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/09/25/monix-v2.0.2.html" />
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
-  <meta property="og:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta property="og:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta property="og:url" content="https://monix.io/presentations/2016-task-flatmap-oslo" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://videos.monix.io/redirect/165922572/HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:secure_url" content="https://videos.monix.io/redirect//HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:type" content="video/mp4" />
+  <meta property="og:video:width" content="1280" />
+  <meta property="og:video:height" content="830" /> 
+  <meta property="og:image" content="https://videos.monix.io/thumb-play/165922572" />
+  <meta property="og:image:secure_url" content="https://videos.monix.io/thumb-play/165922572">
+  <meta property="og:title" content="flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome" />
+  <meta property="og:description" content="Presentation from flatMap(Oslo) 2016, about the Monix Task, a new type for dealing with asynchronous processing and side-effects." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -87,9 +94,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -98,66 +105,74 @@
 
     
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.2 Released for Bug Fixing</h1>
+  <h1 class="page-title">flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-09-25">
-    25 Sep 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from
+<a href="http://2016.flatmap.no/nedelcu.html#session">flatMap(Oslo) 2016</a>
+by <a href="https://twitter.com/alexelcu">@alexelcu</a>:</p>
 
-  <p>This release is binary compatible with 2.0.x, being a bug fix release
-release:</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://player.vimeo.com/video/165922572?title=0&amp;byline=0&amp;portrait=0" id="vimeo-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
+
+<div id="video-download">
+  View or Download Raw Video ▾
+  <ul>
+  </ul>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<script language="javascript">
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    initVimeo("165922572");
+  });
+</script>
+
+<p>Media:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
-<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
-gets canceled due to a subscriber triggering an error</li>
+  <li><a href="/public/pdfs/Monix-Task.pdf">Slides (PDF file)</a></li>
+  <li><a href="https://vimeo.com/channels/flatmap2016/165922572">Video (Vimeo)</a></li>
 </ul>
 
-<p>This bug if basically harmless, it’s only effect being to log
-unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
-<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+<p>Also see
+<a href="./2016-akka-monix-typelevel.html">Akka &amp; Monix: Controlling Power Plants</a>
+(Typelevel Summit, Oslo, 2016).</p>
 
-<p>Enjoy!</p>
+<h2 id="abstract">Abstract</h2>
 
+<p>Scala’s Future from the standard library is great, but sometimes we need more.</p>
 
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
+<p>A Future strives to be a value, one detached from time and for
+this reason its capabilities are restricted and for some use-cases
+its behavior ends up being unintuitive. Hence, while the Future/Promise
+pattern is great for representing asynchronous results of processes that
+may or may not be started yet, it cannot be used as a specification
+for an asynchronous computation.</p>
+
+<p>The Monix Task is in essence about dealing with asynchronous
+computations and non-determinism, being inspired by the Scalaz Task
+and designed from the ground up for performance and to be compatible with
+Scala.js/Javascript runtimes and with the Cats library. It also makes use of
+Scala’s Future to represent results, the two being complementary.</p>
+
+<p>In this talk I’ll show you its design, when you should use it and
+why in dealing with asynchronicity it’s better to work with Task
+instead of blocking threads.</p>
+
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-09-25-monix-v2.0.2.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2016-task-flatmap-oslo.md">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -175,10 +190,9 @@ unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by mea
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.2 Released for Bug Fixing">
+  <section id="isso-thread" data-title="flatMap(Oslo) — Monix Task: Lazy, Async &amp; Awesome">
   </section>
 </div>
-
 </div>
 
       </article>    

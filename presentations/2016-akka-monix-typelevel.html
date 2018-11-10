@@ -10,25 +10,25 @@
 
   
   
-  <title>Monix: Version 2.0.2 Released for Bug Fixing</title>
+  <title>flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants</title>
 
   <!-- Twitter Card -->
   
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta name="twitter:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta name="twitter:title" content="flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants" />
+  <meta name="twitter:description" content="Presentation from Typelevel Summit, Oslo, 2016,about an experience in dealing with modeling behaviorby processing asynchronous soft-real time signals." />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/09/25/monix-v2.0.2.html" />
+  <meta property="og:url" content="https://monix.io/presentations/2016-akka-monix-typelevel" />
   
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
-  <meta property="og:title" content="Monix: Version 2.0.2 Released for Bug Fixing" />
-  <meta property="og:description" content="Fixes a bug in Consumer.loadBalance" />
+  <meta property="og:title" content="flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants" />
+  <meta property="og:description" content="Presentation from Typelevel Summit, Oslo, 2016,about an experience in dealing with modeling behaviorby processing asynchronous soft-real time signals." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -87,9 +87,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -98,66 +98,58 @@
 
     
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.2 Released for Bug Fixing</h1>
+  <h1 class="page-title">flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-09-25">
-    25 Sep 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from the
+<a href="http://typelevel.org/event/2016-05-summit-oslo/">Typelevel Summit, Oslo, 2016</a>
+by <a href="https://twitter.com/alexelcu">@alexelcu</a>:</p>
 
-  <p>This release is binary compatible with 2.0.x, being a bug fix release
-release:</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+<iframe src="https://www.youtube-nocookie.com/embed/CQxviYlAKaY" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+</iframe>
+</div>
+
+<p>Resources:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
-<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
-gets canceled due to a subscriber triggering an error</li>
+  <li><a href="/public/pdfs/Akka-Monix.pdf">Slides (PDF file)</a></li>
 </ul>
 
-<p>This bug if basically harmless, it’s only effect being to log
-unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
-<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+<p>Also see
+<a href="./2016-task-flatmap-oslo.html">Monix Task: Lazy, Async &amp; Awesome</a>
+(flatMap(Oslo), 2016).</p>
 
-<p>Enjoy!</p>
+<h2 id="abstract">Abstract</h2>
 
+<p>This talk is about my experience in dealing with modeling behavior
+by processing asynchronous soft realtime signals from different
+sources using Akka, along with Monix, the library for building
+asynchronous and event-based logic.</p>
 
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
+<p>It’s an experience report from my work in monitoring and controlling
+power plants. We do this by gathering signals in real time and
+modeling state machines that give us the state in which an asset is in.
+The component I worked on is the one component in the project that
+definitely adheres to FP principles, the business logic being
+described with pure functions and data-structures and the communication
+being handled by actors and by Observable streams. I want to show
+how I pushed side effects at the edges, in a very pragmatic setup.</p>
+
+<p>This presentation will focus on Akka best practices, the wiring
+needed for describing purely functional state, along with a
+presentation of Monix Observable and how that helps.</p>
+
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-09-25-monix-v2.0.2.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2016-akka-monix-typelevel.md">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -175,10 +167,9 @@ unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by mea
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.2 Released for Bug Fixing">
+  <section id="isso-thread" data-title="flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants">
   </section>
 </div>
-
 </div>
 
       </article>    
