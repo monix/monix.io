@@ -7,7 +7,7 @@ description: |
   A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell.
 
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-eval:version2x

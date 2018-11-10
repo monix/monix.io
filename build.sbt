@@ -29,7 +29,7 @@ lazy val tutVersion = SettingKey[String]("tutVersion")
 configFile := (baseDirectory in ThisBuild).value / "_config.yml"
 tutInput := (baseDirectory in ThisBuild).value / "_tut"
 tutOutput := (baseDirectory in ThisBuild).value
-tutVersion := "0.6.2"
+tutVersion := "0.6.9"
 
 watchSources ++= (tutInput.value ** "*.md").get
 
