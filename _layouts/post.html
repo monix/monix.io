@@ -3,6 +3,7 @@ layout: default
 ---
 
 <div class="post">
+  <a name="start"></a>
   <h1 class="post-title">{{ page.title }}</h1>
 
   <time class="post-date" itemprop="dateCreated"
@@ -12,13 +13,6 @@ layout: default
   </time>
 
   {{ content }}
-
-  <div class="buttons">
-    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}">
-      Edit Page</a> •
-    <a href="https://twitter.com/{{ page.author }}">
-      Follow @{{ page.author }}</a>
-  </div>
 
   <div class="related">
     <h2>Related Posts</h2>
@@ -33,24 +27,13 @@ layout: default
       {% endfor %}
     </ul>
   </div>
-  
-  {% if page.comments %}
-  <div id="disqus_thread"></div>
-  <script>
-    var disqus_config = function () {
-      this.page.url = "{{ site.url }}{{ page.url }}";
-      this.page.identifier = "{{ page.url }}";
-    };
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://monix.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>
-    Please enable JavaScript to view the
-    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-  </noscript>
-  {% endif %}
+
+  <div class="buttons">
+    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}">
+      Edit Page</a> •
+    <a href="https://twitter.com/{{ page.author }}">
+      Follow @{{ page.author }}</a>
+  </div>  
+
+  {% include comments.html %}
 </div>

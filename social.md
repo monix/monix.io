@@ -7,7 +7,6 @@ For news &amp; updates follow:
 
 - [Atom/RSS](/blog/atom.xml)
 - [Twitter (@Monix)](https://twitter.com/monix){:target=>"blank"}
-- [Facebook: (@Monix.io)](https://facebook.com/monix.io){:target=>"blank"}
 
 Other profiles:
 

@@ -97,4 +97,588 @@ The Monix `Observable`:
 
 See **[comparisons with similar tools, like Akka or FS2](./observable-comparisons.html)**.
 
-... TO BE CONTINUED ...
+## Observable Contract
+
+`Observable` can be thought about as the next layer of abstraction in regard to `Observer` and `Subscriber`.
+
+You could describe `Observable` in the following way:
+
+```scala
+trait Observable[+A] {
+  def subscribe(o: Observer[A]): Cancelable
+}
+```
+
+where `Observer` is:
+
+```scala
+trait Observer[-T] {
+  def onNext(elem: T): Future[Ack]
+
+  def onError(ex: Throwable): Unit
+
+  def onComplete(): Unit
+}
+```
+
+Due to this connection `Observable` respects `Observer` [contract](./observers.md#Contract) but you can consider it 
+being higher level interface which abstracts away details of the contract and handles it for the user. `Observable` exposes
+rich API and following sections will cover only small portion of them so if it's missing something you need, look 
+[at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
+directly or ask on gitter channel.
+
+## Observable and Functional Programming
+
+`Observable` internals aren't written in FP style which is a trade off resulting in greater performance. 
+
+Despite the internals, `Observable` is perfectly fine to use even in purely functional application because they don't 
+leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
+
+However, if you value referential transparency, watch out for impure functions. 
+Fortunately, they are marked as such with `@UnsafeBecauseImpure` annotation and explanation in ScalaDoc. 
+Also, there should always be a pure replacement to solve your use case.
+
+For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
+Still, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as
+`Ref` or `MVar` to share state in more controlled manner.
+
+Still, decision is up to the user to choose what's better for him and his team.
+
+## Execution
+
+When you create `Observable` nothing actually happens until you call `subscribe`. 
+It means that (by default) `Observable` preserves referential transparency. 
+
+`Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
+You can think about it as `unsafePerformIO`.
+
+Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.md) and compose it all the way 
+through your program until the very end (Main method).
+
+Two main ways to convert `Observable` to `Task` are described below.
+
+### Consumer
+
+One of the ways to trigger `Observable` is to use [Consumer](./consumer.md) which can be described as a function that converts `Observable` into `Task`.
+
+You can either create your own `Consumer` or use one of many prebuilt ones:
+
+```scala
+val list: Observable[Long] = 
+    Observable.range(0, 1000)
+      .take(100)
+      .map(_ * 2)
+      
+val consumer: Consumer[Long, Long] =
+    Consumer.foldLeft(0L)(_ + _)
+    
+val task: Task[Long] =
+    list.consumeWith(consumer)
+```
+
+You can find more examples in [Consumer documentation](./consumer.md).
+
+### FoldLeft Methods
+
+Any method suffixed with `L` in `Observable` API converts it into `Task`.
+
+For example you can use `firstL` to obtain the first element of the `Observable`:
+```scala
+// Task(0)
+val task: Task[Int] = Observable.range(0, 1000).firstL
+```
+
+Equivalent to the `Task` described in previous section would be:
+
+```scala
+val list: Observable[Long] = 
+    Observable.range(0, 1000)
+      .take(100)
+      .map(_ * 2)
+       
+val task: Task[Long] =
+    list.foldLeftL(0L)(_ + _)
+```
+## Building Observable
+
+You can find them in `Observable` companion object. Below are several examples:
+
+### Observable.pure (now)
+
+`Observable.pure` (alias for `now`) simply lifts an already known 
+value in the `Observable` context.
+
+```tut:silent
+val obs = Observable.now { println("Effect"); "Hello!" }
+//=> Effect
+// obs: monix.reactive.Observable[String] = NowObservable@327a283b
+```
+ 
+### Observable.delay (eval)
+
+`Observable.delay` (alias for `eval`) lifts non-strict
+value in the `Observable`. It is evaluated upon subscription.
+
+```tut:silent
+val obs = Observable.delay { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=> Effect
+//=> Hello!
+
+// The evaluation (and thus all contained side effects)
+// gets triggered on each runAsync:
+task.runAsync
+//=> Effect
+//=> Hello!
+```
+
+### Observable.evalOnce
+
+`Observable.evalOnce` takes a non-strict value and converts it into an Observable
+that emits a single element and that memoizes the value for subsequent invocations.
+It also has guaranteed idempotency and thread-safety:
+
+```tut:silent
+val obs = Observable.evalOnce { println("Effect"); "Hello!" }
+// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
+val task = obs.foreachL(println)
+// task: monix.eval.Task[Unit] = Task.Async$1782722529
+
+task.runAsync
+//=> Effect
+//=> Hello!
+
+// Result was memoized on the first run!
+task.runAsync.foreach(println)
+//=> Hello!
+```
+
+### Observable.fromIterable
+
+`Observable.fromIterable` converts any `Iterable` into `Observable`:
+
+```tut:silent
+val obs = Observable.fromIterable(List(1, 2, 3))
+// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
+
+obs.foreachL(println).runAsync
+//=> 1
+//=> 2
+//=> 3
+```
+
+### Observable.suspend (defer)
+
+`Observable.suspend` (alias for defer) allows suspending side effects:
+
+```tut:silent
+def readFile(path: String): Observable[String] = 
+    Observable.suspend {
+        // The side effect won't happen until subscription
+        val lines = Source.fromFile(path).getLines
+        Observable.fromIterator(lines)
+    }
+```
+
+### Observable.raiseError
+
+`Observable.raiseError` constructs an Observable that calls `onError` on any subscriber emitting specified `Exception`:
+
+```tut:silent
+val observable = Observable.raiseError[Int](new Exception("my exception"))
+// observable: monix.reactive.Observable[Int]
+
+observable
+  .onErrorHandle {ex => println(s"Got exception: ${ex.getMessage}"); 1}
+  .foreachL(println)
+//=> Got exception: my exception
+//=> 1
+```
+
+## Error Handling
+
+`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator.
+If you are curious what it gives you in practise, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
+
+Most of those methods (and more) are defined on `Observable` directly.
+
+Note that most errors should be handled at `effect` level, not using `Observable` error handling operators. If `Observable` encounters an error it cannot
+ignore the error and keep going, the best you can do without bigger machinery is to restart `Observable` or replace it with different one. Handling errors at
+`effect` level means doing so in `Task` or other `IO`-like data type in operators like `mapEval`.
+
+### handleError (onErrorHandle)
+
+`Observable.handleError` (alias for `onErrorHandle`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` emitting one specified element generated by given total function.
+
+```tut:silent
+import monix.reactive.Observable
+
+val observable = Observable(1, 2, 3) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorHandle(_ => 4)
+  .foreachL(println)
+//=> 1
+//=> 2
+//=> 3
+//=> 4
+```
+
+### handleErrorWith (onErrorHandleWith)
+
+`Observable.handleErrorWith` (alias for `onErrorHandleWith`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` generated by given total function.
+
+```tut:silent
+import monix.reactive.Observable
+
+val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorHandleWith(_ => Observable(3, 4))
+  .foreachL(println)
+//=> 1
+//=> 2
+//=> 3
+//=> 4
+```
+
+### recover (onErrorRecover)
+
+`Observable.recover` (alias for `onErrorRecover`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` emitting one specified element generated by given partial function. The difference between `recover` and `handleError` is that the latter takes total function as a parameter.
+
+### recoverWith (onErrorRecoverWith)
+
+`Observable.recoverWith` (alias for `onErrorRecoverWith`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` generated by given partial function. The difference between `recoverWith` and `handleErrorWith` is that the latter takes total function as a parameter.
+
+### onErrorFallbackTo
+
+`Observable.onErrorFallbackTo` mirrors the behavior of the source, unless it is terminated with an `onError`, in which case the streaming of events continues with the specified backup sequence regardless of error.
+
+```tut:silent
+import monix.reactive.Observable
+
+val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+
+observable
+  .onErrorFallbackTo(Observable(3, 4))
+  .foreachL(println)
+//=> 1
+//=> 2
+//=> 3
+//=> 4
+```
+
+This is equivalent to:
+```tut:silent
+observable
+  .handleErrorWith(_ => Observable(3, 4))
+```
+
+### onErrorRestart
+
+`Observable.onErrorRestart` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it tries subscribing to the source again in the hope that it will complete without an error.
+
+The number of retries is limited by the specifiec `maxRetries` parameter.
+
+There is also `onErrorRestartUnlimited` variant for unlimited number of retries.
+
+### onErrorRestartIf
+
+`Observable.onErrorRestartIf` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it invokes provided function and tries subscribing to the source again in the hope that it will complete without an error.
+
+```tut:silent
+import monix.reactive.Observable
+
+case object TimeoutException extends Exception
+
+val observable = Observable(1, 2) ++ Observable.raiseError(TimeoutException) ++ Observable(0)
+
+observable
+  .onErrorRestartIf {
+    case TimeoutException => true
+    case _ => false
+  }
+  .foreachL(println)
+//=> 1
+//=> 2
+//=> 3
+//=> 1
+//=> 2
+//=> 3
+// ... fails and restarts infinitely
+```
+
+## Reacting to internal events
+
+If you remember, `Observable` internally calls `onNext` on every element, `onError` during error and `onComplete` after
+stream completion. There are many many methods for executing given callback when the stream acquires specific type of event.
+Usually they start with `doOn` or `doAfter`.
+
+### doOnNext
+
+Executes given callback for each element generated by the source `Observable`, useful for doing side-effects.
+
+```tut:silent
+var counter = 0
+val observable = Observable(1, 2, 3)
+
+observable
+  .doOnNext(e => Task(counter += e)
+  .foreachL(e => println(s"elem: $e, counter: $counter"))
+//=> elem: 1, counter: 1
+//=> elem: 2, counter: 3
+//=> elem: 3, counter: 6
+```
+
+You could also write it completely referentially transparency using `Ref` from `Cats-Effect`:
+
+```tut:silent
+import cats.effect.concurrent.Ref
+import monix.eval.Task
+import monix.reactive.Observable
+
+def observable(counterRef: Ref[Task, Int]): Task[Unit] =
+  Observable(1, 2, 3)
+    .doOnNext(e => counterRef.update(_ + e))
+    .mapEval(e => counterRef.get.map(counter => println(s"elem: $e, counter: $counter")))
+    .completedL
+
+Ref[Task].of(0)
+  .flatMap(observable)
+//=> elem: 1, counter: 1
+//=> elem: 2, counter: 3
+//=> elem: 3, counter: 6
+```
+
+There is also `doOnNextF` variant which works for data types other than `Task`.
+
+## Subjects
+
+`Subject` acts both as an `Observer` and as an `Observable`. Use `Subject` if you need to send elements to `Observable`
+from other parts of the application.
+It is presented in the following example:
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.Ack
+import monix.reactive.subjects.ConcurrentSubject
+import monix.reactive.{MulticastStrategy, Observable, Observer}
+
+val subject: ConcurrentSubject[Int, Int] =
+  ConcurrentSubject[Int](MulticastStrategy.replay)
+
+def feedItem[A](observer: Observer[A], item: A): Task[Ack] = {
+  Task.deferFuture(observer.onNext(item))
+}
+
+def processStream[A](observable: Observable[A]): Task[Unit] = {
+  observable
+    .mapParallelUnordered(3)(i => Task(println(i)))
+    .completedL
+}
+
+Task
+  .parZip2(
+    feedItem(subject, 2),
+    processStream(subject)
+  )
+```
+
+Below are short characteristics for available types of `Subject`. For more information refer to descriptions and methods in
+`monix.reactive.subjects` package:
+
+- `AsyncSubject` emits the last value (and only the last value) emitted by the source and only after the source completes.
+- `BehaviorSubject` emits the most recently emitted item by the source, or the `initialValue` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation.
+- `ConcurrentSubject` allows feeding events without the need to respect the back-pressure (waiting on `Ack` after `onNext`). It is similar to [Actor](https://en.wikipedia.org/wiki/Actor_model) and can serve as its replacement in many cases.
+- `PublishSubject` emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.
+- `PublishToOneSubject` is a `PublishSubject` that can be susbcribed at most once.
+- `ReplaySubject` emits to a subscriber all of the items that were emitted by the source, regardless of when the observer subsribes.
+- `Var` emits the most recently emmited item by the source, or the `initial` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying `ConcurrentSubject`. This is equivalent to a `ConcurrentSubject.behavior(Unbounder)` with ability to expose the current value for immediate usage on top of that.
+
+## Hot and Cold Observables
+
+As mentioned before - by default `Observable` doesn't emit any items until something subscribes to it. 
+This type is called *cold Observable.*
+In cold Observable there is only one subscriber who is guaranteed to see all the emitted items.
+
+On the other hand there is also a notion of *hot Observable* denoted as `ConnectableObservable` whose source is shared between many subscribers. 
+It means that it matters when you subscribe to it and the order of subscription can affect your program.
+For this reason tread carefully when using `ConnectableObservable` because it breaks referential transparency.
+
+### Turning cold Observable into hot Observable
+
+There are several methods which turn `Observable` into `ConnectableObservable` using corresponding `Subject`.
+
+### Observable.publish (PublishSubject)
+`Observable.publish` will convert this `Observable` into a multicast `Observable` using
+`PublishSubject` which emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.
+
+```tut:silent
+var result = 0
+val observable = Observable(1, 2, 3).publish
+
+observable.foreach(e => result += e)
+
+// Start the streaming
+observable.connect()
+
+// result == 6
+
+// happens after all items are emitted so it doesn't add anything
+observable.foreach(e => result += e)
+
+// result == 6 
+```
+
+### Observable.publishLast (AsyncSubject)
+`Observable.publishLast` uses `AsyncSubject` as underlying `Subject` which emits only the last value emitted by the source
+and only after the source completes.
+
+```tut:silent
+var result = 0
+val observable = Observable(1, 2, 3).publishLast
+
+observable.foreach(e => result += e)
+
+// Start the streaming
+observable.connect()
+
+// result == 3
+```
+
+### Observable.replay (ReplaySubject)
+`Observable.replay` is powered by `ReplaySubject` which emits to any observer all of the items that were emitted by the source, 
+regardless of when the observer subscribes. 
+
+```tut:silent
+var result = 0
+val observable = Observable(1, 2, 3).replay
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e => result += e)
+
+// result == 6
+```
+
+It optionally takes `bufferSize` parameter which limits the number
+of items that can be replayed (on overflow the head starts being dropped):
+
+```tut:silent
+var result = 0
+val observable = Observable(1, 2, 3).replay(1)
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e => result += e)
+
+// result == 3
+```
+
+### Observable.behavior (BehaviorSubject)
+`Observable.behavior` relies on `BehaviorSubject` which is emitting the most recently emitted item by the source, or
+the `initialValue` (as the seed) in case no value has yet been emitted.
+
+```tut:silent
+var result = 0
+val observable = Observable(1, 2, 3).behavior(0)
+
+// Start the streaming
+observable.connect()
+
+observable.foreach(e => result += e)
+
+// result == 3
+```
+
+## Interoperability with other Streams API (Akka Streams, FS2)
+
+Due to compability with the [Reactive Streams](http://www.reactive-streams.org/)
+specification `Observable` allows good interoperability with other libraries.
+
+The next subsections contain examples how to convert between Monix `Observable` and
+two other popular streaming libraries but it should work in similar way with every other library
+compatible with Reactive Streams protocol.
+
+### Akka Streams
+
+Necessary imports and initialization for `Akka Streams`:
+
+```tut:silent
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+import akka._
+import akka.stream._
+import akka.stream.scaladsl._
+import akka.actor.ActorSystem
+
+implicit val system = ActorSystem("akka-streams")
+implicit val materializer = ActorMaterializer()
+```
+
+To convert Akka `Source` to Monix `Observable`:
+
+```tut:silent
+val source = Source(1 to 3)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
+
+val publisher = source.runWith(Sink.asPublisher[Int](fanout = false))
+// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
+```
+
+To go back from Monix `Observable` to Akka `Source`:
+
+```tut:silent
+val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val source = Source.fromPublisher(observable.toReactivePublisher)
+// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
+```
+
+### FS2
+
+To go between [FS2](https://github.com/functional-streams-for-scala/fs2) Stream 
+and Monix `Observable` you need to use [fs2-reactive-streams](https://github.com/zainab-ali/fs2-reactive-streams)
+library but conversion remains very straightforward.
+
+Necessary imports:
+
+```tut:silent
+import cats.effect._, fs2._
+import fs2.interop.reactivestreams._
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+```
+
+To convert FS2 `Stream` to Monix `Observable`:
+
+```tut:silent
+val stream = Stream(1, 2, 3).covary[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+
+val publisher = stream.toUnicastPublisher()
+// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
+
+val observable = Observable.fromReactivePublisher(publisher)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
+```
+
+To go back from Monix `Observable` to FS2 `Stream`:
+
+```tut:silent
+val observable = Observable(1, 2, 3)
+// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+
+val stream = observable.toReactivePublisher.toStream[IO]
+// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+```

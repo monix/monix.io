@@ -1,0 +1,849 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-RC2 - monix.catnap.ConcurrentQueue</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.catnap.ConcurrentQueue" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.catnap.ConcurrentQueue" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../lib/index.js"></script>
+      <script type="text/javascript" src="../../index.js"></script>
+      <script type="text/javascript" src="../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="../execution/index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="../execution/schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.catnap" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="catnap"></a><a id="catnap:catnap"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#catnap" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="index.html"><span class="name">catnap</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.catnap.cancelables" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cancelables"></a><a id="cancelables:cancelables"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/index.html#cancelables" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="cancelables/index.html"><span class="name">cancelables</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.catnap">catnap</a></dd></dl></div>
+    </li><li class="current-entities indented2">
+                        <a class="object" href="CancelableF$.html" title=""></a>
+                        <a class="trait" href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources."></a>
+                        <a href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources.">CancelableF</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="CircuitBreaker$.html" title=""></a>
+                        <a class="class" href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems."></a>
+                        <a href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems.">CircuitBreaker</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ConcurrentQueue$.html" title=""></a>
+                        <a class="class" href="" title="A high-performance, back-pressured, generic concurrent queue implementation."></a>
+                        <a href="" title="A high-performance, back-pressured, generic concurrent queue implementation.">ConcurrentQueue</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="FutureLift$.html" title=""></a>
+                        <a class="trait" href="FutureLift.html" title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g."></a>
+                        <a href="FutureLift.html" title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g.">FutureLift</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="MVar$.html" title=""></a>
+                        <a class="class" href="MVar.html" title="A mutable location, that is either empty or contains a value of type A."></a>
+                        <a href="MVar.html" title="A mutable location, that is either empty or contains a value of type A.">MVar</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="OrElse$.html" title=""></a>
+                        <a class="trait" href="OrElse.html" title="A type class for prioritized implicit search."></a>
+                        <a href="OrElse.html" title="A type class for prioritized implicit search.">OrElse</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Semaphore$.html" title=""></a>
+                        <a class="class" href="Semaphore.html" title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution."></a>
+                        <a href="Semaphore.html" title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution.">Semaphore</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="object" href="syntax$.html" title=""></a>
+                        <a href="syntax$.html" title="">syntax</a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="class type">
+      <div id="definition">
+        <a href="ConcurrentQueue$.html" title="See companion object"><div class="big-circle class-companion-object">c</div></a>
+        <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a>.<a href="index.html" class="extype" name="monix.catnap">catnap</a></p>
+        <h1><a href="ConcurrentQueue$.html" title="See companion object">ConcurrentQueue</a><span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        <h3><span class="morelinks"><div>
+            Companion <a href="ConcurrentQueue$.html" title="See companion object">object ConcurrentQueue</a>
+          </div></span></h3>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ConcurrentQueue</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A high-performance, back-pressured, generic concurrent queue implementation.</p><p>This is the pure and generic version of <a href="../execution/AsyncQueue.html" class="extype" name="monix.execution.AsyncQueue">monix.execution.AsyncQueue</a>.</p><h4>Example</h4><pre><span class="kw">import</span> cats.implicits._
+<span class="kw">import</span> cats.effect._
+<span class="kw">import</span> monix.execution.Scheduler.global
+
+<span class="cmt">// For being able to do IO.start</span>
+<span class="kw">implicit</span> <span class="kw">val</span> cs = global.contextShift[IO]
+<span class="cmt">// We need a `Timer` for this to work</span>
+<span class="kw">implicit</span> <span class="kw">val</span> timer = global.timer[IO]
+
+<span class="kw">def</span> consumer(queue: ConcurrentQueue[IO, <span class="std">Int</span>], index: <span class="std">Int</span>): IO[<span class="std">Unit</span>] =
+  queue.poll.flatMap { a <span class="kw">=&gt;</span>
+    println(s<span class="lit">"Worker $$index: $$a"</span>)
+    consumer(queue, index)
+  }
+
+<span class="kw">for</span> {
+  queue     <span class="kw">&lt;-</span> ConcurrentQueue[IO].bounded[<span class="std">Int</span>](capacity = <span class="num">32</span>)
+  consumer1 <span class="kw">&lt;-</span> consumer(queue, <span class="num">1</span>).start
+  consumer2 <span class="kw">&lt;-</span> consumer(queue, <span class="num">1</span>).start
+  <span class="cmt">// Pushing some samples</span>
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">1</span>)
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">2</span>)
+  _         <span class="kw">&lt;-</span> queue.offer(<span class="num">3</span>)
+  <span class="cmt">// Stopping the consumer loops</span>
+  _         <span class="kw">&lt;-</span> consumer1.cancel
+  _         <span class="kw">&lt;-</span> consumer2.cancel
+} <span class="kw">yield</span> ()</pre><h4>Back-Pressuring and the Polling Model</h4><p>The initialized queue can be limited to a maximum buffer size, a size
+that could be rounded to a power of 2, so you can't rely on it to be
+precise. Such a bounded queue can be initialized via
+<a href="ConcurrentQueue$.html#bounded[F[_],A](capacity:Int)(implicitF:cats.effect.Async[F],implicittimer:cats.effect.Timer[F]):F[monix.catnap.ConcurrentQueue[F,A]]" class="extmbr" name="monix.catnap.ConcurrentQueue#bounded">ConcurrentQueue.bounded</a>.
+Also see <a href="../execution/BufferCapacity.html" class="extype" name="monix.execution.BufferCapacity">BufferCapacity</a>, the
+configuration parameter that can be passed in the
+<a href="ConcurrentQueue$.html#custom[F[_],A](capacity:monix.execution.BufferCapacity,channelType:monix.execution.ChannelType)(implicitF:cats.effect.Async[F],implicittimer:cats.effect.Timer[F]):F[monix.catnap.ConcurrentQueue[F,A]]" class="extmbr" name="monix.catnap.ConcurrentQueue#custom">ConcurrentQueue.custom</a>
+builder.</p><p>On <a href="#offer(a:A):F[Unit]" class="extmbr" name="monix.catnap.ConcurrentQueue#offer">offer</a>, when the queue is full, the implementation back-pressures
+until the queue has room again in its internal buffer, the future being
+completed when the value was pushed successfully. Similarly <a href="#poll:F[A]" class="extmbr" name="monix.catnap.ConcurrentQueue#poll">poll</a> awaits
+the queue to have items in it. This works for both bounded and unbounded queues.</p><p>For both <code>offer</code> and <code>poll</code>, in case awaiting a result happens, the
+implementation does so asynchronously, without any threads being blocked.</p><p>Currently the implementation is optimized for speed. In a producer-consumer
+pipeline the best performance is achieved if the producer(s) and the
+consumer(s) do not contend for the same resources. This is why when
+doing asynchronous waiting for the queue to be empty or full, the
+implementation does so by repeatedly retrying the operation, with
+asynchronous boundaries and delays, until it succeeds. Fairness is
+ensured by the implementation.</p><h4>Multi-threading Scenario</h4><p>This queue support a <a href="../execution/ChannelType.html" class="extype" name="monix.execution.ChannelType">ChannelType</a>
+configuration, for fine tuning depending on the needed multi-threading
+scenario. And this can yield better performance:</p><ul><li><a href="../execution/ChannelType$$MPMC$.html" class="extype" name="monix.execution.ChannelType.MPMC">MPMC</a>:
+    multi-producer, multi-consumer</li><li><a href="../execution/ChannelType$$MPSC$.html" class="extype" name="monix.execution.ChannelType.MPSC">MPSC</a>:
+    multi-producer, single-consumer</li><li><a href="../execution/ChannelType$$SPMC$.html" class="extype" name="monix.execution.ChannelType.SPMC">SPMC</a>:
+    single-producer, multi-consumer</li><li><a href="../execution/ChannelType$$SPSC$.html" class="extype" name="monix.execution.ChannelType.SPSC">SPSC</a>:
+    single-producer, single-consumer</li></ul><p>The default is <code>MPMC</code>, because that's the safest scenario.</p><pre><span class="kw">import</span> monix.execution.ChannelType.MPSC
+<span class="kw">import</span> monix.execution.BufferCapacity.Bounded
+
+<span class="kw">val</span> queue = ConcurrentQueue[IO].custom[<span class="std">Int</span>](
+  capacity = Bounded(<span class="num">128</span>),
+  channelType = MPSC
+)</pre><p><b>WARNING</b>: default is <code>MPMC</code>, however any other scenario implies
+a relaxation of the internal synchronization between threads.</p><p>This means that using the wrong scenario can lead to severe
+concurrency bugs. If you're not sure what multi-threading scenario you
+have, then just stick with the default <code>MPMC</code>.
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-catnap/shared/src/main/scala/monix/catnap/ConcurrentQueue.scala" target="_blank">ConcurrentQueue.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.catnap.ConcurrentQueue"><span>ConcurrentQueue</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#!=(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html###():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#==(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#asInstanceOf[T0]:T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#clear" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clear:F[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#clear:F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clear</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Removes all items from the queue.</p><div class="fullcomment"><div class="comment cmt"><p>Removes all items from the queue.</p><p>Called from the consumer thread, subject to the restrictions appropriate
+to the implementation indicated by
+<a href="../execution/ChannelType.html" class="extype" name="monix.execution.ChannelType">ChannelType</a>.</p><p><b>WARNING:</b> the <code>clear</code> operation should be done on the consumer side,
+so it must be called from the same thread(s) that call <a href="#poll:F[A]" class="extmbr" name="monix.catnap.ConcurrentQueue#poll">poll</a>.
+</p></div></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#clone():Object" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#drain" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="drain(minLength:Int,maxLength:Int):F[Seq[A]]"></a><a id="drain(Int,Int):F[Seq[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#drain(minLength:Int,maxLength:Int):F[Seq[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">drain</span><span class="params">(<span name="minLength">minLength: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="maxLength">maxLength: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Fetches multiple elements from the queue, if available.</p><div class="fullcomment"><div class="comment cmt"><p>Fetches multiple elements from the queue, if available.</p><p>This operation back-pressures until the <code>minLength</code> requirement is
+achieved.
+</p></div><dl class="paramcmts block"><dt class="param">minLength</dt><dd class="cmt"><p>specifies the minimum length of the returned sequence;
+       the operation back-pressures until this length is satisfied</p></dd><dt class="param">maxLength</dt><dd class="cmt"><p>is the capacity of the used buffer, being the max
+       length of the returned sequence</p></dd><dt>returns</dt><dd class="cmt"><p>a future with a sequence of length between minLength and maxLength;
+        it can also be cancelled, interrupting the wait</p></dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#isInstanceOf[T0]:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#offer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="offer(a:A):F[Unit]"></a><a id="offer(A):F[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#offer(a:A):F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">offer</span><span class="params">(<span name="a">a: <span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span></span>)</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pushes a value in the queue, or if the queue is full, then repeats the
+operation until it succeeds.</p><div class="fullcomment"><div class="comment cmt"><p>Pushes a value in the queue, or if the queue is full, then repeats the
+operation until it succeeds.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a task that when evaluated, will complete with a value,
+        or wait until such a value is ready</p></dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#offerMany" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="offerMany(seq:A*):F[Unit]"></a><a id="offerMany(A*):F[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#offerMany(seq:A*):F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">offerMany</span><span class="params">(<span name="seq">seq: <span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span>*</span>)</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Pushes multiple values in the queue.</p><div class="fullcomment"><div class="comment cmt"><p>Pushes multiple values in the queue. Back-pressures if the queue is full.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a task that will eventually complete when the
+        push has succeeded; it can also be cancelled, interrupting the
+        waiting</p></dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#poll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="poll:F[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#poll:F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">poll</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Fetches a value from the queue, or if the queue is empty continuously
+polls the queue until a value is made available.</p><div class="fullcomment"><div class="comment cmt"><p>Fetches a value from the queue, or if the queue is empty continuously
+polls the queue until a value is made available.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>a task that when evaluated, will eventually complete
+        after the value has been successfully pushed in the queue</p></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#toString():String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#tryOffer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tryOffer(a:A):F[Boolean]"></a><a id="tryOffer(A):F[Boolean]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#tryOffer(a:A):F[Boolean]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tryOffer</span><span class="params">(<span name="a">a: <span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span></span>)</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Try pushing a value to the queue.</p><div class="fullcomment"><div class="comment cmt"><p>Try pushing a value to the queue.</p><p>The protocol is unsafe because usage of the &quot;try*&quot; methods imply an
+understanding of concurrency, or otherwise the code can be very
+fragile and buggy.
+</p></div><dl class="paramcmts block"><dt class="param">a</dt><dd class="cmt"><p>is the value pushed in the queue</p></dd><dt>returns</dt><dd class="cmt"><p><code>true</code> if the operation succeeded, or <code>false</code> if the queue is
+        full and cannot accept any more elements</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="../execution/annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.catnap.ConcurrentQueue#tryPoll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tryPoll:F[Option[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#tryPoll:F[Option[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tryPoll</span><span class="result">: <span class="extype" name="monix.catnap.ConcurrentQueue.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.catnap.ConcurrentQueue.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Try pulling a value out of the queue.</p><div class="fullcomment"><div class="comment cmt"><p>Try pulling a value out of the queue.</p><p>The protocol is unsafe because usage of the &quot;try*&quot; methods imply an
+understanding of concurrency, or otherwise the code can be very
+fragile and buggy.
+</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p><code>Some(a)</code> in case a value was successfully retrieved from the
+        queue, or <code>None</code> in case the queue is empty</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="../execution/annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/ConcurrentQueue.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

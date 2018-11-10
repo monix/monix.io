@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.execution.ExecutionModel</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.execution.ExecutionModel" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.execution.ExecutionModel" />
+          <title>Monix 3.0.0-RC2 - monix.execution.ExecutionModel</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.execution.ExecutionModel" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.execution.ExecutionModel" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="atomic/index.html" class="extyp
    useful <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -112,6 +117,22 @@ with asynchronous execution:</p><ul><li><a href="atomic/index.html" class="extyp
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution.annotations" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="annotations"></a><a id="annotations:annotations"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#annotations" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="annotations/index.html"><span class="name">annotations</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li name="monix.execution.atomic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="atomic"></a><a id="atomic:atomic"></a>
       <span class="permalink">
@@ -246,6 +267,26 @@ specification.
                         <a class="class" href="Ack.html" title="Represents an acknowledgement of processing that a consumer sends back upstream."></a>
                         <a href="Ack.html" title="Represents an acknowledgement of processing that a consumer sends back upstream.">Ack</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncQueue$.html" title=""></a>
+                        <a class="class" href="AsyncQueue.html" title="A high-performance, back-pressured, asynchronous queue implementation."></a>
+                        <a href="AsyncQueue.html" title="A high-performance, back-pressured, asynchronous queue implementation.">AsyncQueue</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncSemaphore$.html" title=""></a>
+                        <a class="class" href="AsyncSemaphore.html" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution."></a>
+                        <a href="AsyncSemaphore.html" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution.">AsyncSemaphore</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncVar$.html" title=""></a>
+                        <a class="class" href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A."></a>
+                        <a href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A.">AsyncVar</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="BufferCapacity$.html" title=""></a>
+                        <a class="class" href="BufferCapacity.html" title="Describes the capacity of internal buffers."></a>
+                        <a href="BufferCapacity.html" title="Describes the capacity of internal buffers.">BufferCapacity</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Callback$.html" title=""></a>
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation."></a>
+                        <a href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation.">Callback</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="Cancelable$.html" title=""></a>
                         <a class="trait" href="Cancelable.html" title="Represents a one-time idempotent action that can be used to cancel async computations, or to release resources that active data sources are holding."></a>
                         <a href="Cancelable.html" title="Represents a one-time idempotent action that can be used to cancel async computations, or to release resources that active data sources are holding.">Cancelable</a>
@@ -254,6 +295,14 @@ specification.
                         <a class="class" href="CancelableFuture.html" title="Represents an asynchronous computation that can be canceled as long as it isn't complete."></a>
                         <a href="CancelableFuture.html" title="Represents an asynchronous computation that can be canceled as long as it isn't complete.">CancelableFuture</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="CancelablePromise$.html" title=""></a>
+                        <a class="class" href="CancelablePromise.html" title="CancelablePromise is a scala.concurrent.Promise implementation that allows listeners to unsubscribe from receiving future results."></a>
+                        <a href="CancelablePromise.html" title="CancelablePromise is a scala.concurrent.Promise implementation that allows listeners to unsubscribe from receiving future results.">CancelablePromise</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ChannelType$.html" title=""></a>
+                        <a class="class" href="ChannelType.html" title="An enumeration of all types"></a>
+                        <a href="ChannelType.html" title="An enumeration of all types">ChannelType</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="" title=""></a>
                         <a class="class" href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler."></a>
                         <a href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler.">ExecutionModel</a>
@@ -261,10 +310,6 @@ specification.
                         <span class="separator"></span>
                         <a class="object" href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future."></a>
                         <a href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future.">FutureUtils</a>
-                      </li><li class="current-entities indented2">
-                        <a class="object" href="Listener$.html" title=""></a>
-                        <a class="trait" href="Listener.html" title="A simple listener interface, to be used in observer pattern implementations or for specifying asynchronous callbacks."></a>
-                        <a href="Listener.html" title="A simple listener interface, to be used in observer pattern implementations or for specifying asynchronous callbacks.">Listener</a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Scheduler$.html" title=""></a>
                         <a class="trait" href="Scheduler.html" title="A Scheduler is an scala.concurrent.ExecutionContext that additionally can schedule the execution of units of work to run with a delay or periodically."></a>
@@ -298,16 +343,16 @@ specification.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">ExecutionModel</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">ExecutionModel</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-execution/shared/src/main/scala/monix/execution/ExecutionModel.scala" target="_blank">ExecutionModel.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-execution/shared/src/main/scala/monix/execution/ExecutionModel.scala" target="_blank">ExecutionModel.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -367,7 +412,7 @@ specification.
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a title="ExecutionModel specifying an mixed execution mode under which tasks are executed synchronously in batches up to a maximum size." href="ExecutionModel$$BatchedExecution.html"><span class="name">BatchedExecution</span></a><span class="params">(<span name="batchSize">batchSize: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="ExecutionModel specifying an mixed execution mode under which tasks are executed synchronously in batches up to a maximum size." href="ExecutionModel$$BatchedExecution.html"><span class="name">BatchedExecution</span></a><span class="params">(<span name="batchSize">batchSize: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> specifying an mixed execution mode under
@@ -392,7 +437,7 @@ the configuration can be fine-tuned.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Extension methods for ExecutionModel." href="ExecutionModel$$Extensions.html"><span class="name">Extensions</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyVal" class="extype" name="scala.collection.immutable.List">AnyVal</a></span>
+        <a title="Extension methods for ExecutionModel." href="ExecutionModel$$Extensions.html"><span class="name">Extensions</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyVal.html#scala.AnyVal" class="extype" name="scala.AnyVal">AnyVal</a></span>
       </span>
       
       <p class="shortcomment cmt">Extension methods for <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>.</p>
@@ -416,7 +461,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -432,7 +477,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -448,7 +493,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -460,7 +505,7 @@ the configuration can be fine-tuned.
       </a>
     </span>
       <span class="modifier_kind">
-        <span class="modifier">final </span>
+        <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
@@ -496,7 +541,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -520,7 +565,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -536,7 +581,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -552,7 +597,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -593,7 +638,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -612,7 +657,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -628,7 +673,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -644,7 +689,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -663,7 +708,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -714,7 +759,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -736,7 +781,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -758,7 +803,7 @@ the configuration can be fine-tuned.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -782,7 +827,7 @@ the configuration can be fine-tuned.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="ExecutionModel that specifies a run-loop should always do async execution of tasks, forking logical threads on each step." href="ExecutionModel$$AlwaysAsyncExecution$.html"><span class="name">AlwaysAsyncExecution</span></a><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="ExecutionModel that specifies a run-loop should always do async execution of tasks, forking logical threads on each step." href="ExecutionModel$$AlwaysAsyncExecution$.html"><span class="name">AlwaysAsyncExecution</span></a><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> that specifies a run-loop should always do
@@ -800,7 +845,7 @@ on each step.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="ExecutionModel specifying that execution should be synchronous (immediate, trampolined) for as long as possible." href="ExecutionModel$$SynchronousExecution$.html"><span class="name">SynchronousExecution</span></a><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="ExecutionModel specifying that execution should be synchronous (immediate, trampolined) for as long as possible." href="ExecutionModel$$SynchronousExecution$.html"><span class="name">SynchronousExecution</span></a><span class="result"> extends <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> specifying that execution should be
@@ -816,13 +861,13 @@ synchronous (immediate, trampolined) for as long as possible.</p>
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

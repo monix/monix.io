@@ -118,8 +118,7 @@ val batched = source.flatMap { items =>
   // Sequencing batches, then flattening the final result
   val aggregate = Task.sequence(batches).map(_.flatten)
   // Converting into an observable, needed for flatMap
-  Observable.fromTask(aggregate)
-    .flatMap(i => Observable.fromIterator(i))
+  Observable.fromIterator(aggregate)
 }
 
 // Evaluation:
@@ -218,7 +217,7 @@ val observable: Observable[Long] = Observable.range(0, 100000)
 val task: Task[Long] = observable.consumeWith(loadBalancer)
 
 // Consume the whole stream and get the result
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> 4999950000
 ```
 

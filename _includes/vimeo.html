@@ -1,0 +1,21 @@
+{% capture vimeo %}{% if page.vimeo %}{{ page.vimeo }}{% else %}{{ include.vimeo }}{% endif -%}{% endcapture -%}
+<div id="video-frame" class="presentation" style="padding-bottom: {{ include.ratio }}%;">
+<iframe src="{{ vimeo | vimeo_player_link }}"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen>
+</iframe>
+</div>
+
+<div id="video-download">
+  View or Download Raw Video ▾
+  <ul>
+  </ul>
+</div>
+
+<script language="javascript">
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    initVimeo("{{ vimeo }}");
+  });
+</script>

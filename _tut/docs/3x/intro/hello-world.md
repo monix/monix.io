@@ -47,7 +47,7 @@ a `Future` and evaluate it:
 ```tut:book
 // Actual execution, making use of the Scheduler in
 // our scope, imported above
-val future = task.runAsync
+val future = task.runToFuture
 ```
 
 We now have a standard `Future`, so we can use its result:

@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.tail.batches.BatchCursor</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.tail.batches.BatchCursor" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.tail.batches.BatchCursor" />
+          <title>Monix 3.0.0-RC2 - monix.tail.batches.BatchCursor</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.tail.batches.BatchCursor" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.tail.batches.BatchCursor" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
    useful <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -190,6 +195,10 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
                         <a href="GenericBatch.html" title="Reusable Batch base class that can be used for implementing generators that simply modify their underlying cursor reference.">GenericBatch</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="GenericCursor.html" title="Reusable BatchCursor base class that can be used for implementing cursors by just providing the primitive operations, hasNext, next and recommendedBatchSize."></a>
+                        <a href="GenericCursor.html" title="Reusable BatchCursor base class that can be used for implementing cursors by just providing the primitive operations, hasNext, next and recommendedBatchSize.">GenericCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="IntegersBatch.html" title="Batch implementation specialized for Int."></a>
                         <a href="IntegersBatch.html" title="Batch implementation specialized for Int.">IntegersBatch</a>
                       </li><li class="current-entities indented3">
@@ -237,16 +246,16 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">BatchCursor</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">BatchCursor</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> builders.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-tail/shared/src/main/scala/monix/tail/batches/BatchCursor.scala" target="_blank">BatchCursor.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> builders.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-tail/shared/src/main/scala/monix/tail/batches/BatchCursor.scala" target="_blank">BatchCursor.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -311,7 +320,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -327,7 +336,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -343,7 +352,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -391,7 +400,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">booleans</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BooleansCursor.html" class="extype" name="monix.tail.batches.BooleansCursor">BooleansCursor</a></span>
+        <span class="name">booleans</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BooleansCursor.html" class="extype" name="monix.tail.batches.BooleansCursor">BooleansCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Boolean</code>.
@@ -411,7 +420,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">booleans</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="result">: <a href="BooleansCursor.html" class="extype" name="monix.tail.batches.BooleansCursor">BooleansCursor</a></span>
+        <span class="name">booleans</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="result">: <a href="BooleansCursor.html" class="extype" name="monix.tail.batches.BooleansCursor">BooleansCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Boolean</code>.
@@ -429,7 +438,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bytes</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BytesCursor.html" class="extype" name="monix.tail.batches.BytesCursor">BytesCursor</a></span>
+        <span class="name">bytes</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BytesCursor.html" class="extype" name="monix.tail.batches.BytesCursor">BytesCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Byte</code>.
@@ -449,7 +458,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bytes</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>)</span><span class="result">: <a href="BytesCursor.html" class="extype" name="monix.tail.batches.BytesCursor">BytesCursor</a></span>
+        <span class="name">bytes</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>)</span><span class="result">: <a href="BytesCursor.html" class="extype" name="monix.tail.batches.BytesCursor">BytesCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Byte</code>.
@@ -467,7 +476,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">chars</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="CharsCursor.html" class="extype" name="monix.tail.batches.CharsCursor">CharsCursor</a></span>
+        <span class="name">chars</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="CharsCursor.html" class="extype" name="monix.tail.batches.CharsCursor">CharsCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Char</code>.
@@ -487,7 +496,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">chars</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>)</span><span class="result">: <a href="CharsCursor.html" class="extype" name="monix.tail.batches.CharsCursor">CharsCursor</a></span>
+        <span class="name">chars</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>)</span><span class="result">: <a href="CharsCursor.html" class="extype" name="monix.tail.batches.CharsCursor">CharsCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Char</code>.
@@ -505,7 +514,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -548,7 +557,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">doubles</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="DoublesCursor.html" class="extype" name="monix.tail.batches.DoublesCursor">DoublesCursor</a></span>
+        <span class="name">doubles</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="DoublesCursor.html" class="extype" name="monix.tail.batches.DoublesCursor">DoublesCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Double</code>.
@@ -568,7 +577,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">doubles</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>)</span><span class="result">: <a href="DoublesCursor.html" class="extype" name="monix.tail.batches.DoublesCursor">DoublesCursor</a></span>
+        <span class="name">doubles</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>)</span><span class="result">: <a href="DoublesCursor.html" class="extype" name="monix.tail.batches.DoublesCursor">DoublesCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Double</code>.
@@ -602,7 +611,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -618,7 +627,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -634,7 +643,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -656,16 +665,15 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromAnyArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[_]</span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromAnyArray.A">A</span>]</span>
+        <span class="name">fromAnyArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[_]</span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromAnyArray.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a> instance
         from any array of boxed values.</p><div class="fullcomment"><div class="comment cmt"><p>Builds an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a> instance
         from any array of boxed values.</p><p>        This will have lower performance than working with
-        <a href="#fromArray[A](array:Array[A])(implicitevidence$2:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]" class="extmbr" name="monix.tail.batches.BatchCursor#fromArray">BatchCursor.fromArray</a>,
+        <a href="#fromArray[A](array:Array[A]):monix.tail.batches.ArrayCursor[A]" class="extmbr" name="monix.tail.batches.BatchCursor#fromArray">BatchCursor.fromArray</a>,
         since the values are boxed, however there is no requirement for a
-        <a href="http://www.scala-lang.org/api/2.12.4/scala/reflect/ClassTag.html" class="extype" name="scala.reflect.ClassTag">ClassTag</a> and thus it can
-        be used in any generic context.</p></div><dl class="paramcmts block"><dt class="param">array</dt><dd class="cmt"><p>is the underlying reference to use for traversing
+        <code>ClassTag</code> and thus it can be used in any generic context.</p></div><dl class="paramcmts block"><dt class="param">array</dt><dd class="cmt"><p>is the underlying reference to use for traversing
         and transformations</p></dd></dl></div>
     </li><li name="monix.tail.batches.BatchCursor#fromAnyArray" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromAnyArray[A](array:Array[_],offset:Int,length:Int):monix.tail.batches.ArrayCursor[A]"></a><a id="fromAnyArray[A](Array[_],Int,Int):ArrayCursor[A]"></a>
@@ -679,23 +687,22 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromAnyArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[_]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromAnyArray.A">A</span>]</span>
+        <span class="name">fromAnyArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[_]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromAnyArray.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a> instance
         from any array of boxed values.</p><div class="fullcomment"><div class="comment cmt"><p>Builds an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a> instance
         from any array of boxed values.</p><p>        This will have lower performance than working with
-        <a href="#fromArray[A](array:Array[A])(implicitevidence$2:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]" class="extmbr" name="monix.tail.batches.BatchCursor#fromArray">BatchCursor.fromArray</a>,
+        <a href="#fromArray[A](array:Array[A]):monix.tail.batches.ArrayCursor[A]" class="extmbr" name="monix.tail.batches.BatchCursor#fromArray">BatchCursor.fromArray</a>,
         since the values are boxed, however there is no requirement for a
-        <a href="http://www.scala-lang.org/api/2.12.4/scala/reflect/ClassTag.html" class="extype" name="scala.reflect.ClassTag">ClassTag</a> and thus it can
-        be used in any generic context.</p></div><dl class="paramcmts block"><dt class="param">array</dt><dd class="cmt"><p>is the underlying reference to use for traversing
+        <code>ClassTag</code> and thus it can be used in any generic context.</p></div><dl class="paramcmts block"><dt class="param">array</dt><dd class="cmt"><p>is the underlying reference to use for traversing
         and transformations</p></dd><dt class="param">offset</dt><dd class="cmt"><p>is the offset to start from, which would have
         been zero by default</p></dd><dt class="param">length</dt><dd class="cmt"><p>is the length of created cursor, which would
         have been <code>array.length</code> by default</p></dd></dl></div>
     </li><li name="monix.tail.batches.BatchCursor#fromArray" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromArray[A](array:Array[A],offset:Int,length:Int)(implicitevidence$3:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]"></a><a id="fromArray[A](Array[A],Int,Int)(ClassTag[A]):ArrayCursor[A]"></a>
+      <a id="fromArray[A](array:Array[A],offset:Int,length:Int):monix.tail.batches.ArrayCursor[A]"></a><a id="fromArray[A](Array[A],Int,Int):ArrayCursor[A]"></a>
       <span class="permalink">
-      <a href="../../../monix/tail/batches/BatchCursor$.html#fromArray[A](array:Array[A],offset:Int,length:Int)(implicitevidence$3:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]" title="Permalink">
+      <a href="../../../monix/tail/batches/BatchCursor$.html#fromArray[A](array:Array[A],offset:Int,length:Int):monix.tail.batches.ArrayCursor[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -704,7 +711,7 @@ an expression. The expression is recomputed for every element.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/reflect/ClassTag.html#scala.reflect.ClassTag" class="extype" name="scala.reflect.ClassTag">ClassTag</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>
+        <span class="name">fromArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> from a standard <code>Array</code>, with strict
@@ -715,9 +722,9 @@ semantics on transformations.
         been zero by default</p></dd><dt class="param">length</dt><dd class="cmt"><p>is the length of created cursor, which would
         have been <code>array.length</code> by default</p></dd></dl></div>
     </li><li name="monix.tail.batches.BatchCursor#fromArray" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="fromArray[A](array:Array[A])(implicitevidence$2:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]"></a><a id="fromArray[A](Array[A])(ClassTag[A]):ArrayCursor[A]"></a>
+      <a id="fromArray[A](array:Array[A]):monix.tail.batches.ArrayCursor[A]"></a><a id="fromArray[A](Array[A]):ArrayCursor[A]"></a>
       <span class="permalink">
-      <a href="../../../monix/tail/batches/BatchCursor$.html#fromArray[A](array:Array[A])(implicitevidence$2:scala.reflect.ClassTag[A]):monix.tail.batches.ArrayCursor[A]" title="Permalink">
+      <a href="../../../monix/tail/batches/BatchCursor$.html#fromArray[A](array:Array[A]):monix.tail.batches.ArrayCursor[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -726,7 +733,7 @@ semantics on transformations.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/reflect/ClassTag.html#scala.reflect.ClassTag" class="extype" name="scala.reflect.ClassTag">ClassTag</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>
+        <span class="name">fromArray</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>)</span><span class="result">: <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromArray.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> from a standard <code>Array</code>, with strict
@@ -763,11 +770,11 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="iter">iter: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>, <span name="recommendedBatchSize">recommendedBatchSize: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>
+        <span class="name">fromIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="iter">iter: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>, <span name="recommendedBatchSize">recommendedBatchSize: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Converts a Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.
-</p></div><dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>is the <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>
+      <p class="shortcomment cmt">Converts a Scala <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a Scala <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.
+</p></div><dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>is the <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>
        to wrap in a <code>BatchCursor</code> instance</p></dd><dt class="param">recommendedBatchSize</dt><dd class="cmt"><p>specifies the
        <a href="BatchCursor.html#recommendedBatchSize:Int" class="extmbr" name="monix.tail.batches.BatchCursor#recommendedBatchSize">BatchCursor.recommendedBatchSize</a> for the resulting
        <code>BatchCursor</code> instance, specifying the batch size when
@@ -787,8 +794,8 @@ semantics on transformations.</p>
         <span class="name">fromIterator</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="iter">iter: <span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromIterator.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Converts a Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.
-</p></div><dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>is the <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>
+      <p class="shortcomment cmt">Converts a Scala <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts a Scala <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">scala.collection.Iterator</a> into a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>.
+</p></div><dl class="paramcmts block"><dt class="param">iter</dt><dd class="cmt"><p>is the <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a>
        to wrap in a <code>BatchCursor</code> instance</p></dd></dl></div>
     </li><li name="monix.tail.batches.BatchCursor#fromSeq" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="fromSeq[A](seq:Seq[A],recommendedBatchSize:Int):monix.tail.batches.BatchCursor[A]"></a><a id="fromSeq[A](Seq[A],Int):BatchCursor[A]"></a>
@@ -802,7 +809,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromSeq</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="seq">seq: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.batches.BatchCursor.fromSeq.A">A</span>]</span>, <span name="recommendedBatchSize">recommendedBatchSize: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromSeq.A">A</span>]</span>
+        <span class="name">fromSeq</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="seq">seq: <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.batches.BatchCursor.fromSeq.A">A</span>]</span>, <span name="recommendedBatchSize">recommendedBatchSize: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.BatchCursor.fromSeq.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> from a Scala <code>Seq</code>, with lazy
@@ -855,7 +862,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -874,7 +881,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">integers</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="IntegersCursor.html" class="extype" name="monix.tail.batches.IntegersCursor">IntegersCursor</a></span>
+        <span class="name">integers</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="IntegersCursor.html" class="extype" name="monix.tail.batches.IntegersCursor">IntegersCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Int</code>.
@@ -894,7 +901,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">integers</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>)</span><span class="result">: <a href="IntegersCursor.html" class="extype" name="monix.tail.batches.IntegersCursor">IntegersCursor</a></span>
+        <span class="name">integers</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>)</span><span class="result">: <a href="IntegersCursor.html" class="extype" name="monix.tail.batches.IntegersCursor">IntegersCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Int</code>.
@@ -912,7 +919,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -928,7 +935,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">longs</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="LongsCursor.html" class="extype" name="monix.tail.batches.LongsCursor">LongsCursor</a></span>
+        <span class="name">longs</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>, <span name="offset">offset: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="length">length: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="LongsCursor.html" class="extype" name="monix.tail.batches.LongsCursor">LongsCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Long</code>.
@@ -948,7 +955,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">longs</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.4/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>)</span><span class="result">: <a href="LongsCursor.html" class="extype" name="monix.tail.batches.LongsCursor">LongsCursor</a></span>
+        <span class="name">longs</span><span class="params">(<span name="array">array: <a href="http://www.scala-lang.org/api/2.12.7/scala/Array.html#scala.Array" class="extype" name="scala.Array">Array</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>)</span><span class="result">: <a href="LongsCursor.html" class="extype" name="monix.tail.batches.LongsCursor">LongsCursor</a></span>
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> specialized for <code>Long</code>.
@@ -966,7 +973,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -982,7 +989,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1001,7 +1008,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1020,7 +1027,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">range</span><span class="params">(<span name="from">from: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="until">until: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="step">step: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a> = <span class="symbol">1</span></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+        <span class="name">range</span><span class="params">(<span name="from">from: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="until">until: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="step">step: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a> = <span class="symbol">1</span></span>)</span><span class="result">: <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
       <p class="shortcomment cmt">A cursor producing equally spaced values in some integer interval.</p><div class="fullcomment"><div class="comment cmt"><p>A cursor producing equally spaced values in some integer interval.
@@ -1069,7 +1076,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1091,7 +1098,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1113,7 +1120,7 @@ semantics on transformations.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1136,13 +1143,13 @@ semantics on transformations.</p>
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

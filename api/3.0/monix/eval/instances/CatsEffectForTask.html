@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.eval.instances.CatsEffectForTask</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.eval.instances.CatsEffectForTask" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.eval.instances.CatsEffectForTask" />
+          <title>Monix 3.0.0-RC2 - monix.eval.instances.CatsEffectForTask</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.eval.instances.CatsEffectForTask" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.eval.instances.CatsEffectForTask" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
    useful <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -200,11 +205,11 @@ in order to trigger the execution of a <code>Task</code>. However we cannot
 inherit directly from <code>CatsAsyncForTask</code>, because it would create
 conflicts due to that one having a higher priority but being a
 super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" target="_blank">typelevel/cats</a></li><li><a href="https://github.com/typelevel/cats-effect" target="_blank">typelevel/cats-effect</a>
-</li></ul></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-eval/shared/src/main/scala/monix/eval/instances/CatsEffectForTask.scala" target="_blank">CatsEffectForTask.scala</a></dd></dl><div class="toggleContainer block">
+</li></ul></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/instances/CatsEffectForTask.scala" target="_blank">CatsEffectForTask.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="cats.effect.Effect">Effect</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.Async">Async</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.LiftIO">LiftIO</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a>, <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="http://typelevel.org/cats/api/cats/Monad.html#cats.Monad" class="extype" name="cats.Monad">Monad</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/FlatMap.html#cats.FlatMap" class="extype" name="cats.FlatMap">FlatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/ApplicativeError.html#cats.ApplicativeError" class="extype" name="cats.ApplicativeError">ApplicativeError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/InvariantMonoidal.html#cats.InvariantMonoidal" class="extype" name="cats.InvariantMonoidal">InvariantMonoidal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Apply.html#cats.Apply" class="extype" name="cats.Apply">Apply</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/ApplyArityFunctions.html#cats.ApplyArityFunctions" class="extype" name="cats.ApplyArityFunctions">ApplyArityFunctions</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/InvariantSemigroupal.html#cats.InvariantSemigroupal" class="extype" name="cats.InvariantSemigroupal">InvariantSemigroupal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Semigroupal.html#cats.Semigroupal" class="extype" name="cats.Semigroupal">Semigroupal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Functor.html#cats.Functor" class="extype" name="cats.Functor">Functor</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Invariant.html#cats.Invariant" class="extype" name="cats.Invariant">Invariant</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="cats.effect.Effect">Effect</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.Async">Async</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.LiftIO">LiftIO</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Defer.html#cats.Defer" class="extype" name="cats.Defer">Defer</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.effect.Bracket">Bracket</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a>, <span class="extype" name="cats.SemigroupK">SemigroupK</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <span class="extype" name="cats.CoflatMap">CoflatMap</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="http://typelevel.org/cats/api/cats/Monad.html#cats.Monad" class="extype" name="cats.Monad">Monad</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/FlatMap.html#cats.FlatMap" class="extype" name="cats.FlatMap">FlatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/ApplicativeError.html#cats.ApplicativeError" class="extype" name="cats.ApplicativeError">ApplicativeError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>], <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/InvariantMonoidal.html#cats.InvariantMonoidal" class="extype" name="cats.InvariantMonoidal">InvariantMonoidal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Apply.html#cats.Apply" class="extype" name="cats.Apply">Apply</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/ApplyArityFunctions.html#cats.ApplyArityFunctions" class="extype" name="cats.ApplyArityFunctions">ApplyArityFunctions</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/InvariantSemigroupal.html#cats.InvariantSemigroupal" class="extype" name="cats.InvariantSemigroupal">InvariantSemigroupal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Semigroupal.html#cats.Semigroupal" class="extype" name="cats.Semigroupal">Semigroupal</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Functor.html#cats.Functor" class="extype" name="cats.Functor">Functor</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://typelevel.org/cats/api/cats/Invariant.html#cats.Invariant" class="extype" name="cats.Invariant">Invariant</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div><div class="toggleContainer block">
             <span class="toggle">
               Known Subclasses
@@ -235,7 +240,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.eval.instances.CatsEffectForTask"><span>CatsEffectForTask</span></li><li class="in" name="cats.effect.Effect"><span>Effect</span></li><li class="in" name="cats.effect.Async"><span>Async</span></li><li class="in" name="cats.effect.LiftIO"><span>LiftIO</span></li><li class="in" name="cats.effect.Sync"><span>Sync</span></li><li class="in" name="monix.eval.instances.CatsBaseForTask"><span>CatsBaseForTask</span></li><li class="in" name="cats.CoflatMap"><span>CoflatMap</span></li><li class="in" name="cats.MonadError"><span>MonadError</span></li><li class="in" name="cats.Monad"><span>Monad</span></li><li class="in" name="cats.FlatMap"><span>FlatMap</span></li><li class="in" name="cats.ApplicativeError"><span>ApplicativeError</span></li><li class="in" name="cats.Applicative"><span>Applicative</span></li><li class="in" name="cats.InvariantMonoidal"><span>InvariantMonoidal</span></li><li class="in" name="cats.Apply"><span>Apply</span></li><li class="in" name="cats.ApplyArityFunctions"><span>ApplyArityFunctions</span></li><li class="in" name="cats.InvariantSemigroupal"><span>InvariantSemigroupal</span></li><li class="in" name="cats.Semigroupal"><span>Semigroupal</span></li><li class="in" name="cats.Functor"><span>Functor</span></li><li class="in" name="cats.Invariant"><span>Invariant</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.eval.instances.CatsEffectForTask"><span>CatsEffectForTask</span></li><li class="in" name="cats.effect.Effect"><span>Effect</span></li><li class="in" name="cats.effect.Async"><span>Async</span></li><li class="in" name="cats.effect.LiftIO"><span>LiftIO</span></li><li class="in" name="cats.effect.Sync"><span>Sync</span></li><li class="in" name="cats.Defer"><span>Defer</span></li><li class="in" name="cats.effect.Bracket"><span>Bracket</span></li><li class="in" name="monix.eval.instances.CatsBaseForTask"><span>CatsBaseForTask</span></li><li class="in" name="cats.SemigroupK"><span>SemigroupK</span></li><li class="in" name="cats.CoflatMap"><span>CoflatMap</span></li><li class="in" name="cats.MonadError"><span>MonadError</span></li><li class="in" name="cats.Monad"><span>Monad</span></li><li class="in" name="cats.FlatMap"><span>FlatMap</span></li><li class="in" name="cats.ApplicativeError"><span>ApplicativeError</span></li><li class="in" name="cats.Applicative"><span>Applicative</span></li><li class="in" name="cats.InvariantMonoidal"><span>InvariantMonoidal</span></li><li class="in" name="cats.Apply"><span>Apply</span></li><li class="in" name="cats.ApplyArityFunctions"><span>ApplyArityFunctions</span></li><li class="in" name="cats.InvariantSemigroupal"><span>InvariantSemigroupal</span></li><li class="in" name="cats.Semigroupal"><span>Semigroupal</span></li><li class="in" name="cats.Functor"><span>Functor</span></li><li class="in" name="cats.Invariant"><span>Invariant</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -256,9 +261,9 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="monix.eval.instances.CatsEffectForTask#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;()(implicits:monix.execution.Scheduler):monix.eval.instances.CatsEffectForTask"></a><a id="&lt;init&gt;:CatsEffectForTask"></a>
+      <a id="&lt;init&gt;()(implicits:monix.execution.Scheduler,implicitopts:monix.eval.Task.Options):monix.eval.instances.CatsEffectForTask"></a><a id="&lt;init&gt;:CatsEffectForTask"></a>
       <span class="permalink">
-      <a href="../../../monix/eval/instances/CatsEffectForTask.html#&lt;init&gt;()(implicits:monix.execution.Scheduler):monix.eval.instances.CatsEffectForTask" title="Permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#&lt;init&gt;()(implicits:monix.execution.Scheduler,implicitopts:monix.eval.Task.Options):monix.eval.instances.CatsEffectForTask" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -267,7 +272,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">CatsEffectForTask</span><span class="params">()</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span>
+        <span class="name">CatsEffectForTask</span><span class="params">()</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="../Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span>
       </span>
       
       
@@ -293,7 +298,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -309,7 +314,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -382,7 +387,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -398,10 +403,26 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">adaptError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.adaptError.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.Throwable">Throwable</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.adaptError.A">A</span>]</span>
+        <span class="name">adaptError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.adaptError.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.Throwable">Throwable</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.adaptError.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MonadError</dd></dl></div>
+    </li><li name="cats.SemigroupK#algebra" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="algebra[A]:cats.Semigroup[F[A]]"></a><a id="algebra[A]:Semigroup[Task[A]]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#algebra[A]:cats.Semigroup[F[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">algebra</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <span class="extype" name="cats.Semigroup">Semigroup</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.SemigroupK.algebra.A">A</span>]]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>SemigroupK</dd></dl></div>
     </li><li name="monix.eval.instances.CatsBaseForTask#ap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ap[A,B](ff:monix.eval.Task[A=&gt;B])(fa:monix.eval.Task[A]):monix.eval.Task[B]"></a><a id="ap[A,B](Task[(A)⇒B])(Task[A]):Task[B]"></a>
       <span class="permalink">
@@ -798,7 +819,23 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">async</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="k">k: ((<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsEffectForTask.async.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.async.A">A</span>]</span>
+        <span class="name">async</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="k">k: ((<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsEffectForTask.async.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.async.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> → Async</dd></dl></div>
+    </li><li name="monix.eval.instances.CatsEffectForTask#asyncF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asyncF[A](k:(Either[Throwable,A]=&gt;Unit)=&gt;monix.eval.Task[Unit]):monix.eval.Task[A]"></a><a id="asyncF[A](((Either[Throwable,A])⇒Unit)⇒Task[Unit]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#asyncF[A](k:(Either[Throwable,A]=&gt;Unit)=&gt;monix.eval.Task[Unit]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asyncF</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="k">k: ((<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsEffectForTask.asyncF.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.asyncF.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> → Async</dd></dl></div>
@@ -834,6 +871,38 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ApplicativeError</dd></dl></div>
+    </li><li name="monix.eval.instances.CatsEffectForTask#bracket" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bracket[A,B](acquire:monix.eval.Task[A])(use:A=&gt;monix.eval.Task[B])(release:A=&gt;monix.eval.Task[Unit]):monix.eval.Task[B]"></a><a id="bracket[A,B](Task[A])((A)⇒Task[B])((A)⇒Task[Unit]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#bracket[A,B](acquire:monix.eval.Task[A])(use:A=&gt;monix.eval.Task[B])(release:A=&gt;monix.eval.Task[Unit]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">bracket</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="acquire">acquire: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracket.A">A</span>]</span>)</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracket.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracket.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracket.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracket.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> → Bracket</dd></dl></div>
+    </li><li name="monix.eval.instances.CatsEffectForTask#bracketCase" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bracketCase[A,B](acquire:monix.eval.Task[A])(use:A=&gt;monix.eval.Task[B])(release:(A,cats.effect.ExitCase[Throwable])=&gt;monix.eval.Task[Unit]):monix.eval.Task[B]"></a><a id="bracketCase[A,B](Task[A])((A)⇒Task[B])((A,ExitCase[Throwable])⇒Task[Unit]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#bracketCase[A,B](acquire:monix.eval.Task[A])(use:A=&gt;monix.eval.Task[B])(release:(A,cats.effect.ExitCase[Throwable])=&gt;monix.eval.Task[Unit]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">bracketCase</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="acquire">acquire: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracketCase.A">A</span>]</span>)</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracketCase.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracketCase.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracketCase.A">A</span>, <span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.bracketCase.B">B</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> → Bracket</dd></dl></div>
     </li><li name="monix.eval.instances.CatsBaseForTask#catchNonFatal" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="catchNonFatal[A](a:=&gt;A)(implicitev:Throwable&lt;:&lt;Throwable):monix.eval.Task[A]"></a><a id="catchNonFatal[A](⇒A)(&lt;:&lt;[Throwable,Throwable]):Task[A]"></a>
       <span class="permalink">
@@ -878,7 +947,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -922,6 +991,38 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → CoflatMap</dd></dl></div>
+    </li><li name="monix.eval.instances.CatsBaseForTask#combineK" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="combineK[A](ta:monix.eval.Task[A],tb:monix.eval.Task[A]):monix.eval.Task[A]"></a><a id="combineK[A](Task[A],Task[A]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#combineK[A](ta:monix.eval.Task[A],tb:monix.eval.Task[A]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">combineK</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="ta">ta: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.combineK.A">A</span>]</span>, <span name="tb">tb: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.combineK.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.combineK.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → SemigroupK</dd></dl></div>
+    </li><li name="cats.SemigroupK#compose" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="compose[G[_]]:cats.SemigroupK[[α]F[G[α]]]"></a><a id="compose[G[_]]:SemigroupK[[α]Task[G[α]]]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#compose[G[_]]:cats.SemigroupK[[α]F[G[α]]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">compose</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result">: <span class="extype" name="cats.SemigroupK">SemigroupK</span>[[α]<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.SemigroupK.compose.G">G</span>[<span class="extype" name="cats.SemigroupK.&lt;refinement&gt;.Λ$.α">α</span>]]]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>SemigroupK</dd></dl></div>
     </li><li name="cats.Applicative#compose" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="compose[G[_]](implicitevidence$1:cats.Applicative[G]):cats.Applicative[[α]F[G[α]]]"></a><a id="compose[G[_]](Applicative[G]):Applicative[[α]Task[G[α]]]"></a>
       <span class="permalink">
@@ -1014,7 +1115,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">composeContravariant</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/Contravariant.html#cats.Contravariant" class="extype" name="cats.Contravariant">Contravariant</a>[<span class="extype" name="cats.Functor.composeContravariant.G">G</span>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/Contravariant.html#cats.Contravariant" class="extype" name="cats.Contravariant">Contravariant</a>[[α]<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Functor.composeContravariant.G">G</span>[<span class="extype" name="cats.Functor.&lt;refinement&gt;.Λ$.α">α</span>]]]</span>
+        <span class="name">composeContravariant</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.Contravariant">Contravariant</span>[<span class="extype" name="cats.Functor.composeContravariant.G">G</span>]</span>)</span><span class="result">: <span class="extype" name="cats.Contravariant">Contravariant</span>[[α]<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Functor.composeContravariant.G">G</span>[<span class="extype" name="cats.Functor.&lt;refinement&gt;.Λ$.α">α</span>]]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Functor → Invariant</dd></dl></div>
@@ -1030,7 +1131,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">composeContravariantMonoidal</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="cats.ContravariantMonoidal">ContravariantMonoidal</span>[<span class="extype" name="cats.Applicative.composeContravariantMonoidal.G">G</span>]</span>)</span><span class="result">: <span class="extype" name="cats.ContravariantMonoidal">ContravariantMonoidal</span>[[α]<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.composeContravariantMonoidal.G">G</span>[<span class="extype" name="cats.Applicative.&lt;refinement&gt;.Λ$.α">α</span>]]]</span>
+        <span class="name">composeContravariantMonoidal</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="http://typelevel.org/cats/api/cats/ContravariantMonoidal.html#cats.ContravariantMonoidal" class="extype" name="cats.ContravariantMonoidal">ContravariantMonoidal</a>[<span class="extype" name="cats.Applicative.composeContravariantMonoidal.G">G</span>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/ContravariantMonoidal.html#cats.ContravariantMonoidal" class="extype" name="cats.ContravariantMonoidal">ContravariantMonoidal</a>[[α]<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.composeContravariantMonoidal.G">G</span>[<span class="extype" name="cats.Applicative.&lt;refinement&gt;.Λ$.α">α</span>]]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Applicative</dd></dl></div>
@@ -1050,6 +1151,22 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Invariant</dd></dl></div>
+    </li><li name="cats.effect.Sync#defer" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="defer[A](fa:=&gt;F[A]):F[A]"></a><a id="defer[A](⇒Task[A]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#defer[A](fa:=&gt;F[A]):F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">defer</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Sync.defer.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Sync.defer.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Sync → Defer</dd></dl></div>
     </li><li name="monix.eval.instances.CatsEffectForTask#delay" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="delay[A](thunk:=&gt;A):monix.eval.Task[A]"></a><a id="delay[A](⇒A):Task[A]"></a>
       <span class="permalink">
@@ -1078,7 +1195,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ensure</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensure.A">A</span>]</span>)</span><span class="params">(<span name="error">error: ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span name="predicate">predicate: (<span class="extype" name="cats.MonadError.ensure.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensure.A">A</span>]</span>
+        <span class="name">ensure</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensure.A">A</span>]</span>)</span><span class="params">(<span name="error">error: ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span name="predicate">predicate: (<span class="extype" name="cats.MonadError.ensure.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensure.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MonadError</dd></dl></div>
@@ -1094,7 +1211,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ensureOr</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensureOr.A">A</span>]</span>)</span><span class="params">(<span name="error">error: (<span class="extype" name="cats.MonadError.ensureOr.A">A</span>) ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span name="predicate">predicate: (<span class="extype" name="cats.MonadError.ensureOr.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensureOr.A">A</span>]</span>
+        <span class="name">ensureOr</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensureOr.A">A</span>]</span>)</span><span class="params">(<span name="error">error: (<span class="extype" name="cats.MonadError.ensureOr.A">A</span>) ⇒ <span class="extype" name="scala.Throwable">Throwable</span></span>)</span><span class="params">(<span name="predicate">predicate: (<span class="extype" name="cats.MonadError.ensureOr.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.MonadError.ensureOr.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MonadError</dd></dl></div>
@@ -1110,7 +1227,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1126,7 +1243,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -1142,7 +1259,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1260,7 +1377,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fromTry</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="t">t: <a href="http://www.scala-lang.org/api/2.12.4/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.fromTry.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.Throwable">Throwable</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.fromTry.A">A</span>]</span>
+        <span class="name">fromTry</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="t">t: <a href="http://www.scala-lang.org/api/2.12.7/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.fromTry.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="scala.Throwable">Throwable</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.fromTry.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → ApplicativeError</dd></dl></div>
@@ -1283,6 +1400,38 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="cats.effect.Bracket#guarantee" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="guarantee[A](fa:F[A])(finalizer:F[Unit]):F[A]"></a><a id="guarantee[A](Task[A])(Task[Unit]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#guarantee[A](fa:F[A])(finalizer:F[Unit]):F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">guarantee</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.guarantee.A">A</span>]</span>)</span><span class="params">(<span name="finalizer">finalizer: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.guarantee.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Bracket</dd></dl></div>
+    </li><li name="cats.effect.Bracket#guaranteeCase" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="guaranteeCase[A](fa:F[A])(finalizer:cats.effect.ExitCase[E]=&gt;F[Unit]):F[A]"></a><a id="guaranteeCase[A](Task[A])((ExitCase[Throwable])⇒Task[Unit]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#guaranteeCase[A](fa:F[A])(finalizer:cats.effect.ExitCase[E]=&gt;F[Unit]):F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">guaranteeCase</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.guaranteeCase.A">A</span>]</span>)</span><span class="params">(<span name="finalizer">finalizer: (<span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.guaranteeCase.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Bracket</dd></dl></div>
     </li><li name="monix.eval.instances.CatsBaseForTask#handleError" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="handleError[A](fa:monix.eval.Task[A])(f:Throwable=&gt;A):monix.eval.Task[A]"></a><a id="handleError[A](Task[A])((Throwable)⇒A):Task[A]"></a>
       <span class="permalink">
@@ -1327,7 +1476,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -1346,7 +1495,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ifM</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="ifTrue">ifTrue: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>, <span name="ifFalse">ifFalse: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>
+        <span class="name">ifM</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="ifTrue">ifTrue: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>, <span name="ifFalse">ifFalse: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.FlatMap.ifM.B">B</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>FlatMap</dd></dl></div>
@@ -1378,7 +1527,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -1394,7 +1543,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">iterateUntil</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntil.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateUntil.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntil.A">A</span>]</span>
+        <span class="name">iterateUntil</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntil.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateUntil.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntil.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -1410,7 +1559,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">iterateUntilM</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="init">init: <span class="extype" name="cats.Monad.iterateUntilM.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>]</span>
+        <span class="name">iterateUntilM</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="init">init: <span class="extype" name="cats.Monad.iterateUntilM.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateUntilM.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -1426,7 +1575,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">iterateWhile</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhile.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateWhile.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhile.A">A</span>]</span>
+        <span class="name">iterateWhile</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhile.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateWhile.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhile.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -1442,7 +1591,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">iterateWhileM</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="init">init: <span class="extype" name="cats.Monad.iterateWhileM.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>]</span>
+        <span class="name">iterateWhileM</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="init">init: <span class="extype" name="cats.Monad.iterateWhileM.A">A</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>) ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>]</span>)</span><span class="params">(<span name="p">p: (<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.iterateWhileM.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -1874,10 +2023,26 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="cats.effect.Async#never" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="never[A]:F[A]"></a><a id="never[A]:Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#never[A]:F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">never</span><span class="tparams">[<span name="A">A</span>]</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Async.never.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Async</dd></dl></div>
     </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="notify():Unit"></a>
       <span class="permalink">
@@ -1890,7 +2055,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1909,7 +2074,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1928,7 +2093,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.ApplicativeError.onError.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.ApplicativeError.onError.A">A</span>]</span>
+        <span class="name">onError</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.ApplicativeError.onError.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.ApplicativeError.onError.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ApplicativeError</dd></dl></div>
@@ -2072,7 +2237,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">recover</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>
+        <span class="name">recover</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recover.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → ApplicativeError</dd></dl></div>
@@ -2088,7 +2253,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">recoverWith</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]</span>
+        <span class="name">recoverWith</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]</span>)</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsBaseForTask.recoverWith.A">A</span>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → ApplicativeError</dd></dl></div>
@@ -2104,7 +2269,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">replicateA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.replicateA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="cats.Applicative.replicateA.A">A</span>]]</span>
+        <span class="name">replicateA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.replicateA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="cats.Applicative.replicateA.A">A</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Applicative</dd></dl></div>
@@ -2125,9 +2290,9 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MonadError</dd></dl></div>
     </li><li name="monix.eval.instances.CatsEffectForTask#runAsync" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="runAsync[A](fa:monix.eval.Task[A])(cb:Either[Throwable,A]=&gt;cats.effect.IO[Unit]):cats.effect.IO[Unit]"></a><a id="runAsync[A](Task[A])((Either[Throwable,A])⇒IO[Unit]):IO[Unit]"></a>
+      <a id="runAsync[A](fa:monix.eval.Task[A])(cb:Either[Throwable,A]=&gt;cats.effect.IO[Unit]):cats.effect.SyncIO[Unit]"></a><a id="runAsync[A](Task[A])((Either[Throwable,A])⇒IO[Unit]):SyncIO[Unit]"></a>
       <span class="permalink">
-      <a href="../../../monix/eval/instances/CatsEffectForTask.html#runAsync[A](fa:monix.eval.Task[A])(cb:Either[Throwable,A]=&gt;cats.effect.IO[Unit]):cats.effect.IO[Unit]" title="Permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#runAsync[A](fa:monix.eval.Task[A])(cb:Either[Throwable,A]=&gt;cats.effect.IO[Unit]):cats.effect.SyncIO[Unit]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2136,7 +2301,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsync</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.runAsync.A">A</span>]</span>)</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsEffectForTask.runAsync.A">A</span>]) ⇒ <span class="extype" name="cats.effect.IO">IO</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <span class="extype" name="cats.effect.IO">IO</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">runAsync</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.instances.CatsEffectForTask.runAsync.A">A</span>]</span>)</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.instances.CatsEffectForTask.runAsync.A">A</span>]) ⇒ <span class="extype" name="cats.effect.IO">IO</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <span class="extype" name="cats.effect.SyncIO">SyncIO</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.instances.CatsEffectForTask">CatsEffectForTask</a> → Effect</dd></dl></div>
@@ -2188,6 +2353,22 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → FlatMap</dd></dl></div>
+    </li><li name="cats.effect.Effect#toIO" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toIO[A](fa:F[A]):cats.effect.IO[A]"></a><a id="toIO[A](Task[A]):IO[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#toIO[A](fa:F[A]):cats.effect.IO[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toIO</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Effect.toIO.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="cats.effect.IO">IO</span>[<span class="extype" name="cats.effect.Effect.toIO.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Effect</dd></dl></div>
     </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toString():String"></a>
       <span class="permalink">
@@ -2572,6 +2753,22 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Functor</dd></dl></div>
+    </li><li name="cats.effect.Bracket#uncancelable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="uncancelable[A](fa:F[A]):F[A]"></a><a id="uncancelable[A](Task[A]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/eval/instances/CatsEffectForTask.html#uncancelable[A](fa:F[A]):F[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">uncancelable</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.uncancelable.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.effect.Bracket.uncancelable.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Bracket</dd></dl></div>
     </li><li name="monix.eval.instances.CatsBaseForTask#unit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="unit:monix.eval.Task[Unit]"></a><a id="unit:Task[Unit]"></a>
       <span class="permalink">
@@ -2584,7 +2781,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">unit</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">unit</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a> → Applicative → InvariantMonoidal</dd></dl></div>
@@ -2600,7 +2797,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">unlessA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span name="f">f: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.unlessA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">unlessA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span name="f">f: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.unlessA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Applicative</dd></dl></div>
@@ -2616,7 +2813,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">untilM</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM.A">A</span>]</span>)</span><span class="params">(<span name="cond">cond: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <span class="extype" name="cats.Alternative">Alternative</span>[<span class="extype" name="cats.Monad.untilM.G">G</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM.G">G</span>[<span class="extype" name="cats.Monad.untilM.A">A</span>]]</span>
+        <span class="name">untilM</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM.A">A</span>]</span>)</span><span class="params">(<span name="cond">cond: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <a href="http://typelevel.org/cats/api/cats/Alternative.html#cats.Alternative" class="extype" name="cats.Alternative">Alternative</a>[<span class="extype" name="cats.Monad.untilM.G">G</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM.G">G</span>[<span class="extype" name="cats.Monad.untilM.A">A</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -2632,7 +2829,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">untilM_</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM_.A">A</span>]</span>)</span><span class="params">(<span name="cond">cond: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">untilM_</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.untilM_.A">A</span>]</span>)</span><span class="params">(<span name="cond">cond: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -2648,7 +2845,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">void</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Functor.void.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">void</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Functor.void.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Functor</dd></dl></div>
@@ -2664,7 +2861,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2686,7 +2883,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2708,7 +2905,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2732,7 +2929,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">whenA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span name="f">f: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.whenA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">whenA</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="cond">cond: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span name="f">f: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Applicative.whenA.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Applicative</dd></dl></div>
@@ -2748,7 +2945,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">whileM</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="p">p: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="body">body: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <span class="extype" name="cats.Alternative">Alternative</span>[<span class="extype" name="cats.Monad.whileM.G">G</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM.G">G</span>[<span class="extype" name="cats.Monad.whileM.A">A</span>]]</span>
+        <span class="name">whileM</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="p">p: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="body">body: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM.A">A</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <a href="http://typelevel.org/cats/api/cats/Alternative.html#cats.Alternative" class="extype" name="cats.Alternative">Alternative</a>[<span class="extype" name="cats.Monad.whileM.G">G</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM.G">G</span>[<span class="extype" name="cats.Monad.whileM.A">A</span>]]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -2764,7 +2961,7 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">whileM_</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="p">p: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="body">body: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM_.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">whileM_</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="p">p: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>)</span><span class="params">(<span name="body">body: ⇒ <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="cats.Monad.whileM_.A">A</span>]</span>)</span><span class="result">: <a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Monad</dd></dl></div>
@@ -2885,10 +3082,16 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
               <h3>Inherited from <span class="extype" name="cats.effect.LiftIO">LiftIO</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
             </div><div class="parent" name="cats.effect.Sync">
               <h3>Inherited from <span class="extype" name="cats.effect.Sync">Sync</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
+            </div><div class="parent" name="cats.Defer">
+              <h3>Inherited from <a href="http://typelevel.org/cats/api/cats/Defer.html#cats.Defer" class="extype" name="cats.Defer">Defer</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
+            </div><div class="parent" name="cats.effect.Bracket">
+              <h3>Inherited from <span class="extype" name="cats.effect.Bracket">Bracket</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>]</h3>
             </div><div class="parent" name="monix.eval.instances.CatsBaseForTask">
               <h3>Inherited from <a href="CatsBaseForTask.html" class="extype" name="monix.eval.instances.CatsBaseForTask">CatsBaseForTask</a></h3>
+            </div><div class="parent" name="cats.SemigroupK">
+              <h3>Inherited from <span class="extype" name="cats.SemigroupK">SemigroupK</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
             </div><div class="parent" name="cats.CoflatMap">
-              <h3>Inherited from <a href="http://typelevel.org/cats/api/cats/CoflatMap.html#cats.CoflatMap" class="extype" name="cats.CoflatMap">CoflatMap</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
+              <h3>Inherited from <span class="extype" name="cats.CoflatMap">CoflatMap</span>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
             </div><div class="parent" name="cats.MonadError">
               <h3>Inherited from <a href="http://typelevel.org/cats/api/cats/MonadError.html#cats.MonadError" class="extype" name="cats.MonadError">MonadError</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="scala.Throwable">Throwable</span>]</h3>
             </div><div class="parent" name="cats.Monad">
@@ -2914,13 +3117,13 @@ super-type.</p><p>References:</p><ul><li><a href="https://typelevel.org/cats/" t
             </div><div class="parent" name="cats.Invariant">
               <h3>Inherited from <a href="http://typelevel.org/cats/api/cats/Invariant.html#cats.Invariant" class="extype" name="cats.Invariant">Invariant</a>[<a href="../Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
             </div><div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

@@ -1,0 +1,1235 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <title>Monix 3.0.0-RC2 - monix.execution.AsyncSemaphore</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.execution.AsyncSemaphore" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.execution.AsyncSemaphore" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.panzoom.min.js"></script>
+      <script type="text/javascript" src="../../lib/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="../../lib/index.js"></script>
+      <script type="text/javascript" src="../../index.js"></script>
+      <script type="text/javascript" src="../../lib/scheduler.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+        /* this variable can be used by the JS to determine the path to the root document */
+        var toRoot = '../../';
+      </script>
+    
+        </head>
+        <body>
+      <div id="search">
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span class="close-results"><span class="left">&lt;</span> Back</span>
+        <div id="textfilter">
+          <span class="input">
+            <input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/" />
+            <i class="clear material-icons"></i>
+            <i id="search-icon" class="material-icons"></i>
+          </span>
+        </div>
+    </div>
+      <div id="search-results">
+        <div id="search-progress">
+          <div id="progress-fill"></div>
+        </div>
+        <div id="results-content">
+          <div id="entity-results"></div>
+          <div id="member-results"></div>
+        </div>
+      </div>
+      <div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <div id="content-container" style="-webkit-overflow-scrolling: touch;">
+          <div id="subpackage-spacer">
+            <div id="packages">
+              <h1>Packages</h1>
+              <ul>
+                <li name="_root_.root" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="_root_"></a><a id="root:_root_"></a>
+      <span class="permalink">
+      <a href="index.html#_root_" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../../index.html"><span class="name">root</span></a>
+      </span>
+      
+      <p class="shortcomment cmt"><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><div class="fullcomment"><div class="comment cmt"><p><img src="https://monix.io/public/images/monix-logo.png" align="right" width="200" /></p><p>This is the API documentation for the <a href="https://monix.io" target="_blank">Monix</a> library.</p><h4>Package Overview</h4><p><b><a href="index.html" class="extype" name="monix.execution">monix.execution</a></b> exposes lower level primitives for dealing
+with asynchronous execution:</p><ul><li><a href="atomic/index.html" class="extype" name="monix.execution.atomic">monix.execution.atomic</a> exposes the <code>Atomic</code> types, as alternative
+   to <code>java.util.concurrent.atomic</code></li><li><a href="cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a> contains several
+   useful <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a> implementations</li><li><a href="schedulers/index.html" class="extype" name="monix.execution.schedulers">monix.execution.schedulers</a> contains several
+   useful <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
+   with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
+   useful for dealing with concurrency</li><li><a href="exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
+   the implementation</li></ul><p><b><a href="../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+<a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
+   implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
+   and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="monix"></a><a id="monix:monix"></a>
+      <span class="permalink">
+      <a href="index.html#monix" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../index.html"><span class="name">monix</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.execution" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="execution"></a><a id="execution:execution"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#execution" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="index.html"><span class="name">execution</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution.annotations" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="annotations"></a><a id="annotations:annotations"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#annotations" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="annotations/index.html"><span class="name">annotations</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.atomic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="atomic"></a><a id="atomic:atomic"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#atomic" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="A small toolkit of classes that support compare-and-swap semantics for safe mutation of variables." href="atomic/index.html"><span class="name">atomic</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">A small toolkit of classes that support compare-and-swap semantics
+for safe mutation of variables.</p><div class="fullcomment"><div class="comment cmt"><p>A small toolkit of classes that support compare-and-swap semantics
+for safe mutation of variables.</p><p>On top of the JVM, this means dealing with lock-free thread-safe
+programming. Also works on top of Javascript, with <i>Scala.js</i>,
+for API compatibility purposes and because it's a useful way to
+box a value.</p><p>The backbone of Atomic references is this method:</p><pre><span class="kw">def</span> compareAndSet(expect: T, update: T): <span class="std">Boolean</span></pre><p>This method atomically sets a variable to the <code>update</code> value if it
+currently holds the <code>expect</code> value, reporting <code>true</code> on success or
+<code>false</code> on failure. The classes in this package also contain
+methods to get and unconditionally set values.</p><p>Building a reference is easy with the provided constructor, which
+will automatically return the most specific type needed (in the
+following sample, that's an <code>AtomicDouble</code>, inheriting from
+<code>AtomicNumber[A]</code>):</p><pre><span class="kw">val</span> atomicNumber = Atomic(<span class="num">12.2</span>)
+
+atomicNumber.incrementAndGet()
+<span class="cmt">// => 13.2</span></pre><p>These also provide useful helpers for atomically mutating of
+values (i.e. <code>transform</code>, <code>transformAndGet</code>, <code>getAndTransform</code>,
+etc...) or of numbers of any kind (<code>incrementAndGet</code>, <code>getAndAdd</code>,
+etc...).
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.cancelables" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="cancelables"></a><a id="cancelables:cancelables"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#cancelables" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Cancelables represent asynchronous units of work or other things scheduled for execution and whose execution can be canceled." href="cancelables/index.html"><span class="name">cancelables</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Cancelables represent asynchronous units of work or other things scheduled for
+execution and whose execution can be canceled.</p><div class="fullcomment"><div class="comment cmt"><p>Cancelables represent asynchronous units of work or other things scheduled for
+execution and whose execution can be canceled.</p><p>One use-case is the scheduling done by <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">monix.execution.Scheduler</a>, in which
+the scheduling methods return a <code>Cancelable</code>, allowing the canceling of the
+scheduling.</p><p>Example:</p><pre><span class="kw">val</span> s = ConcurrentScheduler()
+<span class="kw">val</span> task = s.scheduleRepeated(<span class="num">10.</span>seconds, <span class="num">50.</span>seconds, {
+  doSomething()
+})
+
+<span class="cmt">// later, cancels the scheduling ...</span>
+task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.exceptions" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="exceptions"></a><a id="exceptions:exceptions"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#exceptions" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="exceptions/index.html"><span class="name">exceptions</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.misc" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="misc"></a><a id="misc:misc"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#misc" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="misc/index.html"><span class="name">misc</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.rstreams" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="rstreams"></a><a id="rstreams:rstreams"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#rstreams" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="Package exposing utilities for working with the Reactive Streams specification." href="rstreams/index.html"><span class="name">rstreams</span></a>
+      </span>
+      
+      <p class="shortcomment cmt">Package exposing utilities for working with the
+<a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a>
+specification.</p><div class="fullcomment"><div class="comment cmt"><p>Package exposing utilities for working with the
+<a href="http://www.reactive-streams.org/" target="_blank">Reactive Streams</a>
+specification.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li name="monix.execution.schedulers" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="schedulers"></a><a id="schedulers:schedulers"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#schedulers" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="schedulers/index.html"><span class="name">schedulers</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
+    </li><li class="current-entities indented2">
+                        <a class="object" href="Ack$.html" title=""></a>
+                        <a class="class" href="Ack.html" title="Represents an acknowledgement of processing that a consumer sends back upstream."></a>
+                        <a href="Ack.html" title="Represents an acknowledgement of processing that a consumer sends back upstream.">Ack</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncQueue$.html" title=""></a>
+                        <a class="class" href="AsyncQueue.html" title="A high-performance, back-pressured, asynchronous queue implementation."></a>
+                        <a href="AsyncQueue.html" title="A high-performance, back-pressured, asynchronous queue implementation.">AsyncQueue</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncSemaphore$.html" title=""></a>
+                        <a class="class" href="" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution."></a>
+                        <a href="" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution.">AsyncSemaphore</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="AsyncVar$.html" title=""></a>
+                        <a class="class" href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A."></a>
+                        <a href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A.">AsyncVar</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="BufferCapacity$.html" title=""></a>
+                        <a class="class" href="BufferCapacity.html" title="Describes the capacity of internal buffers."></a>
+                        <a href="BufferCapacity.html" title="Describes the capacity of internal buffers.">BufferCapacity</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Callback$.html" title=""></a>
+                        <a class="class" href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation."></a>
+                        <a href="Callback.html" title="Represents a callback that should be called asynchronously with the result of a computation.">Callback</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Cancelable$.html" title=""></a>
+                        <a class="trait" href="Cancelable.html" title="Represents a one-time idempotent action that can be used to cancel async computations, or to release resources that active data sources are holding."></a>
+                        <a href="Cancelable.html" title="Represents a one-time idempotent action that can be used to cancel async computations, or to release resources that active data sources are holding.">Cancelable</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="CancelableFuture$.html" title=""></a>
+                        <a class="class" href="CancelableFuture.html" title="Represents an asynchronous computation that can be canceled as long as it isn't complete."></a>
+                        <a href="CancelableFuture.html" title="Represents an asynchronous computation that can be canceled as long as it isn't complete.">CancelableFuture</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="CancelablePromise$.html" title=""></a>
+                        <a class="class" href="CancelablePromise.html" title="CancelablePromise is a scala.concurrent.Promise implementation that allows listeners to unsubscribe from receiving future results."></a>
+                        <a href="CancelablePromise.html" title="CancelablePromise is a scala.concurrent.Promise implementation that allows listeners to unsubscribe from receiving future results.">CancelablePromise</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ChannelType$.html" title=""></a>
+                        <a class="class" href="ChannelType.html" title="An enumeration of all types"></a>
+                        <a href="ChannelType.html" title="An enumeration of all types">ChannelType</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ExecutionModel$.html" title=""></a>
+                        <a class="class" href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler."></a>
+                        <a href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler.">ExecutionModel</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="object" href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future."></a>
+                        <a href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future.">FutureUtils</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="Scheduler$.html" title=""></a>
+                        <a class="trait" href="Scheduler.html" title="A Scheduler is an scala.concurrent.ExecutionContext that additionally can schedule the execution of units of work to run with a delay or periodically."></a>
+                        <a href="Scheduler.html" title="A Scheduler is an scala.concurrent.ExecutionContext that additionally can schedule the execution of units of work to run with a delay or periodically.">Scheduler</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="UncaughtExceptionReporter$.html" title="See UncaughtExceptionReporter."></a>
+                        <a class="trait" href="UncaughtExceptionReporter.html" title="An exception reporter is a function that logs an uncaught error."></a>
+                        <a href="UncaughtExceptionReporter.html" title="An exception reporter is a function that logs an uncaught error.">UncaughtExceptionReporter</a>
+                      </li>
+              </ul>
+            </div>
+          </div>
+          <div id="content">
+            <body class="class type">
+      <div id="definition">
+        <a href="AsyncSemaphore$.html" title="See companion object"><div class="big-circle class-companion-object">c</div></a>
+        <p id="owner"><a href="../index.html" class="extype" name="monix">monix</a>.<a href="index.html" class="extype" name="monix.execution">execution</a></p>
+        <h1><a href="AsyncSemaphore$.html" title="See companion object">AsyncSemaphore</a><span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span></h1>
+        <h3><span class="morelinks"><div>
+            Companion <a href="AsyncSemaphore$.html" title="See companion object">object AsyncSemaphore</a>
+          </div></span></h3>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <span class="name">AsyncSemaphore</span><span class="result"> extends <span class="extype" name="monix.execution.internal.GenericSemaphore">GenericSemaphore</span>[<a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>]</span>
+      </span>
+      </h4>
+
+      
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The <code>AsyncSemaphore</code> is an asynchronous semaphore implementation that
+limits the parallelism on <code>Future</code> execution.</p><p>The following example instantiates a semaphore with a
+maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = AsyncSemaphore(maxParallelism = <span class="num">10</span>)
+
+<span class="kw">def</span> makeRequest(r: HttpRequest): Future[HttpResponse] = ???
+
+<span class="cmt">// For such a task no more than 10 requests</span>
+<span class="cmt">// are allowed to be executed in parallel.</span>
+<span class="kw">val</span> future = semaphore.greenLight(() <span class="kw">=&gt;</span> makeRequest(???))</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-execution/shared/src/main/scala/monix/execution/AsyncSemaphore.scala" target="_blank">AsyncSemaphore.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><span class="extype" name="monix.execution.internal.GenericSemaphore">GenericSemaphore</span>[<a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>], <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+        </div></div>
+        
+
+      <div id="mbrsel">
+        <div class="toggle"></div>
+        <div id="memberfilter">
+          <i class="material-icons arrow"></i>
+          <span class="input">
+            <input id="mbrsel-input" placeholder="Filter all members" type="text" accesskey="/" />
+          </span>
+          <i class="clear material-icons"></i>
+        </div>
+        <div id="filterby">
+          <div id="order">
+            <span class="filtertype">Ordering</span>
+            <ol>
+              
+              <li class="alpha in"><span>Alphabetic</span></li>
+              <li class="inherit out"><span>By Inheritance</span></li>
+            </ol>
+          </div>
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.execution.AsyncSemaphore"><span>AsyncSemaphore</span></li><li class="in" name="monix.execution.internal.GenericSemaphore"><span>GenericSemaphore</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        
+
+        
+
+        <div class="values members">
+              <h3>Value Members</h3>
+              <ol>
+                <li name="scala.AnyRef#!=" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="!=(x$1:Any):Boolean"></a><a id="!=(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#!=(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef###" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="##():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html###():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#==" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="==(x$1:Any):Boolean"></a><a id="==(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#==(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#acquire" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="acquire():monix.execution.CancelableFuture[Unit]"></a><a id="acquire():CancelableFuture[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#acquire():monix.execution.CancelableFuture[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">acquire</span><span class="params">()</span><span class="result">: <a href="CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Acquires a single permit.</p><div class="fullcomment"><div class="comment cmt"><p>Acquires a single permit. Alias for <code><a href="#acquireN(n:Long):monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.execution.AsyncSemaphore#acquireN">acquireN</a>(1)</code>.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a>, the preferred way to acquire and release</p></span><span class="cmt"><p><a href="#acquireN(n:Long):monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.execution.AsyncSemaphore#acquireN">acquireN</a> for a version that can acquire multiple permits</p></span></dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#acquireN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="acquireN(n:Long):monix.execution.CancelableFuture[Unit]"></a><a id="acquireN(Long):CancelableFuture[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#acquireN(n:Long):monix.execution.CancelableFuture[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">acquireN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Acquires <code>n</code> permits.</p><div class="fullcomment"><div class="comment cmt"><p>Acquires <code>n</code> permits.</p><p>The returned effect semantically blocks until all requested permits are
+available. Note that acquires are satisfied in strict FIFO order, so given
+an <code>AsyncSemaphore</code> with 2 permits available, an <code>acquireN(3)</code> will
+always be satisfied before a later call to <code>acquireN(1)</code>.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>number of permits to acquire - must be &gt;= 0</p></dd><dt>returns</dt><dd class="cmt"><p>a future that will complete when the acquisition has succeeded
+        or that can be cancelled, removing the listener from the queue
+        (to prevent memory leaks in race conditions)</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a>, the preferred way to acquire and release</p></span><span class="cmt"><p><a href="#acquire():monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.execution.AsyncSemaphore#acquire">acquire</a> for a version acquires a single permit</p></span></dd></dl></div>
+    </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#asInstanceOf[T0]:T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <span class="extype" name="scala.Any.asInstanceOf.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#available" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="available():Long"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#available():Long" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">available</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns the number of permits currently available.</p><div class="fullcomment"><div class="comment cmt"><p>Returns the number of permits currently available. Always non-negative.</p><p>The protocol is unsafe, the semaphore is used in concurrent settings
+and thus the value returned isn't stable or reliable. Use with care.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#awaitAvailable" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="awaitAvailable(n:Long):monix.execution.CancelableFuture[Unit]"></a><a id="awaitAvailable(Long):CancelableFuture[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#awaitAvailable(n:Long):monix.execution.CancelableFuture[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">awaitAvailable</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a future that will be complete when the specified
+number of permits are available.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a future that will be complete when the specified
+number of permits are available.</p><p>The protocol is unsafe because by the time the returned
+future completes, some other process might have already
+acquired the available permits and thus usage of <code>awaitAvailable</code>
+can lead to fragile concurrent logic. Use with care.</p><p>Can be useful for termination logic, for example to execute
+a piece of logic once all available permits have been released.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>is the number of permits waited on</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="clone():Object"></a><a id="clone():AnyRef"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#clone():Object" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.CloneNotSupportedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#count" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="count():Long"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#count():Long" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">count</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Obtains a snapshot of the current count.</p><div class="fullcomment"><div class="comment cmt"><p>Obtains a snapshot of the current count. Can be negative.</p><p>Like <a href="#available():Long" class="extmbr" name="monix.execution.AsyncSemaphore#available">available</a> when permits are available but returns the
+number of permits callers are waiting for when there are no permits
+available.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#emptyCancelable" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="emptyCancelable:monix.execution.Cancelable"></a><a id="emptyCancelable:Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#emptyCancelable:monix.execution.Cancelable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">emptyCancelable</span><span class="result">: <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.AsyncSemaphore">AsyncSemaphore</a> → GenericSemaphore</dd></dl></div>
+    </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#eq(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#equals" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="equals(x$1:Any):Boolean"></a><a id="equals(Any):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#equals(x$1:Any):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="finalize():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#finalize():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="symbol">classOf[java.lang.Throwable]</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getClass():Class[_]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#getClass():Class[_]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getClass</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.Class">Class</span>[_]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#hashCode" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="hashCode():Int"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#hashCode():Int" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.Any#isInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#isInstanceOf[T0]:Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#makeCancelable" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="makeCancelable(f:monix.execution.internal.GenericSemaphore.Listener[Unit]=&gt;Unit,p:monix.execution.internal.GenericSemaphore.Listener[Unit]):monix.execution.Cancelable"></a><a id="makeCancelable((Listener[Unit])⇒Unit,Listener[Unit]):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#makeCancelable(f:monix.execution.internal.GenericSemaphore.Listener[Unit]=&gt;Unit,p:monix.execution.internal.GenericSemaphore.Listener[Unit]):monix.execution.Cancelable" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">makeCancelable</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.execution.internal.GenericSemaphore.Listener">Listener</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>, <span name="p">p: <span class="extype" name="monix.execution.internal.GenericSemaphore.Listener">Listener</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.AsyncSemaphore">AsyncSemaphore</a> → GenericSemaphore</dd></dl></div>
+    </li><li name="scala.AnyRef#ne" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="ne(x$1:AnyRef):Boolean"></a><a id="ne(AnyRef):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#ne(x$1:AnyRef):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#notify" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notify():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#notify():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#notifyAll" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="notifyAll():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#notifyAll():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#release" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="release():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#release():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">release</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Releases a permit, returning it to the pool.</p><div class="fullcomment"><div class="comment cmt"><p>Releases a permit, returning it to the pool.</p><p>If there are consumers waiting on permits being available,
+then the first in the queue will be selected and given
+a permit immediately.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a>, the preferred way to acquire and release</p></span></dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#releaseN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="releaseN(n:Long):Unit"></a><a id="releaseN(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#releaseN(n:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">releaseN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Releases <code>n</code> permits, potentially unblocking up to <code>n</code>
+outstanding acquires.</p><div class="fullcomment"><div class="comment cmt"><p>Releases <code>n</code> permits, potentially unblocking up to <code>n</code>
+outstanding acquires.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>number of permits to release - must be &gt;= 0</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a>, the preferred way to acquire and release</p></span></dd></dl></div>
+    </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#synchronized[T0](x$1:=&gt;T0):T0" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">synchronized</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="params">(<span name="arg0">arg0: ⇒ <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>)</span><span class="result">: <span class="extype" name="java.lang.AnyRef.synchronized.T0">T0</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li name="scala.AnyRef#toString" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toString():String"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#toString():String" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toString</span><span class="params">()</span><span class="result">: <span class="extype" name="java.lang.String">String</span></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#tryAcquire" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tryAcquire():Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#tryAcquire():Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tryAcquire</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Alias for <code><a href="#tryAcquireN(n:Long):Boolean" class="extmbr" name="monix.execution.AsyncSemaphore#tryAcquireN">tryAcquireN</a>(1)</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Alias for <code><a href="#tryAcquireN(n:Long):Boolean" class="extmbr" name="monix.execution.AsyncSemaphore#tryAcquireN">tryAcquireN</a>(1)</code>.</p><p>The protocol is unsafe, because with the &quot;try*&quot; methods the user needs a
+firm grasp of what race conditions are and how they manifest and usage of
+such methods can lead to very fragile logic.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#tryAcquireN(n:Long):Boolean" class="extmbr" name="monix.execution.AsyncSemaphore#tryAcquireN">tryAcquireN</a> for the version that can acquire multiple permits</p></span><span class="cmt"><p><a href="#acquire():monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.execution.AsyncSemaphore#acquire">acquire</a> for the version that can wait for acquisition</p></span><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a> the preferred way to acquire and release</p></span></dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#tryAcquireN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="tryAcquireN(n:Long):Boolean"></a><a id="tryAcquireN(Long):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#tryAcquireN(n:Long):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">tryAcquireN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Acquires <code>n</code> permits now and returns <code>true</code>, or returns <code>false</code>
+immediately.</p><div class="fullcomment"><div class="comment cmt"><p>Acquires <code>n</code> permits now and returns <code>true</code>, or returns <code>false</code>
+immediately. Error if <code>n &lt; 0</code>.</p><p>The protocol is unsafe, because with the &quot;try*&quot; methods the user needs a
+firm grasp of what race conditions are and how they manifest and usage of
+such methods can lead to very fragile logic.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>number of permits to acquire - must be &gt;= 0</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeProtocol.html" class="extype" name="monix.execution.annotations.UnsafeProtocol">UnsafeProtocol</a></span><span class="args">()</span>
+              
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd><dt>See also</dt><dd><span class="cmt"><p><a href="#tryAcquire():Boolean" class="extmbr" name="monix.execution.AsyncSemaphore#tryAcquire">tryAcquire</a> for the alias that acquires a single permit</p></span><span class="cmt"><p><a href="#acquireN(n:Long):monix.execution.CancelableFuture[Unit]" class="extmbr" name="monix.execution.AsyncSemaphore#acquireN">acquireN</a> for the version that can wait for acquisition</p></span><span class="cmt"><p><a href="#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.execution.AsyncSemaphore#withPermit">withPermit</a>, the preferred way to acquire and release</p></span></dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeAcquireN" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeAcquireN(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken"></a><a id="unsafeAcquireN(Long,Listener[Unit]):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeAcquireN(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeAcquireN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="await">await: <span class="extype" name="monix.execution.internal.GenericSemaphore.Listener">Listener</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeAsyncAcquireN" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeAsyncAcquireN(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken"></a><a id="unsafeAsyncAcquireN(Long,Listener[Unit]):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeAsyncAcquireN(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeAsyncAcquireN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="await">await: <span class="extype" name="monix.execution.internal.GenericSemaphore.Listener">Listener</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeAvailable" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeAvailable():Long"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeAvailable():Long" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeAvailable</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeAwaitAvailable" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeAwaitAvailable(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken"></a><a id="unsafeAwaitAvailable(Long,Listener[Unit]):Cancelable"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeAwaitAvailable(n:Long,await:monix.execution.internal.GenericSemaphore.Listener[Unit]):CancelToken" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeAwaitAvailable</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="await">await: <span class="extype" name="monix.execution.internal.GenericSemaphore.Listener">Listener</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeCount" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeCount():Long"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeCount():Long" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeCount</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeReleaseN" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeReleaseN(n:Long):Unit"></a><a id="unsafeReleaseN(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeReleaseN(n:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeReleaseN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.internal.GenericSemaphore#unsafeTryAcquireN" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unsafeTryAcquireN(n:Long):Boolean"></a><a id="unsafeTryAcquireN(Long):Boolean"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#unsafeTryAcquireN(n:Long):Boolean" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unsafeTryAcquireN</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd>GenericSemaphore</dd><dt>Annotations</dt><dd>
+                <span class="name">@tailrec</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait():Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#wait():Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long,x$2:Int):Unit"></a><a id="wait(Long,Int):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#wait(x$1:Long,x$2:Int):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wait(x$1:Long):Unit"></a><a id="wait(Long):Unit"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#wait(x$1:Long):Unit" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@native</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">(<span>
+      
+      <span class="defval" name="classOf[java.lang.InterruptedException]">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#withPermit" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]"></a><a id="withPermit[A](()⇒Future[A]):CancelableFuture[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#withPermit[A](f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withPermit</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: () ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.execution.AsyncSemaphore.withPermit.A">A</span>]</span>)</span><span class="result">: <a href="CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.AsyncSemaphore.withPermit.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new future, ensuring that the given source
+acquires an available permit from the semaphore before
+it is executed.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new future, ensuring that the given source
+acquires an available permit from the semaphore before
+it is executed.</p><p>The returned future also takes care of resource handling,
+releasing its permit after being complete.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is a function returning the <code>Future</code> instance we
+       want to evaluate after we get the permit from the
+       semaphore</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.AsyncSemaphore#withPermitN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withPermitN[A](n:Long)(f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]"></a><a id="withPermitN[A](Long)(()⇒Future[A]):CancelableFuture[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/AsyncSemaphore.html#withPermitN[A](n:Long)(f:()=&gt;scala.concurrent.Future[A]):monix.execution.CancelableFuture[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withPermitN</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="params">(<span name="f">f: () ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.execution.AsyncSemaphore.withPermitN.A">A</span>]</span>)</span><span class="result">: <a href="CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a>[<span class="extype" name="monix.execution.AsyncSemaphore.withPermitN.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new future, ensuring that the given source
+acquires <code>n</code> available permits from the semaphore before
+it is executed.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new future, ensuring that the given source
+acquires <code>n</code> available permits from the semaphore before
+it is executed.</p><p>The returned future also takes care of resource handling,
+releasing its permits after being complete.
+</p></div><dl class="paramcmts block"><dt class="param">n</dt><dd class="cmt"><p>is the number of permits required for the given
+       function to be executed</p></dd><dt class="param">f</dt><dd class="cmt"><p>is a function returning the <code>Future</code> instance we
+       want to evaluate after we get the permit from the
+       semaphore</p></dd></dl><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li>
+              </ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        <div class="parent" name="monix.execution.internal.GenericSemaphore">
+              <h3>Inherited from <span class="extype" name="monix.execution.internal.GenericSemaphore">GenericSemaphore</span>[<a href="Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>]</h3>
+            </div><div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+            </div>
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+    </body>
+          </div>
+        </div>
+      </div>
+    </body>
+      </html>

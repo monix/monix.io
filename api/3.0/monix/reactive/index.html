@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.reactive</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.reactive" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.reactive" />
+          <title>Monix 3.0.0-RC2 - monix.reactive</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.reactive" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.reactive" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
    useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -96,6 +101,22 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+    </li><li name="monix.catnap" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="catnap"></a><a id="catnap:catnap"></a>
+      <span class="permalink">
+      <a href="../monix/index.html#catnap" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../catnap/index.html"><span class="name">catnap</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
     </li><li name="monix.eval" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eval"></a><a id="eval:eval"></a>
       <span class="permalink">
@@ -144,6 +165,22 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.reactive.instances" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="instances"></a><a id="instances:instances"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/index.html#instances" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="instances/index.html"><span class="name">instances</span></a>
+      </span>
+      
+      
     </li><li name="monix.reactive.observables" visbl="pub" class="indented3 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="observables"></a><a id="observables:observables"></a>
       <span class="permalink">
@@ -208,6 +245,10 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
                         <a class="object" href="Observable$.html" title="Observable builders."></a>
                         <a class="class" href="Observable.html" title="The Observable type that implements the Reactive Pattern."></a>
                         <a href="Observable.html" title="The Observable type that implements the Reactive Pattern.">Observable</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ObservableLike$.html" title=""></a>
+                        <a class="trait" href="ObservableLike.html" title="A lawless type class that provides conversions to Observable."></a>
+                        <a href="ObservableLike.html" title="A lawless type class that provides conversions to Observable.">ObservableLike</a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Observer$.html" title=""></a>
                         <a class="trait" href="Observer.html" title="The Observer from the Rx pattern is the trio of callbacks that get subscribed to an Observable for receiving events."></a>
@@ -311,7 +352,7 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="The Consumer is a specification of how to consume an observable." href="Consumer.html"><span class="name">Consumer</span></a><span class="tparams">[<span name="In">-In</span>, <span name="R">+R</span>]</span><span class="result"> extends (<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Consumer.In">In</span>]) ⇒ <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.reactive.Consumer.R">R</span>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The Consumer is a specification of how to consume an observable." href="Consumer.html"><span class="name">Consumer</span></a><span class="tparams">[<span name="In">-In</span>, <span name="R">+R</span>]</span><span class="result"> extends (<a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Consumer.In">In</span>]) ⇒ <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.reactive.Consumer.R">R</span>] with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <code>Consumer</code> is a specification of how to consume an observable.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Consumer</code> is a specification of how to consume an observable.</p><p>It is a factory of subscribers with a completion callback attached,
@@ -330,7 +371,7 @@ being effectively a way to transform observables into
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="The MulticastStrategy specifies the strategy for building data-sources that are shared between multiple subscribers." href="MulticastStrategy.html"><span class="name">MulticastStrategy</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The MulticastStrategy specifies the strategy for building data-sources that are shared between multiple subscribers." href="MulticastStrategy.html"><span class="name">MulticastStrategy</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <code>MulticastStrategy</code> specifies the strategy for
@@ -349,7 +390,7 @@ building data-sources that are shared between multiple subscribers.</p><p>By def
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Used by Observable.materialize." href="Notification.html"><span class="name">Notification</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Used by Observable.materialize." href="Notification.html"><span class="name">Notification</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Used by <a href="Observable.html#materialize:monix.reactive.Observable[monix.reactive.Notification[A]]" class="extmbr" name="monix.reactive.Observable#materialize">Observable.materialize</a>.</p>
@@ -365,12 +406,51 @@ building data-sources that are shared between multiple subscribers.</p><p>By def
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="The Observable type that implements the Reactive Pattern." href="Observable.html"><span class="name">Observable</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The Observable type that implements the Reactive Pattern." href="Observable.html"><span class="name">Observable</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <code>Observable</code> type that implements the Reactive Pattern.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Observable</code> type that implements the Reactive Pattern.</p><p>Provides methods of subscribing to the Observable and operators
 for combining observable sources, filtering, modifying,
 throttling, buffering, error handling and others.</p><p>See the available documentation at: <a href="https://monix.io" target="_blank">https://monix.io</a></p></div></div>
+    </li><li name="monix.reactive.ObservableLike" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="ObservableLike[F[_]]extendsAnyRef"></a><a id="ObservableLike[F[_]]:ObservableLike[F]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/index.html#ObservableLike[F[_]]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A lawless type class that provides conversions to Observable." href="ObservableLike.html"><span class="name">ObservableLike</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">A lawless type class that provides conversions to <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>.</p><div class="fullcomment"><div class="comment cmt"><p>A lawless type class that provides conversions to <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>.</p><p>Sample:</p><pre><span class="cmt">// Conversion from cats.Eval</span>
+<span class="kw">import</span> cats.Eval
+
+<span class="kw">val</span> source0 = Eval.always(<span class="num">1</span> + <span class="num">1</span>)
+<span class="kw">val</span> task0 = ObservableLike[Eval].toObservable(source0)
+
+<span class="cmt">// Conversion from Future</span>
+<span class="kw">import</span> scala.concurrent.Future
+
+<span class="kw">val</span> source1 = Future.successful(<span class="num">1</span> + <span class="num">1</span>)
+<span class="kw">val</span> task1 = ObservableLike[Future].toObservable(source1)
+
+<span class="cmt">// Conversion from IO</span>
+<span class="kw">import</span> cats.effect.IO
+
+<span class="kw">val</span> source2 = IO(<span class="num">1</span> + <span class="num">1</span>)
+<span class="kw">val</span> task2 = ObservableLike[IO].toObservable(source2)</pre><p>See <a href="Observable$.html#from[F[_],A](fa:F[A])(implicitF:monix.reactive.ObservableLike[F]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#from">Observable.from</a>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for ObservableLike[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
     </li><li name="monix.reactive.Observer" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Observer[-A]extendsAnywithSerializable"></a><a id="Observer[-A]:Observer[A]"></a>
       <span class="permalink">
@@ -383,7 +463,7 @@ throttling, buffering, error handling and others.</p><p>See the available docume
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="The Observer from the Rx pattern is the trio of callbacks that get subscribed to an Observable for receiving events." href="Observer.html"><span class="name">Observer</span></a><span class="tparams">[<span name="A">-A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The Observer from the Rx pattern is the trio of callbacks that get subscribed to an Observable for receiving events." href="Observer.html"><span class="name">Observer</span></a><span class="tparams">[<span name="A">-A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The Observer from the Rx pattern is the trio of callbacks that
@@ -408,7 +488,7 @@ implementation shouldn't send any more onNext events.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Represents the buffering overflowStrategy chosen for actions that need buffering, instructing the pipeline what to do when the buffer is full." href="OverflowStrategy.html"><span class="name">OverflowStrategy</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Represents the buffering overflowStrategy chosen for actions that need buffering, instructing the pipeline what to do when the buffer is full." href="OverflowStrategy.html"><span class="name">OverflowStrategy</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Represents the buffering overflowStrategy chosen for actions that
@@ -420,7 +500,7 @@ the buffer is full.</p><p>For the available policies, see:</p><p>- <a href="Over
 - <a href="OverflowStrategy$$BackPressure.html" class="extype" name="monix.reactive.OverflowStrategy.BackPressure">BackPressure</a></p><p>Used in <a href="observers/BufferedSubscriber.html" class="extype" name="monix.reactive.observers.BufferedSubscriber">BufferedSubscriber</a>
 to implement buffering when concurrent actions are needed, such as in
 <a href="subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">Channels</a> or in
-<a href="Observable$.html#merge[A](sources:monix.reactive.Observable[A]*)(implicitos:monix.reactive.OverflowStrategy[A]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#merge">Observable.merge</a>.
+<a href="Observable.html#merge[B](implicitev:A&lt;:&lt;monix.reactive.Observable[B],implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#merge">Observable.merge</a>.
 </p></div></div>
     </li><li name="monix.reactive.Pipe" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="Pipe[I,+O]extendsSerializable"></a><a id="Pipe[I,+O]:Pipe[I,O]"></a>
@@ -434,7 +514,7 @@ to implement buffering when concurrent actions are needed, such as in
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Represents a factory for an input/output channel for broadcasting input to multiple subscribers." href="Pipe.html"><span class="name">Pipe</span></a><span class="tparams">[<span name="I">I</span>, <span name="O">+O</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Represents a factory for an input/output channel for broadcasting input to multiple subscribers." href="Pipe.html"><span class="name">Pipe</span></a><span class="tparams">[<span name="I">I</span>, <span name="O">+O</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Represents a factory for an input/output channel for
@@ -459,7 +539,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="The companion object of Consumer, defines consumer builders." href="Consumer$.html"><span class="name">Consumer</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The companion object of Consumer, defines consumer builders." href="Consumer$.html"><span class="name">Consumer</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The companion object of <a href="Consumer.html" class="extype" name="monix.reactive.Consumer">Consumer</a>, defines consumer builders.</p>
@@ -475,7 +555,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="The MulticastStrategy enumerated." href="MulticastStrategy$.html"><span class="name">MulticastStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The MulticastStrategy enumerated." href="MulticastStrategy$.html"><span class="name">MulticastStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <a href="MulticastStrategy.html" class="extype" name="monix.reactive.MulticastStrategy">MulticastStrategy</a> enumerated.</p>
@@ -491,7 +571,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Notification$.html"><span class="name">Notification</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Notification$.html"><span class="name">Notification</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -507,10 +587,26 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Observable builders." href="Observable$.html"><span class="name">Observable</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Observable builders." href="Observable$.html"><span class="name">Observable</span></a><span class="result"> extends <span class="extype" name="monix.reactive.internal.deprecated.ObservableDeprecatedBuilders">ObservableDeprecatedBuilders</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Observable builders.</p>
+    </li><li name="monix.reactive.ObservableLike" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ObservableLike"></a><a id="ObservableLike:ObservableLike"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/index.html#ObservableLike" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="ObservableLike$.html"><span class="name">ObservableLike</span></a><span class="result"> extends <span class="extype" name="monix.reactive.ObservableLikeImplicits0">ObservableLikeImplicits0</span></span>
+      </span>
+      
+      
     </li><li name="monix.reactive.Observer" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Observer"></a><a id="Observer:Observer"></a>
       <span class="permalink">
@@ -523,7 +619,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Observer$.html"><span class="name">Observer</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Observer$.html"><span class="name">Observer</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"></p>
@@ -539,7 +635,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="OverflowStrategy$.html"><span class="name">OverflowStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="OverflowStrategy$.html"><span class="name">OverflowStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -555,7 +651,7 @@ broadcasting input to multiple subscribers.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Pipe$.html"><span class="name">Pipe</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="Pipe$.html"><span class="name">Pipe</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       

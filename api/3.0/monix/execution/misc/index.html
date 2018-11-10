@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.execution.misc</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.execution.misc" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.execution.misc" />
+          <title>Monix 3.0.0-RC2 - monix.execution.misc</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.execution.misc" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.execution.misc" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../atomic/index.html" class="ex
    useful <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../../tail/index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../../tail/Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="../../tail/batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -112,6 +117,22 @@ with asynchronous execution:</p><ul><li><a href="../atomic/index.html" class="ex
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="monix">monix</a></dd></dl></div>
+    </li><li name="monix.execution.annotations" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="annotations"></a><a id="annotations:annotations"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/index.html#annotations" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="../annotations/index.html"><span class="name">annotations</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li name="monix.execution.atomic" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="atomic"></a><a id="atomic:atomic"></a>
       <span class="permalink">
@@ -205,18 +226,6 @@ task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</d
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li class="current-entities indented3">
-                        <a class="object" href="AsyncQueue$.html" title=""></a>
-                        <a class="class" href="AsyncQueue.html" title="And asynchronous queue implementation."></a>
-                        <a href="AsyncQueue.html" title="And asynchronous queue implementation.">AsyncQueue</a>
-                      </li><li class="current-entities indented3">
-                        <a class="object" href="AsyncSemaphore$.html" title=""></a>
-                        <a class="class" href="AsyncSemaphore.html" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution."></a>
-                        <a href="AsyncSemaphore.html" title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution.">AsyncSemaphore</a>
-                      </li><li class="current-entities indented3">
-                        <a class="object" href="AsyncVar$.html" title=""></a>
-                        <a class="class" href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A."></a>
-                        <a href="AsyncVar.html" title="Asynchronous mutable location, that is either empty or contains a value of type A.">AsyncVar</a>
-                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="trait" href="HygieneUtilMacros.html" title="Utilities for macro-hygiene."></a>
                         <a href="HygieneUtilMacros.html" title="Utilities for macro-hygiene.">HygieneUtilMacros</a>
@@ -228,10 +237,6 @@ task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</d
                         <a class="object" href="Local$.html" title=""></a>
                         <a class="class" href="Local.html" title="A Local is a ThreadLocal whose scope is flexible."></a>
                         <a href="Local.html" title="A Local is a ThreadLocal whose scope is flexible.">Local</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
-                        <a class="object" href="NonFatal$.html" title="Extractor of non-fatal Throwable instances."></a>
-                        <a href="NonFatal$.html" title="Extractor of non-fatal Throwable instances.">NonFatal</a>
                       </li><li class="current-entities indented3">
                         <a class="object" href="ThreadLocal$.html" title=""></a>
                         <a class="class" href="ThreadLocal.html" title="Cross-platform equivalent for java.lang.ThreadLocal, for specifying thread-local variables."></a>
@@ -301,7 +306,12 @@ specification.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"></div>
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-execution/shared/src/main/scala/monix/execution/misc/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+        </div></div>
         
 
       <div id="mbrsel">
@@ -319,10 +329,22 @@ specification.
             <ol>
               
               <li class="alpha in"><span>Alphabetic</span></li>
-              
+              <li class="inherit out"><span>By Inheritance</span></li>
             </ol>
           </div>
-          
+          <div class="ancestors">
+                  <span class="filtertype">Inherited<br />
+                  </span>
+                  <ol id="linearization">
+                    <li class="in" name="monix.execution.misc"><span>misc</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  </ol>
+                </div><div class="ancestors">
+              <span class="filtertype"></span>
+              <ol>
+                <li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show All</span></li>
+              </ol>
+            </div>
           <div id="visbl">
               <span class="filtertype">Visibility</span>
               <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -336,77 +358,7 @@ specification.
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="monix.execution.misc.AsyncQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="AsyncQueue[A]extendsSerializable"></a><a id="AsyncQueue[A]:AsyncQueue[A]"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncQueue[A]extendsSerializable" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="And asynchronous queue implementation." href="AsyncQueue.html"><span class="name">AsyncQueue</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">And asynchronous queue implementation.</p><div class="fullcomment"><div class="comment cmt"><p>And asynchronous queue implementation.</p><p>On <code>poll</code>, if there are queued elements, it returns oe
-immediately, otherwise it returns a <code>Future</code>
-</p></div></div>
-    </li><li name="monix.execution.misc.AsyncSemaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="AsyncSemaphoreextendsSerializable"></a><a id="AsyncSemaphore:AsyncSemaphore"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncSemaphoreextendsSerializable" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="The AsyncSemaphore is an asynchronous semaphore implementation that limits the parallelism on Future execution." href="AsyncSemaphore.html"><span class="name">AsyncSemaphore</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">The <code>AsyncSemaphore</code> is an asynchronous semaphore implementation that
-limits the parallelism on <code>Future</code> execution.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>AsyncSemaphore</code> is an asynchronous semaphore implementation that
-limits the parallelism on <code>Future</code> execution.</p><p>The following example instantiates a semaphore with a
-maximum parallelism of 10:</p><pre><span class="kw">val</span> semaphore = AsyncSemaphore(maxParallelism = <span class="num">10</span>)
-
-<span class="kw">def</span> makeRequest(r: HttpRequest): Future[HttpResponse] = ???
-
-<span class="cmt">// For such a task no more than 10 requests</span>
-<span class="cmt">// are allowed to be executed in parallel.</span>
-<span class="kw">val</span> future = semaphore.greenLight(() <span class="kw">=&gt;</span> makeRequest(???))</pre></div></div>
-    </li><li name="monix.execution.misc.AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="AsyncVar[A]extendsAnyRef"></a><a id="AsyncVar[A]:AsyncVar[A]"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncVar[A]extendsAnyRef" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">class</span>
-      </span>
-      <span class="symbol">
-        <a title="Asynchronous mutable location, that is either empty or contains a value of type A." href="AsyncVar.html"><span class="name">AsyncVar</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Asynchronous mutable location, that is either empty or contains
-a value of type <code>A</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Asynchronous mutable location, that is either empty or contains
-a value of type <code>A</code>.</p><p>It has 2 fundamental atomic operations:</p><ul><li><a href="AsyncVar.html#put(a:A):scala.concurrent.Future[Unit]" class="extmbr" name="monix.execution.misc.AsyncVar#put">put</a> which fills the var if empty, or blocks
-   (asynchronously) otherwise until the var is empty again</li><li><a href="AsyncVar.html#take:scala.concurrent.Future[A]" class="extmbr" name="monix.execution.misc.AsyncVar#take">take</a> which empties the var if full, returning the contained
-   value, or blocks (asynchronously) otherwise until there is
-   a value to pull</li></ul><p>The <code>AsyncVar</code> is appropriate for building synchronization
-primitives and performing simple inter-thread communications.
-If it helps, it's similar with a <code>BlockingQueue(capacity = 1)</code>,
-except that it doesn't block any threads, all waiting being
-callback-based.</p><p>Given its asynchronous, non-blocking nature, it can be used on
-top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code> from Haskell.
-</p></div></div>
-    </li><li name="monix.execution.misc.HygieneUtilMacros" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="monix.execution.misc.HygieneUtilMacros" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="HygieneUtilMacrosextendsAnyRef"></a><a id="HygieneUtilMacros:HygieneUtilMacros"></a>
       <span class="permalink">
       <a href="../../../monix/execution/misc/index.html#HygieneUtilMacrosextendsAnyRef" title="Permalink">
@@ -418,7 +370,7 @@ top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Utilities for macro-hygiene." href="HygieneUtilMacros.html"><span class="name">HygieneUtilMacros</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <a title="Utilities for macro-hygiene." href="HygieneUtilMacros.html"><span class="name">HygieneUtilMacros</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Utilities for macro-hygiene.</p>
@@ -434,7 +386,7 @@ top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="" href="InlineMacros.html"><span class="name">InlineMacros</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <a title="" href="InlineMacros.html"><span class="name">InlineMacros</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       
@@ -450,7 +402,7 @@ top of Javascript as well.</p><p>Inspired by <code>Control.Concurrent.MVar</code
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="A Local is a ThreadLocal whose scope is flexible." href="Local.html"><span class="name">Local</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <a title="A Local is a ThreadLocal whose scope is flexible." href="Local.html"><span class="name">Local</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">A <code>Local</code> is a <a href="ThreadLocal.html" class="extype" name="monix.execution.misc.ThreadLocal">ThreadLocal</a> whose scope is flexible.</p><div class="fullcomment"><div class="comment cmt"><p>A <code>Local</code> is a <a href="ThreadLocal.html" class="extype" name="monix.execution.misc.ThreadLocal">ThreadLocal</a> whose scope is flexible. The state
@@ -473,7 +425,7 @@ and restore optimizations are dominant.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Cross-platform equivalent for java.lang.ThreadLocal, for specifying thread-local variables." href="ThreadLocal.html"><span class="name">ThreadLocal</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <a title="Cross-platform equivalent for java.lang.ThreadLocal, for specifying thread-local variables." href="ThreadLocal.html"><span class="name">ThreadLocal</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Cross-platform equivalent for <code>java.lang.ThreadLocal</code>,
@@ -483,6 +435,63 @@ thread that accesses one (via its <a href="ThreadLocal.html#get():A" class="extm
 <a href="ThreadLocal.html#set(value:A):Unit" class="extmbr" name="monix.execution.misc.ThreadLocal#set">ThreadLocal#set</a> method) has its own, independently initialized
 copy of the variable.
 </p></div></div>
+    </li><li name="monix.execution.misc.AsyncQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncQueue[A]=monix.execution.AsyncQueue[A]"></a><a id="AsyncQueue[A]:AsyncQueue[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncQueue[A]=monix.execution.AsyncQueue[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncQueue">AsyncQueue</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../AsyncQueue.html" class="extype" name="monix.execution.AsyncQueue">execution.AsyncQueue</a>[<span class="extype" name="monix.execution.misc.AsyncQueue.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncQueue</p></dd></dl></div>
+    </li><li name="monix.execution.misc.AsyncSemaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncSemaphore=monix.execution.AsyncSemaphore"></a><a id="AsyncSemaphore:AsyncSemaphore"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncSemaphore=monix.execution.AsyncSemaphore" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncSemaphore">AsyncSemaphore</span><span class="result alias"> = <a href="../AsyncSemaphore.html" class="extype" name="monix.execution.AsyncSemaphore">execution.AsyncSemaphore</a></span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncSemaphore</p></dd></dl></div>
+    </li><li name="monix.execution.misc.AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncVar[A]=monix.execution.AsyncVar[A]"></a><a id="AsyncVar[A]:AsyncVar[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncVar[A]=monix.execution.AsyncVar[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">type</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncVar">AsyncVar</span><span class="tparams">[<span name="A">A</span>]</span><span class="result alias"> = <a href="../AsyncVar.html" class="extype" name="monix.execution.AsyncVar">execution.AsyncVar</a>[<span class="extype" name="monix.execution.misc.AsyncVar.A">A</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncVar</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -491,55 +500,7 @@ copy of the variable.
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="monix.execution.misc.AsyncQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AsyncQueue"></a><a id="AsyncQueue:AsyncQueue"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncQueue" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="AsyncQueue$.html"><span class="name">AsyncQueue</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
-      </span>
-      
-      
-    </li><li name="monix.execution.misc.AsyncSemaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AsyncSemaphore"></a><a id="AsyncSemaphore:AsyncSemaphore"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncSemaphore" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="AsyncSemaphore$.html"><span class="name">AsyncSemaphore</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
-      </span>
-      
-      
-    </li><li name="monix.execution.misc.AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="AsyncVar"></a><a id="AsyncVar:AsyncVar"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#AsyncVar" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="" href="AsyncVar$.html"><span class="name">AsyncVar</span></a>
-      </span>
-      
-      
-    </li><li name="monix.execution.misc.Local" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="monix.execution.misc.Local" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Local"></a><a id="Local:Local"></a>
       <span class="permalink">
       <a href="../../../monix/execution/misc/index.html#Local" title="Permalink">
@@ -555,24 +516,6 @@ copy of the variable.
       </span>
       
       
-    </li><li name="monix.execution.misc.NonFatal" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="NonFatal"></a><a id="NonFatal:NonFatal"></a>
-      <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#NonFatal" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a title="Extractor of non-fatal Throwable instances." href="NonFatal$.html"><span class="name">NonFatal</span></a>
-      </span>
-      
-      <p class="shortcomment cmt">Extractor of non-fatal <code>Throwable</code> instances.</p><div class="fullcomment"><div class="comment cmt"><p>Extractor of non-fatal <code>Throwable</code> instances.</p><p>This is an alternative to <code>scala.util.control.NonFatal</code>
-that only considers <code>VirtualMachineError</code> as being non-fatal.
-</p></div></div>
     </li><li name="monix.execution.misc.ThreadLocal" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ThreadLocal"></a><a id="ThreadLocal:ThreadLocal"></a>
       <span class="permalink">
@@ -595,11 +538,75 @@ that only considers <code>VirtualMachineError</code> as being non-fatal.
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="monix.execution.misc#AsyncQueue" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncQueue:monix.execution.AsyncQueue.type"></a><a id="AsyncQueue:execution.AsyncQueue.type"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncQueue:monix.execution.AsyncQueue.type" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncQueue">AsyncQueue</span><span class="result">: <a href="../AsyncQueue$.html" class="extype" name="monix.execution.AsyncQueue">execution.AsyncQueue</a>.type</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncQueue</p></dd></dl></div>
+    </li><li name="monix.execution.misc#AsyncSemaphore" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncSemaphore:monix.execution.AsyncSemaphore.type"></a><a id="AsyncSemaphore:execution.AsyncSemaphore.type"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncSemaphore:monix.execution.AsyncSemaphore.type" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncSemaphore">AsyncSemaphore</span><span class="result">: <a href="../AsyncSemaphore$.html" class="extype" name="monix.execution.AsyncSemaphore">execution.AsyncSemaphore</a>.type</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncSemaphore</p></dd></dl></div>
+    </li><li name="monix.execution.misc#AsyncVar" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="AsyncVar:monix.execution.AsyncVar.type"></a><a id="AsyncVar:execution.AsyncVar.type"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#AsyncVar:monix.execution.AsyncVar.type" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Switch to monix.execution.AsyncVar">AsyncVar</span><span class="result">: <a href="../AsyncVar$.html" class="extype" name="monix.execution.AsyncVar">execution.AsyncVar</a>.type</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Switch to monix.execution.AsyncVar</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
-        
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+            </div>
         
         </div>
 

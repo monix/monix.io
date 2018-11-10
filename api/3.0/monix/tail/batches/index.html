@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.tail.batches</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.tail.batches" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.tail.batches" />
+          <title>Monix 3.0.0-RC2 - monix.tail.batches</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.tail.batches" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.tail.batches" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
    useful <a href="../../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="../index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="../Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -190,6 +195,10 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
                         <a href="GenericBatch.html" title="Reusable Batch base class that can be used for implementing generators that simply modify their underlying cursor reference.">GenericBatch</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="GenericCursor.html" title="Reusable BatchCursor base class that can be used for implementing cursors by just providing the primitive operations, hasNext, next and recommendedBatchSize."></a>
+                        <a href="GenericCursor.html" title="Reusable BatchCursor base class that can be used for implementing cursors by just providing the primitive operations, hasNext, next and recommendedBatchSize.">GenericCursor</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="IntegersBatch.html" title="Batch implementation specialized for Int."></a>
                         <a href="IntegersBatch.html" title="Batch implementation specialized for Int.">IntegersBatch</a>
                       </li><li class="current-entities indented3">
@@ -240,12 +249,7 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-tail/shared/src/main/scala/monix/tail/batches/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
-          <span class="toggle">
-            Linear Supertypes
-          </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
-        </div></div>
+          <div id="comment" class="fullcommenttop"></div>
         
 
       <div id="mbrsel">
@@ -263,22 +267,10 @@ with asynchronous execution:</p><ul><li><a href="../../execution/atomic/index.ht
             <ol>
               
               <li class="alpha in"><span>Alphabetic</span></li>
-              <li class="inherit out"><span>By Inheritance</span></li>
+              
             </ol>
           </div>
-          <div class="ancestors">
-                  <span class="filtertype">Inherited<br />
-                  </span>
-                  <ol id="linearization">
-                    <li class="in" name="monix.tail.batches"><span>batches</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
-                  </ol>
-                </div><div class="ancestors">
-              <span class="filtertype"></span>
-              <ol>
-                <li class="hideall out"><span>Hide All</span></li>
-                <li class="showall in"><span>Show All</span></li>
-              </ol>
-            </div>
+          
           <div id="visbl">
               <span class="filtertype">Visibility</span>
               <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -339,14 +331,14 @@ into a modified copy, hence all transformations have strict behavior!</p><p>To b
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="The Batch is a BatchCursor factory, similar in spirit with Scala's Iterable." href="Batch.html"><span class="name">Batch</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The Batch is a BatchCursor factory, similar in spirit with Scala's Iterable." href="Batch.html"><span class="name">Batch</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <code>Batch</code> is a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> factory, similar in spirit
-with Scala's <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Batch</code> is a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> factory, similar in spirit
-with Scala's <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><p>Its <a href="Batch.html#cursor():monix.tail.batches.BatchCursor[A]" class="extmbr" name="monix.tail.batches.Batch#cursor">cursor()</a> method can be called
+with Scala's <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><div class="fullcomment"><div class="comment cmt"><p>The <code>Batch</code> is a <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> factory, similar in spirit
+with Scala's <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>.</p><p>Its <a href="Batch.html#cursor():monix.tail.batches.BatchCursor[A]" class="extmbr" name="monix.tail.batches.Batch#cursor">cursor()</a> method can be called
 repeatedly to yield the same sequence.</p><p>This class is provided as an alternative to Scala's
-<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
+<a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
    to avoid boxing</li><li>it's a factory of <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>, which provides hints
    for <code>recommendedBatchSize</code>, meaning how many batch can
    be processed in a batches</li></ul><p>Used in the <a href="../Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> implementation.
@@ -363,7 +355,7 @@ repeatedly to yield the same sequence.</p><p>This class is provided as an altern
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Similar to Java's and Scala's Iterator, the BatchCursor type can can be used to iterate over the data in a collection, but it cannot be used to modify the underlying collection." href="BatchCursor.html"><span class="name">BatchCursor</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Similar to Java's and Scala's Iterator, the BatchCursor type can can be used to iterate over the data in a collection, but it cannot be used to modify the underlying collection." href="BatchCursor.html"><span class="name">BatchCursor</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Similar to Java's and Scala's <code>Iterator</code>, the <code>BatchCursor</code> type can
@@ -383,7 +375,7 @@ In other cases, when wrapping potentially infinite collections, like
 <span class="kw">catch</span> {
   <span class="kw">case</span> NonFatal(ex) <span class="kw">=&gt;</span> report(ex)
 }</pre><p>This class is provided as an alternative to Scala's
-<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
+<a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterator.html" class="extype" name="scala.collection.Iterator">Iterator</a> because:</p><ul><li>the list of supported operations is smaller</li><li>implementations specialized for primitives are provided
    to avoid boxing</li><li>depending on the implementation, the behaviour of operators
    can be eager (e.g. <code>map</code>, <code>filter</code>), but only in case the
    source cursor doesn't need to be consumed (if the cursor is
@@ -401,7 +393,7 @@ In other cases, when wrapping potentially infinite collections, like
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Boolean." href="BooleansBatch.html"><span class="name">BooleansBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+        <a title="Batch implementation specialized for Boolean." href="BooleansBatch.html"><span class="name">BooleansBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Boolean</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -420,7 +412,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Boolean." href="BooleansCursor.html"><span class="name">BooleansCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+        <a title="BatchCursor implementation specialized for Boolean." href="BooleansCursor.html"><span class="name">BooleansCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Boolean</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Boolean</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -439,7 +431,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Byte." href="BytesBatch.html"><span class="name">BytesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
+        <a title="Batch implementation specialized for Byte." href="BytesBatch.html"><span class="name">BytesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Byte</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -458,7 +450,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Byte." href="BytesCursor.html"><span class="name">BytesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
+        <a title="BatchCursor implementation specialized for Byte." href="BytesCursor.html"><span class="name">BytesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Byte.html#scala.Byte" class="extype" name="scala.Byte">Byte</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Byte</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Byte</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -477,7 +469,7 @@ be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Char." href="CharsBatch.html"><span class="name">CharsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
+        <a title="Batch implementation specialized for Char." href="CharsBatch.html"><span class="name">CharsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Char</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -496,7 +488,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Char." href="CharsCursor.html"><span class="name">CharsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
+        <a title="BatchCursor implementation specialized for Char." href="CharsCursor.html"><span class="name">CharsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Char.html#scala.Char" class="extype" name="scala.Char">Char</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Char</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Char</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -515,7 +507,7 @@ be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Double." href="DoublesBatch.html"><span class="name">DoublesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
+        <a title="Batch implementation specialized for Double." href="DoublesBatch.html"><span class="name">DoublesBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Double</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -534,7 +526,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Double." href="DoublesCursor.html"><span class="name">DoublesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
+        <a title="BatchCursor implementation specialized for Double." href="DoublesCursor.html"><span class="name">DoublesCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Double.html#scala.Double" class="extype" name="scala.Double">Double</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Double</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Double</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -559,6 +551,24 @@ be desirable instead for <code>isInstanceOf</code> checks.
       <p class="shortcomment cmt">Reusable <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> base class that can
 be used for implementing generators that simply modify their underlying
 cursor reference.</p>
+    </li><li name="monix.tail.batches.GenericCursor" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="GenericCursor[+A]extendsBatchCursor[A]"></a><a id="GenericCursor[+A]:GenericCursor[A]"></a>
+      <span class="permalink">
+      <a href="../../../monix/tail/batches/index.html#GenericCursor[+A]extendsBatchCursor[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Reusable BatchCursor base class that can be used for implementing cursors by just providing the primitive operations, hasNext, next and recommendedBatchSize." href="GenericCursor.html"><span class="name">GenericCursor</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<span class="extype" name="monix.tail.batches.GenericCursor.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Reusable <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> base class that can be used for
+implementing cursors by just providing the primitive operations,
+<code>hasNext</code>, <code>next</code> and <code>recommendedBatchSize</code>.</p>
     </li><li name="monix.tail.batches.IntegersBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="IntegersBatchextendsBatch[Int]"></a><a id="IntegersBatch:IntegersBatch"></a>
       <span class="permalink">
@@ -571,7 +581,7 @@ cursor reference.</p>
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Int." href="IntegersBatch.html"><span class="name">IntegersBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+        <a title="Batch implementation specialized for Int." href="IntegersBatch.html"><span class="name">IntegersBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Int</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -590,7 +600,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Int." href="IntegersCursor.html"><span class="name">IntegersCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
+        <a title="BatchCursor implementation specialized for Int." href="IntegersCursor.html"><span class="name">IntegersCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Int</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Int</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -629,7 +639,7 @@ underlying <code>Iterator</code>.</p><p>NOTE: all transformations are delegated 
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Batch implementation specialized for Long." href="LongsBatch.html"><span class="name">LongsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+        <a title="Batch implementation specialized for Long." href="LongsBatch.html"><span class="name">LongsBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation specialized for <code>Long</code>.</p><p>Under the hood it uses an <a href="ArrayBatch.html" class="extype" name="monix.tail.batches.ArrayBatch">ArrayBatch</a>
@@ -648,7 +658,7 @@ might be desirable instead for <code>isInstanceOf</code> checks.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation specialized for Long." href="LongsCursor.html"><span class="name">LongsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+        <a title="BatchCursor implementation specialized for Long." href="LongsCursor.html"><span class="name">LongsCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Long</code>.</p><div class="fullcomment"><div class="comment cmt"><p><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation specialized for <code>Long</code>.</p><p>Under the hood it uses an <a href="ArrayCursor.html" class="extype" name="monix.tail.batches.ArrayCursor">ArrayCursor</a>
@@ -671,7 +681,7 @@ be desirable instead for <code>isInstanceOf</code> checks.
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation that wraps any
-Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>.</p>
+Scala <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Seq.html" class="extype" name="scala.collection.Seq">Seq</a>.</p>
     </li></ol>
             </div>
 
@@ -692,7 +702,7 @@ Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html" c
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Batch builders." href="Batch$.html"><span class="name">Batch</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Batch builders." href="Batch$.html"><span class="name">Batch</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> builders.</p>
@@ -708,7 +718,7 @@ Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html" c
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor builders." href="BatchCursor$.html"><span class="name">BatchCursor</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="BatchCursor builders." href="BatchCursor$.html"><span class="name">BatchCursor</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> builders.</p>
@@ -724,7 +734,7 @@ Scala <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Seq.html" c
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Reusable Batch implementation that's always empty." href="EmptyBatch$.html"><span class="name">EmptyBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
+        <a title="Reusable Batch implementation that's always empty." href="EmptyBatch$.html"><span class="name">EmptyBatch</span></a><span class="result"> extends <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Reusable <a href="Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a> implementation
@@ -741,7 +751,7 @@ that's always empty.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="BatchCursor implementation that's always empty." href="EmptyCursor$.html"><span class="name">EmptyCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Nothing" class="extype" name="scala.collection.immutable.List">Nothing</a>]</span>
+        <a title="BatchCursor implementation that's always empty." href="EmptyCursor$.html"><span class="name">EmptyCursor</span></a><span class="result"> extends <a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>]</span>
       </span>
       
       <p class="shortcomment cmt"><a href="BatchCursor.html" class="extype" name="monix.tail.batches.BatchCursor">BatchCursor</a> implementation that's always empty.</p>
@@ -755,11 +765,7 @@ that's always empty.</p>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
-            </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
-            </div>
+        
         
         </div>
 

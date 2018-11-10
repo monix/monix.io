@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC1 - monix.tail.Iterant.NextBatch</title>
-          <meta name="description" content="Monix 3.0.0 - RC1 - monix.tail.Iterant.NextBatch" />
-          <meta name="keywords" content="Monix 3.0.0 RC1 monix.tail.Iterant.NextBatch" />
+          <title>Monix 3.0.0-RC2 - monix.tail.Iterant.NextBatch</title>
+          <meta name="description" content="Monix 3.0.0 - RC2 - monix.tail.Iterant.NextBatch" />
+          <meta name="keywords" content="Monix 3.0.0 RC2 monix.tail.Iterant.NextBatch" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC1</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -75,11 +75,16 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
    useful <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementations</li><li><a href="../execution/rstreams/index.html" class="extype" name="monix.execution.rstreams">monix.execution.rstreams</a> contains helpers for dealing
    with the <a href="http://www.reactive-streams.org" target="_blank">Reactive Streams</a> specification</li><li><a href="../execution/misc/index.html" class="extype" name="monix.execution.misc">monix.execution.misc</a> provides miscellaneous primitives
    useful for dealing with concurrency</li><li><a href="../execution/exceptions/index.html" class="extype" name="monix.execution.exceptions">monix.execution.exceptions</a> groups some exceptions thrown by
-   the implementation</li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
+   the implementation</li></ul><p><b><a href="../catnap/index.html" class="extype" name="monix.catnap">monix.catnap</a></b> exposes pure abstractions built on top of
+the <a href="https://typelevel.org/cats-effect/" target="_blank">Cats-Effect</a> type classes:</p><ul><li><a href="../catnap/cancelables/index.html" class="extype" name="monix.catnap.cancelables">monix.catnap.cancelables</a> exposes pure counterparts to the
+   cancelable data types described in <a href="../execution/cancelables/index.html" class="extype" name="monix.execution.cancelables">monix.execution.cancelables</a></li></ul><p><b><a href="../eval/index.html" class="extype" name="monix.eval">monix.eval</a></b> is for dealing with evaluation of results, thus exposing
 <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> and <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p><b><a href="../reactive/index.html" class="extype" name="monix.reactive">monix.reactive</a></b> exposes the <code>Observable</code> pattern:</p><ul><li><a href="../reactive/observables/index.html" class="extype" name="monix.reactive.observables">monix.reactive.observables</a> groups reusable <code>Observable</code> implementations</li><li><a href="../reactive/observers/index.html" class="extype" name="monix.reactive.observers">monix.reactive.observers</a> groups reusable <a href="../reactive/Observer.html" class="extype" name="monix.reactive.Observer">Observer</a>
    implementations</li><li><a href="../reactive/subjects/index.html" class="extype" name="monix.reactive.subjects">monix.reactive.subjects</a> exposes <a href="../reactive/subjects/Subject.html" class="extype" name="monix.reactive.subjects.Subject">Subject</a>
    and <a href="../reactive/subjects/ConcurrentSubject.html" class="extype" name="monix.reactive.subjects.ConcurrentSubject">ConcurrentSubject</a>,
-   which are implementations of hot observables that function both as input and output</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
+   which are implementations of hot observables that function both as input and output</li></ul><p><b><a href="index.html" class="extype" name="monix.tail">monix.tail</a></b> exposes <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> for purely functional pull based streaming:</p><ul><li><a href="batches/index.html" class="extype" name="monix.tail.batches">monix.tail.batches</a> describes <code>Batch</code> and <code>BatchCursor</code>, the
+   alternatives to Scala's <code>Iterable</code> and <code>Iterator</code> respectively that
+   we are using within Iterant's encoding</li></ul><p>You can control evaluation with type you choose - be it <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>, <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <a href="https://typelevel.org/cats-effect/api/cats/effect/IO.html" target="_blank">cats.effect.IO</a>
+or your own as long as you provide correct <a href="https://typelevel.org/cats-effect/typeclasses/" target="_blank">cats-effect</a> or <a href="https://typelevel.org/cats/typeclasses.html" target="_blank">cats</a> typeclass instance.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../../index.html" class="extype" name="_root_">root</a></dd></dl></div>
     </li><li name="_root_.monix" visbl="pub" class="indented1 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="monix"></a><a id="monix:monix"></a>
       <span class="permalink">
@@ -124,18 +129,18 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Defines the standard Iterant builders." href="Iterant$.html"><span class="name">Iterant</span></a><span class="result"> extends <span class="extype" name="monix.tail.IterantInstances">IterantInstances</span> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Defines the standard Iterant builders." href="Iterant$.html"><span class="name">Iterant</span></a><span class="result"> extends <span class="extype" name="monix.tail.IterantInstances">IterantInstances</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Defines the standard <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> builders.</p><div class="fullcomment"><div class="comment cmt"><p>Defines the standard <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> builders.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.tail">tail</a></dd></dl></div>
     </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="class" href="Iterant$$CatsAsyncInstances.html" title="Provides the cats.effect.Async instance for Iterant."></a>
-                        <a href="Iterant$$CatsAsyncInstances.html" title="Provides the cats.effect.Async instance for Iterant.">CatsAsyncInstances</a>
-                      </li><li class="current-entities indented3">
-                        <span class="separator"></span>
                         <a class="class" href="Iterant$$CatsSyncInstances.html" title="Provides the cats.effect.Sync instance for Iterant."></a>
                         <a href="Iterant$$CatsSyncInstances.html" title="Provides the cats.effect.Sync instance for Iterant.">CatsSyncInstances</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Iterant$$Concat.html" title="The Concat state of the Iterant represents a state that specifies the concatenation of two streams."></a>
+                        <a href="Iterant$$Concat.html" title="The Concat state of the Iterant represents a state that specifies the concatenation of two streams.">Concat</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="class" href="Iterant$$Halt.html" title="The Halt state of the Iterant represents the completion state of a stream, with an optional exception if an error happened."></a>
@@ -146,8 +151,8 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
                         <a href="Iterant$$Last.html" title="The Last state of the Iterant represents a completion state as an alternative to Halt(None), describing one last element.">Last</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
-                        <a class="class" href="Iterant$$Next.html" title="The Next state of the Iterant represents a head / rest cons pair, where the head is a strict value."></a>
-                        <a href="Iterant$$Next.html" title="The Next state of the Iterant represents a head / rest cons pair, where the head is a strict value.">Next</a>
+                        <a class="class" href="Iterant$$Next.html" title="The Next state of the Iterant represents a item / rest cons pair, where the head item is a strict value."></a>
+                        <a href="Iterant$$Next.html" title="The Next state of the Iterant represents a item / rest cons pair, where the head item is a strict value.">Next</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="class" href="" title="The NextBatch state of the Iterant represents an batch / rest cons pair, where batch is an Iterable type that can generate a whole batch of elements."></a>
@@ -158,8 +163,16 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
                         <a href="Iterant$$NextCursor.html" title="The NextCursor state of the Iterant represents an batch / rest cons pair, where batch is an Iterator type that can generate a whole batch of elements.">NextCursor</a>
                       </li><li class="current-entities indented3">
                         <span class="separator"></span>
+                        <a class="class" href="Iterant$$Scope.html" title="The Scope state of the Iterant represents a stream that is able to specify the acquisition and release of a resource, to be used in generating stream events."></a>
+                        <a href="Iterant$$Scope.html" title="The Scope state of the Iterant represents a stream that is able to specify the acquisition and release of a resource, to be used in generating stream events.">Scope</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
                         <a class="class" href="Iterant$$Suspend.html" title="Builds a stream state equivalent with Iterant.NextCursor."></a>
                         <a href="Iterant$$Suspend.html" title="Builds a stream state equivalent with Iterant.NextCursor.">Suspend</a>
+                      </li><li class="current-entities indented3">
+                        <span class="separator"></span>
+                        <a class="class" href="Iterant$$Visitor.html" title="Implements the Visitor Pattern for interpreting the Iterant data structure."></a>
+                        <a href="Iterant$$Visitor.html" title="Implements the Visitor Pattern for interpreting the Iterant data structure.">Visitor</a>
                       </li>
               </ul>
             </div>
@@ -183,24 +196,22 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">NextBatch</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="batch">batch: <a href="batches/Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>, <span name="rest">rest: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>, <span name="stop">stop: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result"> extends <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">NextBatch</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="batch">batch: <a href="batches/Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>, <span name="rest">rest: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>)</span><span class="result"> extends <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
       
           <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>The <a href="" class="extype" name="monix.tail.Iterant.NextBatch">NextBatch</a> state
         of the <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> represents an <code>batch</code> / <code>rest</code> cons pair,
-        where <code>batch</code> is an <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
-        type that can generate a whole batch of elements.</p></div><dl class="paramcmts block"><dt class="param">batch</dt><dd class="cmt"><p>is a <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
+        where <code>batch</code> is an <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
+        type that can generate a whole batch of elements.</p></div><dl class="paramcmts block"><dt class="param">batch</dt><dd class="cmt"><p>is a <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
         type that can generate elements by traversing a collection,
         a standard array or any <code>Iterable</code></p></dd><dt class="param">rest</dt><dd class="cmt"><p>is the next state in the sequence that
-        will produce the rest of the stream when evaluated</p></dd><dt class="param">stop</dt><dd class="cmt"><p>is a computation to be executed in case
-        streaming is stopped prematurely, giving it a chance
-        to do resource cleanup (e.g. close file handles)</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC1/monix-tail/shared/src/main/scala/monix/tail/Iterant.scala" target="_blank">Iterant.scala</a></dd></dl><div class="toggleContainer block">
+        will produce the rest of the stream when evaluated</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-tail/shared/src/main/scala/monix/tail/Iterant.scala" target="_blank">Iterant.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -247,9 +258,9 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="monix.tail.Iterant.NextBatch#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(batch:monix.tail.batches.Batch[A],rest:F[monix.tail.Iterant[F,A]],stop:F[Unit]):monix.tail.Iterant.NextBatch[F,A]"></a><a id="&lt;init&gt;:NextBatch[F,A]"></a>
+      <a id="&lt;init&gt;(batch:monix.tail.batches.Batch[A],rest:F[monix.tail.Iterant[F,A]]):monix.tail.Iterant.NextBatch[F,A]"></a><a id="&lt;init&gt;:NextBatch[F,A]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#&lt;init&gt;(batch:monix.tail.batches.Batch[A],rest:F[monix.tail.Iterant[F,A]],stop:F[Unit]):monix.tail.Iterant.NextBatch[F,A]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#&lt;init&gt;(batch:monix.tail.batches.Batch[A],rest:F[monix.tail.Iterant[F,A]]):monix.tail.Iterant.NextBatch[F,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -258,15 +269,13 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">NextBatch</span><span class="params">(<span name="batch">batch: <a href="batches/Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>, <span name="rest">rest: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>, <span name="stop">stop: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span>
+        <span class="name">NextBatch</span><span class="params">(<span name="batch">batch: <a href="batches/Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>, <span name="rest">rest: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>)</span>
       </span>
       
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">batch</dt><dd class="cmt"><p>is a <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">batch</dt><dd class="cmt"><p>is a <a href="http://www.scala-lang.org/api/2.12.7/scala/collection/Iterable.html" class="extype" name="scala.collection.Iterable">Iterable</a>
         type that can generate elements by traversing a collection,
         a standard array or any <code>Iterable</code></p></dd><dt class="param">rest</dt><dd class="cmt"><p>is the next state in the sequence that
-        will produce the rest of the stream when evaluated</p></dd><dt class="param">stop</dt><dd class="cmt"><p>is a computation to be executed in case
-        streaming is stopped prematurely, giving it a chance
-        to do resource cleanup (e.g. close file handles)</p></dd></dl></div>
+        will produce the rest of the stream when evaluated</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -289,7 +298,7 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -305,14 +314,14 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="monix.tail.Iterant#++" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="++[B&gt;:A](rhs:monix.tail.Iterant[F,B])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]"></a><a id="++[B&gt;:A](Iterant[F,B])(Applicative[F]):Iterant[F,B]"></a>
+      <a id="++[B&gt;:A](rhs:=&gt;monix.tail.Iterant[F,B])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]"></a><a id="++[B&gt;:A](⇒Iterant[F,B])(Sync[F]):Iterant[F,B]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#++[B&gt;:A](rhs:monix.tail.Iterant[F,B])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#++[B&gt;:A](rhs:=&gt;monix.tail.Iterant[F,B])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -321,18 +330,18 @@ with asynchronous execution:</p><ul><li><a href="../execution/atomic/index.html"
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus$plus" class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="rhs">rhs: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>
+        <span title="gt4s: $plus$plus" class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="rhs">rhs: ⇒ <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Appends the given stream to the end of the source, effectively
 concatenating them.</p><div class="fullcomment"><div class="comment cmt"><p>Appends the given stream to the end of the source, effectively
 concatenating them.</p><p>Example: </p><pre><span class="cmt">// Yields 1, 2, 3, 4</span>
-Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>) ++ Iterant[Task].of(<span class="num">3</span>, <span class="num">4</span>)</pre></div><dl class="paramcmts block"><dt class="param">rhs</dt><dd class="cmt"><p>is the (right hand side) iterant to concatenate at
+Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>) ++ Iterant[Task].of(<span class="num">3</span>, <span class="num">4</span>)</pre></div><dl class="paramcmts block"><dt class="param">rhs</dt><dd class="cmt"><p>is the (right hand side) lazily evaluated iterant to concatenate at
        the end of this iterant.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#++" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="++[B&gt;:A](rhs:F[monix.tail.Iterant[F,B]])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]"></a><a id="++[B&gt;:A](F[Iterant[F,B]])(Applicative[F]):Iterant[F,B]"></a>
+      <a id="++[B&gt;:A](rhs:F[monix.tail.Iterant[F,B]])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]"></a><a id="++[B&gt;:A](F[Iterant[F,B]])(Sync[F]):Iterant[F,B]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#++[B&gt;:A](rhs:F[monix.tail.Iterant[F,B]])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#++[B&gt;:A](rhs:F[monix.tail.Iterant[F,B]])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -341,7 +350,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>) ++ Iter
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $plus$plus" class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>
+        <span title="gt4s: $plus$plus" class="name">++</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="rhs">rhs: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.++.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Appends a stream to the end of the source, effectively
@@ -374,9 +383,9 @@ continue with the source.</p><p>Example: </p><pre><span class="cmt">// Yields 1,
 <span class="num">1</span> +: Iterant[Task].of(<span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>)</pre></div><dl class="paramcmts block"><dt class="param">head</dt><dd class="cmt"><p>is the element to prepend at the start of
        this iterant</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#:+" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id=":+[B&gt;:A](elem:B)(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]"></a><a id=":+[B&gt;:A](B)(Applicative[F]):Iterant[F,B]"></a>
+      <a id=":+[B&gt;:A](elem:B)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]"></a><a id=":+[B&gt;:A](B)(Sync[F]):Iterant[F,B]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#:+[B&gt;:A](elem:B)(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,B]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#:+[B&gt;:A](elem:B)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -385,7 +394,7 @@ continue with the source.</p><p>Example: </p><pre><span class="cmt">// Yields 1,
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $colon$plus" class="name">:+</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="elem">elem: <span class="extype" name="monix.tail.Iterant.:+.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.:+.B">B</span>]</span>
+        <span title="gt4s: $colon$plus" class="name">:+</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="elem">elem: <span class="extype" name="monix.tail.Iterant.:+.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.:+.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Appends the right hand side element to the end of this iterant.</p><div class="fullcomment"><div class="comment cmt"><p>Appends the right hand side element to the end of this iterant.</p><p>Example: </p><pre><span class="cmt">// Yields 1, 2, 3, 4</span>
@@ -402,10 +411,26 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.tail.Iterant.NextBatch#accept" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="accept[R](visitor:monix.tail.Iterant.Visitor[F,A,R]):R"></a><a id="accept[R](Visitor[F,A,R]):R"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#accept[R](visitor:monix.tail.Iterant.Visitor[F,A,R]):R" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">accept</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="visitor">visitor: <a href="Iterant$$Visitor.html" class="extype" name="monix.tail.Iterant.Visitor">Visitor</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.accept.R">R</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.accept.R">R</span></span>
+      </span>
+      
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.tail.Iterant.NextBatch">NextBatch</a> → <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="Iterant$$Visitor.html" class="extype" name="monix.tail.Iterant.Visitor">Iterant.Visitor</a>.</p></span></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -476,7 +501,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">batched</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">batched</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Optimizes the access to the source by periodically gathering
@@ -501,7 +526,7 @@ batches are implicit, not explicit. Useful for optimization.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bufferSliding</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="skip">skip: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">bufferSliding</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="skip">skip: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Returns an iterant that emits buffers of items it collects from
@@ -540,7 +565,7 @@ source.bufferSliding(<span class="num">3</span>, <span class="num">2</span>)</pr
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bufferTumbling</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">bufferTumbling</span><span class="params">(<span name="count">count: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="scala.Seq">Seq</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Periodically gather items emitted by an iterant into bundles
@@ -567,7 +592,7 @@ Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -591,7 +616,7 @@ Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">collect</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.collect.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.collect.B">B</span>]</span>
+        <span class="name">collect</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.collect.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.collect.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Builds a new iterant by applying a partial function to all
@@ -603,10 +628,10 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         function <code>pf</code> to each element on which it is defined and
         collecting the results. The order of the elements is
         preserved.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#completeL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="completeL(implicitF:cats.effect.Sync[F]):F[Unit]"></a><a id="completeL(Sync[F]):F[Unit]"></a>
+    </li><li name="monix.tail.Iterant#completedL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="completedL(implicitF:cats.effect.Sync[F]):F[Unit]"></a><a id="completedL(Sync[F]):F[Unit]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#completeL(implicitF:cats.effect.Sync[F]):F[Unit]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#completedL(implicitF:cats.effect.Sync[F]):F[Unit]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -615,7 +640,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">completeL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">completedL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Upon evaluation of the result, consumes this iterant to
@@ -666,7 +691,7 @@ completion.</p><p>Example: </p><pre><span class="kw">val</span> onFinish: Task[<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">countL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
+        <span class="name">countL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Counts the total number of elements emitted by the source.</p><div class="fullcomment"><div class="comment cmt"><p>Counts the total number of elements emitted by the source.</p><p>Example:</p><pre><span class="cmt">// Yields 100</span>
@@ -733,53 +758,6 @@ defined for it, then you can quickly define one like this:</p><pre><span class="
 <span class="kw">implicit</span> <span class="kw">val</span> eqK = Eq.fromUniversalEquals[K]</pre></div><dl class="paramcmts block"><dt class="param">key</dt><dd class="cmt"><p>is a function that returns a <code>K</code> key for each element,
        a value that's then used to do the deduplication</p></dd><dt class="param">K</dt><dd class="cmt"><p>is the <code>cats.Eq</code> instance that defines equality for
        the key type <code>K</code></p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#doOnEarlyStop" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="doOnEarlyStop(f:F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]"></a><a id="doOnEarlyStop(F[Unit])(Sync[F]):Iterant[F,A]"></a>
-      <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#doOnEarlyStop(f:F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">doOnEarlyStop</span><span class="params">(<span name="f">f: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Given a routine make sure to execute it whenever
-the consumer executes the current <code>stop</code> action.</p><div class="fullcomment"><div class="comment cmt"><p>Given a routine make sure to execute it whenever
-the consumer executes the current <code>stop</code> action.</p><p>Example: </p><pre>iterant.doOnEarlyStop(Task.eval {
-  println(<span class="lit">"Was stopped early!"</span>)
-})</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the function to execute on early stop</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#doOnFinish" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="doOnFinish(f:Option[Throwable]=&gt;F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]"></a><a id="doOnFinish((Option[Throwable])⇒F[Unit])(Sync[F]):Iterant[F,A]"></a>
-      <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#doOnFinish(f:Option[Throwable]=&gt;F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">doOnFinish</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Returns a new enumerator in which <code>f</code> is scheduled to be executed
-on <a href="Iterant$$Halt.html" class="extype" name="monix.tail.Iterant.Halt">halt</a> or on <a href="Iterant.html#earlyStop(implicitF:cats.Applicative[F]):F[Unit]" class="extmbr" name="monix.tail.Iterant#earlyStop">earlyStop</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new enumerator in which <code>f</code> is scheduled to be executed
-on <a href="Iterant$$Halt.html" class="extype" name="monix.tail.Iterant.Halt">halt</a> or on <a href="Iterant.html#earlyStop(implicitF:cats.Applicative[F]):F[Unit]" class="extmbr" name="monix.tail.Iterant#earlyStop">earlyStop</a>.</p><p>This would typically be used to release any resources acquired
-by this enumerator.</p><p>Note that <a href="Iterant.html#doOnEarlyStop(f:F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" class="extmbr" name="monix.tail.Iterant#doOnEarlyStop">doOnEarlyStop</a> is subsumed under this operation,
-the given <code>f</code> being evaluated on both reaching the end or
-canceling early.</p><p>Example: </p><pre>iterant.doOnEarlyStop(err <span class="kw">=&gt;</span> Task.eval {
-  err <span class="kw">match</span> {
-    <span class="kw">case</span> <span class="std">Some</span>(e) <span class="kw">=&gt;</span> log.error(e)
-    <span class="kw">case</span> <span class="std">None</span> <span class="kw">=&gt;</span>
-      println(<span class="lit">"Was consumed successfully!"</span>)
-  }
-})</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the function to execute on early stop</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#drop" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="drop(n:Int)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]"></a><a id="drop(Int)(Sync[F]):Iterant[F,A]"></a>
       <span class="permalink">
@@ -792,7 +770,7 @@ canceling early.</p><p>Example: </p><pre>iterant.doOnEarlyStop(err <span class="
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">drop</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">drop</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Drops the first <code>n</code> elements (from the start).</p><div class="fullcomment"><div class="comment cmt"><p>Drops the first <code>n</code> elements (from the start).</p><p>Example: </p><pre><span class="cmt">// Yields 4, 5</span>
@@ -810,7 +788,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dropLast</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">dropLast</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Drops the last <code>n</code> elements (from the end).</p><div class="fullcomment"><div class="comment cmt"><p>Drops the last <code>n</code> elements (from the end).</p><p>Example: </p><pre><span class="cmt">// Yields 1, 2</span>
@@ -828,7 +806,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">dropWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Drops the longest prefix of elements that satisfy the given
@@ -850,7 +828,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dropWhileWithIndex</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">dropWhileWithIndex</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Drops the longest prefix of elements that satisfy the given
@@ -888,26 +866,6 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
 <span class="num">2</span>: O --&gt; <span class="num">2</span>
 <span class="num">3</span>: O --&gt; <span class="num">3</span>
 <span class="num">4</span>: O completed</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant.NextBatch#earlyStop" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="earlyStop(implicitF:cats.Applicative[F]):F[Unit]"></a><a id="earlyStop(Applicative[F]):F[Unit]"></a>
-      <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#earlyStop(implicitF:cats.Applicative[F]):F[Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">earlyStop</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Returns a computation that should be evaluated in case the
-streaming must stop before reaching the end.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a computation that should be evaluated in case the
-streaming must stop before reaching the end.</p><p>This is useful to release any acquired resources, like opened
-file handles or network sockets.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.tail.Iterant.NextBatch">NextBatch</a> → <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -920,7 +878,7 @@ file handles or network sockets.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -936,7 +894,7 @@ file handles or network sockets.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">existsL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+        <span class="name">existsL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns <code>true</code> in case the given predicate is satisfied by any
@@ -965,7 +923,7 @@ source.existsL(_ % <span class="num">7</span> == <span class="num">0</span>)</pr
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">filter</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Filters the iterant by the given predicate function, returning
@@ -986,7 +944,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1008,7 +966,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">findL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">findL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Given a predicate, finds the first item that satisfies it,
@@ -1118,9 +1076,9 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         the <code>seed</code> as the start value, or <code>seed</code> if the iterant
         is empty.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#foldRightL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="foldRightL[B](b:F[B])(f:(A,F[B],F[Unit])=&gt;F[B])(implicitF:cats.effect.Sync[F]):F[B]"></a><a id="foldRightL[B](F[B])((A,F[B],F[Unit])⇒F[B])(Sync[F]):F[B]"></a>
+      <a id="foldRightL[B](b:F[B])(f:(A,F[B])=&gt;F[B])(implicitF:cats.effect.Sync[F]):F[B]"></a><a id="foldRightL[B](F[B])((A,F[B])⇒F[B])(Sync[F]):F[B]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#foldRightL[B](b:F[B])(f:(A,F[B],F[Unit])=&gt;F[B])(implicitF:cats.effect.Sync[F]):F[B]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#foldRightL[B](b:F[B])(f:(A,F[B])=&gt;F[B])(implicitF:cats.effect.Sync[F]):F[B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1129,7 +1087,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foldRightL</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="b">b: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>], <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>
+        <span class="name">foldRightL</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="b">b: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.foldRightL.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Lazily fold the stream to a single value from the right.</p><div class="fullcomment"><div class="comment cmt"><p>Lazily fold the stream to a single value from the right.</p><p>This is the common <code>foldr</code> operation from Haskell's <code>Foldable</code>,
@@ -1288,7 +1246,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">forallL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
+        <span class="name">forallL</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns <code>true</code> in case the given predicate is satisfied by all
@@ -1317,7 +1275,7 @@ source.existsL(_ &lt; <span class="num">10</span>)</pre></div><dl class="paramcm
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foreach</span><span class="params">(<span name="cb">cb: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">foreach</span><span class="params">(<span name="cb">cb: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Consumes the source iterable, executing the given callback for
@@ -1346,6 +1304,58 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="monix.tail.Iterant#guarantee" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="guarantee(f:F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]"></a><a id="guarantee(F[Unit])(Sync[F]):Iterant[F,A]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#guarantee(f:F[Unit])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">guarantee</span><span class="params">(<span name="f">f: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given a routine make sure to execute it whenever the current
+stream reaches the end, successfully, in error, or canceled.</p><div class="fullcomment"><div class="comment cmt"><p>Given a routine make sure to execute it whenever the current
+stream reaches the end, successfully, in error, or canceled.</p><p>Implements <code>cats.effect.Bracket.guarantee</code>.</p><p>Example: </p><pre>iterant.guarantee(Task.eval {
+  println(<span class="lit">"Releasing resources!"</span>)
+})</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the function to execute on early stop</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
+    </li><li name="monix.tail.Iterant#guaranteeCase" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="guaranteeCase(f:cats.effect.ExitCase[Throwable]=&gt;F[Unit])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,A]"></a><a id="guaranteeCase((ExitCase[Throwable])⇒F[Unit])(Applicative[F]):Iterant[F,A]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#guaranteeCase(f:cats.effect.ExitCase[Throwable]=&gt;F[Unit])(implicitF:cats.Applicative[F]):monix.tail.Iterant[F,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">guaranteeCase</span><span class="params">(<span name="f">f: (<span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new iterant in which <code>f</code> is scheduled to be executed
+on <a href="Iterant$$Halt.html" class="extype" name="monix.tail.Iterant.Halt">halt</a> or if canceled.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new iterant in which <code>f</code> is scheduled to be executed
+on <a href="Iterant$$Halt.html" class="extype" name="monix.tail.Iterant.Halt">halt</a> or if canceled.</p><p>Implements <code>cats.effect.Bracket.guaranteeCase</code>.</p><p>This would typically be used to ensure that a finalizer
+will run at the end of the stream.</p><p>Example: </p><pre><span class="kw">import</span> cats.effect.ExitCase
+
+iterant.guaranteeCase(err <span class="kw">=&gt;</span> Task.eval {
+  err <span class="kw">match</span> {
+    <span class="kw">case</span> ExitCase.Completed <span class="kw">=&gt;</span>
+      logger.info(<span class="lit">"Completed successfully!"</span>)
+    <span class="kw">case</span> ExitCase.Error(e) <span class="kw">=&gt;</span>
+      logger.error(<span class="lit">"Completed in error!"</span>, e)
+    <span class="kw">case</span> ExitCase.Canceled <span class="kw">=&gt;</span>
+      logger.info(<span class="lit">"Was stopped early!"</span>)
+  }
+})</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the finalizer to execute when streaming is
+       terminated, by successful completion, error or
+       cancellation</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#headOptionL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="headOptionL(implicitF:cats.effect.Sync[F]):F[Option[A]]"></a><a id="headOptionL(Sync[F]):F[Option[A]]"></a>
       <span class="permalink">
@@ -1358,7 +1368,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">headOptionL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">headOptionL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Optionally selects the first element.</p><div class="fullcomment"><div class="comment cmt"><p>Optionally selects the first element.</p><pre><span class="cmt">// Yields Some(1)</span>
@@ -1443,14 +1453,14 @@ Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="monix.tail.Iterant#liftMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="liftMap[G[_]](f1:F[monix.tail.Iterant[F,A]]=&gt;G[monix.tail.Iterant[F,A]],f2:F[Unit]=&gt;G[Unit])(implicitF:cats.Applicative[F],implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]"></a><a id="liftMap[G[_]]((F[Iterant[F,A]])⇒G[Iterant[F,A]],(F[Unit])⇒G[Unit])(Applicative[F],Sync[G]):Iterant[G,A]"></a>
+    </li><li name="monix.tail.Iterant#lastOptionL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="lastOptionL(implicitF:cats.effect.Sync[F]):F[Option[A]]"></a><a id="lastOptionL(Sync[F]):F[Option[A]]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#liftMap[G[_]](f1:F[monix.tail.Iterant[F,A]]=&gt;G[monix.tail.Iterant[F,A]],f2:F[Unit]=&gt;G[Unit])(implicitF:cats.Applicative[F],implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#lastOptionL(implicitF:cats.effect.Sync[F]):F[Option[A]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1459,25 +1469,19 @@ Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">liftMap</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="f1">f1: (<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]) ⇒ <span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>, <span name="f2">f2: (<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]) ⇒ <span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="G">G: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">lastOptionL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
-      <p class="shortcomment cmt">Given mapping functions from <code>F</code> to <code>G</code>, lifts the source into
-an iterant that is going to use the resulting <code>G</code> for evaluation.</p><div class="fullcomment"><div class="comment cmt"><p>Given mapping functions from <code>F</code> to <code>G</code>, lifts the source into
-an iterant that is going to use the resulting <code>G</code> for evaluation.</p><p>This can be used for replacing the underlying <code>F</code> type into
-something else. For example say we have an iterant that uses
-<a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, but we want to convert it into
-one that uses <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> for evaluation:</p><pre><span class="cmt">// Source is using Coeval for evaluation</span>
-<span class="kw">val</span> source = Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>)
+      <p class="shortcomment cmt">Optionally selects the last element.</p><div class="fullcomment"><div class="comment cmt"><p>Optionally selects the last element.</p><pre><span class="cmt">// Yields Some(4)</span>
+Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>).lastOptionL
 
-<span class="cmt">// Transformation to an iterant based on Task</span>
-source.liftMap(_.toTask, _.toTask)</pre></div><dl class="paramcmts block"><dt class="tparam">G</dt><dd class="cmt"><p>is the data type that is going to drive the evaluation
-          of the resulting iterant</p></dd><dt class="param">f1</dt><dd class="cmt"><p>is the functor transformation used for transforming
-         <code>rest</code> references</p></dd><dt class="param">f2</dt><dd class="cmt"><p>is the mapping function for early <code>stop</code> references</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#liftMapK" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="liftMapK[G[_]](f:cats.arrow.FunctionK[F,G])(implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]"></a><a id="liftMapK[G[_]](FunctionK[F,G])(Sync[G]):Iterant[G,A]"></a>
+<span class="cmt">// Yields None</span>
+Iterant[Task].empty[<span class="std">Int</span>].lastOptionL</pre></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the last element of this iterant if it is nonempty, or
+        <code>None</code> if it is empty, in the <code>F</code> context.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
+    </li><li name="monix.tail.Iterant#liftMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="liftMap[G[_]](f:cats.arrow.FunctionK[F,G])(implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]"></a><a id="liftMap[G[_]](FunctionK[F,G])(Sync[G]):Iterant[G,A]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#liftMapK[G[_]](f:cats.arrow.FunctionK[F,G])(implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#liftMap[G[_]](f:cats.arrow.FunctionK[F,G])(implicitG:cats.effect.Sync[G]):monix.tail.Iterant[G,A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -1486,7 +1490,7 @@ source.liftMap(_.toTask, _.toTask)</pre></div><dl class="paramcmts block"><dt cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">liftMapK</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="f">f: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.liftMapK.G">G</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.liftMapK.G">G</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.liftMapK.G">G</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">liftMap</span><span class="tparams">[<span name="G">G<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="f">f: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="G">G: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.liftMap.G">G</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Given a functor transformation from <code>F</code> to <code>G</code>, lifts the source
@@ -1495,8 +1499,8 @@ evaluation.</p><div class="fullcomment"><div class="comment cmt"><p>Given a func
 into an iterant that is going to use the resulting <code>G</code> for
 evaluation.</p><p>This can be used for replacing the underlying <code>F</code> type into
 something else. For example say we have an iterant that uses
-<a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, but we want to convert it into
-one that uses <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a> for evaluation:</p><pre><span class="kw">import</span> cats.~&gt;
+<code>monix.eval.Coeval</code>, but we want to convert it into
+one that uses <code>monix.eval.Task</code> for evaluation:</p><pre><span class="kw">import</span> cats.~&gt;
 
 <span class="cmt">// Source is using Coeval for evaluation</span>
 <span class="kw">val</span> source = Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>)
@@ -1529,6 +1533,28 @@ type into something else.
 elements of the source.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new stream by mapping the supplied function over the
 elements of the source.</p><pre><span class="cmt">// Yields 2, 4, 6</span>
 Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).map(_ * <span class="num">2</span>)</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the mapping function that transforms the source</p></dd><dt>returns</dt><dd class="cmt"><p>a new iterant that's the result of mapping the given
+        function over the source</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
+    </li><li name="monix.tail.Iterant#mapBatch" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mapBatch[B](f:A=&gt;monix.tail.batches.Batch[B])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]"></a><a id="mapBatch[B]((A)⇒Batch[B])(Sync[F]):Iterant[F,B]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#mapBatch[B](f:A=&gt;monix.tail.batches.Batch[B])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mapBatch</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="batches/Batch.html" class="extype" name="monix.tail.batches.Batch">Batch</a>[<span class="extype" name="monix.tail.Iterant.mapBatch.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.mapBatch.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a new stream by mapping the supplied function over the
+elements of the source yielding <code>Iterant</code> consisting of <code>NextBatch</code> nodes.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new stream by mapping the supplied function over the
+elements of the source yielding <code>Iterant</code> consisting of <code>NextBatch</code> nodes.</p><pre><span class="cmt">// Yields 1, 2, 3, 4, 5</span>
+Iterant[Task].of(<span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>), <span class="std">List</span>(<span class="num">4</span>), <span class="std">List</span>(<span class="num">5</span>)).mapBatch(Batch.fromSeq(_))
+<span class="cmt">// Yields 2, 4, 6</span>
+Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>).mapBatch(x <span class="kw">=&gt;</span> Batch(x * <span class="num">2</span>))</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the mapping function that transforms the source into batches.</p></dd><dt>returns</dt><dd class="cmt"><p>a new iterant that's the result of mapping the given
         function over the source</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#mapEval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mapEval[B](f:A=&gt;F[B])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,B]"></a><a id="mapEval[B]((A)⇒F[B])(Sync[F]):Iterant[F,B]"></a>
@@ -1568,7 +1594,7 @@ stream.</p><pre>Iterant[Task].of(<span class="num">1</span>, <span class="num">2
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">maxByL</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="key">key: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.maxByL.K">K</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="K">K: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.maxByL.K">K</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">maxByL</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="key">key: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.maxByL.K">K</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="K">K: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.maxByL.K">K</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Takes the elements of the source iterant and emits the
@@ -1599,7 +1625,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].maxByL(_.age)</pre></div><dl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">maxL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="A">A: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">maxL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="A">A: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Given a <code>cats.Order</code> over the stream's elements, returns the
@@ -1623,7 +1649,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].maxL</pre></div><dl class="p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">minByL</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="key">key: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.minByL.K">K</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="K">K: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.minByL.K">K</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">minByL</span><span class="tparams">[<span name="K">K</span>]</span><span class="params">(<span name="key">key: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.minByL.K">K</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="K">K: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.minByL.K">K</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Takes the elements of the source iterant and emits the
@@ -1654,7 +1680,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].minByL(_.age)</pre></div><dl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">minL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="A">A: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">minL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="A">A: <span class="extype" name="cats.Order">Order</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Given a <code>cats.Order</code> over the stream's elements, returns the
@@ -1678,7 +1704,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].minL</pre></div><dl class="p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1694,7 +1720,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].minL</pre></div><dl class="p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1713,7 +1739,7 @@ Iterant[Coeval].empty[<span class="std">Int</span>].minL</pre></div><dl class="p
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1816,7 +1842,7 @@ any errors in case they happen.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRecover</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecover.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecover.B">B</span>]</span>
+        <span class="name">onErrorRecover</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecover.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecover.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns an <code>Iterant</code> that mirrors the behavior of the source,
@@ -1850,7 +1876,7 @@ total function as a parameter.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRecoverWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.4/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecoverWith.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecoverWith.B">B</span>]</span>
+        <span class="name">onErrorRecoverWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecoverWith.B">B</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.onErrorRecoverWith.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns an <code>Iterant</code> that mirrors the behavior of the source,
@@ -1930,7 +1956,7 @@ ordering of effects).
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">reduceL</span><span class="params">(<span name="op">op: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">reduceL</span><span class="params">(<span name="op">op: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Reduces the elements of the source using the specified
@@ -2015,7 +2041,31 @@ step. Useful for modeling finite state machines.</p><p>Example showing how state
 scanned
   .takeWhile(_.count &lt; <span class="num">10</span>)
   .collect { <span class="kw">case</span> Current(a, _) <span class="kw">=&gt;</span> a }</pre></div><dl class="paramcmts block"><dt class="param">seed</dt><dd class="cmt"><p>is the initial state</p></dd><dt class="param">op</dt><dd class="cmt"><p>is the function that evolves the current state</p></dd><dt>returns</dt><dd class="cmt"><p>a new iterant that emits all intermediate states being
-        resulted from applying function <code>op</code></p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
+        resulted from applying function <code>op</code></p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="Iterant.html#scan0[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" class="extmbr" name="monix.tail.Iterant#scan0">scan0</a> for the version that emits seed element at the beginning</p></span></dd></dl></div>
+    </li><li name="monix.tail.Iterant#scan0" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="scan0[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]"></a><a id="scan0[S](⇒S)((S,A)⇒S)(Sync[F]):Iterant[F,S]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#scan0[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">scan0</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="seed">seed: ⇒ <span class="extype" name="monix.tail.Iterant.scan0.S">S</span></span>)</span><span class="params">(<span name="op">op: (<span class="extype" name="monix.tail.Iterant.scan0.S">S</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.scan0.S">S</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.scan0.S">S</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of
+this <code>Iterant</code>, going left to right and returns a new
+<code>Iterant</code> that emits on each step the result of the applied
+function.</p><div class="fullcomment"><div class="comment cmt"><p>Applies a binary operator to a start value and all elements of
+this <code>Iterant</code>, going left to right and returns a new
+<code>Iterant</code> that emits on each step the result of the applied
+function.</p><p>This is a version of <a href="Iterant.html#scan[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" class="extmbr" name="monix.tail.Iterant#scan">scan</a> that emits seed element at the beginning,
+similar to <code>scanLeft</code> on Scala collections.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#scanEval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scanEval[S](seed:F[S])(op:(S,A)=&gt;F[S])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]"></a><a id="scanEval[S](F[S])((S,A)⇒F[S])(Sync[F]):Iterant[F,S]"></a>
       <span class="permalink">
@@ -2066,7 +2116,32 @@ scanned
   .takeWhile(_.count &lt; <span class="num">10</span>)
   .collect { <span class="kw">case</span> Current(a, _) <span class="kw">=&gt;</span> a }</pre></div><dl class="paramcmts block"><dt class="param">seed</dt><dd class="cmt"><p>is the initial state</p></dd><dt class="param">op</dt><dd class="cmt"><p>is the function that evolves the current state</p></dd><dt>returns</dt><dd class="cmt"><p>a new iterant that emits all intermediate states being
         resulted from applying the given function</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="Iterant.html#scan[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" class="extmbr" name="monix.tail.Iterant#scan">scan</a> for the version that does not require using <code>F[_]</code>
-     in the provided operator</p></span></dd></dl></div>
+     in the provided operator</p></span><span class="cmt"><p><a href="Iterant.html#scanEval0[S](seed:F[S])(op:(S,A)=&gt;F[S])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" class="extmbr" name="monix.tail.Iterant#scanEval0">scanEval0</a> for the version that emits seed element at the
+     beginning</p></span></dd></dl></div>
+    </li><li name="monix.tail.Iterant#scanEval0" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="scanEval0[S](seed:F[S])(op:(S,A)=&gt;F[S])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]"></a><a id="scanEval0[S](F[S])((S,A)⇒F[S])(Sync[F]):Iterant[F,S]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#scanEval0[S](seed:F[S])(op:(S,A)=&gt;F[S])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">scanEval0</span><span class="tparams">[<span name="S">S</span>]</span><span class="params">(<span name="seed">seed: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.scanEval0.S">S</span>]</span>)</span><span class="params">(<span name="op">op: (<span class="extype" name="monix.tail.Iterant.scanEval0.S">S</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<span class="extype" name="monix.tail.Iterant.scanEval0.S">S</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.scanEval0.S">S</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Applies a binary operator to a start value and all elements of
+this <code>Iterant</code>, going left to right and returns a new
+<code>Iterant</code> that emits on each step the result of the applied
+function.</p><div class="fullcomment"><div class="comment cmt"><p>Applies a binary operator to a start value and all elements of
+this <code>Iterant</code>, going left to right and returns a new
+<code>Iterant</code> that emits on each step the result of the applied
+function.</p><p>This is a version of <a href="Iterant.html#scanEval[S](seed:F[S])(op:(S,A)=&gt;F[S])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]" class="extmbr" name="monix.tail.Iterant#scanEval">scanEval</a> that emits seed element at the beginning,
+similar to <code>scanLeft</code> on Scala collections.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
     </li><li name="monix.tail.Iterant#scanMap" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scanMap[B](f:A=&gt;B)(implicitF:cats.effect.Sync[F],implicitB:cats.Monoid[B]):monix.tail.Iterant[F,B]"></a><a id="scanMap[B]((A)⇒B)(Sync[F],Monoid[B]):Iterant[F,B]"></a>
       <span class="permalink">
@@ -2096,11 +2171,11 @@ our <code>f</code> mapping function returns a <code>B</code>, this law holds:</p
 stream.scanMap(f) <span class="kw">&lt;-</span>&gt; stream.scan(B.empty)(B.combine)</pre><p>Example:</p><pre><span class="cmt">// Yields 2, 6, 12, 20, 30, 42</span>
 Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>).scanMap(x <span class="kw">=&gt;</span> x * <span class="num">2</span>)</pre></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>is the mapping function applied to every incoming element of this <code>Iterant</code>
          before folding using <code>Monoid[B].combine</code></p></dd><dt>returns</dt><dd class="cmt"><p>a new <code>Iterant</code> that emits all intermediate states being
-        resulted from applying <code>Monoid[B].combine</code> function</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#skipSuspendL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="skipSuspendL(implicitF:cats.effect.Sync[F]):F[monix.tail.Iterant[F,A]]"></a><a id="skipSuspendL(Sync[F]):F[Iterant[F,A]]"></a>
+        resulted from applying <code>Monoid[B].combine</code> function</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="Iterant.html#scanMap0[B](f:A=&gt;B)(implicitF:cats.effect.Sync[F],implicitB:cats.Monoid[B]):monix.tail.Iterant[F,B]" class="extmbr" name="monix.tail.Iterant#scanMap0">scanMap0</a> for the version that emits empty element at the beginning</p></span></dd></dl></div>
+    </li><li name="monix.tail.Iterant#scanMap0" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="scanMap0[B](f:A=&gt;B)(implicitF:cats.effect.Sync[F],implicitB:cats.Monoid[B]):monix.tail.Iterant[F,B]"></a><a id="scanMap0[B]((A)⇒B)(Sync[F],Monoid[B]):Iterant[F,B]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#skipSuspendL(implicitF:cats.effect.Sync[F]):F[monix.tail.Iterant[F,A]]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#scanMap0[B](f:A=&gt;B)(implicitF:cats.effect.Sync[F],implicitB:cats.Monoid[B]):monix.tail.Iterant[F,B]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2109,32 +2184,19 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">skipSuspendL</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]]</span>
+        <span class="name">scanMap0</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <span class="extype" name="monix.tail.Iterant.scanMap0.B">B</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="B">B: <span class="extype" name="cats.Monoid">Monoid</span>[<span class="extype" name="monix.tail.Iterant.scanMap0.B">B</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.scanMap0.B">B</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Skips over <a href="Iterant$$Suspend.html" class="extype" name="monix.tail.Iterant.Suspend">Iterant.Suspend</a> states, along with
-<a href="Iterant$$NextCursor.html" class="extype" name="monix.tail.Iterant.NextCursor">Iterant.NextCursor</a> and <a href="" class="extype" name="monix.tail.Iterant.NextBatch">Iterant.NextBatch</a> states that
-signal empty collections.</p><div class="fullcomment"><div class="comment cmt"><p>Skips over <a href="Iterant$$Suspend.html" class="extype" name="monix.tail.Iterant.Suspend">Iterant.Suspend</a> states, along with
-<a href="Iterant$$NextCursor.html" class="extype" name="monix.tail.Iterant.NextCursor">Iterant.NextCursor</a> and <a href="" class="extype" name="monix.tail.Iterant.NextBatch">Iterant.NextBatch</a> states that
-signal empty collections.</p><p>Will mirror the source, except that the emitted internal states
-might be different. Can be used as an optimization if necessary.
+      <p class="shortcomment cmt">Given a mapping function that returns a <code>B</code> type for which we have
+a <a href="http://typelevel.org/cats/api/cats/index.html#Monoid[A]=cats.kernel.Monoid[A]" class="extype" name="cats">cats.Monoid</a> instance, returns a new stream that folds the incoming
+elements of the sources using the provided <code>Monoid[B].combine</code>, with the
+initial seed being the <code>Monoid[B].empty</code> value, emitting the generated values
+at each step.</p><div class="fullcomment"><div class="comment cmt"><p>Given a mapping function that returns a <code>B</code> type for which we have
+a <a href="http://typelevel.org/cats/api/cats/index.html#Monoid[A]=cats.kernel.Monoid[A]" class="extype" name="cats">cats.Monoid</a> instance, returns a new stream that folds the incoming
+elements of the sources using the provided <code>Monoid[B].combine</code>, with the
+initial seed being the <code>Monoid[B].empty</code> value, emitting the generated values
+at each step.</p><p>This is a version of <a href="Iterant.html#scanMap[B](f:A=&gt;B)(implicitF:cats.effect.Sync[F],implicitB:cats.Monoid[B]):monix.tail.Iterant[F,B]" class="extmbr" name="monix.tail.Iterant#scanMap">scanMap</a> that emits seed element at the beginning.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant.NextBatch#stop" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="stop:F[Unit]"></a>
-      <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#stop:F[Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">stop</span><span class="result">: <span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
-      </span>
-      
-      
     </li><li name="monix.tail.Iterant#sumL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="sumL(implicitF:cats.effect.Sync[F],implicitA:Numeric[A]):F[A]"></a><a id="sumL(Sync[F],Numeric[A]):F[A]"></a>
       <span class="permalink">
@@ -2217,7 +2279,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">take</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">take</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new iterant that upon evaluation will select
@@ -2239,7 +2301,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">takeEveryNth</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">takeEveryNth</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Takes every n-th element, dropping intermediary elements
@@ -2262,7 +2324,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">takeLast</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">takeLast</span><span class="params">(<span name="n">n: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new iterable that only emits the last <code>n</code> elements
@@ -2284,7 +2346,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">takeWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">takeWhile</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Takes longest prefix of elements that satisfy the given predicate
@@ -2306,7 +2368,7 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">takeWhileWithIndex</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.4/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">takeWhileWithIndex</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Takes longest prefix of elements zipped with their indices that satisfy the given predicate
@@ -2336,10 +2398,26 @@ Iterant[Task].of(<span class="num">1</span>, <span class="num">2</span>, <span c
 infinite then this operation is non-terminating, the process
 probably blowing up with an out of memory error sooner or later.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a></dd></dl></div>
-    </li><li name="monix.tail.Iterant#toReactivePublisher" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toReactivePublisher(implicitF:cats.effect.Effect[F],implicitec:monix.execution.Scheduler):org.reactivestreams.Publisher[A]"></a><a id="toReactivePublisher(Effect[F],Scheduler):Publisher[A]"></a>
+    </li><li name="monix.tail.Iterant.NextBatch#toNextCursor" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="toNextCursor():monix.tail.Iterant.NextCursor[F,A]"></a><a id="toNextCursor():NextCursor[F,A]"></a>
       <span class="permalink">
-      <a href="../../monix/tail/Iterant$$NextBatch.html#toReactivePublisher(implicitF:cats.effect.Effect[F],implicitec:monix.execution.Scheduler):org.reactivestreams.Publisher[A]" title="Permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#toNextCursor():monix.tail.Iterant.NextCursor[F,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toNextCursor</span><span class="params">()</span><span class="result">: <a href="Iterant$$NextCursor.html" class="extype" name="monix.tail.Iterant.NextCursor">NextCursor</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+      </span>
+      
+      
+    </li><li name="monix.tail.Iterant#toReactivePublisher" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="toReactivePublisher(implicitF:cats.effect.Effect[F]):org.reactivestreams.Publisher[A]"></a><a id="toReactivePublisher(Effect[F]):Publisher[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant$$NextBatch.html#toReactivePublisher(implicitF:cats.effect.Effect[F]):org.reactivestreams.Publisher[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -2348,7 +2426,7 @@ probably blowing up with an out of memory error sooner or later.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toReactivePublisher</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Effect">Effect</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>, <span name="ec">ec: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="org.reactivestreams.Publisher">Publisher</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
+        <span class="name">toReactivePublisher</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Effect">Effect</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="org.reactivestreams.Publisher">Publisher</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Converts this <code>Iterant</code> into an <code>org.reactivestreams.Publisher</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts this <code>Iterant</code> into an <code>org.reactivestreams.Publisher</code>.</p><p>Meant for interoperability with other Reactive Streams
@@ -2459,7 +2537,7 @@ covariance doesn't play well with a higher-kinded type like
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2481,7 +2559,7 @@ covariance doesn't play well with a higher-kinded type like
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.4/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2503,7 +2581,7 @@ covariance doesn't play well with a higher-kinded type like
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.4/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -2574,7 +2652,7 @@ lh.zipMap(rh) { (a, b) <span class="kw">=&gt;</span> a + b }</pre></div><dl clas
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">zipWithIndex</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.4/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>)]</span>
+        <span class="name">zipWithIndex</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>]</span>)</span><span class="result">: <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, (<span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>)]</span>
       </span>
       
       <p class="shortcomment cmt">Zips the emitted elements of the source with their indices.</p><div class="fullcomment"><div class="comment cmt"><p>Zips the emitted elements of the source with their indices.</p><p>The length of the result will be the same as the source.</p><p>Example: </p><pre><span class="kw">val</span> source = Iterant[Task].of(<span class="lit">"Sunday"</span>, <span class="lit">"Monday"</span>, <span class="lit">"Tuesday"</span>, <span class="lit">"Wednesday"</span>)
@@ -2594,17 +2672,17 @@ source.zipWithIndex</pre></div><dl class="attributes block"> <dt>Definition Clas
         <div class="parent" name="monix.tail.Iterant">
               <h3>Inherited from <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.NextBatch.F">F</span>, <span class="extype" name="monix.tail.Iterant.NextBatch.A">A</span>]</h3>
             </div><div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.Product">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.AnyRef" class="extype" name="scala.collection.immutable.List">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.4/scala/collection/immutable/List.html#scala.Any" class="extype" name="scala.collection.immutable.List">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

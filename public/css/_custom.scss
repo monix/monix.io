@@ -15,9 +15,10 @@
 
 .post .buttons, .page .buttons {
   display: block;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fafafa;
   font-size: 120%;
 }
 
@@ -83,9 +84,26 @@
     margin: 10px 0;
 }
 
-.page .presentation {
-    max-width: 100%;
-    border: 1px solid #999;
+.presentation {
+    overflow: hidden;
+    position: relative;
+    
+    iframe {
+        border: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.presentation.ratio4x3 {
+    padding-bottom: 75%;    
+}
+
+.presentation.ratio16x9 {
+    padding-bottom: 56.25%;    
 }
 
 .news-summary {
@@ -128,6 +146,7 @@
     background-color: #fefefe;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-bottom: 10px;
     color: #888; 
     font-size: 90%; 
 }
@@ -142,4 +161,59 @@ img.left {
 
 img.center {
     display: block; margin: auto;
+}
+
+#video-download {
+    display: none;
+    
+    > a {
+        cursor: pointer;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style-position: inside;
+    }
+}
+
+#contributions {
+  position: relative;
+  padding-top: 10px;  
+
+  h2 {
+    margin-top: 0;
+    color: #A66C75;
+  }
+
+  #share {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  div.isso-comment div.text {
+    font-size: 90%;
+  }
+
+  div.isso-postbox .textarea {
+    font-size: 90%;
+  }
+}
+
+img.doc-icon {
+    height: 50px;
+    float: right;
+}
+img.doc-icon2x {
+    height: 80px;
+    float: right;
+}
+
+@media (min-width: 48em) {
+    img.doc-icon { height: 80px; }
+    img.doc-icon2x { height: 100px; }
+}
+@media (min-width: 58em) {
+    img.doc-icon { height: 100px; }
+    img.doc-icon2x { height: 120px; }
 }

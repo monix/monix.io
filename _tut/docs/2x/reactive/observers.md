@@ -8,7 +8,7 @@ description: |
 ## Observer
 
 <a href="{{ site.api2x }}monix/reactive/Observer.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a>
 
 The `Observer` from the Rx pattern is the trio of callbacks that get
 subscribed to an [Observable](./observable.html) for receiving events.
@@ -255,7 +255,7 @@ though we prefer to log it when we catch such instances.
 ## Subscriber
 
 <a href="{{ site.api2x }}monix/reactive/observers/Subscriber.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a>
 
 Given that, in order to do anything with an `Observer` we always need
 a [Scheduler](../execution/scheduler.html), the `Subscriber` is a data
@@ -402,7 +402,7 @@ monixSubscriber.onComplete()
 ### Safe Subscriber
 
 <a href="{{ site.api2x }}monix/reactive/observers/SafeSubscriber.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a>
 
 The `SafeSubscriber` wraps a `Subscriber` implementation into one that
 is safer for usage and protecting some parts of the contract:
@@ -461,7 +461,7 @@ have to do it by yourself.
 ### Connectable Subscriber
 
 <a href="{{ site.api2x }}monix/reactive/observers/ConnectableSubscriber.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a>
 
 Wraps a `Subscriber` implementation into one that back-pressures the
 upstream until the call to `connect()` happens. Before `connect()` it
@@ -503,7 +503,7 @@ ack.isCompleted
 ### Cache Until Connect Subscriber
 
 <a href="{{ site.api2x }}monix/reactive/observers/CacheUntilConnectSubscriber.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a>
 
 Wraps an underlying `Subscriber` into an implementation that caches
 all events until the call to `connect()` happens. After being
@@ -538,7 +538,7 @@ val result: CancelableFuture[Ack] =
 ### Buffered Subscriber
 
 <a href="{{ site.api2x }}monix/reactive/observers/BufferedSubscriber.html">API Documentation</a> •
-<a href="{{ site.github.repo }}/blob/v{{ site.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a>
+<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a>
 
 Observers have a strong contract and consequently:
 
