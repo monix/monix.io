@@ -1,8 +1,8 @@
 ---
 layout: docs3x
 title: MVar
-type_api: monix.eval.MVar
-type_source: monix-eval/shared/src/main/scala/monix/eval/MVar.scala
+type_api: monix.catnap.MVar
+type_source: monix-catnap/shared/src/main/scala/monix/catnap/MVar.scala
 description: |
   A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full.
 
@@ -24,19 +24,16 @@ Use-cases:
 2. As channels, with `take` and `put` acting as "receive" and "send"
 3. As a binary semaphore, with `take` and `put` acting as "acquire" and "release"
 
-It has two fundamental (atomic) operations:
+It has these fundamental, atomic operations:
 
-- `put`: fills the `MVar` if it is empty, or blocks (asynchronously)
-  if the `MVar` is full, until the given value is next in line to be
-  consumed on `take`
-- `take`: tries reading the current value, or blocks (asynchronously)
-  until there is a value available, at which point the operation resorts
-  to a `take` followed by a `put`
-
-An additional but non-atomic operation is `read`, which tries reading the
-current value, or blocks (asynchronously) until there is a value available,
-at which point the operation resorts to a `take` followed by a `put`.
-
+- `put` which fills the var if empty, or blocks (asynchronously) until the var is empty again
+- `tryPut` which fills the var if empty; returns `true` if successful
+- `take` which empties the var if full, returning the contained value, or blocks (asynchronously) otherwise until there is a value to pull
+- `tryTake` empties if full, returns `None` if empty.
+- `read` which reads the current value without touching it, assuming there is one, or otherwise it waits until a value is made available via put
+- `tryRead` returns `Some(a)` if full, without modifying the var, or else returns `None`
+- `isEmpty` returns `true` if currently empty
+    
 <p class="extra" markdown='1'>
 In this context "<i>asynchronous blocking</i>" means that we are not blocking
 any threads. Instead the implementation uses callbacks to notify clients
@@ -56,6 +53,32 @@ Appropriate for building synchronization primitives and  performing simple
 interthread communication, it's the equivalent of a `BlockingQueue(capacity = 1)`,
 except that there's no actual thread blocking involved and it is powered by `Task`.
 
+## Cats-Effect
+
+`MVar` is generic, being built to abstract over the effect type via the
+[Cats-Effect](https://typelevel.org/cats-effect/) type classes, meaning
+you can use it with Monix's `Task` just as well as with 
+[cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html)
+or any data types implementing `Async` or `Concurrent`.
+
+Note that `MVar` is already described in
+[cats.effect.concurrent.MVar](https://typelevel.org/cats-effect/concurrency/mvar.html)
+and Monix's implementation does in fact implement that interface.
+
+<a href="https://typelevel.org/cats-effect/concurrency/mvar.html" target="_blank" 
+  title="cats.effect.concurrent.MVar" alt="cats.effect.concurrent.MVar">
+  <img src="{{ site.url }}/public/images/concurrency-mvar.png" width="400" />
+</a>
+
+`MVar` will remain in Monix as well because:
+
+1. it shares implementation with
+   [monix.execution.AsyncVar]({{ site.api3x }}monix/execution/AsyncVar.html),
+   the `Future`-enabled alternative
+2. we can use our [Atomic](../execution/atomic.html) implementations
+3. at this point Monix's `MVar` has some fixes that have to wait for
+   the next version of Cats-Effect to be merged upstream
+
 ## Use-case: Synchronized Mutable Variables
 
 ```tut:invisible
@@ -69,9 +92,10 @@ implicit val scheduler: Scheduler = TestScheduler()
 
 ```tut:silent
 import monix.execution.CancelableFuture
-import monix.eval.{MVar, Task}
+import monix.catnap.MVar
+import monix.eval.Task
 
-def sum(state: MVar[Int], list: List[Int]): Task[Int] =
+def sum(state: MVar[Task, Int], list: List[Int]): Task[Int] =
   list match {
     case Nil => state.take
     case x :: xs =>
@@ -82,7 +106,7 @@ def sum(state: MVar[Int], list: List[Int]): Task[Int] =
 
 val task = 
   for {
-    state <- MVar(0)
+    state <- MVar[Task].of(0)
     r <- sum(state, (0 until 100).toList)
   } yield r
 
@@ -109,7 +133,7 @@ The `take` operation can act as "acquire" and `put` can act as the "release".
 Let's do it:
 
 ```tut:silent
-final class MLock(mvar: MVar[Unit]) {
+final class MLock(mvar: MVar[Task, Unit]) {
   def acquire: Task[Unit] =
     mvar.take
 
@@ -127,7 +151,7 @@ final class MLock(mvar: MVar[Unit]) {
 object MLock {
   /** Builder. */
   def apply(): Task[MLock] =
-    MVar(()).map(v => new MLock(v))
+    MVar[Task].of(()).map(v => new MLock(v))
 }
 ```
 
@@ -137,7 +161,7 @@ And now we can apply synchronization to the previous example:
 val task = 
   for {
     lock <- MLock()
-    state <- MVar(0)
+    state <- MVar[Task].of(0)
     task = sum(state, (0 until 100).toList)
     r <- lock.greenLight(task)
   } yield r
@@ -158,7 +182,7 @@ a new event.
 
 ```tut:silent
 // Signaling option, because we need to detect completion
-type Channel[A] = MVar[Option[A]]
+type Channel[A] = MVar[Task, Option[A]]
 
 def producer(ch: Channel[Int], list: List[Int]): Task[Unit] =
   list match {
@@ -182,7 +206,7 @@ val count = 100000
 
 val sumTask =
   for {
-    channel <- MVar.empty[Option[Int]]
+    channel <- MVar[Task].empty[Option[Int]]()
     producerTask = producer(channel, (0 until count).toList).executeAsync
     consumerTask = consumer(channel, 0L).executeAsync
     // Ensure they run in parallel, not really necessary, just for kicks

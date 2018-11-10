@@ -1,8 +1,8 @@
 ---
 layout: docs3x
-title: Task Circuit Breaker
-type_api: monix.eval.TaskCircuitBreaker
-type_source: monix-eval/shared/src/main/scala/monix/eval/TaskCircuitBreaker.scala
+title: Circuit Breaker
+type_api: monix.catnap.CircuitBreaker
+type_source: monix-catnap/shared/src/main/scala/monix/catnap/CircuitBreaker.scala
 description: |
   A data type for providing stability and prevent cascading failures in distributed systems.
 
@@ -13,7 +13,7 @@ tut:
     - io.monix::monix-eval:version3x
 ---
 
-The `TaskCircuitBreaker` is used to provide stability and prevent
+The `CircuitBreaker` is used to provide stability and prevent
 cascading failures in distributed systems.
 
 ## Purpose
@@ -46,7 +46,7 @@ appropriate while the breaker is open.
 The circuit breaker models a concurrent state machine that can be in
 any of these 3 states:
 
-1. `Closed`: During normal operations or when the `TaskCircuitBreaker` starts
+1. `Closed`: During normal operations or when the `CircuitBreaker` starts
   - Exceptions increment the `failures` counter
   - Successes reset the `failures` counter to zero  
   - When the `failures` counter reaches the `maxFailures` threshold,
@@ -76,24 +76,29 @@ any of these 3 states:
 ## Usage
 
 ```tut:silent
+import monix.catnap.CircuitBreaker
 import monix.eval._
 import scala.concurrent.duration._
 
-val pureRef: Task[TaskCircuitBreaker] = 
-  TaskCircuitBreaker(
+val circuitBreaker: Task[CircuitBreaker[Task]] = 
+  CircuitBreaker[Task].of(
     maxFailures = 5,
     resetTimeout = 10.seconds
   )
 ```
 
 Note the builder's returned reference is given in the `Task` context,
-because `TaskCircuitBreaker` has shared state and doing otherwise
+because `CircuitBreaker` has shared state and doing otherwise
 would violate in some cases referential transparency.
 
-But you can share the same circuit breaker instance by using `memoize`:
+You can workaround it by using the `unsafe` builder, but only do this
+if you know what you're doing, otherwise prefer the safe alternative:
 
 ```tut:silent
-val circuitBreaker = pureRef.memoize
+CircuitBreaker[Task].unsafe(
+  maxFailures = 5,
+  resetTimeout = 10.seconds
+)
 ```
 
 And in order to protect tasks being processed, one can use `protect`:
@@ -116,7 +121,7 @@ operations, we can also apply an exponential backoff for repeated
 failed attempts, like so:
 
 ```tut:silent
-val circuitBreaker = TaskCircuitBreaker(
+val circuitBreaker = CircuitBreaker[Task].of(
   maxFailures = 5,
   resetTimeout = 10.seconds,
   exponentialBackoffFactor = 2,
@@ -127,6 +132,69 @@ val circuitBreaker = TaskCircuitBreaker(
 In this sample we attempt to reconnect after 10 seconds, then after
 20, 40 and so on, a delay that keeps increasing up to a configurable
 maximum of 10 minutes.
+
+### Event Handlers
+
+In case you want to trigger events when the Circuit Breaker changes
+its state, like logging or metrics-related:
+
+```tut:silent
+CircuitBreaker[Task].of(
+  maxFailures = 5,
+  resetTimeout = 10.seconds,
+  
+  onRejected = Task { 
+    println("Task rejected in Open or HalfOpen")
+  },
+  onClosed = Task {
+    println("Switched to Close, accepting tasks again")
+  },
+  onHalfOpen = Task {
+    println("Switched to HalfOpen, accepted one task for testing")
+  },
+  onOpen = Task {
+    println("Switched to Open, all incoming tasks rejected for the next 10 seconds")
+  }
+)
+```
+
+### Retrying after Close
+
+In case a retry strategy needs to be implemented, the naive way of
+handling it would be to retry with a delay:
+
+```tut:invisible
+val circuitBreaker = 
+  CircuitBreaker[Task].unsafe(
+    maxFailures = 5,
+    resetTimeout = 10.seconds
+  )
+```
+
+```tut:silent
+val task = circuitBreaker.protect(problematic)
+
+task.onErrorRestartLoop(100.millis) { (e, delay, retry) =>
+  // Exponential back-off, but with a limit
+  if (delay < 4.seconds)
+    retry(delay * 2).delayExecution(delay)
+  else
+    Task.raiseError(e)
+}
+```
+
+But on the other hand you can wait for the precise moment the
+`CircuitBreaker` closes again:
+
+```tut:silent
+task.onErrorRestartLoop(0) { (e, times, retry) =>
+  // Retrying for a maximum of 10 times
+  if (times < 10)
+    circuitBreaker.awaitClose.flatMap(_ => retry(times + 1))
+  else
+    Task.raiseError(e)
+}
+```
 
 ## Credits
 
@@ -139,4 +207,3 @@ purpose and the state machine it uses is similar.
 This documentation also has copy/pasted fragments from Akka.
 Credit should be given where credit is due 😉
 </div>
-

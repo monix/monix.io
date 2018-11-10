@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "Tutorial: Converting Scala's Future to Task (Video)"
+title: "Converting Scala's Future to Task (Video)"
 author: alexelcu
 excerpt_separator: <!--more-->
 description: A video tutorial showing the convertion facilities available for wrapping Scala's Future APIs into Task.
 vimeo: 299709216
+tutorial: 3x
 ---
 
 A video tutorial showing the convertion facilities available for
