@@ -22,7 +22,7 @@
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/eval/mvar" />
+  <meta property="og:url" content="https://monix.io/docs/3x/catnap/mvar" />
   
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541834204453908174" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541834204453908174" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541841814186884206" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541841814186884206" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/all.css?1541841814186884206">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541841814186884206">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,10 +101,10 @@
         <div class="page">
   <h1 class="page-title">MVar</h1>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.0/monix/eval/MVar.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/MVar.scala">Source Code</a>
+    <a href="/api/3.0/monix/catnap/MVar.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-catnap/shared/src/main/scala/monix/catnap/MVar.scala">Source Code</a>
     
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/mvar.md">Edit Page</a>
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/catnap/mvar.md">Edit Page</a>
   </nav>
 
   <nav role="navigation" id="toc"></nav>
@@ -122,20 +122,17 @@ asynchronously blocking reads when empty and blocking writes when full.</p>
   <li>As a binary semaphore, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “acquire” and “release”</li>
 </ol>
 
-<p>It has two fundamental (atomic) operations:</p>
+<p>It has these fundamental, atomic operations:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">put</code>: fills the <code class="highlighter-rouge">MVar</code> if it is empty, or blocks (asynchronously)
-if the <code class="highlighter-rouge">MVar</code> is full, until the given value is next in line to be
-consumed on <code class="highlighter-rouge">take</code></li>
-  <li><code class="highlighter-rouge">take</code>: tries reading the current value, or blocks (asynchronously)
-until there is a value available, at which point the operation resorts
-to a <code class="highlighter-rouge">take</code> followed by a <code class="highlighter-rouge">put</code></li>
+  <li><code class="highlighter-rouge">put</code> which fills the var if empty, or blocks (asynchronously) until the var is empty again</li>
+  <li><code class="highlighter-rouge">tryPut</code> which fills the var if empty; returns <code class="highlighter-rouge">true</code> if successful</li>
+  <li><code class="highlighter-rouge">take</code> which empties the var if full, returning the contained value, or blocks (asynchronously) otherwise until there is a value to pull</li>
+  <li><code class="highlighter-rouge">tryTake</code> empties if full, returns <code class="highlighter-rouge">None</code> if empty.</li>
+  <li><code class="highlighter-rouge">read</code> which reads the current value without touching it, assuming there is one, or otherwise it waits until a value is made available via put</li>
+  <li><code class="highlighter-rouge">tryRead</code> returns <code class="highlighter-rouge">Some(a)</code> if full, without modifying the var, or else returns <code class="highlighter-rouge">None</code></li>
+  <li><code class="highlighter-rouge">isEmpty</code> returns <code class="highlighter-rouge">true</code> if currently empty</li>
 </ul>
-
-<p>An additional but non-atomic operation is <code class="highlighter-rouge">read</code>, which tries reading the
-current value, or blocks (asynchronously) until there is a value available,
-at which point the operation resorts to a <code class="highlighter-rouge">take</code> followed by a <code class="highlighter-rouge">put</code>.</p>
 
 <p class="extra">
 In this context “<i>asynchronous blocking</i>” means that we are not blocking
@@ -156,12 +153,40 @@ to error, but now merely blocks).</p>
 interthread communication, it’s the equivalent of a <code class="highlighter-rouge">BlockingQueue(capacity = 1)</code>,
 except that there’s no actual thread blocking involved and it is powered by <code class="highlighter-rouge">Task</code>.</p>
 
+<h2 id="cats-effect">Cats-Effect</h2>
+
+<p><code class="highlighter-rouge">MVar</code> is generic, being built to abstract over the effect type via the
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a> type classes, meaning
+you can use it with Monix’s <code class="highlighter-rouge">Task</code> just as well as with 
+<a href="https://typelevel.org/cats-effect/datatypes/io.html">cats.effect.IO</a>
+or any data types implementing <code class="highlighter-rouge">Async</code> or <code class="highlighter-rouge">Concurrent</code>.</p>
+
+<p>Note that <code class="highlighter-rouge">MVar</code> is already described in
+<a href="https://typelevel.org/cats-effect/concurrency/mvar.html">cats.effect.concurrent.MVar</a>
+and Monix’s implementation does in fact implement that interface.</p>
+
+<p><a href="https://typelevel.org/cats-effect/concurrency/mvar.html" target="_blank" title="cats.effect.concurrent.MVar" alt="cats.effect.concurrent.MVar">
+  <img src="https://monix.io/public/images/concurrency-mvar.png" width="400" />
+</a></p>
+
+<p><code class="highlighter-rouge">MVar</code> will remain in Monix as well because:</p>
+
+<ol>
+  <li>it shares implementation with
+<a href="/api/3.0/monix/execution/AsyncVar.html">monix.execution.AsyncVar</a>,
+the <code class="highlighter-rouge">Future</code>-enabled alternative</li>
+  <li>we can use our <a href="../execution/atomic.html">Atomic</a> implementations</li>
+  <li>at this point Monix’s <code class="highlighter-rouge">MVar</code> has some fixes that have to wait for
+the next version of Cats-Effect to be merged upstream</li>
+</ol>
+
 <h2 id="use-case-synchronized-mutable-variables">Use-case: Synchronized Mutable Variables</h2>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
-<span class="k">import</span> <span class="nn">monix.eval.</span><span class="o">{</span><span class="nc">MVar</span><span class="o">,</span> <span class="nc">Task</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">monix.catnap.MVar</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
-<span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">state</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+<span class="k">def</span> <span class="n">sum</span><span class="o">(</span><span class="n">state</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="n">state</span><span class="o">.</span><span class="n">take</span>
     <span class="k">case</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="k">=&gt;</span>
@@ -172,7 +197,7 @@ except that there’s no actual thread blocking involved and it is powered by <c
 
 <span class="k">val</span> <span class="n">task</span> <span class="k">=</span> 
   <span class="k">for</span> <span class="o">{</span>
-    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
     <span class="n">r</span> <span class="k">&lt;-</span> <span class="n">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">100</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
   <span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
 
@@ -198,7 +223,7 @@ this sample to be <em>safe</em>, then we need extra synchronization.</p>
 <p>The <code class="highlighter-rouge">take</code> operation can act as “acquire” and <code class="highlighter-rouge">put</code> can act as the “release”.
 Let’s do it:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">mvar</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Unit</span><span class="o">])</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">mvar</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">])</span> <span class="o">{</span>
   <span class="k">def</span> <span class="n">acquire</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
     <span class="n">mvar</span><span class="o">.</span><span class="n">take</span>
 
@@ -216,7 +241,7 @@ Let’s do it:</p>
 <span class="k">object</span> <span class="nc">MLock</span> <span class="o">{</span>
   <span class="cm">/** Builder. */</span>
   <span class="k">def</span> <span class="n">apply</span><span class="o">()</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">MLock</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nc">MVar</span><span class="o">(()).</span><span class="n">map</span><span class="o">(</span><span class="n">v</span> <span class="k">=&gt;</span> <span class="k">new</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">v</span><span class="o">))</span>
+    <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(()).</span><span class="n">map</span><span class="o">(</span><span class="n">v</span> <span class="k">=&gt;</span> <span class="k">new</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">v</span><span class="o">))</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -225,7 +250,7 @@ Let’s do it:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> 
   <span class="k">for</span> <span class="o">{</span>
     <span class="n">lock</span> <span class="k">&lt;-</span> <span class="nc">MLock</span><span class="o">()</span>
-    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
     <span class="n">task</span> <span class="k">=</span> <span class="n">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">100</span><span class="o">).</span><span class="n">toList</span><span class="o">)</span>
     <span class="n">r</span> <span class="k">&lt;-</span> <span class="n">lock</span><span class="o">.</span><span class="n">greenLight</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
   <span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
@@ -245,7 +270,7 @@ consumer to consume the last event before being able to generate
 a new event.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Signaling option, because we need to detect completion
-</span><span class="k">type</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
+</span><span class="k">type</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
 
 <span class="k">def</span> <span class="n">producer</span><span class="o">(</span><span class="n">ch</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
@@ -269,7 +294,7 @@ a new event.</p>
 
 <span class="k">val</span> <span class="n">sumTask</span> <span class="k">=</span>
   <span class="k">for</span> <span class="o">{</span>
-    <span class="n">channel</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
+    <span class="n">channel</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">empty</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]()</span>
     <span class="n">producerTask</span> <span class="k">=</span> <span class="n">producer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="n">count</span><span class="o">).</span><span class="n">toList</span><span class="o">).</span><span class="n">executeAsync</span>
     <span class="n">consumerTask</span> <span class="k">=</span> <span class="n">consumer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="mi">0L</span><span class="o">).</span><span class="n">executeAsync</span>
     <span class="c1">// Ensure they run in parallel, not really necessary, just for kicks
@@ -293,7 +318,7 @@ into our <code class="highlighter-rouge">MVar</code> and our <code class="highli
 
   <div class="buttons">
     <a href="/docs/3x/">Contents</a> •
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/mvar.md">
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/catnap/mvar.md">
       Edit Page</a> •
     
     <a href="https://gitter.im/monix/monix">

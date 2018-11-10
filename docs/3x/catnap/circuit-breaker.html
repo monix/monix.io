@@ -10,35 +10,35 @@
 
   
   
-  <title>Task Circuit Breaker &mdash; Monix</title>
+  <title>Circuit Breaker &mdash; Monix</title>
 
   <!-- Twitter Card -->
   
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
-  <meta name="twitter:title" content="Task Circuit Breaker &mdash; Monix" />
+  <meta name="twitter:title" content="Circuit Breaker &mdash; Monix" />
   <meta name="twitter:description" content="A data type for providing stability and prevent cascading failures in distributed systems." />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/eval/circuit-breaker" />
+  <meta property="og:url" content="https://monix.io/docs/3x/catnap/circuit-breaker" />
   
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
-  <meta property="og:title" content="Task Circuit Breaker &mdash; Monix" />
+  <meta property="og:title" content="Circuit Breaker &mdash; Monix" />
   <meta property="og:description" content="A data type for providing stability and prevent cascading failures in distributed systems." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541834204453908174" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541834204453908174" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541841814186884206" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541841814186884206" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/all.css?1541841814186884206">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541841814186884206">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -99,17 +99,17 @@
     
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Task Circuit Breaker</h1>
+  <h1 class="page-title">Circuit Breaker</h1>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.0/monix/eval/TaskCircuitBreaker.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/TaskCircuitBreaker.scala">Source Code</a>
+    <a href="/api/3.0/monix/catnap/CircuitBreaker.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.0.0-RC2/monix-catnap/shared/src/main/scala/monix/catnap/CircuitBreaker.scala">Source Code</a>
     
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/circuit-breaker.md">Edit Page</a>
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/catnap/circuit-breaker.md">Edit Page</a>
   </nav>
 
   <nav role="navigation" id="toc"></nav>
 
-  <p>The <code class="highlighter-rouge">TaskCircuitBreaker</code> is used to provide stability and prevent
+  <p>The <code class="highlighter-rouge">CircuitBreaker</code> is used to provide stability and prevent
 cascading failures in distributed systems.</p>
 
 <h2 id="purpose">Purpose</h2>
@@ -143,7 +143,7 @@ appropriate while the breaker is open.</p>
 any of these 3 states:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">Closed</code>: During normal operations or when the <code class="highlighter-rouge">TaskCircuitBreaker</code> starts
+  <li><code class="highlighter-rouge">Closed</code>: During normal operations or when the <code class="highlighter-rouge">CircuitBreaker</code> starts
     <ul>
       <li>Exceptions increment the <code class="highlighter-rouge">failures</code> counter</li>
       <li>Successes reset the <code class="highlighter-rouge">failures</code> counter to zero</li>
@@ -182,23 +182,28 @@ through, as a reset attempt, in order to test the connection
 
 <h2 id="usage">Usage</h2>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.catnap.CircuitBreaker</span>
+<span class="k">import</span> <span class="nn">monix.eval._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
-<span class="k">val</span> <span class="n">pureRef</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">TaskCircuitBreaker</span><span class="o">]</span> <span class="k">=</span> 
-  <span class="nc">TaskCircuitBreaker</span><span class="o">(</span>
+<span class="k">val</span> <span class="n">circuitBreaker</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">CircuitBreaker</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span> <span class="k">=</span> 
+  <span class="nc">CircuitBreaker</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span>
     <span class="n">maxFailures</span> <span class="k">=</span> <span class="mi">5</span><span class="o">,</span>
     <span class="n">resetTimeout</span> <span class="k">=</span> <span class="mf">10.</span><span class="n">seconds</span>
   <span class="o">)</span>
 </code></pre></div></div>
 
 <p>Note the builder’s returned reference is given in the <code class="highlighter-rouge">Task</code> context,
-because <code class="highlighter-rouge">TaskCircuitBreaker</code> has shared state and doing otherwise
+because <code class="highlighter-rouge">CircuitBreaker</code> has shared state and doing otherwise
 would violate in some cases referential transparency.</p>
 
-<p>But you can share the same circuit breaker instance by using <code class="highlighter-rouge">memoize</code>:</p>
+<p>You can workaround it by using the <code class="highlighter-rouge">unsafe</code> builder, but only do this
+if you know what you’re doing, otherwise prefer the safe alternative:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">circuitBreaker</span> <span class="k">=</span> <span class="n">pureRef</span><span class="o">.</span><span class="n">memoize</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">CircuitBreaker</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">unsafe</span><span class="o">(</span>
+  <span class="n">maxFailures</span> <span class="k">=</span> <span class="mi">5</span><span class="o">,</span>
+  <span class="n">resetTimeout</span> <span class="k">=</span> <span class="mf">10.</span><span class="n">seconds</span>
+<span class="o">)</span>
 </code></pre></div></div>
 
 <p>And in order to protect tasks being processed, one can use <code class="highlighter-rouge">protect</code>:</p>
@@ -219,7 +224,7 @@ would violate in some cases referential transparency.</p>
 operations, we can also apply an exponential backoff for repeated
 failed attempts, like so:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">circuitBreaker</span> <span class="k">=</span> <span class="nc">TaskCircuitBreaker</span><span class="o">(</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">circuitBreaker</span> <span class="k">=</span> <span class="nc">CircuitBreaker</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span>
   <span class="n">maxFailures</span> <span class="k">=</span> <span class="mi">5</span><span class="o">,</span>
   <span class="n">resetTimeout</span> <span class="k">=</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">,</span>
   <span class="n">exponentialBackoffFactor</span> <span class="k">=</span> <span class="mi">2</span><span class="o">,</span>
@@ -230,6 +235,58 @@ failed attempts, like so:</p>
 <p>In this sample we attempt to reconnect after 10 seconds, then after
 20, 40 and so on, a delay that keeps increasing up to a configurable
 maximum of 10 minutes.</p>
+
+<h3 id="event-handlers">Event Handlers</h3>
+
+<p>In case you want to trigger events when the Circuit Breaker changes
+its state, like logging or metrics-related:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">CircuitBreaker</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span>
+  <span class="n">maxFailures</span> <span class="k">=</span> <span class="mi">5</span><span class="o">,</span>
+  <span class="n">resetTimeout</span> <span class="k">=</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">,</span>
+  
+  <span class="n">onRejected</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> 
+    <span class="n">println</span><span class="o">(</span><span class="s">"Task rejected in Open or HalfOpen"</span><span class="o">)</span>
+  <span class="o">},</span>
+  <span class="n">onClosed</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Switched to Close, accepting tasks again"</span><span class="o">)</span>
+  <span class="o">},</span>
+  <span class="n">onHalfOpen</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Switched to HalfOpen, accepted one task for testing"</span><span class="o">)</span>
+  <span class="o">},</span>
+  <span class="n">onOpen</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
+    <span class="n">println</span><span class="o">(</span><span class="s">"Switched to Open, all incoming tasks rejected for the next 10 seconds"</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="retrying-after-close">Retrying after Close</h3>
+
+<p>In case a retry strategy needs to be implemented, the naive way of
+handling it would be to retry with a delay:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">protect</span><span class="o">(</span><span class="n">problematic</span><span class="o">)</span>
+
+<span class="n">task</span><span class="o">.</span><span class="n">onErrorRestartLoop</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">delay</span><span class="o">,</span> <span class="n">retry</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="c1">// Exponential back-off, but with a limit
+</span>  <span class="k">if</span> <span class="o">(</span><span class="n">delay</span> <span class="o">&lt;</span> <span class="mf">4.</span><span class="n">seconds</span><span class="o">)</span>
+    <span class="n">retry</span><span class="o">(</span><span class="n">delay</span> <span class="o">*</span> <span class="mi">2</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
+  <span class="k">else</span>
+    <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But on the other hand you can wait for the precise moment the
+<code class="highlighter-rouge">CircuitBreaker</code> closes again:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task</span><span class="o">.</span><span class="n">onErrorRestartLoop</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">times</span><span class="o">,</span> <span class="n">retry</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="c1">// Retrying for a maximum of 10 times
+</span>  <span class="k">if</span> <span class="o">(</span><span class="n">times</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span>
+    <span class="n">circuitBreaker</span><span class="o">.</span><span class="n">awaitClose</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">retry</span><span class="o">(</span><span class="n">times</span> <span class="o">+</span> <span class="mi">1</span><span class="o">))</span>
+  <span class="k">else</span>
+    <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <h2 id="credits">Credits</h2>
 
@@ -244,7 +301,6 @@ Credit should be given where credit is due 😉</p>
 </div>
 
 
-
   <div id="version3x">
     You are viewing the documentation for the latest Monix 3.x series.<br/>
     If you're looking for the older 2.x
@@ -253,7 +309,7 @@ Credit should be given where credit is due 😉</p>
 
   <div class="buttons">
     <a href="/docs/3x/">Contents</a> •
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/circuit-breaker.md">
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/catnap/circuit-breaker.md">
       Edit Page</a> •
     
     <a href="https://gitter.im/monix/monix">

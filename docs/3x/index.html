@@ -32,13 +32,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541834204453908174" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541834204453908174" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541841814186884206" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541841814186884206" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/all.css?1541841814186884206">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541834204453908174">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541841814186884206">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,53 +109,120 @@
 
   <nav role="navigation" id="toc"></nav>
 
-  <h2 id="usage">Usage</h2>
+  <h2 id="api-documentation">API Documentation</h2>
+
+<p><a href="/api/3.0/">ScalaDoc for Monix 3.x</a></p>
+
+<p>Related:</p>
 
 <ul>
-  <li><a href="/api/3.0/">API Documentation (ScalaDoc)</a></li>
-  <li>Getting Started
-    <ul>
-      <li><a href="./intro/usage.html">Usage with SBT</a></li>
-      <li><a href="./intro/hello-world.html">Hello World!</a></li>
-      <li><a href="./intro/cats.html">Typelevel Cats Integration</a></li>
-    </ul>
+  <li><a href="https://typelevel.org/cats/api/">Cats ScalaDoc</a></li>
+  <li><a href="https://typelevel.org/cats-effect/api/">Cats-Effect ScalaDoc</a></li>
+</ul>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<ul>
+  <li><a href="./intro/usage.html">Usage with SBT</a></li>
+  <li><a href="./intro/hello-world.html">Hello World!</a></li>
+  <li><a href="./intro/cats.html">Typelevel Cats Integration</a></li>
+</ul>
+
+<p>Quick-start template:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new monix/monix-3x.g8
+</code></pre></div></div>
+
+<h2 id="sub-projects">Sub-projects</h2>
+
+<h3 id="monix-execution">monix-execution</h3>
+
+<p>The <code class="highlighter-rouge">monix-execution</code> sub-project provides low level, side effectful
+utilities for dealing with concurrency, exposing the JVM’s primitives
+and building on top of the <code class="highlighter-rouge">scala.concurrent</code> package.</p>
+
+<p><img src="/public/images/logos/java.png" alt="Java's Duke" title="Java's Duke" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/3.0/monix/execution/index.html">API Documentation</a></li>
+  <li><a href="./execution/scheduler.html">Scheduler</a></li>
+  <li><a href="./execution/cancelable.html">Cancelable</a></li>
+  <li><a href="./execution/callback.html">Callback</a></li>
+  <li><a href="./execution/future-utils.html">Future Utils</a></li>
+  <li><a href="./execution/atomic.html">Atomic</a></li>
+</ul>
+
+<h3 id="monix-catnap">monix-catnap</h3>
+
+<p>The <code class="highlighter-rouge">monix-catnap</code> sub-project is for generic, purely functional
+utilities for managing concurrency, building on top of the
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a> type classes:</p>
+
+<p><img src="/public/images/logos/cats.png" alt="Cats" title="Cats" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/3.0/monix/catnap/index.html">API Documentation</a></li>
+  <li><a href="./catnap/circuit-breaker.html">Circuit Breaker</a></li>
+  <li><a href="./catnap/mvar.html">MVar</a></li>
+</ul>
+
+<h3 id="monix-eval">monix-eval</h3>
+
+<p>The <code class="highlighter-rouge">monix-eval</code> sub-project exposes the <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> data
+types, for dealing with purely functional effects in a principled way:</p>
+
+<ul>
+  <li><a href="/api/3.0/monix/eval/index.html">API Documentation</a></li>
+  <li><a href="./eval/task.html">Task</a></li>
+  <li><a href="./eval/coeval.html">Coeval</a></li>
+</ul>
+
+<h3 id="monix-reactive">monix-reactive</h3>
+
+<p>The <code class="highlighter-rouge">monix-reactive</code> sub-project exposes the <code class="highlighter-rouge">Observable</code> data type,
+along with adjacent utilities, a high performance streaming abstraction
+that’s an idiomatic implementation of ReactiveX for Scala:</p>
+
+<p><img src="/public/images/logos/reactivex.png" alt="ReactiveX" title="ReactiveX" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/3.0/monix/reactive/index.html">API Documentation</a></li>
+  <li><a href="./reactive/observable.html">Observable</a></li>
+  <li><a href="./reactive/observable-comparisons.html">Comparisons with Other Solutions</a></li>
+  <li><a href="./reactive/observers.html">Observers and Subscribers</a></li>
+  <li><a href="./reactive/consumer.html">Consumer</a></li>
+  <li><a href="./reactive/javascript.html">Javascript Event Listeners</a></li>
+</ul>
+
+<h3 id="monix-tail">monix-tail</h3>
+
+<p><img src="/public/images/logos/many-cats.png" alt="Cats friendly" title="Cats friendly" class="doc-icon2x" /></p>
+
+<p>The <code class="highlighter-rouge">monix-tail</code> sub-projects exposes <code class="highlighter-rouge">Iterant</code>, a generic, purely
+functional, principled, pull-based streaming data type:</p>
+
+<ul>
+  <li><a href="/api/3.0/monix/tail/index.html">API Documentation</a></li>
+</ul>
+
+<h2 id="tutorials">Tutorials</h2>
+
+<ul>
+  <li>
+    <p><a href="./tutorials/parallelism.html">Parallel Processing</a></p>
   </li>
-  <li>Execution
-    <ul>
-      <li><a href="./execution/scheduler.html">Scheduler</a></li>
-      <li><a href="./execution/cancelable.html">Cancelable</a></li>
-      <li><a href="./execution/callback.html">Callback</a></li>
-      <li><a href="./execution/future-utils.html">Future Utils</a></li>
-      <li><a href="./execution/atomic.html">Atomic</a></li>
-    </ul>
+  <li>
+    <p><a href="/blog/2018/11/08/tutorial-future-to-task.html">Converting Scala’s Future to Task (Video)</a></p>
   </li>
-  <li>Evaluation
-    <ul>
-      <li><a href="./eval/task.html">Task</a></li>
-      <li><a href="./eval/coeval.html">Coeval</a></li>
-      <li><a href="./eval/mvar.html">MVar</a></li>
-      <li><a href="./eval/circuit-breaker.html">Task Circuit Breaker</a></li>
-    </ul>
+  <li>
+    <p><a href="/blog/2018/11/07/tutorial-bracket.html">Task’s Bracket, Cats-Effect’s Resource and Streaming (Video)</a></p>
   </li>
-  <li>Reactive
-    <ul>
-      <li><a href="./reactive/observable.html">Observable</a></li>
-      <li><a href="./reactive/observable-comparisons.html">Comparisons with Other Solutions</a></li>
-      <li><a href="./reactive/observers.html">Observers and Subscribers</a></li>
-      <li><a href="./reactive/consumer.html">Consumer</a></li>
-      <li><a href="./reactive/javascript.html">Javascript Event Listeners</a></li>
-    </ul>
-  </li>
-  <li>Tutorials
-    <ul>
-      <li><a href="./tutorials/parallelism.html">Parallel Processing</a></li>
-    </ul>
-  </li>
-  <li>Best Practices
-    <ul>
-      <li><a href="./best-practices/blocking.html">Should Not Block Threads</a></li>
-    </ul>
-  </li>
+</ul>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ul>
+  <li><a href="./best-practices/blocking.html">Should Not Block Threads</a></li>
 </ul>
 
 <h2 id="samples">Samples</h2>
