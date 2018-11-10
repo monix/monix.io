@@ -5,7 +5,6 @@ description: |
   Presentation from Scala World 2017, on Monix's Observable, 
   compared with Iterant and a lesson in FP design
 vimeo: 300015010
-
 comments: true
 ---
 
