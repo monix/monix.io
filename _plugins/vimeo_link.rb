@@ -11,6 +11,14 @@ module Jekyll
     def vimeo_raw_link(uid)
       "https://videos.monix.io/redirect/#{uid}/HD%201080p?download=false&fallback=true"
     end
+
+    def vimeo_thumb_link(uid)
+      "https://videos.monix.io/thumb/#{uid}"
+    end
+
+    def vimeo_thumb_play_link(uid)
+      "https://videos.monix.io/thumb-play/#{uid}"
+    end
   end
 end
 

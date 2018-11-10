@@ -15,11 +15,12 @@
   <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
   <meta name="twitter:player:width" content="1280">
   <meta name="twitter:player:height" content="830">  
+  <meta name="twitter:image" content="{{ page.vimeo | vimeo_thumb_link }}" />
   {% else %}
   <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="{{ site.url }}/public/images/monix-logo-rect.png" />
   {% endif -%}
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:image" content="{{ site.url }}/public/images/monix-logo-rect.png" />
   <meta name="twitter:title" content="{{ processed_title }}" />
   <meta name="twitter:description" content="{{ processed_description }}" />
 
@@ -32,9 +33,9 @@
   <meta property="og:video:secure_url" content="{{ page.vime | vimeo_raw_link }}" />
   <meta property="og:video:type" content="video/mp4" />
   <meta property="og:video:width" content="1280" />
-  <meta property="og:video:height" content="830" />
-  <meta property="og:image" content="{{ site.url }}/public/images/monix-logo-play.png" />
-  <meta property="og:image:secure_url" content="{{ site.url }}/public/images/monix-logo-play.png">
+  <meta property="og:video:height" content="830" /> 
+  <meta property="og:image" content="{{ page.vimeo | vimeo_thumb_play_link }}" />
+  <meta property="og:image:secure_url" content="{{ page.vimeo | vimeo_thumb_play_link }}">
   {% else %}
   <meta property="og:type" content="article" />
   <meta property="og:image" content="{{ site.url }}/public/images/monix-logo.png" />
