@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Cancelable IO — Typelevel Summit, 2018, Berlin &mdash; Monix</title>
+
+  <!-- Twitter Card -->
+  
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://player.vimeo.com/video/300067490?title=0&byline=0&portrait=0">
+  <meta name="twitter:player:width" content="1280">
+  <meta name="twitter:player:height" content="830">  
+  <meta name="twitter:image" content="https://videos.monix.io/thumb/300067490" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:title" content="Cancelable IO — Typelevel Summit, 2018, Berlin &mdash; Monix" />
+  <meta name="twitter:description" content="Presentation from Typelevel Summit, 2018, on the evolutionand design of the Cats-Effect IO." />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+  <meta property="og:url" content="https://monix.io/presentations/2018-cancelable-io-typelevel-summit" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://videos.monix.io/redirect/300067490/HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:secure_url" content="https://videos.monix.io/redirect//HD%201080p?download=false&fallback=true" />
+  <meta property="og:video:type" content="video/mp4" />
+  <meta property="og:video:width" content="1280" />
+  <meta property="og:video:height" content="830" /> 
+  <meta property="og:image" content="https://videos.monix.io/thumb-play/300067490" />
+  <meta property="og:image:secure_url" content="https://videos.monix.io/thumb-play/300067490">
+  <meta property="og:title" content="Cancelable IO — Typelevel Summit, 2018, Berlin &mdash; Monix" />
+  <meta property="og:description" content="Presentation from Typelevel Summit, 2018, on the evolutionand design of the Cats-Effect IO." />
+  
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1541878424689340054" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1541878424689340054" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1541878424689340054">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541878424689340054">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+    </nav>
+  </div>
+</aside>
+
+    
+      <article class="content container">
+        <div class="page">
+  <a name="start"></a>
+  <h1 class="page-title">Cancelable IO — Typelevel Summit, 2018, Berlin</h1>
+
+  <p>Presentation from the
+<a href="https://typelevel.org/event/2018-05-summit-berlin/">Typelevel Summit, 2018, Berlin</a>
+by <a href="https://twitter.com/alexelcu">@alexelcu</a>.</p>
+
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://player.vimeo.com/video/300067490?title=0&amp;byline=0&amp;portrait=0" id="vimeo-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
+
+<div id="video-download">
+  View or Download Raw Video ▾
+  <ul>
+  </ul>
+</div>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<script language="javascript">
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    initVimeo("300067490");
+  });
+</script>
+
+<p>Resources:</p>
+
+<ul>
+  <li><a href="/public/pdfs/Cancelable-IO-2018.pdf">Slides (PDF file)</a></li>
+</ul>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>Task / IO data types have been ported in Scala, inspired by Haskell’s
+monadic IO and are surging in popularity due to the need in functional
+programming for referential transparency, but also because controlling
+side effects by means of lawful, FP abstractions makes reasoning about
+asynchrony and concurrency so much easier. But concurrency brings with
+it race conditions, i.e. the ability to execute multiple tasks at the
+same time, possibly interrupting the losers and cleaning up resources
+afterwards and thus we end up reasoning about preemption.</p>
+
+<p>This talk describes the design of Monix’s Task for cancelability and
+preemption, a design that has slowly transpired in cats-effect, first
+bringing serious performance benefits and now a sane design for
+cancelation. Topics include how cancelable tasks can be described,
+along with examples of race conditions that people can relate to,
+highlighting the challenges faced when people use an IO/Task data type
+that cannot be interrupted.</p>
+
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2018-cancelable-io-typelevel-summit.md">
+      Edit Page</a> •
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  <div id="contributions">
+  <script data-isso="/comments/monix/"
+          data-isso-css="true"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="true"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="true"
+          data-vote-levels=""
+          src="https://monix.io/comments/monix/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="Cancelable IO — Typelevel Summit, 2018, Berlin">
+  </section>
+</div>
+</div>
+
+      </article>    
+    </div>
+
+    <script>
+        ((window.gitter = {}).chat = {}).options = {
+          room: 'monix/monix'
+        };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>
