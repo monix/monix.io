@@ -36,7 +36,14 @@ function initVimeo(uid) {
           }
         }
       }
-    })    
+    });
+
+    
+    if ((window.location + "").match(/autoplay[=]1/)) {
+      var iframe = document.getElementById("vimeo-iframe");
+      var player = new Vimeo.Player(iframe);
+      player.play();
+    }
   });
 }
 

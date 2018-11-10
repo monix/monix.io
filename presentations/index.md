@@ -4,7 +4,7 @@ title: Presentations
 comments: true
 ---
 
-{% include youtube.html link="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" ratio=56.25 %}
+{% include vimeo_thumb.html link="/presentations/2017-tale-two-monix-streams.html" uid="300015010" %}
 
 ## Conferences
 
