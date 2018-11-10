@@ -1294,7 +1294,6 @@ to expire despite knowing that we won't get any successful result.
 We can optimize it doing second `chooseFirstOf` versus counter reaching zero:
 
 ```tut:silent
-import cats.syntax.apply._
 import monix.eval.Task
 import monix.execution.Scheduler.Implicits.global
 import monix.execution.atomic.AtomicInt
@@ -1316,7 +1315,7 @@ def checkCounter: Task[Unit] = Task(counter.get).flatMap { value =>
 val result: Task[Either[(Unit, CancelableFuture[Int]), (CancelableFuture[Unit], Int)]] =
   Task.chooseFirstOf(
     checkCounter,
-    Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)) *> Task.never)))
+    Task.chooseFirstOfList(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)).flatMap(_ => Task.never))))
   )
   
 result.runAsync.foreach(println) // will finish and print after 3 seconds

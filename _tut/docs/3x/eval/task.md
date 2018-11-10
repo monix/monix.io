@@ -1266,7 +1266,7 @@ val tasks: List[Task[Int]] = List(task1, task2, task3)
 
 val result: Task[Int] = Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.never))).timeout(timeout)
 
-result.runAsync.foreach(println) // will print 10
+result.foreach(println) // will print 10
 ```
 It will turn any failed tasks into non-terminating.
 
@@ -1301,7 +1301,7 @@ val result: Task[Either[Unit, Int]] =
     Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)) *> Task.never)))
   )
   
-result.runAsync.foreach(println) // will finish and print after 3 seconds
+result.foreach(println) // will finish and print after 3 seconds
 ```
 
 ### Delay Execution
