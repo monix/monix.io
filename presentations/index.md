@@ -12,6 +12,8 @@ comments: true
   by Yifan Xing, [ReactSphere 2018](https://react.sphere.it/)
 - [Practical Reactive Streams with Monix](./2018-practical-reactive-streams-jacek-kunicki.html)
   by Jacek Kunicki, [ReactSphere 2018](https://react.sphere.it/)
+- [A road trip with Monads: From MTL, through Tagless to Bio](./2018-road-trip-monads-mtl-tagless-bio.html)
+  by Paweł Szulc, [Scala in the City 2018](https://twitter.com/scalainthecity)
 - [A Tale of Two Monix Streams](./2018-tale-two-monix-streams.html) (repeat)
   by Alexandru Nedelcu, [Scala Days 2018](https://eu.scaladays.org/)
 - [A Tale of Two Monix Streams](./2017-tale-two-monix-streams.html)
