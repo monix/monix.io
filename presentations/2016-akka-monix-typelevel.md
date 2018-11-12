@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants"
+title: "Akka &amp; Monix: Controlling Power Plants — Typelevel Summit 2016"
 description: |
   Presentation from Typelevel Summit, Oslo, 2016,
   about an experience in dealing with modeling behavior
