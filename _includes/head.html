@@ -10,15 +10,21 @@
   <title>{{ processed_title }}</title>
 
   <!-- Twitter Card -->
-  {% if page.vimeo %}
+  {% if page.vimeo -%}
   <meta name="twitter:card" content="player" />
   <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
-  <meta name="twitter:player:width" content="1280">
-  <meta name="twitter:player:height" content="830">  
-  <meta name="twitter:image" content="{{ page.vimeo | vimeo_thumb_link }}" />
-  {% else %}
+  <meta name="twitter:player:width" content="560">
+  <meta name="twitter:player:height" content="315">  
+  <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
+  {% elsif page.youtube -%}
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="{{ page.youtube | youtube_player_link }}">
+  <meta name="twitter:player:width" content="560">
+  <meta name="twitter:player:height" content="315">
+  <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}/public/images/monix-logo-rect.png{% endif %}" />
+  {% else -%}
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="{{ site.url }}/public/images/monix-logo-rect.png" />
+  <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}/public/images/monix-logo-rect.png{% endif %}" />
   {% endif -%}
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:title" content="{{ processed_title }}" />
@@ -26,20 +32,31 @@
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   {% if page.vimeo -%}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:type" content="video.other" />
   <meta property="og:video:url" content="{{ page.vimeo | vimeo_raw_link }}" />
-  <meta property="og:video:secure_url" content="{{ page.vime | vimeo_raw_link }}" />
+  <meta property="og:video:secure_url" content="{{ page.vimeo | vimeo_raw_link }}" />
   <meta property="og:video:type" content="video/mp4" />
-  <meta property="og:video:width" content="1280" />
-  <meta property="og:video:height" content="830" /> 
-  <meta property="og:image" content="{{ page.vimeo | vimeo_thumb_play_link }}" />
-  <meta property="og:image:secure_url" content="{{ page.vimeo | vimeo_thumb_play_link }}">
-  {% else %}
+  <meta property="og:video:width" content="560" />
+  <meta property="og:video:height" content="315" /> 
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_play_link }}{% endif %}" />
+  <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_play_link }}{% endif %}" />
+  {% elsif page.youtube -%}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="{{ page.youtube | youtube_player_link }}" />
+  <meta property="og:video:secure_url" content="{{ page.youtube | youtube_player_link }}" />
+  <meta property="og:video:type" content="text/html" />
+  <meta property="og:video:width" content="560" />
+  <meta property="og:video:height" content="315" /> 
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
+  <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
+  {% else -%}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="{{ site.url }}/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="{{ site.url }}/public/images/monix-logo.png">
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
+  <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
   {% endif -%}
   <meta property="og:title" content="{{ processed_title }}" />
   <meta property="og:description" content="{{ processed_description }}" />

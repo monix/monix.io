@@ -9,12 +9,17 @@ layout: default
   {{ content }}
 
   <div class="buttons">
-    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}">
+    <a href="{{ site.github.docs }}/edit/master/{{ page.path }}" target="_blank">
       Edit Page</a> •
-    <a href="{{ site.github.chat }}">
+    <a href="{{ site.github.chat }}" target="_blank">
       Join Chat</a> •
+    {% if page.author -%}
+    <a href="https://twitter.com/{{ page.author }}" target="_blank">
+      Follow @{{ page.author }}</a>
+    {% else -%}
     <a href="{{ site.baseurl }}social.html">
-      Follow</a>
+      Follow @Monix</a>
+    {% endif -%}
   </div>
 
   {% if page.comments %}{% include comments.html %}{% endif -%}

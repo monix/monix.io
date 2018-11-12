@@ -1,5 +1,5 @@
 module Jekyll
-  module VimeoLink
+  module VideoLinks
     def vimeo_link(uid)
       "https://vimeo.com/#{uid}"
     end
@@ -19,8 +19,16 @@ module Jekyll
     def vimeo_thumb_play_link(uid)
       "https://videos.monix.io/thumb-play/#{uid}"
     end
+
+    def youtube_link(uid)
+      "https://www.youtube.com/watch?v=#{uid}"
+    end
+
+    def youtube_player_link(uid)
+      "https://www.youtube-nocookie.com/embed/#{uid}"
+    end
   end
 end
 
-Liquid::Template.register_filter(Jekyll::VimeoLink)
+Liquid::Template.register_filter(Jekyll::VideoLinks)
 

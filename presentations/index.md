@@ -8,10 +8,16 @@ comments: true
 
 ## Conferences
 
+- [Asynchronous Programming: Scala.concurrent and Monix! What?](./2018-async-programming-yifan-xing.html)
+  by Yifan Xing, [ReactSphere 2018](https://react.sphere.it/)
+- [Practical Reactive Streams with Monix](./2018-practical-reactive-streams-jacek-kunicki.html)
+  by Jacek Kunicki, [ReactSphere 2018](https://react.sphere.it/)
 - [A Tale of Two Monix Streams](./2018-tale-two-monix-streams.html)
   by Alexandru Nedelcu, [Scala Days 2018](https://eu.scaladays.org/)
   - [A Tale of Two Monix Streams](./2017-tale-two-monix-streams.html)
     by Alexandru Nedelcu, [Scala World 2017](https://scala.world/)
+- [Asynchronous processing with Monix](./2017-async-processing-monix-tomek-kogut.html)
+  by Tomek Kogut, at [ScalaWAW](https://www.meetup.com/ScalaWAW/)
 - [Monix Task: Lazy, Async &amp; Awesome](./2017-task-scaladays.html)
   by Alexandru Nedelcu, [Scala Days 2017](https://scaladays.org/archive/copenhagen2017.html)
   - [Monix Task: Lazy, Async &amp; Awesome](./2016-task-flatmap-oslo.html)

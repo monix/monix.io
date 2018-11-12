@@ -6,13 +6,15 @@ description: |
   about an experience in dealing with modeling behavior
   by processing asynchronous soft-real time signals.
 comments: true
+youtube: CQxviYlAKaY
+author: alexelcu
 ---
 
 Presentation from the
 [Typelevel Summit, Oslo, 2016](http://typelevel.org/event/2016-05-summit-oslo/)
-by [@alexelcu](https://twitter.com/alexelcu):
+by [Alexandru Nedelcu](https://twitter.com/alexelcu):
 
-{% include youtube.html link="https://www.youtube-nocookie.com/embed/CQxviYlAKaY" ratio=56.25 %}
+{% include youtube.html ratio=56.25 %}
 
 Resources:
 
