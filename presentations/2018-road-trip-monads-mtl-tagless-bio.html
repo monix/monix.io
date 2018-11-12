@@ -10,23 +10,31 @@
 
   
   
-  <title>Monix: Version 2.0.1 Released for Maintenance</title>
+  <title>A road trip with Monads: From MTL, through Tagless to Bio &mdash; Monix</title>
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/y_QHSDOVJM8">
+  <meta name="twitter:player:width" content="560">
+  <meta name="twitter:player:height" content="315">
+  <meta name="twitter:image" content="https://monix.io/public/images/thumb/2018-road-trip-monads-mtl-tagless-bio.png" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.1 Released for Maintenance" />
-  <meta name="twitter:description" content="Upgrades Cats, Scalaz and Scala 2.12 to latest versions" />
+  <meta name="twitter:title" content="A road trip with Monads: From MTL, through Tagless to Bio &mdash; Monix" />
+  <meta name="twitter:description" content="A road trip with Monads: From MTL, through Tagless to Bio" />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/09/10/monix-v2.0.1.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix: Version 2.0.1 Released for Maintenance" />
-  <meta property="og:description" content="Upgrades Cats, Scalaz and Scala 2.12 to latest versions" />
+  <meta property="og:url" content="https://monix.io/presentations/2018-road-trip-monads-mtl-tagless-bio" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/y_QHSDOVJM8" />
+  <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/y_QHSDOVJM8" />
+  <meta property="og:video:type" content="text/html" />
+  <meta property="og:video:width" content="560" />
+  <meta property="og:video:height" content="315" /> 
+  <meta property="og:image" content="https://monix.io/public/images/thumb/2018-road-trip-monads-mtl-tagless-bio.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/thumb/2018-road-trip-monads-mtl-tagless-bio.png" />
+  <meta property="og:title" content="A road trip with Monads: From MTL, through Tagless to Bio &mdash; Monix" />
+  <meta property="og:description" content="A road trip with Monads: From MTL, through Tagless to Bio" />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -85,9 +93,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -96,69 +104,42 @@
 
     
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.1 Released for Maintenance</h1>
+  <h1 class="page-title">A road trip with Monads: From MTL, through Tagless to Bio</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-09-10">
-    10 Sep 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from
+<a href="https://react.sphere.it/">ReactSphere 2018</a> by
+<a href="https://twitter.com/rabbitonweb">Paweł Szulc</a>:</p>
 
-  <p>This release is binary compatible with 2.0.0, being just a maintenance
-release that upgrades Cats to version <code class="highlighter-rouge">0.7.2</code>, Scalaz to <code class="highlighter-rouge">7.2.6</code> and
-Scala to <code class="highlighter-rouge">2.12.0-RC1</code>.</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://www.youtube-nocookie.com/embed/y_QHSDOVJM8" id="youtube-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
 
-<p>The upgrade isn’t necessary, unless you’re using <code class="highlighter-rouge">monix-cats</code> and are
-affected by <a href="https://github.com/typelevel/cats/issues/1346">Cats #1346</a>.</p>
+<h2 id="abstract">Abstract</h2>
 
-<!--more-->
+<p>This talk is about a journey: from imperative code to purely
+functional one. It starts with a program written in imperative
+style. Its weak spots can be quickly recognized: lack of robustness,
+testability and maintainability. We seek our salvation in the
+functional paradigm, but the road to enlightenment, has many dangerous
+and deceivable dead-ends. The quest has a happy ending, as we reach
+code that is performant, testable, readable and maintainable. Keep in
+mind however that knowledge comes from experience. As once someone
+wise said “Its the not the Destination, it’s the Journey.” Though it
+is not a live coding session, it will sure feel like it. Code is
+written in Scala, parental guidance is advised.</p>
 
-<p>Issues:</p>
-
-<ul>
-  <li><a href="https://github.com/monix/monix/issues/218">Issue 218</a>: 
-update dependencies</li>
-</ul>
-
-<p>Enjoy!</p>
-
-
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-09-10-monix-v2.0.1.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2018-road-trip-monads-mtl-tagless-bio.md" target="_blank">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix" target="_blank">
+      Join Chat</a> •
+    <a href="https://twitter.com/rabbitonweb" target="_blank">
+      Follow @rabbitonweb</a>
+    </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -176,10 +157,9 @@ update dependencies</li>
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.1 Released for Maintenance">
+  <section id="isso-thread" data-title="A road trip with Monads: From MTL, through Tagless to Bio">
   </section>
 </div>
-
 </div>
 
       </article>    
