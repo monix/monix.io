@@ -4,7 +4,7 @@ title: "A road trip with Monads: From MTL, through Tagless to Bio"
 description: |
   A road trip with Monads: From MTL, through Tagless to Bio
 comments: true
-image: /public/images/thumb/2018-road-trip-monads-mtl-tagless-bio.png
+image: /public/images/thumbs/2018-road-trip-monads-mtl-tagless-bio.png
 author: rabbitonweb
 youtube: y_QHSDOVJM8
 ---
