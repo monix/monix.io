@@ -10,23 +10,31 @@
 
   
   
-  <title>Monix: Version 2.0.5 Maintenance Release</title>
+  <title>Asynchronous Programming: Scala.concurrent and Monix! What?</title>
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/Wq9YbTeOkjA">
+  <meta name="twitter:player:width" content="560">
+  <meta name="twitter:player:height" content="315">
+  <meta name="twitter:image" content="https://monix.io/public/images/thumbs/2018-async-programming-yifan-xing.png" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0.5 Maintenance Release" />
-  <meta name="twitter:description" content="Bug fixes, upgrade to Scala.js 0.6.13 and Scala 2.12.0-RC2" />
+  <meta name="twitter:title" content="Asynchronous Programming: Scala.concurrent and Monix! What?" />
+  <meta name="twitter:description" content="Presentation from ReactSphere 2018, by Yifan Xing introducing Scala's Futures, Promises along with Monix." />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/10/23/monix-v2.0.5.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix: Version 2.0.5 Maintenance Release" />
-  <meta property="og:description" content="Bug fixes, upgrade to Scala.js 0.6.13 and Scala 2.12.0-RC2" />
+  <meta property="og:url" content="https://monix.io/presentations/2018-async-programming-yifan-xing" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/Wq9YbTeOkjA" />
+  <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/Wq9YbTeOkjA" />
+  <meta property="og:video:type" content="text/html" />
+  <meta property="og:video:width" content="560" />
+  <meta property="og:video:height" content="315" /> 
+  <meta property="og:image" content="https://monix.io/public/images/thumbs/2018-async-programming-yifan-xing.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/thumbs/2018-async-programming-yifan-xing.png" />
+  <meta property="og:title" content="Asynchronous Programming: Scala.concurrent and Monix! What?" />
+  <meta property="og:description" content="Presentation from ReactSphere 2018, by Yifan Xing introducing Scala's Futures, Promises along with Monix." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -85,9 +93,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
     </nav>
@@ -96,72 +104,52 @@
 
     
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.5 Maintenance Release</h1>
+  <h1 class="page-title">Asynchronous Programming: Scala.concurrent and Monix! What?</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-10-23">
-    23 Oct 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from the
+<a href="https://react.sphere.it/">ReactSphere</a> by
+<a href="https://twitter.com/yifan_xing_e">Yifan Xing</a>:</p>
 
-  <p>This release is binary compatible with 2.0.x, being a maintenance and
-bug fix release. In order to upgrade, just increment the version
-number in <code class="highlighter-rouge">build.sbt</code>:</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://www.youtube-nocookie.com/embed/Wq9YbTeOkjA" id="youtube-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.5"</span>
-</code></pre></div></div>
-
-<!--more-->
-
-<p>List of fixes and changes:</p>
+<p>Resources:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/247">Bug #247</a>:
-Avoid runtime reflection</li>
-  <li><a href="https://github.com/monix/monix/pull/248">Bug #248</a>: 
-Reset overflow counter on None onOverflow result</li>
-  <li>Updates Scala.js to 0.6.13 and Scala to 2.12.0-RC2</li>
+  <li><a href="https://speakerdeck.com/xingyif/asynchronous-programming-scala-dot-concurrent-and-monix-what">Slides (SpeakerDeck)</a></li>
 </ul>
 
-<p>Cheers,</p>
+<h2 id="abstract">Abstract</h2>
+
+<p>In the context of executing a task, a synchronous execution indicates
+that the program waits for the result of the first task before moving
+on to another task. In contrast, an asynchronous execution does not
+wait for the result of the first task and it starts executing another
+task immediately after the first task is executed. Both Futures &amp;
+Promises and Monix are Scala libraries that allow users to efficiently
+perform asynchronous operations.</p>
+
+<p>This talk will introduce Futures and Promises library in
+<code class="highlighter-rouge">scala.concurrent</code> and Monix. We will walk through several examples
+that demonstrate how to use Futures and Promises and Monix. In
+addition, the talk compares and contrasts the similarities and
+differences between the two libraries. Furthermore, we will discuss
+some best practices in debugging asynchronous systems.</p>
 
 
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
-              Converting Scala's Future to Task (Video)
-              <small>08 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/07/tutorial-bracket.html">
-              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
-              <small>07 Nov 2018</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-              Monix: Version 3.0.0-RC2
-              <small>06 Nov 2018</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-10-23-monix-v2.0.5.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2018-async-programming-yifan-xing.md">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
 
   <div id="contributions">
   <script data-isso="/comments/monix/"
@@ -179,10 +167,9 @@ Reset overflow counter on None onOverflow result</li>
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0.5 Maintenance Release">
+  <section id="isso-thread" data-title="Asynchronous Programming: Scala.concurrent and Monix! What?">
   </section>
 </div>
-
 </div>
 
       </article>    

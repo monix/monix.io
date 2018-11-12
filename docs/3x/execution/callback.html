@@ -13,7 +13,6 @@
   <title>Callback &mdash; Monix</title>
 
   <!-- Twitter Card -->
-  
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:site" content="@monix" />  
@@ -23,22 +22,21 @@
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
   <meta property="og:url" content="https://monix.io/docs/3x/execution/callback" />
-  
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:title" content="Callback &mdash; Monix" />
   <meta property="og:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541878424689340054" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541878424689340054" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1542005744034478000" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1542005744034478000" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541878424689340054">
+  <link rel="stylesheet" href="/public/css/all.css?1542005744034478000">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541878424689340054">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1542005744034478000">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -164,7 +162,7 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.Eval$1085148317
+<span class="c1">// task: monix.eval.Task[Unit] = Task.Eval$781149810
 </span>
 <span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Unit</span><span class="o">])</span>
 <span class="c1">// Sample

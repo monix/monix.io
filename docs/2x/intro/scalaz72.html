@@ -13,7 +13,6 @@
   <title>Scalaz 7.2 Integration &mdash; Monix</title>
 
   <!-- Twitter Card -->
-  
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
   <meta name="twitter:site" content="@monix" />  
@@ -23,22 +22,21 @@
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
   <meta property="og:url" content="https://monix.io/docs/2x/intro/scalaz72" />
-  
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png">
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:title" content="Scalaz 7.2 Integration &mdash; Monix" />
   <meta property="og:description" content="Integration and usage of the type-classes described in the Scalaz library, version 7.2." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1541878424689340054" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1541878424689340054" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1542005744034478000" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1542005744034478000" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1541878424689340054">
+  <link rel="stylesheet" href="/public/css/all.css?1542005744034478000">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1541878424689340054">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1542005744034478000">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -158,7 +156,7 @@ And now we can verify that <code class="highlighter-rouge">Task</code> is indeed
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
 <span class="n">scala</span><span class="o">&gt;</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">scalaz.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">scalaz</span><span class="o">.</span><span class="nc">MonixToScalaz10$MonixToScalazBindRec</span><span class="k">@</span><span class="mi">4</span><span class="n">cc2009</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">scalaz.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">scalaz</span><span class="o">.</span><span class="nc">MonixToScalaz10$MonixToScalazBindRec</span><span class="k">@</span><span class="mi">28585350</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -181,7 +179,7 @@ can also work in reverse:</p>
 <code class="highlighter-rouge">monix.types.Monad[List]</code> out of the instances defined for Scalaz:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">List</span><span class="o">]]</span>
-<span class="c1">// res1: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@197e7957
+<span class="c1">// res1: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@60398971
 </span></code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates
