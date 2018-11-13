@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1542018370091971076" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1542018370091971076" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1542097345457511667" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1542097345457511667" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1542018370091971076">
+  <link rel="stylesheet" href="/public/css/all.css?1542097345457511667">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1542018370091971076">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1542097345457511667">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -142,14 +142,14 @@ a <code class="highlighter-rouge">Future</code> and evaluate it:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Actual execution, making use of the Scheduler in
 // our scope, imported above
 </span><span class="k">val</span> <span class="n">future</span> <span class="k">=</span> <span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
-<span class="c1">// future: monix.execution.CancelableFuture[Int] = monix.execution.CancelableFuture$Pure@bdd411f
+<span class="c1">// future: monix.execution.CancelableFuture[Int] = monix.execution.CancelableFuture$Pure@29935b53
 </span></code></pre></div></div>
 
 <p>We now have a standard <code class="highlighter-rouge">Future</code>, so we can use its result:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Avoid blocking; this is done for demostrative purposes
 </span><span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="c1">// res10: Int = 2
+<span class="c1">// res8: Int = 2
 </span></code></pre></div></div>
 
 <h2 id="observable-the-lazy--async-iterable">Observable, the Lazy &amp; Async Iterable</h2>
