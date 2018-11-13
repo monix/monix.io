@@ -7,7 +7,7 @@ description: |
   Integration and usage of the type-classes described in the Scalaz library, version 7.2.
   
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version2x

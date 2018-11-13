@@ -1,6 +1,6 @@
 name := "monix-website"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.7"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -29,7 +29,10 @@ lazy val tutVersion = SettingKey[String]("tutVersion")
 configFile := (baseDirectory in ThisBuild).value / "_config.yml"
 tutInput := (baseDirectory in ThisBuild).value / "_tut"
 tutOutput := (baseDirectory in ThisBuild).value
-tutVersion := "0.6.2"
+
+// WARNING — do not update until this is fixed:
+// https://github.com/tpolecat/tut/issues/243
+tutVersion := "0.6.3"
 
 watchSources ++= (tutInput.value ** "*.md").get
 

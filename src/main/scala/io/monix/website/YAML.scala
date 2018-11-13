@@ -27,21 +27,21 @@ object YAML extends LowPriorityYAML {
     YAML[T].decode(any)
 
   implicit def listYAML[T : YAML]: YAML[List[T]] =
-    new YAML[List[T]] {
-      def rawDecode(any: Any) =
-        any.asInstanceOf[java.util.List[_]].asScala.toList.map(YAML[T].rawDecode)
+    (any: Any) => {
+      any.asInstanceOf[java.util.List[_]].asScala.toList.map(YAML[T].rawDecode)
     }
+
+  implicit def listOptionYAML[T : YAML]: YAML[Option[List[T]]] = {
+    case null => None
+    case any: Any =>
+      Some(any.asInstanceOf[java.util.List[_]].asScala.toList.map(YAML[T].rawDecode))
+  }
 
   implicit def stringYAML: YAML[String] =
-    new YAML[String] {
-      def rawDecode(any: Any) =
-        any.asInstanceOf[String]
-    }
+    (any: Any) => any.asInstanceOf[String]
 
   implicit def deriveHNil: YAML[HNil] =
-    new YAML[HNil] {
-      def rawDecode(any: Any) = HNil
-    }
+    (any: Any) => HNil
 
   implicit def deriveHCons[K <: Symbol, V, T <: HList]
     (implicit
@@ -53,9 +53,8 @@ object YAML extends LowPriorityYAML {
     def rawDecode(any: Any) = {
       val k = key.value.name
       val map = any.asInstanceOf[java.util.Map[String, _]]
-      if (!map.containsKey(k))
-        throw new IllegalArgumentException(s"key $k not defined")
-      val head: FieldType[K, V] = labelled.field(yv.value.rawDecode(map.get(k)))
+      val value = if (map.containsKey(k)) map.get(k) else null
+      val head: FieldType[K, V] = labelled.field(yv.value.rawDecode(value))
       val tail = yt.value.rawDecode(map)
       head :: tail
     }
