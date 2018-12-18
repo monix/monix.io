@@ -7,7 +7,7 @@ description: |
     A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks.
     
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version2x

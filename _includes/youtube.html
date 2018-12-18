@@ -1,8 +1,10 @@
+{% capture youtube %}{% if page.youtube %}{{ page.youtube }}{% else %}{{ include.youtube }}{% endif -%}{% endcapture -%}
 <div id="video-frame" class="presentation" style="padding-bottom: {{ include.ratio }}%;">
-<iframe src="{{ include.link }}"
-        frameborder="0"
-        webkitallowfullscreen
-        mozallowfullscreen
-        allowfullscreen>
-</iframe>
+  <iframe src="{{ youtube | youtube_player_link }}"
+          id="youtube-iframe"
+          frameborder="0"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen>
+  </iframe>
 </div>

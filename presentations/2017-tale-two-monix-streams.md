@@ -4,13 +4,14 @@ title: "Scala World 2017 — A Tale of Two Monix Streams"
 description: |
   Presentation from Scala World 2017, on Monix's Observable, 
   compared with Iterant and a lesson in FP design
+vimeo: 300015010
 comments: true
 ---
 
 Presentation from [Scala World 2017](https://scala.world/)
 by [@alexelcu](https://twitter.com/alexelcu):
 
-{% include youtube.html link="https://www.youtube-nocookie.com/embed/JFbYQGG2Nb4" ratio=56.25 %}
+{% include vimeo.html ratio=56.25 %}
 
 Resources:
 

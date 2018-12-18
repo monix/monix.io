@@ -7,7 +7,7 @@ description: |
   A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool.
 
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-execution:version3x

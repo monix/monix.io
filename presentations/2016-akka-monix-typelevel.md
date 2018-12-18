@@ -1,18 +1,20 @@
 ---
 layout: page
-title: "flatMap(Oslo) — Akka &amp; Monix: Controlling Power Plants"
+title: "Akka &amp; Monix: Controlling Power Plants — Typelevel Summit 2016"
 description: |
   Presentation from Typelevel Summit, Oslo, 2016,
   about an experience in dealing with modeling behavior
   by processing asynchronous soft-real time signals.
 comments: true
+vimeo: 300247045
+author: alexelcu
 ---
 
 Presentation from the
 [Typelevel Summit, Oslo, 2016](http://typelevel.org/event/2016-05-summit-oslo/)
-by [@alexelcu](https://twitter.com/alexelcu):
+by [Alexandru Nedelcu](https://twitter.com/alexelcu):
 
-{% include youtube.html link="https://www.youtube-nocookie.com/embed/CQxviYlAKaY" ratio=56.25 %}
+{% include vimeo.html ratio=56.25 %}
 
 Resources:
 

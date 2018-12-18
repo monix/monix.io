@@ -4,7 +4,7 @@ title: Hello World!
 description: "Go reactive (✿◠‿◠)"
 
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version2x

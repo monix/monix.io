@@ -1,11 +1,12 @@
 {% capture vimeo %}{% if page.vimeo %}{{ page.vimeo }}{% else %}{{ include.vimeo }}{% endif -%}{% endcapture -%}
 <div id="video-frame" class="presentation" style="padding-bottom: {{ include.ratio }}%;">
-<iframe src="{{ vimeo | vimeo_player_link }}"
-        frameborder="0"
-        webkitallowfullscreen
-        mozallowfullscreen
-        allowfullscreen>
-</iframe>
+  <iframe src="{{ vimeo | vimeo_player_link }}"
+          id="vimeo-iframe"
+          frameborder="0"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen>
+  </iframe>
 </div>
 
 <div id="video-download">
@@ -14,6 +15,7 @@
   </ul>
 </div>
 
+<script src="https://player.vimeo.com/api/player.js"></script>
 <script language="javascript">
   document.addEventListener("DOMContentLoaded", function(event) { 
     initVimeo("{{ vimeo }}");

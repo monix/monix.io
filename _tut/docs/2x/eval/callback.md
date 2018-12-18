@@ -7,7 +7,7 @@ description: |
   A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.
     
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-eval:version2x

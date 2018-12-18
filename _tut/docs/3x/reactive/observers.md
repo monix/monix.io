@@ -5,7 +5,7 @@ description: |
     The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable.
     
 tut:
-  scala: 2.12.4
+  scala: 2.12.7
   binaryScala: "2.12"
   dependencies:
     - io.monix::monix-reactive:version3x
