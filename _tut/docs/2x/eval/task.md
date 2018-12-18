@@ -1298,6 +1298,7 @@ import monix.eval.Task
 import monix.execution.Scheduler.Implicits.global
 import monix.execution.atomic.AtomicInt
 import monix.execution.exceptions.DummyException
+import monix.execution.CancelableFuture
 import scala.concurrent.duration._
 
 val task1 = Task.raiseError[Int](DummyException("error")).delayExecution(3.second)
