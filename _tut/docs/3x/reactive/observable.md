@@ -382,7 +382,7 @@ observable
 
 `Observable.onErrorRestart` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it tries subscribing to the source again in the hope that it will complete without an error.
 
-The number of retries is limited by the specifiec `maxRetries` parameter.
+The number of retries is limited by the specified `maxRetries` parameter.
 
 There is also `onErrorRestartUnlimited` variant for unlimited number of retries.
 
@@ -411,6 +411,38 @@ observable
 //=> 3
 // ... fails and restarts infinitely
 ```
+
+### Retrying with delay
+
+Since `Observable` methods compose pretty nicely you could easily combine them to write custom retry mechanism:
+
+```tut:silent
+def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[A] = 
+  source.onErrorHandleWith { _ =>
+    retryWithDelay(source, delay).delayExecution(delay)
+  }
+```
+
+## Scheduling
+
+`Observable` is a great fit not only for streaming data but also for control flow such as scheduling. 
+It provides several builders for this purpose and it's easy to combine it with `Task` if all you want is to
+run a `Task` in specific intervals.
+
+### intervalWithFixedDelay (interval)
+
+`Observable.intervalWithFixedDelay` takes a `delay` and an optional `initialDelay`. It creates an `Observable` that
+emits auto-incremented natural numbers (longs) spaced by a given time interval. Starts from 0 with `initialDelay` (or immediately), 
+after which it emits incremented numbers spaced by the `delay` of time. The given `delay` of time acts as a fixed 
+delay between successive events.
+
+### intervalAtFixedRate
+
+`Observable.intervalAtFixedRate`
+
+### timerRepeated
+
+`Observable.timerRepeated`
 
 ## Reacting to internal events
 
