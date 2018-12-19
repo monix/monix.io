@@ -4,7 +4,7 @@ title: "Practical Reactive Streams with Monix"
 description: |
   Presentation from Scale By The Bay 2018, by Jacek Kunicki, on stream processing with Monix.
 comments: true
-image: /public/images/thumbs/2018-practical-reactive-streams-jacek-kunicki-sbtb.png
+image: /public/images/thumbs/2018-practical-reactive-streams-jacek-kunicki-sbtb2.png
 author: rucek
 youtube: sf56A8ohAJI
 ---
