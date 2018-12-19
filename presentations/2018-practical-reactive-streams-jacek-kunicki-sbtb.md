@@ -13,10 +13,10 @@ Presentation from
 [Scale By The Bay 2018](https://scalebythebay2018.sched.com/) by
 [Jacek Kunicki](https://twitter.com/rucek).
 
+{% include youtube.html ratio=56.25 %}
+
 This is the second time this presentation was given. It
 was also delivered at [ReactSphere 2018](./2018-practical-reactive-streams-jacek-kunicki.html).
-
-{% include youtube.html ratio=56.25 %}
 
 ## Abstract
 
