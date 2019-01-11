@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1545214519307795113" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1545214519307795113" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1547247780656854127" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1547247780656854127" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1545214519307795113">
+  <link rel="stylesheet" href="/public/css/all.css?1547247780656854127">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1545214519307795113">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1547247780656854127">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -237,7 +237,7 @@ producer pushing data into one or multiple consumers</li>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Due to this connection <code class="highlighter-rouge">Observable</code> respects <code class="highlighter-rouge">Observer</code> <a href="./observers.md#Contract">contract</a> but you can consider it 
+<p>Due to this connection <code class="highlighter-rouge">Observable</code> respects <code class="highlighter-rouge">Observer</code> <a href="./observers.html#contract">contract</a> but you can consider it
 being higher level interface which abstracts away details of the contract and handles it for the user. <code class="highlighter-rouge">Observable</code> exposes
 rich API and following sections will cover only small portion of them so if it’s missing something you need, look 
 <a href="https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">at the source code</a>
@@ -268,14 +268,14 @@ It means that (by default) <code class="highlighter-rouge">Observable</code> pre
 <p><code class="highlighter-rouge">Subscribe</code> is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as <code class="highlighter-rouge">unsafePerformIO</code>.</p>
 
-<p>Preferred way to deal with <code class="highlighter-rouge">Observable</code> is to convert it to <a href="./../eval/task.md">Task</a> and compose it all the way 
+<p>Preferred way to deal with <code class="highlighter-rouge">Observable</code> is to convert it to <a href="./../eval/task.html">Task</a> and compose it all the way
 through your program until the very end (Main method).</p>
 
 <p>Two main ways to convert <code class="highlighter-rouge">Observable</code> to <code class="highlighter-rouge">Task</code> are described below.</p>
 
 <h3 id="consumer">Consumer</h3>
 
-<p>One of the ways to trigger <code class="highlighter-rouge">Observable</code> is to use <a href="./consumer.md">Consumer</a> which can be described as a function that converts <code class="highlighter-rouge">Observable</code> into <code class="highlighter-rouge">Task</code>.</p>
+<p>One of the ways to trigger <code class="highlighter-rouge">Observable</code> is to use <a href="./consumer.html">Consumer</a> which can be described as a function that converts <code class="highlighter-rouge">Observable</code> into <code class="highlighter-rouge">Task</code>.</p>
 
 <p>You can either create your own <code class="highlighter-rouge">Consumer</code> or use one of many prebuilt ones:</p>
 
@@ -291,7 +291,7 @@ through your program until the very end (Main method).</p>
     <span class="n">list</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>You can find more examples in <a href="./consumer.md">Consumer documentation</a>.</p>
+<p>You can find more examples in <a href="./consumer.html">Consumer documentation</a>.</p>
 
 <h3 id="foldleft-methods">FoldLeft Methods</h3>
 
