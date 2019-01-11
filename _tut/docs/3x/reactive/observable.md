@@ -121,7 +121,7 @@ trait Observer[-T] {
 }
 ```
 
-Due to this connection `Observable` respects `Observer` [contract](./observers.md#Contract) but you can consider it 
+Due to this connection `Observable` respects `Observer` [contract](./observers.html#contract) but you can consider it
 being higher level interface which abstracts away details of the contract and handles it for the user. `Observable` exposes
 rich API and following sections will cover only small portion of them so if it's missing something you need, look 
 [at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
@@ -152,14 +152,14 @@ It means that (by default) `Observable` preserves referential transparency.
 `Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as `unsafePerformIO`.
 
-Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.md) and compose it all the way 
+Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.html) and compose it all the way
 through your program until the very end (Main method).
 
 Two main ways to convert `Observable` to `Task` are described below.
 
 ### Consumer
 
-One of the ways to trigger `Observable` is to use [Consumer](./consumer.md) which can be described as a function that converts `Observable` into `Task`.
+One of the ways to trigger `Observable` is to use [Consumer](./consumer.html) which can be described as a function that converts `Observable` into `Task`.
 
 You can either create your own `Consumer` or use one of many prebuilt ones:
 
@@ -176,7 +176,7 @@ val task: Task[Long] =
     list.consumeWith(consumer)
 ```
 
-You can find more examples in [Consumer documentation](./consumer.md).
+You can find more examples in [Consumer documentation](./consumer.html).
 
 ### FoldLeft Methods
 
