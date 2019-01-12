@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1547247780656854127" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1547247780656854127" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1547305245682443925" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1547305245682443925" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1547247780656854127">
+  <link rel="stylesheet" href="/public/css/all.css?1547305245682443925">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1547247780656854127">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1547305245682443925">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -88,8 +88,8 @@
       <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
       <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
-      <a class="sidebar-nav-item" href="https://github.com/monix/monix">GitHub project</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
     </nav>
   </div>
 </aside>
@@ -705,5 +705,27 @@ it should drop the entire buffer and start fresh.</li>
         };
     </script>
     <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+    <!-- Analytics -->
+    <script>
+      function loadAnalytics() {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', ' UA-84530423-2', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+      }
+      // Checks DO-NOT-TRACK status
+      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
+        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
+        if (!dnd) loadAnalytics();
+      } else {
+        loadAnalytics();
+      }
+    </script>
+    <!-- End Analytics -->  
   </body>
 </html>
