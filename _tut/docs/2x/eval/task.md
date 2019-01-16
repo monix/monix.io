@@ -1288,39 +1288,7 @@ result.runAsync.foreach(println) // will print 10
 ```
 It will turn any failed tasks into non-terminating.
 
-Timeout is necessary in case all tasks fail. In above example, if `task1` fails we will have to wait for the timeout
-to expire despite knowing that we won't get any successful result.
-
-We can optimize it doing second `chooseFirstOf` versus counter reaching zero:
-
-```tut:silent
-import monix.eval.Task
-import monix.execution.Scheduler.Implicits.global
-import monix.execution.atomic.AtomicInt
-import monix.execution.exceptions.DummyException
-import monix.execution.CancelableFuture
-import scala.concurrent.duration._
-
-val task1 = Task.raiseError[Int](DummyException("error")).delayExecution(3.second)
-val task2 = Task.raiseError[Int](DummyException("error")).delayExecution(2.second)
-val task3 = Task.raiseError[Int](DummyException("error")).delayExecution(1.second)
-val tasks: List[Task[Int]] = List(task1, task2, task3)
-
-val counter = AtomicInt(tasks.length)
-
-def checkCounter: Task[Unit] = Task(counter.get).flatMap { value =>
-    if (value == 0) Task.unit
-    else checkCounter
-}
-
-val result: Task[Either[(Unit, CancelableFuture[Int]), (CancelableFuture[Unit], Int)]] =
-  Task.chooseFirstOf(
-    checkCounter,
-    Task.chooseFirstOfList(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)).flatMap(_ => Task.never))))
-  )
-  
-result.runAsync.foreach(println) // will finish and print after 3 seconds
-```
+Timeout is necessary in case all tasks fail. 
 
 ### Delay Execution
 

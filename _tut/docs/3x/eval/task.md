@@ -1266,20 +1266,20 @@ val tasks: List[Task[Int]] = List(task1, task2, task3)
 
 val result: Task[Int] = Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.never))).timeout(timeout)
 
-result.foreach(println) // will print 10
+println(result.runSyncUnsafe()) // will print 10
 ```
 It will turn any failed tasks into non-terminating.
 
-Timeout is necessary in case all tasks fail. In above example, if `task1` fails we will have to wait for the timeout
+Timeout is necessary in case all tasks fail. In the example above, if `task1` also fails we will have to wait for the timeout
 to expire despite knowing that we won't get any successful result.
 
-We can optimize it doing second race versus counter reaching zero:
+We can optimize it by doing second `race `that uses `Semaphore`:
 
 ```tut:silent
+import cats.effect.concurrent.Semaphore
 import cats.syntax.apply._
 import monix.eval.Task
 import monix.execution.Scheduler.Implicits.global
-import monix.execution.atomic.AtomicInt
 import monix.execution.exceptions.DummyException
 import scala.concurrent.duration._
 
@@ -1288,20 +1288,16 @@ val task2 = Task.raiseError[Int](DummyException("error")).delayExecution(2.secon
 val task3 = Task.raiseError[Int](DummyException("error")).delayExecution(1.second)
 val tasks: List[Task[Int]] = List(task1, task2, task3)
 
-val counter = AtomicInt(tasks.length)
+val semaphore = Semaphore[Task](0)
 
-def checkCounter: Task[Unit] = Task(counter.get).flatMap { value =>
-    if (value == 0) Task.unit
-    else checkCounter
+val result: Task[Either[Unit, Int]] = semaphore.flatMap { sem =>
+  Task.race(
+    sem.acquireN(tasks.length),
+    Task.raceMany(tasks.map(_.onErrorHandleWith(_ => sem.release *> Task.never)))
+  )
 }
 
-val result: Task[Either[Unit, Int]] =
-  Task.race(
-    checkCounter,
-    Task.raceMany(tasks.map(_.onErrorHandleWith(_ => Task.eval(counter.decrement(1)) *> Task.never)))
-  )
-  
-result.foreach(println) // will finish and print after 3 seconds
+println(result.runSyncUnsafe()) // will finish and print after 3 seconds
 ```
 
 ### Delay Execution
