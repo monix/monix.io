@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1549225679528078132" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1549225679528078132" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1549228558602625184" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1549228558602625184" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1549225679528078132">
+  <link rel="stylesheet" href="/public/css/all.css?1549228558602625184">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549225679528078132">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549228558602625184">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -321,31 +321,31 @@ through your program until the very end (Main method).</p>
 <p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known 
 value in the <code class="highlighter-rouge">Observable</code> context.</p>
 
-<pre><code class="language-tut:silent">val obs = Observable.now { println("Effect"); "Hello!" }
-//=&gt; Effect
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">now</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<span class="c1">//=&gt; Effect
 // obs: monix.reactive.Observable[String] = NowObservable@327a283b
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="observabledelay-eval">Observable.delay (eval)</h3>
 
 <p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict
 value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
 
-<pre><code class="language-tut:silent">val obs = Observable.delay { println("Effect"); "Hello!" }
-// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
-val task = obs.foreachL(println)
-// task: monix.eval.Task[Unit] = Task.Async$1782722529
-
-task.runAsync
-//=&gt; Effect
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">delay</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<span class="c1">// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
+</span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Task.Async$1782722529
+</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+<span class="c1">//=&gt; Effect
 //=&gt; Hello!
-
-// The evaluation (and thus all contained side effects)
-// gets triggered on each runAsync:
-task.runAsync
-//=&gt; Effect
+</span>
+<span class="c1">// The evaluation (and thus all contained side effects)
+// gets triggered on each runToFuture:
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+<span class="c1">//=&gt; Effect
 //=&gt; Hello!
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="observableevalonce">Observable.evalOnce</h3>
 
@@ -353,58 +353,64 @@ task.runAsync
 that emits a single element and that memoizes the value for subsequent invocations.
 It also has guaranteed idempotency and thread-safety:</p>
 
-<pre><code class="language-tut:silent">val obs = Observable.evalOnce { println("Effect"); "Hello!" }
-// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
-val task = obs.foreachL(println)
-// task: monix.eval.Task[Unit] = Task.Async$1782722529
-
-task.runAsync
-//=&gt; Effect
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">evalOnce</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<span class="c1">// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
+</span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Task.Async$1782722529
+</span>
+<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+<span class="c1">//=&gt; Effect
 //=&gt; Hello!
-
-// Result was memoized on the first run!
-task.runAsync.foreach(println)
-//=&gt; Hello!
-</code></pre>
+</span>
+<span class="c1">// Result was memoized on the first run!
+</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Hello!
+</span></code></pre></div></div>
 
 <h3 id="observablefromiterable">Observable.fromIterable</h3>
 
 <p><code class="highlighter-rouge">Observable.fromIterable</code> converts any <code class="highlighter-rouge">Iterable</code> into <code class="highlighter-rouge">Observable</code>:</p>
 
-<pre><code class="language-tut:silent">val obs = Observable.fromIterable(List(1, 2, 3))
-// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
-
-obs.foreachL(println).runAsync
-//=&gt; 1
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
+<span class="c1">// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
+</span>
+<span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">).</span><span class="n">runToFuture</span>
+<span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="observablesuspend-defer">Observable.suspend (defer)</h3>
 
 <p><code class="highlighter-rouge">Observable.suspend</code> (alias for defer) allows suspending side effects:</p>
 
-<pre><code class="language-tut:silent">def readFile(path: String): Observable[String] = 
-    Observable.suspend {
-        // The side effect won't happen until subscription
-        val lines = Source.fromFile(path).getLines
-        Observable.fromIterator(lines)
-    }
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+<span class="k">import</span> <span class="nn">scala.io.Source</span>
+
+<span class="k">def</span> <span class="n">readFile</span><span class="o">(</span><span class="n">path</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nc">Observable</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+        <span class="c1">// The side effect won't happen until subscription
+</span>        <span class="k">val</span> <span class="n">lines</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="n">getLines</span>
+        <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterator</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="n">lines</span><span class="o">))</span>
+    <span class="o">}</span>
+</code></pre></div></div>
 
 <h3 id="observableraiseerror">Observable.raiseError</h3>
 
 <p><code class="highlighter-rouge">Observable.raiseError</code> constructs an Observable that calls <code class="highlighter-rouge">onError</code> on any subscriber emitting specified <code class="highlighter-rouge">Exception</code>:</p>
 
-<pre><code class="language-tut:silent">val observable = Observable.raiseError[Int](new Exception("my exception"))
-// observable: monix.reactive.Observable[Int]
-
-observable
-  .onErrorHandle {ex =&gt; println(s"Got exception: ${ex.getMessage}"); 1}
-  .foreachL(println)
-//=&gt; Got exception: my exception
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"my exception"</span><span class="o">))</span>
+<span class="c1">// observable: monix.reactive.Observable[Int]
+</span>
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">onErrorHandle</span> <span class="o">{</span><span class="n">ex</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Got exception: ${ex.getMessage}"</span><span class="o">);</span> <span class="mi">1</span><span class="o">}</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; Got exception: my exception
 //=&gt; 1
-</code></pre>
+</span></code></pre></div></div>
 
 <h2 id="error-handling">Error Handling</h2>
 
@@ -421,35 +427,39 @@ ignore the error and keep going, the best you can do without bigger machinery is
 
 <p><code class="highlighter-rouge">Observable.handleError</code> (alias for <code class="highlighter-rouge">onErrorHandle</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> emitting one specified element generated by given total function.</p>
 
-<pre><code class="language-tut:silent">import monix.reactive.Observable
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-val observable = Observable(1, 2, 3) ++ Observable.raiseError(new Exception) ++ Observable(0)
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-observable
-  .onErrorHandle(_ =&gt; 4)
-  .foreachL(println)
-//=&gt; 1
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">onErrorHandle</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="mi">4</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
 //=&gt; 4
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="handleerrorwith-onerrorhandlewith">handleErrorWith (onErrorHandleWith)</h3>
 
 <p><code class="highlighter-rouge">Observable.handleErrorWith</code> (alias for <code class="highlighter-rouge">onErrorHandleWith</code>) mirrors original source unless error happens - in which case it fallbacks to an <code class="highlighter-rouge">Observable</code> generated by given total function.</p>
 
-<pre><code class="language-tut:silent">import monix.reactive.Observable
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-observable
-  .onErrorHandleWith(_ =&gt; Observable(3, 4))
-  .foreachL(println)
-//=&gt; 1
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
 //=&gt; 4
-</code></pre>
+</span></code></pre></div></div>
 
 <h3 id="recover-onerrorrecover">recover (onErrorRecover)</h3>
 
@@ -463,23 +473,27 @@ observable
 
 <p><code class="highlighter-rouge">Observable.onErrorFallbackTo</code> mirrors the behavior of the source, unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case the streaming of events continues with the specified backup sequence regardless of error.</p>
 
-<pre><code class="language-tut:silent">import monix.reactive.Observable
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-observable
-  .onErrorFallbackTo(Observable(3, 4))
-  .foreachL(println)
-//=&gt; 1
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">onErrorFallbackTo</span><span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
 //=&gt; 4
-</code></pre>
+</span></code></pre></div></div>
 
 <p>This is equivalent to:</p>
-<pre><code class="language-tut:silent">observable
-  .handleErrorWith(_ =&gt; Observable(3, 4))
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">handleErrorWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <h3 id="onerrorrestart">onErrorRestart</h3>
 
@@ -493,26 +507,28 @@ observable
 
 <p><code class="highlighter-rouge">Observable.onErrorRestartIf</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it invokes provided function and tries subscribing to the source again in the hope that it will complete without an error.</p>
 
-<pre><code class="language-tut:silent">import monix.reactive.Observable
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-case object TimeoutException extends Exception
+<span class="k">case</span> <span class="k">object</span> <span class="nc">TimeoutException</span> <span class="k">extends</span> <span class="nc">Exception</span>
 
-val observable = Observable(1, 2) ++ Observable.raiseError(TimeoutException) ++ Observable(0)
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">TimeoutException</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-observable
-  .onErrorRestartIf {
-    case TimeoutException =&gt; true
-    case _ =&gt; false
-  }
-  .foreachL(println)
-//=&gt; 1
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">onErrorRestartIf</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">TimeoutException</span> <span class="k">=&gt;</span> <span class="kc">true</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
+  <span class="o">}</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
 //=&gt; 1
 //=&gt; 2
 //=&gt; 3
 // ... fails and restarts infinitely
-</code></pre>
+</span></code></pre></div></div>
 
 <h2 id="reacting-to-internal-events">Reacting to internal events</h2>
 
@@ -524,35 +540,38 @@ Usually they start with <code class="highlighter-rouge">doOn</code> or <code cla
 
 <p>Executes given callback for each element generated by the source <code class="highlighter-rouge">Observable</code>, useful for doing side-effects.</p>
 
-<pre><code class="language-tut:silent">var counter = 0
-val observable = Observable(1, 2, 3)
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">counter</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
-observable
-  .doOnNext(e =&gt; Task(counter += e)
-  .foreachL(e =&gt; println(s"elem: $e, counter: $counter"))
-//=&gt; elem: 1, counter: 1
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">counter</span> <span class="o">+=</span> <span class="n">e</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">))</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; elem: 1, counter: 1
 //=&gt; elem: 2, counter: 3
 //=&gt; elem: 3, counter: 6
-</code></pre>
+</span></code></pre></div></div>
 
 <p>You could also write it completely referentially transparency using <code class="highlighter-rouge">Ref</code> from <code class="highlighter-rouge">Cats-Effect</code>:</p>
 
-<pre><code class="language-tut:silent">import cats.effect.concurrent.Ref
-import monix.eval.Task
-import monix.reactive.Observable
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.concurrent.Ref</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-def observable(counterRef: Ref[Task, Int]): Task[Unit] =
-  Observable(1, 2, 3)
-    .doOnNext(e =&gt; counterRef.update(_ + e))
-    .mapEval(e =&gt; counterRef.get.map(counter =&gt; println(s"elem: $e, counter: $counter")))
-    .completedL
+<span class="k">def</span> <span class="n">observable</span><span class="o">(</span><span class="n">counterRef</span><span class="k">:</span> <span class="kt">Ref</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">counterRef</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="n">e</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">counterRef</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">counter</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">completedL</span>
+<span class="o">}</span>
 
-Ref[Task].of(0)
-  .flatMap(observable)
+<span class="nc">Ref</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">flatMap</span><span class="o">(</span><span class="n">observable</span><span class="o">)</span>
+<span class="c1">// After executing:
 //=&gt; elem: 1, counter: 1
 //=&gt; elem: 2, counter: 3
 //=&gt; elem: 3, counter: 6
-</code></pre>
+</span></code></pre></div></div>
 
 <p>There is also <code class="highlighter-rouge">doOnNextF</code> variant which works for data types other than <code class="highlighter-rouge">Task</code>.</p>
 
@@ -562,30 +581,32 @@ Ref[Task].of(0)
 from other parts of the application.
 It is presented in the following example:</p>
 
-<pre><code class="language-tut:silent">import monix.eval.Task
-import monix.execution.Ack
-import monix.reactive.subjects.ConcurrentSubject
-import monix.reactive.{MulticastStrategy, Observable, Observer}
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.reactive.subjects.ConcurrentSubject</span>
+<span class="k">import</span> <span class="nn">monix.reactive.</span><span class="o">{</span><span class="nc">MulticastStrategy</span><span class="o">,</span> <span class="nc">Observable</span><span class="o">,</span> <span class="nc">Observer</span><span class="o">}</span>
 
-val subject: ConcurrentSubject[Int, Int] =
-  ConcurrentSubject[Int](MulticastStrategy.replay)
+<span class="k">val</span> <span class="n">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">MulticastStrategy</span><span class="o">.</span><span class="n">replay</span><span class="o">)</span>
 
-def feedItem[A](observer: Observer[A], item: A): Task[Ack] = {
-  Task.deferFuture(observer.onNext(item))
-}
+<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">deferFuture</span><span class="o">(</span><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
+<span class="o">}</span>
 
-def processStream[A](observable: Observable[A]): Task[Unit] = {
-  observable
-    .mapParallelUnordered(3)(i =&gt; Task(println(i)))
-    .completedL
-}
+<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">observable</span>
+    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">completedL</span>
+<span class="o">}</span>
 
-Task
-  .parZip2(
-    feedItem(subject, 2),
-    processStream(subject)
-  )
-</code></pre>
+<span class="o">{</span>
+<span class="nc">Task</span>
+  <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
+    <span class="n">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+    <span class="n">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
+  <span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
 <p>Below are short characteristics for available types of <code class="highlighter-rouge">Subject</code>. For more information refer to descriptions and methods in
 <code class="highlighter-rouge">monix.reactive.subjects</code> package:</p>
@@ -618,80 +639,80 @@ For this reason tread carefully when using <code class="highlighter-rouge">Conne
 <p><code class="highlighter-rouge">Observable.publish</code> will convert this <code class="highlighter-rouge">Observable</code> into a multicast <code class="highlighter-rouge">Observable</code> using
 <code class="highlighter-rouge">PublishSubject</code> which emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.</p>
 
-<pre><code class="language-tut:silent">var result = 0
-val observable = Observable(1, 2, 3).publish
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">publish</span>
 
-observable.foreach(e =&gt; result += e)
+<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// Start the streaming
-observable.connect()
+<span class="c1">// Start the streaming
+</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
 
-// result == 6
+<span class="c1">// result == 6
+</span>
+<span class="c1">// happens after all items are emitted so it doesn't add anything
+</span><span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// happens after all items are emitted so it doesn't add anything
-observable.foreach(e =&gt; result += e)
-
-// result == 6 
-</code></pre>
+<span class="c1">// result == 6 
+</span></code></pre></div></div>
 
 <h3 id="observablepublishlast-asyncsubject">Observable.publishLast (AsyncSubject)</h3>
 <p><code class="highlighter-rouge">Observable.publishLast</code> uses <code class="highlighter-rouge">AsyncSubject</code> as underlying <code class="highlighter-rouge">Subject</code> which emits only the last value emitted by the source
 and only after the source completes.</p>
 
-<pre><code class="language-tut:silent">var result = 0
-val observable = Observable(1, 2, 3).publishLast
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">publishLast</span>
 
-observable.foreach(e =&gt; result += e)
+<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// Start the streaming
-observable.connect()
+<span class="c1">// Start the streaming
+</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
 
-// result == 3
-</code></pre>
+<span class="c1">// result == 3
+</span></code></pre></div></div>
 
 <h3 id="observablereplay-replaysubject">Observable.replay (ReplaySubject)</h3>
 <p><code class="highlighter-rouge">Observable.replay</code> is powered by <code class="highlighter-rouge">ReplaySubject</code> which emits to any observer all of the items that were emitted by the source, 
 regardless of when the observer subscribes.</p>
 
-<pre><code class="language-tut:silent">var result = 0
-val observable = Observable(1, 2, 3).replay
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">replay</span>
 
-// Start the streaming
-observable.connect()
+<span class="c1">// Start the streaming
+</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
 
-observable.foreach(e =&gt; result += e)
+<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// result == 6
-</code></pre>
+<span class="c1">// result == 6
+</span></code></pre></div></div>
 
 <p>It optionally takes <code class="highlighter-rouge">bufferSize</code> parameter which limits the number
 of items that can be replayed (on overflow the head starts being dropped):</p>
 
-<pre><code class="language-tut:silent">var result = 0
-val observable = Observable(1, 2, 3).replay(1)
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">replay</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 
-// Start the streaming
-observable.connect()
+<span class="c1">// Start the streaming
+</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
 
-observable.foreach(e =&gt; result += e)
+<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// result == 3
-</code></pre>
+<span class="c1">// result == 3
+</span></code></pre></div></div>
 
 <h3 id="observablebehavior-behaviorsubject">Observable.behavior (BehaviorSubject)</h3>
 <p><code class="highlighter-rouge">Observable.behavior</code> relies on <code class="highlighter-rouge">BehaviorSubject</code> which is emitting the most recently emitted item by the source, or
 the <code class="highlighter-rouge">initialValue</code> (as the seed) in case no value has yet been emitted.</p>
 
-<pre><code class="language-tut:silent">var result = 0
-val observable = Observable(1, 2, 3).behavior(0)
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">behavior</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-// Start the streaming
-observable.connect()
+<span class="c1">// Start the streaming
+</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
 
-observable.foreach(e =&gt; result += e)
+<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
-// result == 3
-</code></pre>
+<span class="c1">// result == 3
+</span></code></pre></div></div>
 
 <h2 id="interoperability-with-other-streams-api-akka-streams-fs2">Interoperability with other Streams API (Akka Streams, FS2)</h2>
 
@@ -706,37 +727,37 @@ compatible with Reactive Streams protocol.</p>
 
 <p>Necessary imports and initialization for <code class="highlighter-rouge">Akka Streams</code>:</p>
 
-<pre><code class="language-tut:silent">import monix.reactive.Observable
-import monix.execution.Scheduler.Implicits.global
-import akka._
-import akka.stream._
-import akka.stream.scaladsl._
-import akka.actor.ActorSystem
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">akka._</span>
+<span class="k">import</span> <span class="nn">akka.stream._</span>
+<span class="k">import</span> <span class="nn">akka.stream.scaladsl._</span>
+<span class="k">import</span> <span class="nn">akka.actor.ActorSystem</span>
 
-implicit val system = ActorSystem("akka-streams")
-implicit val materializer = ActorMaterializer()
-</code></pre>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"akka-streams"</span><span class="o">)</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
+</code></pre></div></div>
 
 <p>To convert Akka <code class="highlighter-rouge">Source</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
 
-<pre><code class="language-tut:silent">val source = Source(1 to 3)
-// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
-
-val publisher = source.runWith(Sink.asPublisher[Int](fanout = false))
-// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
-
-val observable = Observable.fromReactivePublisher(publisher)
-// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
+<span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
+</span>
+<span class="k">val</span> <span class="n">publisher</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">asPublisher</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="n">fanout</span> <span class="k">=</span> <span class="kc">false</span><span class="o">))</span>
+<span class="c1">// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
+</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
+<span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
+</span></code></pre></div></div>
 
 <p>To go back from Monix <code class="highlighter-rouge">Observable</code> to Akka <code class="highlighter-rouge">Source</code>:</p>
 
-<pre><code class="language-tut:silent">val observable = Observable(1, 2, 3)
-// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
-
-val source = Source.fromPublisher(observable.toReactivePublisher)
-// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+</span>
+<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">.</span><span class="n">fromPublisher</span><span class="o">(</span><span class="n">observable</span><span class="o">.</span><span class="n">toReactivePublisher</span><span class="o">)</span>
+<span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
+</span></code></pre></div></div>
 
 <h3 id="fs2">FS2</h3>
 
@@ -746,32 +767,32 @@ library but conversion remains very straightforward.</p>
 
 <p>Necessary imports:</p>
 
-<pre><code class="language-tut:silent">import cats.effect._, fs2._
-import fs2.interop.reactivestreams._
-import monix.reactive.Observable
-import monix.execution.Scheduler.Implicits.global
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span><span class="o">,</span> <span class="n">fs2</span><span class="o">.</span><span class="k">_</span>
+<span class="k">import</span> <span class="nn">fs2.interop.reactivestreams._</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+</code></pre></div></div>
 
 <p>To convert FS2 <code class="highlighter-rouge">Stream</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
 
-<pre><code class="language-tut:silent">val stream = Stream(1, 2, 3).covary[IO]
-// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
-
-val publisher = stream.toUnicastPublisher()
-// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
-
-val observable = Observable.fromReactivePublisher(publisher)
-// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">stream</span> <span class="k">=</span> <span class="nc">Stream</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">covary</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
+<span class="c1">// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+</span>
+<span class="k">val</span> <span class="n">publisher</span> <span class="k">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">toUnicastPublisher</span><span class="o">()</span>
+<span class="c1">// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
+</span>
+<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
+<span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
+</span></code></pre></div></div>
 
 <p>To go back from Monix <code class="highlighter-rouge">Observable</code> to FS2 <code class="highlighter-rouge">Stream</code>:</p>
 
-<pre><code class="language-tut:silent">val observable = Observable(1, 2, 3)
-// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
-
-val stream = observable.toReactivePublisher.toStream[IO]
-// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
-</code></pre>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
+</span>
+<span class="k">val</span> <span class="n">stream</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">toReactivePublisher</span><span class="o">.</span><span class="n">toStream</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
+<span class="c1">// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
+</span></code></pre></div></div>
 
 
   <div id="version3x">
