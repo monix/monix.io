@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1547306329878635336" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1547306329878635336" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1549225679528078132" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1549225679528078132" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1547306329878635336">
+  <link rel="stylesheet" href="/public/css/all.css?1549225679528078132">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1547306329878635336">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549225679528078132">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -406,8 +406,7 @@ long integers and signal a total sum on their completion.</p>
 asynchronous processing as part of that logic. This sample isn’t
 useful, but you can easily see that you can insert I/O logic in there:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">SUM</span><span class="k">:</span> <span class="err">499500</span>
-<span class="kt">import</span> <span class="kt">monix.eval.Task</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">concurrent.duration._</span>
 
 <span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeftTask</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> 

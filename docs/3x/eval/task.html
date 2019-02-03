@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1547306329878635336" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1547306329878635336" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1549225679528078132" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1549225679528078132" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1547306329878635336">
+  <link rel="stylesheet" href="/public/css/all.css?1549225679528078132">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1547306329878635336">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549225679528078132">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -351,7 +351,7 @@ Unit</code> callback, similar to the standard <code class="highlighter-rouge">Fu
 </span><span class="n">cancelable</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>We can also <code class="highlighter-rouge">runAsync</code> with a <a href="(../execution/callback.html)">Callback</a> instance.
+<p>We can also <code class="highlighter-rouge">runAsync</code> with a <a href="../execution/callback.html">Callback</a> instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. <code class="highlighter-rouge">Callback</code> is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
@@ -1542,7 +1542,7 @@ catches errors, signaling them on <code class="highlighter-rouge">runAsync</code
 
 <p>In case an error happens in the callback provided to <code class="highlighter-rouge">runAsync</code>, then
 Monix can no longer signal an <code class="highlighter-rouge">onError</code>, because it would be a
-contract violation (see <a href="(../execution/callback.html)">Callback</a>). But it still
+contract violation (see <a href="../execution/callback.html">Callback</a>). But it still
 logs the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1570,7 +1570,7 @@ logs the error:</p>
 <p>Similarly, when using <code class="highlighter-rouge">Task.create</code>, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
 provided callback, we cannot signal the error as it would be a
-contract violation (see <a href="(../execution/callback.html)">Callback</a>), but Monix does
+contract violation (see <a href="../execution/callback.html">Callback</a>), but Monix does
 log the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
