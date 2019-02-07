@@ -339,11 +339,12 @@ import scala.concurrent.duration._
 // using `TestScheduler` to manipulate time
 implicit val sc = TestScheduler()
 
-val stream: Task[Unit] =
+val stream: Task[Unit] = {
   Observable
     .intervalWithFixedDelay(2.second)
     .mapEval(l => Task.sleep(2.second).map(_ => l))
     .foreachL(println)
+}
 
 stream.runToFuture(sc)
 
@@ -372,11 +373,12 @@ import scala.concurrent.duration._
 // using `TestScheduler` to manipulate time
 implicit val sc = TestScheduler()
 
-val stream: Task[Unit] =
+val stream: Task[Unit] = {
   Observable
     .intervalAtFixedRate(2.second)
     .mapEval(l => Task.sleep(2.second).map(_ => l))
     .foreachL(println)
+}
 
 stream.runToFuture(sc)
 
@@ -389,7 +391,7 @@ sc.tick(2.second) // prints 3
 ## Error Handling
 
 `Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator.
-If you are curious what it gives you in practise, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
+If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
 
 Most of those methods (and more) are defined on `Observable` directly.
 
@@ -544,7 +546,7 @@ observable
 //=> elem: 3, counter: 6
 ```
 
-You could also write it completely referentially transparency using `Ref` from `Cats-Effect`:
+You could also write it preserving referential transparency using `Ref` from `Cats-Effect`:
 
 ```tut:silent
 import cats.effect.concurrent.Ref
