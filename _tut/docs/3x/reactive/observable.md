@@ -5,6 +5,12 @@ type_api: monix.reactive.Observable
 type_source: monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala
 description: |
   A data type for modeling and processing asynchronous and reactive streaming of events with non-blocking back-pressure.
+
+tut:
+  scala: 2.12.7
+  binaryScala: "2.12"
+  dependencies:
+    - io.monix::monix-reactive:version3x
 ---
 
 ## Introduction
@@ -121,7 +127,7 @@ trait Observer[-T] {
 }
 ```
 
-Due to this connection `Observable` respects `Observer` [contract](./observers.md#Contract) but you can consider it 
+Due to this connection `Observable` respects `Observer` [contract](./observers.html#contract) but you can consider it
 being higher level interface which abstracts away details of the contract and handles it for the user. `Observable` exposes
 rich API and following sections will cover only small portion of them so if it's missing something you need, look 
 [at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
@@ -152,14 +158,14 @@ It means that (by default) `Observable` preserves referential transparency.
 `Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as `unsafePerformIO`.
 
-Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.md) and compose it all the way 
+Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.html) and compose it all the way
 through your program until the very end (Main method).
 
 Two main ways to convert `Observable` to `Task` are described below.
 
 ### Consumer
 
-One of the ways to trigger `Observable` is to use [Consumer](./consumer.md) which can be described as a function that converts `Observable` into `Task`.
+One of the ways to trigger `Observable` is to use [Consumer](./consumer.html) which can be described as a function that converts `Observable` into `Task`.
 
 You can either create your own `Consumer` or use one of many prebuilt ones:
 
@@ -176,7 +182,7 @@ val task: Task[Long] =
     list.consumeWith(consumer)
 ```
 
-You can find more examples in [Consumer documentation](./consumer.md).
+You can find more examples in [Consumer documentation](./consumer.html).
 
 ### FoldLeft Methods
 
@@ -208,6 +214,11 @@ You can find them in `Observable` companion object. Below are several examples:
 `Observable.pure` (alias for `now`) simply lifts an already known 
 value in the `Observable` context.
 
+```tut:reset:invisible
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+```
+
 ```tut:silent
 val obs = Observable.now { println("Effect"); "Hello!" }
 //=> Effect
@@ -225,13 +236,13 @@ val obs = Observable.delay { println("Effect"); "Hello!" }
 val task = obs.foreachL(println)
 // task: monix.eval.Task[Unit] = Task.Async$1782722529
 
-task.runAsync
+task.runToFuture
 //=> Effect
 //=> Hello!
 
 // The evaluation (and thus all contained side effects)
-// gets triggered on each runAsync:
-task.runAsync
+// gets triggered on each runToFuture:
+task.runToFuture
 //=> Effect
 //=> Hello!
 ```
@@ -248,12 +259,12 @@ val obs = Observable.evalOnce { println("Effect"); "Hello!" }
 val task = obs.foreachL(println)
 // task: monix.eval.Task[Unit] = Task.Async$1782722529
 
-task.runAsync
+task.runToFuture
 //=> Effect
 //=> Hello!
 
 // Result was memoized on the first run!
-task.runAsync.foreach(println)
+task.runToFuture.foreach(println)
 //=> Hello!
 ```
 
@@ -265,7 +276,7 @@ task.runAsync.foreach(println)
 val obs = Observable.fromIterable(List(1, 2, 3))
 // obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
 
-obs.foreachL(println).runAsync
+obs.foreachL(println).runToFuture
 //=> 1
 //=> 2
 //=> 3
@@ -276,11 +287,15 @@ obs.foreachL(println).runAsync
 `Observable.suspend` (alias for defer) allows suspending side effects:
 
 ```tut:silent
+import monix.eval.Task
+import monix.reactive.Observable
+import scala.io.Source
+
 def readFile(path: String): Observable[String] = 
     Observable.suspend {
         // The side effect won't happen until subscription
         val lines = Source.fromFile(path).getLines
-        Observable.fromIterator(lines)
+        Observable.fromIterator(Task(lines))
     }
 ```
 
@@ -292,9 +307,11 @@ def readFile(path: String): Observable[String] =
 val observable = Observable.raiseError[Int](new Exception("my exception"))
 // observable: monix.reactive.Observable[Int]
 
+{
 observable
   .onErrorHandle {ex => println(s"Got exception: ${ex.getMessage}"); 1}
   .foreachL(println)
+}
 //=> Got exception: my exception
 //=> 1
 ```
@@ -389,9 +406,11 @@ import monix.reactive.Observable
 
 val observable = Observable(1, 2, 3) ++ Observable.raiseError(new Exception) ++ Observable(0)
 
+{
 observable
   .onErrorHandle(_ => 4)
   .foreachL(println)
+}
 //=> 1
 //=> 2
 //=> 3
@@ -407,9 +426,11 @@ import monix.reactive.Observable
 
 val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
 
+{
 observable
   .onErrorHandleWith(_ => Observable(3, 4))
   .foreachL(println)
+}
 //=> 1
 //=> 2
 //=> 3
@@ -433,9 +454,11 @@ import monix.reactive.Observable
 
 val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
 
+{
 observable
   .onErrorFallbackTo(Observable(3, 4))
   .foreachL(println)
+}
 //=> 1
 //=> 2
 //=> 3
@@ -443,9 +466,11 @@ observable
 ```
 
 This is equivalent to:
-```tut:silent
+```scala
+{
 observable
   .handleErrorWith(_ => Observable(3, 4))
+}
 ```
 
 ### onErrorRestart
@@ -467,12 +492,14 @@ case object TimeoutException extends Exception
 
 val observable = Observable(1, 2) ++ Observable.raiseError(TimeoutException) ++ Observable(0)
 
+{
 observable
   .onErrorRestartIf {
     case TimeoutException => true
     case _ => false
   }
   .foreachL(println)
+}
 //=> 1
 //=> 2
 //=> 3
@@ -507,9 +534,11 @@ Executes given callback for each element generated by the source `Observable`, u
 var counter = 0
 val observable = Observable(1, 2, 3)
 
+{
 observable
-  .doOnNext(e => Task(counter += e)
+  .doOnNext(e => Task(counter += e))
   .foreachL(e => println(s"elem: $e, counter: $counter"))
+}
 //=> elem: 1, counter: 1
 //=> elem: 2, counter: 3
 //=> elem: 3, counter: 6
@@ -522,14 +551,15 @@ import cats.effect.concurrent.Ref
 import monix.eval.Task
 import monix.reactive.Observable
 
-def observable(counterRef: Ref[Task, Int]): Task[Unit] =
+def observable(counterRef: Ref[Task, Int]): Task[Unit] = {
   Observable(1, 2, 3)
     .doOnNext(e => counterRef.update(_ + e))
     .mapEval(e => counterRef.get.map(counter => println(s"elem: $e, counter: $counter")))
     .completedL
+}
 
-Ref[Task].of(0)
-  .flatMap(observable)
+Ref[Task].of(0).flatMap(observable)
+// After executing:
 //=> elem: 1, counter: 1
 //=> elem: 2, counter: 3
 //=> elem: 3, counter: 6
@@ -562,11 +592,13 @@ def processStream[A](observable: Observable[A]): Task[Unit] = {
     .completedL
 }
 
+{
 Task
   .parZip2(
     feedItem(subject, 2),
     processStream(subject)
   )
+}
 ```
 
 Below are short characteristics for available types of `Subject`. For more information refer to descriptions and methods in
@@ -691,7 +723,7 @@ compatible with Reactive Streams protocol.
 
 Necessary imports and initialization for `Akka Streams`:
 
-```tut:silent
+```scala
 import monix.reactive.Observable
 import monix.execution.Scheduler.Implicits.global
 import akka._
@@ -705,7 +737,7 @@ implicit val materializer = ActorMaterializer()
 
 To convert Akka `Source` to Monix `Observable`:
 
-```tut:silent
+```scala
 val source = Source(1 to 3)
 // source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
 
@@ -718,7 +750,7 @@ val observable = Observable.fromReactivePublisher(publisher)
 
 To go back from Monix `Observable` to Akka `Source`:
 
-```tut:silent
+```scala
 val observable = Observable(1, 2, 3)
 // observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
 
@@ -734,7 +766,7 @@ library but conversion remains very straightforward.
 
 Necessary imports:
 
-```tut:silent
+```scala
 import cats.effect._, fs2._
 import fs2.interop.reactivestreams._
 import monix.reactive.Observable
@@ -743,7 +775,7 @@ import monix.execution.Scheduler.Implicits.global
 
 To convert FS2 `Stream` to Monix `Observable`:
 
-```tut:silent
+```scala
 val stream = Stream(1, 2, 3).covary[IO]
 // stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
 
@@ -756,7 +788,7 @@ val observable = Observable.fromReactivePublisher(publisher)
 
 To go back from Monix `Observable` to FS2 `Stream`:
 
-```tut:silent
+```scala
 val observable = Observable(1, 2, 3)
 // observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
 

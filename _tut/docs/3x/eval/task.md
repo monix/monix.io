@@ -243,7 +243,7 @@ val cancelable = task.runAsync { result =>
 cancelable.cancel()
 ```
 
-We can also `runAsync` with a [Callback]((../execution/callback.html)) instance.
+We can also `runAsync` with a [Callback](../execution/callback.html) instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
 you want to keep state. `Callback` is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
@@ -1476,7 +1476,7 @@ task.runAsync(r => println(r))
 
 In case an error happens in the callback provided to `runAsync`, then
 Monix can no longer signal an `onError`, because it would be a
-contract violation (see [Callback]((../execution/callback.html))). But it still
+contract violation (see [Callback](../execution/callback.html)). But it still
 logs the error:
 
 ```tut:silent
@@ -1505,7 +1505,7 @@ task.runAsync { r =>
 Similarly, when using `Task.create`, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
 provided callback, we cannot signal the error as it would be a
-contract violation (see [Callback]((../execution/callback.html))), but Monix does
+contract violation (see [Callback](../execution/callback.html)), but Monix does
 log the error:
 
 ```tut:silent
