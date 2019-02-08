@@ -316,10 +316,82 @@ observable
 //=> 1
 ```
 
+## Scheduling
+
+`Observable` is a great fit not only for streaming data but also for control flow such as scheduling. 
+It provides several builders for this purpose and it's easy to combine it with `Task` if all you want is to
+run a `Task` in specific intervals.
+
+### intervalWithFixedDelay (interval)
+
+`Observable.intervalWithFixedDelay` takes a `delay` and an optional `initialDelay`. It creates an `Observable` that
+emits auto-incremented natural numbers (longs) spaced by a given time interval. Starts from 0 with `initialDelay` (or immediately), 
+after which it emits incremented numbers spaced by the `delay` of time. The given `delay` of time acts as a fixed 
+delay between successive events.
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.schedulers.TestScheduler
+import monix.reactive.Observable
+
+import scala.concurrent.duration._
+
+// using `TestScheduler` to manipulate time
+implicit val sc = TestScheduler()
+
+val stream: Task[Unit] = {
+  Observable
+    .intervalWithFixedDelay(2.second)
+    .mapEval(l => Task.sleep(2.second).map(_ => l))
+    .foreachL(println)
+}
+
+stream.runToFuture(sc)
+
+sc.tick(2.second) // prints 0
+sc.tick(4.second) // prints 1
+sc.tick(4.second) // prints 2
+sc.tick(4.second) // prints 3
+```
+
+### intervalAtFixedRate
+
+`Observable.intervalAtFixedRate` is similar to `Observable.intervalWithFixedDelay` but the time it takes to
+process an `onNext` event gets substracted from the specified `period` time. In other words, the created `Observable`
+tries to emit events spaced by the given time interval, regardless of how long the processing of `onNext` takes.
+
+The difference should be clearer after looking at the example below. 
+Notice how it makes up for time spent in each `mapEval`.
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.schedulers.TestScheduler
+import monix.reactive.Observable
+
+import scala.concurrent.duration._
+
+// using `TestScheduler` to manipulate time
+implicit val sc = TestScheduler()
+
+val stream: Task[Unit] = {
+  Observable
+    .intervalAtFixedRate(2.second)
+    .mapEval(l => Task.sleep(2.second).map(_ => l))
+    .foreachL(println)
+}
+
+stream.runToFuture(sc)
+
+sc.tick(2.second) // prints 0
+sc.tick(2.second) // prints 1
+sc.tick(2.second) // prints 2
+sc.tick(2.second) // prints 3
+```
+
 ## Error Handling
 
 `Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator.
-If you are curious what it gives you in practise, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
+If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
 
 Most of those methods (and more) are defined on `Observable` directly.
 
@@ -407,7 +479,7 @@ observable
 
 `Observable.onErrorRestart` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it tries subscribing to the source again in the hope that it will complete without an error.
 
-The number of retries is limited by the specifiec `maxRetries` parameter.
+The number of retries is limited by the specified `maxRetries` parameter.
 
 There is also `onErrorRestartUnlimited` variant for unlimited number of retries.
 
@@ -439,6 +511,17 @@ observable
 // ... fails and restarts infinitely
 ```
 
+### Retrying with delay
+
+Since `Observable` methods compose pretty nicely you could easily combine them to write custom retry mechanism:
+
+```tut:silent
+def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[A] = 
+  source.onErrorHandleWith { _ =>
+    retryWithDelay(source, delay).delayExecution(delay)
+  }
+```
+
 ## Reacting to internal events
 
 If you remember, `Observable` internally calls `onNext` on every element, `onError` during error and `onComplete` after
@@ -463,7 +546,7 @@ observable
 //=> elem: 3, counter: 6
 ```
 
-You could also write it completely referentially transparency using `Ref` from `Cats-Effect`:
+You could also write it preserving referential transparency using `Ref` from `Cats-Effect`:
 
 ```tut:silent
 import cats.effect.concurrent.Ref
