@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1549228558602625184" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1549228558602625184" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1549638357480208513" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1549638357480208513" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1549228558602625184">
+  <link rel="stylesheet" href="/public/css/all.css?1549638357480208513">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549228558602625184">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1549638357480208513">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -412,10 +412,80 @@ It also has guaranteed idempotency and thread-safety:</p>
 //=&gt; 1
 </span></code></pre></div></div>
 
+<h2 id="scheduling">Scheduling</h2>
+
+<p><code class="highlighter-rouge">Observable</code> is a great fit not only for streaming data but also for control flow such as scheduling. 
+It provides several builders for this purpose and it’s easy to combine it with <code class="highlighter-rouge">Task</code> if all you want is to
+run a <code class="highlighter-rouge">Task</code> in specific intervals.</p>
+
+<h3 id="intervalwithfixeddelay-interval">intervalWithFixedDelay (interval)</h3>
+
+<p><code class="highlighter-rouge">Observable.intervalWithFixedDelay</code> takes a <code class="highlighter-rouge">delay</code> and an optional <code class="highlighter-rouge">initialDelay</code>. It creates an <code class="highlighter-rouge">Observable</code> that
+emits auto-incremented natural numbers (longs) spaced by a given time interval. Starts from 0 with <code class="highlighter-rouge">initialDelay</code> (or immediately), 
+after which it emits incremented numbers spaced by the <code class="highlighter-rouge">delay</code> of time. The given <code class="highlighter-rouge">delay</code> of time acts as a fixed 
+delay between successive events.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="c1">// using `TestScheduler` to manipulate time
+</span><span class="k">implicit</span> <span class="k">val</span> <span class="n">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+
+<span class="k">val</span> <span class="n">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span>
+    <span class="o">.</span><span class="n">intervalWithFixedDelay</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">stream</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
+
+<span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
+</span></code></pre></div></div>
+
+<h3 id="intervalatfixedrate">intervalAtFixedRate</h3>
+
+<p><code class="highlighter-rouge">Observable.intervalAtFixedRate</code> is similar to <code class="highlighter-rouge">Observable.intervalWithFixedDelay</code> but the time it takes to
+process an <code class="highlighter-rouge">onNext</code> event gets substracted from the specified <code class="highlighter-rouge">period</code> time. In other words, the created <code class="highlighter-rouge">Observable</code>
+tries to emit events spaced by the given time interval, regardless of how long the processing of <code class="highlighter-rouge">onNext</code> takes.</p>
+
+<p>The difference should be clearer after looking at the example below. 
+Notice how it makes up for time spent in each <code class="highlighter-rouge">mapEval</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="c1">// using `TestScheduler` to manipulate time
+</span><span class="k">implicit</span> <span class="k">val</span> <span class="n">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+
+<span class="k">val</span> <span class="n">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span>
+    <span class="o">.</span><span class="n">intervalAtFixedRate</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
+    <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">stream</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
+
+<span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
+</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
+</span></code></pre></div></div>
+
 <h2 id="error-handling">Error Handling</h2>
 
 <p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator.
-If you are curious what it gives you in practise, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
+If you are curious what it gives you in practice, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
 
 <p>Most of those methods (and more) are defined on <code class="highlighter-rouge">Observable</code> directly.</p>
 
@@ -499,7 +569,7 @@ ignore the error and keep going, the best you can do without bigger machinery is
 
 <p><code class="highlighter-rouge">Observable.onErrorRestart</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it tries subscribing to the source again in the hope that it will complete without an error.</p>
 
-<p>The number of retries is limited by the specifiec <code class="highlighter-rouge">maxRetries</code> parameter.</p>
+<p>The number of retries is limited by the specified <code class="highlighter-rouge">maxRetries</code> parameter.</p>
 
 <p>There is also <code class="highlighter-rouge">onErrorRestartUnlimited</code> variant for unlimited number of retries.</p>
 
@@ -530,6 +600,16 @@ ignore the error and keep going, the best you can do without bigger machinery is
 // ... fails and restarts infinitely
 </span></code></pre></div></div>
 
+<h3 id="retrying-with-delay">Retrying with delay</h3>
+
+<p>Since <code class="highlighter-rouge">Observable</code> methods compose pretty nicely you could easily combine them to write custom retry mechanism:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">retryWithDelay</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">delay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> 
+  <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
+    <span class="n">retryWithDelay</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">delay</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
 <h2 id="reacting-to-internal-events">Reacting to internal events</h2>
 
 <p>If you remember, <code class="highlighter-rouge">Observable</code> internally calls <code class="highlighter-rouge">onNext</code> on every element, <code class="highlighter-rouge">onError</code> during error and <code class="highlighter-rouge">onComplete</code> after
@@ -553,7 +633,7 @@ Usually they start with <code class="highlighter-rouge">doOn</code> or <code cla
 //=&gt; elem: 3, counter: 6
 </span></code></pre></div></div>
 
-<p>You could also write it completely referentially transparency using <code class="highlighter-rouge">Ref</code> from <code class="highlighter-rouge">Cats-Effect</code>:</p>
+<p>You could also write it preserving referential transparency using <code class="highlighter-rouge">Ref</code> from <code class="highlighter-rouge">Cats-Effect</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.concurrent.Ref</span>
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
