@@ -163,14 +163,14 @@ composite.cancel()
 // => Canceled #2
 ```
 
-## MultiAssignmentCancelable
+## MultiAssignCancelable
 
-The `MultiAssignmentCancelable` is a cancelable that behaves like a
+The `MultiAssignCancelable` is a cancelable that behaves like a
 variable, referencing another cancelable reference that can be
 swapped as needed.
 
 See the
-[API Documentation]({{ site.api3x }}monix/execution/cancelables/MultiAssignmentCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/MultiAssignCancelable.html).
 
 Contract:
 
@@ -184,7 +184,7 @@ Contract:
 Usage:
 
 ```tut:silent
-val multiAssignment = MultiAssignmentCancelable()
+val multiAssignment = MultiAssignCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
 multiAssignment := c1
@@ -202,9 +202,13 @@ multiAssignment := c3
 // => Canceled #3
 ```
 
+## OrderedCancelable
+
 In a multi-threading environment sometimes we cannot guarantee an
-ordering on assignment and obviously ordering is important.  There's a
-second assignment operation that takes an `order` numeric argument and
+ordering on assignment and obviously ordering is important. 
+`OrderedCancelable` is similar to `MultiAssignCancelable` with an
+extra ability to do `orderedUpdate`. There's a second assignment 
+operation that takes an `order` numeric argument and
 in case the update was made with an `order` that's strictly bigger
 than the current one you're trying to make, then the assignment gets
 ignored, so:
@@ -213,7 +217,7 @@ ignored, so:
 // Let's simulate a race condition
 import monix.execution.Scheduler.{global => scheduler}
 
-val c = MultiAssignmentCancelable()
+val c = OrderedCancelable()
 
 scheduler.execute(new Runnable {
   def run(): Unit =
@@ -251,7 +255,7 @@ import monix.execution._
 def delayedExecution(cb: () => Cancelable)
   (implicit s: Scheduler): Cancelable = {
 
-  val ref = MultiAssignmentCancelable()
+  val ref = OrderedCancelable()
 
   ref := s.scheduleOnce(5.seconds) {
     ref := cb()
@@ -278,7 +282,7 @@ import monix.execution._
 def delayedExecution(cb: () => Cancelable)
   (implicit s: Scheduler): Cancelable = {
 
-  val ref = MultiAssignmentCancelable()
+  val ref = OrderedCancelable()
   val delay = s.scheduleOnce(5.seconds) {
     ref.orderedUpdate(cb(), 2)
   }
