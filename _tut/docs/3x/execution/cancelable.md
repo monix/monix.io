@@ -184,21 +184,21 @@ Contract:
 Usage:
 
 ```tut:silent
-val multiAssignment = MultiAssignCancelable()
+val multiAssign = MultiAssignCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
-multiAssignment := c1
+multiAssign := c1
 
 val c2 = Cancelable(() => println("Canceled #2"))
-multiAssignment := c2
+multiAssign := c2
 
 // Canceling it will only cancel the last assignee
-multiAssignment.cancel()
+multiAssign.cancel()
 // => Cancelled #2
 
 // Subsequent assignments are canceled immediately
 val c3 = Cancelable(() => println("Canceled #3"))
-multiAssignment := c3
+multiAssign := c3
 // => Canceled #3
 ```
 
@@ -294,14 +294,14 @@ def delayedExecution(cb: () => Cancelable)
 }
 ```
 
-## SingleAssignmentCancelable
+## SingleAssignCancelable
 
-The `SingleAssignmentCancelable` is similar to the
-`MultiAssignmentCancelable`, except that it can be assigned once and
+The `SingleAssignCancelable` is similar to the
+`OrderedCancelable`, except that it can be assigned once and
 only once.
 
 See the
-[API Documentation]({{ site.api3x }}monix/execution/cancelables/SingleAssignmentCancelable.html).
+[API Documentation]({{ site.api3x }}monix/execution/cancelables/SingleAssignCancelable.html).
 
 The contract:
 
@@ -316,7 +316,7 @@ The contract:
 It is useful in cases you need a forward reference, like:
 
 ```tut:silent
-val ref = SingleAssignmentCancelable()
+val ref = SingleAssignCancelable()
 
 ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
   // This wouldn't be correct without having an already
@@ -333,7 +333,7 @@ cancelable reference to cancel, in addition to the assigned reference:
 ```tut:silent
 val c = {
   val guest = Cancelable(() => println("extra canceled"))
-  SingleAssignmentCancelable.plusOne(guest)
+  SingleAssignCancelable.plusOne(guest)
 }
 
 c := Cancelable(() => println("primary canceled"))
@@ -343,15 +343,15 @@ c.cancel()
 //=> primary canceled
 ```
 
-You can use `MultiAssignmentCancelable` for the same purpose of
-course, but the implementation of `SingleAssignmentCancelable` is more
+You can use `OrderedCancelable` for the same purpose of
+course, but the implementation of `SingleAssignCancelable` is more
 efficient (e.g. using `getAndSet`, cheaper than `compareAndSet`) and
 the `IllegalStateException` is nice when dealing with concurrent code
 that isn't doing what it's supposed to do.
 
 ## SerialCancelable
 
-The `SerialCancelable` is also similar to `MultiAssignmentCancelable`,
+The `SerialCancelable` is also similar to `OrderedCancelable`,
 being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.
 
