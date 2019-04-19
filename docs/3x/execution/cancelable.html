@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1555434593285839569" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1555434593285839569" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1555663268882740170" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1555663268882740170" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1555434593285839569">
+  <link rel="stylesheet" href="/public/css/all.css?1555663268882740170">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1555434593285839569">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1555663268882740170">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -180,7 +180,7 @@ already canceled:</p>
 used to check for <code class="highlighter-rouge">isCanceled</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">BooleanCancelable</span><span class="o">()</span>
-<span class="c1">// c: monix.execution.cancelables.BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$3@3c4fb68c
+<span class="c1">// c: monix.execution.cancelables.BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$3@5872bddd
 </span>
 <span class="n">c</span><span class="o">.</span><span class="n">isCanceled</span>
 <span class="c1">// res5: Boolean = false
@@ -277,21 +277,21 @@ immediately</li>
 
 <p>Usage:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">multiAssignment</span> <span class="k">=</span> <span class="nc">MultiAssignCancelable</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">multiAssign</span> <span class="k">=</span> <span class="nc">MultiAssignCancelable</span><span class="o">()</span>
 
 <span class="k">val</span> <span class="n">c1</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Canceled #1"</span><span class="o">))</span>
-<span class="n">multiAssignment</span> <span class="o">:=</span> <span class="n">c1</span>
+<span class="n">multiAssign</span> <span class="o">:=</span> <span class="n">c1</span>
 
 <span class="k">val</span> <span class="n">c2</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Canceled #2"</span><span class="o">))</span>
-<span class="n">multiAssignment</span> <span class="o">:=</span> <span class="n">c2</span>
+<span class="n">multiAssign</span> <span class="o">:=</span> <span class="n">c2</span>
 
 <span class="c1">// Canceling it will only cancel the last assignee
-</span><span class="n">multiAssignment</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</span><span class="n">multiAssign</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
 <span class="c1">// =&gt; Cancelled #2
 </span>
 <span class="c1">// Subsequent assignments are canceled immediately
 </span><span class="k">val</span> <span class="n">c3</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
-<span class="n">multiAssignment</span> <span class="o">:=</span> <span class="n">c3</span>
+<span class="n">multiAssign</span> <span class="o">:=</span> <span class="n">c3</span>
 <span class="c1">// =&gt; Canceled #3
 </span></code></pre></div></div>
 
@@ -384,14 +384,14 @@ Which means the cancelable returned by our function will be incorrect.</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<h2 id="singleassignmentcancelable">SingleAssignmentCancelable</h2>
+<h2 id="singleassigncancelable">SingleAssignCancelable</h2>
 
-<p>The <code class="highlighter-rouge">SingleAssignmentCancelable</code> is similar to the
-<code class="highlighter-rouge">MultiAssignmentCancelable</code>, except that it can be assigned once and
+<p>The <code class="highlighter-rouge">SingleAssignCancelable</code> is similar to the
+<code class="highlighter-rouge">OrderedCancelable</code>, except that it can be assigned once and
 only once.</p>
 
 <p>See the
-<a href="/api/3.0/monix/execution/cancelables/SingleAssignmentCancelable.html">API Documentation</a>.</p>
+<a href="/api/3.0/monix/execution/cancelables/SingleAssignCancelable.html">API Documentation</a>.</p>
 
 <p>The contract:</p>
 
@@ -407,7 +407,7 @@ will throw an <code class="highlighter-rouge">IllegalStateException</code>, so d
 
 <p>It is useful in cases you need a forward reference, like:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">SingleAssignCancelable</span><span class="o">()</span>
 
 <span class="n">ref</span> <span class="o">:=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleAtFixedRate</span><span class="o">(</span><span class="mf">0.</span><span class="n">seconds</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
   <span class="c1">// This wouldn't be correct without having an already
@@ -423,7 +423,7 @@ cancelable reference to cancel, in addition to the assigned reference:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">guest</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"extra canceled"</span><span class="o">))</span>
-  <span class="nc">SingleAssignmentCancelable</span><span class="o">.</span><span class="n">plusOne</span><span class="o">(</span><span class="n">guest</span><span class="o">)</span>
+  <span class="nc">SingleAssignCancelable</span><span class="o">.</span><span class="n">plusOne</span><span class="o">(</span><span class="n">guest</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"primary canceled"</span><span class="o">))</span>
@@ -433,15 +433,15 @@ cancelable reference to cancel, in addition to the assigned reference:</p>
 //=&gt; primary canceled
 </span></code></pre></div></div>
 
-<p>You can use <code class="highlighter-rouge">MultiAssignmentCancelable</code> for the same purpose of
-course, but the implementation of <code class="highlighter-rouge">SingleAssignmentCancelable</code> is more
+<p>You can use <code class="highlighter-rouge">OrderedCancelable</code> for the same purpose of
+course, but the implementation of <code class="highlighter-rouge">SingleAssignCancelable</code> is more
 efficient (e.g. using <code class="highlighter-rouge">getAndSet</code>, cheaper than <code class="highlighter-rouge">compareAndSet</code>) and
 the <code class="highlighter-rouge">IllegalStateException</code> is nice when dealing with concurrent code
 that isn’t doing what it’s supposed to do.</p>
 
 <h2 id="serialcancelable">SerialCancelable</h2>
 
-<p>The <code class="highlighter-rouge">SerialCancelable</code> is also similar to <code class="highlighter-rouge">MultiAssignmentCancelable</code>,
+<p>The <code class="highlighter-rouge">SerialCancelable</code> is also similar to <code class="highlighter-rouge">OrderedCancelable</code>,
 being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.</p>
 
