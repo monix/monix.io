@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1555663268882740170" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1555663268882740170" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1556708965222810959" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1556708965222810959" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1555663268882740170">
+  <link rel="stylesheet" href="/public/css/all.css?1556708965222810959">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1555663268882740170">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1556708965222810959">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -406,33 +406,34 @@ long integers and signal a total sum on their completion.</p>
 asynchronous processing as part of that logic. This sample isn’t
 useful, but you can easily see that you can insert I/O logic in there:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
-<span class="k">import</span> <span class="nn">concurrent.duration._</span>
+<p>SUM: 499500```scala
+import monix.eval.Task
+import concurrent.duration._</p>
 
-<span class="k">val</span> <span class="n">sum</span> <span class="k">=</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeftTask</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">acc</span><span class="o">,</span> <span class="n">elem</span><span class="o">)</span> <span class="k">=&gt;</span> 
-  <span class="nc">Task</span><span class="o">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">elem</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">10.</span><span class="n">millis</span><span class="o">)</span>
-<span class="o">}</span>
-</code></pre></div></div>
+<p>val sum = Consumer.foldLeftTask<a href="0L">Long,Long</a> { (acc, elem) =&gt; 
+  Task(acc + elem).delayExecution(10.millis)
+}</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### Returning the head
 
-<h3 id="returning-the-head">Returning the head</h3>
-
-<p>Observables have powerful facilities for transforming and processing a
+Observables have powerful facilities for transforming and processing a
 data-source and often all we need is to return the first generated
-item and then stop. In such instances we can use <code class="highlighter-rouge">Consumer.head</code>:</p>
+item and then stop. In such instances we can use `Consumer.head`:
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
+```scala
+import monix.reactive._
 
-<span class="k">val</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Observable</span>
-  <span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">sumF</span>
-  <span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="nc">Consumer</span><span class="o">.</span><span class="n">head</span><span class="o">)</span>
-<span class="o">}</span>
+val sum: Task[Long] = {
+  Observable
+  .range(0,1000)
+  .sumF
+  .consumeWith(Consumer.head)
+}
   
-<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
-<span class="n">sum</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 499500
-</span></code></pre></div></div>
+import monix.execution.Scheduler.Implicits.global
+sum.runToFuture.foreach(println)
+//=&gt; 499500
+</code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">Consumer.head</code> can be problematic for empty streams, since it
 assumes that the source will generate at least one item. Therefore for

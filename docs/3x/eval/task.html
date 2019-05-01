@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1555663268882740170" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1555663268882740170" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1556708965222810959" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1556708965222810959" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1555663268882740170">
+  <link rel="stylesheet" href="/public/css/all.css?1556708965222810959">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1555663268882740170">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1556708965222810959">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -1320,6 +1320,56 @@ that completes and wins the race:</p>
 operation, except that it operates on <code class="highlighter-rouge">Task</code> and upon execution it has
 a better model, as when a task wins the race the other tasks get
 immediately canceled.</p>
+
+<p>If you want to ignore errors and wait for the first successful result you could 
+combine it with <code class="highlighter-rouge">onErrorHandleWith</code> and <code class="highlighter-rouge">timeout</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.execution.exceptions.DummyException</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">timeout</span> <span class="k">=</span> <span class="mf">30.</span><span class="n">second</span>
+
+<span class="k">val</span> <span class="n">task1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="mi">10</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">3.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">task2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">)).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">task3</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">)).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">tasks</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="n">task1</span><span class="o">,</span> <span class="n">task2</span><span class="o">,</span> <span class="n">task3</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raceMany</span><span class="o">(</span><span class="n">tasks</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">never</span><span class="o">))).</span><span class="n">timeout</span><span class="o">(</span><span class="n">timeout</span><span class="o">)</span>
+
+<span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="n">runSyncUnsafe</span><span class="o">())</span> <span class="c1">// will print 10
+</span></code></pre></div></div>
+<p>It will turn any failed tasks into non-terminating.</p>
+
+<p>Timeout is necessary in case all tasks fail. In the example above, if <code class="highlighter-rouge">task1</code> also fails we will have to wait for the timeout
+to expire despite knowing that we won’t get any successful result.</p>
+
+<p>We can optimize it by doing second <code class="highlighter-rouge">race </code>that uses <code class="highlighter-rouge">Semaphore</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.concurrent.Semaphore</span>
+<span class="k">import</span> <span class="nn">cats.syntax.apply._</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="k">import</span> <span class="nn">monix.execution.exceptions.DummyException</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">task1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">)).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">3.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">task2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">)).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">task3</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">)).</span><span class="n">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">tasks</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="n">task1</span><span class="o">,</span> <span class="n">task2</span><span class="o">,</span> <span class="n">task3</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">semaphore</span> <span class="k">=</span> <span class="nc">Semaphore</span><span class="o">[</span><span class="kt">Task</span><span class="o">](</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Either</span><span class="o">[</span><span class="kt">Unit</span>, <span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">semaphore</span><span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span> <span class="n">sem</span> <span class="k">=&gt;</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">race</span><span class="o">(</span>
+    <span class="n">sem</span><span class="o">.</span><span class="n">acquireN</span><span class="o">(</span><span class="n">tasks</span><span class="o">.</span><span class="n">length</span><span class="o">),</span>
+    <span class="nc">Task</span><span class="o">.</span><span class="n">raceMany</span><span class="o">(</span><span class="n">tasks</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">sem</span><span class="o">.</span><span class="n">release</span> <span class="o">*&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">never</span><span class="o">)))</span>
+  <span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="n">runSyncUnsafe</span><span class="o">())</span> <span class="c1">// will finish and print after 3 seconds
+</span></code></pre></div></div>
 
 <h3 id="delay-execution">Delay Execution</h3>
 
