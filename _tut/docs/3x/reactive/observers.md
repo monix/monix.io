@@ -593,4 +593,4 @@ strategies available:
 - `DropOldAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped older enqueued events.
 - `ClearBuffer` indicates a limited size for the buffer and on overflow
   it should drop the entire buffer and start fresh.
-- `DropOldAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.
+- `ClearBufferAndSignal` indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.
