@@ -389,14 +389,14 @@ sc.tick(2.second) // prints 3
 ## Error Handling
 
 Failing in any operator in `Observable` will lead to termination of the stream. Internally, it
-will call `onError` downstream to inform it about the failure and should return `Stop` to the upstream operator if the error happened during processing `onNext`. In other words, it will cancel entire `Observable` unless the error is handled.
+will call `onError` downstream to inform it about the failure and should return `Stop` to the upstream operator if the error happened during processing `onNext`. In other words, it will stop entire `Observable` unless the error is handled.
 
 `Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
 If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
 
 Many of these methods (and more) are defined directly on `Observable` and the rest can be acquired by calling `import cats.implicits._`.
 
-Note that most errors should be handled at `Effect` level (e.g. `Task`, `IO` in `mapEval`), not by using `Observable` error handling operators. If `Observable` encounters an error it cannot ignore it and keep going, the best you can do without bigger machinery is to restart `Observable` or replace it with different one.
+Note that most errors should be handled at `Effect` level (e.g. `Task`, `IO` in `mapEval`), not by using `Observable` error handling operators. If `Observable` encounters an error it cannot ignore it and keep going. The best you can do without bigger machinery is to restart `Observable` or replace it with different one.
 
 ### handleError (onErrorHandle)
 
