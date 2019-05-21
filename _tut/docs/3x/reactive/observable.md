@@ -131,29 +131,27 @@ Due to this connection `Observable` respects `Observer` [contract](./observers.h
 being higher level interface which abstracts away details of the contract and handles it for the user. `Observable` exposes
 rich API and following sections will cover only small portion of them so if it's missing something you need, look 
 [at the source code](https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala)
-directly or ask on gitter channel.
+directly or ask on [gitter channel](https://gitter.im/monix/monix).
 
 ## Observable and Functional Programming
 
 `Observable` internals aren't written in FP style which is a trade off resulting in greater performance. 
 
-Despite the internals, `Observable` is perfectly fine to use even in purely functional application because they don't 
+Despite the internals, `Observable` is a fine choice to use even in purely functional applications because they don't 
 leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
 
-However, if you value referential transparency, watch out for impure functions. 
-Fortunately, they are marked as such with `@UnsafeBecauseImpure` annotation and explanation in ScalaDoc. 
-Also, there should always be a pure replacement to solve your use case.
+There are impure functions in API, which are usually marked as such with `@UnsafeBecauseImpure` annotation and explained in ScalaDoc. There should always be a referentially transparent replacement to solve your use case but if your team is not
+fully committed to FP, these functions can be very useful.
 
 For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
-Still, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as
-`Ref` or `MVar` to share state in more controlled manner.
+However, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in more controlled manner.
 
-Still, decision is up to the user to choose what's better for him and his team.
+Decision is up to the user to choose what's better for him and his team.
 
 ## Execution
 
 When you create `Observable` nothing actually happens until you call `subscribe`. 
-It means that (by default) `Observable` preserves referential transparency. 
+It means that (apart from impure parts of API) `Observable` preserves referential transparency. 
 
 `Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as `unsafePerformIO`.
@@ -390,14 +388,15 @@ sc.tick(2.second) // prints 3
 
 ## Error Handling
 
-`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator.
-If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala).
+Failing in any operator in `Observable` will lead to termination of the stream. Internally, it
+will call `onError` downstream to inform it about the failure and should return `Stop` to the upstream operator if the error happened during processing `onNext`. In other words, it will cancel entire `Observable` unless the error is handled.
 
-Most of those methods (and more) are defined on `Observable` directly.
+`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
+If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
 
-Note that most errors should be handled at `effect` level, not using `Observable` error handling operators. If `Observable` encounters an error it cannot
-ignore the error and keep going, the best you can do without bigger machinery is to restart `Observable` or replace it with different one. Handling errors at
-`effect` level means doing so in `Task` or other `IO`-like data type in operators like `mapEval`.
+Many of these methods (and more) are defined directly on `Observable` and the rest can be acquired by calling `import cats.implicits._`.
+
+Note that most errors should be handled at `Effect` level (e.g. `Task`, `IO` in `mapEval`), not by using `Observable` error handling operators. If `Observable` encounters an error it cannot ignore it and keep going, the best you can do without bigger machinery is to restart `Observable` or replace it with different one.
 
 ### handleError (onErrorHandle)
 
@@ -520,6 +519,22 @@ def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[
   source.onErrorHandleWith { _ =>
     retryWithDelay(source, delay).delayExecution(delay)
   }
+```
+
+Which can be customized further, adding exponential backoff:
+
+```tut:silent
+def retryBackoff[A](source: Observable[A],
+  maxRetries: Int, firstDelay: FiniteDuration): Observable[A] = {
+  source.onErrorHandleWith {
+    case ex: Exception =>
+      if (maxRetries > 0)
+        retryBackoff(source, maxRetries-1, firstDelay*2)
+          .delayExecution(firstDelay)
+      else
+        Observable.raiseError(ex)
+  }
+}
 ```
 
 ## Reacting to internal events
