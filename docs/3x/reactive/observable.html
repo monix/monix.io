@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1558104287965128757" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1558104287965128757" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1558511129394972043" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1558511129394972043" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1558104287965128757">
+  <link rel="stylesheet" href="/public/css/all.css?1558511129394972043">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1558104287965128757">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1558511129394972043">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -241,29 +241,27 @@ producer pushing data into one or multiple consumers</li>
 being higher level interface which abstracts away details of the contract and handles it for the user. <code class="highlighter-rouge">Observable</code> exposes
 rich API and following sections will cover only small portion of them so if it’s missing something you need, look 
 <a href="https://github.com/monix/monix/blob/master/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">at the source code</a>
-directly or ask on gitter channel.</p>
+directly or ask on <a href="https://gitter.im/monix/monix">gitter channel</a>.</p>
 
 <h2 id="observable-and-functional-programming">Observable and Functional Programming</h2>
 
 <p><code class="highlighter-rouge">Observable</code> internals aren’t written in FP style which is a trade off resulting in greater performance.</p>
 
-<p>Despite the internals, <code class="highlighter-rouge">Observable</code> is perfectly fine to use even in purely functional application because they don’t 
+<p>Despite the internals, <code class="highlighter-rouge">Observable</code> is a fine choice to use even in purely functional applications because they don’t 
 leak outside and majority of API is pure and the process of constructing and executing <code class="highlighter-rouge">Observable</code> is also pure.</p>
 
-<p>However, if you value referential transparency, watch out for impure functions. 
-Fortunately, they are marked as such with <code class="highlighter-rouge">@UnsafeBecauseImpure</code> annotation and explanation in ScalaDoc. 
-Also, there should always be a pure replacement to solve your use case.</p>
+<p>There are impure functions in API, which are usually marked as such with <code class="highlighter-rouge">@UnsafeBecauseImpure</code> annotation and explained in ScalaDoc. There should always be a referentially transparent replacement to solve your use case but if your team is not
+fully committed to FP, these functions can be very useful.</p>
 
 <p>For instance, convenient way to share <code class="highlighter-rouge">Observable</code> is using <code class="highlighter-rouge">Hot Observable</code> but it’s not referentially transparent.
-Still, you could do the same using <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> and purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as
-<code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share state in more controlled manner.</p>
+However, you could do the same using <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> and purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as <code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share state in more controlled manner.</p>
 
-<p>Still, decision is up to the user to choose what’s better for him and his team.</p>
+<p>Decision is up to the user to choose what’s better for him and his team.</p>
 
 <h2 id="execution">Execution</h2>
 
 <p>When you create <code class="highlighter-rouge">Observable</code> nothing actually happens until you call <code class="highlighter-rouge">subscribe</code>. 
-It means that (by default) <code class="highlighter-rouge">Observable</code> preserves referential transparency.</p>
+It means that (apart from impure parts of API) <code class="highlighter-rouge">Observable</code> preserves referential transparency.</p>
 
 <p><code class="highlighter-rouge">Subscribe</code> is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
 You can think about it as <code class="highlighter-rouge">unsafePerformIO</code>.</p>
@@ -484,14 +482,15 @@ Notice how it makes up for time spent in each <code class="highlighter-rouge">ma
 
 <h2 id="error-handling">Error Handling</h2>
 
-<p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator.
+<p>Failing in any operator in <code class="highlighter-rouge">Observable</code> will lead to termination of the stream. Internally, it
+will call <code class="highlighter-rouge">onError</code> downstream to inform it about the failure and should return <code class="highlighter-rouge">Stop</code> to the upstream operator if the error happened during processing <code class="highlighter-rouge">onNext</code>. In other words, it will stop entire <code class="highlighter-rouge">Observable</code> unless the error is handled.</p>
+
+<p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator for error handling.
 If you are curious what it gives you in practice, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
 
-<p>Most of those methods (and more) are defined on <code class="highlighter-rouge">Observable</code> directly.</p>
+<p>Many of these methods (and more) are defined directly on <code class="highlighter-rouge">Observable</code> and the rest can be acquired by calling <code class="highlighter-rouge">import cats.implicits._</code>.</p>
 
-<p>Note that most errors should be handled at <code class="highlighter-rouge">effect</code> level, not using <code class="highlighter-rouge">Observable</code> error handling operators. If <code class="highlighter-rouge">Observable</code> encounters an error it cannot
-ignore the error and keep going, the best you can do without bigger machinery is to restart <code class="highlighter-rouge">Observable</code> or replace it with different one. Handling errors at
-<code class="highlighter-rouge">effect</code> level means doing so in <code class="highlighter-rouge">Task</code> or other <code class="highlighter-rouge">IO</code>-like data type in operators like <code class="highlighter-rouge">mapEval</code>.</p>
+<p>Note that most errors should be handled at <code class="highlighter-rouge">Effect</code> level (e.g. <code class="highlighter-rouge">Task</code>, <code class="highlighter-rouge">IO</code> in <code class="highlighter-rouge">mapEval</code>), not by using <code class="highlighter-rouge">Observable</code> error handling operators. If <code class="highlighter-rouge">Observable</code> encounters an error it cannot ignore it and keep going. The best you can do without bigger machinery is to restart <code class="highlighter-rouge">Observable</code> or replace it with different one.</p>
 
 <h3 id="handleerror-onerrorhandle">handleError (onErrorHandle)</h3>
 
@@ -608,6 +607,21 @@ ignore the error and keep going, the best you can do without bigger machinery is
   <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
     <span class="n">retryWithDelay</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">delay</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
   <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Which can be customized further, adding exponential backoff:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">retryBackoff</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+  <span class="n">maxRetries</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">firstDelay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">ex</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">maxRetries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="n">retryBackoff</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">maxRetries</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">firstDelay</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span>
+          <span class="o">.</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">firstDelay</span><span class="o">)</span>
+      <span class="k">else</span>
+        <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <h2 id="reacting-to-internal-events">Reacting to internal events</h2>
