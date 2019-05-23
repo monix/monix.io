@@ -215,6 +215,7 @@ value in the `Observable` context.
 ```tut:reset:invisible
 import monix.reactive.Observable
 import monix.execution.Scheduler.Implicits.global
+import monix.execution.exceptions.DummyException
 ```
 
 ```tut:silent
