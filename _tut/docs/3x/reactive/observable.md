@@ -391,11 +391,6 @@ sc.tick(2.second) // prints 3
 Failing in any operator in `Observable` will lead to termination of the stream. Internally, it
 will call `onError` downstream to inform it about the failure and should return `Stop` to the upstream operator if the error happened during processing `onNext`. In other words, it will stop entire `Observable` unless the error is handled.
 
-`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
-If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
-
-Many of these methods (and more) are defined directly on `Observable` and the rest can be acquired by calling `import cats.implicits._`.
-
 Note that most errors should be handled at `Effect` level (e.g. `Task`, `IO` in `mapEval`), not by using `Observable` error handling operators. If `Observable` encounters an error it cannot ignore it and keep going. The best you can do without bigger machinery is to restart `Observable` or replace it with different one.
 
 ### handleError (onErrorHandle)
@@ -521,7 +516,7 @@ def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[
   }
 ```
 
-Which can be customized further, adding exponential backoff:
+Which can be customized further, for instance adding exponential backoff:
 
 ```tut:silent
 def retryBackoff[A](source: Observable[A],
@@ -536,6 +531,60 @@ def retryBackoff[A](source: Observable[A],
   }
 }
 ```
+
+### Dropping failed elements
+
+Sometimes we would like to ignore elements that caused failure and keep going but 
+if something fails in `Observable` operator (e.g. mapEval) the entire `Observable` is failed with this error.
+
+```tut:silent
+val observable = Observable(1, 2, 3)
+
+def task(i: Int): Task[Int] = {
+  if (i == 2) Task.raiseError(DummyException("error"))
+  else Task(i)
+}
+
+{
+observable
+  .mapEval(task)
+  .foreachL(e => println(s"elem: $e"))
+}
+//=> elem: 1
+//=> Exception in thread "main" monix.execution.exceptions.DummyException: error
+```
+
+There is nothing like supervision in Akka Streams but if we control it at the `Effect` level, we could achieve similar behavior.
+For instance, we could wrap our elements in `Option` or `Either` and then do `collect { case Right(e) => e }`.
+
+```tut:silent
+val observable = Observable(1, 2, 3)
+
+def task(i: Int): Task[Int] = {
+  if (i == 2) Task.raiseError(DummyException("error"))
+  else Task(i)
+}
+
+{
+observable
+  .mapEval(task(_).attempt) // attempt transforms Task[A] into Task[Either[Throwable, A]] with all errors handled
+  .collect { case Right(evt) => evt}
+  .foreachL(e => println(s"elem: $e"))
+}
+
+//=> elem: 1
+//=> elem: 3
+```
+
+It's not as nice as having one global Supervisor that handles it if something goes wrong but as long as you follow
+basic rules such as using pure functions in `map` and remembering that any `Task` can fail then you should be good to go.
+
+### MonadError instance
+
+`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
+If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
+
+Many of these methods (and more) are defined directly on `Observable` and the rest can be acquired by calling `import cats.implicits._`.
 
 ## Reacting to internal events
 
