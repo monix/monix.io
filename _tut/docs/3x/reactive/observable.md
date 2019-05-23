@@ -578,7 +578,7 @@ observable
 ```
 
 It's not as nice as having one global Supervisor that handles it if something goes wrong but as long as you follow
-basic rules such as using pure functions in `map` and remembering that any `Task` can fail then you should be good to go.
+basic rules such as not throwing exceptions and remembering that any `Task` can fail then you should be good to go.
 
 ### MonadError instance
 
