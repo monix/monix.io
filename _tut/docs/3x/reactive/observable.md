@@ -516,7 +516,7 @@ def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[
   }
 ```
 
-Which can be customized further, for instance adding exponential backoff:
+Which can be customized further. For example, we can add exponential backoff:
 
 ```tut:silent
 def retryBackoff[A](source: Observable[A],
