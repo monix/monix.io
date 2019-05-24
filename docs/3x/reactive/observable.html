@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1558511129394972043" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1558511129394972043" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1558693882096647241" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1558693882096647241" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1558511129394972043">
+  <link rel="stylesheet" href="/public/css/all.css?1558693882096647241">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1558511129394972043">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1558693882096647241">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -485,11 +485,6 @@ Notice how it makes up for time spent in each <code class="highlighter-rouge">ma
 <p>Failing in any operator in <code class="highlighter-rouge">Observable</code> will lead to termination of the stream. Internally, it
 will call <code class="highlighter-rouge">onError</code> downstream to inform it about the failure and should return <code class="highlighter-rouge">Stop</code> to the upstream operator if the error happened during processing <code class="highlighter-rouge">onNext</code>. In other words, it will stop entire <code class="highlighter-rouge">Observable</code> unless the error is handled.</p>
 
-<p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator for error handling.
-If you are curious what it gives you in practice, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
-
-<p>Many of these methods (and more) are defined directly on <code class="highlighter-rouge">Observable</code> and the rest can be acquired by calling <code class="highlighter-rouge">import cats.implicits._</code>.</p>
-
 <p>Note that most errors should be handled at <code class="highlighter-rouge">Effect</code> level (e.g. <code class="highlighter-rouge">Task</code>, <code class="highlighter-rouge">IO</code> in <code class="highlighter-rouge">mapEval</code>), not by using <code class="highlighter-rouge">Observable</code> error handling operators. If <code class="highlighter-rouge">Observable</code> encounters an error it cannot ignore it and keep going. The best you can do without bigger machinery is to restart <code class="highlighter-rouge">Observable</code> or replace it with different one.</p>
 
 <h3 id="handleerror-onerrorhandle">handleError (onErrorHandle)</h3>
@@ -609,7 +604,7 @@ If you are curious what it gives you in practice, check methods in <a href="http
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Which can be customized further, adding exponential backoff:</p>
+<p>Which can be customized further. For example, we can add exponential backoff:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">retryBackoff</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
   <span class="n">maxRetries</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">firstDelay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
@@ -623,6 +618,58 @@ If you are curious what it gives you in practice, check methods in <a href="http
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
+
+<h3 id="dropping-failed-elements">Dropping failed elements</h3>
+
+<p>Sometimes we would like to ignore elements that caused failure and keep going but 
+if something fails in <code class="highlighter-rouge">Observable</code> operator (e.g. mapEval) the entire <code class="highlighter-rouge">Observable</code> is failed with this error.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
+  <span class="k">else</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
+<span class="o">}</span>
+<span class="c1">//=&gt; elem: 1
+//=&gt; Exception in thread "main" monix.execution.exceptions.DummyException: error
+</span></code></pre></div></div>
+
+<p>There is nothing like supervision in Akka Streams but if we control it at the <code class="highlighter-rouge">Effect</code> level, we could achieve similar behavior.
+For instance, we could wrap our elements in <code class="highlighter-rouge">Option</code> or <code class="highlighter-rouge">Either</code> and then do <code class="highlighter-rouge">collect { case Right(e) =&gt; e }</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
+  <span class="k">else</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="o">{</span>
+<span class="n">observable</span>
+  <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">task</span><span class="o">(</span><span class="k">_</span><span class="o">).</span><span class="n">attempt</span><span class="o">)</span> <span class="c1">// attempt transforms Task[A] into Task[Either[Throwable, A]] with all errors handled
+</span>  <span class="o">.</span><span class="n">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">evt</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">evt</span><span class="o">}</span>
+  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">//=&gt; elem: 1
+//=&gt; elem: 3
+</span></code></pre></div></div>
+
+<p>It’s not as nice as having one global Supervisor that handles it if something goes wrong but as long as you follow
+basic rules such as not throwing exceptions and remembering that any <code class="highlighter-rouge">Task</code> can fail then you should be good to go.</p>
+
+<h3 id="monaderror-instance">MonadError instance</h3>
+
+<p><code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator for error handling.
+If you are curious what it gives you in practice, check methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
+
+<p>Many of these methods (and more) are defined directly on <code class="highlighter-rouge">Observable</code> and the rest can be acquired by calling <code class="highlighter-rouge">import cats.implicits._</code>.</p>
 
 <h2 id="reacting-to-internal-events">Reacting to internal events</h2>
 
