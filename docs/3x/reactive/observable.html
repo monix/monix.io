@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1558693882096647241" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1558693882096647241" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1559030172310509160" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1559030172310509160" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1558693882096647241">
+  <link rel="stylesheet" href="/public/css/all.css?1559030172310509160">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1558693882096647241">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1559030172310509160">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -410,6 +410,79 @@ It also has guaranteed idempotency and thread-safety:</p>
 //=&gt; 1
 </span></code></pre></div></div>
 
+<h2 id="sending-elements-to-observable">Sending elements to Observable</h2>
+
+<p>There are several options to feed <code class="highlighter-rouge">Observable</code> with elements from other part of the application.</p>
+
+<h3 id="concurrentqueue">ConcurrentQueue</h3>
+
+<p><code class="highlighter-rouge">monix-catnap</code> module provides <a href="https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html">ConcurrentQueue</a> that can be used
+with <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to create <code class="highlighter-rouge">Observable</code> from it.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.catnap.ConcurrentQueue</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+
+<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">queue</span><span class="k">:</span> <span class="kt">ConcurrentQueue</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">offer</span><span class="o">(</span><span class="n">item</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">observable</span>
+    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">completedL</span>
+<span class="o">}</span>
+
+<span class="o">{</span>
+  <span class="nc">ConcurrentQueue</span><span class="o">.</span><span class="n">unbounded</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">]().</span><span class="n">flatMap</span> <span class="o">{</span> <span class="n">queue</span> <span class="k">=&gt;</span>
+    <span class="nc">Task</span>
+      <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
+        <span class="n">feedItem</span><span class="o">(</span><span class="n">queue</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+        <span class="n">processStream</span><span class="o">(</span><span class="nc">Observable</span><span class="o">.</span><span class="n">repeatEvalF</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="n">poll</span><span class="o">))</span>
+      <span class="o">)</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you’re curious why we have to <code class="highlighter-rouge">flatMap</code> <a href="https://vimeo.com/294736344">see excellent presentation by Fabio Labella</a>.
+Note that you can also create <code class="highlighter-rouge">Observable</code> from other tools for Concurrency, such as <code class="highlighter-rouge">MVar</code> or <code class="highlighter-rouge">Deferred</code>.</p>
+
+<h3 id="concurrentsubject">ConcurrentSubject</h3>
+
+<p>If you’re not afraid to get your hands dirty, then you can use <code class="highlighter-rouge">ConcurrentSubject</code> to get equivalent functionality:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<span class="k">import</span> <span class="nn">monix.reactive.subjects.ConcurrentSubject</span>
+<span class="k">import</span> <span class="nn">monix.reactive.</span><span class="o">{</span><span class="nc">MulticastStrategy</span><span class="o">,</span> <span class="nc">Observable</span><span class="o">,</span> <span class="nc">Observer</span><span class="o">}</span>
+
+<span class="k">val</span> <span class="n">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">MulticastStrategy</span><span class="o">.</span><span class="n">replay</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Task</span><span class="o">.</span><span class="n">deferFuture</span><span class="o">(</span><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">observable</span>
+    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">completedL</span>
+<span class="o">}</span>
+
+<span class="o">{</span>
+<span class="nc">Task</span>
+  <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
+    <span class="n">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+    <span class="n">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
+  <span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this case we transformed <code class="highlighter-rouge">Future</code> to <code class="highlighter-rouge">Task</code> so the example is pure (other than not suspending <code class="highlighter-rouge">ConcurrentSubject</code> creation) but you
+don’t have to do that if you prefer staying with <code class="highlighter-rouge">Future</code>.</p>
+
+<p><a href="/observable.html#subjects">More on Subjects later.</a></p>
+
 <h2 id="scheduling">Scheduling</h2>
 
 <p><code class="highlighter-rouge">Observable</code> is a great fit not only for streaming data but also for control flow such as scheduling. 
@@ -749,8 +822,7 @@ It is presented in the following example:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Below are short characteristics for available types of <code class="highlighter-rouge">Subject</code>. For more information refer to descriptions and methods in
-<code class="highlighter-rouge">monix.reactive.subjects</code> package:</p>
+<p>Other use case for <code class="highlighter-rouge">Subject</code> includes sharing it. There are several strategies available and you can find their short characteristics below.</p>
 
 <ul>
   <li><code class="highlighter-rouge">AsyncSubject</code> emits the last value (and only the last value) emitted by the source and only after the source completes.</li>
@@ -761,6 +833,8 @@ It is presented in the following example:</p>
   <li><code class="highlighter-rouge">ReplaySubject</code> emits to a subscriber all of the items that were emitted by the source, regardless of when the observer subsribes.</li>
   <li><code class="highlighter-rouge">Var</code> emits the most recently emmited item by the source, or the <code class="highlighter-rouge">initial</code> in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying <code class="highlighter-rouge">ConcurrentSubject</code>. This is equivalent to a <code class="highlighter-rouge">ConcurrentSubject.behavior(Unbounder)</code> with ability to expose the current value for immediate usage on top of that.</li>
 </ul>
+
+<p>For more information refer to descriptions and methods in <code class="highlighter-rouge">monix.reactive.subjects</code> package.</p>
 
 <h2 id="hot-and-cold-observables">Hot and Cold Observables</h2>
 
