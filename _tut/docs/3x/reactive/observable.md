@@ -315,6 +315,81 @@ observable
 //=> 1
 ```
 
+## Sending elements to Observable
+
+There are several options to feed `Observable` with elements from other part of the application.
+
+### ConcurrentQueue
+
+`monix-catnap` module provides [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) that can be used
+with `Observable.repeatEvalF` builder to create `Observable` from it.
+
+```tut:silent
+import monix.catnap.ConcurrentQueue
+import monix.eval.Task
+import monix.reactive.Observable
+
+def feedItem[A](queue: ConcurrentQueue[Task, A], item: A): Task[Unit] = {
+  queue.offer(item)
+}
+
+def processStream[A](observable: Observable[A]): Task[Unit] = {
+  observable
+    .mapParallelUnordered(3)(i => Task(println(i)))
+    .completedL
+}
+
+{
+  ConcurrentQueue.unbounded[Task, Int]().flatMap { queue =>
+    Task
+      .parZip2(
+        feedItem(queue, 2),
+        processStream(Observable.repeatEvalF(queue.poll))
+      )
+  }
+}
+```
+
+If you're curious why we have to `flatMap` [see excellent presentation by Fabio Labella](https://vimeo.com/294736344).
+Note that you can also create `Observable` from other tools for Concurrency, such as `MVar` or `Deferred`.
+
+### ConcurrentSubject
+
+If you're not afraid to get your hands dirty, then you can use `ConcurrentSubject` to get equivalent functionality:
+
+```tut:silent
+import monix.eval.Task
+import monix.execution.Ack
+import monix.reactive.subjects.ConcurrentSubject
+import monix.reactive.{MulticastStrategy, Observable, Observer}
+
+val subject: ConcurrentSubject[Int, Int] =
+  ConcurrentSubject[Int](MulticastStrategy.replay)
+
+def feedItem[A](observer: Observer[A], item: A): Task[Ack] = {
+  Task.deferFuture(observer.onNext(item))
+}
+
+def processStream[A](observable: Observable[A]): Task[Unit] = {
+  observable
+    .mapParallelUnordered(3)(i => Task(println(i)))
+    .completedL
+}
+
+{
+Task
+  .parZip2(
+    feedItem(subject, 2),
+    processStream(subject)
+  )
+}
+```
+
+In this case we transformed `Future` to `Task` so the example is pure (other than not suspending `ConcurrentSubject` creation) but you
+don't have to do that if you prefer staying with `Future`.
+
+[More on Subjects later.](/observable.html#subjects)
+
 ## Scheduling
 
 `Observable` is a great fit not only for streaming data but also for control flow such as scheduling. 
@@ -668,8 +743,7 @@ Task
 }
 ```
 
-Below are short characteristics for available types of `Subject`. For more information refer to descriptions and methods in
-`monix.reactive.subjects` package:
+Other use case for `Subject` includes sharing it. There are several strategies available and you can find their short characteristics below.
 
 - `AsyncSubject` emits the last value (and only the last value) emitted by the source and only after the source completes.
 - `BehaviorSubject` emits the most recently emitted item by the source, or the `initialValue` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation.
@@ -678,6 +752,8 @@ Below are short characteristics for available types of `Subject`. For more infor
 - `PublishToOneSubject` is a `PublishSubject` that can be susbcribed at most once.
 - `ReplaySubject` emits to a subscriber all of the items that were emitted by the source, regardless of when the observer subsribes.
 - `Var` emits the most recently emmited item by the source, or the `initial` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying `ConcurrentSubject`. This is equivalent to a `ConcurrentSubject.behavior(Unbounder)` with ability to expose the current value for immediate usage on top of that.
+
+For more information refer to descriptions and methods in `monix.reactive.subjects` package.
 
 ## Hot and Cold Observables
 
