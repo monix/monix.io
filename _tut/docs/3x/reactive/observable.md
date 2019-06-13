@@ -146,7 +146,7 @@ fully committed to FP, these functions can be very useful.
 For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
 However, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in more controlled manner.
 
-Decision is up to the user to choose what's better for him and his team.
+Decision is up to the user to choose what's better for them and their team.
 
 ## Execution
 
