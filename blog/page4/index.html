@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1560406786879523480" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1560406786879523480" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1561120764238092121" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1561120764238092121" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/all.css?1561120764238092121">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1561120764238092121">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -97,6 +97,33 @@
     
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/10/23/monix-v2.0.5.html">
+        Monix: Version 2.0.5 Maintenance Release
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-10-23">
+      23 Oct 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a maintenance and
+bug fix release. In order to upgrade, just increment the version
+number in <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.5"</span>
+</code></pre></div></div>
+
+
+
+    
+    <a href="/blog/2016/10/23/monix-v2.0.5.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -211,68 +238,6 @@ affected by <a href="https://github.com/typelevel/cats/issues/1346">Cats #1346</
 
     
     <a href="/blog/2016/09/10/monix-v2.0.1.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/08/31/monix-v2.0.0.html">
-        Monix: Version 2.0.0 Final Release
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-08-31">
-      31 Aug 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>Monix is a library for composing asynchronous, event-based programs.
-Work on version 2.0 started since December last year, after
-<a href="https://github.com/monix/monix/tree/v1.0">version 1.0</a> was
-released.</p>
-
-<p>Today marks the release of the <code class="highlighter-rouge">2.0.0</code> version. Here’s what happened
-since 1.0:</p>
-
-<ol>
-  <li>the project went through a rename (from Monifu to Monix)</li>
-  <li>the underlying protocol of <code class="highlighter-rouge">Observable</code> has been reviewed and
-changed quite significantly, making observable streams cancelable</li>
-  <li>many of the <code class="highlighter-rouge">Observable</code> operators where refactored and improved</li>
-  <li>the project was split into multiple sub-projects, such that users
-can pick and choose what they need</li>
-  <li>the <a href="https://monix.io/docs/2x/eval/task.html">Task</a> and
-<a href="https://monix.io/docs/2x/eval/coeval.html">Coeval</a> types were
-introduced</li>
-  <li>the project’s code coverage has been raised over 83%</li>
-  <li>the project is in
-<a href="http://typelevel.org/projects/">Typelevel’s Incubator</a>, which for
-you it means that it plays nice with the other Typelevel projects</li>
-  <li>it now integrates with Typelevel <a href="http://typelevel.org/cats/">Cats</a> and
-with <a href="https://scalaz.org/">Scalaz</a>, which are THE standard
-libraries for doing functional programming and yes, <code class="highlighter-rouge">Task</code>, <code class="highlighter-rouge">Coeval</code>
-and <code class="highlighter-rouge">Observable</code> are provably Monads :-)</li>
-  <li>we initiated a documentation website at
-<a href="https://monix.io/docs/2x/">Monix.io</a>, with an initial batch of
-useful articles, though there’s still a lot of ground left to cover
-for observables</li>
-</ol>
-
-<p>Today Monix <code class="highlighter-rouge">2.0.0</code> is being released for Scala <code class="highlighter-rouge">2.10.6</code>, <code class="highlighter-rouge">2.11.8</code> and
-<code class="highlighter-rouge">2.12.0-M5</code>, Scala.js <code class="highlighter-rouge">0.6.11</code>, Cats <code class="highlighter-rouge">0.7.0</code> and Scalaz <code class="highlighter-rouge">7.2.5</code>.</p>
-
-<p>You can hit the <a href="https://monix.io/docs/2x/">documentation</a>, or
-<a href="https://beetta.scalafiddle.io/sf/RJrr88/0">experiment in ScalaFiddle</a>
-and see Monix in your browser, or take a look at
-<a href="https://github.com/monix/monix-sample">monix-sample</a>, a
-client/server communication sample with both sides handled by Monix
-(<a href="https://monix-sample.herokuapp.com/">see it running</a>).</p>
-
-
-
-    
-    <a href="/blog/2016/08/31/monix-v2.0.0.html">Read more &rarr;</a>
     
   </div>
   

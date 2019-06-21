@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1560406786879523480" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1560406786879523480" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1561120764238092121" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1561120764238092121" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/all.css?1561120764238092121">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1561120764238092121">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -166,9 +166,9 @@ are then sequenced:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
 <span class="c1">// The list of all tasks needed for execution
-</span><span class="k">val</span> <span class="n">tasks</span> <span class="k">=</span> <span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
+</span><span class="k">val</span> <span class="n">tasks</span> <span class="k">=</span> <span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)).</span><span class="n">toList</span>
 <span class="c1">// Building batches of 10 tasks to execute in parallel:
-</span><span class="k">val</span> <span class="n">batches</span> <span class="k">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+</span><span class="k">val</span> <span class="n">batches</span> <span class="k">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">gather</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="n">toList</span>
 <span class="c1">// Sequencing batches, then flattening the final result
 </span><span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">toList</span><span class="o">)</span>
 
@@ -201,9 +201,9 @@ in batches:</p>
   <span class="c1">// The list of all tasks needed for execution
 </span>  <span class="k">val</span> <span class="n">tasks</span> <span class="k">=</span> <span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
   <span class="c1">// Building batches of 10 tasks to execute in parallel:
-</span>  <span class="k">val</span> <span class="n">batches</span> <span class="k">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+</span>  <span class="k">val</span> <span class="n">batches</span> <span class="k">=</span> <span class="n">tasks</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">gather</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="n">toList</span>
   <span class="c1">// Sequencing batches, then flattening the final result
-</span>  <span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">flatten</span><span class="o">)</span>
+</span>  <span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">toIterator</span><span class="o">)</span>
   <span class="c1">// Converting into an observable, needed for flatMap
 </span>  <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterator</span><span class="o">(</span><span class="n">aggregate</span><span class="o">)</span>
 <span class="o">}</span>

@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1560406786879523480" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1560406786879523480" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1561120764238092121" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1561120764238092121" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/all.css?1561120764238092121">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1561120764238092121">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -97,6 +97,45 @@
     
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/06/29/monix-v2.0-RC8.html">
+        Monix: Version 2.0-RC8 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-06-29">
+      29 Jun 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release candidate is probably the last one before <code class="highlighter-rouge">2.0</code>, assuming
+new bugs aren’t found. Amongst others, it introduces an awesome
+<code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
+consumers. For a teaser:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become 
+// really helpful for logic sprinkled with I/O bound stuff
+</span><span class="k">val</span> <span class="n">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
+  <span class="o">.</span><span class="n">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="nc">Coeval</span><span class="o">(</span><span class="mi">0L</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">))</span>
+  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
+</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+
+<span class="c1">// Consume the whole stream and get the result
+</span><span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</code></pre></div></div>
+
+
+
+    
+    <a href="/blog/2016/06/29/monix-v2.0-RC8.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -200,31 +239,6 @@ faster. This is a very common use-case.</p>
 
     
     <a href="/blog/2016/05/25/monix-v2.0-RC3.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/05/19/help-wanted.html">
-        I'm Monix.io, Help Wanted!
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-05-19">
-      19 May 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p><a href="https://github.com/monix/monix">Monix</a> was started in 2014 with the
-purpose of aiding me in dealing with processing asynchronous events in
-a soft real-time system. We’ve come a long way and now the library is
-better than ever but there’s much to do.</p>
-
-
-
-    
-    <a href="/blog/2016/05/19/help-wanted.html">Read more &rarr;</a>
     
   </div>
   

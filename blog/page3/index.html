@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1560406786879523480" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1560406786879523480" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1561120764238092121" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1561120764238092121" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/all.css?1561120764238092121">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1560406786879523480">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1561120764238092121">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -97,6 +97,52 @@
     
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2017/02/22/monix-v2.2.2.html">
+        Monix: Version 2.2.2 Released
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2017-02-22">
+      22 Feb 2017
+      • <a href="https://twitter.com/monix">@monix</a>
+    </time>
+
+    <p>Version <code class="highlighter-rouge">2.2.2</code> is out now.</p>
+
+<p>It is a minor release that’s binary and source compatible with <code class="highlighter-rouge">2.2.x</code>.</p>
+
+<p>In summary:</p>
+
+<ul>
+  <li>Implemented a circuit breaker for <code class="highlighter-rouge">Task</code>, for providing stability
+and preventing cascading failures in distributed systems</li>
+  <li>Added <code class="highlighter-rouge">Task!.memoizeOnSuccess</code> and <code class="highlighter-rouge">Coeval!.memoizeOnSuccess</code>
+operators that only caches the result (with idempotency guarantees)
+for successful results, while re-evaluating the source on failures</li>
+  <li>Added <code class="highlighter-rouge">Task.deferFutureAction</code> that helps with wrapping
+<code class="highlighter-rouge">Future</code>-enabled APIs without requiring <code class="highlighter-rouge">ExecutionContext</code> in the
+function signature, since <code class="highlighter-rouge">Task</code> can inject it for you</li>
+  <li>Added <code class="highlighter-rouge">SingleAssignmentCancelable.plusOne</code> for helping with building
+<code class="highlighter-rouge">Consumer</code> objects</li>
+  <li>Moved and redesigned exceptions in <code class="highlighter-rouge">monix.execution</code></li>
+  <li><code class="highlighter-rouge">Task.sequence</code> now has lazy behavior in evaluating the given
+sequence (previously we were doing a <code class="highlighter-rouge">foldLeft</code> on that sequence,
+which could have strict behavior, depending on the collection type)</li>
+  <li>Critical bugs fixed!</li>
+</ul>
+
+<p>Details below!</p>
+
+
+
+    
+    <a href="/blog/2017/02/22/monix-v2.2.2.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -232,33 +278,6 @@ the dependency on Minitest to 0.27 and on Scalaz to 7.2.7.</p>
 
     
     <a href="/blog/2016/11/02/monix-v2.0.6.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/10/23/monix-v2.0.5.html">
-        Monix: Version 2.0.5 Maintenance Release
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-10-23">
-      23 Oct 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>This release is binary compatible with 2.0.x, being a maintenance and
-bug fix release. In order to upgrade, just increment the version
-number in <code class="highlighter-rouge">build.sbt</code>:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.5"</span>
-</code></pre></div></div>
-
-
-
-    
-    <a href="/blog/2016/10/23/monix-v2.0.5.html">Read more &rarr;</a>
     
   </div>
   
