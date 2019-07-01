@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.eval</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.eval" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.eval" />
+          <title>Monix 3.0.0-RC3 - monix.eval</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -154,6 +154,10 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">Coeval</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="CoevalLift$.html" title=""></a>
+                        <a class="trait" href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e."></a>
+                        <a href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e.">CoevalLift</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="CoevalLike$.html" title=""></a>
                         <a class="trait" href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval."></a>
                         <a href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval.">CoevalLike</a>
@@ -269,11 +273,11 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -333,7 +337,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Coeval represents lazy computations that can execute synchronously." href="Coeval.html"><span class="name">Coeval</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends () ⇒ <span class="extype" name="monix.eval.Coeval.A">A</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Coeval represents lazy computations that can execute synchronously." href="Coeval.html"><span class="name">Coeval</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends () ⇒ <span class="extype" name="monix.eval.Coeval.A">A</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><code>Coeval</code> represents lazy computations that can execute synchronously.</p><div class="fullcomment"><div class="comment cmt"><p><code>Coeval</code> represents lazy computations that can execute synchronously.</p><p>Word definition and origin:</p><ul><li>Having the same age or date of origin; a contemporary; synchronous.</li><li>From the Latin &quot;coævus&quot;: com- ‎(&quot;equal&quot;) in combination with aevum ‎(aevum, &quot;age&quot;).</li><li>The constructor of <code>Coeval</code> is the dual of an expression that evaluates to an <code>A</code>.</li></ul><p>There are three evaluation strategies:</p><ul><li><a href="Coeval$.html#now[A](a:A):monix.eval.Coeval[A]" class="extmbr" name="monix.eval.Coeval#now">now</a> or
@@ -379,10 +383,10 @@ As a quick comparison:</p><ul><li><code>cats.Eval</code> is only for controlling
    <code>cats.effect.Sync</code>, providing error-handling utilities</li></ul><p>If you just want to delay the evaluation of a pure expression
 use <code>cats.Eval</code>, but if you need to suspend side effects or you
 need error handling capabilities, then use <code>Coeval</code>.</p></div></div>
-    </li><li name="monix.eval.CoevalLike" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="CoevalLike[F[_]]extendsAnyRef"></a><a id="CoevalLike[F[_]]:CoevalLike[F]"></a>
+    </li><li name="monix.eval.CoevalLift" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CoevalLift[F[_]]extendsmonix.eval.Coeval~&gt;F"></a><a id="CoevalLift[F[_]]:CoevalLift[F]"></a>
       <span class="permalink">
-      <a href="../../monix/eval/index.html#CoevalLike[F[_]]extendsAnyRef" title="Permalink">
+      <a href="../../monix/eval/index.html#CoevalLift[F[_]]extendsmonix.eval.Coeval~&gt;F" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -391,20 +395,46 @@ need error handling capabilities, then use <code>Coeval</code>.</p></div></div>
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="A lawless type class that provides conversions to Coeval." href="CoevalLike.html"><span class="name">CoevalLike</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A lawless type class that specifies conversions from Coeval to similar data types (i.e." href="CoevalLift.html"><span class="name">CoevalLift</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.~&gt;">~&gt;</span>[<a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>, <span class="extype" name="monix.eval.CoevalLift.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">A lawless type class that specifies conversions from <code>Coeval</code>
+to similar data types (i.e.</p><div class="fullcomment"><div class="comment cmt"><p>A lawless type class that specifies conversions from <code>Coeval</code>
+to similar data types (i.e. pure, synchronous).</p><p>This is nothing more than a
+<a href="https://typelevel.org/cats/datatypes/functionk.html" target="_blank">cats.arrow.FunctionK</a>.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for CoevalLift[${F}].&quot;&quot;&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.eval.CoevalLike" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CoevalLike[F[_]]extendsF~&gt;monix.eval.Coeval"></a><a id="CoevalLike[F[_]]:CoevalLike[F]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#CoevalLike[F[_]]extendsF~&gt;monix.eval.Coeval" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="A lawless type class that provides conversions to Coeval." href="CoevalLike.html"><span class="name">CoevalLike</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.~&gt;">~&gt;</span>[<span class="extype" name="monix.eval.CoevalLike.F">F</span>, <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>]</span>
       </span>
       
       <p class="shortcomment cmt">A lawless type class that provides conversions to <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><div class="fullcomment"><div class="comment cmt"><p>A lawless type class that provides conversions to <a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>.</p><p>Sample:</p><pre><span class="cmt">// Conversion from cats.Eval</span>
 <span class="kw">import</span> cats.Eval
 
 <span class="kw">val</span> source0 = Eval.always(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task0 = CoevalLike[Eval].toCoeval(source0)
+<span class="kw">val</span> task0 = CoevalLike[Eval].apply(source0)
 
 <span class="cmt">// Conversion from SyncIO</span>
 <span class="kw">import</span> cats.effect.SyncIO
 
 <span class="kw">val</span> source1 = SyncIO(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task1 = CoevalLike[SyncIO].toCoeval(source1)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
+<span class="kw">val</span> task1 = CoevalLike[SyncIO].apply(source1)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
 where the internals are specialized to <code>Coeval</code> anyway, like for
 example the implementation of <code>monix.reactive.Observable</code>.
 </p></div></div>
@@ -454,7 +484,7 @@ concurrency primitive for doing cooperative multi-tasking.</p><p>For example a <
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Task represents a specification for a possibly lazy or asynchronous computation, which when executed will produce an A as a result, along with possible side-effects." href="Task.html"><span class="name">Task</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Task represents a specification for a possibly lazy or asynchronous computation, which when executed will produce an A as a result, along with possible side-effects." href="Task.html"><span class="name">Task</span></a><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><code>Task</code> represents a specification for a possibly lazy or
@@ -490,7 +520,7 @@ not yet. To make the above print its message:</p><pre><span class="kw">import</s
 <span class="kw">val</span> f: CancelableFuture[<span class="std">Unit</span>] = sayHello.runToFuture
 <span class="cmt">// => Hello World!</span></pre><p>The returned type is a
 <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> which
-inherits from Scala's standard <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a>,
+inherits from Scala's standard <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a>,
 a value that can be completed already or might be completed at
 some point in the future, once the running asynchronous process
 finishes. Such a future value can also be canceled, see below.</p><h3>Laziness, Purity and Referential Transparency</h3><p>The fact that <code>Task</code> is lazy whereas <code>Future</code> is not
@@ -522,11 +552,11 @@ course).</p><p>But here's something else that the <code>Future</code> data type 
 }.memoizeOnSuccess</pre><p>This keeps repeating the computation for as long as the result is a
 failure and caches it only on success. Yes we can!</p><p><i>WARNING:</i> as awesome as <code>memoize</code> can be, use with care
 because memoization can break referential transparency!</p><h4>Parallelism</h4><p>Because of laziness, invoking
-<a href="Task$.html#sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">Task.sequence</a> will not work like
+<a href="Task$.html#sequence[A,M[X]&lt;:Iterable[X]](in:M[monix.eval.Task[A]])(implicitbf:monix.execution.compat.BuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">Task.sequence</a> will not work like
 it does for <code>Future.sequence</code>, the given <code>Task</code> values being
 evaluated one after another, in <i>sequence</i>, not in <i>parallel</i>.
 If you want parallelism, then you need to use
-<a href="Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">Task.gather</a> and thus be explicit about it.</p><p>This is great because it gives you the possibility of fine tuning the
+<a href="Task$.html#gather[A,M[X]&lt;:Iterable[X]](in:M[monix.eval.Task[A]])(implicitbf:monix.execution.compat.BuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">Task.gather</a> and thus be explicit about it.</p><p>This is great because it gives you the possibility of fine tuning the
 execution. For example, say you want to execute things in parallel,
 but with a maximum limit of 30 tasks being executed in parallel.
 One way of doing that is to process your list in batches:</p><pre><span class="cmt">// Some array of tasks, you come up with something good :-)</span>
@@ -534,7 +564,7 @@ One way of doing that is to process your list in batches:</p><pre><span class="c
 
 <span class="cmt">// Split our list in chunks of 30 items per chunk,</span>
 <span class="cmt">// this being the maximum parallelism allowed</span>
-<span class="kw">val</span> chunks = list.sliding(<span class="num">30</span>, <span class="num">30</span>)
+<span class="kw">val</span> chunks = list.sliding(<span class="num">30</span>, <span class="num">30</span>).toSeq
 
 <span class="cmt">// Specify that each batch should process stuff in parallel</span>
 <span class="kw">val</span> batchedTasks = chunks.map(chunk <span class="kw">=&gt;</span> Task.gather(chunk))
@@ -542,7 +572,7 @@ One way of doing that is to process your list in batches:</p><pre><span class="c
 <span class="kw">val</span> allBatches = Task.sequence(batchedTasks)
 
 <span class="cmt">// Flatten the result, within the context of Task</span>
-<span class="kw">val</span> all: Task[Iterator[<span class="std">Int</span>]] = allBatches.map(_.flatten)</pre><p>Note that the built <code>Task</code> reference is just a specification at
+<span class="kw">val</span> all: Task[<span class="std">Seq</span>[<span class="std">Int</span>]] = allBatches.map(_.flatten)</pre><p>Note that the built <code>Task</code> reference is just a specification at
 this point, or you can view it as a function, as nothing has
 executed yet, you need to call <a href="Task.html#runAsync(cb:Either[Throwable,A]=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.Cancelable" class="extmbr" name="monix.eval.Task#runAsync">runAsync</a>
 or <a href="Task.html#runToFuture(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runToFuture">runToFuture</a> explicitly.</p><h3>Cancellation</h3><p>The logic described by an <code>Task</code> task could be cancelable,
@@ -571,7 +601,7 @@ itself is scheduled with the injected <code>Scheduler</code>. The <code>Schedule
 is in fact an implicit parameter to <code>runAsync()</code>.</p><p>This action can be cancelled, because it specifies cancellation
 logic. In case we have no cancelable logic to express, then it's
 OK if we returned a
-<a href="../execution/Cancelable$.html#empty:monix.execution.Cancelable.Empty" class="extmbr" name="monix.execution.Cancelable#empty">Cancelable.empty</a> reference,
+<a href="../execution/Cancelable$.html#empty:monix.execution.Cancelable" class="extmbr" name="monix.execution.Cancelable#empty">Cancelable.empty</a> reference,
 in which case the resulting <code>Task</code> would not be cancelable.</p><p>But the <code>Task</code> we just described is cancelable, for one at the
 edge, due to <code>runAsync</code> returning <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>
 and <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> references:</p><pre><span class="cmt">// Triggering execution</span>
@@ -626,7 +656,7 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Safe App type that executes a Task." href="TaskApp.html"><span class="name">TaskApp</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="Safe App type that executes a Task." href="TaskApp.html"><span class="name">TaskApp</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">Safe <code>App</code> type that executes a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Safe <code>App</code> type that executes a <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.  Shutdown occurs after
@@ -652,9 +682,9 @@ with the numeric value of the signal plus 128.</p><pre><span class="kw">import</
 but meant for usage with <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><p>Works on top of JavaScript as well ;-)
 </p></div></div>
     </li><li name="monix.eval.TaskLift" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="TaskLift[F[_]]extendsAnyRef"></a><a id="TaskLift[F[_]]:TaskLift[F]"></a>
+      <a id="TaskLift[F[_]]extendsmonix.eval.Task~&gt;F"></a><a id="TaskLift[F[_]]:TaskLift[F]"></a>
       <span class="permalink">
-      <a href="../../monix/eval/index.html#TaskLift[F[_]]extendsAnyRef" title="Permalink">
+      <a href="../../monix/eval/index.html#TaskLift[F[_]]extendsmonix.eval.Task~&gt;F" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -663,7 +693,7 @@ but meant for usage with <a href="Task.html" class="extype" name="monix.eval.Tas
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="A lawless type class that specifies conversions from Task to similar data types (i.e." href="TaskLift.html"><span class="name">TaskLift</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A lawless type class that specifies conversions from Task to similar data types (i.e." href="TaskLift.html"><span class="name">TaskLift</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.~&gt;">~&gt;</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="monix.eval.TaskLift.F">F</span>]</span>
       </span>
       
       <p class="shortcomment cmt">A lawless type class that specifies conversions from <code>Task</code>
@@ -673,14 +703,14 @@ cancelable).
 </p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
-      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLift[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
+      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLift[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
     </span>)</span>
               
         </dd></dl></div>
     </li><li name="monix.eval.TaskLike" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="TaskLike[F[_]]extendsAnyRef"></a><a id="TaskLike[F[_]]:TaskLike[F]"></a>
+      <a id="TaskLike[F[_]]extendsF~&gt;monix.eval.Task"></a><a id="TaskLike[F[_]]:TaskLike[F]"></a>
       <span class="permalink">
-      <a href="../../monix/eval/index.html#TaskLike[F[_]]extendsAnyRef" title="Permalink">
+      <a href="../../monix/eval/index.html#TaskLike[F[_]]extendsF~&gt;monix.eval.Task" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -689,32 +719,32 @@ cancelable).
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="A lawless type class that provides conversions to Task." href="TaskLike.html"><span class="name">TaskLike</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A lawless type class that provides conversions to Task." href="TaskLike.html"><span class="name">TaskLike</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.~&gt;">~&gt;</span>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
       </span>
       
       <p class="shortcomment cmt">A lawless type class that provides conversions to <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><div class="fullcomment"><div class="comment cmt"><p>A lawless type class that provides conversions to <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p><p>Sample:</p><pre><span class="cmt">// Conversion from cats.Eval</span>
 <span class="kw">import</span> cats.Eval
 
 <span class="kw">val</span> source0 = Eval.always(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task0 = TaskLike[Eval].toTask(source0)
+<span class="kw">val</span> task0 = TaskLike[Eval].apply(source0)
 
 <span class="cmt">// Conversion from Future</span>
 <span class="kw">import</span> scala.concurrent.Future
 
 <span class="kw">val</span> source1 = Future.successful(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task1 = TaskLike[Future].toTask(source1)
+<span class="kw">val</span> task1 = TaskLike[Future].apply(source1)
 
 <span class="cmt">// Conversion from IO</span>
 <span class="kw">import</span> cats.effect.IO
 
 <span class="kw">val</span> source2 = IO(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task2 = TaskLike[IO].toTask(source2)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
+<span class="kw">val</span> task2 = TaskLike[IO].apply(source2)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
 where the internals are specialized to <code>Task</code> anyway, like for
 example the implementation of <code>monix.reactive.Observable</code>.
 </p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
-      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLike[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
+      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLike[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
     </span>)</span>
               
         </dd></dl></div>
@@ -730,7 +760,7 @@ example the implementation of <code>monix.reactive.Observable</code>.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="A TaskLocal is like a ThreadLocal that is pure and with a flexible scope, being processed in the context of the Task data type." href="TaskLocal.html"><span class="name">TaskLocal</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A TaskLocal is like a ThreadLocal that is pure and with a flexible scope, being processed in the context of the Task data type." href="TaskLocal.html"><span class="name">TaskLocal</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <p class="shortcomment cmt">A <code>TaskLocal</code> is like a
@@ -870,10 +900,26 @@ options implicitly:</p><pre>{
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Coeval builders." href="Coeval$.html"><span class="name">Coeval</span></a><span class="result"> extends <span class="extype" name="monix.eval.CoevalInstancesLevel0">CoevalInstancesLevel0</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Coeval builders." href="Coeval$.html"><span class="name">Coeval</span></a><span class="result"> extends <span class="extype" name="monix.eval.CoevalInstancesLevel0">CoevalInstancesLevel0</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt"><a href="Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a> builders.</p>
+    </li><li name="monix.eval.CoevalLift" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CoevalLift"></a><a id="CoevalLift:CoevalLift"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/index.html#CoevalLift" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CoevalLift$.html"><span class="name">CoevalLift</span></a><span class="result"> extends <span class="extype" name="monix.eval.CoevalLiftImplicits0">CoevalLiftImplicits0</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      
     </li><li name="monix.eval.CoevalLike" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CoevalLike"></a><a id="CoevalLike:CoevalLike"></a>
       <span class="permalink">
@@ -886,7 +932,7 @@ options implicitly:</p><pre>{
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="CoevalLike$.html"><span class="name">CoevalLike</span></a><span class="result"> extends <span class="extype" name="monix.eval.CoevalLikeImplicits0">CoevalLikeImplicits0</span></span>
+        <a title="" href="CoevalLike$.html"><span class="name">CoevalLike</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -918,7 +964,7 @@ options implicitly:</p><pre>{
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Builders for Task." href="Task$.html"><span class="name">Task</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskInstancesLevel1">TaskInstancesLevel1</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Builders for Task." href="Task$.html"><span class="name">Task</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskInstancesLevel1">TaskInstancesLevel1</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Builders for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p>
@@ -934,7 +980,7 @@ options implicitly:</p><pre>{
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="TaskLift$.html"><span class="name">TaskLift</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskLiftImplicits0">TaskLiftImplicits0</span></span>
+        <a title="" href="TaskLift$.html"><span class="name">TaskLift</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskLiftImplicits0">TaskLiftImplicits0</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -950,7 +996,7 @@ options implicitly:</p><pre>{
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="TaskLike$.html"><span class="name">TaskLike</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskLikeImplicits0">TaskLikeImplicits0</span></span>
+        <a title="" href="TaskLike$.html"><span class="name">TaskLike</span></a><span class="result"> extends <span class="extype" name="monix.eval.TaskLikeImplicits0">TaskLikeImplicits0</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       
@@ -1044,9 +1090,9 @@ options implicitly:</p><pre>{
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

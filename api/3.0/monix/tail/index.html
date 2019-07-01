@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.tail</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.tail" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.tail" />
+          <title>Monix 3.0.0-RC3 - monix.tail</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.tail" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.tail" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -202,9 +202,9 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="class" href="Iterant.html" title="The Iterant is a type that describes lazy, possibly asynchronous streaming of elements using a pull-based protocol."></a>
                         <a href="Iterant.html" title="The Iterant is a type that describes lazy, possibly asynchronous streaming of elements using a pull-based protocol.">Iterant</a>
                       </li><li class="current-entities indented2">
-                        <a class="object" href="IterantBuilders$.html" title=""></a>
-                        <a class="trait" href="IterantBuilders.html" title="Class defining curried Iterant builders, relieving the user from specifying the A parameter explicitly."></a>
-                        <a href="IterantBuilders.html" title="Class defining curried Iterant builders, relieving the user from specifying the A parameter explicitly.">IterantBuilders</a>
+                        <span class="separator"></span>
+                        <a class="object" href="IterantBuilders$.html" title="IterantBuilders.Apply is a set of builders for Iterant returned by Iterant.apply"></a>
+                        <a href="IterantBuilders$.html" title="IterantBuilders.Apply is a set of builders for Iterant returned by Iterant.apply">IterantBuilders</a>
                       </li>
               </ul>
             </div>
@@ -280,7 +280,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="The Iterant is a type that describes lazy, possibly asynchronous streaming of elements using a pull-based protocol." href="Iterant.html"><span class="name">Iterant</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="The Iterant is a type that describes lazy, possibly asynchronous streaming of elements using a pull-based protocol." href="Iterant.html"><span class="name">Iterant</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">The <code>Iterant</code> is a type that describes lazy, possibly asynchronous
@@ -336,26 +336,6 @@ streaming abstractions, like the <code>Iteratee</code> or <code>IAsyncEnumerable
 </p></div><dl class="paramcmts block"><dt class="tparam">F</dt><dd class="cmt"><p>is the data type that controls evaluation; note that
         it must be stack-safe in its <code>map</code> and <code>flatMap</code>
         operations</p></dd><dt class="tparam">A</dt><dd class="cmt"><p>is the type of the elements produced by this Iterant</p></dd></dl></div>
-    </li><li name="monix.tail.IterantBuilders" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="IterantBuilders[F[_]]extendsAny"></a><a id="IterantBuilders[F[_]]:IterantBuilders[F]"></a>
-      <span class="permalink">
-      <a href="../../monix/tail/index.html#IterantBuilders[F[_]]extendsAny" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">sealed </span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a title="Class defining curried Iterant builders, relieving the user from specifying the A parameter explicitly." href="IterantBuilders.html"><span class="name">IterantBuilders</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>
-      </span>
-      
-      <p class="shortcomment cmt">Class defining curried <code>Iterant</code> builders, relieving the user from
-specifying the <code>A</code> parameter explicitly.</p><div class="fullcomment"><div class="comment cmt"><p>Class defining curried <code>Iterant</code> builders, relieving the user from
-specifying the <code>A</code> parameter explicitly.</p><p>This is used to achieve the
-<a href="https://typelevel.org/cats/guidelines.html#partially-applied-type-params" target="_blank">Partially-Applied Type</a>
-technique.</p><p>So instead of having to do:</p><pre>Iterant.pure[Task, <span class="std">Int</span>](<span class="num">1</span>)</pre><p>You can do:</p><pre>Iterant[Task].pure(<span class="num">1</span>)</pre></div></div>
     </li></ol>
             </div>
 
@@ -376,11 +356,11 @@ technique.</p><p>So instead of having to do:</p><pre>Iterant.pure[Task, <span cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="Defines the standard Iterant builders." href="Iterant$.html"><span class="name">Iterant</span></a><span class="result"> extends <span class="extype" name="monix.tail.IterantInstances">IterantInstances</span> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Defines the standard Iterant builders." href="Iterant$.html"><span class="name">Iterant</span></a><span class="result"> extends <span class="extype" name="monix.tail.IterantInstances">IterantInstances</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Defines the standard <a href="Iterant.html" class="extype" name="monix.tail.Iterant">Iterant</a> builders.</p>
-    </li><li name="monix.tail.IterantBuilders" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="monix.tail.IterantBuilders" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="IterantBuilders"></a><a id="IterantBuilders:IterantBuilders"></a>
       <span class="permalink">
       <a href="../../monix/tail/index.html#IterantBuilders" title="Permalink">
@@ -392,10 +372,16 @@ technique.</p><p>So instead of having to do:</p><pre>Iterant.pure[Task, <span cl
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="IterantBuilders$.html"><span class="name">IterantBuilders</span></a>
+        <a title="IterantBuilders.Apply is a set of builders for Iterant returned by Iterant.apply" href="IterantBuilders$.html"><span class="name">IterantBuilders</span></a>
       </span>
       
-      
+      <p class="shortcomment cmt"><a href="IterantBuilders$$Apply.html" class="extype" name="monix.tail.IterantBuilders.Apply">IterantBuilders.Apply</a> is a set of builders for <code>Iterant</code> returned
+by <a href="Iterant$.html#apply[F[_]]:monix.tail.IterantBuilders.Apply[F]" class="extmbr" name="monix.tail.Iterant#apply">Iterant.apply</a></p><div class="fullcomment"><div class="comment cmt"><p><a href="IterantBuilders$$Apply.html" class="extype" name="monix.tail.IterantBuilders.Apply">IterantBuilders.Apply</a> is a set of builders for <code>Iterant</code> returned
+by <a href="Iterant$.html#apply[F[_]]:monix.tail.IterantBuilders.Apply[F]" class="extmbr" name="monix.tail.Iterant#apply">Iterant.apply</a></p><p>This is used to achieve the
+<a href="https://typelevel.org/cats/guidelines.html#partially-applied-type-params" target="_blank">Partially-Applied Type</a>
+technique.</p><p>So instead of having to do:</p><pre><span class="kw">import</span> monix.eval.Task
+
+Iterant.pure[Task, <span class="std">Int</span>](<span class="num">1</span>)</pre><p>You can do:</p><pre>Iterant[Task].pure(<span class="num">1</span>)</pre></div></div>
     </li>
               </ol>
             </div>
