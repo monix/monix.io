@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.reactive.OverflowStrategy.ClearBufferAndSignal</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.reactive.OverflowStrategy.ClearBufferAndSignal" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.reactive.OverflowStrategy.ClearBufferAndSignal" />
+          <title>Monix 3.0.0-RC3 - monix.reactive.OverflowStrategy.ClearBufferAndSignal</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.reactive.OverflowStrategy.ClearBufferAndSignal" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.reactive.OverflowStrategy.ClearBufferAndSignal" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -129,7 +129,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="OverflowStrategy$.html"><span class="name">OverflowStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="" href="OverflowStrategy$.html"><span class="name">OverflowStrategy</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.reactive">reactive</a></dd></dl></div>
@@ -200,7 +200,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ClearBufferAndSignal</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="bufferSize">bufferSize: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="onOverflow">onOverflow: (<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]</span>)</span><span class="result"> extends <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">ClearBufferAndSignal</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="bufferSize">bufferSize: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="onOverflow">onOverflow: (<a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]]</span>)</span><span class="result"> extends <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>] with <a href="http://www.scala-lang.org/api/2.12.8/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -214,11 +214,11 @@ case no message is sent and thus you can use it just to log a warning.
 </p></div><dl class="paramcmts block"><dt class="param">bufferSize</dt><dd class="cmt"><p>specifies how many events our buffer can hold
        before overflowing</p></dd><dt class="param">onOverflow</dt><dd class="cmt"><p>is a function that can get called on overflow with
        a number of messages that were dropped, a function that builds
-       a new message that will be sent to downstream.</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-reactive/shared/src/main/scala/monix/reactive/OverflowStrategy.scala" target="_blank">OverflowStrategy.scala</a></dd></dl><div class="toggleContainer block">
+       a new message that will be sent to downstream.</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-reactive/shared/src/main/scala/monix/reactive/OverflowStrategy.scala" target="_blank">OverflowStrategy.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="OverflowStrategy$$Synchronous.html" class="extype" name="monix.reactive.OverflowStrategy.Synchronous">Synchronous</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a>, <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="OverflowStrategy$$Synchronous.html" class="extype" name="monix.reactive.OverflowStrategy.Synchronous">Synchronous</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -265,9 +265,9 @@ case no message is sent and thus you can use it just to log a warning.
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="monix.reactive.OverflowStrategy.ClearBufferAndSignal#&lt;init&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="&lt;init&gt;(bufferSize:Int,onOverflow:Long=&gt;Option[A]):monix.reactive.OverflowStrategy.ClearBufferAndSignal[A]"></a><a id="&lt;init&gt;:ClearBufferAndSignal[A]"></a>
+      <a id="&lt;init&gt;(bufferSize:Int,onOverflow:Long=&gt;monix.eval.Coeval[Option[A]]):monix.reactive.OverflowStrategy.ClearBufferAndSignal[A]"></a><a id="&lt;init&gt;:ClearBufferAndSignal[A]"></a>
       <span class="permalink">
-      <a href="../../monix/reactive/OverflowStrategy$$ClearBufferAndSignal.html#&lt;init&gt;(bufferSize:Int,onOverflow:Long=&gt;Option[A]):monix.reactive.OverflowStrategy.ClearBufferAndSignal[A]" title="Permalink">
+      <a href="../../monix/reactive/OverflowStrategy$$ClearBufferAndSignal.html#&lt;init&gt;(bufferSize:Int,onOverflow:Long=&gt;monix.eval.Coeval[Option[A]]):monix.reactive.OverflowStrategy.ClearBufferAndSignal[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -276,7 +276,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ClearBufferAndSignal</span><span class="params">(<span name="bufferSize">bufferSize: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="onOverflow">onOverflow: (<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]</span>)</span>
+        <span class="name">ClearBufferAndSignal</span><span class="params">(<span name="bufferSize">bufferSize: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>, <span name="onOverflow">onOverflow: (<a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]]</span>)</span>
       </span>
       
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">bufferSize</dt><dd class="cmt"><p>specifies how many events our buffer can hold
@@ -305,7 +305,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -321,7 +321,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -337,7 +337,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -369,7 +369,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">bufferSize</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">bufferSize</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal">ClearBufferAndSignal</a> → <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a></dd></dl></div>
@@ -385,7 +385,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -409,7 +409,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -425,7 +425,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -466,7 +466,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">isEvicted</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isEvicted</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a> → <a href="OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a></dd></dl></div>
@@ -482,7 +482,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -498,7 +498,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">isSynchronous</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isSynchronous</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="OverflowStrategy$$Synchronous.html" class="extype" name="monix.reactive.OverflowStrategy.Synchronous">Synchronous</a> → <a href="OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a></dd></dl></div>
@@ -514,7 +514,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -530,7 +530,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -549,7 +549,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -557,9 +557,9 @@ case no message is sent and thus you can use it just to log a warning.
               
         </dd></dl></div>
     </li><li name="monix.reactive.OverflowStrategy.ClearBufferAndSignal#onOverflow" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="onOverflow:Long=&gt;Option[A]"></a><a id="onOverflow:(Long)⇒Option[A]"></a>
+      <a id="onOverflow:Long=&gt;monix.eval.Coeval[Option[A]]"></a><a id="onOverflow:(Long)⇒Coeval[Option[A]]"></a>
       <span class="permalink">
-      <a href="../../monix/reactive/OverflowStrategy$$ClearBufferAndSignal.html#onOverflow:Long=&gt;Option[A]" title="Permalink">
+      <a href="../../monix/reactive/OverflowStrategy$$ClearBufferAndSignal.html#onOverflow:Long=&gt;monix.eval.Coeval[Option[A]]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -568,7 +568,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">onOverflow</span><span class="result">: (<a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]</span>
+        <span class="name">onOverflow</span><span class="result">: (<a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a>) ⇒ <a href="../eval/Coeval.html" class="extype" name="monix.eval.Coeval">Coeval</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]]</span>
       </span>
       
       
@@ -600,7 +600,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -622,7 +622,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -644,7 +644,7 @@ case no message is sent and thus you can use it just to log a warning.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -667,9 +667,9 @@ case no message is sent and thus you can use it just to log a warning.
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Product">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Product.html#scala.Product" class="extype" name="scala.Product">Product</a></h3>
             </div><div class="parent" name="scala.Equals">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Equals.html#scala.Equals" class="extype" name="scala.Equals">Equals</a></h3>
             </div><div class="parent" name="monix.reactive.OverflowStrategy.Evicted">
               <h3>Inherited from <a href="OverflowStrategy$$Evicted.html" class="extype" name="monix.reactive.OverflowStrategy.Evicted">Evicted</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]</h3>
             </div><div class="parent" name="monix.reactive.OverflowStrategy.Synchronous">
@@ -677,13 +677,13 @@ case no message is sent and thus you can use it just to log a warning.
             </div><div class="parent" name="monix.reactive.OverflowStrategy">
               <h3>Inherited from <a href="OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a>[<span class="extype" name="monix.reactive.OverflowStrategy.ClearBufferAndSignal.A">A</span>]</h3>
             </div><div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

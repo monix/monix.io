@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.eval.TaskLike</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.eval.TaskLike" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.eval.TaskLike" />
+          <title>Monix 3.0.0-RC3 - monix.eval.TaskLike</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval.TaskLike" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval.TaskLike" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -138,6 +138,10 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">Coeval</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="CoevalLift$.html" title=""></a>
+                        <a class="trait" href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e."></a>
+                        <a href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e.">CoevalLift</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="CoevalLike$.html" title=""></a>
                         <a class="trait" href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval."></a>
                         <a href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval.">CoevalLike</a>
@@ -202,7 +206,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">TaskLike</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">TaskLike</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <span class="extype" name="cats.~&gt;">~&gt;</span>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
       </span>
       </h4>
 
@@ -211,32 +215,32 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
 <span class="kw">import</span> cats.Eval
 
 <span class="kw">val</span> source0 = Eval.always(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task0 = TaskLike[Eval].toTask(source0)
+<span class="kw">val</span> task0 = TaskLike[Eval].apply(source0)
 
 <span class="cmt">// Conversion from Future</span>
 <span class="kw">import</span> scala.concurrent.Future
 
 <span class="kw">val</span> source1 = Future.successful(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task1 = TaskLike[Future].toTask(source1)
+<span class="kw">val</span> task1 = TaskLike[Future].apply(source1)
 
 <span class="cmt">// Conversion from IO</span>
 <span class="kw">import</span> cats.effect.IO
 
 <span class="kw">val</span> source2 = IO(<span class="num">1</span> + <span class="num">1</span>)
-<span class="kw">val</span> task2 = TaskLike[IO].toTask(source2)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
+<span class="kw">val</span> task2 = TaskLike[IO].apply(source2)</pre><p>This is an alternative to usage of <code>cats.effect.Effect</code>
 where the internals are specialized to <code>Task</code> anyway, like for
 example the implementation of <code>monix.reactive.Observable</code>.
 </p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
                 <span class="name">@implicitNotFound</span><span class="args">(<span>
       
-      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLike[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
+      <span class="defval" name="&quot;&quot;&quot;Cannot find implicit value for TaskLike[${F}].<br/>Building this implicit value might depend on having an implicit<br/>s.c.ExecutionContext in scope, a Scheduler or some equivalent type.&quot;&quot;&quot;">...</span>
     </span>)</span>
               
-        </dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/TaskLike.scala" target="_blank">TaskLike.scala</a></dd></dl><div class="toggleContainer block">
+        </dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/TaskLike.scala" target="_blank">TaskLike.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>], <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -262,7 +266,7 @@ example the implementation of <code>monix.reactive.Observable</code>.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.eval.TaskLike"><span>TaskLike</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.eval.TaskLike"><span>TaskLike</span></li><li class="in" name="cats.arrow.FunctionK"><span>FunctionK</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -286,10 +290,10 @@ example the implementation of <code>monix.reactive.Observable</code>.
 
         <div class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="monix.eval.TaskLike#toTask" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
-      <a id="toTask[A](fa:F[A]):monix.eval.Task[A]"></a><a id="toTask[A](F[A]):Task[A]"></a>
+              <ol><li name="monix.eval.TaskLike#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="apply[A](fa:F[A]):monix.eval.Task[A]"></a><a id="apply[A](F[A]):Task[A]"></a>
       <span class="permalink">
-      <a href="../../monix/eval/TaskLike.html#toTask[A](fa:F[A]):monix.eval.Task[A]" title="Permalink">
+      <a href="../../monix/eval/TaskLike.html#apply[A](fa:F[A]):monix.eval.Task[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -298,12 +302,15 @@ example the implementation of <code>monix.reactive.Observable</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toTask</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.eval.TaskLike.F">F</span>[<span class="extype" name="monix.eval.TaskLike.toTask.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.TaskLike.toTask.A">A</span>]</span>
+        <span class="name">apply</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.eval.TaskLike.F">F</span>[<span class="extype" name="monix.eval.TaskLike.apply.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.TaskLike.apply.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Converts from <code>F[A]</code> to <code>Task[A]</code>, preserving referential
 transparency if <code>F[_]</code> is a pure data type and preserving
-interruptibility if the source is cancelable.</p>
+interruptibility if the source is cancelable.</p><div class="fullcomment"><div class="comment cmt"><p>Converts from <code>F[A]</code> to <code>Task[A]</code>, preserving referential
+transparency if <code>F[_]</code> is a pure data type and preserving
+interruptibility if the source is cancelable.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.eval.TaskLike">TaskLike</a> → FunctionK</dd></dl></div>
     </li></ol>
             </div>
 
@@ -322,7 +329,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -338,7 +345,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -354,10 +361,42 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="cats.arrow.FunctionK#and" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="and[H[_]](h:cats.arrow.FunctionK[F,H]):cats.arrow.FunctionK[F,[γ$4$]cats.data.Tuple2K[G,H,γ$4$]]"></a><a id="and[H[_]](FunctionK[F,H]):FunctionK[F,[γ$4$]Tuple2K[Task,H,γ$4$]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/TaskLike.html#and[H[_]](h:cats.arrow.FunctionK[F,H]):cats.arrow.FunctionK[F,[γ$4$]cats.data.Tuple2K[G,H,γ$4$]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">and</span><span class="tparams">[<span name="H">H<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="h">h: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <span class="extype" name="cats.arrow.FunctionK.and.H">H</span>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, [γ$4$]<span class="extype" name="cats.data.Tuple2K">Tuple2K</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="cats.arrow.FunctionK.and.H">H</span>, <span class="extype" name="cats.arrow.FunctionK.&lt;refinement&gt;.Λ$.γ$4$">γ$4$</span>]]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>FunctionK</dd></dl></div>
+    </li><li name="cats.arrow.FunctionK#andThen" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="andThen[H[_]](f:cats.arrow.FunctionK[G,H]):cats.arrow.FunctionK[F,H]"></a><a id="andThen[H[_]](FunctionK[Task,H]):FunctionK[F,H]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/TaskLike.html#andThen[H[_]](f:cats.arrow.FunctionK[G,H]):cats.arrow.FunctionK[F,H]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">andThen</span><span class="tparams">[<span name="H">H<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="f">f: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>, <span class="extype" name="cats.arrow.FunctionK.andThen.H">H</span>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <span class="extype" name="cats.arrow.FunctionK.andThen.H">H</span>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>FunctionK</dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -386,7 +425,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -398,6 +437,22 @@ interruptibility if the source is cancelable.</p>
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="cats.arrow.FunctionK#compose" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="compose[E[_]](f:cats.arrow.FunctionK[E,F]):cats.arrow.FunctionK[E,G]"></a><a id="compose[E[_]](FunctionK[E,F]):FunctionK[E,Task]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/TaskLike.html#compose[E[_]](f:cats.arrow.FunctionK[E,F]):cats.arrow.FunctionK[E,G]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">compose</span><span class="tparams">[<span name="E">E<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="f">f: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="cats.arrow.FunctionK.compose.E">E</span>, <span class="extype" name="monix.eval.TaskLike.F">F</span>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="cats.arrow.FunctionK.compose.E">E</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>FunctionK</dd></dl></div>
     </li><li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="eq(x$1:AnyRef):Boolean"></a><a id="eq(AnyRef):Boolean"></a>
       <span class="permalink">
@@ -410,7 +465,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -426,7 +481,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -442,7 +497,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -483,7 +538,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -502,7 +557,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -518,7 +573,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -534,7 +589,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -553,13 +608,29 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="cats.arrow.FunctionK#or" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="or[H[_]](h:cats.arrow.FunctionK[H,G]):cats.arrow.FunctionK[[γ$1$]cats.data.EitherK[F,H,γ$1$],G]"></a><a id="or[H[_]](FunctionK[H,Task]):FunctionK[[γ$1$]EitherK[F,H,γ$1$],Task]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/TaskLike.html#or[H[_]](h:cats.arrow.FunctionK[H,G]):cats.arrow.FunctionK[[γ$1$]cats.data.EitherK[F,H,γ$1$],G]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">or</span><span class="tparams">[<span name="H">H<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="h">h: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="cats.arrow.FunctionK.or.H">H</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>)</span><span class="result">: <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[[γ$1$]<span class="extype" name="cats.data.EitherK">EitherK</span>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <span class="extype" name="cats.arrow.FunctionK.or.H">H</span>, <span class="extype" name="cats.arrow.FunctionK.&lt;refinement&gt;.Λ$.γ$1$">γ$1$</span>], <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</span>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>FunctionK</dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -604,7 +675,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -626,7 +697,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -648,7 +719,7 @@ interruptibility if the source is cancelable.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -670,10 +741,16 @@ interruptibility if the source is cancelable.</p>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+        <div class="parent" name="cats.arrow.FunctionK">
+              <h3>Inherited from <a href="http://typelevel.org/cats/api/cats/arrow/FunctionK.html#cats.arrow.FunctionK" class="extype" name="cats.arrow.FunctionK">FunctionK</a>[<span class="extype" name="monix.eval.TaskLike.F">F</span>, <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>]</h3>
+            </div><div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

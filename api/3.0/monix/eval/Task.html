@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.eval.Task</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.eval.Task" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.eval.Task" />
+          <title>Monix 3.0.0-RC3 - monix.eval.Task</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval.Task" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval.Task" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -138,6 +138,10 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="class" href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously."></a>
                         <a href="Coeval.html" title="Coeval represents lazy computations that can execute synchronously.">Coeval</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="CoevalLift$.html" title=""></a>
+                        <a class="trait" href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e."></a>
+                        <a href="CoevalLift.html" title="A lawless type class that specifies conversions from Coeval to similar data types (i.e.">CoevalLift</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="CoevalLike$.html" title=""></a>
                         <a class="trait" href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval."></a>
                         <a href="CoevalLike.html" title="A lawless type class that provides conversions to Coeval.">CoevalLike</a>
@@ -202,7 +206,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Task</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">Task</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
@@ -238,7 +242,7 @@ not yet. To make the above print its message:</p><pre><span class="kw">import</s
 <span class="kw">val</span> f: CancelableFuture[<span class="std">Unit</span>] = sayHello.runToFuture
 <span class="cmt">// => Hello World!</span></pre><p>The returned type is a
 <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> which
-inherits from Scala's standard <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a>,
+inherits from Scala's standard <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a>,
 a value that can be completed already or might be completed at
 some point in the future, once the running asynchronous process
 finishes. Such a future value can also be canceled, see below.</p><h3>Laziness, Purity and Referential Transparency</h3><p>The fact that <code>Task</code> is lazy whereas <code>Future</code> is not
@@ -270,11 +274,11 @@ course).</p><p>But here's something else that the <code>Future</code> data type 
 }.memoizeOnSuccess</pre><p>This keeps repeating the computation for as long as the result is a
 failure and caches it only on success. Yes we can!</p><p><i>WARNING:</i> as awesome as <code>memoize</code> can be, use with care
 because memoization can break referential transparency!</p><h4>Parallelism</h4><p>Because of laziness, invoking
-<a href="Task$.html#sequence[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">Task.sequence</a> will not work like
+<a href="Task$.html#sequence[A,M[X]&lt;:Iterable[X]](in:M[monix.eval.Task[A]])(implicitbf:monix.execution.compat.BuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#sequence">Task.sequence</a> will not work like
 it does for <code>Future.sequence</code>, the given <code>Task</code> values being
 evaluated one after another, in <i>sequence</i>, not in <i>parallel</i>.
 If you want parallelism, then you need to use
-<a href="Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">Task.gather</a> and thus be explicit about it.</p><p>This is great because it gives you the possibility of fine tuning the
+<a href="Task$.html#gather[A,M[X]&lt;:Iterable[X]](in:M[monix.eval.Task[A]])(implicitbf:monix.execution.compat.BuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">Task.gather</a> and thus be explicit about it.</p><p>This is great because it gives you the possibility of fine tuning the
 execution. For example, say you want to execute things in parallel,
 but with a maximum limit of 30 tasks being executed in parallel.
 One way of doing that is to process your list in batches:</p><pre><span class="cmt">// Some array of tasks, you come up with something good :-)</span>
@@ -282,7 +286,7 @@ One way of doing that is to process your list in batches:</p><pre><span class="c
 
 <span class="cmt">// Split our list in chunks of 30 items per chunk,</span>
 <span class="cmt">// this being the maximum parallelism allowed</span>
-<span class="kw">val</span> chunks = list.sliding(<span class="num">30</span>, <span class="num">30</span>)
+<span class="kw">val</span> chunks = list.sliding(<span class="num">30</span>, <span class="num">30</span>).toSeq
 
 <span class="cmt">// Specify that each batch should process stuff in parallel</span>
 <span class="kw">val</span> batchedTasks = chunks.map(chunk <span class="kw">=&gt;</span> Task.gather(chunk))
@@ -290,7 +294,7 @@ One way of doing that is to process your list in batches:</p><pre><span class="c
 <span class="kw">val</span> allBatches = Task.sequence(batchedTasks)
 
 <span class="cmt">// Flatten the result, within the context of Task</span>
-<span class="kw">val</span> all: Task[Iterator[<span class="std">Int</span>]] = allBatches.map(_.flatten)</pre><p>Note that the built <code>Task</code> reference is just a specification at
+<span class="kw">val</span> all: Task[<span class="std">Seq</span>[<span class="std">Int</span>]] = allBatches.map(_.flatten)</pre><p>Note that the built <code>Task</code> reference is just a specification at
 this point, or you can view it as a function, as nothing has
 executed yet, you need to call <a href="#runAsync(cb:Either[Throwable,A]=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.Cancelable" class="extmbr" name="monix.eval.Task#runAsync">runAsync</a>
 or <a href="#runToFuture(implicits:monix.execution.Scheduler):monix.execution.CancelableFuture[A]" class="extmbr" name="monix.eval.Task#runToFuture">runToFuture</a> explicitly.</p><h3>Cancellation</h3><p>The logic described by an <code>Task</code> task could be cancelable,
@@ -319,7 +323,7 @@ itself is scheduled with the injected <code>Scheduler</code>. The <code>Schedule
 is in fact an implicit parameter to <code>runAsync()</code>.</p><p>This action can be cancelled, because it specifies cancellation
 logic. In case we have no cancelable logic to express, then it's
 OK if we returned a
-<a href="../execution/Cancelable$.html#empty:monix.execution.Cancelable.Empty" class="extmbr" name="monix.execution.Cancelable#empty">Cancelable.empty</a> reference,
+<a href="../execution/Cancelable$.html#empty:monix.execution.Cancelable" class="extmbr" name="monix.execution.Cancelable#empty">Cancelable.empty</a> reference,
 in which case the resulting <code>Task</code> would not be cancelable.</p><p>But the <code>Task</code> we just described is cancelable, for one at the
 edge, due to <code>runAsync</code> returning <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a>
 and <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> references:</p><pre><span class="cmt">// Triggering execution</span>
@@ -361,11 +365,11 @@ execution after executing <code>runAsync</code>.</p><p>Currently the default
 <a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> specifies
 batched execution by default and <code>Task</code> in its evaluation respects
 the injected <code>ExecutionModel</code>. If you want a different behavior,
-you need to execute the <code>Task</code> reference with a different scheduler.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+you need to execute the <code>Task</code> reference with a different scheduler.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -430,7 +434,7 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -446,7 +450,7 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -462,7 +466,7 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -574,7 +578,7 @@ from the source.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bracket</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracket.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracket.B">B</span>]</span>
+        <span class="name">bracket</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracket.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracket.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a task that treats the source task as the acquisition of a resource,
@@ -654,7 +658,7 @@ and cancellation.</p><p><b>NOTE on error handling</b>: one big
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bracketCase</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketCase.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketCase.B">B</span>]</span>
+        <span class="name">bracketCase</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketCase.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketCase.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a new task that treats the source task as the
@@ -692,7 +696,7 @@ parameter.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bracketE</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketE.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>], <span class="extype" name="monix.eval.Task.bracketE.B">B</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketE.B">B</span>]</span>
+        <span class="name">bracketE</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="use">use: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketE.B">B</span>]</span>)</span><span class="params">(<span name="release">release: (<span class="extype" name="monix.eval.Task.A">A</span>, <span class="extype" name="scala.Either">Either</span>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>], <span class="extype" name="monix.eval.Task.bracketE.B">B</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.bracketE.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a task that treats the source task as the acquisition of a resource,
@@ -739,7 +743,7 @@ caller to differentiate between normal termination and cancellation.</p><p>The <
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -763,7 +767,7 @@ caller to differentiate between normal termination and cancellation.</p><p>The <
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">delayExecution</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">delayExecution</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a task that waits for the specified <code>timespan</code> before
@@ -789,7 +793,7 @@ task on time, but delays the signaling of the result.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">delayResult</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">delayResult</span><span class="params">(<span name="timespan">timespan: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a task that executes the source immediately on <code>runAsync</code>,
@@ -821,7 +825,7 @@ before it is finally emitted:</p><pre>Task(<span class="num">1</span> + <span cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">dematerialize</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="monix.eval.Task.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]</span>
+        <span class="name">dematerialize</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="ev">ev: <span class="extype" name="scala.Predef.&lt;:&lt;">&lt;:&lt;</span>[<span class="extype" name="monix.eval.Task.A">A</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.dematerialize.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Dematerializes the source's result from a <code>Try</code>.</p>
@@ -837,7 +841,7 @@ before it is finally emitted:</p><pre>Task(<span class="num">1</span> + <span cl
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">doOnCancel</span><span class="params">(<span name="callback">callback: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">doOnCancel</span><span class="params">(<span name="callback">callback: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a new <code>Task</code> that will mirror the source, but that will
@@ -860,7 +864,7 @@ for triggering callbacks when the source finishes.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">doOnFinish</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.12.7/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">doOnFinish</span><span class="params">(<span name="f">f: (<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a new <code>Task</code> in which <code>f</code> is scheduled to be run on
@@ -885,7 +889,7 @@ canceling a task.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -901,7 +905,7 @@ canceling a task.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -946,7 +950,7 @@ start the run-loop in <code>runAsync</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">executeOn</span><span class="params">(<span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="forceAsync">forceAsync: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">true</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">executeOn</span><span class="params">(<span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="forceAsync">forceAsync: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a> = <span class="symbol">true</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Overrides the default <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>,
@@ -1111,7 +1115,7 @@ otherwise if the source succeeds the result will fail with a
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1169,14 +1173,17 @@ Task by the source.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foreach</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">foreach</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the evaluation of the source, executing the given
 function for the generated element.</p><div class="fullcomment"><div class="comment cmt"><p>Triggers the evaluation of the source, executing the given
 function for the generated element.</p><p>The application of this function has strict behavior, as the
 task is immediately executed.</p><p>Exceptions in <code>f</code> are reported using provided (implicit) Scheduler
-</p></div></div>
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@<a href="../execution/annotations/UnsafeBecauseImpure.html" class="extype" name="monix.execution.annotations.UnsafeBecauseImpure">UnsafeBecauseImpure</a></span><span class="args">()</span>
+              
+        </dd></dl></div>
     </li><li name="monix.eval.Task#foreachL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="foreachL(f:A=&gt;Unit):monix.eval.Task[Unit]"></a><a id="foreachL((A)⇒Unit):Task[Unit]"></a>
       <span class="permalink">
@@ -1189,7 +1196,7 @@ task is immediately executed.</p><p>Exceptions in <code>f</code> are reported us
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">foreachL</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">foreachL</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a new task that upon evaluation will execute the given
@@ -1211,7 +1218,7 @@ obviously nothing gets executed at this point.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">forkAndForget</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+        <span class="name">forkAndForget</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Start asynchronous execution of the source suspended in the <code>Task</code> context,
@@ -1248,7 +1255,7 @@ running it in the background and discarding the result.</p><p>Similar to <a href
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">guarantee</span><span class="params">(<span name="finalizer">finalizer: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">guarantee</span><span class="params">(<span name="finalizer">finalizer: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Executes the given <code>finalizer</code> when the source is finished,
@@ -1271,7 +1278,7 @@ for the acquisition and release of resources.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">guaranteeCase</span><span class="params">(<span name="finalizer">finalizer: (<span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">guaranteeCase</span><span class="params">(<span name="finalizer">finalizer: (<span class="extype" name="cats.effect.ExitCase">ExitCase</span>[<span class="extype" name="scala.Throwable">Throwable</span>]) ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Executes the given <code>finalizer</code> when the source is finished,
@@ -1296,7 +1303,7 @@ for the acquisition and release of resources.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -1315,7 +1322,7 @@ for the acquisition and release of resources.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -1331,7 +1338,7 @@ for the acquisition and release of resources.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">loopForever</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>]</span>
+        <span class="name">loopForever</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Nothing.html#scala.Nothing" class="extype" name="scala.Nothing">Nothing</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a new <code>Task</code> that repeatedly executes the source as long
@@ -1373,7 +1380,7 @@ of the source.</p><p>This equivalence with <a href="#flatMap[B](f:A=&gt;monix.ev
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">materialize</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.7/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.A">A</span>]]</span>
+        <span class="name">materialize</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/util/Try.html#scala.util.Try" class="extype" name="scala.util.Try">Try</a>[<span class="extype" name="monix.eval.Task.A">A</span>]]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new <a href="" class="extype" name="monix.eval.Task">Task</a> that will expose any triggered error from
@@ -1496,7 +1503,7 @@ invocations. Use <a href="#memoize:monix.eval.Task[A]" class="extmbr" name="moni
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -1512,7 +1519,7 @@ invocations. Use <a href="#memoize:monix.eval.Task[A]" class="extmbr" name="moni
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1531,7 +1538,7 @@ invocations. Use <a href="#memoize:monix.eval.Task[A]" class="extmbr" name="moni
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -1647,7 +1654,7 @@ this task might emit by executing another task.</p><p>See <a href="#onErrorRecov
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRecover</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>
+        <span class="name">onErrorRecover</span><span class="tparams">[<span name="U">U &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.8/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecover.U">U</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new task that on error will try to map the error
@@ -1666,7 +1673,7 @@ to another value using the provided partial function.</p><p>See <a href="#onErro
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRecoverWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.7/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]</span>
+        <span class="name">onErrorRecoverWith</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.8/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="scala.Throwable">Throwable</span>, <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.onErrorRecoverWith.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new task that will try recovering from an error by
@@ -1685,7 +1692,7 @@ matching it with another task using the given partial function.</p><p>See <a hre
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRestart</span><span class="params">(<span name="maxRetries">maxRetries: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">onErrorRestart</span><span class="params">(<span name="maxRetries">maxRetries: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new task that in case of error will retry executing the
@@ -1705,7 +1712,7 @@ will be <code>maxRetries + 1</code>.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">onErrorRestartIf</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">onErrorRestartIf</span><span class="params">(<span name="p">p: (<span class="extype" name="scala.Throwable">Throwable</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a new task that in case of error will retry executing the
@@ -1837,7 +1844,7 @@ this equivalence being available:</p><p><code>task.redeemWith(recover, bind) &lt
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">restartUntil</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">restartUntil</span><span class="params">(<span name="p">p: (<span class="extype" name="monix.eval.Task.A">A</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Given a predicate function, keep retrying the
@@ -1854,7 +1861,7 @@ task until the function returns true.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsync</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+        <span class="name">runAsync</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution, with a provided callback
@@ -1900,7 +1907,7 @@ task.runAsync(<span class="kw">new</span> Callback[Throwable, <span class="std">
     println(s<span class="lit">"Received: $$str"</span>)
   <span class="kw">def</span> onError(e: Throwable) =
     global.reportFailure(e)
-})</pre><p>Example equivalent with <a href="#runAsyncAndForget(implicits:monix.execution.Scheduler):Unit" class="extmbr" name="monix.eval.Task#runAsyncAndForget">runAsyncAndForget</a>:</p><pre>task.runAsync(Callback.empty)</pre><p>Completing a <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Promise.html" class="extype" name="scala.concurrent.Promise">scala.concurrent.Promise</a>:</p><pre><span class="kw">import</span> scala.concurrent.Promise
+})</pre><p>Example equivalent with <a href="#runAsyncAndForget(implicits:monix.execution.Scheduler):Unit" class="extmbr" name="monix.eval.Task#runAsyncAndForget">runAsyncAndForget</a>:</p><pre>task.runAsync(Callback.empty)</pre><p>Completing a <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Promise.html" class="extype" name="scala.concurrent.Promise">scala.concurrent.Promise</a>:</p><pre><span class="kw">import</span> scala.concurrent.Promise
 
 <span class="kw">val</span> p = Promise[<span class="std">String</span>]()
 task.runAsync(Callback.fromPromise(p))</pre><p><b>UNSAFE (referential transparency)</b> —
@@ -1917,7 +1924,7 @@ task.runAsync(Callback.fromPromise(p))</pre><p><b>UNSAFE (referential transparen
         a very different abstraction.</p></div><dl class="paramcmts block"><dt class="param">cb</dt><dd class="cmt"><p>is a callback that will be invoked upon
         completion, either with a successful result, or with an error;
         note that you can use <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">monix.execution.Callback</a> for extra
-        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.7/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
+        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.8/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
         <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> that gets used
         whenever asynchronous boundaries are needed when
         evaluating the task; a <code>Scheduler</code> is in general needed
@@ -1938,7 +1945,7 @@ task.runAsync(Callback.fromPromise(p))</pre><p><b>UNSAFE (referential transparen
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncAndForget</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">runAsyncAndForget</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution of the source task
@@ -1984,7 +1991,7 @@ task.runAsyncAndForget</pre><p><b>UNSAFE (referential transparency)</b> —
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncAndForgetOpt</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">runAsyncAndForgetOpt</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution in a &quot;fire and forget&quot;
@@ -2027,7 +2034,7 @@ of running as a &quot;fire and forget&quot;.</p><p><b>UNSAFE (referential transp
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncF</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="cats.effect.CancelToken">CancelToken</span>[<a href="" class="extype" name="monix.eval.Task">Task</a>]</span>
+        <span class="name">runAsyncF</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <span class="extype" name="cats.effect.CancelToken">CancelToken</span>[<a href="" class="extype" name="monix.eval.Task">Task</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution, returning a <code>Task[Unit]</code>
@@ -2086,7 +2093,7 @@ plain and side effectful <code>Cancelable</code> object.
 </p></div><dl class="paramcmts block"><dt class="param">cb</dt><dd class="cmt"><p>is a callback that will be invoked upon
         completion, either with a successful result, or with an error;
         note that you can use <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">monix.execution.Callback</a> for extra
-        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.7/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
+        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.8/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
         <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> that gets used
         whenever asynchronous boundaries are needed when
         evaluating the task; a <code>Scheduler</code> is in general needed
@@ -2111,7 +2118,7 @@ plain and side effectful <code>Cancelable</code> object.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncOpt</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
+        <span class="name">runAsyncOpt</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="../execution/Cancelable.html" class="extype" name="monix.execution.Cancelable">Cancelable</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution, much like normal <a href="#runAsync(cb:Either[Throwable,A]=&gt;Unit)(implicits:monix.execution.Scheduler):monix.execution.Cancelable" class="extmbr" name="monix.eval.Task#runAsync">runAsync</a>, but
@@ -2161,7 +2168,7 @@ task.runAsyncOpt {
         a very different abstraction.</p></div><dl class="paramcmts block"><dt class="param">cb</dt><dd class="cmt"><p>is a callback that will be invoked upon
         completion, either with a successful result, or with an error;
         note that you can use <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">monix.execution.Callback</a> for extra
-        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.7/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
+        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.8/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
         <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> that gets used
         whenever asynchronous boundaries are needed when
         evaluating the task; a <code>Scheduler</code> is in general needed
@@ -2183,7 +2190,7 @@ task.runAsyncOpt {
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncOptF</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <span class="extype" name="cats.effect.CancelToken">CancelToken</span>[<a href="" class="extype" name="monix.eval.Task">Task</a>]</span>
+        <span class="name">runAsyncOptF</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <span class="extype" name="cats.effect.CancelToken">CancelToken</span>[<a href="" class="extype" name="monix.eval.Task">Task</a>]</span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution, much like normal <a href="#runAsyncF(cb:Either[Throwable,A]=&gt;Unit)(implicits:monix.execution.Scheduler):cats.effect.CancelToken[monix.eval.Task]" class="extmbr" name="monix.eval.Task#runAsyncF">runAsyncF</a>, but
@@ -2221,7 +2228,7 @@ plain and side effectful <code>Cancelable</code> object.
 </p></div><dl class="paramcmts block"><dt class="param">cb</dt><dd class="cmt"><p>is a callback that will be invoked upon
         completion, either with a successful result, or with an error;
         note that you can use <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">monix.execution.Callback</a> for extra
-        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.7/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
+        performance (avoids the boxing in <a href="http://www.scala-lang.org/api/2.12.8/scala/index.html#Either[+A,+B]=scala.util.Either[A,B]" class="extype" name="scala">scala.Either</a>)</p></dd><dt class="param">s</dt><dd class="cmt"><p>is an injected
         <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> that gets used
         whenever asynchronous boundaries are needed when
         evaluating the task; a <code>Scheduler</code> is in general needed
@@ -2247,7 +2254,7 @@ plain and side effectful <code>Cancelable</code> object.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncUncancelable</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">runAsyncUncancelable</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution of the source task,
@@ -2312,7 +2319,7 @@ task.runAsyncUncancelable {
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runAsyncUncancelableOpt</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">runAsyncUncancelableOpt</span><span class="params">(<span name="cb">cb: (<span class="extype" name="scala.Either">Either</span>[<span class="extype" name="scala.Throwable">Throwable</span>, <span class="extype" name="monix.eval.Task.A">A</span>]) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <p class="shortcomment cmt">Triggers the asynchronous execution in uncancelable mode,
@@ -2452,7 +2459,7 @@ optimizations.</p><p><b>UNSAFE (referential transparency)</b> —
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runSyncUnsafe</span><span class="params">(<span name="timeout">timeout: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/Duration.html#scala.concurrent.duration.Duration" class="extype" name="scala.concurrent.duration.Duration">Duration</a> = <span class="symbol">Duration.Inf</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="permit">permit: <a href="../execution/schedulers/CanBlock.html" class="extype" name="monix.execution.schedulers.CanBlock">CanBlock</a></span>)</span><span class="result">: <span class="extype" name="monix.eval.Task.A">A</span></span>
+        <span class="name">runSyncUnsafe</span><span class="params">(<span name="timeout">timeout: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/Duration.html#scala.concurrent.duration.Duration" class="extype" name="scala.concurrent.duration.Duration">Duration</a> = <span class="symbol">Duration.Inf</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="permit">permit: <a href="../execution/schedulers/CanBlock.html" class="extype" name="monix.execution.schedulers.CanBlock">CanBlock</a></span>)</span><span class="result">: <span class="extype" name="monix.eval.Task.A">A</span></span>
       </span>
       
       <p class="shortcomment cmt">Evaluates the source task synchronously and returns the result
@@ -2525,7 +2532,7 @@ with Scala.js will trigger a compile time error.</p><p>For optimizations on top 
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">runSyncUnsafeOpt</span><span class="params">(<span name="timeout">timeout: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/Duration.html#scala.concurrent.duration.Duration" class="extype" name="scala.concurrent.duration.Duration">Duration</a> = <span class="symbol">Duration.Inf</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>, <span name="permit">permit: <a href="../execution/schedulers/CanBlock.html" class="extype" name="monix.execution.schedulers.CanBlock">CanBlock</a></span>)</span><span class="result">: <span class="extype" name="monix.eval.Task.A">A</span></span>
+        <span class="name">runSyncUnsafeOpt</span><span class="params">(<span name="timeout">timeout: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/Duration.html#scala.concurrent.duration.Duration" class="extype" name="scala.concurrent.duration.Duration">Duration</a> = <span class="symbol">Duration.Inf</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>, <span name="opts">opts: <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Options</a></span>, <span name="permit">permit: <a href="../execution/schedulers/CanBlock.html" class="extype" name="monix.execution.schedulers.CanBlock">CanBlock</a></span>)</span><span class="result">: <span class="extype" name="monix.eval.Task.A">A</span></span>
       </span>
       
       <p class="shortcomment cmt">Variant of <a href="#runSyncUnsafe(timeout:scala.concurrent.duration.Duration)(implicits:monix.execution.Scheduler,implicitpermit:monix.execution.schedulers.CanBlock):A" class="extmbr" name="monix.eval.Task#runSyncUnsafe">runSyncUnsafe</a> that takes a <a href="Task$$Options.html" class="extype" name="monix.eval.Task.Options">Task.Options</a>
@@ -2763,7 +2770,7 @@ the second task doesn't get cancelled.</p><p>This operation forces an asynchrono
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">timed</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[(<a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a>, <span class="extype" name="monix.eval.Task.A">A</span>)]</span>
+        <span class="name">timed</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[(<a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a>, <span class="extype" name="monix.eval.Task.A">A</span>)]</span>
       </span>
       
       <p class="shortcomment cmt">Times the <code>Task</code> execution and returns its duration and the computed value.</p><div class="fullcomment"><div class="comment cmt"><p>Times the <code>Task</code> execution and returns its duration and the computed value.</p><p>Basic usage example:</p><pre><span class="kw">for</span> {
@@ -2783,12 +2790,49 @@ the second task doesn't get cancelled.</p><p>This operation forces an asynchrono
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">timeout</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+        <span class="name">timeout</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a Task that mirrors the source Task but that triggers a
 <code>TimeoutException</code> in case the given duration passes without the
 task emitting any item.</p>
+    </li><li name="monix.eval.Task#timeoutL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="timeoutL(after:monix.eval.Task[scala.concurrent.duration.FiniteDuration]):monix.eval.Task[A]"></a><a id="timeoutL(Task[FiniteDuration]):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#timeoutL(after:monix.eval.Task[scala.concurrent.duration.FiniteDuration]):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeoutL</span><span class="params">(<span name="after">after: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a Task that mirrors the source Task but that triggers a
+<code>TimeoutException</code> in case the given duration passes without the
+task emitting any item.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a Task that mirrors the source Task but that triggers a
+<code>TimeoutException</code> in case the given duration passes without the
+task emitting any item.</p><p>Useful when timeout is variable, e.g. when task is running in a loop
+with deadline semantics.</p><p>Example:</p><pre><span class="kw">import</span> monix.execution.Scheduler.Implicits.global
+<span class="kw">import</span> scala.concurrent.duration._
+
+<span class="kw">val</span> deadline = <span class="num">10.</span>seconds.fromNow
+
+<span class="kw">val</span> singleCallTimeout = <span class="num">2.</span>seconds
+
+<span class="cmt">// re-evaluate deadline time on every request</span>
+<span class="kw">val</span> actualTimeout = Task(singleCallTimeout.min(deadline.timeLeft))
+
+<span class="cmt">// expensive remote call</span>
+<span class="kw">def</span> call(): <span class="std">Unit</span> = ()
+
+<span class="kw">val</span> remoteCall = Task(call())
+  .timeoutToL(actualTimeout, Task.unit)
+  .onErrorRestart(<span class="num">100</span>)
+  .timeout(deadline.time)</pre></div></div>
     </li><li name="monix.eval.Task#timeoutTo" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="timeoutTo[B&gt;:A](after:scala.concurrent.duration.FiniteDuration,backup:monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="timeoutTo[B&gt;:A](FiniteDuration,Task[B]):Task[B]"></a>
       <span class="permalink">
@@ -2801,12 +2845,74 @@ task emitting any item.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">timeoutTo</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>, <span name="backup">backup: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>
+        <span class="name">timeoutTo</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>, <span name="backup">backup: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutTo.B">B</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Returns a Task that mirrors the source Task but switches to the
 given backup Task in case the given duration passes without the
 source emitting any item.</p>
+    </li><li name="monix.eval.Task#timeoutToL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="timeoutToL[B&gt;:A](after:monix.eval.Task[scala.concurrent.duration.FiniteDuration],backup:monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="timeoutToL[B&gt;:A](Task[FiniteDuration],Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#timeoutToL[B&gt;:A](after:monix.eval.Task[scala.concurrent.duration.FiniteDuration],backup:monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeoutToL</span><span class="tparams">[<span name="B">B &gt;: <span class="extype" name="monix.eval.Task.A">A</span></span>]</span><span class="params">(<span name="after">after: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a>]</span>, <span name="backup">backup: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutToL.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.timeoutToL.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a Task that mirrors the source Task but switches to the
+given backup Task in case the given duration passes without the
+source emitting any item.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a Task that mirrors the source Task but switches to the
+given backup Task in case the given duration passes without the
+source emitting any item.</p><p>Useful when timeout is variable, e.g. when task is running in a loop
+with deadline semantics.</p><p>Example:</p><pre><span class="kw">import</span> monix.execution.Scheduler.Implicits.global
+<span class="kw">import</span> scala.concurrent.duration._
+
+<span class="kw">val</span> deadline = <span class="num">10.</span>seconds.fromNow
+
+<span class="kw">val</span> singleCallTimeout = <span class="num">2.</span>seconds
+
+<span class="cmt">// re-evaluate deadline time on every request</span>
+<span class="kw">val</span> actualTimeout = Task(singleCallTimeout.min(deadline.timeLeft))
+
+<span class="cmt">// expensive remote call</span>
+<span class="kw">def</span> call(): <span class="std">Unit</span> = ()
+
+<span class="kw">val</span> remoteCall = Task(call())
+  .timeoutL(actualTimeout)
+  .onErrorRestart(<span class="num">100</span>)
+  .timeout(deadline.time)</pre><p>Note that this method respects the timeout task evaluation duration,
+e.g. if it took 3 seconds to evaluate <code>after</code>
+to a value of <code>5 seconds</code>, then this task will timeout
+in exactly 5 seconds from the moment computation started,
+which means in 2 seconds after the timeout task has been evaluated.</p></div></div>
+    </li><li name="monix.eval.Task#timeoutWith" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="timeoutWith(after:scala.concurrent.duration.FiniteDuration,exception:Exception):monix.eval.Task[A]"></a><a id="timeoutWith(FiniteDuration,Exception):Task[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#timeoutWith(after:scala.concurrent.duration.FiniteDuration,exception:Exception):monix.eval.Task[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">timeoutWith</span><span class="params">(<span name="after">after: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>, <span name="exception">exception: <span class="extype" name="scala.Exception">Exception</span></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns a Task that mirrors the source Task but that triggers a
+specified <code>Exception</code> in case the given duration passes
+without the task emitting any item.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a Task that mirrors the source Task but that triggers a
+specified <code>Exception</code> in case the given duration passes
+without the task emitting any item.</p></div><dl class="paramcmts block"><dt class="param">exception</dt><dd class="cmt"><p>The <code>Exception</code> to throw after given duration
+                 passes</p></dd></dl></div>
     </li><li name="monix.eval.Task#to" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="to[F[_]](implicitF:monix.eval.TaskLift[F]):F[A@scala.annotation.unchecked.uncheckedVariance]"></a><a id="to[F[_]](TaskLift[F]):F[A]"></a>
       <span class="permalink">
@@ -2908,36 +3014,6 @@ has to be evaluated in order to be converted.</p><p>NOTE: the resulting value is
      a <a href="TaskLift.html" class="extype" name="monix.eval.TaskLift">TaskLift</a> implementation</p></span><span class="cmt"><p><a href="#toAsync[F[_]](implicitF:cats.effect.Async[F],impliciteff:cats.effect.Effect[monix.eval.Task]):F[A@scala.annotation.unchecked.uncheckedVariance]" class="extmbr" name="monix.eval.Task#toAsync">toAsync</a> that is able to convert to non-cancelable values via the
       <a href="https://typelevel.org/cats-effect/typeclasses/async.html" target="_blank">Async</a>
       type class.</p></span></dd></dl></div>
-    </li><li name="monix.eval.Task#toIO" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="toIO(impliciteff:cats.effect.ConcurrentEffect[monix.eval.Task]):cats.effect.IO[A@scala.annotation.unchecked.uncheckedVariance]"></a><a id="toIO(ConcurrentEffect[Task]):IO[A]"></a>
-      <span class="permalink">
-      <a href="../../monix/eval/Task.html#toIO(impliciteff:cats.effect.ConcurrentEffect[monix.eval.Task]):cats.effect.IO[A@scala.annotation.unchecked.uncheckedVariance]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toIO</span><span class="params">(<span class="implicit">implicit </span><span name="eff">eff: <span class="extype" name="cats.effect.ConcurrentEffect">ConcurrentEffect</span>[<a href="" class="extype" name="monix.eval.Task">Task</a>]</span>)</span><span class="result">: <span class="extype" name="cats.effect.IO">IO</span>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Converts the source to a <code>cats.effect.IO</code> value.</p><div class="fullcomment"><div class="comment cmt"><p>Converts the source to a <code>cats.effect.IO</code> value.</p><pre><span class="kw">import</span> cats.effect.IO
-<span class="kw">import</span> monix.execution.Scheduler.Implicits.global
-<span class="kw">import</span> scala.concurrent.duration._
-
-<span class="kw">val</span> task: Task[<span class="std">Unit</span>] = Task
-  .eval(println(<span class="lit">"Hello!"</span>))
-  .delayExecution(<span class="num">5.</span>seconds)
-
-<span class="cmt">// Conversion; note the resulting IO is also</span>
-<span class="cmt">// cancelable if the source is</span>
-<span class="kw">val</span> io: IO[<span class="std">Unit</span>] = task.toIO</pre><p>This is an alias for <a href="#toConcurrent[F[_]](implicitF:cats.effect.Concurrent[F],impliciteff:cats.effect.ConcurrentEffect[monix.eval.Task]):F[A@scala.annotation.unchecked.uncheckedVariance]" class="extmbr" name="monix.eval.Task#toConcurrent">toConcurrent</a>, but specialized for <code>IO</code>.
-You can use either with the same result.
-</p></div><dl class="paramcmts block"><dt class="param">eff</dt><dd class="cmt"><p>is the <code>ConcurrentEffect[Task]</code> instance needed to
-       evaluate tasks; when evaluating tasks, this is the pure
-       alternative to demanding a <code>Scheduler</code></p></dd></dl></div>
     </li><li name="monix.eval.Task#toReactivePublisher" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="toReactivePublisher(implicits:monix.execution.Scheduler):org.reactivestreams.Publisher[A@scala.annotation.unchecked.uncheckedVariance]"></a><a id="toReactivePublisher(Scheduler):Publisher[A]"></a>
       <span class="permalink">
@@ -3020,7 +3096,7 @@ uncancelable.cancel()
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -3042,7 +3118,7 @@ uncancelable.cancel()
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -3064,7 +3140,7 @@ uncancelable.cancel()
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -3087,13 +3163,13 @@ uncancelable.cancel()
 
         <div id="inheritedMembers">
         <div class="parent" name="scala.Serializable">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>

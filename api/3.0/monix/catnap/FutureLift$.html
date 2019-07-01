@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC2 - monix.catnap.FutureLift</title>
-          <meta name="description" content="Monix 3.0.0 - RC2 - monix.catnap.FutureLift" />
-          <meta name="keywords" content="Monix 3.0.0 RC2 monix.catnap.FutureLift" />
+          <title>Monix 3.0.0-RC3 - monix.catnap.FutureLift</title>
+          <meta name="description" content="Monix 3.0.0 - RC3 - monix.catnap.FutureLift" />
+          <meta name="keywords" content="Monix 3.0.0 RC3 monix.catnap.FutureLift" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC2</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -138,13 +138,25 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="trait" href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources."></a>
                         <a href="CancelableF.html" title="Represents a pure data structure that describes an effectful, idempotent action that can be used to cancel async computations, or to release resources.">CancelableF</a>
                       </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="ChannelF.html" title="Channel is a communication channel that can be consumed via consume."></a>
+                        <a href="ChannelF.html" title="Channel is a communication channel that can be consumed via consume.">ChannelF</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="CircuitBreaker$.html" title=""></a>
                         <a class="class" href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems."></a>
                         <a href="CircuitBreaker.html" title="The CircuitBreaker is used to provide stability and prevent cascading failures in distributed systems.">CircuitBreaker</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="ConcurrentChannel$.html" title=""></a>
+                        <a class="class" href="ConcurrentChannel.html" title="ConcurrentChannel can be used to model complex producer-consumer communication channels."></a>
+                        <a href="ConcurrentChannel.html" title="ConcurrentChannel can be used to model complex producer-consumer communication channels.">ConcurrentChannel</a>
+                      </li><li class="current-entities indented2">
                         <a class="object" href="ConcurrentQueue$.html" title=""></a>
                         <a class="class" href="ConcurrentQueue.html" title="A high-performance, back-pressured, generic concurrent queue implementation."></a>
                         <a href="ConcurrentQueue.html" title="A high-performance, back-pressured, generic concurrent queue implementation.">ConcurrentQueue</a>
+                      </li><li class="current-entities indented2">
+                        <a class="object" href="ConsumerF$.html" title=""></a>
+                        <a class="trait" href="ConsumerF.html" title="A simple interface that models the consumer side of a producer-consumer communication channel."></a>
+                        <a href="ConsumerF.html" title="A simple interface that models the consumer side of a producer-consumer communication channel.">ConsumerF</a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="" title=""></a>
                         <a class="trait" href="FutureLift.html" title="A type class for conversions from scala.concurrent.Future or other Future-like data type (e.g."></a>
@@ -157,6 +169,14 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                         <a class="object" href="OrElse$.html" title=""></a>
                         <a class="trait" href="OrElse.html" title="A type class for prioritized implicit search."></a>
                         <a href="OrElse.html" title="A type class for prioritized implicit search.">OrElse</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="trait" href="ProducerF.html" title="A simple interface that models the producer side of a producer-consumer communication channel."></a>
+                        <a href="ProducerF.html" title="A simple interface that models the producer side of a producer-consumer communication channel.">ProducerF</a>
+                      </li><li class="current-entities indented2">
+                        <span class="separator"></span>
+                        <a class="object" href="SchedulerEffect$.html" title=""></a>
+                        <a href="SchedulerEffect$.html" title="">SchedulerEffect</a>
                       </li><li class="current-entities indented2">
                         <a class="object" href="Semaphore$.html" title=""></a>
                         <a class="class" href="Semaphore.html" title="The Semaphore is an asynchronous semaphore implementation that limits the parallelism on task execution."></a>
@@ -190,16 +210,16 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">FutureLift</span><span class="result"> extends <span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span></span>
+        <span class="name">FutureLift</span><span class="result"> extends <span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC2/monix-catnap/shared/src/main/scala/monix/catnap/FutureLift.scala" target="_blank">FutureLift.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-catnap/shared/src/main/scala/monix/catnap/FutureLift.scala" target="_blank">FutureLift.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span>, <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -225,7 +245,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.catnap.FutureLift"><span>FutureLift</span></li><li class="in" name="monix.catnap.internal.FutureLiftForPlatform"><span>FutureLiftForPlatform</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.catnap.FutureLift"><span>FutureLift</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="monix.catnap.internal.FutureLiftForPlatform"><span>FutureLiftForPlatform</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -247,7 +267,23 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="monix.catnap.FutureLift.Syntax" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+              <ol><li name="monix.catnap.FutureLift.Deprecated" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Deprecated[F[_],Future[_]]extendsAnyRef"></a><a id="Deprecated[F[_],Future[_]]:Deprecated[F,Future]"></a>
+      <span class="permalink">
+      <a href="../../monix/catnap/FutureLift$.html#Deprecated[F[_],Future[_]]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Deprecated method, which happened on extending FunctionK." href="FutureLift$$Deprecated.html"><span class="name">Deprecated</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="Future">Future<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Deprecated method, which happened on extending <code>FunctionK</code>.</p>
+    </li><li name="monix.catnap.FutureLift.Syntax" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Syntax[F[_],Future[_],A]extendsAny"></a><a id="Syntax[F[_],Future[_],A]:Syntax[F,Future,A]"></a>
       <span class="permalink">
       <a href="../../monix/catnap/FutureLift$.html#Syntax[F[_],Future[_],A]extendsAny" title="Permalink">
@@ -259,7 +295,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a title="Provides extension methods when imported in scope via syntax." href="FutureLift$$Syntax.html"><span class="name">Syntax</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="Future">Future<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>
+        <a title="Provides extension methods when imported in scope via syntax." href="FutureLift$$Syntax.html"><span class="name">Syntax</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="Future">Future<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>
       </span>
       
       <p class="shortcomment cmt">Provides extension methods when imported in scope via <a href="syntax$.html" class="extype" name="monix.catnap.syntax">syntax</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Provides extension methods when imported in scope via <a href="syntax$.html" class="extype" name="monix.catnap.syntax">syntax</a>.</p><pre><span class="kw">import</span> monix.catnap.syntax._</pre></div></div>
@@ -283,7 +319,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $bang$eq" class="name">!=</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -299,7 +335,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span title="gt4s: $hash$hash" class="name">##</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -315,7 +351,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span title="gt4s: $eq$eq" class="name">==</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -340,7 +376,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
 
 <span class="kw">val</span> F = FutureLift[IO, Future]
 
-<span class="kw">val</span> task: IO[<span class="std">Int</span>] = F.futureLift(IO(Future(<span class="num">1</span> + <span class="num">1</span>)))</pre></div></div>
+<span class="kw">val</span> task: IO[<span class="std">Int</span>] = F.apply(IO(Future(<span class="num">1</span> + <span class="num">1</span>)))</pre></div></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -369,7 +405,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">clone</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -393,7 +429,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">eq</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -409,7 +445,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
@@ -425,7 +461,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">finalize</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a href="../../java/lang/index.html" class="extype" name="java.lang">java.lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -450,7 +486,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="name">from</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="Future">Future<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.from.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.from.Future">Future</span>[<span class="extype" name="monix.catnap.FutureLift.from.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="FutureLift.html" class="extype" name="monix.catnap.FutureLift">FutureLift</a>[<span class="extype" name="monix.catnap.FutureLift.from.F">F</span>, <span class="extype" name="monix.catnap.FutureLift.from.Future">Future</span>]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.from.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.from.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Applies <a href="FutureLift.html#futureLift[A](fa:F[Future[A]]):F[A]" class="extmbr" name="monix.catnap.FutureLift#futureLift">FutureLift.futureLift</a> to the given parameter.</p><div class="fullcomment"><div class="comment cmt"><p>Applies <a href="FutureLift.html#futureLift[A](fa:F[Future[A]]):F[A]" class="extmbr" name="monix.catnap.FutureLift#futureLift">FutureLift.futureLift</a> to the given parameter.</p><pre><span class="kw">import</span> cats.effect.IO
+      <p class="shortcomment cmt">Applies <a href="#apply[F[_],Future[_]](implicitF:monix.catnap.FutureLift[F,Future]):monix.catnap.FutureLift[F,Future]" class="extmbr" name="monix.catnap.FutureLift#apply">FutureLift.apply</a> to the given parameter.</p><div class="fullcomment"><div class="comment cmt"><p>Applies <a href="#apply[F[_],Future[_]](implicitF:monix.catnap.FutureLift[F,Future]):monix.catnap.FutureLift[F,Future]" class="extmbr" name="monix.catnap.FutureLift#apply">FutureLift.apply</a> to the given parameter.</p><pre><span class="kw">import</span> cats.effect.IO
 <span class="kw">import</span> scala.concurrent.Future
 <span class="kw">import</span> scala.concurrent.ExecutionContext.Implicits.global
 
@@ -486,7 +522,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
+        <span class="name">hashCode</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd><dt>Annotations</dt><dd>
@@ -505,7 +541,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">isInstanceOf</span><span class="tparams">[<span name="T0">T0</span>]</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
@@ -599,7 +635,7 @@ and <a href="#javaCompletableToAsync[F[_],A](fa:F[java.util.concurrent.Completab
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
+        <span class="name">ne</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Boolean.html#scala.Boolean" class="extype" name="scala.Boolean">Boolean</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
@@ -615,7 +651,7 @@ and <a href="#javaCompletableToAsync[F[_],A](fa:F[java.util.concurrent.Completab
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notify</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -634,7 +670,7 @@ and <a href="#javaCompletableToAsync[F[_],A](fa:F[java.util.concurrent.Completab
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">notifyAll</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -653,11 +689,11 @@ and <a href="#javaCompletableToAsync[F[_],A](fa:F[java.util.concurrent.Completab
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">scalaFutureLiftForConcurrentOrAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.MF.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="OrElse.html" class="extype" name="monix.catnap.OrElse">OrElse</a>[<span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>], <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>]]</span>)</span><span class="result">: <a href="FutureLift.html" class="extype" name="monix.catnap.FutureLift">FutureLift</a>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>, <span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.MF">MF</span>]</span>
+        <span class="name">scalaFutureLiftForConcurrentOrAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.MF.T">T</span>]</span>]</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="OrElse.html" class="extype" name="monix.catnap.OrElse">OrElse</a>[<span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>], <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>]]</span>)</span><span class="result">: <a href="FutureLift.html" class="extype" name="monix.catnap.FutureLift">FutureLift</a>[<span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.F">F</span>, <span class="extype" name="monix.catnap.FutureLift.scalaFutureLiftForConcurrentOrAsync.MF">MF</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Implicit instance of <a href="FutureLift.html" class="extype" name="monix.catnap.FutureLift">FutureLift</a> for converting from
-<a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">scala.concurrent.Future</a> or <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">monix.execution.CancelableFuture</a> to
+<a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">scala.concurrent.Future</a> or <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">monix.execution.CancelableFuture</a> to
 any <code>Concurrent</code> or <code>Async</code> data type.</p>
     </li><li name="monix.catnap.FutureLift#scalaToAsync" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scalaToAsync[F[_],MF[T]&lt;:scala.concurrent.Future[T],A](fa:F[MF[A]])(implicitF:cats.effect.Async[F]):F[A]"></a><a id="scalaToAsync[F[_],MF[T]&lt;:Future[T],A](F[MF[A]])(Async[F]):F[A]"></a>
@@ -671,12 +707,12 @@ any <code>Concurrent</code> or <code>Async</code> data type.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">scalaToAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.A">A</span>]</span>
+        <span class="name">scalaToAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToAsync.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Utility for converting <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
+      <p class="shortcomment cmt">Utility for converting <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
 data types that implement
-<a href="https://typelevel.org/cats-effect/typeclasses/async.html" target="_blank">cats.effect.Async</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Utility for converting <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
+<a href="https://typelevel.org/cats-effect/typeclasses/async.html" target="_blank">cats.effect.Async</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Utility for converting <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
 data types that implement
 <a href="https://typelevel.org/cats-effect/typeclasses/async.html" target="_blank">cats.effect.Async</a>.</p><p>N.B. the implementation discriminates
 <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> via sub-typing,
@@ -695,12 +731,12 @@ is also cancelable.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">scalaToConcurrent</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.A">A</span>]</span>
+        <span class="name">scalaToConcurrent</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrent.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Utility for converting <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
+      <p class="shortcomment cmt">Utility for converting <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
 data types that implement
-<a href="https://typelevel.org/cats-effect/typeclasses/concurrent.html" target="_blank">cats.effect.Concurrent</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Utility for converting <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
+<a href="https://typelevel.org/cats-effect/typeclasses/concurrent.html" target="_blank">cats.effect.Concurrent</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Utility for converting <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html" class="extype" name="scala.concurrent.Future">Future</a> values into
 data types that implement
 <a href="https://typelevel.org/cats-effect/typeclasses/concurrent.html" target="_blank">cats.effect.Concurrent</a>.</p><p>N.B. the implementation discriminates
 <a href="../execution/CancelableFuture.html" class="extype" name="monix.execution.CancelableFuture">CancelableFuture</a> via sub-typing,
@@ -719,7 +755,7 @@ is also cancelable.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">scalaToConcurrentOrAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.7/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="OrElse.html" class="extype" name="monix.catnap.OrElse">OrElse</a>[<span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>], <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>]]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.A">A</span>]</span>
+        <span class="name">scalaToConcurrentOrAsync</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="MF">MF<span class="tparams">[<span name="T">T</span>]</span> &lt;: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.MF.T">T</span>]</span>, <span name="A">A</span>]</span><span class="params">(<span name="fa">fa: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.MF">MF</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="OrElse.html" class="extype" name="monix.catnap.OrElse">OrElse</a>[<span class="extype" name="cats.effect.Concurrent">Concurrent</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>], <span class="extype" name="cats.effect.Async">Async</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>]]</span>)</span><span class="result">: <span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.F">F</span>[<span class="extype" name="monix.catnap.FutureLift.scalaToConcurrentOrAsync.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">A generic function that subsumes both <a href="#scalaToAsync[F[_],MF[T]&lt;:scala.concurrent.Future[T],A](fa:F[MF[A]])(implicitF:cats.effect.Async[F]):F[A]" class="extmbr" name="monix.catnap.FutureLift#scalaToAsync">scalaToAsync</a> and
@@ -771,7 +807,7 @@ if the given <code>Future</code> is such an instance.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -793,7 +829,7 @@ if the given <code>Future</code> is such an instance.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.7/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>, <span name="arg1">arg1: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -815,7 +851,7 @@ if the given <code>Future</code> is such an instance.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.7/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.7/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
+        <span class="name">wait</span><span class="params">(<span name="arg0">arg0: <a href="http://www.scala-lang.org/api/2.12.8/scala/Long.html#scala.Long" class="extype" name="scala.Long">Long</a></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
@@ -837,12 +873,16 @@ if the given <code>Future</code> is such an instance.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="monix.catnap.internal.FutureLiftForPlatform">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="monix.catnap.internal.FutureLiftForPlatform">
               <h3>Inherited from <span class="extype" name="monix.catnap.internal.FutureLiftForPlatform">FutureLiftForPlatform</span></h3>
             </div><div class="parent" name="scala.AnyRef">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.7/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>
