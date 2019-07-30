@@ -189,20 +189,28 @@ In case any `onNext` returns a `Stop`, it would also propagate upstream and ther
 
 Now if you jump into the source code of operators, you will see that they are obfuscated by concurrency, error handling
 and lots of optimizations but the essence of the model works as described above. There is nothing more to it, no extra
-interpreters or materializers so if this section makes sense to you, 
+interpreters or materializers to add an extra layer of indirection so if this section makes sense to you, you should have
+a decent idea of what's going on "behind the scenes". 
 
 ## Observable and Functional Programming
 
-`Observable` internals aren't written in FP style which is a trade off resulting in greater performance. 
+`Observable` internals are written in imperative, Java-like style. It doesn't look pretty and can be discouraging
+if you're trying to write your own operator but together with relatively simple model (in terms of operations to do) it
+buys a lot of performance and is a big reason why it does so well [in comparison to competition](https://github.com/monix/streaming-benchmarks).
 
-Despite the internals, `Observable` is a fine choice to use even in purely functional applications because they don't 
-leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
+However, `Observable` exposes a vast number of purely functional operators that compose very well and you can build on top of them in
+similar way to how it's done in other streaming libraries from FP ecosystem.
 
-There are impure functions in API, which are usually marked as such with `@UnsafeBecauseImpure` annotation and explained in ScalaDoc. There should always be a referentially transparent replacement to solve your use case but if your team is not
-fully committed to FP, these functions can be very useful.
+If you're mostly using available methods and want to write purely functional application then you're in luck because
+dirty internals don't leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
+
+The main drawback in comparison to purely functional streams, such as [fs2](https://github.com/functional-streams-for-scala/fs2) or
+[Iterant]({{ site.api3x }}monix/tail/Iterant.html) is availability of impure functions in API so if you have inexperienced 
+team members, they could be tempted to use them. Fortunately, all of them are marked with `@UnsafeBecauseImpure` annotation and explained in ScalaDoc. 
+There should always be a referentially transparent replacement to solve your use case but if your team is not fully committed to FP, these functions can be very useful.
 
 For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
-However, you could do the same using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in more controlled manner.
+Nevertheless, you could do the same thing using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in more controlled manner.
 
 Decision is up to the user to choose what's better for them and their team.
 
