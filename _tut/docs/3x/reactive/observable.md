@@ -155,7 +155,7 @@ complicated then they really are.
 Imagine following situation:
 
 ```scala
-Observable.fromIterable(1, 2, 3)
+Observable.fromIterable(1 to 3)
   .map(i => i + 2)
   .map(i => i * 3)
   .sum
