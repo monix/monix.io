@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="post">
   <a name="start"></a>
@@ -146,12 +146,12 @@ failures in distributed systems:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
-<span class="k">val</span> <span class="n">circuitBreaker</span> <span class="k">=</span> <span class="nc">TaskCircuitBreaker</span><span class="o">(</span>
+<span class="k">val</span> <span class="nv">circuitBreaker</span> <span class="k">=</span> <span class="nc">TaskCircuitBreaker</span><span class="o">(</span>
   <span class="n">maxFailures</span> <span class="k">=</span> <span class="mi">5</span><span class="o">,</span>
   <span class="n">resetTimeout</span> <span class="k">=</span> <span class="mf">10.</span><span class="n">seconds</span>
 <span class="o">)</span>
 
-<span class="n">circuitBreaker</span><span class="o">.</span><span class="n">protect</span><span class="o">(</span><span class="n">problematicTask</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">))</span>
+<span class="nv">circuitBreaker</span><span class="o">.</span><span class="py">protect</span><span class="o">(</span><span class="nv">problematicTask</span><span class="o">.</span><span class="py">timeout</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">))</span>
 </code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/312">Issue #312</a></strong> -
@@ -165,18 +165,18 @@ subsequent calls will retry evaluating the source until it succeeds:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">effect</span> <span class="k">=</span> <span class="mi">0</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">.</span><span class="n">eval</span> <span class="o">{</span> 
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> 
   <span class="n">effect</span> <span class="o">+=</span> <span class="mi">1</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">effect</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"dummy"</span><span class="o">)</span> 
+  <span class="nf">if</span> <span class="o">(</span><span class="n">effect</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"dummy"</span><span class="o">)</span> 
   <span class="k">else</span> <span class="n">effect</span>
 <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">cached</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">memoizeOnSuccess</span>
+<span class="k">val</span> <span class="nv">cached</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">memoizeOnSuccess</span>
 
-<span class="k">val</span> <span class="n">f1</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="n">f2</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="n">f3</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields 3
-</span><span class="k">val</span> <span class="n">f4</span> <span class="k">=</span> <span class="n">cached</span><span class="o">.</span><span class="n">runAsync</span> <span class="c1">// yields 3
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
+</span><span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
+</span><span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
+</span><span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
 </span></code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/313">Issue #313</a></strong> - 
@@ -186,13 +186,13 @@ On <code class="highlighter-rouge">Task</code> we added the <code class="highlig
 <p>This helps with wrapping <code class="highlighter-rouge">Future</code>-enabled APIs, by being able to
 specify a callback with an injected <code class="highlighter-rouge">Scheduler</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Future</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="n">sum</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">Future</span><span class="o">(</span><span class="nv">list</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 
 <span class="c1">// Look Ma, no implicit ExecutionContext!
-</span><span class="k">def</span> <span class="n">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Task</span><span class="o">.</span><span class="n">deferFutureAction</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">scheduler</span> <span class="k">=&gt;</span>
-    <span class="n">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
+</span><span class="k">def</span> <span class="nf">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFutureAction</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">scheduler</span> <span class="k">=&gt;</span>
+    <span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
@@ -205,14 +205,14 @@ reference which also cancels an extra cancelable specified at
 construction time, in addition to the underlying cancelable that gets
 assigned later:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">guest</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"extra canceled"</span><span class="o">))</span>
-  <span class="nc">SingleAssignmentCancelable</span><span class="o">.</span><span class="n">plusOne</span><span class="o">(</span><span class="n">guest</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">guest</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"extra canceled"</span><span class="o">))</span>
+  <span class="nv">SingleAssignmentCancelable</span><span class="o">.</span><span class="py">plusOne</span><span class="o">(</span><span class="n">guest</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"primary canceled"</span><span class="o">))</span>
+<span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"primary canceled"</span><span class="o">))</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+<span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 <span class="c1">//=&gt; extra canceled
 //=&gt; primary canceled
 </span></code></pre></div></div>
@@ -362,36 +362,7 @@ integration:</p>
 
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

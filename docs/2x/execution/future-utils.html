@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Future Utils</h1>
@@ -138,16 +138,16 @@ shame to not use it to aid Scala’s standard <code class="highlighter-rouge">Fu
 <span class="k">import</span> <span class="nn">concurrent.duration._</span>
 
 <span class="c1">// Creating a never ending Future
-</span><span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]()</span>
-<span class="k">val</span> <span class="n">never</span> <span class="k">=</span> <span class="n">p</span><span class="o">.</span><span class="n">future</span>
+</span><span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]()</span>
+<span class="k">val</span> <span class="nv">never</span> <span class="k">=</span> <span class="nv">p</span><span class="o">.</span><span class="py">future</span>
 
 <span class="c1">// Creates a new Future that has a race condition 
 // with an error signaling a `TimeoutException`
 // if the source doesn't complete in time
-</span><span class="n">never</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+</span><span class="nv">never</span><span class="o">.</span><span class="py">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
 
 <span class="c1">// Or as a simple function call
-</span><span class="nc">FutureUtils</span><span class="o">.</span><span class="n">timeout</span><span class="o">(</span><span class="n">never</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+</span><span class="nv">FutureUtils</span><span class="o">.</span><span class="py">timeout</span><span class="o">(</span><span class="n">never</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Or to fallback to a backup:</p>
@@ -156,11 +156,11 @@ shame to not use it to aid Scala’s standard <code class="highlighter-rouge">Fu
 
 <span class="c1">// After 3 seconds of inactivity, discards the
 // source and fallbacks to the backup
-</span><span class="n">never</span><span class="o">.</span><span class="n">timeoutTo</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> <span class="nc">Future</span><span class="o">.</span><span class="n">failed</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
+</span><span class="nv">never</span><span class="o">.</span><span class="py">timeoutTo</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> <span class="nv">Future</span><span class="o">.</span><span class="py">failed</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
 
 <span class="c1">// Or as a simple function call
-</span><span class="nc">FutureUtils</span><span class="o">.</span><span class="n">timeoutTo</span><span class="o">(</span><span class="n">never</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> 
-  <span class="nc">Future</span><span class="o">.</span><span class="n">failed</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
+</span><span class="nv">FutureUtils</span><span class="o">.</span><span class="py">timeoutTo</span><span class="o">(</span><span class="n">never</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> 
+  <span class="nv">Future</span><span class="o">.</span><span class="py">failed</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
 </code></pre></div></div>
 
 <h2 id="materialization">Materialization</h2>
@@ -171,25 +171,25 @@ a <code class="highlighter-rouge">Future[Try[T]]</code>, allowing us to act upon
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
 
-<span class="k">val</span> <span class="n">f</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 
 <span class="c1">// Expose errors
-</span><span class="k">val</span> <span class="n">ft</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">f</span><span class="o">.</span><span class="n">materialize</span>
+</span><span class="k">val</span> <span class="nv">ft</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">f</span><span class="o">.</span><span class="py">materialize</span>
 
 <span class="c1">// Or as a simple function call
-</span><span class="nc">FutureUtils</span><span class="o">.</span><span class="n">materialize</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
+</span><span class="nv">FutureUtils</span><span class="o">.</span><span class="py">materialize</span><span class="o">(</span><span class="n">f</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We can of course do this operation in reverse and revert a
 materialized future, hiding errors:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ft</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="n">materialize</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ft</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="py">materialize</span>
 
 <span class="c1">// Hide exposed errors
-</span><span class="k">val</span> <span class="n">f</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">dematerialize</span>
+</span><span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">ft</span><span class="o">.</span><span class="py">dematerialize</span>
 
 <span class="c1">// Or as a simple function call
-</span><span class="nc">FutureUtils</span><span class="o">.</span><span class="n">dematerialize</span><span class="o">(</span><span class="n">ft</span><span class="o">)</span>
+</span><span class="nv">FutureUtils</span><span class="o">.</span><span class="py">dematerialize</span><span class="o">(</span><span class="n">ft</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="delayed-evaluation">Delayed Evaluation</h2>
@@ -198,7 +198,7 @@ materialized future, hiding errors:</p>
 result as a <code class="highlighter-rouge">Future</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Will execute after 3 seconds
-</span><span class="k">val</span> <span class="n">f</span> <span class="k">=</span> <span class="nc">FutureUtils</span><span class="o">.</span><span class="n">delayedResult</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
+</span><span class="k">val</span> <span class="nv">f</span> <span class="k">=</span> <span class="nv">FutureUtils</span><span class="o">.</span><span class="py">delayedResult</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
   <span class="s">"Hello, world!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -216,36 +216,7 @@ result as a <code class="highlighter-rouge">Future</code>:</p>
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

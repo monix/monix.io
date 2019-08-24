@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="post">
   <a name="start"></a>
@@ -119,15 +119,15 @@ assumed that the given <code class="highlighter-rouge">LocalRunnable</code> inst
 the current thread. However there are clearly cases in which
 users and up blocking during a <code class="highlighter-rouge">LocalRunnable</code>. For example:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">source2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">200</span><span class="o">).</span><span class="n">onErrorHandleWith</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">source2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">200</span><span class="o">).</span><span class="py">onErrorHandleWith</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">derived</span> <span class="k">=</span> <span class="n">source1</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
-  <span class="k">val</span> <span class="n">r</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">source2</span><span class="o">.</span><span class="n">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">derived</span> <span class="k">=</span> <span class="nv">source1</span><span class="o">.</span><span class="py">map</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
+  <span class="k">val</span> <span class="nv">r</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="nv">source2</span><span class="o">.</span><span class="py">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
   <span class="n">r</span> <span class="o">+</span> <span class="n">x</span>
 <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">result</span> <span class="k">=</span> <span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">derived</span><span class="o">.</span><span class="n">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="nv">derived</span><span class="o">.</span><span class="py">runAsync</span><span class="o">,</span> <span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>This is clearly not idiomatic usage because
@@ -199,36 +199,7 @@ local trampoline.</p>
 
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

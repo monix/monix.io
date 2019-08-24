@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Scheduler</h1>
@@ -143,13 +143,13 @@ that solve the above problems in the form of
 <a href="http://doc.akka.io/api/akka/current/index.html#akka.actor.Scheduler">akka.actor.Scheduler</a>,
 so you can do this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">akka.actor.Cancellable</span> <span class="o">=</span>
-  <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"default"</span><span class="o">).</span><span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">println</span><span class="o">(</span><span class="s">"Executing asynchronously ..."</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">akka.actor.Cancellable</span> <span class="o">=</span>
+  <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"default"</span><span class="o">).</span><span class="py">scheduler</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Executing asynchronously ..."</span><span class="o">)</span>
   <span class="o">}</span>
 
 <span class="c1">// canceling it before execution happens
-</span><span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</span><span class="nv">task</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>There are problems with the above approach - Akka’s Scheduler is an
@@ -192,7 +192,7 @@ because:</p>
 context:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">concurrent.Future</span>
-<span class="nc">Future</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="nc">Future</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">// 2
 </span></code></pre></div></div>
 
@@ -228,9 +228,9 @@ to execute asynchronously:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
 
-<span class="n">scheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-    <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+<span class="nv">scheduler</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">})</span>
 </code></pre></div></div>
@@ -245,24 +245,24 @@ say for example 5 seconds:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
 
-<span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span>
-  <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+<span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span>
+  <span class="mi">5</span><span class="o">,</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span>
   <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nf">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">})</span>
 
 <span class="c1">// In case we change our mind, before time's up
-</span><span class="n">cancelable</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</span><span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>Monix also supplies a more Scala-friendly extension:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
-<span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span><span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -273,16 +273,16 @@ let’s say with an initial delay of 3 seconds before the
 first execution and then with a fixed delay between subsequent
 executions of 5 seconds:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span>
-  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleWithFixedDelay</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span>
   <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nf">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">})</span>
 
 <span class="c1">// If we change our mind and want to cancel
-</span><span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</span><span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>Note that it doesn’t matter how much the execution takes,
@@ -290,20 +290,20 @@ the delay between tasks will be constant. So in this
 sample, we are actually going to have an accumulated
 delay of 7 seconds between <code class="highlighter-rouge">println</code> calls:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span>
-  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleWithFixedDelay</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span>
   <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">)</span> <span class="c1">// 2 seconds
-</span>      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nv">Thread</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">)</span> <span class="c1">// 2 seconds
+</span>      <span class="nf">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">})</span>
 </code></pre></div></div>
 
 <p>There’s also a more Scala-friendly extension:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleWithFixedDelay</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleWithFixedDelay</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -311,16 +311,16 @@ delay of 7 seconds between <code class="highlighter-rouge">println</code> calls:
 we can use the second variant, scheduling periodic
 execution at a fixed rate.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">scheduleAtFixedRate</span><span class="o">(</span>
-  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="nc">SECONDS</span><span class="o">,</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleAtFixedRate</span><span class="o">(</span>
+  <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span>
   <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-      <span class="n">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nf">println</span><span class="o">(</span><span class="s">"Fixed delay task"</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">})</span>
 
 <span class="c1">// If we change our mind and want to cancel
-</span><span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span>
+</span><span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>With <code class="highlighter-rouge">scheduleAtFixedRate</code> executions will commence after
@@ -338,13 +338,13 @@ returns the number of milliseconds since the 1970-01-01 00:00:00 UTC.</p>
 <p>Doing this is bad because it is a global singleton and we cannot
 override its behavior:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="n">currentTimeMillis</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">System</span><span class="o">.</span><span class="py">currentTimeMillis</span>
 <span class="c1">// res1: Long = 1464223070198
 </span></code></pre></div></div>
 
 <p>But if given a scheduler, we can now do this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scheduler</span><span class="o">.</span><span class="n">currentTimeMillis</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">scheduler</span><span class="o">.</span><span class="py">currentTimeMillis</span>
 <span class="c1">// res2: Long = 1464223092089
 </span></code></pre></div></div>
 
@@ -354,23 +354,23 @@ faking asynchronous execution. Here’s how:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
 
-<span class="k">val</span> <span class="n">testScheduler</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">testScheduler</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
 
-<span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">run</span><span class="o">()</span> <span class="k">=</span> <span class="n">println</span><span class="o">(</span><span class="s">"Immediate!"</span><span class="o">)</span>
+<span class="nv">testScheduler</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">run</span><span class="o">()</span> <span class="k">=</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Immediate!"</span><span class="o">)</span>
 <span class="o">})</span>
 
-<span class="n">testScheduler</span><span class="o">.</span><span class="n">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">println</span><span class="o">(</span><span class="s">"Delayed execution!"</span><span class="o">)</span>
+<span class="nv">testScheduler</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Delayed execution!"</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="c1">// Now we can fake it. Executes immediate tasks,
 // on the current thread:
-</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">tick</span><span class="o">()</span>
+</span><span class="nv">testScheduler</span><span class="o">.</span><span class="py">tick</span><span class="o">()</span>
 <span class="c1">// =&gt; Immediate!
 </span>
 <span class="c1">// Simulate passage of time, current thread:
-</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+</span><span class="nv">testScheduler</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="c1">// =&gt; Delayed execution!
 </span></code></pre></div></div>
 
@@ -380,9 +380,9 @@ randomly chosen, so you can’t say which is going to execute first or
 which is second.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// runnable1 might execute first, or second
-</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">runnable1</span><span class="o">)</span>
+</span><span class="nv">testScheduler</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="n">runnable1</span><span class="o">)</span>
 <span class="c1">// runnable2 might execute first, or second
-</span><span class="n">testScheduler</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="n">runnable2</span><span class="o">)</span>
+</span><span class="nv">testScheduler</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="n">runnable2</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="execution-model">Execution Model</h2>
@@ -417,7 +417,7 @@ for the Scalaz <code class="highlighter-rouge">Task</code>.</li>
 <p>You can retrieve the configured <code class="highlighter-rouge">ExecutionModel</code> by calling
 <code class="highlighter-rouge">Scheduler.executionModel</code>.  Here’s the default:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">global</span><span class="o">.</span><span class="n">executionModel</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">global</span><span class="o">.</span><span class="py">executionModel</span>
 <span class="c1">// res: monix.execution.schedulers.ExecutionModel =
 //   BatchedExecution(1024)
 </span></code></pre></div></div>
@@ -446,18 +446,18 @@ the most general:</p>
 <span class="k">import</span> <span class="nn">monix.execution.</span><span class="o">{</span><span class="nc">Scheduler</span><span class="o">,</span> <span class="nc">UncaughtExceptionReporter</span><span class="o">}</span>
 
 <span class="c1">// Will schedule things with delays
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduledExecutor</span> <span class="k">=</span>
-  <span class="nc">Executors</span><span class="o">.</span><span class="n">newSingleThreadScheduledExecutor</span><span class="o">()</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduledExecutor</span> <span class="k">=</span>
+  <span class="nv">Executors</span><span class="o">.</span><span class="py">newSingleThreadScheduledExecutor</span><span class="o">()</span>
 
 <span class="c1">// For actual execution of tasks
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">executorService</span> <span class="k">=</span>
-  <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">ExecutionContext</span><span class="o">.</span><span class="nc">Implicits</span><span class="o">.</span><span class="n">global</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">executorService</span> <span class="k">=</span>
+  <span class="nv">scala</span><span class="o">.</span><span class="py">concurrent</span><span class="o">.</span><span class="py">ExecutionContext</span><span class="o">.</span><span class="py">Implicits</span><span class="o">.</span><span class="py">global</span>
 
 <span class="c1">// Logs errors to stderr or something
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">uncaughtExceptionReporter</span> <span class="k">=</span>
-  <span class="nc">UncaughtExceptionReporter</span><span class="o">(</span><span class="n">executorService</span><span class="o">.</span><span class="n">reportFailure</span><span class="o">)</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">uncaughtExceptionReporter</span> <span class="k">=</span>
+  <span class="nc">UncaughtExceptionReporter</span><span class="o">(</span><span class="nv">executorService</span><span class="o">.</span><span class="py">reportFailure</span><span class="o">)</span>
 
-<span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span>
   <span class="n">scheduledExecutor</span><span class="o">,</span>
   <span class="n">executorService</span><span class="o">,</span>
   <span class="n">uncaughtExceptionReporter</span><span class="o">,</span>
@@ -468,12 +468,12 @@ the most general:</p>
 <p>There are multiple overloads available, so you may skip
 some of those params:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">scheduledExecutor</span><span class="o">,</span> <span class="n">executorService</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">scheduledExecutor</span><span class="o">,</span> <span class="n">executorService</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Or even:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">executorService</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span> <span class="nc">Scheduler</span><span class="o">(</span><span class="n">executorService</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Even if you specify just an <code class="highlighter-rouge">ExecutorService</code>, it still knows how to
@@ -488,16 +488,16 @@ scheduling, the actual execution being done by the given
 instance, a service capable of everything we’d want out of our
 <code class="highlighter-rouge">Scheduler</code>. We can do that as well:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">javaService</span> <span class="k">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="n">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">javaService</span> <span class="k">=</span> <span class="nv">Executors</span><span class="o">.</span><span class="py">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
   <span class="nc">Scheduler</span><span class="o">(</span><span class="n">javaService</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Or with an optional execution model:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">javaService</span> <span class="k">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="n">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">javaService</span> <span class="k">=</span> <span class="nv">Executors</span><span class="o">.</span><span class="py">newScheduledThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
   <span class="nc">Scheduler</span><span class="o">(</span><span class="n">javaService</span><span class="o">,</span> <span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -506,12 +506,12 @@ instance, a service capable of everything we’d want out of our
 CPU-bound tasks like so:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Simple constructor
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">computation</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">computation</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
 
 <span class="c1">// Specify an optional ExecutionModel
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">computation</span><span class="o">(</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">computation</span><span class="o">(</span>
     <span class="n">parallelism</span> <span class="k">=</span> <span class="mi">10</span><span class="o">,</span>
     <span class="n">executionModel</span> <span class="k">=</span> <span class="nc">AlwaysAsyncExecution</span>
   <span class="o">)</span>
@@ -521,15 +521,15 @@ CPU-bound tasks like so:</p>
 backed by a Java
 <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()">CachedThreadPool</a>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">()</span>
 
 <span class="c1">// Giving it a name
-</span><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">)</span>
+</span><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">)</span>
 
 <span class="c1">// Explicit execution model
-</span><span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span>
+</span><span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">(</span>
   <span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">,</span>
   <span class="n">executionModel</span> <span class="k">=</span> <span class="nc">AlwaysAsyncExecution</span>
 <span class="o">)</span>
@@ -539,8 +539,8 @@ backed by a Java
 environment, we could create a single threaded thread-pool, backed
 by a Java <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newSingleThreadScheduledExecutor()">SingleThreadScheduledExecutor</a>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">singleThread</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-thread"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">singleThread</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-thread"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Or a thread-pool with an exact number of threads (and not a
@@ -548,8 +548,8 @@ variable one like the <code class="highlighter-rouge">ForkJoinPool</code> above)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int)">ScheduledThreadPool</a>
 for both executing and scheduling delays:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">fixedPool</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-fixed"</span><span class="o">,</span> <span class="n">poolSize</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">fixedPool</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-fixed"</span><span class="o">,</span> <span class="n">poolSize</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="builders-for-javascript">Builders for Javascript</h2>
@@ -558,18 +558,18 @@ for both executing and scheduling delays:</p>
 rely on <code class="highlighter-rouge">setTimeout</code>. But you might still want to tweak settings,
 so this works:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
   <span class="nc">Scheduler</span><span class="o">(</span><span class="n">executionModel</span><span class="k">=</span><span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We might also want to execute undelayed tasks immediately
 by means of an internal trampoline:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">trampoline</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">trampoline</span><span class="o">()</span>
 
-<span class="k">lazy</span> <span class="k">val</span> <span class="n">scheduler</span> <span class="k">=</span>
-  <span class="nc">Scheduler</span><span class="o">.</span><span class="n">trampoline</span><span class="o">(</span><span class="n">executionModel</span><span class="k">=</span><span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
+<span class="k">lazy</span> <span class="k">val</span> <span class="nv">scheduler</span> <span class="k">=</span>
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">trampoline</span><span class="o">(</span><span class="n">executionModel</span><span class="k">=</span><span class="nc">AlwaysAsyncExecution</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Note that the trampoline cannot fake delayed execution,
@@ -597,11 +597,11 @@ a <code class="highlighter-rouge">SchedulerService</code> instance whenever it m
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
 <span class="k">import</span> <span class="nn">monix.execution.schedulers.SchedulerService</span>
 
-<span class="k">val</span> <span class="n">io</span><span class="k">:</span> <span class="kt">SchedulerService</span> <span class="o">=</span> <span class="nc">Scheduler</span><span class="o">.</span><span class="n">io</span><span class="o">(</span><span class="s">"my-io"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">io</span><span class="k">:</span> <span class="kt">SchedulerService</span> <span class="o">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">(</span><span class="s">"my-io"</span><span class="o">)</span>
 
-<span class="n">io</span><span class="o">.</span><span class="n">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-    <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+<span class="nv">io</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">})</span>
 </code></pre></div></div>
@@ -609,12 +609,12 @@ a <code class="highlighter-rouge">SchedulerService</code> instance whenever it m
 <p>At this point we can initiate an orderly shutdown that will execute our
 pending tasks first, but will accept no more tasks:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">shutdown</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">shutdown</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>We can also inspect the state of our service:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">isShutdown</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">isShutdown</span>
 <span class="c1">// res43: Boolean = true
 </span></code></pre></div></div>
 
@@ -629,15 +629,15 @@ to use for waiting:</p>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.global</span>
 
-<span class="k">val</span> <span class="n">termination</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">io</span><span class="o">.</span><span class="n">awaitTermination</span><span class="o">(</span><span class="mf">30.</span><span class="n">seconds</span><span class="o">,</span> <span class="n">global</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">termination</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">io</span><span class="o">.</span><span class="py">awaitTermination</span><span class="o">(</span><span class="mf">30.</span><span class="n">seconds</span><span class="o">,</span> <span class="n">global</span><span class="o">)</span>
 
-<span class="nc">Await</span><span class="o">.</span><span class="n">result</span><span class="o">(</span><span class="n">termination</span><span class="o">,</span> <span class="nc">Duration</span><span class="o">.</span><span class="nc">Inf</span><span class="o">)</span>
+<span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">termination</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We can now further inspect the state of our <code class="highlighter-rouge">SchedulerService</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">io</span><span class="o">.</span><span class="n">isTerminated</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">isTerminated</span>
 <span class="c1">// res45: Boolean = true
 </span></code></pre></div></div>
 
@@ -654,36 +654,7 @@ to use for waiting:</p>
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

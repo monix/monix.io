@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Observable</h1>
@@ -130,21 +130,21 @@ hence it has good interoperability.</p>
 
 <span class="c1">// We first build an observable that emits a tick per second, 
 // the series of elements being an auto-incremented long
-</span><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">interval</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">interval</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
   <span class="c1">// Filtering out odd numbers, making it emit every 2 seconds
-</span>  <span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
   <span class="c1">// We then make it emit the same element twice
-</span>  <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">))</span>
+</span>  <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">))</span>
   <span class="c1">// This stream would be infinite, so we limit it to 10 items
-</span>  <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">take</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
   
 <span class="c1">// Observables are lazy, nothing happens until you subscribe...
-</span><span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">source</span>
+</span><span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="n">source</span>
   <span class="c1">// On consuming it, we want to dump the contents to stdout
 </span>  <span class="c1">// for debugging purposes
-</span>  <span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
   <span class="c1">// Finally, start consuming it
-</span>  <span class="o">.</span><span class="n">subscribe</span><span class="o">()</span>
+</span>  <span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
 
 </code></pre></div></div>
 
@@ -236,18 +236,18 @@ regarding the documentation itself (like confusing wording) is really appreciate
 <p>You could describe <code class="highlighter-rouge">Observable</code> in the following way:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">subscribe</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Cancelable</span>
+  <span class="k">def</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Cancelable</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>where <code class="highlighter-rouge">Observer</code> is:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
+  <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
 
-  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
 
-  <span class="k">def</span> <span class="n">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -264,11 +264,11 @@ complicated then they really are.</p>
 <p><code class="highlighter-rouge">Observable</code> subscribing to <code class="highlighter-rouge">Observer</code> means that it will pass through the items generated by it which is done calling <code class="highlighter-rouge">onNext</code>.
 Imagine following situation:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">3</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">sum</span>
-  <span class="o">.</span><span class="n">firstL</span> <span class="c1">// returns Task[Long]
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">3</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">sum</span>
+  <span class="o">.</span><span class="py">firstL</span> <span class="c1">// returns Task[Long]
 </span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">fromIterable</code> is a builder which creates an <code class="highlighter-rouge">Observable</code> so it has to implement <code class="highlighter-rouge">subscribe</code>.
@@ -339,16 +339,16 @@ through your program until the very end (Main method).</p>
 
 <p>You can either create your own <code class="highlighter-rouge">Consumer</code> or use one of many prebuilt ones:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
-    <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
-      <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
-      <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
       
-<span class="k">val</span> <span class="n">consumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nc">Consumer</span><span class="o">.</span><span class="n">foldLeft</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">consumer</span><span class="k">:</span> <span class="kt">Consumer</span><span class="o">[</span><span class="kt">Long</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
     
-<span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">list</span><span class="o">.</span><span class="n">consumeWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">list</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>You can find more examples in <a href="./consumer.html">Consumer documentation</a>.</p>
@@ -359,18 +359,18 @@ through your program until the very end (Main method).</p>
 
 <p>For example you can use <code class="highlighter-rouge">firstL</code> to obtain the first element of the <code class="highlighter-rouge">Observable</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Task(0)
-</span><span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">).</span><span class="n">firstL</span>
+</span><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">).</span><span class="py">firstL</span>
 </code></pre></div></div>
 
 <p>Equivalent to the <code class="highlighter-rouge">Task</code> described in previous section would be:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
-    <span class="nc">Observable</span><span class="o">.</span><span class="n">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
-      <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
-      <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">take</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
        
-<span class="k">val</span> <span class="n">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">list</span><span class="o">.</span><span class="n">foldLeftL</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">list</span><span class="o">.</span><span class="py">foldLeftL</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 </code></pre></div></div>
 <h2 id="building-observable">Building Observable</h2>
 
@@ -381,7 +381,7 @@ through your program until the very end (Main method).</p>
 <p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known 
 value in the <code class="highlighter-rouge">Observable</code> context.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">now</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">//=&gt; Effect
 // obs: monix.reactive.Observable[String] = NowObservable@327a283b
 </span></code></pre></div></div>
@@ -391,18 +391,18 @@ value in the <code class="highlighter-rouge">Observable</code> context.</p>
 <p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict
 value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">delay</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">delay</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
-</span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">obs</span><span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">// task: monix.eval.Task[Unit] = Task.Async$1782722529
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// The evaluation (and thus all contained side effects)
 // gets triggered on each runToFuture:
-</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+</span><span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -413,17 +413,17 @@ value in the <code class="highlighter-rouge">Observable</code>. It is evaluated 
 that emits a single element and that memoizes the value for subsequent invocations.
 It also has guaranteed idempotency and thread-safety:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">evalOnce</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">evalOnce</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
-</span><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">obs</span><span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">// task: monix.eval.Task[Unit] = Task.Async$1782722529
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// Result was memoized on the first run!
-</span><span class="n">task</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span><span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -431,10 +431,10 @@ It also has guaranteed idempotency and thread-safety:</p>
 
 <p><code class="highlighter-rouge">Observable.fromIterable</code> converts any <code class="highlighter-rouge">Iterable</code> into <code class="highlighter-rouge">Observable</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">obs</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterable</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
 <span class="c1">// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
 </span>
-<span class="n">obs</span><span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">).</span><span class="n">runToFuture</span>
+<span class="nv">obs</span><span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">).</span><span class="py">runToFuture</span>
 <span class="c1">//=&gt; 1
 //=&gt; 2
 //=&gt; 3
@@ -448,11 +448,11 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 <span class="k">import</span> <span class="nn">scala.io.Source</span>
 
-<span class="k">def</span> <span class="n">readFile</span><span class="o">(</span><span class="n">path</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> 
-    <span class="nc">Observable</span><span class="o">.</span><span class="n">suspend</span> <span class="o">{</span>
+<span class="k">def</span> <span class="nf">readFile</span><span class="o">(</span><span class="n">path</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> 
+    <span class="nv">Observable</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
         <span class="c1">// The side effect won't happen until subscription
-</span>        <span class="k">val</span> <span class="n">lines</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="n">getLines</span>
-        <span class="nc">Observable</span><span class="o">.</span><span class="n">fromIterator</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="n">lines</span><span class="o">))</span>
+</span>        <span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">Source</span><span class="o">.</span><span class="py">fromFile</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="py">getLines</span>
+        <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="n">lines</span><span class="o">))</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
@@ -460,13 +460,13 @@ It also has guaranteed idempotency and thread-safety:</p>
 
 <p><code class="highlighter-rouge">Observable.raiseError</code> constructs an Observable that calls <code class="highlighter-rouge">onError</code> on any subscriber emitting specified <code class="highlighter-rouge">Exception</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"my exception"</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"my exception"</span><span class="o">))</span>
 <span class="c1">// observable: monix.reactive.Observable[Int]
 </span>
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">onErrorHandle</span> <span class="o">{</span><span class="n">ex</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Got exception: ${ex.getMessage}"</span><span class="o">);</span> <span class="mi">1</span><span class="o">}</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span><span class="n">ex</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Got exception: ${ex.getMessage}"</span><span class="o">);</span> <span class="mi">1</span><span class="o">}</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; Got exception: my exception
 //=&gt; 1
@@ -485,22 +485,22 @@ with <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to cr
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">queue</span><span class="k">:</span> <span class="kt">ConcurrentQueue</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="n">queue</span><span class="o">.</span><span class="n">offer</span><span class="o">(</span><span class="n">item</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">queue</span><span class="k">:</span> <span class="kt">ConcurrentQueue</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">queue</span><span class="o">.</span><span class="py">offer</span><span class="o">(</span><span class="n">item</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">def</span> <span class="nf">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="n">observable</span>
-    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
-    <span class="o">.</span><span class="n">completedL</span>
+    <span class="o">.</span><span class="py">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">completedL</span>
 <span class="o">}</span>
 
 <span class="o">{</span>
-  <span class="nc">ConcurrentQueue</span><span class="o">.</span><span class="n">unbounded</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">]().</span><span class="n">flatMap</span> <span class="o">{</span> <span class="n">queue</span> <span class="k">=&gt;</span>
+  <span class="nv">ConcurrentQueue</span><span class="o">.</span><span class="py">unbounded</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">]().</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">queue</span> <span class="k">=&gt;</span>
     <span class="nc">Task</span>
-      <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
-        <span class="n">feedItem</span><span class="o">(</span><span class="n">queue</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
-        <span class="n">processStream</span><span class="o">(</span><span class="nc">Observable</span><span class="o">.</span><span class="n">repeatEvalF</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="n">poll</span><span class="o">))</span>
+      <span class="o">.</span><span class="py">parZip2</span><span class="o">(</span>
+        <span class="nf">feedItem</span><span class="o">(</span><span class="n">queue</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+        <span class="nf">processStream</span><span class="o">(</span><span class="nv">Observable</span><span class="o">.</span><span class="py">repeatEvalF</span><span class="o">(</span><span class="nv">queue</span><span class="o">.</span><span class="py">poll</span><span class="o">))</span>
       <span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -518,24 +518,24 @@ Note that you can also create <code class="highlighter-rouge">Observable</code> 
 <span class="k">import</span> <span class="nn">monix.reactive.subjects.ConcurrentSubject</span>
 <span class="k">import</span> <span class="nn">monix.reactive.</span><span class="o">{</span><span class="nc">MulticastStrategy</span><span class="o">,</span> <span class="nc">Observable</span><span class="o">,</span> <span class="nc">Observer</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">MulticastStrategy</span><span class="o">.</span><span class="n">replay</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nv">MulticastStrategy</span><span class="o">.</span><span class="py">replay</span><span class="o">)</span>
 
-<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Task</span><span class="o">.</span><span class="n">deferFuture</span><span class="o">(</span><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">def</span> <span class="nf">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="n">observable</span>
-    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
-    <span class="o">.</span><span class="n">completedL</span>
+    <span class="o">.</span><span class="py">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">completedL</span>
 <span class="o">}</span>
 
 <span class="o">{</span>
 <span class="nc">Task</span>
-  <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
-    <span class="n">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
-    <span class="n">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">parZip2</span><span class="o">(</span>
+    <span class="nf">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+    <span class="nf">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
   <span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -565,21 +565,21 @@ delay between successive events.</p>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
 <span class="c1">// using `TestScheduler` to manipulate time
-</span><span class="k">implicit</span> <span class="k">val</span> <span class="n">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+</span><span class="k">implicit</span> <span class="k">val</span> <span class="nv">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
 
-<span class="k">val</span> <span class="n">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span>
-    <span class="o">.</span><span class="n">intervalWithFixedDelay</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
-    <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">intervalWithFixedDelay</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">stream</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
+<span class="nv">stream</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
 
-<span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
+<span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
 </span></code></pre></div></div>
 
 <h3 id="intervalatfixedrate">intervalAtFixedRate</h3>
@@ -598,21 +598,21 @@ Notice how it makes up for time spent in each <code class="highlighter-rouge">ma
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
 <span class="c1">// using `TestScheduler` to manipulate time
-</span><span class="k">implicit</span> <span class="k">val</span> <span class="n">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
+</span><span class="k">implicit</span> <span class="k">val</span> <span class="nv">sc</span> <span class="k">=</span> <span class="nc">TestScheduler</span><span class="o">()</span>
 
-<span class="k">val</span> <span class="n">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">stream</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span>
-    <span class="o">.</span><span class="n">intervalAtFixedRate</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
-    <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">intervalAtFixedRate</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">l</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">stream</span><span class="o">.</span><span class="n">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
+<span class="nv">stream</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">(</span><span class="n">sc</span><span class="o">)</span>
 
-<span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
-</span><span class="n">sc</span><span class="o">.</span><span class="n">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
+<span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 0
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 1
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2
+</span><span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3
 </span></code></pre></div></div>
 
 <h2 id="error-handling">Error Handling</h2>
@@ -629,12 +629,12 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">onErrorHandle</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="mi">4</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">onErrorHandle</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="mi">4</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; 1
 //=&gt; 2
@@ -648,12 +648,12 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; 1
 //=&gt; 2
@@ -675,12 +675,12 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">onErrorFallbackTo</span><span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">onErrorFallbackTo</span><span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; 1
 //=&gt; 2
@@ -691,7 +691,7 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 <p>This is equivalent to:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">handleErrorWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">handleErrorWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -711,15 +711,15 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 
 <span class="k">case</span> <span class="k">object</span> <span class="nc">TimeoutException</span> <span class="k">extends</span> <span class="nc">Exception</span>
 
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">TimeoutException</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="nc">TimeoutException</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">onErrorRestartIf</span> <span class="o">{</span>
+  <span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">TimeoutException</span> <span class="k">=&gt;</span> <span class="kc">true</span>
     <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
   <span class="o">}</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; 1
 //=&gt; 2
@@ -734,23 +734,23 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 
 <p>Since <code class="highlighter-rouge">Observable</code> methods compose pretty nicely you could easily combine them to write custom retry mechanism:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">retryWithDelay</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">delay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> 
-  <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
-    <span class="n">retryWithDelay</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">delay</span><span class="o">).</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">retryWithDelay</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">delay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> 
+  <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
+    <span class="nf">retryWithDelay</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">delay</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Which can be customized further. For example, we can add exponential backoff:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">retryBackoff</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">retryBackoff</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span>
   <span class="n">maxRetries</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">firstDelay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span>
+  <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span>
     <span class="k">case</span> <span class="n">ex</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">maxRetries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-        <span class="n">retryBackoff</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">maxRetries</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">firstDelay</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span>
-          <span class="o">.</span><span class="n">delayExecution</span><span class="o">(</span><span class="n">firstDelay</span><span class="o">)</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">maxRetries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="nf">retryBackoff</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">maxRetries</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">firstDelay</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span>
+          <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="n">firstDelay</span><span class="o">)</span>
       <span class="k">else</span>
-        <span class="nc">Observable</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+        <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -760,17 +760,17 @@ If <code class="highlighter-rouge">Observable</code> encounters an error it cann
 <p>Sometimes we would like to ignore elements that caused failure and keep going but 
 if something fails in <code class="highlighter-rouge">Observable</code> operator (e.g. mapEval) the entire <code class="highlighter-rouge">Observable</code> is failed with this error.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
-<span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
   <span class="k">else</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; elem: 1
 //=&gt; Exception in thread "main" monix.execution.exceptions.DummyException: error
@@ -779,18 +779,18 @@ if something fails in <code class="highlighter-rouge">Observable</code> operator
 <p>There is nothing like supervision in Akka Streams but if we control it at the <code class="highlighter-rouge">Effect</code> level, we could achieve similar behavior.
 For instance, we could wrap our elements in <code class="highlighter-rouge">Option</code> or <code class="highlighter-rouge">Either</code> and then do <code class="highlighter-rouge">collect { case Right(e) =&gt; e }</code>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
-<span class="k">def</span> <span class="n">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nc">Task</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span>
   <span class="k">else</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">task</span><span class="o">(</span><span class="k">_</span><span class="o">).</span><span class="n">attempt</span><span class="o">)</span> <span class="c1">// attempt transforms Task[A] into Task[Either[Throwable, A]] with all errors handled
-</span>  <span class="o">.</span><span class="n">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">evt</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">evt</span><span class="o">}</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="nf">task</span><span class="o">(</span><span class="k">_</span><span class="o">).</span><span class="py">attempt</span><span class="o">)</span> <span class="c1">// attempt transforms Task[A] into Task[Either[Throwable, A]] with all errors handled
+</span>  <span class="o">.</span><span class="py">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">evt</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">evt</span><span class="o">}</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e"</span><span class="o">))</span>
 <span class="o">}</span>
 
 <span class="c1">//=&gt; elem: 1
@@ -818,12 +818,12 @@ Usually they start with <code class="highlighter-rouge">doOn</code> or <code cla
 <p>Executes given callback for each element generated by the source <code class="highlighter-rouge">Observable</code>, useful for doing side-effects.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">counter</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
 <span class="o">{</span>
 <span class="n">observable</span>
-  <span class="o">.</span><span class="n">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">counter</span> <span class="o">+=</span> <span class="n">e</span><span class="o">))</span>
-  <span class="o">.</span><span class="n">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">counter</span> <span class="o">+=</span> <span class="n">e</span><span class="o">))</span>
+  <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">))</span>
 <span class="o">}</span>
 <span class="c1">//=&gt; elem: 1, counter: 1
 //=&gt; elem: 2, counter: 3
@@ -836,14 +836,14 @@ Usually they start with <code class="highlighter-rouge">doOn</code> or <code cla
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
-<span class="k">def</span> <span class="n">observable</span><span class="o">(</span><span class="n">counterRef</span><span class="k">:</span> <span class="kt">Ref</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">def</span> <span class="nf">observable</span><span class="o">(</span><span class="n">counterRef</span><span class="k">:</span> <span class="kt">Ref</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">counterRef</span><span class="o">.</span><span class="n">update</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="n">e</span><span class="o">))</span>
-    <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">counterRef</span><span class="o">.</span><span class="n">get</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">counter</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">)))</span>
-    <span class="o">.</span><span class="n">completedL</span>
+    <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nv">counterRef</span><span class="o">.</span><span class="py">update</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="n">e</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nv">counterRef</span><span class="o">.</span><span class="py">get</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">counter</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"elem: $e, counter: $counter"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">completedL</span>
 <span class="o">}</span>
 
-<span class="nc">Ref</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="n">of</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="n">flatMap</span><span class="o">(</span><span class="n">observable</span><span class="o">)</span>
+<span class="nc">Ref</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">of</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="n">observable</span><span class="o">)</span>
 <span class="c1">// After executing:
 //=&gt; elem: 1, counter: 1
 //=&gt; elem: 2, counter: 3
@@ -863,24 +863,24 @@ It is presented in the following example:</p>
 <span class="k">import</span> <span class="nn">monix.reactive.subjects.ConcurrentSubject</span>
 <span class="k">import</span> <span class="nn">monix.reactive.</span><span class="o">{</span><span class="nc">MulticastStrategy</span><span class="o">,</span> <span class="nc">Observable</span><span class="o">,</span> <span class="nc">Observer</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nc">MulticastStrategy</span><span class="o">.</span><span class="n">replay</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">subject</span><span class="k">:</span> <span class="kt">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nc">ConcurrentSubject</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nv">MulticastStrategy</span><span class="o">.</span><span class="py">replay</span><span class="o">)</span>
 
-<span class="k">def</span> <span class="n">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Task</span><span class="o">.</span><span class="n">deferFuture</span><span class="o">(</span><span class="n">observer</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">feedItem</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observer</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">item</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">item</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="k">def</span> <span class="n">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<span class="k">def</span> <span class="nf">processStream</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="n">observable</span>
-    <span class="o">.</span><span class="n">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
-    <span class="o">.</span><span class="n">completedL</span>
+    <span class="o">.</span><span class="py">mapParallelUnordered</span><span class="o">(</span><span class="mi">3</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">completedL</span>
 <span class="o">}</span>
 
 <span class="o">{</span>
 <span class="nc">Task</span>
-  <span class="o">.</span><span class="n">parZip2</span><span class="o">(</span>
-    <span class="n">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
-    <span class="n">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">parZip2</span><span class="o">(</span>
+    <span class="nf">feedItem</span><span class="o">(</span><span class="n">subject</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+    <span class="nf">processStream</span><span class="o">(</span><span class="n">subject</span><span class="o">)</span>
   <span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -918,17 +918,17 @@ For this reason tread carefully when using <code class="highlighter-rouge">Conne
 <code class="highlighter-rouge">PublishSubject</code> which emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">publish</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">publish</span>
 
-<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+<span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// Start the streaming
-</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
 
 <span class="c1">// result == 6
 </span>
 <span class="c1">// happens after all items are emitted so it doesn't add anything
-</span><span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// result == 6 
 </span></code></pre></div></div>
@@ -938,12 +938,12 @@ For this reason tread carefully when using <code class="highlighter-rouge">Conne
 and only after the source completes.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">publishLast</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">publishLast</span>
 
-<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+<span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// Start the streaming
-</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
 
 <span class="c1">// result == 3
 </span></code></pre></div></div>
@@ -953,12 +953,12 @@ and only after the source completes.</p>
 regardless of when the observer subscribes.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">replay</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">replay</span>
 
 <span class="c1">// Start the streaming
-</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
 
-<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+<span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// result == 6
 </span></code></pre></div></div>
@@ -967,12 +967,12 @@ regardless of when the observer subscribes.</p>
 of items that can be replayed (on overflow the head starts being dropped):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">replay</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">replay</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 
 <span class="c1">// Start the streaming
-</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
 
-<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+<span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// result == 3
 </span></code></pre></div></div>
@@ -982,12 +982,12 @@ of items that can be replayed (on overflow the head starts being dropped):</p>
 the <code class="highlighter-rouge">initialValue</code> (as the seed) in case no value has yet been emitted.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">result</span> <span class="k">=</span> <span class="mi">0</span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">behavior</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">behavior</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
 <span class="c1">// Start the streaming
-</span><span class="n">observable</span><span class="o">.</span><span class="n">connect</span><span class="o">()</span>
+</span><span class="nv">observable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
 
-<span class="n">observable</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
+<span class="nv">observable</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">result</span> <span class="o">+=</span> <span class="n">e</span><span class="o">)</span>
 
 <span class="c1">// result == 3
 </span></code></pre></div></div>
@@ -1012,28 +1012,28 @@ compatible with Reactive Streams protocol.</p>
 <span class="k">import</span> <span class="nn">akka.stream.scaladsl._</span>
 <span class="k">import</span> <span class="nn">akka.actor.ActorSystem</span>
 
-<span class="k">implicit</span> <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"akka-streams"</span><span class="o">)</span>
-<span class="k">implicit</span> <span class="k">val</span> <span class="n">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"akka-streams"</span><span class="o">)</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="nv">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>To convert Akka <code class="highlighter-rouge">Source</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))
 </span>
-<span class="k">val</span> <span class="n">publisher</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">asPublisher</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="n">fanout</span> <span class="k">=</span> <span class="kc">false</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">publisher</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">runWith</span><span class="o">(</span><span class="nv">Sink</span><span class="o">.</span><span class="py">asPublisher</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="n">fanout</span> <span class="k">=</span> <span class="kc">false</span><span class="o">))</span>
 <span class="c1">// publisher: org.reactivestreams.Publisher[Int] = VirtualPublisher(state = Publisher[StatefulMapConcat.out(1887925338)])
 </span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
 </span></code></pre></div></div>
 
 <p>To go back from Monix <code class="highlighter-rouge">Observable</code> to Akka <code class="highlighter-rouge">Source</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
 </span>
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">.</span><span class="n">fromPublisher</span><span class="o">(</span><span class="n">observable</span><span class="o">.</span><span class="n">toReactivePublisher</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Source</span><span class="o">.</span><span class="py">fromPublisher</span><span class="o">(</span><span class="nv">observable</span><span class="o">.</span><span class="py">toReactivePublisher</span><span class="o">)</span>
 <span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))
 </span></code></pre></div></div>
 
@@ -1045,7 +1045,7 @@ library but conversion remains very straightforward.</p>
 
 <p>Necessary imports:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span><span class="o">,</span> <span class="n">fs2</span><span class="o">.</span><span class="k">_</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span><span class="o">,</span> <span class="nv">fs2</span><span class="o">.</span><span class="py">_</span>
 <span class="k">import</span> <span class="nn">fs2.interop.reactivestreams._</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
@@ -1053,22 +1053,22 @@ library but conversion remains very straightforward.</p>
 
 <p>To convert FS2 <code class="highlighter-rouge">Stream</code> to Monix <code class="highlighter-rouge">Observable</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">stream</span> <span class="k">=</span> <span class="nc">Stream</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="n">covary</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nc">Stream</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">covary</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
 <span class="c1">// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
 </span>
-<span class="k">val</span> <span class="n">publisher</span> <span class="k">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">toUnicastPublisher</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">publisher</span> <span class="k">=</span> <span class="nv">stream</span><span class="o">.</span><span class="py">toUnicastPublisher</span><span class="o">()</span>
 <span class="c1">// publisher: fs2.interop.reactivestreams.StreamUnicastPublisher[cats.effect.IO,Int] = fs2.interop.reactivestreams.StreamUnicastPublisher@6418f777
 </span>
-<span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">fromReactivePublisher</span><span class="o">(</span><span class="n">publisher</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
 </span></code></pre></div></div>
 
 <p>To go back from Monix <code class="highlighter-rouge">Observable</code> to FS2 <code class="highlighter-rouge">Stream</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8
 </span>
-<span class="k">val</span> <span class="n">stream</span> <span class="k">=</span> <span class="n">observable</span><span class="o">.</span><span class="n">toReactivePublisher</span><span class="o">.</span><span class="n">toStream</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">toReactivePublisher</span><span class="o">.</span><span class="py">toStream</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
 <span class="c1">// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)
 </span></code></pre></div></div>
 
@@ -1091,36 +1091,7 @@ library but conversion remains very straightforward.</p>
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

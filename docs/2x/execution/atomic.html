@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Atomic</h1>
@@ -143,14 +143,14 @@ interface and there’s no reason for why they shouldn’t.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.atomic._</span>
 
-<span class="k">val</span> <span class="n">refInt1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">refInt2</span><span class="k">:</span> <span class="kt">AtomicInt</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refInt1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refInt2</span><span class="k">:</span> <span class="kt">AtomicInt</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">refLong1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">refLong2</span><span class="k">:</span> <span class="kt">AtomicLong</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refLong1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refLong2</span><span class="k">:</span> <span class="kt">AtomicLong</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">refString1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">refString2</span><span class="k">:</span> <span class="kt">AtomicAny</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refString1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refString2</span><span class="k">:</span> <span class="kt">AtomicAny</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h3 id="working-with-numbers">Working with Numbers</h3>
@@ -166,28 +166,28 @@ you normally need. How about <code class="highlighter-rouge">Float</code> and <c
 <a href="http://www.scala-lang.org/api/current/index.html#scala.math.Numeric">Numeric[T]</a>
 type-class, we can do this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicNumberAny[scala.math.BigInt] = monix.execution.atomic.AtomicNumberAny@139f999b
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+<span class="c1">// ref: monix.execution.atomic.AtomicNumberAny[scala.math.BigInt] = monix.execution.atomic.AtomicNumberAny@2ec440df
 </span>
 <span class="c1">// now we can increment a BigInt
-</span><span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res1: scala.math.BigInt = 2
 </span>
 <span class="c1">// or adding to it another value
-</span><span class="n">ref</span><span class="o">.</span><span class="n">addAndGet</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="s">"329084291234234"</span><span class="o">))</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">addAndGet</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="s">"329084291234234"</span><span class="o">))</span>
 <span class="c1">// res3: scala.math.BigInt = 329084291234236
 </span></code></pre></div></div>
 
 <p>But then if we have a type that isn’t a number:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">string</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">string</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Trying to apply numeric operations will of course fail:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="n">string</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="nv">string</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="o">&lt;</span><span class="n">console</span><span class="k">&gt;:</span><span class="mi">17</span><span class="k">:</span> <span class="kt">error:</span> <span class="kt">value</span> <span class="kt">incrementAndGet</span> <span class="kt">is</span> <span class="kt">not</span> <span class="kt">a</span> <span class="kt">member</span> <span class="kt">of</span> <span class="kt">monix.execution.atomic.AtomicAny</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
-       <span class="n">string</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+       <span class="nv">string</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
               <span class="o">^</span>
 </code></pre></div></div>
 
@@ -198,12 +198,12 @@ we’ve got this Java atomic:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
 
-<span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>The unexpected happens on <code class="highlighter-rouge">compareAndSet</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">isSuccess</span> <span class="k">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">isSuccess</span> <span class="k">=</span> <span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
 <span class="c1">// isSuccess: Boolean = false
 </span></code></pre></div></div>
 
@@ -222,22 +222,22 @@ stored inside an <code class="highlighter-rouge">AtomicLong</code> by using Java
 with special care to handle overflows correctly. All this is done to avoid boxing
 for performance reasons.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicDouble = monix.execution.atomic.AtomicDouble@7e649ccb
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+<span class="c1">// ref: monix.execution.atomic.AtomicDouble = monix.execution.atomic.AtomicDouble@402a0c84
 </span>
-<span class="n">ref</span><span class="o">.</span><span class="n">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
 <span class="c1">// res5: Boolean = true
 </span>
-<span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res6: Double = 101.0
 </span>
-<span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicChar = monix.execution.atomic.AtomicChar@572c69cb
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
+<span class="c1">// ref: monix.execution.atomic.AtomicChar = monix.execution.atomic.AtomicChar@73d55aef
 </span>
-<span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res7: Char = b
 </span>
-<span class="n">ref</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res8: Char = c
 </span></code></pre></div></div>
 
@@ -250,16 +250,16 @@ normally do something like this in Java:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">collection.immutable.Queue</span>
 <span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
 
-<span class="k">def</span> <span class="n">pushElementAndGet</span><span class="o">[</span><span class="kt">T</span> <span class="k">&lt;:</span> <span class="kt">AnyRef</span>, <span class="kt">U</span> <span class="k">&lt;:</span> <span class="kt">T</span><span class="o">]</span>
+<span class="k">def</span> <span class="nf">pushElementAndGet</span><span class="o">[</span><span class="kt">T</span> <span class="k">&lt;:</span> <span class="kt">AnyRef</span>, <span class="kt">U</span> <span class="k">&lt;:</span> <span class="kt">T</span><span class="o">]</span>
   <span class="o">(</span><span class="n">ref</span><span class="k">:</span> <span class="kt">AtomicReference</span><span class="o">[</span><span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]],</span> <span class="n">elem</span><span class="k">:</span> <span class="kt">U</span><span class="o">)</span><span class="k">:</span> <span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   
   <span class="k">var</span> <span class="n">continue</span> <span class="k">=</span> <span class="kc">true</span>
   <span class="k">var</span> <span class="n">update</span> <span class="k">=</span> <span class="kc">null</span>
 
-  <span class="k">while</span> <span class="o">(</span><span class="n">continue</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">var</span> <span class="n">current</span><span class="k">:</span> <span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">get</span><span class="o">()</span>
-    <span class="k">var</span> <span class="n">update</span> <span class="k">=</span> <span class="n">current</span><span class="o">.</span><span class="n">enqueue</span><span class="o">(</span><span class="n">elem</span><span class="o">)</span>
-    <span class="n">continue</span> <span class="k">=</span> <span class="o">!</span><span class="n">ref</span><span class="o">.</span><span class="n">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
+  <span class="nf">while</span> <span class="o">(</span><span class="n">continue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">current</span><span class="k">:</span> <span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nv">ref</span><span class="o">.</span><span class="py">get</span><span class="o">()</span>
+    <span class="k">var</span> <span class="n">update</span> <span class="k">=</span> <span class="nv">current</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="n">elem</span><span class="o">)</span>
+    <span class="n">continue</span> <span class="k">=</span> <span class="o">!</span><span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
   <span class="o">}</span>
   
   <span class="n">update</span>
@@ -270,26 +270,26 @@ normally do something like this in Java:</p>
 <a href="https://nbronson.github.io/scala-stm/">ScalaSTM</a>,
 with <code class="highlighter-rouge">Atomic</code> you can simply do this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">Queue</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicAny[scala.collection.immutable.Queue[String]] = monix.execution.atomic.AtomicAny@5077127c
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nv">Queue</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
+<span class="c1">// ref: monix.execution.atomic.AtomicAny[scala.collection.immutable.Queue[String]] = monix.execution.atomic.AtomicAny@632d2ea3
 </span>
 <span class="c1">// Transforms the value and returns the update
-</span><span class="n">ref</span><span class="o">.</span><span class="n">transformAndGet</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">transformAndGet</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
 <span class="c1">// res10: scala.collection.immutable.Queue[String] = Queue(hello)
 </span>
 <span class="c1">// Transforms the value and returns the current one
-</span><span class="n">ref</span><span class="o">.</span><span class="n">getAndTransform</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">enqueue</span><span class="o">(</span><span class="s">"world"</span><span class="o">))</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">getAndTransform</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"world"</span><span class="o">))</span>
 <span class="c1">// res12: scala.collection.immutable.Queue[String] = Queue(hello)
 </span>
 <span class="c1">// We can be specific about what we want extracted as a result
-</span><span class="n">ref</span><span class="o">.</span><span class="n">transformAndExtract</span> <span class="o">{</span> <span class="n">current</span> <span class="k">=&gt;</span>
-  <span class="k">val</span> <span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span> <span class="k">=</span> <span class="n">current</span><span class="o">.</span><span class="n">dequeue</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">transformAndExtract</span> <span class="o">{</span> <span class="n">current</span> <span class="k">=&gt;</span>
+  <span class="nf">val</span> <span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span> <span class="k">=</span> <span class="nv">current</span><span class="o">.</span><span class="py">dequeue</span>
   <span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
 <span class="o">}</span>
 <span class="c1">// res14: String = hello
 </span>
 <span class="c1">// Or the shortcut, because it looks so good
-</span><span class="n">ref</span><span class="o">.</span><span class="n">transformAndExtract</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">dequeue</span><span class="o">)</span>
+</span><span class="nv">ref</span><span class="o">.</span><span class="py">transformAndExtract</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">dequeue</span><span class="o">)</span>
 <span class="c1">// res16: String = world
 </span></code></pre></div></div>
 
@@ -323,17 +323,17 @@ of that any extra overhead is unacceptable.</p>
 primitives. This is why the constructor for atomic references always
 returns the most specialized version, as to avoid boxing and unboxing:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 <span class="c1">// ref: monix.execution.atomic.AtomicInt = AtomicInt(1)
 </span>
-<span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1L</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1L</span><span class="o">)</span>
 <span class="c1">// ref: monix.execution.atomic.AtomicLong = AtomicLong(1)
 </span>
-<span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
 <span class="c1">// ref: monix.execution.atomic.AtomicBoolean = AtomicBoolean(true)
 </span>
-<span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
-<span class="c1">// ref: monix.execution.atomic.AtomicAny[String] = monix.execution.atomic.AtomicAny@342e2166
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
+<span class="c1">// ref: monix.execution.atomic.AtomicAny[String] = monix.execution.atomic.AtomicAny@50ab5cd6
 </span></code></pre></div></div>
 
 <p>Increments/decrements are done by going through the
@@ -359,11 +359,11 @@ classes are provided. For reference on what that means, see:</p>
 
 <span class="c1">// Applies padding to the left of the value for a cache line 
 // of 64 bytes
-</span><span class="k">val</span> <span class="n">ref1</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">.</span><span class="n">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Left64</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">ref1</span> <span class="k">=</span> <span class="nv">Atomic</span><span class="o">.</span><span class="py">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Left64</span><span class="o">)</span>
 
 <span class="c1">// Applies padding both to the left and the right of the value 
 // for a total object size of at least 256 bytes
-</span><span class="k">val</span> <span class="n">ref2</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">.</span><span class="n">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">LeftRight256</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nv">Atomic</span><span class="o">.</span><span class="py">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">LeftRight256</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>The strategies available are:</p>
@@ -408,13 +408,13 @@ to normal <code class="highlighter-rouge">compareAndSet</code> loops if running 
 
 <p>So when you do this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">numberRef</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">numberRef</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="c1">// numberRef: monix.execution.atomic.AtomicInt = AtomicInt(0)
 </span>
-<span class="k">val</span> <span class="n">previous</span> <span class="k">=</span> <span class="n">numberRef</span><span class="o">.</span><span class="n">getAndSet</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">previous</span> <span class="k">=</span> <span class="nv">numberRef</span><span class="o">.</span><span class="py">getAndSet</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 <span class="c1">// previous: Int = 0
 </span>
-<span class="k">val</span> <span class="n">current</span> <span class="k">=</span> <span class="n">numberRef</span><span class="o">.</span><span class="n">incrementAndGet</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">current</span> <span class="k">=</span> <span class="nv">numberRef</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// current: Int = 2
 </span></code></pre></div></div>
 
@@ -435,36 +435,7 @@ loops (e.g. Java 6 and 7, Android).</p>
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Coeval</h1>
@@ -133,25 +133,25 @@ fascination of FP developers for co-things ♥◡♥</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
-<span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span>
-  <span class="n">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">)</span>
   <span class="s">"Hello!"</span>
 <span class="o">}</span>
 
 <span class="c1">// Coeval has lazy behavior, so nothing
 // happens until being evaluated:
-</span><span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect!
 // res1: String = Hello!
 </span>
 <span class="c1">// And we can handle errors explicitly:
 </span><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
 
-<span class="n">coeval</span><span class="o">.</span><span class="n">runTry</span> <span class="k">match</span> <span class="o">{</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span> <span class="k">match</span> <span class="o">{</span>
  <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
-   <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+   <span class="nf">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
  <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
-   <span class="nc">System</span><span class="o">.</span><span class="n">err</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+   <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -251,13 +251,13 @@ replacement for Scala’s <code class="highlighter-rouge">Try</code> type.</p>
 
 <p>To evaluate a <code class="highlighter-rouge">Coeval</code> instance you can invoke its <code class="highlighter-rouge">value</code> command:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span>
-  <span class="n">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span>
+  <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">)</span>
   <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="o">}</span>
 
 <span class="c1">// Nothing happens until this point:
-</span><span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect!
 // res: Int = 2
 </span></code></pre></div></div>
@@ -268,15 +268,15 @@ errors by means of <code class="highlighter-rouge">runTry</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Failure</span><span class="o">,</span> <span class="nc">Success</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">throw</span> <span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">coeval</span><span class="o">.</span><span class="n">runTry</span> <span class="k">match</span> <span class="o">{</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span> <span class="k">match</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Success: $value"</span><span class="o">)</span>
+    <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Success: $value"</span><span class="o">)</span>
   <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Error: $ex"</span><span class="o">)</span>
+    <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Error: $ex"</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="c1">// Will print:
@@ -295,14 +295,14 @@ exposed as an ADT that you can use instead of <code class="highlighter-rouge">sc
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 <span class="k">import</span> <span class="nn">monix.eval.Coeval.</span><span class="o">{</span><span class="nc">Eager</span><span class="o">,</span> <span class="nc">Now</span><span class="o">,</span> <span class="nc">Error</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">coeval1</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">coeval1</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">result1</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">coeval1</span><span class="o">.</span><span class="n">run</span>
+<span class="k">val</span> <span class="nv">result1</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">coeval1</span><span class="o">.</span><span class="py">run</span>
 <span class="c1">// result1 = Now(2)
 </span>
-<span class="k">val</span> <span class="n">coeval2</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">coeval2</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">))</span>
 
-<span class="k">val</span> <span class="n">result2</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">coeval2</span><span class="o">.</span><span class="n">run</span>
+<span class="k">val</span> <span class="nv">result2</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">coeval2</span><span class="o">.</span><span class="py">run</span>
 <span class="c1">// result = Error(java.lang.RuntimeException: Hello!)
 </span></code></pre></div></div>
 
@@ -316,9 +316,9 @@ is the main difference between <code class="highlighter-rouge">Eager</code> and 
 
 <p>For converting any <code class="highlighter-rouge">Coeval</code> into a <a href="./task.html">Task</a>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">coeval</span><span class="o">.</span><span class="n">task</span>
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">task</span>
 <span class="c1">// task: Task[Int] = Always(&lt;function0&gt;)
 </span></code></pre></div></div>
 
@@ -338,7 +338,7 @@ the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
-<span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">//=&gt; Effect
 // coeval: monix.eval.Coeval[String] = Now(Hello!)
 </span></code></pre></div></div>
@@ -348,16 +348,16 @@ the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 <p><code class="highlighter-rouge">Coeval.eval</code> is the equivalent of <code class="highlighter-rouge">Function0</code>, taking a
 function that will always be evaluated on invocation of <code class="highlighter-rouge">value</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)
 </span>
-<span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// The evaluation (and thus all contained side effects)
 // gets triggered every time
-</span><span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -370,15 +370,15 @@ memoization on the first run, such that the result of the evaluation
 will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">evalOnce</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">evalOnce</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)
 </span>
-<span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
 <span class="c1">// Result was memoized on the first run!
-</span><span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -387,16 +387,16 @@ idempotency and thread-safety:</p>
 <p><code class="highlighter-rouge">Coeval.defer</code> is about building a factory of coevals. For example
 this will behave approximately like <code class="highlighter-rouge">Coeval.eval</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">defer</span> <span class="o">{</span>
-  <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
+  <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="o">}</span>
 <span class="c1">// coeval: monix.eval.Coeval[String] = Suspend(&lt;function0&gt;)
 </span>
-<span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
-<span class="n">coeval</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span></code></pre></div></div>
@@ -405,11 +405,11 @@ this will behave approximately like <code class="highlighter-rouge">Coeval.eval<
 
 <p><code class="highlighter-rouge">Coeval.raiseError</code> can lift errors in the monadic context of <code class="highlighter-rouge">Coeval</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">error</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">error</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 <span class="c1">// error: monix.eval.Coeval[Int] =
 //   Error(java.util.concurrent.TimeoutException)
 </span>
-<span class="n">error</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">error</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">//=&gt; Failure(java.lang.IllegalStateException)
 </span></code></pre></div></div>
 
@@ -419,7 +419,7 @@ this will behave approximately like <code class="highlighter-rouge">Coeval.eval<
 provided as an utility, to spare you creating new instances with
 <code class="highlighter-rouge">Coeval.now(())</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">unit</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">unit</span>
 <span class="c1">// coeval: monix.eval.Coeval[Unit] = Now(())
 </span></code></pre></div></div>
 
@@ -443,7 +443,7 @@ first evaluation</li>
 <p>So <code class="highlighter-rouge">memoize</code> effectively caches the result of the first <code class="highlighter-rouge">value</code> or
 <code class="highlighter-rouge">runTry</code> call. In fact we can say that:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Coeval</span><span class="o">.</span><span class="n">evalOnce</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="n">memoize</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Coeval</span><span class="o">.</span><span class="py">evalOnce</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="py">memoize</span>
 </code></pre></div></div>
 
 <p>They are effectively the same. And at the moment of writing, the
@@ -458,15 +458,15 @@ idea of the properties involved: for the layman, you can say that
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
 <span class="c1">// Has async execution, to do the .apply semantics
-</span><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+</span><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">memoized</span> <span class="k">=</span> <span class="n">coeval</span><span class="o">.</span><span class="n">memoize</span>
+<span class="k">val</span> <span class="nv">memoized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">memoize</span>
 
-<span class="n">memoized</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">memoized</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Effect
 //=&gt; Hello!
 </span>
-<span class="n">memoized</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">memoized</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
@@ -480,9 +480,9 @@ the Fibonacci sequence:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.annotation.tailrec</span>
 
 <span class="nd">@tailrec</span>
-<span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-    <span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">BigInt</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
   <span class="k">else</span>
     <span class="n">b</span>
 <span class="o">}</span>
@@ -493,11 +493,11 @@ the Fibonacci sequence:</p>
 annotation from Scala’s standard library. And if we’d describe it with
 <code class="highlighter-rouge">Coeval</code>, one possible implementation would be:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">defer</span><span class="o">(</span><span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">defer</span><span class="o">(</span><span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">))</span>
   <span class="k">else</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -511,12 +511,12 @@ for things like <code class="highlighter-rouge">Coeval</code>, <code class="high
 describes recursivity or that forces ordering (e.g. execute this, then
 that, then that). And we can use it to describe recursive calls:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
     <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span>
-      <span class="n">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">)</span>
+      <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">)</span>
     <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span>
-      <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
+      <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">b</span><span class="o">)</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
@@ -528,19 +528,19 @@ as nothing will get triggered until evaluation happens.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mutual Tail Recursion, ftw!!!
 </span><span class="o">{</span>
-  <span class="k">def</span> <span class="n">odd</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
-      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
-      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="n">even</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="k">def</span> <span class="nf">odd</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="nf">even</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
     <span class="o">}</span>
 
-  <span class="k">def</span> <span class="n">even</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
-      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
-      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="n">odd</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="k">def</span> <span class="nf">even</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+      <span class="k">case</span> <span class="kc">false</span> <span class="k">=&gt;</span> <span class="nf">odd</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
     <span class="o">}</span>
 
-  <span class="n">even</span><span class="o">(</span><span class="mi">1000000</span><span class="o">)</span>
+  <span class="nf">even</span><span class="o">(</span><span class="mi">1000000</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -550,12 +550,12 @@ as nothing will get triggered until evaluation happens.</p>
 
 <p>When using <code class="highlighter-rouge">flatMap</code>, we often end up with this:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">locationTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
-<span class="k">val</span> <span class="n">phoneTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
-<span class="k">val</span> <span class="n">addressTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
+<span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
+<span class="k">val</span> <span class="nv">addressTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 
 <span class="c1">// Ordered operations based on flatMap ...
-</span><span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
   <span class="n">location</span> <span class="k">&lt;-</span> <span class="n">locationTask</span>
   <span class="n">phone</span> <span class="k">&lt;-</span> <span class="n">phoneTask</span>
   <span class="n">address</span> <span class="k">&lt;-</span> <span class="n">addressTask</span>
@@ -569,20 +569,20 @@ But <code class="highlighter-rouge">Coeval</code> is also an <code class="highli
 as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">zip3</code>, up until <code class="highlighter-rouge">zip6</code> (at the moment of writing) and also
 <code class="highlighter-rouge">zipList</code>. The example above could be written as:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">locationCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
-<span class="k">val</span> <span class="n">phoneCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
-<span class="k">val</span> <span class="n">addressCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(???)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
+<span class="k">val</span> <span class="nv">phoneCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
+<span class="k">val</span> <span class="nv">addressCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 
-<span class="k">val</span> <span class="n">aggregate</span> <span class="k">=</span>
-  <span class="nc">Coeval</span><span class="o">.</span><span class="n">zip3</span><span class="o">(</span><span class="n">locationCoeval</span><span class="o">,</span> <span class="n">phoneCoeval</span><span class="o">,</span> <span class="n">addressCoeval</span><span class="o">).</span><span class="n">map</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span>
+  <span class="nv">Coeval</span><span class="o">.</span><span class="py">zip3</span><span class="o">(</span><span class="n">locationCoeval</span><span class="o">,</span> <span class="n">phoneCoeval</span><span class="o">,</span> <span class="n">addressCoeval</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span>
+    <span class="nf">case</span> <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
 <p>In order to avoid boxing into tuples, you can also use <code class="highlighter-rouge">map2</code>,
 <code class="highlighter-rouge">map3</code> … <code class="highlighter-rouge">map6</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Coeval</span><span class="o">.</span><span class="n">map3</span><span class="o">(</span><span class="n">locationCoeval</span><span class="o">,</span> <span class="n">phoneCoeval</span><span class="o">,</span> <span class="n">addressCoeval</span><span class="o">)</span> <span class="o">{</span> 
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Coeval</span><span class="o">.</span><span class="py">map3</span><span class="o">(</span><span class="n">locationCoeval</span><span class="o">,</span> <span class="n">phoneCoeval</span><span class="o">,</span> <span class="n">addressCoeval</span><span class="o">)</span> <span class="o">{</span> 
   <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -593,13 +593,13 @@ as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">
 <code class="highlighter-rouge">Coeval[Seq[A]]</code>, thus transforming any sequence of coevals into a
 coeval with a sequence of results.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">ca</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">cb</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ca</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">cb</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">list</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
-  <span class="nc">Coeval</span><span class="o">.</span><span class="n">sequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ca</span><span class="o">,</span> <span class="n">cb</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nv">Coeval</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ca</span><span class="o">,</span> <span class="n">cb</span><span class="o">))</span>
 
-<span class="n">list</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">list</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; List(1, 2)
 </span></code></pre></div></div>
 
@@ -613,16 +613,16 @@ over again, until the given predicate is true:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Random</span>
 
-<span class="k">val</span> <span class="n">randomEven</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Coeval</span><span class="o">.</span><span class="n">eval</span><span class="o">(</span><span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">())</span>
-    <span class="o">.</span><span class="n">restartUntil</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">())</span>
+    <span class="o">.</span><span class="py">restartUntil</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">randomEven</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; -2097793116
-</span><span class="n">randomEven</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; 1246761488
-</span><span class="n">randomEven</span><span class="o">.</span><span class="n">value</span>
+</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; 1053678416
 </span></code></pre></div></div>
 
@@ -633,18 +633,18 @@ over again, until the given predicate is true:</p>
 being meant for cleaning up resources or executing
 some scheduled side-effect:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">withFinishCb</span> <span class="k">=</span> <span class="n">coeval</span><span class="o">.</span><span class="n">doOnFinish</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">withFinishCb</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">doOnFinish</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span>
-    <span class="n">println</span><span class="o">(</span><span class="s">"Was success!"</span><span class="o">)</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">unit</span>
+    <span class="nf">println</span><span class="o">(</span><span class="s">"Was success!"</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">unit</span>
   <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Had failure: $ex"</span><span class="o">)</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">unit</span>
+    <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Had failure: $ex"</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">unit</span>
 <span class="o">}</span>
 
-<span class="n">withFinishCb</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">withFinishCb</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Was success!
 // res: Int = 1
 </span></code></pre></div></div>
@@ -662,17 +662,17 @@ errors, it still catches errors, signaling them on <code class="highlighter-roug
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 <span class="k">import</span> <span class="nn">scala.util.Random</span>
 
-<span class="k">val</span> <span class="n">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">even</span> <span class="k">if</span> <span class="n">even</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">=&gt;</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">odd</span> <span class="k">=&gt;</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="n">odd</span><span class="o">.</span><span class="n">toString</span><span class="o">)</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">odd</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">coeval</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res1: Try[Int] = Success(624170708)
 </span>
-<span class="n">coeval</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res2: Try[Int] = Failure(IllegalStateException: -814066173)
 </span></code></pre></div></div>
 
@@ -685,31 +685,31 @@ this:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">String</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">recovered</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandleWith</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
     <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
     <span class="c1">// We have no idea what happened, raise error!
-</span>    <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
+</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">recovered</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res1: Try[String] = Success(Recovered!)
 </span></code></pre></div></div>
 
 <p>There’s also <code class="highlighter-rouge">Coeval.onErrorRecoverWith</code> that takes a partial function
 instead, so we can omit the “other” branch:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">recovered</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRecoverWith</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecoverWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
     <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">recovered</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res: Try[String] = Success(Recovered!)
 </span></code></pre></div></div>
 
@@ -718,7 +718,7 @@ equivalent of <code class="highlighter-rouge">flatMap</code>, only for errors. I
 evaluate a fallback result eagerly, we could use the shortcut
 operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">recovered</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorHandle</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
     <span class="c1">// Oh, we know about illegal states, recover it
 </span>    <span class="s">"Recovered!"</span>
@@ -729,7 +729,7 @@ operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
 
 <p>Or the partial function version with <code class="highlighter-rouge">onErrorRecover</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">recovered</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRecover</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecover</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
     <span class="c1">// Oh, we know about illegal states, recover it
 </span>    <span class="s">"Recovered!"</span>
@@ -744,32 +744,32 @@ restart the source on error, for how many times are needed:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Random</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">even</span> <span class="k">if</span> <span class="n">even</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">=&gt;</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="n">toString</span><span class="o">))</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
 <span class="c1">// Will retry 4 times for a random even number,
 // or fail if the maxRetries is reached!
-</span><span class="k">val</span> <span class="n">randomEven</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We can also restart with a given predicate:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Random</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nc">Random</span><span class="o">.</span><span class="n">nextInt</span><span class="o">).</span><span class="n">flatMap</span> <span class="o">{</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">even</span> <span class="k">if</span> <span class="n">even</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">=&gt;</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">even</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="n">toString</span><span class="o">))</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
 <span class="c1">// Will keep retrying for as long as the source fails
 // with an IllegalStateException
-</span><span class="k">val</span> <span class="n">randomEven</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">onErrorRestartIf</span> <span class="o">{</span>
+</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span> <span class="kc">true</span>
   <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
 <span class="o">}</span>
@@ -783,17 +783,17 @@ errors such that we can recover more efficiently:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Try</span><span class="o">,</span> <span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
-<span class="k">val</span> <span class="n">materialized</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
-  <span class="n">coeval</span><span class="o">.</span><span class="n">materialize</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">materialized</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
+  <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
 
 <span class="c1">// Now we can flatMap over both success and failure:
-</span><span class="k">val</span> <span class="n">recovered</span> <span class="k">=</span> <span class="n">materialized</span><span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
-  <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">now</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+  <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="n">recovered</span><span class="o">.</span><span class="n">value</span>
+<span class="nv">recovered</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">// res: Int = 0
 </span></code></pre></div></div>
 
@@ -802,14 +802,14 @@ errors such that we can recover more efficiently:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
 
-<span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
 <span class="c1">// Exposing errors
-</span><span class="k">val</span> <span class="n">materialized</span> <span class="k">=</span> <span class="n">coeval</span><span class="o">.</span><span class="n">materialize</span>
+</span><span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
 <span class="c1">// materialize: Coeval[Try[Int]] = ???
 </span>
 <span class="c1">// Hiding errors again
-</span><span class="k">val</span> <span class="n">dematerialized</span> <span class="k">=</span> <span class="n">materialized</span><span class="o">.</span><span class="n">dematerialize</span>
+</span><span class="k">val</span> <span class="nv">dematerialized</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">dematerialize</span>
 <span class="c1">// dematerialized: Coeval[Int] = ???
 </span></code></pre></div></div>
 
@@ -817,12 +817,12 @@ errors such that we can recover more efficiently:</p>
 expose any errors that happen and will also terminate with an
 <code class="highlighter-rouge">NoSuchElementException</code> in case the source completes with success:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">.</span><span class="n">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="n">throwable</span> <span class="k">=</span> <span class="n">source</span><span class="o">.</span><span class="n">failed</span>
+<span class="k">val</span> <span class="nv">throwable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">failed</span>
 <span class="c1">// throwable: Coeval[Throwable] = ???
 </span>
-<span class="n">throwable</span><span class="o">.</span><span class="n">runTry</span>
+<span class="nv">throwable</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res: Try[Throwable] = Success(java.lang.IllegalStateException)
 </span></code></pre></div></div>
 
@@ -845,36 +845,7 @@ expose any errors that happen and will also terminate with an
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

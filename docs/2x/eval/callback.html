@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Callback</h1>
@@ -122,8 +122,8 @@ the result of a computation.</p>
 computation, on completion. Its definition is something like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Try</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
-  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -141,23 +141,23 @@ a “safe” implementation that protects against violations:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Callback</span>
 
-<span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
-  <span class="k">def</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
-    <span class="n">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
-  <span class="k">def</span> <span class="n">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
-    <span class="nc">System</span><span class="o">.</span><span class="n">err</span><span class="o">.</span><span class="n">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
+    <span class="nf">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="c1">// We need an exception reporter, but we can just use a Scheduler
 </span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 
-<span class="k">val</span> <span class="n">safeCallback1</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">safeCallback1</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)</span>
 
 <span class="c1">// But really, we don't need a Scheduler
 </span><span class="k">import</span> <span class="nn">monix.execution.UncaughtExceptionReporter</span>
 <span class="k">import</span> <span class="nn">UncaughtExceptionReporter.</span><span class="o">{</span><span class="nc">LogExceptionsToStandardErr</span> <span class="k">=&gt;</span> <span class="n">r</span><span class="o">}</span>
 
-<span class="k">val</span> <span class="n">safeCallback2</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)(</span><span class="n">r</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">safeCallback2</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)(</span><span class="n">r</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p><strong>NOTE:</strong> when executing <code class="highlighter-rouge">Task.runAsync(callback)</code>, the provided
@@ -168,20 +168,20 @@ need to worry about it.</p>
 on <code class="highlighter-rouge">onSuccess</code>, but that can log errors when <code class="highlighter-rouge">onError</code> happens,
 maybe because you just want the side-effects:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">task</span> <span class="k">=</span> <span class="n">monix</span><span class="o">.</span><span class="n">eval</span><span class="o">.</span><span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@2091429470, monix.eval.Task$$$Lambda$13094/0x00000008045b4040@44e09b47)
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@286461545, monix.eval.Task$$$Lambda$13079/0x00000008045bb840@29658569)
 </span>
-<span class="n">task</span><span class="o">.</span><span class="n">runAsync</span><span class="o">(</span><span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">)</span>
-<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@75e09e2e
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
+<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@16fb81b0
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="n">p</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">concurrent</span><span class="o">.</span><span class="nc">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nv">scala</span><span class="o">.</span><span class="py">concurrent</span><span class="o">.</span><span class="py">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
 <span class="c1">// Sample
 // p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)
 </span>
-<span class="k">val</span> <span class="n">callback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
 <span class="c1">// callback: monix.eval.Callback[String] = &lt;function1&gt;
 </span></code></pre></div></div>
 
@@ -191,9 +191,9 @@ errors. So to force a protective asynchronous boundary when calling
 <code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> (which may or may not fork a thread):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Lets pretend we have something meaningful
-</span><span class="k">val</span> <span class="n">ref</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+</span><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
 
-<span class="k">val</span> <span class="n">asyncCallback</span> <span class="k">=</span> <span class="nc">Callback</span><span class="o">.</span><span class="n">async</span><span class="o">(</span><span class="n">ref</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">asyncCallback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">async</span><span class="o">(</span><span class="n">ref</span><span class="o">)</span>
 </code></pre></div></div>
 
 
@@ -209,36 +209,7 @@ errors. So to force a protective asynchronous boundary when calling
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>

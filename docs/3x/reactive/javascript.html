@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Javascript Event Listeners</h1>
@@ -111,10 +111,9 @@
 dealing with event listeners. How do you convert a Javascript event
 listener to an <code class="highlighter-rouge">Observable</code>?</p>
 
-<p>It’s simple, as seen in the example below. Then you can subscribe to 
+<p>It’s simple, as seen in the example below. Then you can subscribe to
 it and manipulate it, like any other <code class="highlighter-rouge">Observable</code></p>
 
-<div data-scalafiddle="" data-dependency="io.monix %%% monix % 2.3.3">
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">org.scalajs.dom</span>
 <span class="k">import</span> <span class="nn">org.scalajs.dom.</span><span class="o">{</span><span class="nc">Event</span><span class="o">,</span> <span class="nc">EventTarget</span><span class="o">,</span> <span class="nc">MouseEvent</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
@@ -124,33 +123,30 @@ it and manipulate it, like any other <code class="highlighter-rouge">Observable<
 <span class="k">import</span> <span class="nn">monix.reactive.OverflowStrategy.Unbounded</span>
 <span class="k">import</span> <span class="nn">concurrent.duration._</span>
 
-<span class="k">def</span> <span class="n">eventListener</span><span class="o">(</span><span class="n">target</span><span class="k">:</span> <span class="kt">EventTarget</span><span class="o">,</span> <span class="n">event</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Event</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Observable</span><span class="o">.</span><span class="n">create</span><span class="o">(</span><span class="nc">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">subscriber</span> <span class="k">=&gt;</span>
-    <span class="k">val</span> <span class="n">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
+<span class="k">def</span> <span class="nf">eventListener</span><span class="o">(</span><span class="n">target</span><span class="k">:</span> <span class="kt">EventTarget</span><span class="o">,</span> <span class="n">event</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Event</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">create</span><span class="o">(</span><span class="nc">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">subscriber</span> <span class="k">=&gt;</span>
+    <span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
     <span class="c1">// Forced conversion, otherwise canceling will not work!
-</span>    <span class="k">val</span> <span class="n">f</span><span class="k">:</span> <span class="kt">scalajs.js.Function1</span><span class="o">[</span><span class="kt">Event</span>,<span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="n">subscriber</span><span class="o">.</span><span class="n">onNext</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="n">syncOnStopOrFailure</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">cancel</span><span class="o">())</span>
-    
-    <span class="n">target</span><span class="o">.</span><span class="n">addEventListener</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">f</span><span class="o">)</span>
-    <span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="n">target</span><span class="o">.</span><span class="n">removeEventListener</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">f</span><span class="o">))</span>
+</span>    <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">scalajs.js.Function1</span><span class="o">[</span><span class="kt">Event</span>,<span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="py">syncOnStopOrFailure</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">())</span>
+
+    <span class="nv">target</span><span class="o">.</span><span class="py">addEventListener</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">f</span><span class="o">)</span>
+    <span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nv">target</span><span class="o">.</span><span class="py">removeEventListener</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">f</span><span class="o">))</span>
   <span class="o">}</span>
 
-<span class="k">val</span> <span class="n">conn</span> <span class="k">=</span> <span class="n">eventListener</span><span class="o">(</span><span class="n">dom</span><span class="o">.</span><span class="n">window</span><span class="o">,</span> <span class="s">"mousemove"</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">MouseEvent</span> <span class="o">=&gt;</span> <span class="n">e</span> <span class="o">}</span>
-  <span class="o">.</span><span class="n">sampleRepeated</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
-  <span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Mouse: ${e.screenX}, ${e.screenY}"</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">conn</span> <span class="k">=</span> <span class="nf">eventListener</span><span class="o">(</span><span class="nv">dom</span><span class="o">.</span><span class="py">window</span><span class="o">,</span> <span class="s">"mousemove"</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">collect</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">MouseEvent</span> <span class="o">=&gt;</span> <span class="n">e</span> <span class="o">}</span>
+  <span class="o">.</span><span class="py">sampleRepeated</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">e</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Mouse: ${e.screenX}, ${e.screenY}"</span><span class="o">))</span>
 
-<span class="n">println</span><span class="o">(</span><span class="s">"Started! Move mouse over the bottom panel!"</span><span class="o">)</span>
-  
+<span class="nf">println</span><span class="o">(</span><span class="s">"Started! Move mouse over the bottom panel!"</span><span class="o">)</span>
+
 <span class="c1">// Canceling in 20 seconds!
-</span><span class="n">dom</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setTimeout</span><span class="o">(</span>
-  <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span> <span class="n">println</span><span class="o">(</span><span class="s">"Canceling!"</span><span class="o">);</span> <span class="n">conn</span><span class="o">.</span><span class="n">cancel</span><span class="o">()</span> <span class="o">},</span>
+</span><span class="nv">dom</span><span class="o">.</span><span class="py">window</span><span class="o">.</span><span class="py">setTimeout</span><span class="o">(</span>
+  <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceling!"</span><span class="o">);</span> <span class="nv">conn</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span> <span class="o">},</span>
   <span class="mi">20000</span>
 <span class="o">)</span>
 </code></pre></div></div>
-</div>
-
-<p>Click the “Run” button to try out the example in your browser!</p>
 
 <p>Above I’m using <code class="highlighter-rouge">sampleRepeated</code> for effect. Of special interest for
 Javascript developers is <code class="highlighter-rouge">debounce</code>, try it out.</p>
@@ -179,38 +175,7 @@ just <code class="highlighter-rouge">scala.scalajs.js.Dynamic</code>, doesn’t 
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
-  
-<script defer src='https://embed.scalafiddle.io/integration.js'></script>
-</body>
+  </body>
 </html>

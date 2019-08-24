@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566395787502484687" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566395787502484687" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566683179862176642" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566683179862176642" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/all.css?1566683179862176642">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566395787502484687">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566683179862176642">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -94,7 +94,7 @@
   </div>
 </aside>
 
-    
+
       <article class="content container">
         <div class="page">
   <h1 class="page-title">Observable</h1>
@@ -137,21 +137,21 @@ hence it has good interoperability.</p>
 
 <span class="c1">// We first build an observable that emits a tick per second, 
 // the series of elements being an auto-incremented long
-</span><span class="k">val</span> <span class="n">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">.</span><span class="n">interval</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+</span><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">interval</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
   <span class="c1">// Filtering out odd numbers, making it emit every 2 seconds
-</span>  <span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
   <span class="c1">// We then make it emit the same element twice
-</span>  <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">))</span>
+</span>  <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">))</span>
   <span class="c1">// This stream would be infinite, so we limit it to 10 items
-</span>  <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">take</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
   
 <span class="c1">// Observables are lazy, nothing happens until you subscribe...
-</span><span class="k">val</span> <span class="n">cancelable</span> <span class="k">=</span> <span class="n">source</span>
+</span><span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="n">source</span>
   <span class="c1">// On consuming it, we want to dump the contents to stdout
 </span>  <span class="c1">// for debugging purposes
-</span>  <span class="o">.</span><span class="n">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+</span>  <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
   <span class="c1">// Finally, start consuming it
-</span>  <span class="o">.</span><span class="n">subscribe</span><span class="o">()</span>
+</span>  <span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
 
 </code></pre></div></div>
 
@@ -237,36 +237,7 @@ producer pushing data into one or multiple consumers</li>
   </div>
 </div>
 
-      </article>    
+      </article>
     </div>
-
-    <script>
-        ((window.gitter = {}).chat = {}).options = {
-          room: 'monix/monix'
-        };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
-    <!-- Analytics -->
-    <script>
-      function loadAnalytics() {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', ' UA-84530423-2', 'auto');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-      }
-      // Checks DO-NOT-TRACK status
-      if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack || 'msTrackingProtectionEnabled' in window.external) {
-        var dnd = window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1" || window.external.msTrackingProtectionEnabled();
-        if (!dnd) loadAnalytics();
-      } else {
-        loadAnalytics();
-      }
-    </script>
-    <!-- End Analytics -->  
   </body>
 </html>
