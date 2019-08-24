@@ -5,6 +5,8 @@ title: Monix
 
 Asynchronous Programming for Scala and [Scala.js](http://www.scala-js.org/).
 
+{% include github-stars.html %}
+
 ## Overview
 
 Monix is a high-performance Scala / Scala.js library for composing asynchronous,
