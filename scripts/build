@@ -7,20 +7,20 @@ def exec(cmd)
 end
 
 puts "CI=#{ENV['CI']}"
-puts "TRAVIS_BRANCH=#{ENV['TRAVIS_BRANCH']}"
-puts "TRAVIS_TAG=#{ENV['TRAVIS_TAG']}"
-puts "TRAVIS_PULL_REQUEST=#{ENV['TRAVIS_PULL_REQUEST']}"
+puts "CIRCLE_BRANCH=#{ENV['CIRCLE_BRANCH']}"
+puts "CIRCLE_TAG=#{ENV['CIRCLE_TAG']}"
+puts "CIRCLE_PULL_REQUEST=#{ENV['CIRCLE_PULL_REQUEST']}"
 puts "PUBLISH=#{ENV['PUBLISH']}"
 puts
 
 unless ENV['CI'] == 'true'
-  abort("ERROR: Not running on top of Travis, aborting!")
+  abort("ERROR: Not running on top of CI, aborting!")
 end
 
-branch = if ENV["TRAVIS_TAG"] && !ENV["TRAVIS_TAG"].empty?
-  ENV["TRAVIS_TAG"]
+branch = if ENV["CIRCLE_TAG"] && !ENV["CIRCLE_TAG"].empty?
+  ENV["CIRCLE_TAG"]
 else
-  ENV['TRAVIS_BRANCH']
+  ENV['CIRCLE_BRANCH']
 end
 
 branch = branch || "<nil>"
@@ -32,7 +32,7 @@ Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g clean run")
 exec("bundle exec jekyll build")
 
-unless branch == "master" && ENV['TRAVIS_PULL_REQUEST'] == 'false'
+unless branch == "master" && not ENV['CIRCLE_PULL_REQUEST']
   puts "Only publishing on the `master` branch!"
   exit 0
 end
