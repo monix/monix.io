@@ -30,6 +30,7 @@ puts "Detected branch or tag: " + branch
 Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 
 exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g clean run")
+exec("bundle")
 exec("bundle exec jekyll build")
 
 unless branch == "master" && !ENV['CIRCLE_PULL_REQUEST']

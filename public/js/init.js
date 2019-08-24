@@ -62,7 +62,7 @@ $(document).ready(function() {
 
     $('#vimeo').html(
       '<div id="video-frame" class="presentation" style="padding-bottom: ' + ratio + '%;">\n' +
-      '  <iframe src="' + src + '&autoplay=1" id="vimeo-iframe" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n' +
+      '  <iframe src="' + src + '&autoplay=1" id="vimeo-iframe" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen"></iframe>\n' +
       '</div>'
     );
   }
