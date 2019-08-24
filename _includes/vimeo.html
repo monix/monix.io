@@ -1,12 +1,22 @@
 {% capture vimeo %}{% if page.vimeo %}{{ page.vimeo }}{% else %}{{ include.vimeo }}{% endif -%}{% endcapture -%}
-<div id="video-frame" class="presentation" style="padding-bottom: {{ include.ratio }}%;">
-  <iframe src="{{ vimeo | vimeo_player_link }}"
-          id="vimeo-iframe"
-          frameborder="0"
-          webkitallowfullscreen
-          mozallowfullscreen
-          allowfullscreen>
-  </iframe>
+
+<div id="vimeo">
+  <div id="player">
+    <a href="{{ vimeo | vimeo_link }}" class="play" target="_blank">
+      <img class="play-button"
+        src="{{ vimeo | vimeo_thumb_play_link }}"
+        data-src="{{ vimeo | vimeo_player_link }}"
+        data-ratio="{{ include.ratio }}"
+        title="Click to play ⏯️"
+        alt="Click to Play ⏯️"
+      />
+    </a>
+  </div>
+  <noscript>
+    WARNING: Javascript is disabled, cannot play video inline!
+    <br>
+    <a href="{{ vimeo | vimeo_link }}" target="_blank">View it on Vimeo.com &raquo;</a>
+</noscript>
 </div>
 
 <div id="video-download">
@@ -15,9 +25,8 @@
   </ul>
 </div>
 
-<script src="https://player.vimeo.com/api/player.js"></script>
 <script language="javascript">
-  document.addEventListener("DOMContentLoaded", function(event) { 
+  document.addEventListener("DOMContentLoaded", function(event) {
     initVimeo("{{ vimeo }}");
   });
 </script>
