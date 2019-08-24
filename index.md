@@ -12,17 +12,17 @@ Asynchronous Programming for Scala and [Scala.js](http://www.scala-js.org/).
 Monix is a high-performance Scala / Scala.js library for composing asynchronous,
 event-based programs.
 
-It started as a proper implementation of [ReactiveX](http://reactivex.io/), 
-with stronger functional programming influences and designed from the ground up 
-for  back-pressure and made to cleanly interact with Scala's standard library, 
-compatible out-of-the-box with the [Reactive Streams](http://www.reactive-streams.org/) 
-protocol. It then expanded to include abstractions for suspending side effects 
+It started as a proper implementation of [ReactiveX](http://reactivex.io/),
+with stronger functional programming influences and designed from the ground up
+for  back-pressure and made to cleanly interact with Scala's standard library,
+compatible out-of-the-box with the [Reactive Streams](http://www.reactive-streams.org/)
+protocol. It then expanded to include abstractions for suspending side effects
 and for resource handling, being one of the parents and implementors of
 [cats-effect](https://typelevel.org/cats-effect/).
 
 <a href="https://typelevel.org/"><img src="{{ site.baseurl }}public/images/typelevel.png" width="150" style="float:right;" align="right" /></a>
 
-A [Typelevel project](http://typelevel.org/projects/), Monix proudly 
+A [Typelevel project](http://typelevel.org/projects/), Monix proudly
 exemplifies pure, typeful, functional programming in Scala, while making no
 compromise on performance.
 
@@ -33,7 +33,7 @@ Highlights:
 - modular, only use what you need
 - designed for true asynchronicity, running on both the
   JVM and [Scala.js](http://scala-js.org)
-- really good test coverage, code quality and API documentation 
+- really good test coverage, code quality and API documentation
   as a primary project policy
 
 ### Presentations
@@ -44,12 +44,12 @@ Highlights:
 
 The packages are published on Maven Central.
 
-- 3.x release (latest): `{{ site.promoted.version3x }}` 
+- 3.x release (latest): `{{ site.promoted.version3x }}`
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version3x }}.zip))
-- 2.x release (older): `{{ site.promoted.version2x }}` 
+- 2.x release (older): `{{ site.promoted.version2x }}`
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version2x }}.zip))
 
-In SBT for the latest 3.x release that integrates with 
+In SBT for the latest 3.x release that integrates with
 [Typelevel Cats](https://typelevel.org/cats/) out of the box
 (use the `%%%` for Scala.js):
 
@@ -63,7 +63,7 @@ Or for the older `2.x` release:
 libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version2x }}"
 ```
 
-Monix is modular by design, so you can have an à la carte experience, 
+Monix is modular by design, so you can have an à la carte experience,
 the project being divided in multiple sub-projects.
 
 See [Usage in SBT and Maven](/docs/3x/intro/usage.html) for more details.
@@ -75,7 +75,7 @@ Documentation and tutorials:
 - [3.x series (latest)](/docs/3x/)
 - [2.x series (previous)](/docs/2x/)
 
-API ScalaDoc: 
+API ScalaDoc:
 
 - [3.x]({{ site.api3x }})
 - [2.x]({{ site.api2x }})

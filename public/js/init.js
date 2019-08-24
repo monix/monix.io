@@ -1,6 +1,6 @@
 function initVimeo(uid) {
   $(document).ready(function () {
-    // Building the list    
+    // Building the list
     function add(list, item) {
       var kind = encodeURIComponent(item.public_name.toLowerCase())
       list.append(
@@ -9,7 +9,7 @@ function initVimeo(uid) {
         item.public_name + "</a> (" + item.size + ")" +
         "</li>"
       );
-    }    
+    }
 
     $.ajax({
       url: "https://videos.monix.io/get/" + uid,
@@ -32,18 +32,11 @@ function initVimeo(uid) {
           }
 
           if (added) {
-            $("#video-download").show();            
+            $("#video-download").show();
           }
         }
       }
     });
-
-    
-    if ((window.location + "").match(/autoplay[=]1/)) {
-      var iframe = document.getElementById("vimeo-iframe");
-      var player = new Vimeo.Player(iframe);
-      player.play();
-    }
   });
 }
 
@@ -57,6 +50,25 @@ $(document).ready(function() {
   // Showing the TOC breaks navigation
   var hash = window.location.hash;
   if (hash) {
-    window.location.hash = hash;    
+    window.location.hash = hash;
   }
+
+  // ------------------------------------------------------------------------
+
+  function vimeoTriggerVideo() {
+    var playButton = $('#vimeo .play-button');
+    var src = playButton.attr('data-src');
+    var ratio = playButton.attr('data-ratio');
+
+    $('#vimeo').html(
+      '<div id="video-frame" class="presentation" style="padding-bottom: ' + ratio + '%;">\n' +
+      '  <iframe src="' + src + '&autoplay=1" id="vimeo-iframe" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>\n' +
+      '</div>'
+    );
+  }
+
+  $('#vimeo a').click(function (e) {
+    e.preventDefault();
+    vimeoTriggerVideo();
+  });
 });
