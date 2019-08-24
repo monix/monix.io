@@ -9,7 +9,7 @@ jobs:
     steps:
       - run: echo 'export ARTIFACT_BUILD=$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM.zip' >> $BASH_ENV
       - run:
-          name: Get sbt binary
+          name: Install dependencies
           command: |
                     apt update && apt install -y curl
                     curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb
@@ -22,12 +22,12 @@ jobs:
       - checkout
       - restore_cache:
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: sbt-cache
+          key: monix-io-cache
       - run:
           name: Compile monix.io dist package
           command: cat /dev/null | ./scripts/build
       - save_cache:
-          key: sbt-cache
+          key: monix-io-cache
           paths:
             - "~/.ivy2/cache"
             - "~/.sbt"

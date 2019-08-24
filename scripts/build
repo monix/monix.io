@@ -32,7 +32,7 @@ Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g clean run")
 exec("bundle exec jekyll build")
 
-unless branch == "master" && not ENV['CIRCLE_PULL_REQUEST']
+unless branch == "master" && !ENV['CIRCLE_PULL_REQUEST']
   puts "Only publishing on the `master` branch!"
   exit 0
 end
