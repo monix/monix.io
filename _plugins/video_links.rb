@@ -5,7 +5,7 @@ module Jekyll
     end
 
     def vimeo_player_link(uid)
-      "https://player.vimeo.com/video/#{uid}?title=0&byline=0&portrait=0"
+      "https://player.vimeo.com/video/#{uid}?title=0&byline=0&portrait=0&dnt=1"
     end
 
     def vimeo_raw_link(uid)
