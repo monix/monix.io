@@ -2,7 +2,7 @@
 
 The homepage and the documentation website for the Monix project.
 
-[![Travis](https://img.shields.io/travis/monix/monix.io.svg)](https://travis-ci.org/monix/monix.io)
+[![CircleCI](https://circleci.com/gh/monix/monix.io.svg?style=svg)](https://circleci.com/gh/monix/monix.io)
 
 ## Generating the Website Locally
 
