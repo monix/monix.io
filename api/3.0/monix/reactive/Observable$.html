@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.reactive.Observable</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.reactive.Observable" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.reactive.Observable" />
+          <title>Monix 3.0.0-RC4 - monix.reactive.Observable</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.reactive.Observable" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.reactive.Observable" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -243,7 +243,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Observable builders.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala" target="_blank">Observable.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Observable builders.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala" target="_blank">Observable.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1008,6 +1008,28 @@ instance.</p><p>Supported types includes, but is not necessarily limited to:</p>
 next state and the next element in the sequence, creates an
 observable that keeps generating elements produced by our
 generator function.</p>
+    </li><li name="monix.reactive.Observable#fromAsyncStateActionF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fromAsyncStateActionF[F[_],S,A](f:S=&gt;F[(A,S)])(seed:=&gt;S)(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]"></a><a id="fromAsyncStateActionF[F[_],S,A]((S)⇒F[(A,S)])(⇒S)(TaskLike[F]):Observable[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/Observable$.html#fromAsyncStateActionF[F[_],S,A](f:S=&gt;F[(A,S)])(seed:=&gt;S)(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromAsyncStateActionF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="S">S</span>, <span name="A">A</span>]</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.S">S</span>) ⇒ <span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.F">F</span>[(<span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.A">A</span>, <span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.S">S</span>)]</span>)</span><span class="params">(<span name="seed">seed: ⇒ <span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.S">S</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">TaskLike</a>[<span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.F">F</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.fromAsyncStateActionF.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Version of <a href="#fromAsyncStateAction[S,A](f:S=&gt;monix.eval.Task[(A,S)])(seed:=&gt;S):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromAsyncStateAction">fromAsyncStateAction</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Version of <a href="#fromAsyncStateAction[S,A](f:S=&gt;monix.eval.Task[(A,S)])(seed:=&gt;S):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromAsyncStateAction">fromAsyncStateAction</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#fromAsyncStateAction[S,A](f:S=&gt;monix.eval.Task[(A,S)])(seed:=&gt;S):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromAsyncStateAction">fromAsyncStateAction</a> for a version specialized for
+     <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a></p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#fromCharsReader" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromCharsReader(in:monix.eval.Task[java.io.Reader],chunkSize:Int):monix.reactive.Observable[Array[Char]]"></a><a id="fromCharsReader(Task[Reader],Int):Observable[Array[Char]]"></a>
       <span class="permalink">
@@ -1284,6 +1306,27 @@ in pace of <a href="http://www.scala-lang.org/api/2.12.8/scala/index.html#Iterab
 Observable.fromIterator(Task(Iterator.from(<span class="num">1</span>)))</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#fromIterable[A](iterable:Iterable[A]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromIterable">fromIterable</a></p></span><span class="cmt"><p><a href="#fromIterator[A](resource:cats.effect.Resource[monix.eval.Task,Iterator[A]]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromIterator">fromIterator(Resource)</a> for a version
      that uses <code>cats.effect.Resource</code></p></span><span class="cmt"><p><a href="#fromIteratorUnsafe[A](iterator:Iterator[A]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#fromIteratorUnsafe">fromIteratorUnsafe</a> for the unsafe version that can wrap an
      iterator directly</p></span></dd></dl></div>
+    </li><li name="monix.reactive.Observable#fromIteratorF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="fromIteratorF[F[_],A](iteratorF:F[Iterator[A]])(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]"></a><a id="fromIteratorF[F[_],A](F[Iterator[A]])(TaskLike[F]):Observable[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/Observable$.html#fromIteratorF[F[_],A](iteratorF:F[Iterator[A]])(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">fromIteratorF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="A">A</span>]</span><span class="params">(<span name="iteratorF">iteratorF: <span class="extype" name="monix.reactive.Observable.fromIteratorF.F">F</span>[<span class="extype" name="scala.Iterator">Iterator</span>[<span class="extype" name="monix.reactive.Observable.fromIteratorF.A">A</span>]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">TaskLike</a>[<span class="extype" name="monix.reactive.Observable.fromIteratorF.F">F</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.fromIteratorF.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Version of fromIterator that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Version of fromIterator that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div></div>
     </li><li name="monix.reactive.Observable#fromIteratorUnsafe" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromIteratorUnsafe[A](iterator:Iterator[A]):monix.reactive.Observable[A]"></a><a id="fromIteratorUnsafe[A](Iterator[A]):Observable[A]"></a>
       <span class="permalink">
@@ -2241,6 +2284,80 @@ protocol that Monix implements.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.reactive.Observable#unfold" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unfold[S,A](seed:=&gt;S)(f:S=&gt;Option[(A,S)]):monix.reactive.Observable[A]"></a><a id="unfold[S,A](⇒S)((S)⇒Option[(A,S)]):Observable[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/Observable$.html#unfold[S,A](seed:=&gt;S)(f:S=&gt;Option[(A,S)]):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unfold</span><span class="tparams">[<span name="S">S</span>, <span name="A">A</span>]</span><span class="params">(<span name="seed">seed: ⇒ <span class="extype" name="monix.reactive.Observable.unfold.S">S</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.unfold.S">S</span>) ⇒ <a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="monix.reactive.Observable.unfold.A">A</span>, <span class="extype" name="monix.reactive.Observable.unfold.S">S</span>)]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.unfold.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given an initial state and a generator function that produces the
+next state and the next element in the sequence, creates an
+observable that keeps generating elements produced by our
+generator function until <code>None</code> is returned.</p><div class="fullcomment"><div class="comment cmt"><p>Given an initial state and a generator function that produces the
+next state and the next element in the sequence, creates an
+observable that keeps generating elements produced by our
+generator function until <code>None</code> is returned.</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>Observable.unfold(<span class="num">0</span>)(i <span class="kw">=&gt;</span> <span class="kw">if</span> (i &lt; <span class="num">10</span>) <span class="std">Some</span>((i, i + <span class="num">1</span>)) <span class="kw">else</span> <span class="std">None</span>).toListL
+
+result: [<span class="num">0</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]</pre></li></ol>
+            </div></dl></div>
+    </li><li name="monix.reactive.Observable#unfoldEval" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unfoldEval[S,A](seed:=&gt;S)(f:S=&gt;monix.eval.Task[Option[(A,S)]]):monix.reactive.Observable[A]"></a><a id="unfoldEval[S,A](⇒S)((S)⇒Task[Option[(A,S)]]):Observable[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/Observable$.html#unfoldEval[S,A](seed:=&gt;S)(f:S=&gt;monix.eval.Task[Option[(A,S)]]):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unfoldEval</span><span class="tparams">[<span name="S">S</span>, <span name="A">A</span>]</span><span class="params">(<span name="seed">seed: ⇒ <span class="extype" name="monix.reactive.Observable.unfoldEval.S">S</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.unfoldEval.S">S</span>) ⇒ <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="monix.reactive.Observable.unfoldEval.A">A</span>, <span class="extype" name="monix.reactive.Observable.unfoldEval.S">S</span>)]]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.unfoldEval.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given an initial state and a generator function that produces the
+next state and the next element in the sequence, creates an
+observable that keeps generating elements produced by our
+generator function until <code>None</code> is returned.</p><div class="fullcomment"><div class="comment cmt"><p>Given an initial state and a generator function that produces the
+next state and the next element in the sequence, creates an
+observable that keeps generating elements produced by our
+generator function until <code>None</code> is returned.</p></div><dl class="attributes block"> <div class="block">Example:
+               <ol><li class="cmt"><p></p><pre>Observable.unfoldEval(<span class="num">0</span>)(i <span class="kw">=&gt;</span> <span class="kw">if</span> (i &lt; <span class="num">10</span>) Task.now(<span class="std">Some</span>((i, i + <span class="num">1</span>))) <span class="kw">else</span> Task.now(<span class="std">None</span>)).toListL
+
+result: [<span class="num">0</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]</pre></li></ol>
+            </div></dl></div>
+    </li><li name="monix.reactive.Observable#unfoldEvalF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="unfoldEvalF[F[_],S,A](seed:=&gt;S)(f:S=&gt;F[Option[(A,S)]])(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]"></a><a id="unfoldEvalF[F[_],S,A](⇒S)((S)⇒F[Option[(A,S)]])(TaskLike[F]):Observable[A]"></a>
+      <span class="permalink">
+      <a href="../../monix/reactive/Observable$.html#unfoldEvalF[F[_],S,A](seed:=&gt;S)(f:S=&gt;F[Option[(A,S)]])(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">unfoldEvalF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="S">S</span>, <span name="A">A</span>]</span><span class="params">(<span name="seed">seed: ⇒ <span class="extype" name="monix.reactive.Observable.unfoldEvalF.S">S</span></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.Observable.unfoldEvalF.S">S</span>) ⇒ <span class="extype" name="monix.reactive.Observable.unfoldEvalF.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[(<span class="extype" name="monix.reactive.Observable.unfoldEvalF.A">A</span>, <span class="extype" name="monix.reactive.Observable.unfoldEvalF.S">S</span>)]]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">TaskLike</a>[<span class="extype" name="monix.reactive.Observable.unfoldEvalF.F">F</span>]</span>)</span><span class="result">: <a href="Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.unfoldEvalF.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Version of <a href="#unfoldEval[S,A](seed:=&gt;S)(f:S=&gt;monix.eval.Task[Option[(A,S)]]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#unfoldEval">unfoldEval</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Version of <a href="#unfoldEval[S,A](seed:=&gt;S)(f:S=&gt;monix.eval.Task[Option[(A,S)]]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#unfoldEval">unfoldEval</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#unfoldEval[S,A](seed:=&gt;S)(f:S=&gt;monix.eval.Task[Option[(A,S)]]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#unfoldEval">unfoldEval</a> for a version specialized for
+     <a href="../eval/Task.html" class="extype" name="monix.eval.Task">Task</a></p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#unit" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="unit:monix.reactive.Observable[Unit]"></a><a id="unit:Observable[Unit]"></a>
       <span class="permalink">

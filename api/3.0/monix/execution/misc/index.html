@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.misc</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.misc" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.misc" />
+          <title>Monix 3.0.0-RC4 - monix.execution.misc</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.misc" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.misc" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -242,6 +242,10 @@ task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</d
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="CanBindLocals$.html" title=""></a>
+                        <a class="trait" href="CanBindLocals.html" title="Type class describing how Local binding works for specific data types."></a>
+                        <a href="CanBindLocals.html" title="Type class describing how Local binding works for specific data types.">CanBindLocals</a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="trait" href="HygieneUtilMacros.html" title="Utilities for macro-hygiene."></a>
                         <a href="HygieneUtilMacros.html" title="Utilities for macro-hygiene.">HygieneUtilMacros</a>
@@ -322,7 +326,7 @@ specification.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/shared/src/main/scala/monix/execution/misc/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/shared/src/main/scala/monix/execution/misc/package.scala" target="_blank">package.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -374,7 +378,37 @@ specification.
 
         <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li name="monix.execution.misc.HygieneUtilMacros" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
+              <ol><li name="monix.execution.misc.CanBindLocals" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+      <a id="CanBindLocals[R]extendsAnyRef"></a><a id="CanBindLocals[R]:CanBindLocals[R]"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#CanBindLocals[R]extendsAnyRef" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a title="Type class describing how Local binding works for specific data types." href="CanBindLocals.html"><span class="name">CanBindLocals</span></a><span class="tparams">[<span name="R">R</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Type class describing how <a href="Local.html" class="extype" name="monix.execution.misc.Local">Local</a> binding works for specific data types.</p><div class="fullcomment"><div class="comment cmt"><p>Type class describing how <a href="Local.html" class="extype" name="monix.execution.misc.Local">Local</a> binding works for specific data types.</p><p>This is needed because asynchronous data types, like <code>Future</code>,
+that can be waited on, should also clear the modified context
+after completion.</p><p>NOTE: this type class does not work for data types that suspend the
+execution, like <code>Coeval</code> or <code>Task</code>, because <a href="Local.html" class="extype" name="monix.execution.misc.Local">Local</a> is meant to
+be used in a side effectful way. Instances of this type class
+can't be implemented for data types like <code>Task</code>, as a technical
+limitation, because <code>Task</code> would also need a suspended <code>Context</code>
+evaluation in <code>bindContext</code>.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@implicitNotFound</span><span class="args">(<span>
+      
+      <span class="defval" name="&quot;&quot;&quot;Cannot find an implicit value for CanBindLocals[${R}].<br/>If ${R} is the result of a synchronous action, either build an implicit with<br/>CanBindLocals.synchronous or import CanBindLocals.Implicits.synchronousAsDefault.&quot;&quot;&quot;">...</span>
+    </span>)</span>
+              
+        </dd></dl></div>
+    </li><li name="monix.execution.misc.HygieneUtilMacros" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="HygieneUtilMacrosextendsAnyRef"></a><a id="HygieneUtilMacros:HygieneUtilMacros"></a>
       <span class="permalink">
       <a href="../../../monix/execution/misc/index.html#HygieneUtilMacrosextendsAnyRef" title="Permalink">
@@ -407,9 +441,9 @@ specification.
       
       
     </li><li name="monix.execution.misc.Local" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="Local[A]extendsAnyRef"></a><a id="Local[A]:Local[A]"></a>
+      <a id="Local[A]extendsLocalDeprecated[A]"></a><a id="Local[A]:Local[A]"></a>
       <span class="permalink">
-      <a href="../../../monix/execution/misc/index.html#Local[A]extendsAnyRef" title="Permalink">
+      <a href="../../../monix/execution/misc/index.html#Local[A]extendsLocalDeprecated[A]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -418,7 +452,7 @@ specification.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="A Local is a ThreadLocal whose scope is flexible." href="Local.html"><span class="name">Local</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <a title="A Local is a ThreadLocal whose scope is flexible." href="Local.html"><span class="name">Local</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="monix.execution.misc.LocalDeprecated">LocalDeprecated</span>[<span class="extype" name="monix.execution.misc.Local.A">A</span>]</span>
       </span>
       
       <p class="shortcomment cmt">A <code>Local</code> is a <a href="ThreadLocal.html" class="extype" name="monix.execution.misc.ThreadLocal">ThreadLocal</a> whose scope is flexible.</p><div class="fullcomment"><div class="comment cmt"><p>A <code>Local</code> is a <a href="ThreadLocal.html" class="extype" name="monix.execution.misc.ThreadLocal">ThreadLocal</a> whose scope is flexible. The state
@@ -427,8 +461,7 @@ the user. This is useful for threading Locals through execution
 contexts.</p><p>Because it's not meaningful to inherit control from two places,
 Locals don't have to worry about having to merge two
 <a href="Local$$Context.html" class="extype" name="monix.execution.misc.Local.Context">contexts</a>.</p><p>Note: the implementation is optimized for situations in which save
-and restore optimizations are dominant.
-</p></div></div>
+and restore optimizations are dominant.</p></div></div>
     </li><li name="monix.execution.misc.ThreadLocal" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="ThreadLocal[A]extendsAnyRef"></a><a id="ThreadLocal[A]:ThreadLocal[A]"></a>
       <span class="permalink">
@@ -516,7 +549,23 @@ copy of the variable.
         <div class="values members">
               <h3>Value Members</h3>
               <ol>
-                <li name="monix.execution.misc.Local" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                <li name="monix.execution.misc.CanBindLocals" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CanBindLocals"></a><a id="CanBindLocals:CanBindLocals"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/misc/index.html#CanBindLocals" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CanBindLocals$.html"><span class="name">CanBindLocals</span></a><span class="result"> extends <span class="extype" name="monix.execution.misc.CanIsolateInstancesLevel1">CanIsolateInstancesLevel1</span></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.misc.Local" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Local"></a><a id="Local:Local"></a>
       <span class="permalink">
       <a href="../../../monix/execution/misc/index.html#Local" title="Permalink">
@@ -528,10 +577,10 @@ copy of the variable.
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a title="" href="Local$.html"><span class="name">Local</span></a>
+        <a title="" href="Local$.html"><span class="name">Local</span></a><span class="result"> extends <span class="extype" name="monix.execution.misc.LocalCompanionDeprecated">LocalCompanionDeprecated</span></span>
       </span>
       
-      
+      <p class="shortcomment cmt"></p>
     </li><li name="monix.execution.misc.ThreadLocal" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="ThreadLocal"></a><a id="ThreadLocal:ThreadLocal"></a>
       <span class="permalink">
