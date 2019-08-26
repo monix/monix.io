@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.schedulers.ExecutorScheduler</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.schedulers.ExecutorScheduler" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.schedulers.ExecutorScheduler" />
+          <title>Monix 3.0.0-RC4 - monix.execution.schedulers.ExecutorScheduler</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.schedulers.ExecutorScheduler" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.schedulers.ExecutorScheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -223,7 +223,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/ExecutorScheduler.scala" target="_blank">ExecutorScheduler.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/jvm/src/main/scala/monix/execution/schedulers/ExecutorScheduler.scala" target="_blank">ExecutorScheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -329,9 +329,9 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
     </li><li name="monix.execution.schedulers.ExecutorScheduler#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.ExecutorScheduler"></a><a id="apply(ExecutorService,UncaughtExceptionReporter,ExecutionModel):ExecutorScheduler"></a>
+      <a id="apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel,features:monix.execution.Features):monix.execution.schedulers.ExecutorScheduler"></a><a id="apply(ExecutorService,UncaughtExceptionReporter,ExecutionModel,Features):ExecutorScheduler"></a>
       <span class="permalink">
-      <a href="../../../monix/execution/schedulers/ExecutorScheduler$.html#apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.ExecutorScheduler" title="Permalink">
+      <a href="../../../monix/execution/schedulers/ExecutorScheduler$.html#apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel,features:monix.execution.Features):monix.execution.schedulers.ExecutorScheduler" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -340,7 +340,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="service">service: <span class="extype" name="java.util.concurrent.ExecutorService">ExecutorService</span></span>, <span name="reporter">reporter: <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a></span>, <span name="executionModel">executionModel: <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a></span>)</span><span class="result">: <a href="ExecutorScheduler.html" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a></span>
+        <span class="name">apply</span><span class="params">(<span name="service">service: <span class="extype" name="java.util.concurrent.ExecutorService">ExecutorService</span></span>, <span name="reporter">reporter: <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a></span>, <span name="executionModel">executionModel: <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a></span>, <span name="features">features: <a href="../Features.html" class="extype" name="monix.execution.Features">Features</a></span>)</span><span class="result">: <a href="ExecutorScheduler.html" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a></span>
       </span>
       
       <p class="shortcomment cmt">Builder for an <a href="ExecutorScheduler.html" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a>, converting a
@@ -349,7 +349,9 @@ Java <code>ScheduledExecutorService</code>.
 </p></div><dl class="paramcmts block"><dt class="param">service</dt><dd class="cmt"><p>is the Java <code>ScheduledExecutorService</code> that will take
        care of scheduling and execution of all runnables.</p></dd><dt class="param">reporter</dt><dd class="cmt"><p>is the <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> that logs uncaught exceptions.</p></dd><dt class="param">executionModel</dt><dd class="cmt"><p>is the preferred
        <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>, a guideline
-       for run-loops and producers of data.</p></dd></dl></div>
+       for run-loops and producers of data.</p></dd><dt class="param">features</dt><dd class="cmt"><p>is the set of <a href="../Features.html" class="extype" name="monix.execution.Features">Features</a> that the
+       provided <code>ExecutorService</code> implements, see the documentation
+       for <a href="../Scheduler.html#features:monix.execution.Features" class="extmbr" name="monix.execution.Scheduler#features">Scheduler.features</a></p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -692,7 +694,30 @@ that isn't integrated with Scala's <code>BlockContext</code>.</p>
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="monix.execution.schedulers.ExecutorScheduler#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.ExecutorScheduler"></a><a id="apply(ExecutorService,UncaughtExceptionReporter,ExecutionModel):ExecutorScheduler"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/ExecutorScheduler$.html#apply(service:java.util.concurrent.ExecutorService,reporter:monix.execution.UncaughtExceptionReporter,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.ExecutorScheduler" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Use the full-featured builder">apply</span><span class="params">(<span name="service">service: <span class="extype" name="java.util.concurrent.ExecutorService">ExecutorService</span></span>, <span name="reporter">reporter: <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a></span>, <span name="executionModel">executionModel: <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a></span>)</span><span class="result">: <a href="ExecutorScheduler.html" class="extype" name="monix.execution.schedulers.ExecutorScheduler">ExecutorScheduler</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">DEPRECATED — provided for binary backwards compatibility.</p><div class="fullcomment"><div class="comment cmt"><p>DEPRECATED — provided for binary backwards compatibility.</p><p>Use the full-featured builder.
+</p></div><dl class="attributes block"> <dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Use the full-featured builder</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">

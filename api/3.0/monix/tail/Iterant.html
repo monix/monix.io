@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.tail.Iterant</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.tail.Iterant" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.tail.Iterant" />
+          <title>Monix 3.0.0-RC4 - monix.tail.Iterant</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.tail.Iterant" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.tail.Iterant" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -133,6 +133,22 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.tail">tail</a></dd></dl></div>
+    </li><li name="monix.tail.internal" visbl="pub" class="indented3 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="internal"></a><a id="internal:internal"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/index.html#internal" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="internal/index.html"><span class="name">internal</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="monix.tail">tail</a></dd></dl></div>
     </li><li class="current-entities indented2">
                         <a class="object" href="Iterant$.html" title="Defines the standard Iterant builders."></a>
                         <a class="class" href="" title="The Iterant is a type that describes lazy, possibly asynchronous streaming of elements using a pull-based protocol."></a>
@@ -222,7 +238,7 @@ Cats by Erik Osheim. It was also inspired by other push-based
 streaming abstractions, like the <code>Iteratee</code> or <code>IAsyncEnumerable</code>.
 </p></div><dl class="paramcmts block"><dt class="tparam">F</dt><dd class="cmt"><p>is the data type that controls evaluation; note that
         it must be stack-safe in its <code>map</code> and <code>flatMap</code>
-        operations</p></dd><dt class="tparam">A</dt><dd class="cmt"><p>is the type of the elements produced by this Iterant</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.F">F</span>, <span class="extype" name="monix.tail.Iterant.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-tail/shared/src/main/scala/monix/tail/Iterant.scala" target="_blank">Iterant.scala</a></dd></dl><div class="toggleContainer block">
+        operations</p></dd><dt class="tparam">A</dt><dd class="cmt"><p>is the type of the elements produced by this Iterant</p></dd></dl><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.F">F</span>, <span class="extype" name="monix.tail.Iterant.A">A</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-tail/shared/src/main/scala/monix/tail/Iterant.scala" target="_blank">Iterant.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -2380,8 +2396,52 @@ Iterant[Coeval].empty[<span class="std">Int</span>].reduceL(_ + _)</pre></div><d
         <span class="name">repeat</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.F">F</span>, <span class="extype" name="monix.tail.Iterant.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Repeats the items emitted by the source continuously</p><div class="fullcomment"><div class="comment cmt"><p>Repeats the items emitted by the source continuously</p><p>It terminates either on error or if the source is empty.
-</p></div></div>
+      <p class="shortcomment cmt">Repeats the items emitted by the source continuously</p><div class="fullcomment"><div class="comment cmt"><p>Repeats the items emitted by the source continuously</p><p>It terminates either on error or if the source is empty.</p><p>In case repetition on empty streams is desired, then combine with
+<a href="#retryIfEmpty(maxRetries:Option[Int])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" class="extmbr" name="monix.tail.Iterant#retryIfEmpty">retryIfEmpty</a>:</p><pre><span class="kw">import</span> monix.eval.Coeval
+<span class="kw">import</span> scala.util.Random
+
+<span class="kw">val</span> stream = Iterant[Coeval].suspend(Coeval {
+  <span class="kw">val</span> nr = Random.nextInt()
+  <span class="kw">if</span> (nr % <span class="num">10</span> != <span class="num">0</span>)
+    Iterant[Coeval].empty[<span class="std">Int</span>]
+  <span class="kw">else</span>
+    Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+})
+
+<span class="cmt">// Will eventually repeat elements 1, 2, 3</span>
+stream.retryIfEmpty(<span class="std">None</span>).repeat</pre></div></div>
+    </li><li name="monix.tail.Iterant#retryIfEmpty" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="retryIfEmpty(maxRetries:Option[Int])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]"></a><a id="retryIfEmpty(Option[Int])(Sync[F]):Iterant[F,A]"></a>
+      <span class="permalink">
+      <a href="../../monix/tail/Iterant.html#retryIfEmpty(maxRetries:Option[Int])(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">retryIfEmpty</span><span class="params">(<span name="maxRetries">maxRetries: <a href="http://www.scala-lang.org/api/2.12.8/scala/Option.html#scala.Option" class="extype" name="scala.Option">Option</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <span class="extype" name="cats.effect.Sync">Sync</span>[<span class="extype" name="monix.tail.Iterant.F">F</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.tail.Iterant">Iterant</a>[<span class="extype" name="monix.tail.Iterant.F">F</span>, <span class="extype" name="monix.tail.Iterant.A">A</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Retries processing the source stream after the search is
+detected as being empty.</p><div class="fullcomment"><div class="comment cmt"><p>Retries processing the source stream after the search is
+detected as being empty.</p><pre><span class="kw">import</span> monix.eval.Coeval
+<span class="kw">import</span> scala.util.Random
+
+<span class="kw">val</span> stream = Iterant[Coeval].suspend(Coeval {
+  <span class="kw">val</span> nr = Random.nextInt()
+  <span class="kw">if</span> (nr % <span class="num">10</span> != <span class="num">0</span>)
+    Iterant[Coeval].empty[<span class="std">Int</span>]
+  <span class="kw">else</span>
+    Iterant[Coeval].of(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)
+})
+
+<span class="cmt">// Will eventually stream elements 1, 2, 3</span>
+stream.retryIfEmpty(<span class="std">None</span>)</pre></div><dl class="paramcmts block"><dt class="param">maxRetries</dt><dd class="cmt"><p>is an optional integer specifying a maximum
+       number of retries before it gives up and returns an
+       empty stream</p></dd></dl></div>
     </li><li name="monix.tail.Iterant#scan" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="scan[S](seed:=&gt;S)(op:(S,A)=&gt;S)(implicitF:cats.effect.Sync[F]):monix.tail.Iterant[F,S]"></a><a id="scan[S](⇒S)((S,A)⇒S)(Sync[F]):Iterant[F,S]"></a>
       <span class="permalink">

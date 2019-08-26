@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.Scheduler</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.Scheduler" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.Scheduler" />
+          <title>Monix 3.0.0-RC4 - monix.execution.Scheduler</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.Scheduler" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.Scheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -327,6 +327,10 @@ specification.
                         <a class="class" href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler."></a>
                         <a href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler.">ExecutionModel</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="Features$.html" title=""></a>
+                        <a class="class" href="Features.html" title="Features describes a set of features described via bitwise operators applied to ints, but made type safe."></a>
+                        <a href="Features.html" title="Features describes a set of features described via bitwise operators applied to ints, but made type safe.">Features</a>
+                      </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="object" href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future."></a>
                         <a href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future.">FutureUtils</a>
@@ -372,7 +376,7 @@ specification.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala" target="_blank">Scheduler.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala" target="_blank">Scheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -512,6 +516,29 @@ specification.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.execution.Scheduler#BATCHING" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="BATCHING:monix.execution.Features.Flag"></a><a id="BATCHING:Flag"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/Scheduler$.html#BATCHING:monix.execution.Features.Flag" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">BATCHING</span><span class="result">: <a href="Features$.html#Flag&lt;:Longwithmonix.execution.Features.FlagTag" class="extmbr" name="monix.execution.Features.Flag">Flag</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">The <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> supports processing in batches via an internal
+trampoline.</p><div class="fullcomment"><div class="comment cmt"><p>The <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> supports processing in batches via an internal
+trampoline.</p><p>Schedulers that implement the batching behavior will recognize
+<a href="schedulers/TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">monix.execution.schedulers.TrampolinedRunnable</a> instances
+(via <code>instanceOf</code> checks) and make an effort to execute them on
+the current thread.</p><p>This flag is exposed via <a href="Scheduler.html#features:monix.execution.Features" class="extmbr" name="monix.execution.Scheduler#features">Scheduler.features</a>.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="schedulers/BatchingScheduler.html" class="extype" name="monix.execution.schedulers.BatchingScheduler">BatchingScheduler</a>
+     for an implementation.</p></span></dd></dl></div>
     </li><li name="monix.execution.schedulers.SchedulerCompanionImpl#DefaultScheduledExecutor" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="DefaultScheduledExecutor:java.util.concurrent.ScheduledExecutorService"></a><a id="DefaultScheduledExecutor:ScheduledExecutorService"></a>
       <span class="permalink">
@@ -532,6 +559,27 @@ used for scheduling delayed tasks for execution. But the actual
 execution will not happen on this executor service. In general
 you can just reuse this one for all your scheduling needs.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>SchedulerCompanionImpl</dd></dl></div>
+    </li><li name="monix.execution.Scheduler#TRACING" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="TRACING:monix.execution.Features.Flag"></a><a id="TRACING:Flag"></a>
+      <span class="permalink">
+      <a href="../../monix/execution/Scheduler$.html#TRACING:monix.execution.Features.Flag" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TRACING</span><span class="result">: <a href="Features$.html#Flag&lt;:Longwithmonix.execution.Features.FlagTag" class="extmbr" name="monix.execution.Features.Flag">Flag</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Flag signaling that the <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementation can transport
+<a href="misc/Local.html" class="extype" name="monix.execution.misc.Local">Local</a> variables over async boundaries.</p><div class="fullcomment"><div class="comment cmt"><p>Flag signaling that the <a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> implementation can transport
+<a href="misc/Local.html" class="extype" name="monix.execution.misc.Local">Local</a> variables over async boundaries.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="schedulers/TracingScheduler.html" class="extype" name="monix.execution.schedulers.TracingScheduler">TracingScheduler</a> and
+     <a href="schedulers/TracingSchedulerService.html" class="extype" name="monix.execution.schedulers.TracingSchedulerService">TracingSchedulerService</a>
+     for implementations.</p></span></dd></dl></div>
     </li><li name="monix.execution.schedulers.SchedulerCompanionImpl#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="apply(executionModel:monix.execution.ExecutionModel):monix.execution.Scheduler"></a><a id="apply(ExecutionModel):Scheduler"></a>
       <span class="permalink">
@@ -600,7 +648,7 @@ Uses Scala's <code>s.c.ExecutionContext.global</code> for actual execution.
       <p class="shortcomment cmt"><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder - uses monix's
 default <code>ScheduledExecutorService</code> for handling the scheduling of tasks.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder - uses monix's
 default <code>ScheduledExecutorService</code> for handling the scheduling of tasks.
-</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.</p></dd><dt class="param">executionModel</dt><dd class="cmt"><p>is the preferred
+</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.</p></dd><dt class="param">executionModel</dt><dd class="cmt"><p>is the preferred
         <a href="ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a>,
         a guideline for run-loops and producers of data. Use
         <a href="ExecutionModel$.html#Default:monix.execution.ExecutionModel" class="extmbr" name="monix.execution.ExecutionModel#Default">ExecutionModel.Default</a>
@@ -623,7 +671,7 @@ default <code>ScheduledExecutorService</code> for handling the scheduling of tas
       <p class="shortcomment cmt"><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder - uses monix's
 default <code>ScheduledExecutorService</code> for handling the scheduling of tasks.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder - uses monix's
 default <code>ScheduledExecutorService</code> for handling the scheduling of tasks.
-</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd>SchedulerCompanionImpl</dd></dl></div>
+</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd>SchedulerCompanionImpl</dd></dl></div>
     </li><li name="monix.execution.schedulers.SchedulerCompanionImpl#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="apply(executor:java.util.concurrent.ExecutorService,executionModel:monix.execution.ExecutionModel):monix.execution.schedulers.SchedulerService"></a><a id="apply(ExecutorService,ExecutionModel):SchedulerService"></a>
       <span class="permalink">
@@ -740,7 +788,7 @@ Java <code>ExecutorService</code> into a scheduler.
       </span>
       
       <p class="shortcomment cmt"><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder .</p><div class="fullcomment"><div class="comment cmt"><p><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder .
-</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.
+</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.
         Use <code>scala.concurrent.ExecutionContext.Implicits.global</code>
         for the default.</p></dd><dt class="param">reporter</dt><dd class="cmt"><p>is the <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> that logs uncaught exceptions.
         Wrap the given <code>ExecutionContext.reportFailure</code> or use
@@ -765,7 +813,7 @@ Java <code>ExecutorService</code> into a scheduler.
       </span>
       
       <p class="shortcomment cmt"><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder.</p><div class="fullcomment"><div class="comment cmt"><p><a href="Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> builder.
-</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.
+</p></div><dl class="paramcmts block"><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.
         Use <code>scala.concurrent.ExecutionContext.Implicits.global</code>
         for the default.</p></dd><dt class="param">reporter</dt><dd class="cmt"><p>is the <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> that logs uncaught exceptions.
         Wrap the given <code>ExecutionContext.reportFailure</code> or use
@@ -789,7 +837,7 @@ Java <code>ExecutorService</code> into a scheduler.
 </p></div><dl class="paramcmts block"><dt class="param">executor</dt><dd class="cmt"><p>is the <code>ScheduledExecutorService</code> that handles the
         scheduling of tasks into the future. If not provided, an internal
         default will be used. You can also create one with
-        <code>java.util.concurrent.Executors</code>.</p></dd><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.
+        <code>java.util.concurrent.Executors</code>.</p></dd><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.
         Use <code>scala.concurrent.ExecutionContext.Implicits.global</code>
         for the default.</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd>SchedulerCompanionImpl</dd></dl></div>
     </li><li name="monix.execution.schedulers.SchedulerCompanionImpl#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
@@ -814,7 +862,7 @@ tasks.
 </p></div><dl class="paramcmts block"><dt class="param">executor</dt><dd class="cmt"><p>is the <code>ScheduledExecutorService</code> that handles the
         scheduling of tasks into the future. If not provided, an internal
         default will be used. You can also create one with
-        <code>java.util.concurrent.Executors</code>.</p></dd><dt class="param">ec</dt><dd class="cmt"><p>is the execution context in which all tasks will run.
+        <code>java.util.concurrent.Executors</code>.</p></dd><dt class="param">ec</dt><dd class="cmt"><p>is the execution context on top of which all tasks will run.
         Use <code>scala.concurrent.ExecutionContext.Implicits.global</code>
         for the default.</p></dd><dt class="param">reporter</dt><dd class="cmt"><p>is the <a href="UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a> that logs uncaught exceptions.
         Wrap the given <code>ExecutionContext.reportFailure</code> or use

@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566687122448222368" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566687122448222368" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566854887953913937" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566854887953913937" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566687122448222368">
+  <link rel="stylesheet" href="/public/css/all.css?1566854887953913937">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566687122448222368">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566854887953913937">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -169,10 +169,10 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@1572895210, monix.eval.Task$$$Lambda$13096/0x00000008045b3840@47b60e10)
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@537857632, monix.eval.Task$$$Lambda$13088/0x00000008045b4040@65b1d128)
 </span>
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@10758b64
+<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@3f34c5bc
 </span></code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>

@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.misc.Local</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.misc.Local" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.misc.Local" />
+          <title>Monix 3.0.0-RC4 - monix.execution.misc.Local</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.misc.Local" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.misc.Local" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -134,6 +134,10 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../index.html" class="extype" name="monix.execution">execution</a></dd></dl></div>
     </li><li class="current-entities indented3">
+                        <a class="object" href="CanBindLocals$.html" title=""></a>
+                        <a class="trait" href="CanBindLocals.html" title="Type class describing how Local binding works for specific data types."></a>
+                        <a href="CanBindLocals.html" title="Type class describing how Local binding works for specific data types.">CanBindLocals</a>
+                      </li><li class="current-entities indented3">
                         <span class="separator"></span>
                         <a class="trait" href="HygieneUtilMacros.html" title="Utilities for macro-hygiene."></a>
                         <a href="HygieneUtilMacros.html" title="Utilities for macro-hygiene.">HygieneUtilMacros</a>
@@ -174,7 +178,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Local</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></span>
+        <span class="name">Local</span><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="monix.execution.misc.LocalDeprecated">LocalDeprecated</span>[<span class="extype" name="monix.execution.misc.Local.A">A</span>]</span>
       </span>
       </h4>
 
@@ -185,12 +189,11 @@ the user. This is useful for threading Locals through execution
 contexts.</p><p>Because it's not meaningful to inherit control from two places,
 Locals don't have to worry about having to merge two
 <a href="Local$$Context.html" class="extype" name="monix.execution.misc.Local.Context">contexts</a>.</p><p>Note: the implementation is optimized for situations in which save
-and restore optimizations are dominant.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/shared/src/main/scala/monix/execution/misc/Local.scala" target="_blank">Local.scala</a></dd></dl><div class="toggleContainer block">
+and restore optimizations are dominant.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/shared/src/main/scala/monix/execution/misc/Local.scala" target="_blank">Local.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="monix.execution.misc.LocalDeprecated">LocalDeprecated</span>[<span class="extype" name="monix.execution.misc.Local.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -216,7 +219,7 @@ and restore optimizations are dominant.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.execution.misc.Local"><span>Local</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.execution.misc.Local"><span>Local</span></li><li class="in" name="monix.execution.misc.LocalDeprecated"><span>LocalDeprecated</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -358,10 +361,10 @@ and restore optimizations are dominant.
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li name="monix.execution.misc.Local#bind" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bind[R](value:A)(f:=&gt;R):R"></a><a id="bind[R](A)(⇒R):R"></a>
+    </li><li name="monix.execution.misc.Local#bind" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bind[R](value:A)(f:=&gt;R)(implicitR:monix.execution.misc.CanBindLocals[R]):R"></a><a id="bind[R](A)(⇒R)(CanBindLocals[R]):R"></a>
       <span class="permalink">
-      <a href="../../../monix/execution/misc/Local.html#bind[R](value:A)(f:=&gt;R):R" title="Permalink">
+      <a href="../../../monix/execution/misc/Local.html#bind[R](value:A)(f:=&gt;R)(implicitR:monix.execution.misc.CanBindLocals[R]):R" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -370,15 +373,21 @@ and restore optimizations are dominant.
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bind</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="value">value: <span class="extype" name="monix.execution.misc.Local.A">A</span></span>)</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.execution.misc.Local.bind.R">R</span></span>)</span><span class="result">: <span class="extype" name="monix.execution.misc.Local.bind.R">R</span></span>
+        <span class="name">bind</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="value">value: <span class="extype" name="monix.execution.misc.Local.A">A</span></span>)</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.execution.misc.Local.bind.R">R</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="R">R: <a href="CanBindLocals.html" class="extype" name="monix.execution.misc.CanBindLocals">CanBindLocals</a>[<span class="extype" name="monix.execution.misc.Local.bind.R">R</span>]</span>)</span><span class="result">: <span class="extype" name="monix.execution.misc.Local.bind.R">R</span></span>
       </span>
       
       <p class="shortcomment cmt">Execute a block with a specific local value, restoring the
-current state upon completion.</p>
-    </li><li name="monix.execution.misc.Local#bindClear" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="bindClear[R](f:=&gt;R):R"></a><a id="bindClear[R](⇒R):R"></a>
+current state upon completion.</p><div class="fullcomment"><div class="comment cmt"><p>Execute a block with a specific local value, restoring the
+current state upon completion.</p><p>The implementation uses the <a href="CanBindLocals.html" class="extype" name="monix.execution.misc.CanBindLocals">CanBindLocals</a>
+        type class because in case of asynchronous data types that
+        should be waited on, like <code>Future</code> or <code>CompletableFuture</code>,
+        then the locals context also needs to be cleared on the
+        future's completion, for correctness.
+</p></div></div>
+    </li><li name="monix.execution.misc.Local#bindClear" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="bindClear[R](f:=&gt;R)(implicitR:monix.execution.misc.CanBindLocals[R]):R"></a><a id="bindClear[R](⇒R)(CanBindLocals[R]):R"></a>
       <span class="permalink">
-      <a href="../../../monix/execution/misc/Local.html#bindClear[R](f:=&gt;R):R" title="Permalink">
+      <a href="../../../monix/execution/misc/Local.html#bindClear[R](f:=&gt;R)(implicitR:monix.execution.misc.CanBindLocals[R]):R" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -387,11 +396,17 @@ current state upon completion.</p>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">bindClear</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.execution.misc.Local.bindClear.R">R</span></span>)</span><span class="result">: <span class="extype" name="monix.execution.misc.Local.bindClear.R">R</span></span>
+        <span class="name">bindClear</span><span class="tparams">[<span name="R">R</span>]</span><span class="params">(<span name="f">f: ⇒ <span class="extype" name="monix.execution.misc.Local.bindClear.R">R</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="R">R: <a href="CanBindLocals.html" class="extype" name="monix.execution.misc.CanBindLocals">CanBindLocals</a>[<span class="extype" name="monix.execution.misc.Local.bindClear.R">R</span>]</span>)</span><span class="result">: <span class="extype" name="monix.execution.misc.Local.bindClear.R">R</span></span>
       </span>
       
       <p class="shortcomment cmt">Execute a block with the <code>Local</code> cleared, restoring the current
-state upon completion.</p>
+state upon completion.</p><div class="fullcomment"><div class="comment cmt"><p>Execute a block with the <code>Local</code> cleared, restoring the current
+state upon completion.</p><p>The implementation uses the <a href="CanBindLocals.html" class="extype" name="monix.execution.misc.CanBindLocals">CanBindLocals</a>
+        type class because in case of asynchronous data types that
+        should be waited on, like <code>Future</code> or <code>CompletableFuture</code>,
+        then the locals context also needs to be cleared on the
+        future's completion, for correctness.
+</p></div></div>
     </li><li name="monix.execution.misc.Local#clear" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clear():Unit"></a>
       <span class="permalink">
@@ -407,7 +422,7 @@ state upon completion.</p>
         <span class="name">clear</span><span class="params">()</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
-      <p class="shortcomment cmt">Clear the Local's value.</p><div class="fullcomment"><div class="comment cmt"><p>Clear the Local's value. Other <a href="" class="extype" name="monix.execution.misc.Local">Locals</a> are not modified.</p><p>General usage should be in <a href="Local$.html#isolate[R](f:=&gt;R):R" class="extmbr" name="monix.execution.misc.Local#isolate">Local.isolate</a> to avoid leaks.
+      <p class="shortcomment cmt">Clear the Local's value.</p><div class="fullcomment"><div class="comment cmt"><p>Clear the Local's value. Other <a href="" class="extype" name="monix.execution.misc.Local">Locals</a> are not modified.</p><p>General usage should be in <a href="Local$.html#isolate[R](f:=&gt;R)(implicitR:monix.execution.misc.CanBindLocals[R]):R" class="extmbr" name="monix.execution.misc.Local#isolate">Local.isolate</a> to avoid leaks.
 </p></div></div>
     </li><li name="scala.AnyRef#clone" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="clone():Object"></a><a id="clone():AnyRef"></a>
@@ -790,7 +805,9 @@ value is <code>None</code>, then the local gets <a href="#clear():Unit" class="e
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.AnyRef">
+        <div class="parent" name="monix.execution.misc.LocalDeprecated">
+              <h3>Inherited from <span class="extype" name="monix.execution.misc.LocalDeprecated">LocalDeprecated</span>[<span class="extype" name="monix.execution.misc.Local.A">A</span>]</h3>
+            </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>

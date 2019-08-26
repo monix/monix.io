@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.eval.Task.Options</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval.Task.Options" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval.Task.Options" />
+          <title>Monix 3.0.0-RC4 - monix.eval.Task.Options</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.eval.Task.Options" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.eval.Task.Options" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -184,7 +184,7 @@ used by <a href="Task.html#runAsync(cb:Either[Throwable,A]=&gt;Unit)(implicits:m
        auto-cancelable. Defaults to <code>true</code>.</p></dd><dt class="param">localContextPropagation</dt><dd class="cmt"><p>should be set to <code>true</code> in
        case you want the <a href="../execution/misc/Local.html" class="extype" name="monix.execution.misc.Local">Local</a>
        variables to be propagated on async boundaries.
-       Defaults to <code>false</code>.</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+       Defaults to <code>false</code>.</p></dd></dl><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -664,6 +664,27 @@ the <a href="#localContextPropagation:Boolean" class="extmbr" name="monix.eval.T
     </span>)</span>
               
         </dd></dl></div>
+    </li><li name="monix.eval.Task.Options#withSchedulerFeatures" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withSchedulerFeatures(implicits:monix.execution.Scheduler):monix.eval.Task.Options"></a><a id="withSchedulerFeatures(Scheduler):Options"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task$$Options.html#withSchedulerFeatures(implicits:monix.execution.Scheduler):monix.eval.Task.Options" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withSchedulerFeatures</span><span class="params">(<span class="implicit">implicit </span><span name="s">s: <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task.Options">Options</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Enhances the options set with the features of the underlying
+<a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Enhances the options set with the features of the underlying
+<a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>.</p><p>This enables for example the <a href="#localContextPropagation:Boolean" class="extmbr" name="monix.eval.Task.Options#localContextPropagation">Options.localContextPropagation</a>
+in case the <code>Scheduler</code> is a
+<a href="../execution/schedulers/TracingScheduler.html" class="extype" name="monix.execution.schedulers.TracingScheduler">TracingScheduler</a>.
+</p></div></div>
     </li>
               </ol>
             </div>

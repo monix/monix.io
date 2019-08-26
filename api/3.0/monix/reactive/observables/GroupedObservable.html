@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.reactive.observables.GroupedObservable</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.reactive.observables.GroupedObservable" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.reactive.observables.GroupedObservable" />
+          <title>Monix 3.0.0-RC4 - monix.reactive.observables.GroupedObservable</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.reactive.observables.GroupedObservable" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.reactive.observables.GroupedObservable" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -191,7 +191,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
 by <code>Observable.groupBy</code>. It has the following properties:</p><p>- comes accompanied with a <code>key</code> property after which
   the grouping was made</p><p>- supports a single subscriber, throwing <code>IllegalStateException</code>
   if you attempt multiple subscriptions
-</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.reactive.observables.GroupedObservable">GroupedObservable</a>[<span class="extype" name="monix.reactive.observables.GroupedObservable.K">K</span>, <span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-reactive/shared/src/main/scala/monix/reactive/observables/GroupedObservable.scala" target="_blank">GroupedObservable.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a href="" class="extype" name="monix.reactive.observables.GroupedObservable">GroupedObservable</a>[<span class="extype" name="monix.reactive.observables.GroupedObservable.K">K</span>, <span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>]</dd><dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-reactive/shared/src/main/scala/monix/reactive/observables/GroupedObservable.scala" target="_blank">GroupedObservable.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -1051,6 +1051,26 @@ for each element for which the given partial function is defined.</p><div class=
 for each element for which the given partial function is defined.
 </p></div><dl class="paramcmts block"><dt class="param">pf</dt><dd class="cmt"><p>the function that filters and maps the source</p></dd><dt>returns</dt><dd class="cmt"><p>an observable that emits the transformed items by the
         given partial function</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable#collectWhile" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="collectWhile[B](pf:PartialFunction[A,B]):monix.reactive.Observable[B]"></a><a id="collectWhile[B](PartialFunction[V,B]):Observable[B]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#collectWhile[B](pf:PartialFunction[A,B]):monix.reactive.Observable[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">collectWhile</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="pf">pf: <a href="http://www.scala-lang.org/api/2.12.8/scala/PartialFunction.html#scala.PartialFunction" class="extype" name="scala.PartialFunction">PartialFunction</a>[<span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>, <span class="extype" name="monix.reactive.Observable.collectWhile.B">B</span>]</span>)</span><span class="result">: <a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.collectWhile.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Takes longest prefix of elements that satisfy the given partial function
+and returns a new Observable that emits those elements.</p><div class="fullcomment"><div class="comment cmt"><p>Takes longest prefix of elements that satisfy the given partial function
+and returns a new Observable that emits those elements.
+</p></div><dl class="paramcmts block"><dt class="param">pf</dt><dd class="cmt"><p>the function that filters and maps the source</p></dd><dt>returns</dt><dd class="cmt"><p>an observable that emits the transformed items by the
+        given partial function until it is contained in the function's domain</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
     </li><li name="monix.reactive.Observable#combineLatest" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="combineLatest[B](other:monix.reactive.Observable[B]):monix.reactive.Observable[(A,B)]"></a><a id="combineLatest[B](Observable[B]):Observable[(V,B)]"></a>
       <span class="permalink">
@@ -1124,6 +1144,27 @@ onCompleted or onError.</p><div class="fullcomment"><div class="comment cmt"><p>
 onCompleted or onError.
 </p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>an empty Observable that only calls onCompleted or onError,
         based on which one is called by the source Observable</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable#completedF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="completedF[F[_]](implicitF:monix.eval.TaskLift[F]):F[Unit]"></a><a id="completedF[F[_]](TaskLift[F]):F[Unit]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#completedF[F[_]](implicitF:monix.eval.TaskLift[F]):F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">completedF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">TaskLift</a>[<span class="extype" name="monix.reactive.Observable.completedF.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.reactive.Observable.completedF.F">F</span>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Polymorphic version of <a href="../Observable.html#completedL:monix.eval.Task[Unit]" class="extmbr" name="monix.reactive.Observable#completedL">completedL</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">monix.eval.TaskLift</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Polymorphic version of <a href="../Observable.html#completedL:monix.eval.Task[Unit]" class="extmbr" name="monix.reactive.Observable#completedL">completedL</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">monix.eval.TaskLift</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
     </li><li name="monix.reactive.Observable#completedL" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="completedL:monix.eval.Task[Unit]"></a><a id="completedL:Task[Unit]"></a>
       <span class="permalink">
@@ -1320,6 +1361,27 @@ source observable into a <a href="../../eval/Task.html" class="extype" name="mon
 with the given <a href="../Consumer.html" class="extype" name="monix.reactive.Consumer">Consumer</a>, effectively transforming the
 source observable into a <a href="../../eval/Task.html" class="extype" name="monix.eval.Task">Task</a>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable#consumeWithF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="consumeWithF[F[_],R](f:monix.reactive.Consumer[A,R])(implicitF:monix.eval.TaskLift[F]):F[R]"></a><a id="consumeWithF[F[_],R](Consumer[V,R])(TaskLift[F]):F[R]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#consumeWithF[F[_],R](f:monix.reactive.Consumer[A,R])(implicitF:monix.eval.TaskLift[F]):F[R]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">consumeWithF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="R">R</span>]</span><span class="params">(<span name="f">f: <a href="../Consumer.html" class="extype" name="monix.reactive.Consumer">Consumer</a>[<span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>, <span class="extype" name="monix.reactive.Observable.consumeWithF.R">R</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">TaskLift</a>[<span class="extype" name="monix.reactive.Observable.consumeWithF.F">F</span>]</span>)</span><span class="result">: <span class="extype" name="monix.reactive.Observable.consumeWithF.F">F</span>[<span class="extype" name="monix.reactive.Observable.consumeWithF.R">R</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Polymorphic version <a href="../Observable.html#consumeWith[R](f:monix.reactive.Consumer[A,R]):monix.eval.Task[R]" class="extmbr" name="monix.reactive.Observable#consumeWith">consumeWith</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">monix.eval.TaskLift</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Polymorphic version <a href="../Observable.html#consumeWith[R](f:monix.reactive.Consumer[A,R]):monix.eval.Task[R]" class="extmbr" name="monix.reactive.Observable#consumeWith">consumeWith</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLift.html" class="extype" name="monix.eval.TaskLift">monix.eval.TaskLift</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
     </li><li name="monix.reactive.Observable#count" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="count:monix.reactive.Observable[Long]"></a><a id="count:Observable[Long]"></a>
       <span class="permalink">
@@ -3942,6 +4004,32 @@ behavior as <a href="../Observable.html#mapEval[B](f:A=&gt;monix.eval.Task[B]):m
        in parallel, which will eventually produce events for the
        resulting observable stream</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B])(implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelUnordered">mapParallelUnordered</a> for a variant that does not preserve order
     which may lead to faster execution times</p></span><span class="cmt"><p><a href="../Observable.html#mapEval[B](f:A=&gt;monix.eval.Task[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapEval">mapEval</a> for serial execution</p></span></dd></dl></div>
+    </li><li name="monix.reactive.Observable#mapParallelOrderedF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mapParallelOrderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]"></a><a id="mapParallelOrderedF[F[_],B](Int)((V)⇒F[B])(OverflowStrategy[B],TaskLike[F]):Observable[B]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#mapParallelOrderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mapParallelOrderedF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>) ⇒ <span class="extype" name="monix.reactive.Observable.mapParallelOrderedF.F">F</span>[<span class="extype" name="monix.reactive.Observable.mapParallelOrderedF.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="os">os: <a href="../OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a>[<span class="extype" name="monix.reactive.Observable.mapParallelOrderedF.B">B</span>] = <span class="symbol"><span class="name"><a href="../OverflowStrategy$.html">OverflowStrategy.Default</a></span></span></span>, <span name="F">F: <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">TaskLike</a>[<span class="extype" name="monix.reactive.Observable.mapParallelOrderedF.F">F</span>]</span>)</span><span class="result">: <a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.mapParallelOrderedF.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Version of <a href="../Observable.html#mapParallelOrderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelOrderedF">mapParallelOrderedF</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Version of <a href="../Observable.html#mapParallelOrderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelOrderedF">mapParallelOrderedF</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+</li></ul></div><dl class="paramcmts block"><dt class="param">parallelism</dt><dd class="cmt"><p>is the maximum number of tasks that can be executed
+       in parallel, over which the source starts being
+       back-pressured</p></dd><dt class="param">f</dt><dd class="cmt"><p>is the mapping function that produces tasks to execute
+       in parallel, which will eventually produce events for the
+       resulting observable stream</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#mapParallelUnorderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelUnorderedF">mapParallelUnorderedF</a> for a variant that does not preserve order
+    which may lead to faster execution times</p></span><span class="cmt"><p><a href="../Observable.html#mapEvalF[F[_],B](f:A=&gt;F[B])(implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapEvalF">mapEvalF</a> for serial execution</p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#mapParallelUnordered" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B])(implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]"></a><a id="mapParallelUnordered[B](Int)((V)⇒Task[B])(OverflowStrategy[B]):Observable[B]"></a>
       <span class="permalink">
@@ -3969,6 +4057,33 @@ but expressed as an operator that executes <a href="../../eval/Task.html" class=
 instances in parallel.</p><p>Note that when the specified <code>parallelism</code> is 1, it has the same
 behavior as <a href="../Observable.html#mapEval[B](f:A=&gt;monix.eval.Task[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapEval">mapEval</a>.
 </p></div><dl class="paramcmts block"><dt class="param">parallelism</dt><dd class="cmt"><p>is the maximum number of tasks that can be executed
+       in parallel, over which the source starts being
+       back-pressured</p></dd><dt class="param">f</dt><dd class="cmt"><p>is the mapping function that produces tasks to execute
+       in parallel, which will eventually produce events for the
+       resulting observable stream</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#mapParallelOrdered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B])(implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelOrdered">mapParallelOrdered</a> for a variant that does preserve order</p></span><span class="cmt"><p><a href="../Observable.html#mapEval[B](f:A=&gt;monix.eval.Task[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapEval">mapEval</a> for serial execution</p></span></dd></dl></div>
+    </li><li name="monix.reactive.Observable#mapParallelUnorderedF" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="mapParallelUnorderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]"></a><a id="mapParallelUnorderedF[F[_],B](Int)((V)⇒F[B])(OverflowStrategy[B],TaskLike[F]):Observable[B]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#mapParallelUnorderedF[F[_],B](parallelism:Int)(f:A=&gt;F[B])(implicitos:monix.reactive.OverflowStrategy[B],implicitF:monix.eval.TaskLike[F]):monix.reactive.Observable[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">mapParallelUnorderedF</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>, <span name="B">B</span>]</span><span class="params">(<span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>) ⇒ <span class="extype" name="monix.reactive.Observable.mapParallelUnorderedF.F">F</span>[<span class="extype" name="monix.reactive.Observable.mapParallelUnorderedF.B">B</span>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="os">os: <a href="../OverflowStrategy.html" class="extype" name="monix.reactive.OverflowStrategy">OverflowStrategy</a>[<span class="extype" name="monix.reactive.Observable.mapParallelUnorderedF.B">B</span>] = <span class="symbol"><span class="name"><a href="../OverflowStrategy$.html">OverflowStrategy.Default</a></span></span></span>, <span name="F">F: <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">TaskLike</a>[<span class="extype" name="monix.reactive.Observable.mapParallelUnorderedF.F">F</span>]</span>)</span><span class="result">: <a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.Observable.mapParallelUnorderedF.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Version of <a href="../Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B])(implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelUnordered">mapParallelUnordered</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><div class="fullcomment"><div class="comment cmt"><p>Version of <a href="../Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B])(implicitos:monix.reactive.OverflowStrategy[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapParallelUnordered">mapParallelUnordered</a> that can work with generic
+<code>F[_]</code> tasks, anything that's supported via <a href="../../eval/TaskLike.html" class="extype" name="monix.eval.TaskLike">monix.eval.TaskLike</a>
+conversions.</p><p>So you can work among others with:</p><ul><li><code>cats.effect.IO</code></li><li><code>monix.eval.Coeval</code></li><li><code>scala.concurrent.Future</code></li><li>...
+Note that when the specified <code>parallelism</code> is 1, it has the same
+behavior as <a href="../Observable.html#mapEval[B](f:A=&gt;monix.eval.Task[B]):monix.reactive.Observable[B]" class="extmbr" name="monix.reactive.Observable#mapEval">mapEval</a>.
+</li></ul></div><dl class="paramcmts block"><dt class="param">parallelism</dt><dd class="cmt"><p>is the maximum number of tasks that can be executed
        in parallel, over which the source starts being
        back-pressured</p></dd><dt class="param">f</dt><dd class="cmt"><p>is the mapping function that produces tasks to execute
        in parallel, which will eventually produce events for the
@@ -5413,8 +5528,14 @@ to see what item it has most recently emitted since the previous
 sampling. Note that if the source observable has emitted no
 items since the last time it was sampled, the observable that
 results from the <code>sample</code> operator will emit no item for that
-sampling period.
-</p></div><dl class="paramcmts block"><dt class="param">period</dt><dd class="cmt"><p>the timespan at which sampling occurs</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#sampleBy[B](sampler:monix.reactive.Observable[B]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sampleBy">sampleBy</a> for fine control</p></span><span class="cmt"><p><a href="../Observable.html#sampleRepeated(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sampleRepeated">sampleRepeated</a> for repeating the last value on silence</p></span></dd></dl></div>
+sampling period.</p><p>Usage:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="cmt">// emits 3, 8, 10 in 1 second intervals</span>
+Observable.fromIterable(<span class="num">0</span> to <span class="num">10</span>)
+  <span class="cmt">// without delay, it would return only 10</span>
+  .delayOnNext(<span class="num">200.</span>millis)
+  .sample(<span class="num">1.</span>second)</pre></div><dl class="paramcmts block"><dt class="param">period</dt><dd class="cmt"><p>the timespan at which sampling occurs</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#sampleBy[B](sampler:monix.reactive.Observable[B]):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sampleBy">sampleBy</a> for fine control</p></span><span class="cmt"><p><a href="../Observable.html#sampleRepeated(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sampleRepeated">sampleRepeated</a> for repeating the last value on silence</p></span><span class="cmt"><p><a href="../Observable.html#throttle(period:scala.concurrent.duration.FiniteDuration,n:Int):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttle">throttle</a> for a version that allows to specify number
+     of elements processed by a period and does not drop any elements</p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#sampleBy" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="sampleBy[B](sampler:monix.reactive.Observable[B]):monix.reactive.Observable[A]"></a><a id="sampleBy[B](Observable[B]):Observable[V]"></a>
       <span class="permalink">
@@ -6326,6 +6447,30 @@ the value that caused <code>predicate</code> to return <code>false</code> and re
 is not canceled and returns a new Observable that emits those elements.</p><div class="fullcomment"><div class="comment cmt"><p>Takes longest prefix of elements while given <a href="../../execution/cancelables/BooleanCancelable.html" class="extype" name="monix.execution.cancelables.BooleanCancelable">BooleanCancelable</a>
 is not canceled and returns a new Observable that emits those elements.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+    </li><li name="monix.reactive.Observable#throttle" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="throttle(period:scala.concurrent.duration.FiniteDuration,n:Int):monix.reactive.Observable[A]"></a><a id="throttle(FiniteDuration,Int):Observable[V]"></a>
+      <span class="permalink">
+      <a href="../../../monix/reactive/observables/GroupedObservable.html#throttle(period:scala.concurrent.duration.FiniteDuration,n:Int):monix.reactive.Observable[A]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">throttle</span><span class="params">(<span name="period">period: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/duration/FiniteDuration.html#scala.concurrent.duration.FiniteDuration" class="extype" name="scala.concurrent.duration.FiniteDuration">FiniteDuration</a></span>, <span name="n">n: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="result">: <a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a>[<span class="extype" name="monix.reactive.observables.GroupedObservable.V">V</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns an Observable that emits maximum <code>n</code> items per given <code>period</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns an Observable that emits maximum <code>n</code> items per given <code>period</code>.</p><p>Unlike <a href="../Observable.html#throttleLast(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttleLast">Observable!.throttleLast</a> and <a href="../Observable.html#throttleFirst(interval:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttleFirst">Observable!.throttleFirst</a>
+it does not discard any elements.</p><p>If the source observable completes, then the current buffer gets
+signaled downstream. If the source triggers an error then the
+current buffer is being dropped and the error gets propagated
+immediately.</p><p>Usage:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="cmt">// emits two items per second</span>
+Observable.fromIterable(<span class="num">0</span> to <span class="num">10</span>)
+  .throttle(<span class="num">1.</span>second, <span class="num">2</span>)</pre></div><dl class="paramcmts block"><dt class="param">period</dt><dd class="cmt"><p>time that has to pass before emiting new items</p></dd><dt class="param">n</dt><dd class="cmt"><p>maximum number of items emitted per given <code>period</code></p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
     </li><li name="monix.reactive.Observable#throttleFirst" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="throttleFirst(interval:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]"></a><a id="throttleFirst(FiniteDuration):Observable[V]"></a>
       <span class="permalink">
@@ -6347,9 +6492,15 @@ specified duration.</p><div class="fullcomment"><div class="comment cmt"><p>Retu
 the source Observable during sequential time windows of a
 specified duration.</p><p>This differs from <a href="../Observable.html#throttleLast(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttleLast">Observable!.throttleLast</a> in that this only
 tracks passage of time whereas <code>throttleLast</code> ticks at scheduled
-intervals.
-</p></div><dl class="paramcmts block"><dt class="param">interval</dt><dd class="cmt"><p>time to wait before emitting another item after
-       emitting the last item</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+intervals.</p><p>Usage:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="cmt">// emits 0, 5, 10 in 1 second intervals</span>
+Observable.fromIterable(<span class="num">0</span> to <span class="num">10</span>)
+  <span class="cmt">// without delay, it would return only 0</span>
+  .delayOnNext(<span class="num">200.</span>millis)
+  .throttleFirst(<span class="num">1.</span>second)</pre></div><dl class="paramcmts block"><dt class="param">interval</dt><dd class="cmt"><p>time to wait before emitting another item after
+       emitting the last item</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#throttle(period:scala.concurrent.duration.FiniteDuration,n:Int):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttle">throttle</a> for a version that allows to specify number
+     of elements processed by a period and does not drop any elements</p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#throttleLast" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="throttleLast(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]"></a><a id="throttleLast(FiniteDuration):Observable[V]"></a>
       <span class="permalink">
@@ -6367,9 +6518,15 @@ intervals.
       
       <p class="shortcomment cmt">Emit the most recent items emitted by the source within
 periodic time intervals.</p><div class="fullcomment"><div class="comment cmt"><p>Emit the most recent items emitted by the source within
-periodic time intervals.</p><p>Alias for <a href="../Observable.html#sample(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sample">sample</a>.
-</p></div><dl class="paramcmts block"><dt class="param">period</dt><dd class="cmt"><p>duration of windows within which the last item
-       emitted by the source Observable will be emitted</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd></dl></div>
+periodic time intervals.</p><p>Alias for <a href="../Observable.html#sample(period:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#sample">sample</a>.</p><p>Usage:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="cmt">// emits 3, 8, 10 in 1 second intervals</span>
+Observable.fromIterable(<span class="num">0</span> to <span class="num">10</span>)
+  <span class="cmt">// without delay, it would return only 10</span>
+  .delayOnNext(<span class="num">200.</span>millis)
+  .throttleLast(<span class="num">1.</span>second)</pre></div><dl class="paramcmts block"><dt class="param">period</dt><dd class="cmt"><p>duration of windows within which the last item
+       emitted by the source Observable will be emitted</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="../Observable.html" class="extype" name="monix.reactive.Observable">Observable</a></dd><dt>See also</dt><dd><span class="cmt"><p><a href="../Observable.html#throttle(period:scala.concurrent.duration.FiniteDuration,n:Int):monix.reactive.Observable[A]" class="extmbr" name="monix.reactive.Observable#throttle">throttle</a> for a version that allows to specify number
+     of elements processed by a period and does not drop any elements</p></span></dd></dl></div>
     </li><li name="monix.reactive.Observable#throttleWithTimeout" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="throttleWithTimeout(timeout:scala.concurrent.duration.FiniteDuration):monix.reactive.Observable[A]"></a><a id="throttleWithTimeout(FiniteDuration):Observable[V]"></a>
       <span class="permalink">

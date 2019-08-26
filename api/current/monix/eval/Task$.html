@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.eval.Task</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval.Task" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval.Task" />
+          <title>Monix 3.0.0-RC4 - monix.eval.Task</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.eval.Task" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.eval.Task" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -211,7 +211,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Builders for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Builders for <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -492,8 +492,11 @@ to get rid of these pesky execution contexts being passed around explicitly.
 See <a href="#async0[A](register:(monix.execution.Scheduler,monix.execution.Callback[Throwable,A])=&gt;Unit):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#async0">Task.async0</a>.</p><p>CONTRACT for <code>register</code>:</p><ul><li>the provided function is executed when the <code>Task</code> will be evaluated
    (via <code>runAsync</code> or when its turn comes in the <code>flatMap</code> chain, not before)</li><li>the injected <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">Callback</a> can be
    called at most once, either with a successful result, or with
-   an error; calling it more than once is a contract violation</li><li>it can be assumed that the callback provides no protection when called
-   multiple times, the behavior being undefined
+   an error; calling it more than once is a contract violation</li><li>the injected callback is thread-safe and in case it gets called
+   multiple times it will throw a
+   <a href="../execution/exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">monix.execution.exceptions.CallbackCalledMultipleTimesException</a>;
+   also see <a href="../execution/Callback.html#tryOnSuccess(value:A):Boolean" class="extmbr" name="monix.execution.Callback#tryOnSuccess">Callback.tryOnSuccess</a>
+   and <a href="../execution/Callback.html#tryOnError(e:E):Boolean" class="extmbr" name="monix.execution.Callback#tryOnError">Callback.tryOnError</a>
 </li></ul></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#async0[A](register:(monix.execution.Scheduler,monix.execution.Callback[Throwable,A])=&gt;Unit):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#async0">Task.async0</a> for a variant that also injects a
      <a href="../execution/Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a> into the provided callback,
      useful for forking, or delaying tasks or managing async boundaries</p></span><span class="cmt"><p><a href="#cancelable[A](register:monix.execution.Callback[Throwable,A]=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable">Task.cancelable</a> and <a href="#cancelable0[A](register:(monix.execution.Scheduler,monix.execution.Callback[Throwable,A])=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable0">Task.cancelable0</a>
@@ -543,8 +546,11 @@ function injects a <a href="../execution/Scheduler.html" class="extype" name="mo
 use for managing async boundaries.</p><p>CONTRACT for <code>register</code>:</p><ul><li>the provided function is executed when the <code>Task</code> will be evaluated
    (via <code>runAsync</code> or when its turn comes in the <code>flatMap</code> chain, not before)</li><li>the injected <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">monix.execution.Callback</a> can be called at
    most once, either with a successful result, or with an error;
-   calling it more than once is a contract violation</li><li>it can be assumed that the callback provides no protection when called
-   multiple times, the behavior being undefined</li></ul><p>NOTES on the naming:</p><ul><li><code>async</code> comes from <code>cats.effect.Async#async</code></li><li>the <code>0</code> suffix is about overloading the simpler
+   calling it more than once is a contract violation</li><li>the injected callback is thread-safe and in case it gets called
+   multiple times it will throw a
+   <a href="../execution/exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">monix.execution.exceptions.CallbackCalledMultipleTimesException</a>;
+   also see <a href="../execution/Callback.html#tryOnSuccess(value:A):Boolean" class="extmbr" name="monix.execution.Callback#tryOnSuccess">Callback.tryOnSuccess</a>
+   and <a href="../execution/Callback.html#tryOnError(e:E):Boolean" class="extmbr" name="monix.execution.Callback#tryOnError">Callback.tryOnError</a></li></ul><p>NOTES on the naming:</p><ul><li><code>async</code> comes from <code>cats.effect.Async#async</code></li><li>the <code>0</code> suffix is about overloading the simpler
    <a href="#async[A](register:monix.execution.Callback[Throwable,A]=&gt;Unit):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#async">Task.async</a> builder
 </li></ul></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#async[A](register:monix.execution.Callback[Throwable,A]=&gt;Unit):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#async">Task.async</a> for a simpler variant that doesn't inject a
      <code>Scheduler</code>, in case you don't need one</p></span><span class="cmt"><p><a href="#cancelable[A](register:monix.execution.Callback[Throwable,A]=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable">Task.cancelable</a> and <a href="#cancelable0[A](register:(monix.execution.Scheduler,monix.execution.Callback[Throwable,A])=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable0">Task.cancelable0</a>
@@ -676,8 +682,11 @@ affords to have a <a href="../execution/Scheduler.html" class="extype" name="mon
 instead via <a href="#cancelable0[A](register:(monix.execution.Scheduler,monix.execution.Callback[Throwable,A])=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable0">Task.cancelable0</a>.</p><p>CONTRACT for <code>register</code>:</p><ul><li>the provided function is executed when the <code>Task</code> will be evaluated
    (via <code>runAsync</code> or when its turn comes in the <code>flatMap</code> chain, not before)</li><li>the injected <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">Callback</a> can be
    called at most once, either with a successful result, or with
-   an error; calling it more than once is a contract violation</li><li>it can be assumed that the callback provides no protection when called
-   multiple times, the behavior being undefined
+   an error; calling it more than once is a contract violation</li><li>the injected callback is thread-safe and in case it gets called
+   multiple times it will throw a
+   <a href="../execution/exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">monix.execution.exceptions.CallbackCalledMultipleTimesException</a>;
+   also see <a href="../execution/Callback.html#tryOnSuccess(value:A):Boolean" class="extmbr" name="monix.execution.Callback#tryOnSuccess">Callback.tryOnSuccess</a>
+   and <a href="../execution/Callback.html#tryOnError(e:E):Boolean" class="extmbr" name="monix.execution.Callback#tryOnError">Callback.tryOnError</a>
 </li></ul></div><dl class="paramcmts block"><dt class="param">register</dt><dd class="cmt"><p>is a function that will be called when
         this <code>Task</code> is executed, receiving a callback as a
         parameter, a callback that the user is supposed to call in
@@ -760,8 +769,11 @@ Java's standard library:</p><pre><span class="kw">def</span> delayed2[A](timespa
   }</pre><p>CONTRACT for <code>register</code>:</p><ul><li>the provided function is executed when the <code>Task</code> will be evaluated
    (via <code>runAsync</code> or when its turn comes in the <code>flatMap</code> chain, not before)</li><li>the injected <a href="../execution/Callback.html" class="extype" name="monix.execution.Callback">Callback</a> can be
    called at most once, either with a successful result, or with
-   an error; calling it more than once is a contract violation</li><li>it can be assumed that the callback provides no protection when called
-   multiple times, the behavior being undefined</li></ul><p>NOTES on the naming:</p><ul><li><code>cancelable</code> comes from <code>cats.effect.Concurrent#cancelable</code></li><li>the <code>0</code> suffix is about overloading the simpler
+   an error; calling it more than once is a contract violation</li><li>the injected callback is thread-safe and in case it gets called
+   multiple times it will throw a
+   <a href="../execution/exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">monix.execution.exceptions.CallbackCalledMultipleTimesException</a>;
+   also see <a href="../execution/Callback.html#tryOnSuccess(value:A):Boolean" class="extmbr" name="monix.execution.Callback#tryOnSuccess">Callback.tryOnSuccess</a>
+   and <a href="../execution/Callback.html#tryOnError(e:E):Boolean" class="extmbr" name="monix.execution.Callback#tryOnError">Callback.tryOnError</a></li></ul><p>NOTES on the naming:</p><ul><li><code>cancelable</code> comes from <code>cats.effect.Concurrent#cancelable</code></li><li>the <code>0</code> suffix is about overloading the simpler
    <a href="#cancelable[A](register:monix.execution.Callback[Throwable,A]=&gt;cats.effect.CancelToken[monix.eval.Task]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#cancelable">Task.cancelable</a> builder
 </li></ul></div><dl class="paramcmts block"><dt class="param">register</dt><dd class="cmt"><p>is a function that will be called when
         this <code>Task</code> is executed, receiving a callback as a
@@ -1172,9 +1184,9 @@ function, which has the ability to inject a needed
       </span>
       
       <p class="shortcomment cmt">Promote a non-strict Scala <code>Future</code> to a <code>Task</code> of the same type.</p><div class="fullcomment"><div class="comment cmt"><p>Promote a non-strict Scala <code>Future</code> to a <code>Task</code> of the same type.</p><p>The equivalent of doing:</p><pre><span class="kw">import</span> scala.concurrent.Future
-<span class="kw">val</span> fa = Future.successful(<span class="num">27</span>)
+<span class="kw">def</span> mkFuture = Future.successful(<span class="num">27</span>)
 
-Task.defer(Task.fromFuture(fa))</pre></div></div>
+Task.defer(Task.fromFuture(mkFuture))</pre></div></div>
     </li><li name="monix.eval.Task#deferFutureAction" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="deferFutureAction[A](f:monix.execution.Scheduler=&gt;scala.concurrent.Future[A]):monix.eval.Task[A]"></a><a id="deferFutureAction[A]((Scheduler)⇒Future[A]):Task[A]"></a>
       <span class="permalink">
@@ -1491,7 +1503,9 @@ This is implicit in the usage of <code>Effect</code>.
         <span class="name">fromFuture</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="f">f: <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/Future.html#scala.concurrent.Future" class="extype" name="scala.concurrent.Future">Future</a>[<span class="extype" name="monix.eval.Task.fromFuture.A">A</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.fromFuture.A">A</span>]</span>
       </span>
       
-      <p class="shortcomment cmt">Converts the given Scala <code>Future</code> into a <code>Task</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts the given Scala <code>Future</code> into a <code>Task</code>.</p><p>NOTE: if you want to defer the creation of the future, use
+      <p class="shortcomment cmt">Converts the given Scala <code>Future</code> into a <code>Task</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Converts the given Scala <code>Future</code> into a <code>Task</code>.
+There is an async boundary inserted at the end to guarantee
+that we stay on the main Scheduler.</p><p>NOTE: if you want to defer the creation of the future, use
 in combination with <a href="#defer[A](fa:=&gt;monix.eval.Task[A]):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#defer">defer</a>.
 </p></div></div>
     </li><li name="monix.eval.Task#fromFutureLike" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
@@ -1564,7 +1578,48 @@ Task.gather(tasks)</pre><p>ADVICE: In a real life scenario the tasks should
         execution model (<a href="#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a> vs <a href="#evalAsync[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#evalAsync">Task.evalAsync</a> doesn't matter).
         Also the implementation tries to be smart about detecting forked
         tasks so it can eliminate extraneous forks for the very obvious
-        cases.</p></div></div>
+        cases.</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#gatherN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]" class="extmbr" name="monix.eval.Task#gatherN">gatherN</a> for a version that limits parallelism.</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#gatherN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="gatherN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]"></a><a id="gatherN[A](Int)(Iterable[Task[A]]):Task[List[A]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task$.html#gatherN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">gatherN</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span name="in">in: <span class="extype" name="scala.Iterable">Iterable</span>[<a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.gatherN.A">A</span>]]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="monix.eval.Task.gatherN.A">A</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Executes the given sequence of tasks in parallel, non-deterministically
+gathering their results, returning a task that will signal the sequence
+of results once all tasks are finished.</p><div class="fullcomment"><div class="comment cmt"><p>Executes the given sequence of tasks in parallel, non-deterministically
+gathering their results, returning a task that will signal the sequence
+of results once all tasks are finished.</p><p>Implementation ensure there are at most <code>n</code> (= <code>parallelism</code> parameter) tasks
+running concurrently and the results are returned in order.</p><p>Example:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="kw">val</span> tasks = <span class="std">List</span>(
+  Task(<span class="num">1</span> + <span class="num">1</span>).delayExecution(<span class="num">1.</span>second),
+  Task(<span class="num">2</span> + <span class="num">2</span>).delayExecution(<span class="num">2.</span>second),
+  Task(<span class="num">3</span> + <span class="num">3</span>).delayExecution(<span class="num">3.</span>second),
+  Task(<span class="num">4</span> + <span class="num">4</span>).delayExecution(<span class="num">4.</span>second)
+ )
+
+<span class="cmt">// Yields 2, 4, 6, 8 after around 6 seconds</span>
+Task.gatherN(<span class="num">2</span>)(tasks)</pre><p>ADVICE: In a real life scenario the tasks should
+        be expensive in order to warrant parallel execution. Parallelism
+        doesn't magically speed up the code - it's usually fine for I/O-bound
+        tasks, however for CPU-bound tasks it can make things worse.
+        Performance improvements need to be verified.</p><p>NOTE: the tasks get forked automatically so there's
+        no need to force asynchronous execution for immediate tasks,
+        parallelism being guaranteed when multi-threading is available!</p><p>        All specified tasks get evaluated in parallel, regardless of their
+        execution model (<a href="#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a> vs <a href="#evalAsync[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#evalAsync">Task.evalAsync</a> doesn't matter).
+        Also the implementation tries to be smart about detecting forked
+        tasks so it can eliminate extraneous forks for the very obvious
+        cases.</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#gather[A,M[X]&lt;:Iterable[X]](in:M[monix.eval.Task[A]])(implicitbf:monix.execution.compat.BuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]" class="extmbr" name="monix.eval.Task#gather">gather</a> for a version that does not limit parallelism.</p></span></dd></dl></div>
     </li><li name="monix.eval.Task#gatherUnordered" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="gatherUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]"></a><a id="gatherUnordered[A](Iterable[Task[A]]):Task[List[A]]"></a>
       <span class="permalink">
@@ -2950,7 +3005,45 @@ for the more efficient alternative.</p><p>It's a generalized version of <a href=
         execution model (<a href="#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a> vs <a href="#evalAsync[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#evalAsync">Task.evalAsync</a> doesn't matter).
         Also the implementation tries to be smart about detecting forked
         tasks so it can eliminate extraneous forks for the very obvious
-        cases.</p></div></div>
+        cases.</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#wanderN[A,B](parallelism:Int)(in:Iterable[A])(f:A=&gt;monix.eval.Task[B]):monix.eval.Task[List[B]]" class="extmbr" name="monix.eval.Task#wanderN">wanderN</a> for a version that limits parallelism.</p></span></dd></dl></div>
+    </li><li name="monix.eval.Task#wanderN" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="wanderN[A,B](parallelism:Int)(in:Iterable[A])(f:A=&gt;monix.eval.Task[B]):monix.eval.Task[List[B]]"></a><a id="wanderN[A,B](Int)(Iterable[A])((A)⇒Task[B]):Task[List[B]]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task$.html#wanderN[A,B](parallelism:Int)(in:Iterable[A])(f:A=&gt;monix.eval.Task[B]):monix.eval.Task[List[B]]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">wanderN</span><span class="tparams">[<span name="A">A</span>, <span name="B">B</span>]</span><span class="params">(<span name="parallelism">parallelism: <a href="http://www.scala-lang.org/api/2.12.8/scala/Int.html#scala.Int" class="extype" name="scala.Int">Int</a></span>)</span><span class="params">(<span name="in">in: <span class="extype" name="scala.Iterable">Iterable</span>[<span class="extype" name="monix.eval.Task.wanderN.A">A</span>]</span>)</span><span class="params">(<span name="f">f: (<span class="extype" name="monix.eval.Task.wanderN.A">A</span>) ⇒ <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.wanderN.B">B</span>]</span>)</span><span class="result">: <a href="Task.html" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="monix.eval.Task.wanderN.B">B</span>]]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Given a <code>Iterable[A]</code> and a function <code>A =&gt; Task[B]</code>,
+nondeterministically apply the function to each element of the collection
+and return a task that will signal a collection of the results once all
+tasks are finished.</p><div class="fullcomment"><div class="comment cmt"><p>Given a <code>Iterable[A]</code> and a function <code>A =&gt; Task[B]</code>,
+nondeterministically apply the function to each element of the collection
+and return a task that will signal a collection of the results once all
+tasks are finished.</p><p>Implementation ensure there are at most <code>n</code> (= <code>parallelism</code> parameter) tasks
+running concurrently and the results are returned in order.</p><p>Example:</p><pre><span class="kw">import</span> scala.concurrent.duration._
+
+<span class="kw">val</span> numbers = <span class="std">List</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>)
+
+<span class="cmt">// Yields 2, 4, 6, 8 after around 6 seconds</span>
+Task.wanderN(<span class="num">2</span>)(numbers)(n <span class="kw">=&gt;</span> Task(n + n).delayExecution(n.second))</pre><p>ADVICE: In a real life scenario the tasks should
+        be expensive in order to warrant parallel execution. Parallelism
+        doesn't magically speed up the code - it's usually fine for I/O-bound
+        tasks, however for CPU-bound tasks it can make things worse.
+        Performance improvements need to be verified.</p><p>NOTE: the tasks get forked automatically so there's
+        no need to force asynchronous execution for immediate tasks,
+        parallelism being guaranteed when multi-threading is available!</p><p>        All specified tasks get evaluated in parallel, regardless of their
+        execution model (<a href="#eval[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#eval">Task.eval</a> vs <a href="#evalAsync[A](a:=&gt;A):monix.eval.Task[A]" class="extmbr" name="monix.eval.Task#evalAsync">Task.evalAsync</a> doesn't matter).
+        Also the implementation tries to be smart about detecting forked
+        tasks so it can eliminate extraneous forks for the very obvious
+        cases.</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#wander[A,B,M[X]&lt;:Iterable[X]](in:M[A])(f:A=&gt;monix.eval.Task[B])(implicitbf:monix.execution.compat.BuildFrom[M[A],B,M[B]]):monix.eval.Task[M[B]]" class="extmbr" name="monix.eval.Task#wander">wander</a> for a version that does not limit parallelism.</p></span></dd></dl></div>
     </li><li name="monix.eval.Task#wanderUnordered" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wanderUnordered[A,B,M[X]&lt;:Iterable[X]](in:M[A])(f:A=&gt;monix.eval.Task[B]):monix.eval.Task[List[B]]"></a><a id="wanderUnordered[A,B,M[X]&lt;:Iterable[X]](M[A])((A)⇒Task[B]):Task[List[B]]"></a>
       <span class="permalink">

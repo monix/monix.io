@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.exceptions</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.exceptions" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.exceptions" />
+          <title>Monix 3.0.0-RC4 - monix.execution.exceptions</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.exceptions" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.exceptions" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -218,6 +218,10 @@ task.cancel()</pre></div><dl class="attributes block"> <dt>Definition Classes</d
                         <a class="class" href="BufferOverflowException.html" title="An exception emitted on buffer overflows, like when using OverflowStrategy.Fail."></a>
                         <a href="BufferOverflowException.html" title="An exception emitted on buffer overflows, like when using OverflowStrategy.Fail.">BufferOverflowException</a>
                       </li><li class="current-entities indented3">
+                        <a class="object" href="CallbackCalledMultipleTimesException$.html" title=""></a>
+                        <a class="class" href="CallbackCalledMultipleTimesException.html" title="Thrown when signaling is attempted multiple times for Callback or similar."></a>
+                        <a href="CallbackCalledMultipleTimesException.html" title="Thrown when signaling is attempted multiple times for Callback or similar.">CallbackCalledMultipleTimesException</a>
+                      </li><li class="current-entities indented3">
                         <a class="object" href="CompositeException$.html" title=""></a>
                         <a class="class" href="CompositeException.html" title="A composite exception represents a list of exceptions that were caught while delaying errors."></a>
                         <a href="CompositeException.html" title="A composite exception represents a list of exceptions that were caught while delaying errors.">CompositeException</a>
@@ -374,9 +378,9 @@ specification.
         <div id="types" class="types members">
               <h3>Type Members</h3>
               <ol><li name="monix.execution.exceptions.APIContractViolationException" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="APIContractViolationExceptionextendsRuntimeExceptionwithSerializable"></a><a id="APIContractViolationException:APIContractViolationException"></a>
+      <a id="APIContractViolationExceptionextendsIllegalStateExceptionwithSerializable"></a><a id="APIContractViolationException:APIContractViolationException"></a>
       <span class="permalink">
-      <a href="../../../monix/execution/exceptions/index.html#APIContractViolationExceptionextendsRuntimeExceptionwithSerializable" title="Permalink">
+      <a href="../../../monix/execution/exceptions/index.html#APIContractViolationExceptionextendsIllegalStateExceptionwithSerializable" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -385,7 +389,7 @@ specification.
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a title="Generic exception thrown on API contract violations." href="APIContractViolationException.html"><span class="name">APIContractViolationException</span></a><span class="result"> extends <span class="extype" name="scala.RuntimeException">RuntimeException</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <a title="Generic exception thrown on API contract violations." href="APIContractViolationException.html"><span class="name">APIContractViolationException</span></a><span class="result"> extends <span class="extype" name="java.lang.IllegalStateException">IllegalStateException</span> with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       <p class="shortcomment cmt">Generic exception thrown on API contract violations.</p>
@@ -406,6 +410,23 @@ specification.
       
       <p class="shortcomment cmt">An exception emitted on buffer overflows, like when using
 <a href="../../reactive/OverflowStrategy$$Fail.html" class="extype" name="monix.reactive.OverflowStrategy.Fail">OverflowStrategy.Fail</a>.</p>
+    </li><li name="monix.execution.exceptions.CallbackCalledMultipleTimesException" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CallbackCalledMultipleTimesExceptionextendsAPIContractViolationException"></a><a id="CallbackCalledMultipleTimesException:CallbackCalledMultipleTimesException"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/exceptions/index.html#CallbackCalledMultipleTimesExceptionextendsAPIContractViolationException" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a title="Thrown when signaling is attempted multiple times for Callback or similar." href="CallbackCalledMultipleTimesException.html"><span class="name">CallbackCalledMultipleTimesException</span></a><span class="result"> extends <a href="APIContractViolationException.html" class="extype" name="monix.execution.exceptions.APIContractViolationException">APIContractViolationException</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Thrown when signaling is attempted multiple times for
+<a href="../Callback.html" class="extype" name="monix.execution.Callback">Callback</a> or similar.</p>
     </li><li name="monix.execution.exceptions.CompositeException" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="CompositeExceptionextendsRuntimeExceptionwithSerializable"></a><a id="CompositeException:CompositeException"></a>
       <span class="permalink">
@@ -555,6 +576,22 @@ a received event.</p>
       </span>
       <span class="symbol">
         <a title="" href="BufferOverflowException$.html"><span class="name">BufferOverflowException</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/runtime/AbstractFunction1.html#scala.runtime.AbstractFunction1" class="extype" name="scala.runtime.AbstractFunction1">AbstractFunction1</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="BufferOverflowException.html" class="extype" name="monix.execution.exceptions.BufferOverflowException">BufferOverflowException</a>] with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+      </span>
+      
+      
+    </li><li name="monix.execution.exceptions.CallbackCalledMultipleTimesException" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="CallbackCalledMultipleTimesException"></a><a id="CallbackCalledMultipleTimesException:CallbackCalledMultipleTimesException"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/exceptions/index.html#CallbackCalledMultipleTimesException" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="CallbackCalledMultipleTimesException$.html"><span class="name">CallbackCalledMultipleTimesException</span></a><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/runtime/AbstractFunction1.html#scala.runtime.AbstractFunction1" class="extype" name="scala.runtime.AbstractFunction1">AbstractFunction1</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">CallbackCalledMultipleTimesException</a>] with <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
       </span>
       
       

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix: Version 3.0.0-RC4</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:title" content="Monix: Version 3.0.0-RC4" />
+  <meta name="twitter:description" content="Final release before 3.0.0" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+  <meta property="og:url" content="https://monix.io/blog/2019/08/25/monix-v3.0.0-RC4.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:title" content="Monix: Version 3.0.0-RC4" />
+  <meta property="og:description" content="Final release before 3.0.0" />
+  
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1566854887953913937" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1566854887953913937" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1566854887953913937">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566854887953913937">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="post">
+  <a name="start"></a>
+  <h1 class="post-title">Monix: Version 3.0.0-RC4</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2019-08-25">
+    25 Aug 2019
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <p>Last release before <code class="highlighter-rouge">3.0.0</code> which will be released as soon as Cats-Effect 2.0.0 is available. At the time of writing release notes,
+it is only waiting on Cats 2.0.0 which is about to release next RC which will become stable version if no critical issues are discovered.</p>
+
+<p>Any other development for this release is now frozen except if we discover critical bugs like memory leaks. All other changes will target <code class="highlighter-rouge">3.1.0</code>.</p>
+
+<p><code class="highlighter-rouge">3.0.0</code> will be binary and source compatible with <code class="highlighter-rouge">3.0.0-RC4</code> for Scala 2.12. Monix itself will be also binary compatible
+for 2.11 but it will have a dependency on Cats-Effect which is not. <a href="https://github.com/typelevel/cats-effect/releases/tag/v2.0.0-RC1">See Cats-Effect release notes</a> for more details.</p>
+
+<p>We wish we could release <code class="highlighter-rouge">3.0.0</code> already but if we released now, we would have to release <code class="highlighter-rouge">4.0.0</code> for Cats-Effect 2.0 because of 2.11 incompatibility there so we decided to hold on. 
+It was a rough road but currently we have multiple active maintainers that can do releases going forward, instead of just Alex so we hope it can give you a confidence for the future! :)
+Note that Cats-Effect 2.0 is very small release and mostly targeted at support for Scala 2.13 and bug fixes - the upgrade should be limited to bumping version without changing a single line of code.</p>
+
+<p>This release depends on Cats-Effect 1.4.0 and Cats 1.6.1</p>
+
+<p>This release is binary compatible with <code class="highlighter-rouge">3.0.0-RC3</code> on Scala 2.12.
+On Scala 2.11 there is an incompatibility caused by introduction of <code class="highlighter-rouge">Scheduler.features</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude[ReversedMissingMethodProblem]("monix.execution.Scheduler.features")
+</code></pre></div></div>
+
+<h2 id="upgrading">Upgrading</h2>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC4"</span>
+</code></pre></div></div>
+
+<!--more-->
+
+<h2 id="changes">Changes</h2>
+
+<h4 id="local">Local</h4>
+
+<p>There are several fixes related to <code class="highlighter-rouge">Local</code> usage.</p>
+<ul>
+  <li>Using <code class="highlighter-rouge">TracingScheduler</code> will also automatically enable local context propagation in <code class="highlighter-rouge">Task</code> so
+running it with <code class="highlighter-rouge">runToFutureOpt</code> or setting env variable is no longer a necessity.</li>
+  <li><code class="highlighter-rouge">Local.isolate</code> has a overload for isolating <code class="highlighter-rouge">Future</code> which is safer than regular <code class="highlighter-rouge">Local.isolate</code>.</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">Local</code> model since <code class="highlighter-rouge">3.0.0-RC3</code> shares by default. To isolate modifications of <code class="highlighter-rouge">Local</code> by
+other concurrently running <code class="highlighter-rouge">Future</code>, you have to call <code class="highlighter-rouge">Local.isolate</code>.</p>
+
+<p>In case of <code class="highlighter-rouge">Task</code>, there is a <code class="highlighter-rouge">TaskLocal.isolate</code> version. It is automatically called whenever you run <code class="highlighter-rouge">Task</code>
+so if your use case is setting <code class="highlighter-rouge">correlationId</code> or similar, it probably won’t require any explicit isolation because
+your HTTP library will most likely run the <code class="highlighter-rouge">Task</code> per request.</p>
+
+<h4 id="task-builders">Task Builders</h4>
+
+<p>There are two major improvements:</p>
+<ul>
+  <li>Now all <code class="highlighter-rouge">Task</code> builders (<code class="highlighter-rouge">Task.create</code>, <code class="highlighter-rouge">Task.async</code>, <code class="highlighter-rouge">Task.fromFuture</code> etc.) will return a <code class="highlighter-rouge">Task</code> that continues on default <code class="highlighter-rouge">Scheduler</code> which is
+the one supplied during execution unless overriden by <code class="highlighter-rouge">executeOn</code>.</li>
+  <li>Callback in <code class="highlighter-rouge">Task.create</code> is now thread-safe against contract violation (calling it more than once) so does not require synchronization on the user side.</li>
+</ul>
+
+<h3 id="sub-project-monix-execution">Sub-project: monix-execution</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/946">PR #946</a>: Expose less implementation details in Local</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/948">PR #948</a>: Make Task.memoize play well with Local</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/953">PR #953</a>: Make default scheduler remove cancelled tasks</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/960">PR #960</a>: Scheduler.features</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/971">PR #971</a>: Callback tryOnSuccess/tryOnFailure</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/973">PR #973</a>: Fix Local.isolate corner case</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/977">PR #977</a>: Use type classes instead of overloads in Local.isolate/bind</p>
+  </li>
+</ul>
+
+<h3 id="sub-project-monix-eval">Sub-project: monix-eval</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/913">PR #913</a>: Optimize Task.guarantee</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/921">PR #921</a> &amp; <a href="https://github.com/monix/monix/pull/917">PR #917</a>: Callbacks in Task.create are now thread-safe and 
+always return to the main Scheduler.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/933">PR #933</a>: Adds » syntax to Task</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/935">PR #935</a>: Adds » syntax to Coeval</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/934">PR #934</a>: Implement doOnFinish in terms of guaranteeCase</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/951">PR #951</a>: Add void to Task + Coeval</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/952">PR #952</a>: Implement ContextShift.evalOn in terms of Task.executeOn</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/954">PR #954</a>: Add gatherN + wanderN</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/972">PR #972</a>: Rename <code class="highlighter-rouge">Task.forkAndForget</code> to <code class="highlighter-rouge">Task.startAndForget</code></p>
+  </li>
+</ul>
+
+<h3 id="sub-project-monix-reactive">Sub-project: monix-reactive</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/906">PR #906</a>: Fix race in MapParallelOrderedObservable</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/918">PR #918</a>: switchMap should wait for last child to complete</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/919">PR #919</a>: propagate cancellation to tasks in async Consumers</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/932">PR #932</a>: Remove try-catch for EvalOnceObservable implementation</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/941">PR #941</a>: Added some polymorphic methods for Observable</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/945">PR #945</a>: Add collectWhile observable</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/958">PR #958</a>: Add Observable.throttle</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/963">PR #963</a>: Added fromAsyncStateActionF</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/970">PR #970</a>: Observable.unfold</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/989">PR #989</a>: Observable.unfoldEval and Observable.unfoldEvalF</p>
+  </li>
+</ul>
+
+<h3 id="sub-project-monix-tail">Sub-project: monix-tail</h3>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/965">PR #965</a>: fixes resource handling in Iterant.repeat, adds Iterant.retryIfEmpty</li>
+</ul>
+
+<h3 id="chores">Chores</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/monix/monix/pull/936">PR #936</a>: Add defaults values for benchmarking</p>
+  </li>
+  <li>
+    <p>Tons of updates by https://github.com/fthomas/scala-steward</p>
+  </li>
+</ul>
+
+<h3 id="thanks">Thanks</h3>
+
+<p>People that made this release possible, in alphabetical order:</p>
+
+<ul>
+  <li>Alexandru Nedelcu (@alexandru)</li>
+  <li>Allan Timothy Leong (@allantl)</li>
+  <li>BambooTuna (@BambooTuna)</li>
+  <li>Carlo (@entangled90)</li>
+  <li>Oleg Pyzhcov (@oleg-py)</li>
+  <li>Paul K (@pk044)</li>
+  <li>Piotr Gawryś (@Avasil)</li>
+  <li>Rahil Bohra (@rahilb)</li>
+  <li>Richard Tarczaly (@arlequin-nyc)</li>
+  <li>Ryo Fukumuro (@rfkm)</li>
+  <li>TapanVaishnav (@TapanVaishnav)</li>
+  <li>Valentin Willscher (@valenterry)</li>
+</ul>
+
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2019/06/18/monix-v3.0.0-RC3.html">
+              Monix: Version 3.0.0-RC3
+              <small>18 Jun 2019</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/11/08/tutorial-future-to-task.html">
+              Converting Scala's Future to Task (Video)
+              <small>08 Nov 2018</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2018/11/07/tutorial-bracket.html">
+              Task's Bracket, Cats-Effect's Resource and Streaming (Video)
+              <small>07 Nov 2018</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2019-08-25-monix-v3.0.0-RC4.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>  
+
+  
+<div id="contributions">
+  <script data-isso="/comments/monix/"
+          data-isso-css="true"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="true"
+          data-vote-levels=""
+          src="https://monix.io/comments/monix/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="Monix: Version 3.0.0-RC4">
+  </section>
+</div>
+
+</div>
+
+      </article>
+    </div>
+  </body>
+</html>

@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.schedulers.TrampolineExecutionContext</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.schedulers.TrampolineExecutionContext" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.schedulers.TrampolineExecutionContext" />
+          <title>Monix 3.0.0-RC4 - monix.execution.schedulers.TrampolineExecutionContext</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.schedulers.TrampolineExecutionContext" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.schedulers.TrampolineExecutionContext" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -218,7 +218,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">TrampolineExecutionContext</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContext.html#scala.concurrent.ExecutionContext" class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</a></span>
+        <span class="name">TrampolineExecutionContext</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContextExecutor.html#scala.concurrent.ExecutionContextExecutor" class="extype" name="scala.concurrent.ExecutionContextExecutor">ExecutionContextExecutor</a></span>
       </span>
       </h4>
 
@@ -235,11 +235,11 @@ you have to know what you're doing.</p><p>The <code>TrampolineExecutionContext</
    on the <code>underlying</code> context to prevent any deadlocks</li></ul><p>Thus this implementation is compatible with the
 <code>scala.concurrent.BlockContext</code>, detecting <code>blocking</code> blocks and
 reacting by forking the rest of the queue to prevent deadlocks.
-</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/TrampolineExecutionContext.scala" target="_blank">TrampolineExecutionContext.scala</a></dd></dl><div class="toggleContainer block">
+</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/jvm/src/main/scala/monix/execution/schedulers/TrampolineExecutionContext.scala" target="_blank">TrampolineExecutionContext.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContext.html#scala.concurrent.ExecutionContext" class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContextExecutor.html#scala.concurrent.ExecutionContextExecutor" class="extype" name="scala.concurrent.ExecutionContextExecutor">ExecutionContextExecutor</a>, <span class="extype" name="java.util.concurrent.Executor">Executor</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContext.html#scala.concurrent.ExecutionContext" class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -265,7 +265,7 @@ reacting by forking the rest of the queue to prevent deadlocks.
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.execution.schedulers.TrampolineExecutionContext"><span>TrampolineExecutionContext</span></li><li class="in" name="scala.concurrent.ExecutionContext"><span>ExecutionContext</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.execution.schedulers.TrampolineExecutionContext"><span>TrampolineExecutionContext</span></li><li class="in" name="scala.concurrent.ExecutionContextExecutor"><span>ExecutionContextExecutor</span></li><li class="in" name="java.util.concurrent.Executor"><span>Executor</span></li><li class="in" name="scala.concurrent.ExecutionContext"><span>ExecutionContext</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -427,7 +427,7 @@ reacting by forking the rest of the queue to prevent deadlocks.
         <span class="name">execute</span><span class="params">(<span name="runnable">runnable: <span class="extype" name="java.lang.Runnable">Runnable</span></span>)</span><span class="result">: <a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.TrampolineExecutionContext">TrampolineExecutionContext</a> → ExecutionContext</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.TrampolineExecutionContext">TrampolineExecutionContext</a> → Executor → ExecutionContext</dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
       <span class="permalink">
@@ -706,7 +706,11 @@ reacting by forking the rest of the queue to prevent deadlocks.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.concurrent.ExecutionContext">
+        <div class="parent" name="scala.concurrent.ExecutionContextExecutor">
+              <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContextExecutor.html#scala.concurrent.ExecutionContextExecutor" class="extype" name="scala.concurrent.ExecutionContextExecutor">ExecutionContextExecutor</a></h3>
+            </div><div class="parent" name="java.util.concurrent.Executor">
+              <h3>Inherited from <span class="extype" name="java.util.concurrent.Executor">Executor</span></h3>
+            </div><div class="parent" name="scala.concurrent.ExecutionContext">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionContext.html#scala.concurrent.ExecutionContext" class="extype" name="scala.concurrent.ExecutionContext">ExecutionContext</a></h3>
             </div><div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a></h3>

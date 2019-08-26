@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.Callback</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.Callback" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.Callback" />
+          <title>Monix 3.0.0-RC4 - monix.execution.Callback</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.Callback" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.Callback" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -327,6 +327,10 @@ specification.
                         <a class="class" href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler."></a>
                         <a href="ExecutionModel.html" title="Specification for run-loops, imposed by the Scheduler.">ExecutionModel</a>
                       </li><li class="current-entities indented2">
+                        <a class="object" href="Features$.html" title=""></a>
+                        <a class="class" href="Features.html" title="Features describes a set of features described via bitwise operators applied to ints, but made type safe."></a>
+                        <a href="Features.html" title="Features describes a set of features described via bitwise operators applied to ints, but made type safe.">Features</a>
+                      </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="object" href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future."></a>
                         <a href="FutureUtils$.html" title="Utilities for Scala's standard concurrent.Future.">FutureUtils</a>
@@ -372,7 +376,7 @@ specification.
       </h4>
 
       
-          <div id="comment" class="fullcommenttop"><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/shared/src/main/scala/monix/execution/Callback.scala" target="_blank">Callback.scala</a></dd></dl><div class="toggleContainer block">
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/shared/src/main/scala/monix/execution/Callback.scala" target="_blank">Callback.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -652,7 +656,11 @@ given <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionCo
 <a href="schedulers/TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>
 is used and supporting schedulers can execute these using an internal
 trampoline, thus execution being faster and immediate, but still avoiding
-growing the call-stack and thus avoiding stack overflows.
+growing the call-stack and thus avoiding stack overflows.</p><p><b>THREAD-SAFETY</b>: the returned callback is
+        thread-safe.</p><p>        In case <code>onSuccess</code> and <code>onError</code> get called multiple times,
+        from multiple threads even, the implementation protects against
+        access violations and throws a
+        <a href="exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">CallbackCalledMultipleTimesException</a>.
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#trampolined[E,A](cb:monix.execution.Callback[E,A])(implicitec:scala.concurrent.ExecutionContext):monix.execution.Callback[E,A]" class="extmbr" name="monix.execution.Callback#trampolined">Callback.trampolined</a></p></span></dd></dl></div>
     </li><li name="monix.execution.Callback#fromAttempt" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromAttempt[E,A](cb:Either[E,A]=&gt;Unit):monix.execution.Callback[E,A]"></a><a id="fromAttempt[E,A]((Either[E,A])⇒Unit):Callback[E,A]"></a>
@@ -672,9 +680,9 @@ growing the call-stack and thus avoiding stack overflows.
       <p class="shortcomment cmt">Turns <code>Either[Throwable, A] =&gt; Unit</code> callbacks into Monix
 callbacks.</p><div class="fullcomment"><div class="comment cmt"><p>Turns <code>Either[Throwable, A] =&gt; Unit</code> callbacks into Monix
 callbacks.</p><p>These are common within Cats' implementation, used for
-example in <code>cats.effect.IO</code>.
+example in <code>cats.effect.IO</code>.</p><p>WARNING: the returned callback is NOT thread-safe!
 </p></div></div>
-    </li><li name="monix.execution.Callback#fromPromise" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+    </li><li name="monix.execution.Callback#fromPromise" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromPromise[A](p:scala.concurrent.Promise[A]):monix.execution.Callback[Throwable,A]"></a><a id="fromPromise[A](Promise[A]):Callback[Throwable,A]"></a>
       <span class="permalink">
       <a href="../../monix/execution/Callback$.html#fromPromise[A](p:scala.concurrent.Promise[A]):monix.execution.Callback[Throwable,A]" title="Permalink">
@@ -690,7 +698,10 @@ example in <code>cats.effect.IO</code>.
       </span>
       
       <p class="shortcomment cmt">Returns a <a href="Callback.html" class="extype" name="monix.execution.Callback">Callback</a> instance that will complete the given
-promise.</p>
+promise.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a <a href="Callback.html" class="extype" name="monix.execution.Callback">Callback</a> instance that will complete the given
+promise.</p><p>THREAD-SAFETY: the provided instance is thread-safe by virtue
+of <code>Promise</code> being thread-safe.
+</p></div></div>
     </li><li name="monix.execution.Callback#fromTry" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="fromTry[A](cb:scala.util.Try[A]=&gt;Unit):monix.execution.Callback[Throwable,A]"></a><a id="fromTry[A]((Try[A])⇒Unit):Callback[Throwable,A]"></a>
       <span class="permalink">
@@ -707,7 +718,7 @@ promise.</p>
       </span>
       
       <p class="shortcomment cmt">Turns <code>Try[A] =&gt; Unit</code> callbacks into Monix callbacks.</p><div class="fullcomment"><div class="comment cmt"><p>Turns <code>Try[A] =&gt; Unit</code> callbacks into Monix callbacks.</p><p>These are common within Scala's standard library implementation,
-due to usage with Scala's <code>Future</code>.
+due to usage with Scala's <code>Future</code>.</p><p>WARNING: the returned callback is NOT thread-safe!
 </p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -833,9 +844,13 @@ due to usage with Scala's <code>Future</code>.
       </span>
       
       <p class="shortcomment cmt">Wraps any <a href="Callback.html" class="extype" name="monix.execution.Callback">Callback</a> into a safer implementation that
-protects against grammar violations (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>Wraps any <a href="Callback.html" class="extype" name="monix.execution.Callback">Callback</a> into a safer implementation that
-protects against grammar violations (e.g. <code>onSuccess</code> or <code>onError</code>
-must be called at most once). For usage in <code>runAsync</code>.
+protects against protocol violations (e.g.</p><div class="fullcomment"><div class="comment cmt"><p>Wraps any <a href="Callback.html" class="extype" name="monix.execution.Callback">Callback</a> into a safer implementation that
+protects against protocol violations (e.g. <code>onSuccess</code> or <code>onError</code>
+must be called at most once).</p><p><b>THREAD-SAFETY</b>: the returned callback is
+        thread-safe.</p><p>        In case <code>onSuccess</code> and <code>onError</code> get called multiple times,
+        from multiple threads even, the implementation protects against
+        access violations and throws a
+        <a href="exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">CallbackCalledMultipleTimesException</a>.
 </p></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
@@ -892,7 +907,11 @@ given <a href="http://www.scala-lang.org/api/2.12.8/scala/concurrent/ExecutionCo
 <a href="schedulers/TrampolinedRunnable.html" class="extype" name="monix.execution.schedulers.TrampolinedRunnable">TrampolinedRunnable</a>
 is used and supporting schedulers can execute these using an internal
 trampoline, thus execution being faster and immediate, but still avoiding
-growing the call-stack and thus avoiding stack overflows.
+growing the call-stack and thus avoiding stack overflows.</p><p><b>THREAD-SAFETY</b>: the returned callback is
+        thread-safe.</p><p>        In case <code>onSuccess</code> and <code>onError</code> get called multiple times,
+        from multiple threads even, the implementation protects against
+        access violations and throws a
+        <a href="exceptions/CallbackCalledMultipleTimesException.html" class="extype" name="monix.execution.exceptions.CallbackCalledMultipleTimesException">CallbackCalledMultipleTimesException</a>.
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a href="#forked[E,A](cb:monix.execution.Callback[E,A])(implicitec:scala.concurrent.ExecutionContext):monix.execution.Callback[E,A]" class="extmbr" name="monix.execution.Callback#forked">forked</a></p></span></dd></dl></div>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>

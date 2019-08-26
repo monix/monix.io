@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.eval.Task</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.eval.Task" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.eval.Task" />
+          <title>Monix 3.0.0-RC4 - monix.eval.Task</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.eval.Task" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.eval.Task" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -206,7 +206,7 @@ or your own as long as you provide correct <a href="https://typelevel.org/cats-e
         <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">Task</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></span>
+        <span class="name">Task</span><span class="tparams">[<span name="A">+A</span>]</span><span class="result"> extends <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a> with <span class="extype" name="monix.eval.internal.TaskDeprecated.BinCompat">BinCompat</span>[<span class="extype" name="monix.eval.Task.A">A</span>]</span>
       </span>
       </h4>
 
@@ -365,11 +365,11 @@ execution after executing <code>runAsync</code>.</p><p>Currently the default
 <a href="../execution/ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> specifies
 batched execution by default and <code>Task</code> in its evaluation respects
 the injected <code>ExecutionModel</code>. If you want a different behavior,
-you need to execute the <code>Task</code> reference with a different scheduler.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
+you need to execute the <code>Task</code> reference with a different scheduler.</p></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-eval/shared/src/main/scala/monix/eval/Task.scala" target="_blank">Task.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="monix.eval.internal.TaskDeprecated.BinCompat">BinCompat</span>[<span class="extype" name="monix.eval.Task.A">A</span>], <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a>, <span class="extype" name="java.io.Serializable">Serializable</span>, <a href="http://www.scala-lang.org/api/2.12.8/scala/AnyRef.html#scala.AnyRef" class="extype" name="scala.AnyRef">AnyRef</a>, <a href="http://www.scala-lang.org/api/2.12.8/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -395,7 +395,7 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
                   <span class="filtertype">Inherited<br />
                   </span>
                   <ol id="linearization">
-                    <li class="in" name="monix.eval.Task"><span>Task</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                    <li class="in" name="monix.eval.Task"><span>Task</span></li><li class="in" name="monix.eval.internal.TaskDeprecated.BinCompat"><span>BinCompat</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                   </ol>
                 </div><div class="ancestors">
               <span class="filtertype"></span>
@@ -470,6 +470,25 @@ you need to execute the <code>Task</code> reference with a different scheduler.<
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="monix.eval.Task#&gt;&gt;" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="&gt;&gt;[B](tb:=&gt;monix.eval.Task[B]):monix.eval.Task[B]"></a><a id="&gt;&gt;[B](⇒Task[B]):Task[B]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#&gt;&gt;[B](tb:=&gt;monix.eval.Task[B]):monix.eval.Task[B]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span title="gt4s: $greater$greater" class="name">&gt;&gt;</span><span class="tparams">[<span name="B">B</span>]</span><span class="params">(<span name="tb">tb: ⇒ <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.&gt;&gt;.B">B</span>]</span>)</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<span class="extype" name="monix.eval.Task.&gt;&gt;.B">B</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Runs this task first and then, when successful, the given task.</p><div class="fullcomment"><div class="comment cmt"><p>Runs this task first and then, when successful, the given task.
+Returns the result of the given task.</p><p>Example:</p><pre><span class="kw">val</span> combined = Task{println(<span class="lit">"first"</span>); <span class="lit">"first"</span>} &gt;&gt; Task{println(<span class="lit">"second"</span>); <span class="lit">"second"</span>}
+<span class="cmt">// Prints "first" and then "second"</span>
+<span class="cmt">// Result value will be "second"</span></pre></div></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -1206,24 +1225,6 @@ function for the generated element, transforming the source into
 a <code>Task[Unit]</code>.</p><p>Similar in spirit with normal <a href="#foreach(f:A=&gt;Unit)(implicits:monix.execution.Scheduler):Unit" class="extmbr" name="monix.eval.Task#foreach">foreach</a>, but lazy, as
 obviously nothing gets executed at this point.
 </p></div></div>
-    </li><li name="monix.eval.Task#forkAndForget" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="forkAndForget:monix.eval.Task[Unit]"></a><a id="forkAndForget:Task[Unit]"></a>
-      <span class="permalink">
-      <a href="../../monix/eval/Task.html#forkAndForget:monix.eval.Task[Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">forkAndForget</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Start asynchronous execution of the source suspended in the <code>Task</code> context,
-running it in the background and discarding the result.</p><div class="fullcomment"><div class="comment cmt"><p>Start asynchronous execution of the source suspended in the <code>Task</code> context,
-running it in the background and discarding the result.</p><p>Similar to <a href="#start:monix.eval.Task[monix.eval.Fiber[A@scala.annotation.unchecked.uncheckedVariance]]" class="extmbr" name="monix.eval.Task#start">start</a> after mapping result to Unit. Below law holds:</p><p><code>task.forkAndForget &lt;-&gt; task.start.map(_ =&gt; ())</code></p></div></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
       <span class="permalink">
@@ -2742,6 +2743,24 @@ because of behavior on error and cancellation — consider that
 in the example above, if the first task finishes in error,
 the second task doesn't get cancelled.</p><p>This operation forces an asynchronous boundary before execution
 </p></div></div>
+    </li><li name="monix.eval.Task#startAndForget" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="startAndForget:monix.eval.Task[Unit]"></a><a id="startAndForget:Task[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#startAndForget:monix.eval.Task[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">startAndForget</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Start asynchronous execution of the source suspended in the <code>Task</code> context,
+running it in the background and discarding the result.</p><div class="fullcomment"><div class="comment cmt"><p>Start asynchronous execution of the source suspended in the <code>Task</code> context,
+running it in the background and discarding the result.</p><p>Similar to <a href="#start:monix.eval.Task[monix.eval.Fiber[A@scala.annotation.unchecked.uncheckedVariance]]" class="extmbr" name="monix.eval.Task#start">start</a> after mapping result to Unit. Below law holds:</p><p><code>task.startAndForget &lt;-&gt; task.start.map(_ =&gt; ())</code></p></div></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a><a id="synchronized[T0](⇒T0):T0"></a>
       <span class="permalink">
@@ -3084,6 +3103,23 @@ uncancelable.cancel()
 
 <span class="cmt">// After 10 seconds</span>
 <span class="cmt">// => Hello!</span></pre></div></div>
+    </li><li name="monix.eval.Task#void" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="void:monix.eval.Task[Unit]"></a><a id="void:Task[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#void:monix.eval.Task[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier">final </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">void</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Returns this task mapped to unit
+</p>
     </li><li name="scala.AnyRef#wait" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="wait():Unit"></a>
       <span class="permalink">
@@ -3158,11 +3194,37 @@ uncancelable.cancel()
 
         
 
-        
+        <div class="values members">
+              <h3>Deprecated Value Members</h3>
+              <ol><li name="monix.eval.internal.TaskDeprecated.BinCompat#forkAndForget" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="forkAndForget:monix.eval.Task[Unit]"></a><a id="forkAndForget:Task[Unit]"></a>
+      <span class="permalink">
+      <a href="../../monix/eval/Task.html#forkAndForget:monix.eval.Task[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name deprecated" title="Deprecated: (Since version 3.0.0) Replaced with startAndForget">forkAndForget</span><span class="result">: <a href="" class="extype" name="monix.eval.Task">Task</a>[<a href="http://www.scala-lang.org/api/2.12.8/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">DEPRECATED — subsumed by <a href="#startAndForget:monix.eval.Task[Unit]" class="extmbr" name="monix.eval.Task#startAndForget">startAndForget</a>.</p><div class="fullcomment"><div class="comment cmt"><p>DEPRECATED — subsumed by <a href="#startAndForget:monix.eval.Task[Unit]" class="extmbr" name="monix.eval.Task#startAndForget">startAndForget</a>.</p><p>Renamed to <code>startAndForget</code> to be consistent with <code>start</code> which
+also enforces an asynchronous boundary
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>BinCompat</dd><dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p><i>(Since version 3.0.0)</i> Replaced with startAndForget</p></dd></dl></div>
+    </li></ol>
+            </div>
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.Serializable">
+        <div class="parent" name="monix.eval.internal.TaskDeprecated.BinCompat">
+              <h3>Inherited from <span class="extype" name="monix.eval.internal.TaskDeprecated.BinCompat">BinCompat</span>[<span class="extype" name="monix.eval.Task.A">A</span>]</h3>
+            </div><div class="parent" name="scala.Serializable">
               <h3>Inherited from <a href="http://www.scala-lang.org/api/2.12.8/scala/Serializable.html#scala.Serializable" class="extype" name="scala.Serializable">Serializable</a></h3>
             </div><div class="parent" name="java.io.Serializable">
               <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>

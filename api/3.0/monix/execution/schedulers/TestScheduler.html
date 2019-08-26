@@ -3,9 +3,9 @@
         <head>
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <title>Monix 3.0.0-RC3 - monix.execution.schedulers.TestScheduler</title>
-          <meta name="description" content="Monix 3.0.0 - RC3 - monix.execution.schedulers.TestScheduler" />
-          <meta name="keywords" content="Monix 3.0.0 RC3 monix.execution.schedulers.TestScheduler" />
+          <title>Monix 3.0.0-RC4 - monix.execution.schedulers.TestScheduler</title>
+          <meta name="description" content="Monix 3.0.0 - RC4 - monix.execution.schedulers.TestScheduler" />
+          <meta name="keywords" content="Monix 3.0.0 RC4 monix.execution.schedulers.TestScheduler" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link href="../../../lib/index.css" media="screen" type="text/css" rel="stylesheet" />
@@ -28,7 +28,7 @@
         </head>
         <body>
       <div id="search">
-        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC3</span></span>
+        <span id="doc-title">Monix<span id="doc-version">3.0.0-RC4</span></span>
         <span class="close-results"><span class="left">&lt;</span> Back</span>
         <div id="textfilter">
           <span class="input">
@@ -287,7 +287,7 @@ assert(f.value == <span class="std">None</span>)
 
 <span class="cmt">// Good to go:</span>
 ctx.tick(<span class="num">5.</span>seconds)
-assert(f.value == <span class="std">Some</span>(Failure(timeoutError)))</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC3/monix-execution/shared/src/main/scala/monix/execution/schedulers/TestScheduler.scala" target="_blank">TestScheduler.scala</a></dd></dl><div class="toggleContainer block">
+assert(f.value == <span class="std">Some</span>(Failure(timeoutError)))</pre></div><dl class="attributes block"> <dt>Source</dt><dd><a href="https://github.com/monix/monix/tree/v3.0.0-RC4/monix-execution/shared/src/main/scala/monix/execution/schedulers/TestScheduler.scala" target="_blank">TestScheduler.scala</a></dd></dl><div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
           </span>
@@ -594,6 +594,23 @@ and producers should behave in regards to executing tasks
 either synchronously or asynchronously.</p><div class="fullcomment"><div class="comment cmt"><p>The <a href="../ExecutionModel.html" class="extype" name="monix.execution.ExecutionModel">ExecutionModel</a> is a specification of how run-loops
 and producers should behave in regards to executing tasks
 either synchronously or asynchronously.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.TestScheduler">TestScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
+    </li><li name="monix.execution.schedulers.TestScheduler#features" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="features:monix.execution.Features"></a><a id="features:Features"></a>
+      <span class="permalink">
+      <a href="../../../monix/execution/schedulers/TestScheduler.html#features:monix.execution.Features" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">features</span><span class="result">: <a href="../Features.html" class="extype" name="monix.execution.Features">Features</a></span>
+      </span>
+      
+      <p class="shortcomment cmt">Exposes a set of flags that describes the <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>'s features.</p><div class="fullcomment"><div class="comment cmt"><p>Exposes a set of flags that describes the <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a>'s features.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="monix.execution.schedulers.TestScheduler">TestScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
     </li><li name="scala.AnyRef#finalize" visbl="prt" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="finalize():Unit"></a>
@@ -1066,7 +1083,17 @@ to inject.</p><p>The contract of this method (things you can rely on):</p><ol cl
         <span class="name">withUncaughtExceptionReporter</span><span class="params">(<span name="r">r: <a href="../UncaughtExceptionReporter.html" class="extype" name="monix.execution.UncaughtExceptionReporter">UncaughtExceptionReporter</a></span>)</span><span class="result">: <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></span>
       </span>
       
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ReferenceScheduler.html" class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
+      <p class="shortcomment cmt">Returns a new <code>Scheduler</code> that piggybacks on this, but uses
+the given exception reporter for reporting uncaught errors.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a new <code>Scheduler</code> that piggybacks on this, but uses
+the given exception reporter for reporting uncaught errors.</p><p>Sample:</p><pre><span class="kw">import</span> monix.execution.Scheduler.global
+<span class="kw">import</span> monix.execution.UncaughtExceptionReporter
+
+<span class="kw">implicit</span> <span class="kw">val</span> scheduler = {
+  <span class="kw">val</span> r = UncaughtExceptionReporter { e <span class="kw">=&gt;</span>
+    e.printStackTrace()
+  }
+  global.withUncaughtExceptionReporter(r)
+}</pre></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="ReferenceScheduler.html" class="extype" name="monix.execution.schedulers.ReferenceScheduler">ReferenceScheduler</a> → <a href="../Scheduler.html" class="extype" name="monix.execution.Scheduler">Scheduler</a></dd></dl></div>
     </li>
               </ol>
             </div>

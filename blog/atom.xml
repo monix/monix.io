@@ -6,13 +6,55 @@
  <link type="application/atom+xml" href="https://monix.io/blog/atom.xml" rel="self"/>
  <link type="text/html" href="https://monix.io" rel="alternate"/>
 
- <updated>2019-08-24T22:52:02+00:00</updated>
+ <updated>2019-08-26T21:28:07+00:00</updated>
  <author>
    <name>Alexandru Nedelcu</name>
    <email>noreply@alexn.org</email>
    <url>https://alexn.org</url>
  </author>
 
+ 
+ <entry>
+   <title>Monix: Version 3.0.0-RC4</title>
+   <link href="https://monix.io/blog/2019/08/25/monix-v3.0.0-RC4.html"/>
+   <updated>2019-08-25T00:00:00+00:00</updated>
+   <id>https://monix.io/blog/2019/08/25/monix-v3.0.0-RC4</id>
+   <content type="html"><![CDATA[
+   <p>Last release before <code class="highlighter-rouge">3.0.0</code> which will be released as soon as Cats-Effect 2.0.0 is available. At the time of writing release notes,
+it is only waiting on Cats 2.0.0 which is about to release next RC which will become stable version if no critical issues are discovered.</p>
+
+<p>Any other development for this release is now frozen except if we discover critical bugs like memory leaks. All other changes will target <code class="highlighter-rouge">3.1.0</code>.</p>
+
+<p><code class="highlighter-rouge">3.0.0</code> will be binary and source compatible with <code class="highlighter-rouge">3.0.0-RC4</code> for Scala 2.12. Monix itself will be also binary compatible
+for 2.11 but it will have a dependency on Cats-Effect which is not. <a href="https://github.com/typelevel/cats-effect/releases/tag/v2.0.0-RC1">See Cats-Effect release notes</a> for more details.</p>
+
+<p>We wish we could release <code class="highlighter-rouge">3.0.0</code> already but if we released now, we would have to release <code class="highlighter-rouge">4.0.0</code> for Cats-Effect 2.0 because of 2.11 incompatibility there so we decided to hold on. 
+It was a rough road but currently we have multiple active maintainers that can do releases going forward, instead of just Alex so we hope it can give you a confidence for the future! :)
+Note that Cats-Effect 2.0 is very small release and mostly targeted at support for Scala 2.13 and bug fixes - the upgrade should be limited to bumping version without changing a single line of code.</p>
+
+<p>This release depends on Cats-Effect 1.4.0 and Cats 1.6.1</p>
+
+<p>This release is binary compatible with <code class="highlighter-rouge">3.0.0-RC3</code> on Scala 2.12.
+On Scala 2.11 there is an incompatibility caused by introduction of <code class="highlighter-rouge">Scheduler.features</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude[ReversedMissingMethodProblem]("monix.execution.Scheduler.features")
+</code></pre></div></div>
+
+<h2 id="upgrading" style="font-size: 150%; font-weight: bold;"><b>Upgrading<b></b></b></h2>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC4"</span>
+</code></pre></div></div>
+
+
+   <p><a rel="full-article" href="https://monix.io/blog/2019/08/25/monix-v3.0.0-RC4.html?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication">
+     
+     <b>Read This Article &raquo;</b>
+     
+   </a></p>
+   ]]></content>
+ </entry>
  
  <entry>
    <title>Monix: Version 3.0.0-RC3</title>
