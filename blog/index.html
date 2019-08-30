@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1566854887953913937" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1566854887953913937" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1567147674901706098" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1567147674901706098" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1566854887953913937">
+  <link rel="stylesheet" href="/public/css/all.css?1567147674901706098">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1566854887953913937">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1567147674901706098">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -97,6 +97,45 @@
 
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2019/08/30/monix-v3.0.0-R5.html">
+        Monix: Version 3.0.0-RC5
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2019-08-30">
+      30 Aug 2019
+      • <a href="https://twitter.com/monix">@monix</a>
+    </time>
+
+    <p>Bug fix release, fixing a critical issue.</p>
+
+<p>All users are advised to upgrade right away (if on <code class="highlighter-rouge">RC4</code>).</p>
+
+<h2 id="changes">Changes</h2>
+
+<ul>
+  <li><strong><a href="https://github.com/monix/monix/issues/991">#991</a> (<a href="https://github.com/monix/monix/pull/993">PR #993</a>)</strong>: <code class="highlighter-rouge">NullPointerException</code> in <code class="highlighter-rouge">Task</code> when used in combination with <code class="highlighter-rouge">Local</code></li>
+  <li><a href="https://github.com/monix/monix/issues/992">#992</a> (<a href="https://github.com/monix/monix/pull/998">PR #998</a>): hide <code class="highlighter-rouge">InterceptableRunnable</code> exposed accidentally, refactor it for efficiency</li>
+  <li><a href="https://github.com/monix/monix/pull/997">#997</a>: bumped Scala version to 2.12.9 and Scala.js to 0.6.28</li>
+</ul>
+
+<h2 id="upgrading">Upgrading</h2>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC5"</span>
+</code></pre></div></div>
+
+
+
+    
+    <a href="/blog/2019/08/30/monix-v3.0.0-R5.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -222,54 +261,6 @@ Observable and Iterant.</p>
 
     
     <a href="/blog/2018/11/07/tutorial-bracket.html">Read more and watch video &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">
-        Monix: Version 3.0.0-RC2
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2018-11-06">
-      06 Nov 2018
-      • <a href="https://twitter.com/monix">@monix</a>
-    </time>
-
-    <p>This is the second release candidate for Monix 3, version <code class="highlighter-rouge">3.0.0-RC2</code>.</p>
-
-<p>The major theme of this release is compatibility with Cats-Effect
-<code class="highlighter-rouge">1.0.0</code>.</p>
-
-<p>Unfortunately we are late. See the announcement for the
-<a href="/blog/2018/03/19/monix-v3.0.0-RC1.html">previous RC</a>.</p>
-
-<p>This release is 6 months late because of the work done on Cats-Effect
-<code class="highlighter-rouge">1.0.0</code>, which involved several iterations of getting the contract of
-those type classes right and then translating those changes into
-Monix’s implementation. This included a major change in <code class="highlighter-rouge">Iterant</code>’s
-encoding and a rewrite of most of its internals, and major changes in
-<code class="highlighter-rouge">Task</code>’s internals as well.</p>
-
-<p>Hopefully we can put all of this behind us and enjoy Monix 3 going
-forward. The current plan is:</p>
-
-<ul>
-  <li>if nothing major (no bug) is discovered, the final <code class="highlighter-rouge">3.0.0</code> is
-scheduled in exactly two weeks from now, on <em>November 20-th</em></li>
-  <li>hopefully binary compatibility is preserved from RC2, but 
-note that promises of binary compatibility can’t really be made
-for release candidates, so this is a best effort promise</li>
-</ul>
-
-<p>The good news is that this release comes with a ton of features …</p>
-
-
-
-    
-    <a href="/blog/2018/11/06/monix-v3.0.0-RC2.html">Read more &rarr;</a>
     
   </div>
   
