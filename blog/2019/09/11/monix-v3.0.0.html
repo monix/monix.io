@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix 3.0.0</title>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:title" content="Monix 3.0.0" />
+  <meta name="twitter:description" content="Final release" />
+
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+  <meta property="og:url" content="https://monix.io/blog/2019/09/11/monix-v3.0.0.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:title" content="Monix 3.0.0" />
+  <meta property="og:description" content="Final release" />
+  
+  <!-- Javascript -->
+  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1568182347019595957" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1568182347019595957" type="text/javascript" language="javascript"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1568182347019595957">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1568182347019595957">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="post">
+  <a name="start"></a>
+  <h1 class="post-title">Monix 3.0.0</h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2019-09-11">
+    11 Sep 2019
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <p>This is the final release of Monix 3.0.0.</p>
+
+<p>After a long release series in which we abused M and RC suffixes, we’re finally there. Compatible with Scala <code class="highlighter-rouge">2.13</code>, Cats <code class="highlighter-rouge">2.0.0</code> and Cats-Effect <code class="highlighter-rouge">2.0.0</code>.</p>
+
+<p>And this doesn’t mean we’re done. The best is yet to come, stay tuned!</p>
+
+<!--more-->
+
+<h2 id="upgrading">Upgrading</h2>
+
+<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+</code></pre></div></div>
+
+<p>Or in case you just want any of the sub-projects:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Local, Scheduler, Cancelable, CancelableFuture, Atomic, etc
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+
+<span class="c1">// Utilities built for Cats-Effect, e.g. ConcurrentChannel, FutureLift
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+
+<span class="c1">// Task, Coeval
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+
+<span class="c1">// Observable
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+
+<span class="c1">// Iterant
+</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.0.0"</span>
+</code></pre></div></div>
+
+<h2 id="changes">Changes</h2>
+
+<p>Important updates:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/875">#875</a> and <a href="https://github.com/monix/monix/pull/1022">#1022</a>: Update to Cats and Cats-Effect 2.0.0</li>
+  <li><a href="https://github.com/monix/monix/pull/1018">#1018</a>: Update Minitest to 2.7.0</li>
+</ul>
+
+<p>Chores:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/996">#996</a>: improve <code class="highlighter-rouge">Observable.publishSelector</code> scaladoc</li>
+  <li><a href="https://github.com/monix/monix/pull/1017">#1017</a>: disable Scalafmt checks in build</li>
+  <li><a href="https://github.com/monix/monix/pull/1006">#1006</a>: Update sbt to 1.3.0</li>
+  <li><a href="https://github.com/monix/monix/pull/1013">#1013</a>: Update sbt-sonatype to 3.6</li>
+</ul>
+
+<h2 id="thanks">Thanks</h2>
+
+<p>People that made this final release possible:</p>
+
+<ul>
+  <li>Alexandru Nedelcu (@alexandru)</li>
+  <li>Oleg Pyzhcov (@oleg-py)</li>
+  <li>Piotr Gawryś (@Avasil)</li>
+  <li>The Cats and Cats-Effect contributors that worked on and released 2.0.0</li>
+</ul>
+
+
+  <div class="related">
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2019/08/30/monix-v3.0.0-R5.html">
+              Monix: Version 3.0.0-RC5
+              <small>30 Aug 2019</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2019/08/25/monix-v3.0.0-RC4.html">
+              Monix: Version 3.0.0-RC4
+              <small>25 Aug 2019</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2019/06/18/monix-v3.0.0-RC3.html">
+              Monix: Version 3.0.0-RC3
+              <small>18 Jun 2019</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2019-09-11-monix-v3.0.0.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>  
+
+  
+<div id="contributions">
+  <script data-isso="/comments/monix/"
+          data-isso-css="true"
+          data-isso-lang="en"
+          data-isso-reply-to-self="true"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          data-isso-reply-notifications="true"
+          data-isso-max-comments-top="10"
+          data-isso-max-comments-nested="5"
+          data-isso-reveal-on-click="5"
+          data-isso-gravatar="true"
+          data-isso-avatar="false"
+          data-isso-vote="true"
+          data-vote-levels=""
+          src="https://monix.io/comments/monix/js/embed.min.js"></script>
+  <section id="isso-thread" data-title="Monix 3.0.0">
+  </section>
+</div>
+
+</div>
+
+      </article>
+    </div>
+  </body>
+</html>
