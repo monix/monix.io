@@ -858,8 +858,8 @@ val o1: Task[Unit] = source.take(2).foreachL(i => println(s"o1: $i")).delayExecu
 
 val o2: Task[Unit] = source.take(1).foreachL(i => println(s"o2: $i"))
 
-Task.parZip2(o1, o2).map(_ => cancelable.cancel()).runSyncUnsafe()
-// Sample Output:
+Task.parZip2(o1, o2).map(_ => cancelable.cancel())
+// Sample Output after running:
 // source: 0
 // source: 1
 // source: 2
@@ -883,7 +883,7 @@ all active subscribers before processing the next element.
 
 Let's see it on an example:
 
-```
+```tut:silent
 import monix.eval.Task
 import monix.execution.{Cancelable, Scheduler}
 import monix.reactive.Observable
@@ -906,8 +906,8 @@ val o1: Task[Unit] = source.delayOnNext(2.second).foreachL(i => println(s"o1: $i
 
 val o2: Task[Unit] = source.foreachL(i => println(s"o2: $i"))
 
-Task.parZip2(o1, o2).runSyncUnsafe()
-// Sample Output:
+Task.parZip2(o1, o2)
+// Sample Output after running:
 // source: 1
 // o2: 1
 // -- 2 second delay -- 
@@ -953,9 +953,7 @@ val source: ConnectableObservable[Int] = {
 val cancelable: Cancelable = source.connect()
 
 val o1: Task[Unit] = source.foreachL(i => println(s"o1: $i"))
-
-o1.runSyncUnsafe()
-// Sample Output:
+// Sample Output after running:
 // source: 1
 // source: 2
 // source: 3
@@ -978,9 +976,7 @@ val source: ConnectableObservable[Int] = {
 val cancelable: Cancelable = source.connect()
 
 val o1: Task[Unit] = source.foreachL(i => println(s"o1: $i"))
-
-o1.runSyncUnsafe()
-// Sample Output:
+// Sample Output after running:
 // source: 1
 // source: 2
 // source: 3
@@ -999,22 +995,26 @@ to take advantage of Hot `Observable` in more controlled and purely functional f
 ```tut:silent
 implicit val s = Scheduler.global
 
-val source = Observable(1, 2, 3)
-  .doOnNext(i => Task(println(s"Produced $i")).delayExecution(1.second))
+val source = {  
+  Observable(1, 2, 3)
+    .doOnNext(i => Task(println(s"Produced $i"))
+    .delayExecution(1.second))
+}
 
 def consume(name: String, obs: Observable[Int]): Observable[Unit] =
   obs.mapEval(i => Task(println(s"$name: got $i")))
 
-val shared =
+val shared = {
   source.publishSelector { hot =>
-      Observable(
-          consume("Consumer 1", hot),
-          consume("Consumer 2", hot).delayExecution(2.second)
-          ).merge
+    Observable(
+      consume("Consumer 1", hot),
+      consume("Consumer 2", hot).delayExecution(2.second)
+    ).merge
   }
+}
 
-shared.completedL.runSyncUnsafe()
-shared.completedL.runSyncUnsafe()
+shared.subscribe()
+shared.subscribe()
 ```
 
 The code would print the following output twice:
