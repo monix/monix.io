@@ -832,9 +832,9 @@ On the other hand there is also a notion of *hot Observable* denoted as `Connect
 
 Similarily to standard version, `ConnectableObservable` is lazy, i.e. it will start processing elements after
 processing `connect()`. The crucial difference is that mapping `ConnectableObservable` returns `Observable` which
-shares the source according to specified strategy, represented by `Subject`.
+shares the source according to the specified strategy, represented by `Subject`.
 
-Consider following example which uses `.publish` to create `ConnectableObservable` on top of `PublishSubject`:
+Consider the following example which uses `.publish` to create a `ConnectableObservable` on top of a `PublishSubject`:
 
 ```tut:silent
 import monix.eval.Task
@@ -881,7 +881,7 @@ If it weren't for `cancelable.cancel()` it would have keep going even after all 
 Source `ConnectableObservable` is backpressured on *all* subscribers. In other words, it will wait for acknowledgement from
 all active subscribers before processing the next element. 
 
-Let's see it on example:
+Let's see it on an example:
 
 ```
 import monix.eval.Task
@@ -922,7 +922,7 @@ Task.parZip2(o1, o2).runSyncUnsafe()
 // o1: 3
 ```
 
-It might not be always desirable if we don't want to slow down producer. There are several ways to handle it, depending
+It might not be always desirable if we don't want to slow down the producer. There are several ways to handle it, depending
 on the use case. In general, if we don't want backpressure, we need a buffer with proper overflow strategy.
 
 For instance, we could introduce buffer per subscriber which can store up to 10 elements and then starts dropping new elements:
@@ -990,7 +990,7 @@ o1.runSyncUnsafe()
 If it were `PublishSubject`, the subscriber would not receive any elements because the `source` has processed everything
 before subscription.
  
-### Doing it pure way
+### Doing it the pure way
 
 As you probably noticed, `ConnectableObservable` is not very pure because the time of subscription can completely change the result
 and the original `source` is processed only once. Monix also exposes `publishSelector` and `pipeThroughSelector` which allow
