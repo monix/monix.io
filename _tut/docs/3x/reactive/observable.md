@@ -452,7 +452,7 @@ Task
 In this case we transformed `Future` to `Task` so the example is pure (other than not suspending `ConcurrentSubject` creation) but you
 don't have to do that if you prefer staying with `Future`.
 
-[More on Subjects later.](/observable.html#subjects)
+[More on Subjects later.](#subjects)
 
 ## Scheduling
 
