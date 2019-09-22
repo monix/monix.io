@@ -467,8 +467,6 @@ import monix.execution.Scheduler
 import monix.execution.exceptions.DummyException
 import monix.reactive.Observable
 
-implicit val s = Scheduler.global
-
 val stream = { 
   Observable.range(1, 5)
     .map(el => s"new elem: $el")
