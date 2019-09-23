@@ -546,14 +546,14 @@ val stream = {
     ).foreachL(i => println(s"$i: done"))
 }
 
-2: start asynchronously
-1: start asynchronously
-1: done
-3: start asynchronously
-2: done
-3: done
-4: start asynchronously
-4: done
+// 2: start asynchronously
+// 1: start asynchronously
+// 1: done
+// 3: start asynchronously
+// 2: done
+// 3: done
+// 4: start asynchronously
+// 4: done
 ```
 
 The order of execution of `Tasks` inside `mapParallelOrdered` is nondeterministic but they will be always passed to the downstream in the FIFO order, i.e. all `done` prints will have increasing indices in this example.
