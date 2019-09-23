@@ -662,6 +662,10 @@ Similarly to `mergeMap`, `Observable#switchMap` does not backpressure on element
 
 <img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
 
+```tut:invisible
+import cats.effect.ExitCase
+```
+
 ```tut:silent
 def child(i: Int): Observable[String] = {
   Observable(s"${i}A", s"${i}B", s"${i}C")
