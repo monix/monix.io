@@ -454,6 +454,255 @@ don't have to do that if you prefer staying with `Future`.
 
 [More on Subjects later.](#subjects)
 
+## Mapping Observable
+
+### map
+
+`Observable#map` applies a function `f` to all elements in the source stream.
+
+<img src="{{ site.baseurl }}public/images/marbles/map.png" align="center" style="max-width: 100%" />
+
+```tut:silent
+import monix.execution.Scheduler
+import monix.execution.exceptions.DummyException
+import monix.reactive.Observable
+
+val stream = { 
+  Observable.range(1, 5)
+    .map(el => s"new elem: $el")
+}
+
+stream.foreachL(println).runToFuture
+
+// new elem: 1
+// new elem: 2
+// new elem: 3
+// new elem: 4
+```
+
+Prefer to use functions that are total because any exception will terminate the stream (see [Error Handling](#errorHandling) section) :
+
+```tut:silent
+val failed = { 
+  Observable.range(1, 5)
+    .map(_ => throw DummyException("avoid it!"))
+}
+
+failed.subscribe()
+
+// monix.execution.exceptions.DummyException: avoid it!
+//	at MapObservable$.$anonfun$failedStream$1(MapObservable.scala:14)
+//	at MapObservable$.$anonfun$failedStream$1$adapted(MapObservable.scala:14)
+//	at monix.reactive.internal.operators.MapOperator$$anon$1.onNext(MapOperator.scala:41)
+```
+
+
+### mapEval
+
+`Observable#mapEval` is similar to `map` but it takes `f: A => Task[B]` which represents a function with effectful result that can produce at most one value.
+
+```tut:silent
+val stream = Observable.range(1, 5).mapEval(l => Task.evalAsync(println(s"$l: run asynchronously")))
+
+stream.subscribe()
+
+// 1: run asynchronously
+// 2: run asynchronously
+// 3: run asynchronously
+// 4: run asynchronously
+```
+
+There is also a `mapEvalF` variant for other types which can be converted to `Task`, i.e. `Future`, `cats.effect.IO`, `ZIO` etc.
+
+```tut:silent
+import scala.concurrent.Future
+
+val stream = Observable.range(1, 5).mapEvalF(l => Future(println(s"$l: run asynchronously")))
+
+stream.subscribe()
+
+// 1: run asynchronously
+// 2: run asynchronously
+// 3: run asynchronously
+// 4: run asynchronously
+```
+
+### mapParallel
+
+`mapEval` can process elements asynchronously but it does it one-by-one. 
+In case we would like to run `n` tasks in parallel, we can use either `mapParallelOrdered` or `mapParallelUnordered`.
+
+```tut:silent
+import scala.concurrent.duration._
+
+val stream = {
+  Observable
+    .range(1, 5)
+    .mapParallelOrdered(parallelism = 2)(i =>
+      Task(println(s"$i: start asynchronously"))
+        .flatMap(_ => if (i % 2 == 0) Task.sleep(4.second) else Task.sleep(1.second))
+        .map(_ => i)
+    ).foreachL(i => println(s"$i: done"))
+}
+
+// 2: start asynchronously
+// 1: start asynchronously
+// 1: done
+// 3: start asynchronously
+// 2: done
+// 3: done
+// 4: start asynchronously
+// 4: done
+```
+
+The order of execution of `Tasks` inside `mapParallelOrdered` is nondeterministic but they will be always passed to the downstream in the FIFO order, i.e. all `done` prints will have increasing indices in this example.
+In case we don't need this guarantee, we can use `mapParallelUnordered` which is faster. The code above would result in the following output:
+
+```
+2: start asynchronously
+1: start asynchronously
+1: done
+3: start asynchronously
+3: done
+4: start asynchronously
+2: done
+4: done
+```
+
+### flatMap (concatMap)
+
+`Observable#flatMap` (aliased to `concatMap`) applies a function which returns an `Observable`. 
+For each input element, the resulting `Observable` is processed before the next input element.
+
+<img src="{{ site.baseurl }}public/images/marbles/flat-map.png" align="center" style="max-width: 100%" />
+
+```tut:silent
+val stream = {
+  Observable(2, 3, 4)
+    .flatMap(i => Observable(s"${i}A", s"${i}B"))
+    .foreachL(println)
+}
+
+// 2A
+// 2B
+// 3A
+// 3B
+// 4A
+// 4B
+```
+
+Note that if a function returns an infinite `Observable`, it will never process the next elements from the source:
+
+```tut:silent
+val stream = {
+  Observable(2, 3, 4)
+    .flatMap(i => if (i == 2) Observable.never else Observable(s"${i}A", s"${i}B"))
+    .foreachL(println)
+}
+
+// Nothing is printed
+```
+
+### mergeMap
+
+`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't backpressure on elements
+from the source and subscribes to all of the `Observable` produced from the source until they terminate. These produced `Observable` are often called *inner* or *child*.
+
+```tut:silent
+val source = Observable(2) ++ Observable(3, 4).delayExecution(50.millis)
+
+val stream = {
+  source
+    .mergeMap(i => Observable(s"${i}A", s"${i}B").delayOnNext(50.millis))
+    .foreachL(println)
+}
+```
+
+The possible result of the snippet above is depicted in the following picture:
+
+<img src="{{ site.baseurl }}public/images/marbles/merge-map.png" align="center" style="max-width: 100%" />
+
+Since the inner `Observables` are executed concurrently, we can also return an `Observable` which takes a very long time or does not terminate at all without slowing down the entire stream.
+
+```tut:silent
+val stream = {
+  Observable(2, 3, 4)
+    .mergeMap(i => if (i == 2) Observable.never else Observable(s"${i}A", s"${i}B"))
+    .foreachL(println)
+}
+
+// 3A
+// 3B
+// 4A
+// 4B
+```
+
+Keep in mind that `mergeMap` keeps all active subscription so it is possible to end up with a memory leak if we forget to close infinite `Observable`.
+In case one of the `Observable` returns an error, other active streams will be canceled and resulting `Observable` will return the original error:
+
+```tut:silent
+val stream = {
+  Observable(2, 3, 4)
+    .mergeMap(i =>
+      if (i == 3) Observable.raiseError(DummyException("fail"))
+      else Observable(s"${i}A", s"${i}B").doOnSubscriptionCancel(Task(println(s"$i: cancelled")))
+    )
+    .foreachL(println)
+}
+
+// 2A
+// 2B
+// 4: cancelled
+// Exception in thread "main" monix.execution.exceptions.DummyException: fail
+```
+
+### switchMap
+Similarly to `mergeMap`, `Observable#switchMap` does not backpressure on elements from the source stream but it *switches* to the first `Observable` returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than `mergeMap` because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.
+
+<img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
+
+```tut:silent
+import cats.effect.ExitCase
+
+def child(i: Int): Observable[String] = {
+  Observable(s"${i}A", s"${i}B", s"${i}C")
+    .delayOnNext(50.millis)
+    .guaranteeCase {
+      case ExitCase.Completed => Task(println(s"$i: Request has been completed."))
+      case ExitCase.Error(e) => Task(println(s"$i: Request has encountered an error."))
+      case ExitCase.Canceled => Task(println(s"$i: Request has been canceled."))
+    }
+}
+
+val stream = {
+  Observable(2, 3, 4)
+    .delayOnNext(100.millis)
+    .switchMap(child)
+    .foreachL(println)
+}
+
+// 2A
+// 2: Request has been canceled.
+// 3A
+// 3B
+// 3: Request has been canceled.
+// 4A
+// 4B
+// 4C
+// 4: Request has been completed.
+```
+
+### Summary
+
+If you want to backpressure source `Observable` when emitting new events, use:
+- `map` for pure, synchronous functions which return only one value
+- `mapEval` or `mapParallel` for effectful, possibly asynchronous functions which return up to one value
+- `flatMap` for effectful, possibly asynchronous functions which return a stream of values
+
+If you want to process source `Observable` concurrently, use:
+- `mergeMap` if you want to process all inner streams
+- `switchMap` if you want to keep only the most recent inner stream
+
 ## Scheduling
 
 `Observable` is a great fit not only for streaming data but also for control flow such as scheduling. 
