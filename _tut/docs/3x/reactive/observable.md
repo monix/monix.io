@@ -514,12 +514,9 @@ stream.subscribe()
 
 There is also a `mapEvalF` variant for other types which can be converted to `Task`, i.e. `Future`, `cats.effect.IO`, `ZIO` etc.
 
-```tut:invisible
-import scala.concurrent.duration._
-import scala.concurrent.Future
-```
-
 ```tut:silent
+import scala.concurrent.Future
+
 val stream = Observable.range(1, 5).mapEvalF(l => Future(println(s"$l: run asynchronously")))
 
 stream.subscribe()
@@ -536,6 +533,8 @@ stream.subscribe()
 In case we would like to run `n` tasks in parallel, we can use either `mapParallelOrdered` or `mapParallelUnordered`.
 
 ```tut:silent
+import scala.concurrent.duration._
+
 val stream = {
   Observable
     .range(1, 5)
@@ -597,7 +596,7 @@ Note that if a function returns an infinite `Observable`, it will never process 
 ```tut:silent
 val stream = {
   Observable(2, 3, 4)
-    .flatMap(_ => Observable.never)
+    .flatMap(i => if (i == 2) Observable.never else Observable(s"${i}A", s"${i}B"))
     .foreachL(println)
 }
 
@@ -606,7 +605,7 @@ val stream = {
 
 ### mergeMap
 
-`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the results *concurrently*. It doesn't backpressure on elements
+`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't backpressure on elements
 from the source and subscribes to all of the `Observable` produced from the source until they terminate. These produced `Observable` are often called *inner* or *child*.
 
 ```tut:silent
@@ -662,11 +661,9 @@ Similarly to `mergeMap`, `Observable#switchMap` does not backpressure on element
 
 <img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
 
-```tut:invisible
-import cats.effect.ExitCase
-```
-
 ```tut:silent
+import cats.effect.ExitCase
+
 def child(i: Int): Observable[String] = {
   Observable(s"${i}A", s"${i}B", s"${i}C")
     .delayOnNext(50.millis)
