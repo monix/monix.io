@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1568788375974102869" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1568788375974102869" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1569307844376687483" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1569307844376687483" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1568788375974102869">
+  <link rel="stylesheet" href="/public/css/all.css?1569307844376687483">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1568788375974102869">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569307844376687483">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -544,6 +544,246 @@ Note that you can also create <code class="highlighter-rouge">Observable</code> 
 don’t have to do that if you prefer staying with <code class="highlighter-rouge">Future</code>.</p>
 
 <p><a href="#subjects">More on Subjects later.</a></p>
+
+<h2 id="mapping-observable">Mapping Observable</h2>
+
+<h3 id="map">map</h3>
+
+<p><code class="highlighter-rouge">Observable#map</code> applies a function <code class="highlighter-rouge">f</code> to all elements in the source stream.</p>
+
+<p><img src="/public/images/marbles/map.png" align="center" style="max-width: 100%" /></p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.exceptions.DummyException</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span> 
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">el</span> <span class="k">=&gt;</span> <span class="n">s</span><span class="s">"new elem: $el"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="nv">stream</span><span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">).</span><span class="py">runToFuture</span>
+
+<span class="c1">// new elem: 1
+// new elem: 2
+// new elem: 3
+// new elem: 4
+</span></code></pre></div></div>
+
+<p>Prefer to use functions that are total because any exception will terminate the stream (see <a href="#errorHandling">Error Handling</a> section) :</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">failed</span> <span class="k">=</span> <span class="o">{</span> 
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="k">throw</span> <span class="nc">DummyException</span><span class="o">(</span><span class="s">"avoid it!"</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="nv">failed</span><span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
+
+<span class="c1">// monix.execution.exceptions.DummyException: avoid it!
+//	at MapObservable$.$anonfun$failedStream$1(MapObservable.scala:14)
+//	at MapObservable$.$anonfun$failedStream$1$adapted(MapObservable.scala:14)
+//	at monix.reactive.internal.operators.MapOperator$$anon$1.onNext(MapOperator.scala:41)
+</span></code></pre></div></div>
+
+<h3 id="mapeval">mapEval</h3>
+
+<p><code class="highlighter-rouge">Observable#mapEval</code> is similar to <code class="highlighter-rouge">map</code> but it takes <code class="highlighter-rouge">f: A =&gt; Task[B]</code> which represents a function with effectful result that can produce at most one value.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">).</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalAsync</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$l: run asynchronously"</span><span class="o">)))</span>
+
+<span class="nv">stream</span><span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
+
+<span class="c1">// 1: run asynchronously
+// 2: run asynchronously
+// 3: run asynchronously
+// 4: run asynchronously
+</span></code></pre></div></div>
+
+<p>There is also a <code class="highlighter-rouge">mapEvalF</code> variant for other types which can be converted to <code class="highlighter-rouge">Task</code>, i.e. <code class="highlighter-rouge">Future</code>, <code class="highlighter-rouge">cats.effect.IO</code>, <code class="highlighter-rouge">ZIO</code> etc.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">).</span><span class="py">mapEvalF</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$l: run asynchronously"</span><span class="o">)))</span>
+
+<span class="nv">stream</span><span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
+
+<span class="c1">// 1: run asynchronously
+// 2: run asynchronously
+// 3: run asynchronously
+// 4: run asynchronously
+</span></code></pre></div></div>
+
+<h3 id="mapparallel">mapParallel</h3>
+
+<p><code class="highlighter-rouge">mapEval</code> can process elements asynchronously but it does it one-by-one. 
+In case we would like to run <code class="highlighter-rouge">n</code> tasks in parallel, we can use either <code class="highlighter-rouge">mapParallelOrdered</code> or <code class="highlighter-rouge">mapParallelUnordered</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span>
+    <span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapParallelOrdered</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">2</span><span class="o">)(</span><span class="n">i</span> <span class="k">=&gt;</span>
+      <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: start asynchronously"</span><span class="o">))</span>
+        <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="k">else</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">))</span>
+        <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">i</span><span class="o">)</span>
+    <span class="o">).</span><span class="py">foreachL</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: done"</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">// 2: start asynchronously
+// 1: start asynchronously
+// 1: done
+// 3: start asynchronously
+// 2: done
+// 3: done
+// 4: start asynchronously
+// 4: done
+</span></code></pre></div></div>
+
+<p>The order of execution of <code class="highlighter-rouge">Tasks</code> inside <code class="highlighter-rouge">mapParallelOrdered</code> is nondeterministic but they will be always passed to the downstream in the FIFO order, i.e. all <code class="highlighter-rouge">done</code> prints will have increasing indices in this example.
+In case we don’t need this guarantee, we can use <code class="highlighter-rouge">mapParallelUnordered</code> which is faster. The code above would result in the following output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2: start asynchronously
+1: start asynchronously
+1: done
+3: start asynchronously
+3: done
+4: start asynchronously
+2: done
+4: done
+</code></pre></div></div>
+
+<h3 id="flatmap-concatmap">flatMap (concatMap)</h3>
+
+<p><code class="highlighter-rouge">Observable#flatMap</code> (aliased to <code class="highlighter-rouge">concatMap</code>) applies a function which returns an <code class="highlighter-rouge">Observable</code>. 
+For each input element, the resulting <code class="highlighter-rouge">Observable</code> is processed before the next input element.</p>
+
+<p><img src="/public/images/marbles/flat-map.png" align="center" style="max-width: 100%" /></p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// 2A
+// 2B
+// 3A
+// 3B
+// 4A
+// 4B
+</span></code></pre></div></div>
+
+<p>Note that if a function returns an infinite <code class="highlighter-rouge">Observable</code>, it will never process the next elements from the source:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">never</span> <span class="k">else</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Nothing is printed
+</span></code></pre></div></div>
+
+<h3 id="mergemap">mergeMap</h3>
+
+<p><code class="highlighter-rouge">Observable#mergeMap</code> also takes a function which can return an <code class="highlighter-rouge">Observable</code> but it can process the source <em>concurrently</em>. It doesn’t backpressure on elements
+from the source and subscribes to all of the <code class="highlighter-rouge">Observable</code> produced from the source until they terminate. These produced <code class="highlighter-rouge">Observable</code> are often called <em>inner</em> or <em>child</em>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">50.</span><span class="n">millis</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="n">source</span>
+    <span class="o">.</span><span class="py">mergeMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">).</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">50.</span><span class="n">millis</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The possible result of the snippet above is depicted in the following picture:</p>
+
+<p><img src="/public/images/marbles/merge-map.png" align="center" style="max-width: 100%" /></p>
+
+<p>Since the inner <code class="highlighter-rouge">Observables</code> are executed concurrently, we can also return an <code class="highlighter-rouge">Observable</code> which takes a very long time or does not terminate at all without slowing down the entire stream.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mergeMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">never</span> <span class="k">else</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// 3A
+// 3B
+// 4A
+// 4B
+</span></code></pre></div></div>
+
+<p>Keep in mind that <code class="highlighter-rouge">mergeMap</code> keeps all active subscription so it is possible to end up with a memory leak if we forget to close infinite <code class="highlighter-rouge">Observable</code>.
+In case one of the <code class="highlighter-rouge">Observable</code> returns an error, other active streams will be canceled and resulting <code class="highlighter-rouge">Observable</code> will return the original error:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mergeMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="nc">DummyException</span><span class="o">(</span><span class="s">"fail"</span><span class="o">))</span>
+      <span class="k">else</span> <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">).</span><span class="py">doOnSubscriptionCancel</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: cancelled"</span><span class="o">)))</span>
+    <span class="o">)</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// 2A
+// 2B
+// 4: cancelled
+// Exception in thread "main" monix.execution.exceptions.DummyException: fail
+</span></code></pre></div></div>
+
+<h3 id="switchmap">switchMap</h3>
+<p>Similarly to <code class="highlighter-rouge">mergeMap</code>, <code class="highlighter-rouge">Observable#switchMap</code> does not backpressure on elements from the source stream but it <em>switches</em> to the first <code class="highlighter-rouge">Observable</code> returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than <code class="highlighter-rouge">mergeMap</code> because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.</p>
+
+<p><img src="/public/images/marbles/switch-map.png" align="center" style="max-width: 100%" /></p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.ExitCase</span>
+
+<span class="k">def</span> <span class="nf">child</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="n">s</span><span class="s">"${i}A"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}B"</span><span class="o">,</span> <span class="n">s</span><span class="s">"${i}C"</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">50.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">guaranteeCase</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nv">ExitCase</span><span class="o">.</span><span class="py">Completed</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: Request has been completed."</span><span class="o">))</span>
+      <span class="k">case</span> <span class="nv">ExitCase</span><span class="o">.</span><span class="py">Error</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: Request has encountered an error."</span><span class="o">))</span>
+      <span class="k">case</span> <span class="nv">ExitCase</span><span class="o">.</span><span class="py">Canceled</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$i: Request has been canceled."</span><span class="o">))</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">switchMap</span><span class="o">(</span><span class="n">child</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">foreachL</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// 2A
+// 2: Request has been canceled.
+// 3A
+// 3B
+// 3: Request has been canceled.
+// 4A
+// 4B
+// 4C
+// 4: Request has been completed.
+</span></code></pre></div></div>
+
+<h3 id="summary">Summary</h3>
+
+<p>If you want to backpressure source <code class="highlighter-rouge">Observable</code> when emitting new events, use:</p>
+<ul>
+  <li><code class="highlighter-rouge">map</code> for pure, synchronous functions which return only one value</li>
+  <li><code class="highlighter-rouge">mapEval</code> or <code class="highlighter-rouge">mapParallel</code> for effectful, possibly asynchronous functions which return up to one value</li>
+  <li><code class="highlighter-rouge">flatMap</code> for effectful, possibly asynchronous functions which return a stream of values</li>
+</ul>
+
+<p>If you want to process source <code class="highlighter-rouge">Observable</code> concurrently, use:</p>
+<ul>
+  <li><code class="highlighter-rouge">mergeMap</code> if you want to process all inner streams</li>
+  <li><code class="highlighter-rouge">switchMap</code> if you want to keep only the most recent inner stream</li>
+</ul>
 
 <h2 id="scheduling">Scheduling</h2>
 
