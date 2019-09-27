@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1569594534248660921" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1569594534248660921" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1569602911958036001" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1569602911958036001" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1569594534248660921">
+  <link rel="stylesheet" href="/public/css/all.css?1569602911958036001">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569594534248660921">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569602911958036001">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -378,8 +378,7 @@ through your program until the very end (Main method).</p>
 
 <h3 id="observablepure-now">Observable.pure (now)</h3>
 
-<p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known 
-value in the <code class="highlighter-rouge">Observable</code> context.</p>
+<p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known value in the <code class="highlighter-rouge">Observable</code> context.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">//=&gt; Effect
@@ -388,8 +387,7 @@ value in the <code class="highlighter-rouge">Observable</code> context.</p>
 
 <h3 id="observabledelay-eval">Observable.delay (eval)</h3>
 
-<p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict
-value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
+<p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">delay</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
@@ -427,7 +425,6 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="c1">//=&gt; Hello!
 </span></code></pre></div></div>
 
-<p>()</p>
 <h3 id="observablefromiterable">Observable.fromIterable</h3>
 
 <p><code class="highlighter-rouge">Observable.fromIterable</code> converts any <code class="highlighter-rouge">Iterable</code> into <code class="highlighter-rouge">Observable</code>:</p>
@@ -477,9 +474,67 @@ It also has guaranteed idempotency and thread-safety:</p>
 
 <p>There are several options to feed <code class="highlighter-rouge">Observable</code> with elements from other part of the application.</p>
 
-<h3 id="concurrentqueue">ConcurrentQueue</h3>
+<h3 id="observablecreate">Observable.create</h3>
 
-<p><code class="highlighter-rouge">monix-catnap</code> module provides <a href="https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html">ConcurrentQueue</a> that can be used
+<p><code class="highlighter-rouge">Observable.create</code> is a builder for creating an <code class="highlighter-rouge">Observable</code> from sources which can’t be backpressured.
+It takes a <code class="highlighter-rouge">f: Subscriber.Sync[A] =&gt; Cancelable</code>. <code class="highlighter-rouge">Subscriber.Sync</code> is an <code class="highlighter-rouge">Observer</code> with built-in <code class="highlighter-rouge">Scheduler</code> which doesn’t have 
+to worry about backpressure contract so it is safe to use even for inexperienced <code class="highlighter-rouge">Observable</code> users. 
+An <code class="highlighter-rouge">Observable</code> which is returned by the method will receive all elements which were sent to the <code class="highlighter-rouge">Subscriber</code>.
+Since they could be sent concurrently, it buffers elements when busy, according to specified <code class="highlighter-rouge">OverflowStrategy</code>.
+<code class="highlighter-rouge">Cancelable</code> can contain special logic in case the subscription is canceled.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
+<span class="k">import</span> <span class="nn">monix.reactive.OverflowStrategy</span>
+<span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">def</span> <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="k">:</span> <span class="kt">Subscriber</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">n</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">create</span><span class="o">(</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">sub</span> <span class="k">=&gt;</span>
+    <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">guarantee</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Producer has been completed"</span><span class="o">)))</span>
+      <span class="o">.</span><span class="py">runToFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">scheduler</span><span class="o">)</span>
+  <span class="o">}</span>
+
+<span class="nv">source</span><span class="o">.</span><span class="py">takeUntil</span><span class="o">(</span><span class="nv">Observable</span><span class="o">.</span><span class="py">unit</span><span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">250.</span><span class="n">millis</span><span class="o">)).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+
+<span class="c1">// Output after execution:
+// 0: O --&gt; 0
+// 1: O --&gt; 1
+// Producer has been completed
+// 2: O completed
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">Subscriber</code> has underlying <code class="highlighter-rouge">Scheduler</code> which can be used to run <code class="highlighter-rouge">producerLoop</code> inside of <code class="highlighter-rouge">Observable.create</code>.
+Note that the function is still pure - no side effect can be observed before <code class="highlighter-rouge">Observable</code> is executed.</p>
+
+<p><code class="highlighter-rouge">Task#runToFuture</code> returns <code class="highlighter-rouge">CancelableFuture</code>. We can use it to tie <code class="highlighter-rouge">Observable</code> subscription with <code class="highlighter-rouge">producerLoop</code>. 
+Keep in mind it will only work if a subscription is canceled, not in a case of standard termination like <code class="highlighter-rouge">take(n)</code>.</p>
+
+<p>If we would like to have this interaction at all times, we could add <a href="https://typelevel.org/cats-effect/concurrency/deferred.html">cats.effect.concurrent.Deferred</a>
+as shown in the following example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromTask</span><span class="o">(</span><span class="nc">Deferred</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">]).</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">signal</span> <span class="k">=&gt;</span>
+    <span class="nv">Observable</span><span class="o">.</span><span class="py">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">sub</span> <span class="k">=&gt;</span>
+      <span class="nv">Task</span><span class="o">.</span><span class="py">race</span><span class="o">(</span>
+        <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">)</span>
+          <span class="o">.</span><span class="py">guarantee</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Producer has been completed"</span><span class="o">))),</span>
+          <span class="nv">signal</span><span class="o">.</span><span class="py">get</span>
+      <span class="o">)</span>
+        <span class="o">.</span><span class="py">runToFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">scheduler</span><span class="o">)</span>
+    <span class="o">}</span>
+      <span class="o">.</span><span class="py">guarantee</span><span class="o">(</span><span class="nv">signal</span><span class="o">.</span><span class="py">complete</span><span class="o">(()))</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="observablerepeatevalf--concurrent-data-structure">Observable.repeatEvalF + concurrent data structure</h3>
+
+<p><code class="highlighter-rouge">monix-catnap</code> module provides <a href="https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html">ConcurrentQueue</a> which can be used 
 with <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to create <code class="highlighter-rouge">Observable</code> from it.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.catnap.ConcurrentQueue</span>
@@ -507,12 +562,14 @@ with <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to cr
 <span class="o">}</span>
 </code></pre></div></div>
 
+<p><code class="highlighter-rouge">ConcurrentQueue</code> has a bounded variant which will backpressure the producer if it is too fast.</p>
+
 <p>If you’re curious why we have to <code class="highlighter-rouge">flatMap</code> <a href="https://vimeo.com/294736344">see excellent presentation by Fabio Labella</a>.
 Note that you can also create <code class="highlighter-rouge">Observable</code> from other tools for Concurrency, such as <code class="highlighter-rouge">MVar</code> or <code class="highlighter-rouge">Deferred</code>.</p>
 
 <h3 id="concurrentsubject">ConcurrentSubject</h3>
 
-<p>If you’re not afraid to get your hands dirty, then you can use <code class="highlighter-rouge">ConcurrentSubject</code> to get equivalent functionality:</p>
+<p>You can use <code class="highlighter-rouge">ConcurrentSubject</code> to get similar functionality:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack</span>
@@ -541,8 +598,9 @@ Note that you can also create <code class="highlighter-rouge">Observable</code> 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>In this case we transformed <code class="highlighter-rouge">Future</code> to <code class="highlighter-rouge">Task</code> so the example is pure (other than not suspending <code class="highlighter-rouge">ConcurrentSubject</code> creation) but you
-don’t have to do that if you prefer staying with <code class="highlighter-rouge">Future</code>.</p>
+<p>One important difference is that <code class="highlighter-rouge">subject</code> will be shared between subscribers (here it is <code class="highlighter-rouge">processStream</code> method).
+It might not be noticable with <code class="highlighter-rouge">MulticastStrategy.replay</code> which caches incoming elements. 
+If we use different strategy such as <code class="highlighter-rouge">MulticastStrategy.publish</code>, <code class="highlighter-rouge">processStream</code> won’t receive any elements which were sent before subscription.</p>
 
 <p><a href="#subjects">More on Subjects later.</a></p>
 
