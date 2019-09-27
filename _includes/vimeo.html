@@ -1,17 +1,14 @@
 {% capture vimeo %}{% if page.vimeo %}{{ page.vimeo }}{% else %}{{ include.vimeo }}{% endif -%}{% endcapture -%}
 
-<div id="vimeo">
-  <div id="player">
-    <a href="{{ vimeo | vimeo_link }}" class="play" target="_blank">
-      <img class="play-button"
-        src="{{ vimeo | vimeo_thumb_play_link }}"
-        data-src="{{ vimeo | vimeo_player_link }}"
-        data-ratio="{{ include.ratio }}"
-        title="Click to Play!"
-        alt="Video thumbnail"
-      />
-    </a>
-  </div>
+<div id="video-frame" class="presentation" style="padding-bottom: {{ include.ratio }}%;">
+  <iframe src="{{ vimeo | vimeo_player_link }}"
+          id="vimeo-iframe"
+          frameborder="0"
+          webkitallowfullscreen
+          mozallowfullscreen
+          allowfullscreen>
+  </iframe>
+
   <noscript>
     WARNING: Javascript is disabled, cannot play video inline!
     <br>
