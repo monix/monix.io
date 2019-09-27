@@ -273,8 +273,7 @@ You can find them in `Observable` companion object. Below are several examples:
 
 ### Observable.pure (now)
 
-`Observable.pure` (alias for `now`) simply lifts an already known 
-value in the `Observable` context.
+`Observable.pure` (alias for `now`) simply lifts an already known value in the `Observable` context.
 
 ```tut:reset:invisible
 import monix.reactive.Observable
@@ -290,8 +289,7 @@ val obs = Observable.now { println("Effect"); "Hello!" }
  
 ### Observable.delay (eval)
 
-`Observable.delay` (alias for `eval`) lifts non-strict
-value in the `Observable`. It is evaluated upon subscription.
+`Observable.delay` (alias for `eval`) lifts non-strict value in the `Observable`. It is evaluated upon subscription.
 
 ```tut:silent
 val obs = Observable.delay { println("Effect"); "Hello!" }
@@ -383,9 +381,69 @@ observable
 
 There are several options to feed `Observable` with elements from other part of the application.
 
-### ConcurrentQueue
+### Observable.create
 
-`monix-catnap` module provides [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) that can be used
+`Observable.create` is a builder for creating an `Observable` from sources which can't be backpressured.
+It takes a `f: Subscriber.Sync[A] => Cancelable`. `Subscriber.Sync` is an `Observer` with built-in `Scheduler` which doesn't have 
+to worry about backpressure contract so it is safe to use even for inexperienced `Observable` users. 
+An `Observable` which is returned by the method will receive all elements which were sent to the `Subscriber`.
+Since they could be sent concurrently, it buffers elements when busy, according to specified `OverflowStrategy`.
+`Cancelable` can contain special logic in case the subscription is canceled.
+
+```tut:silent
+import monix.eval.Task
+import monix.reactive.Observable
+import monix.reactive.OverflowStrategy
+import monix.reactive.observers.Subscriber
+import scala.concurrent.duration._
+
+def producerLoop(sub: Subscriber[Int], n: Int = 0): Task[Unit] = {
+  Task.deferFuture(sub.onNext(n)).delayExecution(100.millis).flatMap(_ => producerLoop(sub, n + 1))
+}
+
+val source: Observable[Int] =
+  Observable.create(OverflowStrategy.Unbounded) { sub =>
+    producerLoop(sub)
+      .guarantee(Task(println("Producer has been completed")))
+      .runToFuture(sub.scheduler)
+  }
+
+source.takeUntil(Observable.unit.delayExecution(250.millis)).dump("O")
+
+// Output after execution:
+// 0: O --> 0
+// 1: O --> 1
+// Producer has been completed
+// 2: O completed
+```
+
+`Subscriber` has underlying `Scheduler` which can be used to run `producerLoop` inside of `Observable.create`.
+Note that the function is still pure - no side effect can be observed before `Observable` is executed.
+
+`Task#runToFuture` returns `CancelableFuture`. We can use it to tie `Observable` subscription with `producerLoop`. 
+Keep in mind it will only work if a subscription is canceled, not in a case of standard termination like `take(n)`.
+
+If we would like to have this interaction at all times, we could add [cats.effect.concurrent.Deferred](https://typelevel.org/cats-effect/concurrency/deferred.html)
+as shown in the following example:
+
+```scala
+val source: Observable[Int] =
+  Observable.fromTask(Deferred[Task, Unit]).flatMap { signal =>
+    Observable.create[Int](OverflowStrategy.Unbounded) { sub =>
+      Task.race(
+        producerLoop(sub)
+          .guarantee(Task(println("Producer has been completed"))),
+          signal.get
+      )
+        .runToFuture(sub.scheduler)
+    }
+      .guarantee(signal.complete(()))
+  }
+```
+
+### Observable.repeatEvalF + concurrent data structure
+
+`monix-catnap` module provides [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) which can be used 
 with `Observable.repeatEvalF` builder to create `Observable` from it.
 
 ```tut:silent
@@ -414,12 +472,14 @@ def processStream[A](observable: Observable[A]): Task[Unit] = {
 }
 ```
 
+`ConcurrentQueue` has a bounded variant which will backpressure the producer if it is too fast.
+
 If you're curious why we have to `flatMap` [see excellent presentation by Fabio Labella](https://vimeo.com/294736344).
 Note that you can also create `Observable` from other tools for Concurrency, such as `MVar` or `Deferred`.
 
 ### ConcurrentSubject
 
-If you're not afraid to get your hands dirty, then you can use `ConcurrentSubject` to get equivalent functionality:
+You can use `ConcurrentSubject` to get similar functionality:
 
 ```tut:silent
 import monix.eval.Task
@@ -449,8 +509,9 @@ Task
 }
 ```
 
-In this case we transformed `Future` to `Task` so the example is pure (other than not suspending `ConcurrentSubject` creation) but you
-don't have to do that if you prefer staying with `Future`.
+One important difference is that `subject` will be shared between subscribers (here it is `processStream` method).
+It might not be noticable with `MulticastStrategy.replay` which caches incoming elements. 
+If we use different strategy such as `MulticastStrategy.publish`, `processStream` won't receive any elements which were sent before subscription.
 
 [More on Subjects later.](#subjects)
 
