@@ -385,8 +385,9 @@ There are several options to feed `Observable` with elements from other part of 
 
 `Observable.create` is a builder for creating an `Observable` from sources which can't be backpressured.
 It takes a `f: Subscriber.Sync[A] => Cancelable`. `Subscriber.Sync` is an `Observer` with built-in `Scheduler` which doesn't have 
-to worry about backpressure contract so it is safe to use even for new `Observable` users. 
-An `Observable` which is returned by the method will have all elements which were sent to the `Subscriber`.
+to worry about backpressure contract so it is safe to use even for inexperienced `Observable` users. 
+An `Observable` which is returned by the method will receive all elements which were sent to the `Subscriber`.
+Since they could be sent concurrently, it buffers elements when busy, according to specified `OverflowStrategy`.
 `Cancelable` can contain special logic in case the subscription is canceled.
 
 ```tut:silent
