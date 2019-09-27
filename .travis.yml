@@ -1,7 +1,15 @@
+language: ruby
+rvm:
+  - 2.6
+before_install:
+- gem update --system
+- gem install bundler
+
 install:
 - bundle install
 script:
 - "./scripts/build"
+
 env:
   global:
     secure: V3lsFfC9cp7Dhug5jB8CziXIiqvV7DMkkB1K0lF2VbwYJIZGPty8RlaTe+ZakoUwsvGj7RHcMiWxjDgrRB9S6cB1JrVqT9y+0r9AmEkBqYNVYa0Obgq2s+9IponTe7KK0sJQ5bnXHe9M7Y62lMvmWkkMTfOJQQxKroLEWknUbGdhh+Q7fXcaHRAt9PZ1rRaWHschEkSzjlXCk/J6bEd9obpH4iUHYx3b8txi+Sj5sw4roVWsD5Nl9YqsYF8UNBkEPpn50/j1pBdYgpDynAySIqnlL8dEbIVAIa6duwqeiyOMBsrtbstjK2mN5sV35OjH2PqVIY2zwR59bOzBAa1+GtT0bQB3h668qIH3A/P4oE64k1fnfeR9Mlll7tHRqmjnHB1t/Jf8/HFkZSIiXXp4Khk7pg7RUvnsmA9LHec8QxcsWj/4wks+olYS4u0Pqth3hHJi17T3kqy4yBYHrPfYFZIYtlqOjLIrlXHxjCxgLcAAFGp71LfsePEA3StY7h46IbuXFoucZBWd64vmcp2W4/N6v+Yzw5VohjOTOWNyx4Kig4lOhj5OcSJgez/b4znZ7UDtN3ngFKkUgV2zumUm9xCGISmR8yfsuUJxzr4Fczv1H2LvJiMMPWmHIFgFmTYSKnB2ce3tsRqd21wN5nDe/xxn1sLFd9+d71Ct3KeuyWw=
