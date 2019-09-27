@@ -395,6 +395,7 @@ import monix.eval.Task
 import monix.reactive.Observable
 import monix.reactive.OverflowStrategy
 import monix.reactive.observers.Subscriber
+import scala.concurrent.duration._
 
 def producerLoop(sub: Subscriber[Int], n: Int = 0): Task[Unit] = {
   Task.deferFuture(sub.onNext(n)).delayExecution(100.millis).flatMap(_ => producerLoop(sub, n + 1))
