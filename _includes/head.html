@@ -14,19 +14,19 @@
   <meta name="twitter:card" content="player" />
   <meta name="twitter:player" content="{{ page.vimeo | vimeo_player_link }}">
   <meta name="twitter:player:width" content="560">
-  <meta name="twitter:player:height" content="315">  
-  <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
+  <meta name="twitter:player:height" content="315">
+  <meta name="twitter:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_link }}{% endif %}" />
   {% elsif page.youtube -%}
   <meta name="twitter:card" content="player" />
   <meta name="twitter:player" content="{{ page.youtube | youtube_player_link }}">
   <meta name="twitter:player:width" content="560">
   <meta name="twitter:player:height" content="315">
-  <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}/public/images/monix-logo-rect.png{% endif %}" />
+  <meta name="twitter:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
   {% else -%}
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="{{ site.url }}{% if page.image %}{{ page.image }}{% else %}/public/images/monix-logo-rect.png{% endif %}" />
   {% endif -%}
-  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:site" content="@monix" />
   <meta name="twitter:title" content="{{ processed_title }}" />
   <meta name="twitter:description" content="{{ processed_description }}" />
 
@@ -39,7 +39,7 @@
   <meta property="og:video:secure_url" content="{{ page.vimeo | vimeo_raw_link }}" />
   <meta property="og:video:type" content="video/mp4" />
   <meta property="og:video:width" content="560" />
-  <meta property="og:video:height" content="315" /> 
+  <meta property="og:video:height" content="315" />
   <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_play_link }}{% endif %}" />
   <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.vimeo | vimeo_thumb_play_link }}{% endif %}" />
   {% elsif page.youtube -%}
@@ -49,9 +49,9 @@
   <meta property="og:video:secure_url" content="{{ page.youtube | youtube_player_link }}" />
   <meta property="og:video:type" content="text/html" />
   <meta property="og:video:width" content="560" />
-  <meta property="og:video:height" content="315" /> 
-  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
-  <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ site.url }}/public/images/monix-logo.png{% endif %}" />
+  <meta property="og:video:height" content="315" />
+  <meta property="og:image" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
+  <meta property="og:image:secure_url" content="{% if page.image %}{{ site.url }}{{ page.image }}{% else %}{{ page.youtube | youtube_thumb_link }}{% endif %}" />
   {% else -%}
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:type" content="article" />
@@ -60,7 +60,7 @@
   {% endif -%}
   <meta property="og:title" content="{{ processed_title }}" />
   <meta property="og:description" content="{{ processed_description }}" />
-  
+
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
   <script src="{{ site.baseurl }}public/js/toc.js?{{site.time | date: '%s%N'}}" type="text/javascript" language="javascript"></script>

@@ -4,7 +4,7 @@ title: Presentations
 comments: true
 ---
 
-{% include vimeo_thumb.html link="/presentations/2018-tale-two-monix-streams.html" uid="300052765" %}
+{% include youtube_thumb.html link="/presentations/2018-tale-two-monix-streams.html" uid="Ki4JvV66EbE" %}
 
 ## Conferences
 
@@ -37,7 +37,7 @@ comments: true
 
 ## Typelevel Ecosystem
 
-{% include vimeo_thumb.html link="/presentations/2018-cancelable-io-typelevel-summit.html" uid="300067490" %}
+{% include youtube_thumb.html link="/presentations/2018-cancelable-io-typelevel-summit.html" uid="nEycZ8TMirk" %}
 
 Presentations on Cats and Cats-Effect, the sister projects 🙂
 

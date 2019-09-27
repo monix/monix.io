@@ -27,8 +27,11 @@ module Jekyll
     def youtube_player_link(uid)
       "https://www.youtube-nocookie.com/embed/#{uid}"
     end
+
+    def youtube_thumb_link(uid)
+      "https://img.youtube.com/vi/#{uid}/maxresdefault.jpg"
+    end
   end
 end
 
 Liquid::Template.register_filter(Jekyll::VideoLinks)
-

@@ -2,9 +2,9 @@
 layout: page
 title: "A Tale of Two Monix Streams — Scala Days, 2018, Berlin"
 description: |
-  Presentation from Scala Days, 2018, on Monix's Observable, 
+  Presentation from Scala Days, 2018, on Monix's Observable,
   compared with Iterant and a lesson in FP design
-vimeo: 300052765
+youtube: Ki4JvV66EbE
 comments: true
 ---
 
@@ -14,7 +14,7 @@ by [@alexelcu](https://twitter.com/alexelcu).
 This is the second time this presentation was given. The first time it
 was delivered at [Scala World in 2017](./2017-tale-two-monix-streams.html).
 
-{% include vimeo.html ratio=56.25 %}
+{% include youtube.html ratio=56.25 %}
 
 Resources:
 

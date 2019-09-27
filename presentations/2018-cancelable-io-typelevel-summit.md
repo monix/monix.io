@@ -4,7 +4,7 @@ title: "Cancelable IO — Typelevel Summit, 2018, Berlin"
 description: |
   Presentation from Typelevel Summit, 2018, on the evolution
   and design of the Cats-Effect IO.
-vimeo: 300067490
+youtube: nEycZ8TMirk
 comments: true
 ---
 
@@ -12,7 +12,7 @@ Presentation from the
 [Typelevel Summit, 2018, Berlin](https://typelevel.org/event/2018-05-summit-berlin/)
 by [@alexelcu](https://twitter.com/alexelcu).
 
-{% include vimeo.html ratio=56.25 %}
+{% include youtube.html ratio=56.25 %}
 
 Resources:
 
@@ -27,7 +27,7 @@ side effects by means of lawful, FP abstractions makes reasoning about
 asynchrony and concurrency so much easier. But concurrency brings with
 it race conditions, i.e. the ability to execute multiple tasks at the
 same time, possibly interrupting the losers and cleaning up resources
-afterwards and thus we end up reasoning about preemption. 
+afterwards and thus we end up reasoning about preemption.
 
 This talk describes the design of Monix's Task for cancelability and
 preemption, a design that has slowly transpired in cats-effect, first
