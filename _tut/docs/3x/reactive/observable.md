@@ -426,8 +426,8 @@ source.takeUntil(Observable.unit.delayExecution(250.millis)).dump("O")
 Note that the function is still pure - no side effect can be observed before `Observable` is executed.
 
 `Task#runToFuture` returns `CancelableFuture`. We can use it to return `Cancelable` from function, or we can just use `Cancelable.empty`.
-The former choice will be able to cancel `producerLoop` during `delayExecution(100.millis)` if `source` is canceled. 
-The latter will shortcircuit when `Stop` event is returned.
+The former choice will be able to cancel a `producerLoop` during `delayExecution(100.millis)` if the `source` is canceled. 
+The latter will shortcircuit when a `Stop` event is returned.
 
 ### Observable.repeatEvalF + concurrent data structure
 
