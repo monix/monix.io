@@ -515,6 +515,246 @@ If we use different strategy such as `MulticastStrategy.publish`, `processStream
 
 [More on Subjects later.](#subjects)
 
+## Backpressure, buffering, throttling
+
+`Observable` is backpressured, i.e. if producer (upstream) is faster than consumer (downstream), the producer will 
+wait for an `Ack` from the consumer before sending the next element. However, that's not always desirable.
+For instance, we might want to process messages in batches for better throughput, or have strict latency requirements 
+which we need to fulfill even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.
+
+### OverflowStrategy
+
+Many operators which limit, or disable backpressure will take an [OverflowStrategy](https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html).
+There are following policies available:
+- `Unbounded` does not limit the size of the buffer and an upstream won't be ever backpressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.
+- `Fail(bufferSize: Int)` will send `onError` to downstream, ending `Observable` if the buffer grows too large.
+- `BackPressure(bufferSize: Int)` will backpressure an upstream if the buffer grows too large.
+- `DropNew(bufferSize: Int)` will drop incoming elements if the buffer grows too large. This version is more efficient than `DropOld`.
+- `DropOld(bufferSize: Int)` will drop incoming elements if the buffer grows too large. 
+- `ClearBuffer(bufferSize: Int)` will clear the buffer if it grows beyond limit.
+
+`DropNew`, `DropOld` and `ClearBuffer` allow to send a signal downstream if the buffer reach its limit.
+
+### Asynchronous processing
+
+We can treat backpressured stream as a synchronous processing where upstream waits until given element is fully processed.
+
+```tut:silent 
+val stream = {
+  Observable("A", "B", "C", "D")
+    .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
+    .mapEval(i => Task { println(s"2: Processing $i") }.delayExecution(100.millis))
+}
+
+// Output when executed
+// 1: Processing A
+// 2: Processing AA
+// 1: Processing B
+// 2: Processing BB
+// 1: Processing C
+// 2: Processing CC
+// 1: Processing D
+// 2: Processing DD
+```
+
+Asynchronous processing would be the case in which downstream acknowledges new events immediately and processes them independently.
+`Observable` provides `asyncBoundary` method which creates a buffered asynchronous boundary. 
+The buffer is configured according to `OverflowStrategy`.
+
+```tut:silent 
+val stream = {
+  Observable("A", "B", "C", "D")
+    .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
+    .asyncBoundary(OverflowStrategy.Unbounded)
+    .mapEval(i => Task { println(s"2: Processing $i") }.delayExecution(100.millis))
+}
+
+// Output when executed
+// 1: Processing A
+// 1: Processing B
+// 1: Processing C
+// 1: Processing D
+// 2: Processing AA
+// 2: Processing BB
+// 2: Processing CC
+// 2: Processing DD
+```
+
+In the example above, we introduced `asyncBoundary` before last `mapEval` which introduced unbounded buffer before this operation.
+From the perspective of upstream, the downstream is keeping up with all elements so it can take the next one from the source.
+
+We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` would return following output:
+
+``` 
+1: Processing A
+1: Processing B
+1: Processing C
+2: Processing AA
+2: Processing BB
+1: Processing D
+2: Processing CC
+2: Processing DD
+```
+
+When `AA` is being processed in the second stage, the source can send two more (size of the buffer) elements 
+and then it is backpressured until there is more space available.
+
+### Processing elements in batches
+
+Operations like `asyncBoundary` and `ConcurrentSubject` will introduce internal buffers which we can't access.
+We can also buffer elements to process elements in batches.
+
+#### bufferSliding
+
+`Observable#bufferSliding` emits buffers every `skip` items, each containing `count` items.
+If the stream completes, it will emit an incomplete buffer downstream. 
+In case of an error, it will be dropped.
+
+The bundles can overlap, depending on parameters:
+- In case of `skip == count`, then all elements are emitted without any overlap
+- In case of `skip < count`, then buffers overlap with the number of elements repeated being `count - skip`
+- In case of `skip > count`, then `skip - count` elements start getting dropped between windows
+
+Let's take a look at an example demonstrating the case of `skip > count`:
+```tut:silent
+Observable.range(2, 7).bufferSliding(count = 2, skip = 3).dump("O")
+
+// Output when executed
+// 0: O --> WrappedArray(2, 3)
+// 1: O --> WrappedArray(5, 6)
+// 2: O completed
+```
+
+<img src="{{ site.baseurl }}public/images/marbles/buffer-sliding-1.png" align="center" style="max-width: 100%" />
+
+The element `4` has been skipped. If the situation was reversed, it would be duplicated instead:
+
+```tut:silent
+Observable.range(2, 7).bufferSliding(count = 3, skip = 2).dump("O")
+
+// Output when executed
+// 0: O --> WrappedArray(2, 3, 4)
+// 1: O --> WrappedArray(4, 5, 6)
+// 2: O completed
+```
+
+<img src="{{ site.baseurl }}public/images/marbles/buffer-sliding-2.png" align="center" style="max-width: 100%" />
+
+For `skip == count` scenario, take a look at the `bufferTumbling` example.
+
+#### bufferTumbling
+
+`Observable#bufferTumbling` will gather elements and emit them in non-overlapping bundles of specified `count`. 
+It is essentially `bufferSliding` where `count` is equal to `skip`.
+If the stream completes, it will emit an incomplete buffer downstream. 
+In case of an error, it will be dropped.
+
+```scala
+def bufferTumbling(count: Int): Observable[Seq[A]]
+```
+
+```tut:silent
+Observable.range(2, 7).bufferTumbling(count = 2).dump("O")
+  
+// Output when executed
+// 0: O --> WrappedArray(2, 3)
+// 1: O --> WrappedArray(4, 5)
+// 2: O --> WrappedArray(6)
+// 3: O completed
+```
+
+<img src="{{ site.baseurl }}public/images/marbles/buffer-tumbling.png" align="center" style="max-width: 100%" />
+
+#### bufferTimed
+
+We can also buffer elements depending on time, using `bufferTimed(timespan: FiniteDuration)`.
+
+```tut:silent
+Observable.intervalAtFixedRate(100.millis).bufferTimed(timespan = 1.second).dump("O")
+  
+// Emits 10 elements each second when executed
+// 0: O --> List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+// 1: O --> List(10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+// 2: O --> List(20, 21, 22, 23, 24, 25, 26, 27, 28, 29)
+// ...
+```
+
+#### bufferTimedAndCounted
+
+Using either `bufferTimed` or `bufferCounted` have its drawbacks. 
+In `bufferTimed`, the buffer sizes can be very inconsistent and we might be waiting on more elements, even if we could
+already be processing them, increasing latency. 
+When using `bufferCounted`, there is a risk of waiting a very long time (or forever) until there are enough elements to send them downstream.
+If these are possible issues in an application, we could use `bufferTimedAndCounted` to do both at the same time.
+
+This buffering method emits non-overlapping bundles, each of a fixed duration specified by the `timespan` argument
+or a maximum size specified by the `maxCount` argument (whichever is reached first).
+
+```tut:silent
+val stream = {
+  (Observable(1, 2, 3) ++ Observable.never)
+    .bufferTimedAndCounted(timespan = 1.second, maxCount = 2)
+    .dump("O")
+}
+  
+// Output when executed
+// 0: O --> List(1, 2)
+// 1: O --> List(3)
+// 2: O --> List()
+// 3: O --> List()
+// ...
+```
+
+#### bufferIntrospective
+
+There are more sophisticated buffering options available and one of them is `bufferIntrospective(maxSize: Int)`.
+This operator buffers element only if the downstream is busy, otherwise it sends them as they come.
+Once the buffer is full, it will backpressure upstream.
+
+```tut:silent
+val stream = {
+  Observable.range(1, 6)
+    .doOnNext(l => Task(println(s"Started $l")))
+    .bufferIntrospective(maxSize = 2)
+    .doOnNext(l => Task(println(s"Emitted batch $l")))
+    .mapEval(l => Task(println(s"Processed batch $l")).delayExecution(500.millis))
+}
+  
+// Output when executed
+// Started 1
+// Emitted batch List(1)
+// Started 2
+// Started 3
+// Processed batch List(1)
+// Emitted batch List(2, 3)
+// Started 4
+// Started 5
+// Processed batch List(2, 3)
+// Emitted batch List(4, 5)
+// Processed batch List(4, 5)
+```
+
+The example is a quite involved one so let's break it down:
+- Element `1` can be started immediately, the downstream is free so it is passed until the end
+- There is a free space in the buffer, so elements `2` and `3` can be started
+- Now buffer is filled so upstream is backpressured
+- Once the first batch is processed, `bufferIntrospective` can send a new one
+- There is a space in the buffer again so `4` and `5` can start and they will be emitted when the current batch is done
+
+#### bufferWithSelector
+
+#### bufferTimedWithPressure
+
+### Limiting a rate of elements
+
+#### throttleFirst
+
+#### throttleLast (sample)
+
+#### throttleWithTimeout (debounce)
+
+#### throttle
+
 ## Mapping Observable
 
 ### map
