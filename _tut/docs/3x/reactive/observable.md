@@ -392,6 +392,7 @@ Since they could be sent concurrently, it buffers elements when busy, according 
 
 ```tut:silent
 import monix.eval.Task
+import monix.execution.Ack
 import monix.reactive.Observable
 import monix.reactive.OverflowStrategy
 import monix.reactive.observers.Subscriber
