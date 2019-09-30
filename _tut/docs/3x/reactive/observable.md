@@ -392,13 +392,19 @@ Since they could be sent concurrently, it buffers elements when busy, according 
 
 ```tut:silent
 import monix.eval.Task
+import monix.execution.Ack
 import monix.reactive.Observable
 import monix.reactive.OverflowStrategy
 import monix.reactive.observers.Subscriber
 import scala.concurrent.duration._
 
 def producerLoop(sub: Subscriber[Int], n: Int = 0): Task[Unit] = {
-  Task.deferFuture(sub.onNext(n)).delayExecution(100.millis).flatMap(_ => producerLoop(sub, n + 1))
+  Task.deferFuture(sub.onNext(n))
+    .delayExecution(100.millis)
+    .flatMap {
+      case Ack.Continue => producerLoop(sub, n + 1)
+      case Ack.Stop => Task.unit
+    }
 }
 
 val source: Observable[Int] =
@@ -420,26 +426,9 @@ source.takeUntil(Observable.unit.delayExecution(250.millis)).dump("O")
 `Subscriber` has underlying `Scheduler` which can be used to run `producerLoop` inside of `Observable.create`.
 Note that the function is still pure - no side effect can be observed before `Observable` is executed.
 
-`Task#runToFuture` returns `CancelableFuture`. We can use it to tie `Observable` subscription with `producerLoop`. 
-Keep in mind it will only work if a subscription is canceled, not in a case of standard termination like `take(n)`.
-
-If we would like to have this interaction at all times, we could add [cats.effect.concurrent.Deferred](https://typelevel.org/cats-effect/concurrency/deferred.html)
-as shown in the following example:
-
-```scala
-val source: Observable[Int] =
-  Observable.fromTask(Deferred[Task, Unit]).flatMap { signal =>
-    Observable.create[Int](OverflowStrategy.Unbounded) { sub =>
-      Task.race(
-        producerLoop(sub)
-          .guarantee(Task(println("Producer has been completed"))),
-          signal.get
-      )
-        .runToFuture(sub.scheduler)
-    }
-      .guarantee(signal.complete(()))
-  }
-```
+`Task#runToFuture` returns `CancelableFuture`. We can use it to return `Cancelable` from function, or we can just use `Cancelable.empty`.
+The former choice will be able to cancel a `producerLoop` during `delayExecution(100.millis)` if the `source` is canceled. 
+The latter will shortcircuit when a `Stop` event is returned.
 
 ### Observable.repeatEvalF + concurrent data structure
 
