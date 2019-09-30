@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1569602911958036001" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1569602911958036001" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1569833335470062568" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1569833335470062568" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1569602911958036001">
+  <link rel="stylesheet" href="/public/css/all.css?1569833335470062568">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569602911958036001">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569833335470062568">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -484,13 +484,19 @@ Since they could be sent concurrently, it buffers elements when busy, according 
 <code class="highlighter-rouge">Cancelable</code> can contain special logic in case the subscription is canceled.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 <span class="k">import</span> <span class="nn">monix.reactive.OverflowStrategy</span>
 <span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
 <span class="k">def</span> <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="k">:</span> <span class="kt">Subscriber</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">n</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">n</span><span class="o">)).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">))</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">n</span><span class="o">))</span>
+    <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nv">Ack</span><span class="o">.</span><span class="py">Continue</span> <span class="k">=&gt;</span> <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+      <span class="k">case</span> <span class="nv">Ack</span><span class="o">.</span><span class="py">Stop</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
@@ -512,25 +518,9 @@ Since they could be sent concurrently, it buffers elements when busy, according 
 <p><code class="highlighter-rouge">Subscriber</code> has underlying <code class="highlighter-rouge">Scheduler</code> which can be used to run <code class="highlighter-rouge">producerLoop</code> inside of <code class="highlighter-rouge">Observable.create</code>.
 Note that the function is still pure - no side effect can be observed before <code class="highlighter-rouge">Observable</code> is executed.</p>
 
-<p><code class="highlighter-rouge">Task#runToFuture</code> returns <code class="highlighter-rouge">CancelableFuture</code>. We can use it to tie <code class="highlighter-rouge">Observable</code> subscription with <code class="highlighter-rouge">producerLoop</code>. 
-Keep in mind it will only work if a subscription is canceled, not in a case of standard termination like <code class="highlighter-rouge">take(n)</code>.</p>
-
-<p>If we would like to have this interaction at all times, we could add <a href="https://typelevel.org/cats-effect/concurrency/deferred.html">cats.effect.concurrent.Deferred</a>
-as shown in the following example:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromTask</span><span class="o">(</span><span class="nc">Deferred</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">]).</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">signal</span> <span class="k">=&gt;</span>
-    <span class="nv">Observable</span><span class="o">.</span><span class="py">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">sub</span> <span class="k">=&gt;</span>
-      <span class="nv">Task</span><span class="o">.</span><span class="py">race</span><span class="o">(</span>
-        <span class="nf">producerLoop</span><span class="o">(</span><span class="n">sub</span><span class="o">)</span>
-          <span class="o">.</span><span class="py">guarantee</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Producer has been completed"</span><span class="o">))),</span>
-          <span class="nv">signal</span><span class="o">.</span><span class="py">get</span>
-      <span class="o">)</span>
-        <span class="o">.</span><span class="py">runToFuture</span><span class="o">(</span><span class="nv">sub</span><span class="o">.</span><span class="py">scheduler</span><span class="o">)</span>
-    <span class="o">}</span>
-      <span class="o">.</span><span class="py">guarantee</span><span class="o">(</span><span class="nv">signal</span><span class="o">.</span><span class="py">complete</span><span class="o">(()))</span>
-  <span class="o">}</span>
-</code></pre></div></div>
+<p><code class="highlighter-rouge">Task#runToFuture</code> returns <code class="highlighter-rouge">CancelableFuture</code>. We can use it to return <code class="highlighter-rouge">Cancelable</code> from function, or we can just use <code class="highlighter-rouge">Cancelable.empty</code>.
+The former choice will be able to cancel a <code class="highlighter-rouge">producerLoop</code> during <code class="highlighter-rouge">delayExecution(100.millis)</code> if the <code class="highlighter-rouge">source</code> is canceled. 
+The latter will shortcircuit when a <code class="highlighter-rouge">Stop</code> event is returned.</p>
 
 <h3 id="observablerepeatevalf--concurrent-data-structure">Observable.repeatEvalF + concurrent data structure</h3>
 
