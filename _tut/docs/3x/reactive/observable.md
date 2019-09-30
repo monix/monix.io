@@ -743,17 +743,111 @@ The example is a quite involved one so let's break it down:
 
 #### bufferWithSelector
 
+Next sophisticated buffering operator is `bufferWithSelector(selector, maxSize)`. 
+It takes a selector `Observable` and emits a new buffer whenever it emits an element. 
+The second parameter, `maxSize` determines the maximum size of the buffer - if it is exceeded, an upstream will be backpressured.
+Any size below 1 will use unbounded buffer.
+
+Let's take a look at the example similar to the one with `bufferIntrospective` but we will emit elements every 100 milliseconds.
+
+```tut:silent 
+val stream = {
+  Observable.range(1, 6)
+    .doOnNext(l => Task(println(s"Started $l")))
+    .bufferWithSelector(selector = Observable.intervalAtFixedRate(initialDelay = 100.millis, period = 100.millis), maxSize = 2)
+    .doOnNext(l => Task(println(s"Emitted batch $l")))
+    .mapEval(l => Task(println(s"Processed batch $l")).delayExecution(500.millis))
+}
+
+// Output when executed
+// Started 1
+// Started 2
+// Started 3
+// Emitted batch List(1, 2)
+// Started 4
+// Processed batch List(1, 2)
+// Emitted batch List(3, 4)
+// Started 5
+// Processed batch List(3, 4)
+// Emitted batch List(5)
+// Processed batch List(5)
+```
+
+The output can be a bit confusing because it suggests that element `3` has been started before emitting the first batch.
+In reality it was backpressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation so
+it could happen before the "Emitted batch ..." print.
+
+Since `bufferWithSelector` takes an `Observable` it can be used to customize buffering to a pretty great extent.
+For instance, we could use [MVar](https://typelevel.org/cats-effect/concurrency/mvar.html) or [Semaphore](https://typelevel.org/cats-effect/concurrency/semaphore.html) to
+buffer messages until we receive a signal from a different part of the application.
+
+```scala
+def bufferUntilSignalled(mvar: MVar[Task, Unit]): Observable[Seq[Long]] = {
+  Observable.range(1, 10000)
+    .bufferWithSelector(Observable.repeatEvalF(mvar.take))
+    // do something with buffers
+}
+
+val program = for {
+  mvar <- MVar.empty[Task, Unit]
+  _ <- bufferUntilSignalled(mvar).completedL.startAndForget
+  _ <- mvar.put(()) // signal buffer to be sent
+} yield ()
+```
+
 #### bufferTimedWithPressure
 
+`Observable#bufferTimedWithPressure` is similar to `bufferTimedAndCounted` but it applies back-pressure if the buffer is full
+instead of emitting it. The other difference is that it allows to pass a function to calculate a size of the element.
+
+```tut:silent 
+sealed trait Elem
+case object A extends Elem
+case object B extends Elem
+case object C extends Elem
+
+val sizeOf: Elem => Int = {
+  case A => 1
+  case B => 2
+  case C => 3
+}
+
+val stream = {
+  Observable(A, B, C, C, A, B)
+    .bufferTimedWithPressure(period = 1.second, maxSize = 3, sizeOf = sizeOf)
+    .dump("O")
+}
+
+// Output when executed
+// 0: O --> List(A, B)
+// 1: O --> List(C)
+// 2: O --> List(C)
+// 3: O --> List(A, B)
+// 4: O completed
+```
+
 ### Limiting a rate of elements
+
+The following subsection covers some of the operators that can help with limiting a rate and/or filtering incoming events.
+As usual, there are more in the API and if you're missing something familiar from ReactiveX then it is most likely an easy addition
+so do not hesitate to open an issue.
+
+#### throttle
+
+The purpose of `throttle(period, n)` is to control a rate of events emitted downstream.
+The operator will buffer incoming events up to `n` and emit them each `period` as individual elements.
+Once internal buffer is filled, it will back-pressure an upstream.
+
+```tut:silent 
+// Emits 1 element per 1 second
+Observable.fromIterable(0 to 10).throttle(1.second, 1)
+```
 
 #### throttleFirst
 
 #### throttleLast (sample)
 
 #### throttleWithTimeout (debounce)
-
-#### throttle
 
 ## Mapping Observable
 
