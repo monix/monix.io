@@ -842,12 +842,12 @@ Important difference from other throttling operators is that `throttle` does not
 Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
 in user facing features.
 
-```tut:silent 
-{
-Observable.fromIterable(0 to 10)
-  .delayOnNext(200.millis)
-  .throttleFirst(1.second)
-  .dump("O")
+```tut:silent
+val stream = {
+  Observable.fromIterable(0 to 10)
+    .delayOnNext(200.millis)
+    .throttleFirst(1.second)
+    .dump("O")
 }
 
 // Emits in 1 second intervals:
@@ -861,12 +861,12 @@ Observable.fromIterable(0 to 10)
 
 `throttleLast` (aliased to `sample`) is similar to `throttleFirst` but it always emits the most recent (last one) element in the window.
 
-```tut:silent 
-{
-Observable.fromIterable(0 to 10)
-  .delayOnNext(200.millis)
-  .throttleLast(1.second)
-  .dump("O")
+```tut:silent
+val stream = {
+  Observable.fromIterable(0 to 10)
+    .delayOnNext(200.millis)
+    .throttleLast(1.second)
+    .dump("O")
 }
 
 // Emits in 1 second intervals:
@@ -886,8 +886,8 @@ This behavior is different than `throttleFirst` and `throttleLast` where the tim
 This operator is well suited for situations like a search query - it can be quite expensive so we might not want to start it 
 after each key entered by a user. Instead we could wait until the user stopped typing.
 
-```tut:silent 
-{
+```tut:silent
+val stream = {
   (Observable("M", "O", "N", "I", "X") ++ Observable.never)
     .delayOnNext(100.millis)
     .scan("")(_ ++ _)
@@ -901,12 +901,12 @@ after each key entered by a user. Instead we could wait until the user stopped t
 
 Note that if the source emits elements too fast and ends, all elements will be skipped, as presented in the next example:
 
-```tut:silent 
-{
-Observable.fromIterable(0 to 10)
-  .delayOnNext(200.millis)
-  .throttleWithTimeout(1.second)
-  .dump("O")
+```tut:silent
+val stream = {
+  Observable.fromIterable(0 to 10)
+    .delayOnNext(200.millis)
+    .throttleWithTimeout(1.second)
+    .dump("O")
 }
 
 // Output after execution
