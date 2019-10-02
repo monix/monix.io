@@ -165,7 +165,7 @@ Observable.fromIterable(1 to 3)
 `fromIterable` is a builder which creates an `Observable`. This is a place which implements `subscribe`. This method passes 
 each element to its subscribers by calling `onNext`. Once the sequence is empty it calls `onComplete` to signal that there aren't any 
 elements left to process and entire `Observable` can end. 
-Note that `observer.onNext(elem)` returns `Future[Ack]`. To obey the contract and preserve backpressure, we have to wait for its result before 
+Note that `observer.onNext(elem)` returns `Future[Ack]`. To obey the contract and preserve back-pressure, we have to wait for its result before 
 we pass the next element. `Ack` can be either `Continue` (ok to send next element) or `Stop` (we should shut down).
 It means we have a way to stop downstream (by calling `onComplete`) and an upstream (returning `Stop` after `onNext`).
 
@@ -383,9 +383,9 @@ There are several options to feed `Observable` with elements from other part of 
 
 ### Observable.create
 
-`Observable.create` is a builder for creating an `Observable` from sources which can't be backpressured.
+`Observable.create` is a builder for creating an `Observable` from sources which can't be back-pressured.
 It takes a `f: Subscriber.Sync[A] => Cancelable`. `Subscriber.Sync` is an `Observer` with built-in `Scheduler` which doesn't have 
-to worry about backpressure contract so it is safe to use even for inexperienced `Observable` users. 
+to worry about back-pressure contract so it is safe to use even for inexperienced `Observable` users. 
 An `Observable` which is returned by the method will receive all elements which were sent to the `Subscriber`.
 Since they could be sent concurrently, it buffers elements when busy, according to specified `OverflowStrategy`.
 `Cancelable` can contain special logic in case the subscription is canceled.
@@ -461,7 +461,7 @@ def processStream[A](observable: Observable[A]): Task[Unit] = {
 }
 ```
 
-`ConcurrentQueue` has a bounded variant which will backpressure the producer if it is too fast.
+`ConcurrentQueue` has a bounded variant which will back-pressure the producer if it is too fast.
 
 If you're curious why we have to `flatMap` [see excellent presentation by Fabio Labella](https://vimeo.com/294736344).
 Note that you can also create `Observable` from other tools for Concurrency, such as `MVar` or `Deferred`.
@@ -504,29 +504,29 @@ If we use different strategy such as `MulticastStrategy.publish`, `processStream
 
 [More on Subjects later.](#subjects)
 
-## Backpressure, buffering, throttling
+## Back-pressure, buffering, throttling
 
-`Observable` is backpressured, i.e. if producer (upstream) is faster than consumer (downstream), the producer will 
+`Observable` is back-pressured, i.e. if producer (upstream) is faster than consumer (downstream), the producer will 
 wait for an `Ack` from the consumer before sending the next element. However, that's not always desirable.
 For instance, we might want to process messages in batches for better throughput, or have strict latency requirements 
-which we need to fulfill even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.
+which we need to fulfil even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.
 
 ### OverflowStrategy
 
-Many operators which limit, or disable backpressure will take an [OverflowStrategy](https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html).
+Many operators which limit, or disable back-pressure will take an [OverflowStrategy](https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html) as a parameter.
 There are following policies available:
-- `Unbounded` does not limit the size of the buffer and an upstream won't be ever backpressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.
+- `Unbounded` does not limit the size of the buffer and an upstream won't be ever back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.
 - `Fail(bufferSize: Int)` will send `onError` to downstream, ending `Observable` if the buffer grows too large.
-- `BackPressure(bufferSize: Int)` will backpressure an upstream if the buffer grows too large.
+- `Backpressure(bufferSize: Int)` will back-pressure an upstream if the buffer grows too large.
 - `DropNew(bufferSize: Int)` will drop incoming elements if the buffer grows too large. This version is more efficient than `DropOld`.
-- `DropOld(bufferSize: Int)` will drop incoming elements if the buffer grows too large. 
+- `DropOld(bufferSize: Int)` will drop the oldest elements if the buffer grows too large. 
 - `ClearBuffer(bufferSize: Int)` will clear the buffer if it grows beyond limit.
 
-`DropNew`, `DropOld` and `ClearBuffer` allow to send a signal downstream if the buffer reach its limit.
+`DropNew`, `DropOld` and `ClearBuffer` allow to send a signal downstream if the buffer reach its capacity.
 
 ### Asynchronous processing
 
-We can treat backpressured stream as a synchronous processing where upstream waits until given element is fully processed.
+We can treat back-pressured stream as a synchronous processing where upstream waits until given element is fully processed.
 
 ```tut:silent 
 val stream = {
@@ -571,7 +571,7 @@ val stream = {
 
 In the example above, we introduced `asyncBoundary` before last `mapEval` which introduced unbounded buffer before this operation.
 From the perspective of upstream, the downstream is keeping up with all elements so it can take the next one from the source.
-Anything after `asyncBoundary` is backpressured as usual - each `2: Processing XX` will be emitte in 100 millis intervals.
+Anything after `asyncBoundary` is back-pressured as usual - each `2: Processing XX` will be emitted in 100 millisecond intervals.
 
 We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` would return following output:
 
@@ -587,7 +587,7 @@ We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` wou
 ```
 
 When `AA` is being processed in the second stage, the source can send two more (size of the buffer) elements 
-and then it is backpressured until there is more space available.
+and then it is back-pressured until there is more space available.
 
 ### Processing elements in batches
 
@@ -672,7 +672,7 @@ Observable.intervalAtFixedRate(100.millis).bufferTimed(timespan = 1.second).dump
 #### bufferTimedAndCounted
 
 Using either `bufferTimed` or `bufferCounted` have its drawbacks. 
-In `bufferTimed`, the buffer sizes can be very inconsistent and we might be waiting on more elements, even if we could
+In `bufferTimed`, the buffer sizes can be very inconsistent and we might be waiting on more elements even if we could
 already be processing them, increasing latency. 
 When using `bufferCounted`, there is a risk of waiting a very long time (or forever) until there are enough elements to send them downstream.
 If these are possible issues in an application, we could use `bufferTimedAndCounted` to do both at the same time.
@@ -699,7 +699,7 @@ val stream = {
 
 There are more sophisticated buffering options available and one of them is `bufferIntrospective(maxSize: Int)`.
 This operator buffers element only if the downstream is busy, otherwise it sends them as they come.
-Once the buffer is full, it will backpressure upstream.
+Once the buffer is full, it will back-pressure upstream.
 
 ```tut:silent
 val stream = {
@@ -727,7 +727,7 @@ val stream = {
 The example is a quite involved one so let's break it down:
 - Element `1` can be started immediately, the downstream is free so it is passed until the end
 - There is a free space in the buffer, so elements `2` and `3` can be started
-- Now buffer is filled so upstream is backpressured
+- Now buffer is filled so upstream is back-pressured
 - Once the first batch is processed, `bufferIntrospective` can send a new one
 - There is a space in the buffer again so `4` and `5` can start and they will be emitted when the current batch is done
 
@@ -735,7 +735,7 @@ The example is a quite involved one so let's break it down:
 
 Next sophisticated buffering operator is `bufferWithSelector(selector, maxSize)`. 
 It takes a selector `Observable` and emits a new buffer whenever it emits an element. 
-The second parameter, `maxSize` determines the maximum size of the buffer - if it is exceeded, an upstream will be backpressured.
+The second parameter, `maxSize` determines the maximum size of the buffer - if it is exceeded, an upstream will be back-pressured.
 Any size below 1 will use unbounded buffer.
 
 Let's take a look at the example similar to the one with `bufferIntrospective` but we will emit elements every 100 milliseconds.
@@ -764,7 +764,7 @@ val stream = {
 ```
 
 The output can be a bit confusing because it suggests that element `3` has been started before emitting the first batch.
-In reality it was backpressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation so
+In reality it was back-pressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation so
 it could happen before the "Emitted batch ..." print.
 
 Since `bufferWithSelector` takes an `Observable` it can be used to customize buffering to a pretty great extent.
@@ -1063,7 +1063,7 @@ val stream = {
 
 ### mergeMap
 
-`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't backpressure on elements
+`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't back-pressure on elements
 from the source and subscribes to all of the `Observable` produced from the source until they terminate. These produced `Observable` are often called *inner* or *child*.
 
 ```tut:silent
@@ -1115,7 +1115,7 @@ val stream = {
 ```
 
 ### switchMap
-Similarly to `mergeMap`, `Observable#switchMap` does not backpressure on elements from the source stream but it *switches* to the first `Observable` returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than `mergeMap` because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.
+Similarly to `mergeMap`, `Observable#switchMap` does not back-pressure on elements from the source stream but it *switches* to the first `Observable` returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than `mergeMap` because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.
 
 <img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
 
@@ -1152,7 +1152,7 @@ val stream = {
 
 ### Summary
 
-If you want to backpressure source `Observable` when emitting new events, use:
+If you want to back-pressure source `Observable` when emitting new events, use:
 - `map` for pure, synchronous functions which return only one value
 - `mapEval` or `mapParallel` for effectful, possibly asynchronous functions which return up to one value
 - `flatMap` for effectful, possibly asynchronous functions which return a stream of values
@@ -1583,9 +1583,9 @@ canceled but that's not the case with `ConnectableObservable`. Whenever each sub
 If it weren't for `cancelable.cancel()` it would have keep going even after all subscribers stopped listening. Also note the
 `source` was ran only once.
 
-### Backpressure
+### Back-pressure
 
-Source `ConnectableObservable` is backpressured on *all* subscribers. In other words, it will wait for acknowledgement from
+Source `ConnectableObservable` is back-pressured on *all* subscribers. In other words, it will wait for acknowledgement from
 all active subscribers before processing the next element. 
 
 Let's see it on an example:
@@ -1630,7 +1630,7 @@ Task.parZip2(o1, o2)
 ```
 
 It might not be always desirable if we don't want to slow down the producer. There are several ways to handle it, depending
-on the use case. In general, if we don't want backpressure, we need a buffer with proper overflow strategy.
+on the use case. In general, if we don't want back-pressure, we need a buffer with proper overflow strategy.
 
 For instance, we could introduce buffer per subscriber which can store up to 10 elements and then starts dropping new elements:
 
@@ -1638,7 +1638,7 @@ For instance, we could introduce buffer per subscriber which can store up to 10 
 val subObservable = source.whileBusyBuffer(OverflowStrategy.DropNew(10))
 ```
 
-Or even disable backpressure completely with a function like `whileBusyDropEvents`.
+Or even disable back-pressure completely with a function like `whileBusyDropEvents`.
 From the perspective of `source`, the subscriber is always processing elements right away so it doesn't have to wait on it.
 
 ### Configuring underlying Subject 
