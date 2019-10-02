@@ -571,6 +571,7 @@ val stream = {
 
 In the example above, we introduced `asyncBoundary` before last `mapEval` which introduced unbounded buffer before this operation.
 From the perspective of upstream, the downstream is keeping up with all elements so it can take the next one from the source.
+Anything after `asyncBoundary` is backpressured as usual - each `2: Processing XX` will be emitte in 100 millis intervals.
 
 We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` would return following output:
 
@@ -832,11 +833,84 @@ Once internal buffer is filled, it will back-pressure an upstream.
 Observable.fromIterable(0 to 10).throttle(1.second, 1)
 ```
 
+Important difference from other throttling operators is that `throttle` does not skip any elements.
+
 #### throttleFirst
+
+`Observable#throttleFirst(interval)` emits only the first item emitted by source in specified intervals.
+Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
+in user facing features.
+
+```tut:silent 
+{
+Observable.fromIterable(0 to 10)
+  .delayOnNext(200.millis)
+  .throttleFirst(1.second)
+  .dump("O")
+}
+
+// Emits in 1 second intervals:
+// 0: O --> 0
+// 1: O --> 5
+// 2: O --> 10
+// 3: O completed
+```
 
 #### throttleLast (sample)
 
+`throttleLast` (aliased to `sample`) is similar to `throttleFirst` but it always emits the most recent (last one) element in the window.
+
+```tut:silent 
+{
+Observable.fromIterable(0 to 10)
+  .delayOnNext(200.millis)
+  .throttleLast(1.second)
+  .dump("O")
+}
+
+// Emits in 1 second intervals:
+// 0: O --> 3
+// 1: O --> 8
+// 2: O --> 10
+// 3: O completed
+```
+
 #### throttleWithTimeout (debounce)
+
+`throttleWithTimeout` (aliased to `debounce`) will drop any events that were emitted in a short succession.
+An event will be passed to downstream only after given `timeout` passes. Each event resets the timer, even if it is dropped.
+The operator will wait until it is "calm" and then emit the latest event.
+This behavior is different than `throttleFirst` and `throttleLast` where the time window was static.
+
+This operator is well suited for situations like a search query - it can be quite expensive so we might not want to start it 
+after each key entered by a user. Instead we could wait until the user stopped typing.
+
+```tut:silent 
+{
+  (Observable("M", "O", "N", "I", "X") ++ Observable.never)
+    .delayOnNext(100.millis)
+    .scan("")(_ ++ _)
+    .debounce(200.millis)
+    .dump("O")
+}
+
+// Output:
+// 0: O --> MONIX
+```
+
+Note that if the source emits elements too fast and ends, all elements will be skipped, as presented in the next example:
+
+```tut:silent 
+{
+Observable.fromIterable(0 to 10)
+  .delayOnNext(200.millis)
+  .throttleWithTimeout(1.second)
+  .dump("O")
+}
+
+// Output after execution
+// 0: O completed
+```
 
 ## Mapping Observable
 
