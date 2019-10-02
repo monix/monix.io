@@ -606,6 +606,7 @@ The bundles can overlap, depending on parameters:
 - In case of `skip > count`, then `skip - count` elements start getting dropped between windows
 
 Let's take a look at an example demonstrating the case of `skip > count`:
+
 ```tut:silent
 Observable.range(2, 7).bufferSliding(count = 2, skip = 3).dump("O")
 
