@@ -528,7 +528,7 @@ There are following policies available:
 
 We can treat back-pressured stream as a synchronous processing where upstream waits until given element is fully processed.
 
-```tut:silent 
+```tut:silent
 val stream = {
   Observable("A", "B", "C", "D")
     .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
@@ -550,7 +550,7 @@ Asynchronous processing would be the case in which downstream acknowledges new e
 `Observable` provides `asyncBoundary` method which creates a buffered asynchronous boundary. 
 The buffer is configured according to `OverflowStrategy`.
 
-```tut:silent 
+```tut:silent
 val stream = {
   Observable("A", "B", "C", "D")
     .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
@@ -741,7 +741,7 @@ Any size below 1 will use unbounded buffer.
 
 Let's take a look at the example similar to the one with `bufferIntrospective` but we will emit elements every 100 milliseconds.
 
-```tut:silent 
+```tut:silent
 val stream = {
   Observable.range(1, 6)
     .doOnNext(l => Task(println(s"Started $l")))
@@ -791,7 +791,7 @@ val program = for {
 `Observable#bufferTimedWithPressure` is similar to `bufferTimedAndCounted` but it applies back-pressure if the buffer is full
 instead of emitting it. The other difference is that it allows to pass a function to calculate a size of the element.
 
-```tut:silent 
+```tut:silent
 sealed trait Elem
 case object A extends Elem
 case object B extends Elem
@@ -829,7 +829,7 @@ The purpose of `throttle(period, n)` is to control a rate of events emitted down
 The operator will buffer incoming events up to `n` and emit them each `period` as individual elements.
 Once internal buffer is filled, it will back-pressure an upstream.
 
-```tut:silent 
+```tut:silent
 // Emits 1 element per 1 second
 Observable.fromIterable(0 to 10).throttle(1.second, 1)
 ```
