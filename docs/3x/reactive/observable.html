@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1569833335470062568" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1569833335470062568" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1570097122465149657" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1570097122465149657" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1569833335470062568">
+  <link rel="stylesheet" href="/public/css/all.css?1570097122465149657">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1569833335470062568">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1570097122465149657">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -274,7 +274,7 @@ Imagine following situation:</p>
 <p><code class="highlighter-rouge">fromIterable</code> is a builder which creates an <code class="highlighter-rouge">Observable</code>. This is a place which implements <code class="highlighter-rouge">subscribe</code>. This method passes 
 each element to its subscribers by calling <code class="highlighter-rouge">onNext</code>. Once the sequence is empty it calls <code class="highlighter-rouge">onComplete</code> to signal that there aren’t any 
 elements left to process and entire <code class="highlighter-rouge">Observable</code> can end. 
-Note that <code class="highlighter-rouge">observer.onNext(elem)</code> returns <code class="highlighter-rouge">Future[Ack]</code>. To obey the contract and preserve backpressure, we have to wait for its result before 
+Note that <code class="highlighter-rouge">observer.onNext(elem)</code> returns <code class="highlighter-rouge">Future[Ack]</code>. To obey the contract and preserve back-pressure, we have to wait for its result before 
 we pass the next element. <code class="highlighter-rouge">Ack</code> can be either <code class="highlighter-rouge">Continue</code> (ok to send next element) or <code class="highlighter-rouge">Stop</code> (we should shut down).
 It means we have a way to stop downstream (by calling <code class="highlighter-rouge">onComplete</code>) and an upstream (returning <code class="highlighter-rouge">Stop</code> after <code class="highlighter-rouge">onNext</code>).</p>
 
@@ -476,9 +476,9 @@ It also has guaranteed idempotency and thread-safety:</p>
 
 <h3 id="observablecreate">Observable.create</h3>
 
-<p><code class="highlighter-rouge">Observable.create</code> is a builder for creating an <code class="highlighter-rouge">Observable</code> from sources which can’t be backpressured.
+<p><code class="highlighter-rouge">Observable.create</code> is a builder for creating an <code class="highlighter-rouge">Observable</code> from sources which can’t be back-pressured.
 It takes a <code class="highlighter-rouge">f: Subscriber.Sync[A] =&gt; Cancelable</code>. <code class="highlighter-rouge">Subscriber.Sync</code> is an <code class="highlighter-rouge">Observer</code> with built-in <code class="highlighter-rouge">Scheduler</code> which doesn’t have 
-to worry about backpressure contract so it is safe to use even for inexperienced <code class="highlighter-rouge">Observable</code> users. 
+to worry about back-pressure contract so it is safe to use even for inexperienced <code class="highlighter-rouge">Observable</code> users. 
 An <code class="highlighter-rouge">Observable</code> which is returned by the method will receive all elements which were sent to the <code class="highlighter-rouge">Subscriber</code>.
 Since they could be sent concurrently, it buffers elements when busy, according to specified <code class="highlighter-rouge">OverflowStrategy</code>.
 <code class="highlighter-rouge">Cancelable</code> can contain special logic in case the subscription is canceled.</p>
@@ -552,7 +552,7 @@ with <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to cr
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">ConcurrentQueue</code> has a bounded variant which will backpressure the producer if it is too fast.</p>
+<p><code class="highlighter-rouge">ConcurrentQueue</code> has a bounded variant which will back-pressure the producer if it is too fast.</p>
 
 <p>If you’re curious why we have to <code class="highlighter-rouge">flatMap</code> <a href="https://vimeo.com/294736344">see excellent presentation by Fabio Labella</a>.
 Note that you can also create <code class="highlighter-rouge">Observable</code> from other tools for Concurrency, such as <code class="highlighter-rouge">MVar</code> or <code class="highlighter-rouge">Deferred</code>.</p>
@@ -593,6 +593,403 @@ It might not be noticable with <code class="highlighter-rouge">MulticastStrategy
 If we use different strategy such as <code class="highlighter-rouge">MulticastStrategy.publish</code>, <code class="highlighter-rouge">processStream</code> won’t receive any elements which were sent before subscription.</p>
 
 <p><a href="#subjects">More on Subjects later.</a></p>
+
+<h2 id="back-pressure-buffering-throttling">Back-pressure, buffering, throttling</h2>
+
+<p><code class="highlighter-rouge">Observable</code> is back-pressured, i.e. if producer (upstream) is faster than consumer (downstream), the producer will 
+wait for an <code class="highlighter-rouge">Ack</code> from the consumer before sending the next element. However, that’s not always desirable.
+For instance, we might want to process messages in batches for better throughput, or have strict latency requirements 
+which we need to fulfil even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.</p>
+
+<h3 id="overflowstrategy">OverflowStrategy</h3>
+
+<p>Many operators which limit, or disable back-pressure will take an <a href="https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html">OverflowStrategy</a> as a parameter.
+There are following policies available:</p>
+<ul>
+  <li><code class="highlighter-rouge">Unbounded</code> does not limit the size of the buffer and an upstream won’t be ever back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.</li>
+  <li><code class="highlighter-rouge">Fail(bufferSize: Int)</code> will send <code class="highlighter-rouge">onError</code> to downstream, ending <code class="highlighter-rouge">Observable</code> if the buffer grows too large.</li>
+  <li><code class="highlighter-rouge">Backpressure(bufferSize: Int)</code> will back-pressure an upstream if the buffer grows too large.</li>
+  <li><code class="highlighter-rouge">DropNew(bufferSize: Int)</code> will drop incoming elements if the buffer grows too large. This version is more efficient than <code class="highlighter-rouge">DropOld</code>.</li>
+  <li><code class="highlighter-rouge">DropOld(bufferSize: Int)</code> will drop the oldest elements if the buffer grows too large.</li>
+  <li><code class="highlighter-rouge">ClearBuffer(bufferSize: Int)</code> will clear the buffer if it grows beyond limit.</li>
+</ul>
+
+<p><code class="highlighter-rouge">DropNew</code>, <code class="highlighter-rouge">DropOld</code> and <code class="highlighter-rouge">ClearBuffer</code> allow to send a signal downstream if the buffer reach its capacity.</p>
+
+<h3 id="asynchronous-processing">Asynchronous processing</h3>
+
+<p>We can treat back-pressured stream as a synchronous processing where upstream waits until given element is fully processed.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"D"</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"1: Processing $i"</span><span class="o">);</span> <span class="n">i</span> <span class="o">++</span> <span class="n">i</span> <span class="o">})</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"2: Processing $i"</span><span class="o">)</span> <span class="o">}.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">// Output when executed
+// 1: Processing A
+// 2: Processing AA
+// 1: Processing B
+// 2: Processing BB
+// 1: Processing C
+// 2: Processing CC
+// 1: Processing D
+// 2: Processing DD
+</span></code></pre></div></div>
+
+<p>Asynchronous processing would be the case in which downstream acknowledges new events immediately and processes them independently.
+<code class="highlighter-rouge">Observable</code> provides <code class="highlighter-rouge">asyncBoundary</code> method which creates a buffered asynchronous boundary. 
+The buffer is configured according to <code class="highlighter-rouge">OverflowStrategy</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"D"</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"1: Processing $i"</span><span class="o">);</span> <span class="n">i</span> <span class="o">++</span> <span class="n">i</span> <span class="o">})</span>
+    <span class="o">.</span><span class="py">asyncBoundary</span><span class="o">(</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">Unbounded</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"2: Processing $i"</span><span class="o">)</span> <span class="o">}.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">// Output when executed
+// 1: Processing A
+// 1: Processing B
+// 1: Processing C
+// 1: Processing D
+// 2: Processing AA
+// 2: Processing BB
+// 2: Processing CC
+// 2: Processing DD
+</span></code></pre></div></div>
+
+<p>In the example above, we introduced <code class="highlighter-rouge">asyncBoundary</code> before last <code class="highlighter-rouge">mapEval</code> which introduced unbounded buffer before this operation.
+From the perspective of upstream, the downstream is keeping up with all elements so it can take the next one from the source.
+Anything after <code class="highlighter-rouge">asyncBoundary</code> is back-pressured as usual - each <code class="highlighter-rouge">2: Processing XX</code> will be emitted in 100 millisecond intervals.</p>
+
+<p>We can use other <code class="highlighter-rouge">OverflowStrategy</code>, e.g. <code class="highlighter-rouge">OverflowStrategy.BackPressure(2)</code> would return following output:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1: Processing A
+1: Processing B
+1: Processing C
+2: Processing AA
+2: Processing BB
+1: Processing D
+2: Processing CC
+2: Processing DD
+</code></pre></div></div>
+
+<p>When <code class="highlighter-rouge">AA</code> is being processed in the second stage, the source can send two more (size of the buffer) elements 
+and then it is back-pressured until there is more space available.</p>
+
+<h3 id="processing-elements-in-batches">Processing elements in batches</h3>
+
+<p>Operations like <code class="highlighter-rouge">asyncBoundary</code> and <code class="highlighter-rouge">ConcurrentSubject</code> will introduce internal buffers which we can’t access.
+We can also buffer elements to process elements in batches.</p>
+
+<h4 id="buffersliding">bufferSliding</h4>
+
+<p><code class="highlighter-rouge">Observable#bufferSliding</code> emits buffers every <code class="highlighter-rouge">skip</code> items, each containing <code class="highlighter-rouge">count</code> items.
+If the stream completes, it will emit an incomplete buffer downstream. 
+In case of an error, it will be dropped.</p>
+
+<p>The bundles can overlap, depending on parameters:</p>
+<ul>
+  <li>In case of <code class="highlighter-rouge">skip == count</code>, then all elements are emitted without any overlap</li>
+  <li>In case of <code class="highlighter-rouge">skip &lt; count</code>, then buffers overlap with the number of elements repeated being <code class="highlighter-rouge">count - skip</code></li>
+  <li>In case of <code class="highlighter-rouge">skip &gt; count</code>, then <code class="highlighter-rouge">skip - count</code> elements start getting dropped between windows</li>
+</ul>
+
+<p>Let’s take a look at an example demonstrating the case of <code class="highlighter-rouge">skip &gt; count</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">7</span><span class="o">).</span><span class="py">bufferSliding</span><span class="o">(</span><span class="n">count</span> <span class="k">=</span> <span class="mi">2</span><span class="o">,</span> <span class="n">skip</span> <span class="k">=</span> <span class="mi">3</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+
+<span class="c1">// Output when executed
+// 0: O --&gt; WrappedArray(2, 3)
+// 1: O --&gt; WrappedArray(5, 6)
+// 2: O completed
+</span></code></pre></div></div>
+
+<p><img src="/public/images/marbles/buffer-sliding-1.png" align="center" style="max-width: 100%" /></p>
+
+<p>The element <code class="highlighter-rouge">4</code> has been skipped. If the situation was reversed, it would be duplicated instead:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">7</span><span class="o">).</span><span class="py">bufferSliding</span><span class="o">(</span><span class="n">count</span> <span class="k">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">skip</span> <span class="k">=</span> <span class="mi">2</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+
+<span class="c1">// Output when executed
+// 0: O --&gt; WrappedArray(2, 3, 4)
+// 1: O --&gt; WrappedArray(4, 5, 6)
+// 2: O completed
+</span></code></pre></div></div>
+
+<p><img src="/public/images/marbles/buffer-sliding-2.png" align="center" style="max-width: 100%" /></p>
+
+<p>For <code class="highlighter-rouge">skip == count</code> scenario, take a look at the <code class="highlighter-rouge">bufferTumbling</code> example.</p>
+
+<h4 id="buffertumbling">bufferTumbling</h4>
+
+<p><code class="highlighter-rouge">Observable#bufferTumbling</code> will gather elements and emit them in non-overlapping bundles of specified <code class="highlighter-rouge">count</code>. 
+It is essentially <code class="highlighter-rouge">bufferSliding</code> where <code class="highlighter-rouge">count</code> is equal to <code class="highlighter-rouge">skip</code>.
+If the stream completes, it will emit an incomplete buffer downstream. 
+In case of an error, it will be dropped.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bufferTumbling</span><span class="o">(</span><span class="n">count</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
+</code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">7</span><span class="o">).</span><span class="py">bufferTumbling</span><span class="o">(</span><span class="n">count</span> <span class="k">=</span> <span class="mi">2</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+  
+<span class="c1">// Output when executed
+// 0: O --&gt; WrappedArray(2, 3)
+// 1: O --&gt; WrappedArray(4, 5)
+// 2: O --&gt; WrappedArray(6)
+// 3: O completed
+</span></code></pre></div></div>
+
+<p><img src="/public/images/marbles/buffer-tumbling.png" align="center" style="max-width: 100%" /></p>
+
+<h4 id="buffertimed">bufferTimed</h4>
+
+<p>We can also buffer elements depending on time, using <code class="highlighter-rouge">bufferTimed(timespan: FiniteDuration)</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">intervalAtFixedRate</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">).</span><span class="py">bufferTimed</span><span class="o">(</span><span class="n">timespan</span> <span class="k">=</span> <span class="mf">1.</span><span class="n">second</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+  
+<span class="c1">// Emits 10 elements each second when executed
+// 0: O --&gt; List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+// 1: O --&gt; List(10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+// 2: O --&gt; List(20, 21, 22, 23, 24, 25, 26, 27, 28, 29)
+// ...
+</span></code></pre></div></div>
+
+<h4 id="buffertimedandcounted">bufferTimedAndCounted</h4>
+
+<p>Using either <code class="highlighter-rouge">bufferTimed</code> or <code class="highlighter-rouge">bufferCounted</code> have its drawbacks. 
+In <code class="highlighter-rouge">bufferTimed</code>, the buffer sizes can be very inconsistent and we might be waiting on more elements even if we could
+already be processing them, increasing latency. 
+When using <code class="highlighter-rouge">bufferCounted</code>, there is a risk of waiting a very long time (or forever) until there are enough elements to send them downstream.
+If these are possible issues in an application, we could use <code class="highlighter-rouge">bufferTimedAndCounted</code> to do both at the same time.</p>
+
+<p>This buffering method emits non-overlapping bundles, each of a fixed duration specified by the <code class="highlighter-rouge">timespan</code> argument
+or a maximum size specified by the <code class="highlighter-rouge">maxCount</code> argument (whichever is reached first).</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">never</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">bufferTimedAndCounted</span><span class="o">(</span><span class="n">timespan</span> <span class="k">=</span> <span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="n">maxCount</span> <span class="k">=</span> <span class="mi">2</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+  
+<span class="c1">// Output when executed
+// 0: O --&gt; List(1, 2)
+// 1: O --&gt; List(3)
+// 2: O --&gt; List()
+// 3: O --&gt; List()
+// ...
+</span></code></pre></div></div>
+
+<h4 id="bufferintrospective">bufferIntrospective</h4>
+
+<p>There are more sophisticated buffering options available and one of them is <code class="highlighter-rouge">bufferIntrospective(maxSize: Int)</code>.
+This operator buffers element only if the downstream is busy, otherwise it sends them as they come.
+Once the buffer is full, it will back-pressure upstream.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">6</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Started $l"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">bufferIntrospective</span><span class="o">(</span><span class="n">maxSize</span> <span class="k">=</span> <span class="mi">2</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Emitted batch $l"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Processed batch $l"</span><span class="o">)).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">500.</span><span class="n">millis</span><span class="o">))</span>
+<span class="o">}</span>
+  
+<span class="c1">// Output when executed
+// Started 1
+// Emitted batch List(1)
+// Started 2
+// Started 3
+// Processed batch List(1)
+// Emitted batch List(2, 3)
+// Started 4
+// Started 5
+// Processed batch List(2, 3)
+// Emitted batch List(4, 5)
+// Processed batch List(4, 5)
+</span></code></pre></div></div>
+
+<p>The example is a quite involved one so let’s break it down:</p>
+<ul>
+  <li>Element <code class="highlighter-rouge">1</code> can be started immediately, the downstream is free so it is passed until the end</li>
+  <li>There is a free space in the buffer, so elements <code class="highlighter-rouge">2</code> and <code class="highlighter-rouge">3</code> can be started</li>
+  <li>Now buffer is filled so upstream is back-pressured</li>
+  <li>Once the first batch is processed, <code class="highlighter-rouge">bufferIntrospective</code> can send a new one</li>
+  <li>There is a space in the buffer again so <code class="highlighter-rouge">4</code> and <code class="highlighter-rouge">5</code> can start and they will be emitted when the current batch is done</li>
+</ul>
+
+<h4 id="bufferwithselector">bufferWithSelector</h4>
+
+<p>Next sophisticated buffering operator is <code class="highlighter-rouge">bufferWithSelector(selector, maxSize)</code>. 
+It takes a selector <code class="highlighter-rouge">Observable</code> and emits a new buffer whenever it emits an element. 
+The second parameter, <code class="highlighter-rouge">maxSize</code> determines the maximum size of the buffer - if it is exceeded, an upstream will be back-pressured.
+Any size below 1 will use unbounded buffer.</p>
+
+<p>Let’s take a look at the example similar to the one with <code class="highlighter-rouge">bufferIntrospective</code> but we will emit elements every 100 milliseconds.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">6</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Started $l"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">bufferWithSelector</span><span class="o">(</span><span class="n">selector</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">intervalAtFixedRate</span><span class="o">(</span><span class="n">initialDelay</span> <span class="k">=</span> <span class="mf">100.</span><span class="n">millis</span><span class="o">,</span> <span class="n">period</span> <span class="k">=</span> <span class="mf">100.</span><span class="n">millis</span><span class="o">),</span> <span class="n">maxSize</span> <span class="k">=</span> <span class="mi">2</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">doOnNext</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Emitted batch $l"</span><span class="o">)))</span>
+    <span class="o">.</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Processed batch $l"</span><span class="o">)).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">500.</span><span class="n">millis</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">// Output when executed
+// Started 1
+// Started 2
+// Started 3
+// Emitted batch List(1, 2)
+// Started 4
+// Processed batch List(1, 2)
+// Emitted batch List(3, 4)
+// Started 5
+// Processed batch List(3, 4)
+// Emitted batch List(5)
+// Processed batch List(5)
+</span></code></pre></div></div>
+
+<p>The output can be a bit confusing because it suggests that element <code class="highlighter-rouge">3</code> has been started before emitting the first batch.
+In reality it was back-pressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation so
+it could happen before the “Emitted batch …” print.</p>
+
+<p>Since <code class="highlighter-rouge">bufferWithSelector</code> takes an <code class="highlighter-rouge">Observable</code> it can be used to customize buffering to a pretty great extent.
+For instance, we could use <a href="https://typelevel.org/cats-effect/concurrency/mvar.html">MVar</a> or <a href="https://typelevel.org/cats-effect/concurrency/semaphore.html">Semaphore</a> to
+buffer messages until we receive a signal from a different part of the application.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bufferUntilSignalled</span><span class="o">(</span><span class="n">mvar</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">])</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Long</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">10000</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">bufferWithSelector</span><span class="o">(</span><span class="nv">Observable</span><span class="o">.</span><span class="py">repeatEvalF</span><span class="o">(</span><span class="nv">mvar</span><span class="o">.</span><span class="py">take</span><span class="o">))</span>
+    <span class="c1">// do something with buffers
+</span><span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">program</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+  <span class="n">mvar</span> <span class="k">&lt;-</span> <span class="nv">MVar</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">]</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">bufferUntilSignalled</span><span class="o">(</span><span class="n">mvar</span><span class="o">).</span><span class="py">completedL</span><span class="o">.</span><span class="py">startAndForget</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">mvar</span><span class="o">.</span><span class="py">put</span><span class="o">(())</span> <span class="c1">// signal buffer to be sent
+</span><span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
+</code></pre></div></div>
+
+<h4 id="buffertimedwithpressure">bufferTimedWithPressure</h4>
+
+<p><code class="highlighter-rouge">Observable#bufferTimedWithPressure</code> is similar to <code class="highlighter-rouge">bufferTimedAndCounted</code> but it applies back-pressure if the buffer is full
+instead of emitting it. The other difference is that it allows to pass a function to calculate a size of the element.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Elem</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">A</span> <span class="k">extends</span> <span class="nc">Elem</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">B</span> <span class="k">extends</span> <span class="nc">Elem</span>
+<span class="k">case</span> <span class="k">object</span> <span class="nc">C</span> <span class="k">extends</span> <span class="nc">Elem</span>
+
+<span class="k">val</span> <span class="nv">sizeOf</span><span class="k">:</span> <span class="kt">Elem</span> <span class="o">=&gt;</span> <span class="nc">Int</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="n">A</span> <span class="k">=&gt;</span> <span class="mi">1</span>
+  <span class="k">case</span> <span class="n">B</span> <span class="k">=&gt;</span> <span class="mi">2</span>
+  <span class="k">case</span> <span class="n">C</span> <span class="k">=&gt;</span> <span class="mi">3</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nc">Observable</span><span class="o">(</span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">C</span><span class="o">,</span> <span class="n">C</span><span class="o">,</span> <span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">bufferTimedWithPressure</span><span class="o">(</span><span class="n">period</span> <span class="k">=</span> <span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="n">maxSize</span> <span class="k">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">sizeOf</span> <span class="k">=</span> <span class="n">sizeOf</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Output when executed
+// 0: O --&gt; List(A, B)
+// 1: O --&gt; List(C)
+// 2: O --&gt; List(C)
+// 3: O --&gt; List(A, B)
+// 4: O completed
+</span></code></pre></div></div>
+
+<h3 id="limiting-a-rate-of-elements">Limiting a rate of elements</h3>
+
+<p>The following subsection covers some of the operators that can help with limiting a rate and/or filtering incoming events.
+As usual, there are more in the API and if you’re missing something familiar from ReactiveX then it is most likely an easy addition
+so do not hesitate to open an issue.</p>
+
+<h4 id="throttle">throttle</h4>
+
+<p>The purpose of <code class="highlighter-rouge">throttle(period, n)</code> is to control a rate of events emitted downstream.
+The operator will buffer incoming events up to <code class="highlighter-rouge">n</code> and emit them each <code class="highlighter-rouge">period</code> as individual elements.
+Once internal buffer is filled, it will back-pressure an upstream.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Emits 1 element per 1 second
+</span><span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">).</span><span class="py">throttle</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Important difference from other throttling operators is that <code class="highlighter-rouge">throttle</code> does not skip any elements.</p>
+
+<h4 id="throttlefirst">throttleFirst</h4>
+
+<p><code class="highlighter-rouge">Observable#throttleFirst(interval)</code> emits only the first item emitted by source in specified intervals.
+Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
+in user facing features.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">200.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">throttleFirst</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Emits in 1 second intervals:
+// 0: O --&gt; 0
+// 1: O --&gt; 5
+// 2: O --&gt; 10
+// 3: O completed
+</span></code></pre></div></div>
+
+<h4 id="throttlelast-sample">throttleLast (sample)</h4>
+
+<p><code class="highlighter-rouge">throttleLast</code> (aliased to <code class="highlighter-rouge">sample</code>) is similar to <code class="highlighter-rouge">throttleFirst</code> but it always emits the most recent (last one) element in the window.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">200.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">throttleLast</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Emits in 1 second intervals:
+// 0: O --&gt; 3
+// 1: O --&gt; 8
+// 2: O --&gt; 10
+// 3: O completed
+</span></code></pre></div></div>
+
+<h4 id="throttlewithtimeout-debounce">throttleWithTimeout (debounce)</h4>
+
+<p><code class="highlighter-rouge">throttleWithTimeout</code> (aliased to <code class="highlighter-rouge">debounce</code>) will drop any events that were emitted in a short succession.
+An event will be passed to downstream only after given <code class="highlighter-rouge">timeout</code> passes. Each event resets the timer, even if it is dropped.
+The operator will wait until it is “calm” and then emit the latest event.
+This behavior is different than <code class="highlighter-rouge">throttleFirst</code> and <code class="highlighter-rouge">throttleLast</code> where the time window was static.</p>
+
+<p>This operator is well suited for situations like a search query - it can be quite expensive so we might not want to start it 
+after each key entered by a user. Instead we could wait until the user stopped typing.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="s">"M"</span><span class="o">,</span> <span class="s">"O"</span><span class="o">,</span> <span class="s">"N"</span><span class="o">,</span> <span class="s">"I"</span><span class="o">,</span> <span class="s">"X"</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">never</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">scan</span><span class="o">(</span><span class="s">""</span><span class="o">)(</span><span class="k">_</span> <span class="o">++</span> <span class="k">_</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">debounce</span><span class="o">(</span><span class="mf">200.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Output:
+// 0: O --&gt; MONIX
+</span></code></pre></div></div>
+
+<p>Note that if the source emits elements too fast and ends, all elements will be skipped, as presented in the next example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">delayOnNext</span><span class="o">(</span><span class="mf">200.</span><span class="n">millis</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">throttleWithTimeout</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+    <span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Output after execution
+// 0: O completed
+</span></code></pre></div></div>
 
 <h2 id="mapping-observable">Mapping Observable</h2>
 
@@ -736,7 +1133,7 @@ For each input element, the resulting <code class="highlighter-rouge">Observable
 
 <h3 id="mergemap">mergeMap</h3>
 
-<p><code class="highlighter-rouge">Observable#mergeMap</code> also takes a function which can return an <code class="highlighter-rouge">Observable</code> but it can process the source <em>concurrently</em>. It doesn’t backpressure on elements
+<p><code class="highlighter-rouge">Observable#mergeMap</code> also takes a function which can return an <code class="highlighter-rouge">Observable</code> but it can process the source <em>concurrently</em>. It doesn’t back-pressure on elements
 from the source and subscribes to all of the <code class="highlighter-rouge">Observable</code> produced from the source until they terminate. These produced <code class="highlighter-rouge">Observable</code> are often called <em>inner</em> or <em>child</em>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">50.</span><span class="n">millis</span><span class="o">)</span>
@@ -785,7 +1182,7 @@ In case one of the <code class="highlighter-rouge">Observable</code> returns an 
 </span></code></pre></div></div>
 
 <h3 id="switchmap">switchMap</h3>
-<p>Similarly to <code class="highlighter-rouge">mergeMap</code>, <code class="highlighter-rouge">Observable#switchMap</code> does not backpressure on elements from the source stream but it <em>switches</em> to the first <code class="highlighter-rouge">Observable</code> returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than <code class="highlighter-rouge">mergeMap</code> because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.</p>
+<p>Similarly to <code class="highlighter-rouge">mergeMap</code>, <code class="highlighter-rouge">Observable#switchMap</code> does not back-pressure on elements from the source stream but it <em>switches</em> to the first <code class="highlighter-rouge">Observable</code> returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than <code class="highlighter-rouge">mergeMap</code> because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.</p>
 
 <p><img src="/public/images/marbles/switch-map.png" align="center" style="max-width: 100%" /></p>
 
@@ -821,7 +1218,7 @@ In case one of the <code class="highlighter-rouge">Observable</code> returns an 
 
 <h3 id="summary">Summary</h3>
 
-<p>If you want to backpressure source <code class="highlighter-rouge">Observable</code> when emitting new events, use:</p>
+<p>If you want to back-pressure source <code class="highlighter-rouge">Observable</code> when emitting new events, use:</p>
 <ul>
   <li><code class="highlighter-rouge">map</code> for pure, synchronous functions which return only one value</li>
   <li><code class="highlighter-rouge">mapEval</code> or <code class="highlighter-rouge">mapParallel</code> for effectful, possibly asynchronous functions which return up to one value</li>
@@ -1243,9 +1640,9 @@ canceled but that’s not the case with <code class="highlighter-rouge">Connecta
 If it weren’t for <code class="highlighter-rouge">cancelable.cancel()</code> it would have keep going even after all subscribers stopped listening. Also note the
 <code class="highlighter-rouge">source</code> was ran only once.</p>
 
-<h3 id="backpressure">Backpressure</h3>
+<h3 id="back-pressure">Back-pressure</h3>
 
-<p>Source <code class="highlighter-rouge">ConnectableObservable</code> is backpressured on <em>all</em> subscribers. In other words, it will wait for acknowledgement from
+<p>Source <code class="highlighter-rouge">ConnectableObservable</code> is back-pressured on <em>all</em> subscribers. In other words, it will wait for acknowledgement from
 all active subscribers before processing the next element.</p>
 
 <p>Let’s see it on an example:</p>
@@ -1289,14 +1686,14 @@ all active subscribers before processing the next element.</p>
 </span></code></pre></div></div>
 
 <p>It might not be always desirable if we don’t want to slow down the producer. There are several ways to handle it, depending
-on the use case. In general, if we don’t want backpressure, we need a buffer with proper overflow strategy.</p>
+on the use case. In general, if we don’t want back-pressure, we need a buffer with proper overflow strategy.</p>
 
 <p>For instance, we could introduce buffer per subscriber which can store up to 10 elements and then starts dropping new elements:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">subObservable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">whileBusyBuffer</span><span class="o">(</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">DropNew</span><span class="o">(</span><span class="mi">10</span><span class="o">))</span>
 </code></pre></div></div>
 
-<p>Or even disable backpressure completely with a function like <code class="highlighter-rouge">whileBusyDropEvents</code>.
+<p>Or even disable back-pressure completely with a function like <code class="highlighter-rouge">whileBusyDropEvents</code>.
 From the perspective of <code class="highlighter-rouge">source</code>, the subscriber is always processing elements right away so it doesn’t have to wait on it.</p>
 
 <h3 id="configuring-underlying-subject">Configuring underlying Subject</h3>
