@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1570097122465149657" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1570097122465149657" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1570574322299688921" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1570574322299688921" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1570097122465149657">
+  <link rel="stylesheet" href="/public/css/all.css?1570574322299688921">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1570097122465149657">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1570574322299688921">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -311,27 +311,26 @@ similar way to how it’s done in other streaming libraries from FP ecosystem.</
 dirty internals don’t leak outside and majority of API is pure and the process of constructing and executing <code class="highlighter-rouge">Observable</code> is also pure.</p>
 
 <p>The main drawback in comparison to purely functional streams, such as <a href="https://github.com/functional-streams-for-scala/fs2">fs2</a> or
-<a href="/api/3.0/monix/tail/Iterant.html">Iterant</a> is availability of impure functions in API so if you have inexperienced 
+<a href="/api/3.0/monix/tail/Iterant.html">Iterant</a> is availability of impure functions in API. If you have inexperienced 
 team members, they could be tempted to use them. Fortunately, all of them are marked with <code class="highlighter-rouge">@UnsafeBecauseImpure</code> annotation and explained in ScalaDoc. 
 There should always be a referentially transparent replacement to solve your use case but if your team is not fully committed to FP, these functions can be very useful.</p>
 
-<p>For instance, convenient way to share <code class="highlighter-rouge">Observable</code> is using <code class="highlighter-rouge">Hot Observable</code> but it’s not referentially transparent.
-Nevertheless, you could do the same thing using <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> and purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as <code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share state in more controlled manner.</p>
+<p>For instance, an efficient and convenient way to share <code class="highlighter-rouge">Observable</code> is using <code class="highlighter-rouge">Hot Observable</code> but it’s not referentially transparent.
+Nevertheless, you could do the same thing using <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> and purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as <code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share a state in more controlled manner.</p>
 
-<p>Decision is up to the user to choose what’s better for them and their team.</p>
+<p>Just like in Scala itself, decision is up to the user to choose what’s better for them and their team.</p>
 
 <h2 id="execution">Execution</h2>
 
-<p>When you create <code class="highlighter-rouge">Observable</code> nothing actually happens until you call <code class="highlighter-rouge">subscribe</code>. 
-It means that (apart from impure parts of API) <code class="highlighter-rouge">Observable</code> preserves referential transparency.</p>
+<p>When you create <code class="highlighter-rouge">Observable</code> nothing actually happens until <code class="highlighter-rouge">subscribe</code> is called.
+It can be done directly by calling <code class="highlighter-rouge">subscribe()(implicit s: Scheduler): Cancelable</code> which will start the processing
+in the background and return a <code class="highlighter-rouge">Cancelable</code> which can be used to stop the streaming.</p>
 
-<p><code class="highlighter-rouge">Subscribe</code> is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
-You can think about it as <code class="highlighter-rouge">unsafePerformIO</code>.</p>
+<p>If you write programs in purely functional manner and would rather combine the results of <code class="highlighter-rouge">Observables</code>, 
+you can convert it to <a href="./../eval/task.html">Task</a> and compose it all the way through your program until the very end (Main method).
+The resulting <code class="highlighter-rouge">Task</code> can also be cancelled and it is recommended way to execute <code class="highlighter-rouge">Observable</code>.</p>
 
-<p>Preferred way to deal with <code class="highlighter-rouge">Observable</code> is to convert it to <a href="./../eval/task.html">Task</a> and compose it all the way
-through your program until the very end (Main method).</p>
-
-<p>Two main ways to convert <code class="highlighter-rouge">Observable</code> to <code class="highlighter-rouge">Task</code> are described below.</p>
+<p>Two main ways to convert <code class="highlighter-rouge">Observable</code> into <code class="highlighter-rouge">Task</code> are described below.</p>
 
 <h3 id="consumer">Consumer</h3>
 
