@@ -203,27 +203,26 @@ If you're mostly using available methods and want to write purely functional app
 dirty internals don't leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
 
 The main drawback in comparison to purely functional streams, such as [fs2](https://github.com/functional-streams-for-scala/fs2) or
-[Iterant]({{ site.api3x }}monix/tail/Iterant.html) is availability of impure functions in API so if you have inexperienced 
+[Iterant]({{ site.api3x }}monix/tail/Iterant.html) is availability of impure functions in API. If you have inexperienced 
 team members, they could be tempted to use them. Fortunately, all of them are marked with `@UnsafeBecauseImpure` annotation and explained in ScalaDoc. 
 There should always be a referentially transparent replacement to solve your use case but if your team is not fully committed to FP, these functions can be very useful.
 
-For instance, convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
-Nevertheless, you could do the same thing using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in more controlled manner.
+For instance, an efficient and convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
+Nevertheless, you could do the same thing using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share a state in more controlled manner.
 
-Decision is up to the user to choose what's better for them and their team.
+Just like in Scala itself, decision is up to the user to choose what's better for them and their team.
 
 ## Execution
 
-When you create `Observable` nothing actually happens until you call `subscribe`. 
-It means that (apart from impure parts of API) `Observable` preserves referential transparency. 
+When you create `Observable` nothing actually happens until `subscribe` is called.
+It can be done directly by calling `subscribe()(implicit s: Scheduler): Cancelable` which will start the processing
+in the background and return a `Cancelable` which can be used to stop the streaming. 
 
-`Subscribe` is considered low-level operator and it is advised not to use it unless you know exactly what you are doing. 
-You can think about it as `unsafePerformIO`.
+If you write programs in purely functional manner and would rather combine the results of `Observables`, 
+you can convert it to [Task](./../eval/task.html) and compose it all the way through your program until the very end (Main method).
+The resulting `Task` can also be cancelled and it is recommended way to execute `Observable`.
 
-Preferred way to deal with `Observable` is to convert it to [Task](./../eval/task.html) and compose it all the way
-through your program until the very end (Main method).
-
-Two main ways to convert `Observable` to `Task` are described below.
+Two main ways to convert `Observable` into `Task` are described below.
 
 ### Consumer
 
