@@ -1721,7 +1721,6 @@ val shared = {
 }
 
 shared.subscribe()
-shared.subscribe()
 ```
 
 The code would print the following output twice:
