@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1572473923900491454" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1572473923900491454" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1573200293820975834" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1573200293820975834" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1572473923900491454">
+  <link rel="stylesheet" href="/public/css/all.css?1573200293820975834">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1572473923900491454">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1573200293820975834">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -99,8 +99,8 @@
         <div class="page">
   <h1 class="page-title">Scheduler</h1>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.0/monix/execution/Scheduler.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.0.0/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala">Source Code</a>
+    <a href="/api/3.1/monix/execution/Scheduler.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.1.0/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/execution/scheduler.md">Edit Page</a>
   </nav>
@@ -381,7 +381,7 @@ which is second.</p>
 <h2 id="execution-model">Execution Model</h2>
 
 <p>Along with time, the <code class="highlighter-rouge">Scheduler</code> also specifies the
-<a href="/api/3.0/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
+<a href="/api/3.1/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution in loops.
 For example in Monix, this affects how both <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Observable</code>
@@ -390,18 +390,18 @@ are evaluated.</p>
 <p>Currently there are 3 execution models available:</p>
 
 <ul>
-  <li><a href="/api/3.0/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
+  <li><a href="/api/3.1/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
 the Monix default, specifies a mixed execution mode under which tasks are
 executed synchronously in batches up to a maximum size, after
 which an asynchronous boundary is forced. This execution mode
 is recommended because we don’t want to block threads / run-loops
 indefinitely, especially on top of Javascript where a long loop
 can mean that the UI gets frozen and where we need to be cooperative.</li>
-  <li><a href="/api/3.0/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
+  <li><a href="/api/3.1/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
 specifies that units of work within a loop should always execute
 asynchronously on each step, being basically the mode of operation
 for Scala’s <code class="highlighter-rouge">Future</code>.</li>
-  <li><a href="/api/3.0/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
+  <li><a href="/api/3.1/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
 specifies that synchronous execution should always be preferred,
 for as long as possible, being basically the mode of operation
 for the Scalaz <code class="highlighter-rouge">Task</code>.</li>
@@ -571,7 +571,7 @@ so it will still use <code class="highlighter-rouge">setTimeout</code> when dela
 <h2 id="shutdown-with-schedulerservice">Shutdown with SchedulerService</h2>
 
 <p>The <code class="highlighter-rouge">SchedulerService</code> is a <code class="highlighter-rouge">scheduler</code> type that provides methods for managing termination.
-See the <a href="/api/3.0/monix/execution/schedulers/SchedulerService.html">API Documentation</a>.</p>
+See the <a href="/api/3.1/monix/execution/schedulers/SchedulerService.html">API Documentation</a>.</p>
 
 <p>Similar in spirit to
 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">java.util.concurrent.ExecutorService</a>,
@@ -631,9 +631,7 @@ to use for waiting:</p>
 <p>We can now further inspect the state of our <code class="highlighter-rouge">SchedulerService</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">isTerminated</span>
-<span class="c1">// Fixed delay task
-// Fixed delay task
-// res43: Boolean = true
+<span class="c1">// res43: Boolean = true
 </span></code></pre></div></div>
 
 
