@@ -10,23 +10,31 @@
 
   
   
-  <title>Monix: Version 2.0-RC2 Released</title>
+  <title>Functional Concurrency in Scala 101 &mdash; Monix</title>
 
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c">
+  <meta name="twitter:player:width" content="560">
+  <meta name="twitter:player:height" content="315">
+  <meta name="twitter:image" content="https://monix.io/public/images/thumbs/2019-functional-concurrency-in-scala-101-piotr-gawrys.png" />
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Monix: Version 2.0-RC2 Released" />
-  <meta name="twitter:description" content="Second release candidate, made for a critical bug fix." />
+  <meta name="twitter:title" content="Functional Concurrency in Scala 101 &mdash; Monix" />
+  <meta name="twitter:description" content="Presentation from ScalaMatsuri 2019, by Piotr Gawryś, on concurrency basics in FP." />
 
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2016/05/02/monix-v2.0-RC2.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix: Version 2.0-RC2 Released" />
-  <meta property="og:description" content="Second release candidate, made for a critical bug fix." />
+  <meta property="og:url" content="https://monix.io/presentations/2019-functional-concurrency-in-scala-101" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" />
+  <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" />
+  <meta property="og:video:type" content="text/html" />
+  <meta property="og:video:width" content="560" />
+  <meta property="og:video:height" content="315" /> 
+  <meta property="og:image" content="https://monix.io/public/images/thumbs/2019-functional-concurrency-in-scala-101-piotr-gawrys.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/thumbs/2019-functional-concurrency-in-scala-101-piotr-gawrys.png" />
+  <meta property="og:title" content="Functional Concurrency in Scala 101 &mdash; Monix" />
+  <meta property="og:description" content="Presentation from ScalaMatsuri 2019, by Piotr Gawryś, on concurrency basics in FP." />
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -85,9 +93,9 @@
 
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
-      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
       <a class="sidebar-nav-item" href="/docs/3x/">Documentation</a>
-      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item active" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
       <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
     </nav>
@@ -96,66 +104,34 @@
 
 
       <article class="content container">
-        <div class="post">
+        <div class="page">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC2 Released</h1>
+  <h1 class="page-title">Functional Concurrency in Scala 101</h1>
 
-  <time class="post-date" itemprop="dateCreated"
-    datetime="2016-05-02">
-    02 May 2016
-    • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-  </time>
+  <p>Presentation from
+<a href="https://2019.scalamatsuri.org/index_en.html">ScalaMatsuri 2019</a> by
+<a href="https://twitter.com/p_gawrys">Piotr Gawryś</a>:</p>
 
-  <p>A small release for a critical bug fix.</p>
+<div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
+  <iframe src="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" id="youtube-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  </iframe>
+</div>
 
-<!--more-->
+<h2 id="abstract">Abstract</h2>
 
-<p>See the published <a href="/api/2.0-RC2/">API Documentation</a>.</p>
+<p>Using IO Monads for concurrency gains a lot of recognition lately. However, Functional Programming and JVM’s concurrency model are challenging to learn separately, let alone together. There are many terms like green threads, thread shifting, brackets or fairness thrown around but what are those and why should we keep them in mind?</p>
 
-<p>Changes:</p>
+<p>Starting from the basics, this talk aims to cover all of these. I hope any listener can walk out with enough knowledge to make a confident jump into FP libraries like Cats-Effect, Monix or ZIO.</p>
 
-<ul>
-  <li><a href="https://github.com/monix/monix/issues/144">Bug #144</a>: fixed race 
-condition in Observable.zip</li>
-</ul>
-
-<p>Enjoy!</p>
-
-
-  <div class="related">
-    <h2>Related Posts</h2>
-    <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2019/11/08/monix-v3.1.0.html">
-              Monix 3.1.0
-              <small>08 Nov 2019</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2019/09/11/monix-v3.0.0.html">
-              Monix 3.0.0
-              <small>11 Sep 2019</small>
-            </a>
-        </li>
-      
-        <li>
-            <a href="/blog/2019/08/30/monix-v3.0.0-R5.html">
-              Monix: Version 3.0.0-RC5
-              <small>30 Aug 2019</small>
-            </a>
-        </li>
-      
-    </ul>
-  </div>
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2016-05-02-monix-v2.0-RC2.md">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2019-functional-concurrency-in-scala-101.md" target="_blank">
       Edit Page</a> •
-    <a href="https://twitter.com/alexelcu">
-      Follow @alexelcu</a>
-  </div>  
+    <a href="https://gitter.im/monix/monix" target="_blank">
+      Join Chat</a> •
+    <a href="https://twitter.com/Avasil" target="_blank">
+      Follow @Avasil</a>
+    </div>
 
   
 <div id="contributions">
@@ -174,10 +150,9 @@ condition in Observable.zip</li>
           data-isso-vote="true"
           data-vote-levels=""
           src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.0-RC2 Released">
+  <section id="isso-thread" data-title="Functional Concurrency in Scala 101">
   </section>
 </div>
-
 </div>
 
       </article>
