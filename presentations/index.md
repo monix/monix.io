@@ -8,9 +8,9 @@ comments: true
 
 ## Conferences
 
-- [Functional Concurrency in Scala 101](./2019-functional-concurrency-in-scala-101.md) (repeat with Japanese slides subtitles)<br />
+- [Functional Concurrency in Scala 101](./2019-functional-concurrency-in-scala-101.html) (repeat with Japanese slides subtitles)<br />
   by Piotr Gawryś, [ScalaMatsuri 2019](https://2019.scalamatsuri.org/index_en.html)
-- [Dispelling magic behind Concurrency in FP - Piotr Gawryś](./2019-dispelling-magic-behind-concurrency-in-fp.html)<br />
+- [Dispelling magic behind Concurrency in FP](./2019-dispelling-magic-behind-concurrency-in-fp.html)<br />
   by Piotr Gawryś, [flatMap(Oslo) 2019](https://2019.flatmap.no/)
 - [Practical Reactive Streams with Monix](./2018-practical-reactive-streams-jacek-kunicki-sbtb.html)<br />
   by Jacek Kunicki, [Scale By The Bay 2018](https://scalebythebay2018.sched.com/)
