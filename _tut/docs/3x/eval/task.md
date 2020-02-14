@@ -568,16 +568,6 @@ So this guarantees that our task will get executed asynchronously:
 val task = Task.eval("Hello!").executeAsync
 ```
 
-In fact that's how `apply` is defined:
-
-```scala
-object Task {
-  def apply[A](f: => A): Task[A] =
-    fork(eval(f))
-  //...
-}
-```
-
 ExecuteOn allows us to specify an alternative `Scheduler` to use.
 You see, the run-loop of `Task` always has a `Scheduler` available, but
 for certain operations you might want to divert the processing to an alternative
@@ -900,7 +890,7 @@ eager.
 
 ### FlatMap and Tail-Recursive Loops
 
-So let's start with a stupid example that calculates the N-th number in
+So let's start with a simple example that calculates the N-th number in
 the Fibonacci sequence:
 
 ```tut:silent
