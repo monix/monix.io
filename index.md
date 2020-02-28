@@ -135,3 +135,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+## Adopters
+
+Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/edit/master/README.md)
+
+- [Abacus](https://abacusfi.com)
+- [commercetools](https://commercetools.com)
+- [Coya](https://www.coya.com/)
+- [eBay Inc.](https://www.ebay.com)
+- [Sony Electronics](https://www.sony.com)
+- [Zalando](https://www.zalando.com)
+- [Agoda](https://www.agoda.com)
+- [Hypefactors](https://www.hypefactors.com)
