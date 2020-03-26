@@ -55,16 +55,16 @@ val cancelable = source
 
 ```
 
-At its simplest, `Observable` is a replacement for your regular
+At its simplest, an `Observable` is a replacement for your regular
 [Iterable]({{ site.scalaapi }}#scala.collection.Iterable)
 or Scala 
 [Stream]({{ site.scalaapi }}#scala.collection.immutable.Stream), 
 but with the ability to process asynchronous events without blocking. 
-And in fact you can convert any `Iterable` into an `Observable`.
+In fact, you can convert any `Iterable` into an `Observable`.
 
-But `Observable` scales to complex problems, touching on
+But this `Observable` implementation scales to complex problems, touching on
 *[functional reactive programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming)*,
-or it can model complex interactions between producers and consumers,
+and it can also model complex interactions between producers and consumers,
 being a potent alternative for
 [the actor model](http://akka.io/).
 
@@ -80,8 +80,8 @@ A visual representation of where it sits in the design space:
 The Monix `Observable`:
 
 - models lazy & asynchronous streaming of events
-- it is highly composable and lawful
-- it's basically the
+- highly composable and lawful
+- basically the
   [Observer pattern](https://en.wikipedia.org/wiki/Observer_pattern)
   on steroids
 - you can also think of it as being like a Scala
@@ -95,8 +95,8 @@ The Monix `Observable`:
   producer pushing data into one or multiple consumers
 - works best for unidirectional communications
 - allows fine-grained control over the [execution model](../execution/scheduler.html#execution-model)
-- doesn’t trigger the execution, or any effects until `subscribe`
-- allows for cancelling of active streams
+- doesn’t trigger the execution, or any effects until a client `subscribe`s
+- allows cancellation of active streams
 - never blocks any threads in its implementation 
 - does not expose any API calls that can block threads
 - compatible with [Scala.js](http://www.scala-js.org/) like the rest of Monix
@@ -105,23 +105,23 @@ See **[comparisons with similar tools, like Akka or FS2](./observable-comparison
 
 ### Learning resources
 
-The following documentation barely scratches a surface of `Observable` and is rather incomplete.
-If you find it lacking, make sure to check either [Observable API]({{ site.api3x }}monix/reactive/Observable.html) or
-comments [in the code](https://github.com/monix/monix) directly. We put a lot of focus on scala docs. 
+The following documentation barely scratches the surface of `Observable` and is rather incomplete.
+If you find it lacking, make sure to check either the [Observable API]({{ site.api3x }}monix/reactive/Observable.html) or
+look at the comments [in the code](https://github.com/monix/monix) directly. We put a lot of focus on scaladocs. 
 
-Other great resource is a [ReactiveX](http://reactivex.io/) documentation and everything about it which opens doors
+Another great resource is the [ReactiveX](http://reactivex.io/) documentation, which opens doors
 to plenty of books, blog posts and Stack Overflow answers.
-There are significant differences in the model but majority of functions behave the same so it is a fantastic source
+There are significant differences in the model, but the majority of functions behave the same, so it is a fantastic source
 of examples and additional explanations.
 
-Last but not least, we are always happy to help on [gitter channel](https://gitter.im/monix/monix). Any feedback
+And last but not the least, we are always happy to help on [gitter channel](https://gitter.im/monix/monix). Any feedback
 regarding the documentation itself (like confusing wording) is really appreciated too.
 
 ## Observable Contract
 
-`Observable` can be thought about as the next layer of abstraction in regard to `Observer` and `Subscriber`.
+An `Observable` can be thought of as the next layer of abstraction with regard to `Observer` and `Subscriber`.
 
-You could describe `Observable` in the following way:
+An `Observable` can be described in the following way:
 
 ```scala
 trait Observable[+A] {
@@ -129,7 +129,7 @@ trait Observable[+A] {
 }
 ```
 
-where `Observer` is:
+where an `Observer` is:
 
 ```scala
 trait Observer[-T] {
@@ -141,18 +141,17 @@ trait Observer[-T] {
 }
 ```
 
-`Observer` subscribes to `Observable` so `Observable` internals need to respect `Observer` [contract](./observers.html#contract) 
-when they pass elements there. You can consider it being higher level interface which abstracts away details of the contract and handles it for the user. 
+An `Observer` subscribes to an `Observable`, so the `Observable` internals need to respect the `Observer` [contract](./observers.html#contract) when it passes element(s) to it. You can consider it being a higher level interface which abstracts away the details of the contract and handles it for the user. 
 
 ### How it works internally
 
-If it is your first contact with this type of stream it probably sounds confusing. The understanding of underlying model 
-is not necessary to be successful user of `Observable`. If you would like to do it anyway (or perhaps contribute your own low level operators),
-I will try to explain the essence of how it works. Note that implementations of many operators are filled with optimizations so they look much more
+If you are inexperienced with non-blocking reactive streams, it probably sounds confusing. The understanding of the underlying model 
+is not necessary to be a successful user of the `Observable`, but if you would like to know anyway (also perhaps to contribute your own low level operators),
+the following paragraph tries to explain the essence of how it works. Note that the implementations of many operators are sometimes obfuscated with optimizations, which make them look much more
 complicated than they really are.
 
-`Observable` will pass through the generated items to the `Observer`. It is done by calling `onNext`.
-Imagine following situation:
+An `Observable` will pass through the generated items to the `Observer`, by calling `onNext`.
+Imagine the following situation:
 
 ```scala
 Observable.fromIterable(1 to 3)
@@ -162,73 +161,73 @@ Observable.fromIterable(1 to 3)
   .firstL // returns Task[Long]
 ``` 
 
-`fromIterable` is a builder which creates an `Observable`. This is a place which implements `subscribe`. This method passes 
-each element to its subscribers by calling `onNext`. Once the sequence is empty it calls `onComplete` to signal that there aren't any 
-elements left to process and entire `Observable` can end. 
-Note that `observer.onNext(elem)` returns `Future[Ack]`. To obey the contract and preserve back-pressure, we have to wait for its result before 
-we pass the next element. `Ack` can be either `Continue` (ok to send next element) or `Stop` (we should shut down).
-It means we have a way to stop downstream (by calling `onComplete`) and an upstream (returning `Stop` after `onNext`).
+`fromIterable` is a builder which creates an `Observable`. Hence, it implements `subscribe`. This method passes 
+each element to its subscribers by calling its `onNext` method. Once the sequence is empty it calls `onComplete` to signal that there aren't any 
+elements left to process and the entire `Observable` can end. 
+Note that the `observer.onNext(elem)` returns a `Future[Ack]`. To obey the contract and preserve back-pressure, the `Observable` will have to wait for its result before it can pass the next element. 
+`Ack` can be either `Continue` (ok to send the next element) or `Stop` (we should shut down).
+This way, we can stop the downstream processing (by calling `onComplete`) and the upstream (returning `Stop` after `onNext`).
 
-`map` is essentially `Observer => Observer` function. It implements `onNext`, `onError` and `onComplete`.
- The happy path goes like this:
+`map` is essentially an `Observer => Observer` function. It implements `onNext`, `onError` and `onComplete`.
+ The happy path goes like:
 
 ```
 (1) fromIterable calls map1.onNext(i)
-(2) map1 does transformation and calls map2.onNext(i + 2)
-(3) map2 does transformation and calls sumL.onNext(i * 3)
-(4) sum  saves and acknowledges incoming items and does not call firstL.onNext until it receives onComplete
-(5) firstL waits for the first onNext to complete a Task
+(2) map1 does some transformation and calls map2.onNext(i + 2)
+(3) map2 does some transformation and calls sumL.onNext(i * 3)
+(4) sum saves and acknowledges the incoming items and holds off on calling firstL.onNext until it receives an onComplete signal.
+(5) firstL waits for the first onNext signal to complete a Task
 ```
 
-Points (1) to (3) go in loop until the entire sequence of numbers is consumed. 
-When `sum` acknowledges (returns from `onNext` method) to `map2`, `map2` can acknowledge to `map1` which in turn
-acknowledges to `fromIterable` and a new item can be sent. 
-In case any `onNext` returns a `Stop`, it would also propagate upstream and there wouldn't be any new items generated.
+Points (1) to (3) iterate until the entire sequence of elements (in this case, numbers) are consumed. 
+When `sum` acknowledges (returns from `onNext` method) to its caller `map2`, `map2` in turn can acknowledge to its caller `map1`, which then
+acknowledges to its caller `fromIterable` - only then can a new element be sent. 
+In case any `onNext` invocations return a `Stop`, this would also propagate upstream and there wouldn't be any new elements generated.
 
-Now if you jump into the source code of operators, you will see that they are obfuscated by concurrency, error handling
-and lots of optimizations but the essence of the model works as described above. There is nothing more to it, no extra
-interpreters or materializers to add an extra layer of indirection so if this section makes sense to you, you should have
+If you try to jump into the source code of operators, you will see that they are obfuscated by concurrency, error handling 
+and lots of optimizations, but the essence of the model works as described above. There is nothing more to it, no extra
+interpreters or materializers to add an extra layer of indirection - so if this section makes sense to you, you should have
 a decent idea of what's going on "behind the scenes". 
 
 ## Observable and Functional Programming
 
-`Observable` internals are written in imperative, Java-like style. It doesn't look pretty and can be discouraging
-if you're trying to write your own operator but together with relatively simple model (in terms of operations to do) it
-buys a lot of performance and is a big reason why it does so well [in comparison to competition](https://github.com/monix/streaming-benchmarks).
+The `Observable` internals are written in an imperative, Java-like style. It doesn't look pretty and can be discouraging
+if you're trying to write your own operator. However, by using a relatively simple model (in terms of operations to do) the implementation
+is very performant and this design choice is a big reason why it does so well [in comparison to the competition](https://github.com/monix/streaming-benchmarks).
 
-However, `Observable` exposes a vast number of purely functional operators that compose very well and you can build on top of them in
-similar way to how it's done in other streaming libraries from FP ecosystem.
+Despite a mostly-imperative base, an `Observable` exposes a vast number of purely functional operators that compose really well, allowing you to build functionality on top of them in
+similar way to how it's done in other streaming libraries from the FP ecosystem.
 
-If you're mostly using available methods and want to write purely functional application then you're in luck because
-dirty internals don't leak outside and majority of API is pure and the process of constructing and executing `Observable` is also pure.
+If you're mostly using available methods and want to write a purely functional application then you're in luck because the 
+dirty internals don't leak outside and the majority of the API and the process of constructing and executing `Observable`s are all pure.
 
 The main drawback in comparison to purely functional streams, such as [fs2](https://github.com/functional-streams-for-scala/fs2) or
-[Iterant]({{ site.api3x }}monix/tail/Iterant.html) is availability of impure functions in API. If you have inexperienced 
-team members, they could be tempted to use them. Fortunately, all of them are marked with `@UnsafeBecauseImpure` annotation and explained in ScalaDoc. 
-There should always be a referentially transparent replacement to solve your use case but if your team is not fully committed to FP, these functions can be very useful.
+[Iterant]({{ site.api3x }}monix/tail/Iterant.html), is the presence of impure functions in the API. If you have inexperienced 
+team members, they could be tempted to use them. Fortunately, all of them are marked with the `@UnsafeBecauseImpure` annotation and are explained in the ScalaDoc. 
+There should always be a referentially transparent replacement to solve your specific use case but if your team is not fully committed to FP, these functions can be very useful.
 
-For instance, an efficient and convenient way to share `Observable` is using `Hot Observable` but it's not referentially transparent.
-Nevertheless, you could do the same thing using `doOnNext` or `doOnNextF` and purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share a state in more controlled manner.
+For instance, an efficient and convenient way to share an `Observable` is by using a __hot__ `Observable` - but it's not referentially transparent.
+Nevertheless, you could do the same thing using the `doOnNext` or `doOnNextF` together with some purely functional concurrency structures from `Cats-Effect` such as `Ref` or `MVar` to share state in a more controlled manner.
 
-Just like in Scala itself, decision is up to the user to choose what's better for them and their team.
+Just like in Scala itself, the decision is up to the user to choose what's better for them and their team.
 
 ## Execution
 
-When you create `Observable` nothing actually happens until `subscribe` is called.
-It can be done directly by calling `subscribe()(implicit s: Scheduler): Cancelable` which will start the processing
+When you create an `Observable` nothing actually happens until `subscribe` is called.
+Processing can be triggered directly by calling `subscribe()(implicit s: Scheduler): Cancelable` which starts
 in the background and return a `Cancelable` which can be used to stop the streaming. 
 
-If you write programs in purely functional manner and would rather combine the results of `Observables`, 
-you can convert it to [Task](./../eval/task.html) and compose it all the way through your program until the very end (Main method).
-The resulting `Task` can also be cancelled and it is recommended way to execute `Observable`.
+If you write programs in purely functional manner and would rather combine the results of `Observable`s, 
+you can convert them to [Task](./../eval/task.html)s and compose them all the way through your program until the very end (Main method).
+The resulting `Task` can also be cancelled and is the recommended way to execute an `Observable`.
 
-Two main ways to convert `Observable` into `Task` are described below.
+Two main ways to convert an `Observable` into a `Task` are described below.
 
 ### Consumer
 
-One of the ways to trigger `Observable` is to use [Consumer](./consumer.html) which can be described as a function that converts `Observable` into `Task`.
+One of the ways to trigger an `Observable` is to use a [Consumer](./consumer.html) - which can thought of as a function that converts an `Observable` into a `Task`.
 
-You can either create your own `Consumer` or use one of many prebuilt ones:
+You can either create your own `Consumer` or use one of the many prebuilt ones:
 
 ```scala
 val list: Observable[Long] = 
@@ -243,19 +242,19 @@ val task: Task[Long] =
     list.consumeWith(consumer)
 ```
 
-You can find more examples in [Consumer documentation](./consumer.html).
+You can find more examples in the [Consumer documentation](./consumer.html).
 
 ### FoldLeft Methods
 
-Any method suffixed with `L` in `Observable` API converts it into `Task`.
+Any method suffixed with `L` in the API converts an `Observable` into a `Task`.
 
-For example you can use `firstL` to obtain the first element of the `Observable`:
+For example, you can use the `firstL` method to obtain the first element of the `Observable`:
 ```scala
 // Task(0)
 val task: Task[Int] = Observable.range(0, 1000).firstL
 ```
 
-Equivalent to the `Task` described in previous section would be:
+The following example achieves the same result as the previous section on `Consumer`:
 
 ```scala
 val list: Observable[Long] = 
@@ -266,9 +265,9 @@ val list: Observable[Long] =
 val task: Task[Long] =
     list.foldLeftL(0L)(_ + _)
 ```
-## Building Observable
+## Building an Observable
 
-You can find them in `Observable` companion object. Below are several examples:
+These methods are available via the `Observable` companion object. Below are several examples:
 
 ### Observable.pure (now)
 
@@ -310,7 +309,7 @@ task.runToFuture
 ### Observable.evalOnce
 
 `Observable.evalOnce` takes a non-strict value and converts it into an Observable
-that emits a single element and that memoizes the value for subsequent invocations.
+that emits a single element and memoizes the value for subsequent invocations.
 It also has guaranteed idempotency and thread-safety:
 
 ```tut:silent
@@ -330,7 +329,7 @@ task.runToFuture.foreach(println)
 
 ### Observable.fromIterable
 
-`Observable.fromIterable` converts any `Iterable` into `Observable`:
+`Observable.fromIterable` converts any `Iterable` into an `Observable`:
 
 ```tut:silent
 val obs = Observable.fromIterable(List(1, 2, 3))
@@ -376,18 +375,18 @@ observable
 //=> 1
 ```
 
-## Sending elements to Observable
+## Sending elements to an Observable
 
-There are several options to feed `Observable` with elements from other part of the application.
+There are several options to feed an `Observable` with elements from another part of an application.
 
 ### Observable.create
 
 `Observable.create` is a builder for creating an `Observable` from sources which can't be back-pressured.
-It takes a `f: Subscriber.Sync[A] => Cancelable`. `Subscriber.Sync` is an `Observer` with built-in `Scheduler` which doesn't have 
-to worry about back-pressure contract so it is safe to use even for inexperienced `Observable` users. 
+It takes a `f: Subscriber.Sync[A] => Cancelable`. `Subscriber.Sync` is an `Observer` with a built-in `Scheduler` which 
+doesn't have to worry about the back-pressure contract, which makes it safe to use even for inexperienced `Observable` users. 
 An `Observable` which is returned by the method will receive all elements which were sent to the `Subscriber`.
-Since they could be sent concurrently, it buffers elements when busy, according to specified `OverflowStrategy`.
-`Cancelable` can contain special logic in case the subscription is canceled.
+Since they could be sent concurrently, it buffers the elements when busy, according to the specified `OverflowStrategy`.
+`Cancelable` can contain special logic in case the subscription is canceled:
 
 ```tut:silent
 import monix.eval.Task
@@ -422,17 +421,18 @@ source.takeUntil(Observable.unit.delayExecution(250.millis)).dump("O")
 // 2: O completed
 ```
 
-`Subscriber` has underlying `Scheduler` which can be used to run `producerLoop` inside of `Observable.create`.
-Note that the function is still pure - no side effect can be observed before `Observable` is executed.
+`Subscriber` has an underlying `Scheduler` which can be used to run `producerLoop` inside of `Observable.create`.
+Note that the function is still pure - no side effect can be observed before the `Observable` is executed.
 
-`Task#runToFuture` returns `CancelableFuture`. We can use it to return `Cancelable` from function, or we can just use `Cancelable.empty`.
+`Task#runToFuture` returns a `CancelableFuture`. You can use it to return a `Cancelable` from a function, or you can just use 
+`Cancelable.empty`.
 The former choice will be able to cancel a `producerLoop` during `delayExecution(100.millis)` if the `source` is canceled. 
-The latter will shortcircuit when a `Stop` event is returned.
+The latter will short-circuit when a `Stop` event is returned.
 
 ### Observable.repeatEvalF + concurrent data structure
 
-`monix-catnap` module provides [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) which can be used 
-with `Observable.repeatEvalF` builder to create `Observable` from it.
+The `monix-catnap` module provides a [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) which can be used 
+with the `Observable.repeatEvalF` builder to create an `Observable` from it.
 
 ```tut:silent
 import monix.catnap.ConcurrentQueue
@@ -460,14 +460,14 @@ def processStream[A](observable: Observable[A]): Task[Unit] = {
 }
 ```
 
-`ConcurrentQueue` has a bounded variant which will back-pressure the producer if it is too fast.
+The `ConcurrentQueue` has a bounded variant which will back-pressure the producer if it is too fast.
 
-If you're curious why we have to `flatMap` [see excellent presentation by Fabio Labella](https://vimeo.com/294736344).
-Note that you can also create `Observable` from other tools for Concurrency, such as `MVar` or `Deferred`.
+If you're curious as to why we have to `flatMap` in this case, [see the excellent presentation by Fabio Labella](https://vimeo.com/294736344).
+Note that you can also create an `Observable` from the other tools for concurrency, such as `MVar` or `Deferred`.
 
 ### ConcurrentSubject
 
-You can use `ConcurrentSubject` to get similar functionality:
+You can use a `ConcurrentSubject` to get similar functionality:
 
 ```tut:silent
 import monix.eval.Task
@@ -497,15 +497,15 @@ Task
 }
 ```
 
-One important difference is that `subject` will be shared between subscribers (here it is `processStream` method).
-It might not be noticable with `MulticastStrategy.replay` which caches incoming elements. 
-If we use different strategy such as `MulticastStrategy.publish`, `processStream` won't receive any elements which were sent before subscription.
+One important difference is that `subject` will be shared between subscribers (here it is implied in the `processStream` method).
+It might not be noticeable with `MulticastStrategy.replay` which caches incoming elements. 
+If we use a different strategy such as `MulticastStrategy.publish`, `processStream` won't receive any elements which were sent before subscription.
 
 [More on Subjects later.](#subjects)
 
 ## Back-pressure, buffering, throttling
 
-`Observable` is back-pressured, i.e. if producer (upstream) is faster than consumer (downstream), the producer will 
+The `Observable` is back-pressured, i.e. if the producer (upstream) is faster than consumer (downstream), the producer will 
 wait for an `Ack` from the consumer before sending the next element. However, that's not always desirable.
 For instance, we might want to process messages in batches for better throughput, or have strict latency requirements 
 which we need to fulfil even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.
@@ -513,19 +513,19 @@ which we need to fulfil even at the cost of dropping some messages. Fortunately,
 ### OverflowStrategy
 
 Many operators which limit, or disable back-pressure will take an [OverflowStrategy](https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html) as a parameter.
-There are following policies available:
-- `Unbounded` does not limit the size of the buffer and an upstream won't be ever back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.
-- `Fail(bufferSize: Int)` will send `onError` to downstream, ending `Observable` if the buffer grows too large.
+The following are the policies available:
+- `Unbounded` does not limit the size of the buffer, which means an upstream won't ever be back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.
+- `Fail(bufferSize: Int)` will send an `onError` signal to downstream, ending the `Observable` if the buffer grows too large.
 - `Backpressure(bufferSize: Int)` will back-pressure an upstream if the buffer grows too large.
 - `DropNew(bufferSize: Int)` will drop incoming elements if the buffer grows too large. This version is more efficient than `DropOld`.
 - `DropOld(bufferSize: Int)` will drop the oldest elements if the buffer grows too large. 
 - `ClearBuffer(bufferSize: Int)` will clear the buffer if it grows beyond limit.
 
-`DropNew`, `DropOld` and `ClearBuffer` allow to send a signal downstream if the buffer reach its capacity.
+`DropNew`, `DropOld` and `ClearBuffer` allow to send a signal downstream if the buffer reaches its capacity.
 
 ### Asynchronous processing
 
-We can treat back-pressured stream as a synchronous processing where upstream waits until given element is fully processed.
+We can think of a back-pressured stream as synchronous processing, where the upstream waits until a particular element has been fully processed.
 
 ```tut:silent
 val stream = {
@@ -545,9 +545,9 @@ val stream = {
 // 2: Processing DD
 ```
 
-Asynchronous processing would be the case in which downstream acknowledges new events immediately and processes them independently.
-`Observable` provides `asyncBoundary` method which creates a buffered asynchronous boundary. 
-The buffer is configured according to `OverflowStrategy`.
+Asynchronous processing would then be a case in which the downstream acknowledges new events immediately and processes them independently.
+The `Observable` provides the `asyncBoundary` method which creates a buffered asynchronous boundary. 
+The buffer is configured according to the `OverflowStrategy`.
 
 ```tut:silent
 val stream = {
@@ -568,11 +568,11 @@ val stream = {
 // 2: Processing DD
 ```
 
-In the example above, we introduced `asyncBoundary` before last `mapEval` which introduced unbounded buffer before this operation.
-From the perspective of upstream, the downstream is keeping up with all elements so it can take the next one from the source.
-Anything after `asyncBoundary` is back-pressured as usual - each `2: Processing XX` will be emitted in 100 millisecond intervals.
+In the example above, we introduced `asyncBoundary` before last `mapEval` which introduced an unbounded buffer before this operation.
+From the perspective of the upstream, the downstream is always keeping up with all the elements so it can always take the next one from the source.
+Anything after the `asyncBoundary` is back-pressured as usual - each `2: Processing XX` will be emitted in 100 millisecond intervals.
 
-We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` would return following output:
+You can use another `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)`, which would return following output:
 
 ``` 
 1: Processing A
@@ -585,8 +585,8 @@ We can use other `OverflowStrategy`, e.g. `OverflowStrategy.BackPressure(2)` wou
 2: Processing DD
 ```
 
-When `AA` is being processed in the second stage, the source can send two more (size of the buffer) elements 
-and then it is back-pressured until there is more space available.
+When `AA` is being processed in the second stage, the source can send two more (size of the buffer) elements, 
+after which, it is back-pressured until there is more space available.
 
 ### Processing elements in batches
 
@@ -634,7 +634,7 @@ For `skip == count` scenario, take a look at the `bufferTumbling` example.
 
 #### bufferTumbling
 
-`Observable#bufferTumbling` will gather elements and emit them in non-overlapping bundles of specified `count`. 
+`Observable#bufferTumbling` will gather elements and emit them in non-overlapping bundles of a specified `count`. 
 It is essentially `bufferSliding` where `count` is equal to `skip`.
 If the stream completes, it will emit an incomplete buffer downstream. 
 In case of an error, it will be dropped.
@@ -657,7 +657,7 @@ Observable.range(2, 7).bufferTumbling(count = 2).dump("O")
 
 #### bufferTimed
 
-We can also buffer elements depending on time, using `bufferTimed(timespan: FiniteDuration)`.
+You can also buffer elements depending on a duration, using `bufferTimed(timespan: FiniteDuration)`.
 
 ```tut:silent
 Observable.intervalAtFixedRate(100.millis).bufferTimed(timespan = 1.second).dump("O")
@@ -671,13 +671,13 @@ Observable.intervalAtFixedRate(100.millis).bufferTimed(timespan = 1.second).dump
 
 #### bufferTimedAndCounted
 
-Using either `bufferTimed` or `bufferCounted` have its drawbacks. 
-In `bufferTimed`, the buffer sizes can be very inconsistent and we might be waiting on more elements even if we could
+Using either `bufferTimed` or `bufferCounted` has its drawbacks. 
+In `bufferTimed`, the buffer sizes can be very inconsistent, so you might have to wait on more elements even if we could
 already be processing them, increasing latency. 
-When using `bufferCounted`, there is a risk of waiting a very long time (or forever) until there are enough elements to send them downstream.
-If these are possible issues in an application, we could use `bufferTimedAndCounted` to do both at the same time.
+When using `bufferCounted`, there is a risk of waiting a very long time (or forever) until there are enough elements to send downstream.
+If these are possible issues in an application, you could use `bufferTimedAndCounted` to do both at the same time.
 
-This buffering method emits non-overlapping bundles, each of a fixed duration specified by the `timespan` argument
+This buffering method emits non-overlapping bundles, each of a fixed duration specified by the `timespan` argument,
 or a maximum size specified by the `maxCount` argument (whichever is reached first).
 
 ```tut:silent
@@ -698,7 +698,7 @@ val stream = {
 #### bufferIntrospective
 
 There are more sophisticated buffering options available and one of them is `bufferIntrospective(maxSize: Int)`.
-This operator buffers element only if the downstream is busy, otherwise it sends them as they come.
+This operator buffers elements only if the downstream is busy, otherwise it sends them as they come.
 Once the buffer is full, it will back-pressure upstream.
 
 ```tut:silent
@@ -725,20 +725,20 @@ val stream = {
 ```
 
 The example is a quite involved one so let's break it down:
-- Element `1` can be started immediately, the downstream is free so it is passed until the end
+- Element `1` can be started immediately and since the downstream is free, it is passed until the end
 - There is a free space in the buffer, so elements `2` and `3` can be started
-- Now buffer is filled so upstream is back-pressured
-- Once the first batch is processed, `bufferIntrospective` can send a new one
-- There is a space in the buffer again so `4` and `5` can start and they will be emitted when the current batch is done
+- Now, the buffer is filled-up, so the upstream is back-pressured
+- Once the first batch has been processed, `bufferIntrospective` can send a new one
+- There is a space in the buffer again so `4` and `5` can start, and they will be emitted when the current batch has been processed
 
 #### bufferWithSelector
 
 Next sophisticated buffering operator is `bufferWithSelector(selector, maxSize)`. 
 It takes a selector `Observable` and emits a new buffer whenever it emits an element. 
-The second parameter, `maxSize` determines the maximum size of the buffer - if it is exceeded, an upstream will be back-pressured.
-Any size below 1 will use unbounded buffer.
+The second parameter, `maxSize` determines the maximum size of the buffer - if it is exceeded, the upstream will be back-pressured.
+Any size below 1 will use an unbounded buffer.
 
-Let's take a look at the example similar to the one with `bufferIntrospective` but we will emit elements every 100 milliseconds.
+Let's take a look at an example similar to the one with `bufferIntrospective` but this time it will emit elements every 100 milliseconds.
 
 ```tut:silent
 val stream = {
@@ -764,10 +764,10 @@ val stream = {
 ```
 
 The output can be a bit confusing because it suggests that element `3` has been started before emitting the first batch.
-In reality it was back-pressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation so
-it could happen before the "Emitted batch ..." print.
+In reality, it was back-pressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation, so
+it could happen before the "Emitted batch ..." print-out.
 
-Since `bufferWithSelector` takes an `Observable` it can be used to customize buffering to a pretty great extent.
+Since `bufferWithSelector` takes an `Observable`, it can be used to customize buffering to a pretty great extent.
 For instance, we could use [MVar](https://typelevel.org/cats-effect/concurrency/mvar.html) or [Semaphore](https://typelevel.org/cats-effect/concurrency/semaphore.html) to
 buffer messages until we receive a signal from a different part of the application.
 
@@ -787,8 +787,8 @@ val program = for {
 
 #### bufferTimedWithPressure
 
-`Observable#bufferTimedWithPressure` is similar to `bufferTimedAndCounted` but it applies back-pressure if the buffer is full
-instead of emitting it. The other difference is that it allows to pass a function to calculate a size of the element.
+`Observable#bufferTimedWithPressure` is similar to `bufferTimedAndCounted` but it applies back-pressure if the buffer is full,
+instead of emitting it. Another difference is that it allows to pass a function to calculate the weight of an element.
 
 ```tut:silent
 sealed trait Elem
@@ -816,30 +816,29 @@ val stream = {
 // 4: O completed
 ```
 
-### Limiting a rate of elements
+### Limiting the rate of emission of elements
 
-The following subsection covers some of the operators that can help with limiting a rate and/or filtering incoming events.
-As usual, there are more in the API and if you're missing something familiar from ReactiveX then it is most likely an easy addition
-so do not hesitate to open an issue.
+The following subsection covers some of the operators that can help with limiting the rate and/or filtering of incoming events.
+As usual, there is more information in the API and if you're missing something familiar from ReactiveX then it is most likely an easy addition - so do not hesitate to open an issue.
 
 #### throttle
 
-The purpose of `throttle(period, n)` is to control a rate of events emitted downstream.
+The purpose of `throttle(period, n)` is to control the rate of events emitted downstream.
 The operator will buffer incoming events up to `n` and emit them each `period` as individual elements.
-Once internal buffer is filled, it will back-pressure an upstream.
+Once the internal buffer is filled, it will back-pressure the upstream.
 
 ```tut:silent
 // Emits 1 element per 1 second
 Observable.fromIterable(0 to 10).throttle(1.second, 1)
 ```
 
-Important difference from other throttling operators is that `throttle` does not skip any elements.
+An important difference from the other throttling operators is that `throttle` does not skip any elements.
 
 #### throttleFirst
 
-`Observable#throttleFirst(interval)` emits only the first item emitted by source in specified intervals.
+`Observable#throttleFirst(interval)` emits only the first item from the source in specified intervals.
 Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
-in user facing features.
+in user-facing features.
 
 ```tut:silent
 val stream = {
@@ -878,12 +877,12 @@ val stream = {
 #### throttleWithTimeout (debounce)
 
 `throttleWithTimeout` (aliased to `debounce`) will drop any events that were emitted in a short succession.
-An event will be passed to downstream only after given `timeout` passes. Each event resets the timer, even if it is dropped.
+An event will be passed to downstream only after a given `timeout` passes. Each event resets the timer, even if it is dropped.
 The operator will wait until it is "calm" and then emit the latest event.
-This behavior is different than `throttleFirst` and `throttleLast` where the time window was static.
+This behavior is different from `throttleFirst` and `throttleLast` where the time window was static.
 
-This operator is well suited for situations like a search query - it can be quite expensive so we might not want to start it 
-after each key entered by a user. Instead we could wait until the user stopped typing.
+This operator is well-suited for situations like a search query - it can be quite expensive for the downstream to process  
+each key entered by a user, so instead we could wait until the user stopped typing before we send the events.
 
 ```tut:silent
 val stream = {
@@ -912,7 +911,7 @@ val stream = {
 // 0: O completed
 ```
 
-## Mapping Observable
+## Transforming Observables
 
 ### map
 
@@ -957,7 +956,7 @@ failed.subscribe()
 
 ### mapEval
 
-`Observable#mapEval` is similar to `map` but it takes `f: A => Task[B]` which represents a function with effectful result that can produce at most one value.
+`Observable#mapEval` is similar to `map` but it takes a `f: A => Task[B]` which represents a function with an effectful result that can produce at most one value.
 
 ```tut:silent
 val stream = Observable.range(1, 5).mapEval(l => Task.evalAsync(println(s"$l: run asynchronously")))
@@ -970,7 +969,7 @@ stream.subscribe()
 // 4: run asynchronously
 ```
 
-There is also a `mapEvalF` variant for other types which can be converted to `Task`, i.e. `Future`, `cats.effect.IO`, `ZIO` etc.
+There is also a `mapEvalF` variant for other types which can be converted to a `Task`, i.e. `Future`, `cats.effect.IO`, `ZIO` etc.
 
 ```tut:silent
 import scala.concurrent.Future
@@ -987,7 +986,7 @@ stream.subscribe()
 
 ### mapParallel
 
-`mapEval` can process elements asynchronously but it does it one-by-one. 
+`mapEval` can process elements asynchronously but does it one-by-one. 
 In case we would like to run `n` tasks in parallel, we can use either `mapParallelOrdered` or `mapParallelUnordered`.
 
 ```tut:silent
@@ -1013,7 +1012,7 @@ val stream = {
 // 4: done
 ```
 
-The order of execution of `Tasks` inside `mapParallelOrdered` is nondeterministic but they will be always passed to the downstream in the FIFO order, i.e. all `done` prints will have increasing indices in this example.
+The order of execution of `Tasks` inside `mapParallelOrdered` is nondeterministic, but they will always be passed to the downstream in the FIFO order, i.e. all `done` prints will have increasing indices in this example.
 In case we don't need this guarantee, we can use `mapParallelUnordered` which is faster. The code above would result in the following output:
 
 ```
@@ -1063,8 +1062,8 @@ val stream = {
 
 ### mergeMap
 
-`Observable#mergeMap` also takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't back-pressure on elements
-from the source and subscribes to all of the `Observable` produced from the source until they terminate. These produced `Observable` are often called *inner* or *child*.
+`Observable#mergeMap` takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't back-pressure on elements
+from the source and subscribes to all of the `Observable`s produced from the source until they terminate. These produced `Observable`s are often called *inner* or *child*.
 
 ```tut:silent
 val source = Observable(2) ++ Observable(3, 4).delayExecution(50.millis)
@@ -1095,8 +1094,8 @@ val stream = {
 // 4B
 ```
 
-Keep in mind that `mergeMap` keeps all active subscription so it is possible to end up with a memory leak if we forget to close infinite `Observable`.
-In case one of the `Observable` returns an error, other active streams will be canceled and resulting `Observable` will return the original error:
+Keep in mind that `mergeMap` keeps all active subscriptions so it is possible to end up with a memory leak if we forget to close the infinite `Observable`.
+In case one of the `Observable`s returns an error, other active streams will be canceled and resulting `Observable` will return the original error:
 
 ```tut:silent
 val stream = {
@@ -1115,7 +1114,7 @@ val stream = {
 ```
 
 ### switchMap
-Similarly to `mergeMap`, `Observable#switchMap` does not back-pressure on elements from the source stream but it *switches* to the first `Observable` returned by the provided function that will produce an element. Then it cancels the other inner streams so there is only one active subscription at the time. It makes it safer than `mergeMap` because there is no danger of memory leak but it interrupts ongoing requests if something new arrives.
+Similar to `mergeMap`, `Observable#switchMap` does not back-pressure on elements from the source stream but instead *switches* to the first `Observable` returned by the provided function that will produce an element. It then cancels the other inner streams so there is only one active subscription at the time. It is safer than `mergeMap` in a way because there is no danger of a memory leak - although, it interrupts ongoing requests if something new arrives.
 
 <img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
 
@@ -1152,25 +1151,25 @@ val stream = {
 
 ### Summary
 
-If you want to back-pressure source `Observable` when emitting new events, use:
+If you want to back-pressure a source `Observable` when emitting new events, use:
 - `map` for pure, synchronous functions which return only one value
 - `mapEval` or `mapParallel` for effectful, possibly asynchronous functions which return up to one value
 - `flatMap` for effectful, possibly asynchronous functions which return a stream of values
 
-If you want to process source `Observable` concurrently, use:
+If you want to process source `Observable`s concurrently, use:
 - `mergeMap` if you want to process all inner streams
 - `switchMap` if you want to keep only the most recent inner stream
 
 ## Scheduling
 
 `Observable` is a great fit not only for streaming data but also for control flow such as scheduling. 
-It provides several builders for this purpose and it's easy to combine it with `Task` if all you want is to
+It provides several builders for this purpose and is quite easy to combine with `Task` if all you want is to
 run a `Task` in specific intervals.
 
 ### intervalWithFixedDelay (interval)
 
 `Observable.intervalWithFixedDelay` takes a `delay` and an optional `initialDelay`. It creates an `Observable` that
-emits auto-incremented natural numbers (longs) spaced by a given time interval. Starts from 0 with `initialDelay` (or immediately), 
+emits auto-incremented natural numbers (`Long`s) spaced by a given time interval. It starts from 0 with an `initialDelay` (or immediately), 
 after which it emits incremented numbers spaced by the `delay` of time. The given `delay` of time acts as a fixed 
 delay between successive events.
 
@@ -1201,8 +1200,8 @@ sc.tick(4.second) // prints 3
 
 ### intervalAtFixedRate
 
-`Observable.intervalAtFixedRate` is similar to `Observable.intervalWithFixedDelay` but the time it takes to
-process an `onNext` event gets substracted from the specified `period` time. In other words, the created `Observable`
+`Observable.intervalAtFixedRate` is similar to `Observable.intervalWithFixedDelay`, but the time it takes to
+process an `onNext` event gets deducted from the specified `period`. In other words, the created `Observable`
 tries to emit events spaced by the given time interval, regardless of how long the processing of `onNext` takes.
 
 The difference should be clearer after looking at the example below. 
@@ -1235,15 +1234,15 @@ sc.tick(2.second) // prints 3
 
 ## Error Handling
 
-Failing in any operator in `Observable` will lead to termination of the stream. It will inform downstream and upstream
-about the failure, stopping entire `Observable` unless the error is handled.
+Failing in any operator in an `Observable` will lead to the termination of the stream. It will inform the downstream and the upstream
+about the failure, stopping the entire `Observable` chain - unless the error is handled.
 
-Note that most errors should be handled at `Effect` level (e.g. `Task`, `IO` in `mapEval`), not by using `Observable` error handling operators. 
-If `Observable` encounters an error it cannot ignore it and keep going. The best you can do without bigger machinery is to restart `Observable` or replace it with different one.
+Note that most errors should be handled at the `Effect` level (e.g. `Task`, `IO` in `mapEval`), and not by using `Observable` error handling operators. 
+If the `Observable` encounters an error, it cannot ignore and keep going. The best you can do (without using some bigger machinery) is to restart the `Observable` or replace it with different one.
 
 ### handleError (onErrorHandle)
 
-`Observable.handleError` (alias for `onErrorHandle`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` emitting one specified element generated by given total function.
+`Observable.handleError` (alias for `onErrorHandle`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` emitting one specific element generated by given total function.
 
 ```tut:silent
 import monix.reactive.Observable
@@ -1263,7 +1262,7 @@ observable
 
 ### handleErrorWith (onErrorHandleWith)
 
-`Observable.handleErrorWith` (alias for `onErrorHandleWith`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` generated by given total function.
+`Observable.handleErrorWith` (alias for `onErrorHandleWith`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` generated by the given total function.
 
 ```tut:silent
 import monix.reactive.Observable
@@ -1283,15 +1282,15 @@ observable
 
 ### recover (onErrorRecover)
 
-`Observable.recover` (alias for `onErrorRecover`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` emitting one specified element generated by given partial function. The difference between `recover` and `handleError` is that the latter takes total function as a parameter.
+`Observable.recover` (alias for `onErrorRecover`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` emitting one specified element generated by given partial function. The difference between `recover` and `handleError` is that the latter takes a total function as a parameter.
 
 ### recoverWith (onErrorRecoverWith)
 
-`Observable.recoverWith` (alias for `onErrorRecoverWith`) mirrors original source unless error happens - in which case it fallbacks to an `Observable` generated by given partial function. The difference between `recoverWith` and `handleErrorWith` is that the latter takes total function as a parameter.
+`Observable.recoverWith` (alias for `onErrorRecoverWith`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` generated by the given partial function. The difference between `recoverWith` and `handleErrorWith` is that the latter takes a total function as a parameter.
 
 ### onErrorFallbackTo
 
-`Observable.onErrorFallbackTo` mirrors the behavior of the source, unless it is terminated with an `onError`, in which case the streaming of events continues with the specified backup sequence regardless of error.
+`Observable.onErrorFallbackTo` mirrors the behavior of the source, unless it is terminated with an `onError`, in which case the streaming of events continues with the specified backup sequence regardless of the error.
 
 ```tut:silent
 import monix.reactive.Observable
@@ -1319,15 +1318,15 @@ observable
 
 ### onErrorRestart
 
-`Observable.onErrorRestart` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it tries subscribing to the source again in the hope that it will complete without an error.
+`Observable.onErrorRestart` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it tries re-subscribing to the source with the hope that it will complete without an error.
 
 The number of retries is limited by the specified `maxRetries` parameter.
 
-There is also `onErrorRestartUnlimited` variant for unlimited number of retries.
+There is also `onErrorRestartUnlimited` variant for an unlimited number of retries.
 
 ### onErrorRestartIf
 
-`Observable.onErrorRestartIf` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it invokes provided function and tries subscribing to the source again in the hope that it will complete without an error.
+`Observable.onErrorRestartIf` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it invokes the  provided function and tries re-subscribing to the source with the hope that it will complete without an error.
 
 ```tut:silent
 import monix.reactive.Observable
@@ -1355,7 +1354,7 @@ observable
 
 ### Retrying with delay
 
-Since `Observable` methods compose pretty nicely you could easily combine them to write custom retry mechanism:
+Since `Observable` methods compose pretty nicely, you could easily combine them to write some custom retry mechanisms, like the one below:
 
 ```tut:silent
 def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[A] = 
@@ -1364,7 +1363,7 @@ def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[
   }
 ```
 
-Which can be customized further. For example, we can add exponential backoff:
+It can be customized further. For example, we can also implement an exponential back-off:
 
 ```tut:silent
 def retryBackoff[A](source: Observable[A],
@@ -1382,8 +1381,8 @@ def retryBackoff[A](source: Observable[A],
 
 ### Dropping failed elements
 
-Sometimes we would like to ignore elements that caused failure and keep going but 
-if something fails in `Observable` operator (e.g. mapEval) the entire `Observable` is failed with this error.
+Sometimes we would like to ignore elements that caused failure and keep going, but 
+if something fails in an `Observable` operator (e.g. mapEval), the entire `Observable` is stopped with a failure.
 
 ```tut:silent
 val observable = Observable(1, 2, 3)
@@ -1402,8 +1401,8 @@ observable
 //=> Exception in thread "main" monix.execution.exceptions.DummyException: error
 ```
 
-There is nothing like supervision in Akka Streams but if we control it at the `Effect` level, we could achieve similar behavior.
-For instance, we could wrap our elements in `Option` or `Either` and then do `collect { case Right(e) => e }`.
+There is nothing like a `supervision mechanism` (like in Akka Streams), but if we control it at the `Effect` level, we could achieve similar behavior.
+For instance, we could wrap our elements in `Option` or `Either` and then do a `collect { case Right(e) => e }`.
 
 ```tut:silent
 val observable = Observable(1, 2, 3)
@@ -1424,25 +1423,25 @@ observable
 //=> elem: 3
 ```
 
-It's not as nice as having one global Supervisor that handles it if something goes wrong but as long as you follow
+It's not as nice as having one global Supervisor that handles the errors if something goes wrong, but as long as you follow
 basic rules such as not throwing exceptions and remembering that any `Task` can fail then you should be good to go.
 
 ### MonadError instance
 
-`Observable` provides `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
-If you are curious what it gives you in practice, check methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
+The `Observable` provides a `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
+If you are curious what it brings you in practice, check the methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
 
-Many of these methods (and more) are defined directly on `Observable` and the rest can be acquired by calling `import cats.implicits._`.
+Many of these methods (and more) are defined directly on the `Observable` and the rest can be acquired by calling `import cats.implicits._`.
 
 ## Reacting to internal events
 
-If you remember, `Observable` internally calls `onNext` on every element, `onError` during error and `onComplete` after
-stream completion. There are many many methods for executing given callback when the stream acquires specific type of event.
-Usually they start with `doOn` or `doAfter`.
+If you remember, an `Observable` internally calls `onNext` on every element, `onError` during error and `onComplete` after
+stream completion. There are many other methods for executing a given callback when the stream acquires a specific type of event.
+Usually these method names start with `doOn` or `doAfter`.
 
 ### doOnNext
 
-Executes given callback for each element generated by the source `Observable`, useful for doing side-effects.
+Executes a given callback for each element generated by the source `Observable`, useful for doing side-effects.
 
 ```tut:silent
 var counter = 0
@@ -1479,11 +1478,11 @@ Ref[Task].of(0).flatMap(observable)
 //=> elem: 3, counter: 6
 ```
 
-There is also `doOnNextF` variant which works for data types other than `Task`.
+There is also a `doOnNextF` variant which works for data types other than `Task`.
 
 ## Subjects
 
-`Subject` acts both as an `Observer` and as an `Observable`. Use `Subject` if you need to send elements to `Observable`
+`Subject` acts both as an `Observer` and as an `Observable`. Use `Subject` if you need to send elements to the `Observable`
 from other parts of the application.
 It is presented in the following example:
 
@@ -1515,33 +1514,33 @@ Task
 }
 ```
 
-`Subject` is also often used to specify multicast strategy in shared (hot) `Observable` to specify which elements are sent to
-new subscribers. There are several strategies available and you can find their short characteristics below.
+`Subject` is also often used to specify a multicast strategy in shared (hot) `Observable`s to specify which elements are sent to
+new subscribers. There are several strategies available - you can find their short characteristics below.
 
-- `AsyncSubject` emits the last value (and only the last value) emitted by the source and only after the source completes.
-- `BehaviorSubject` emits the most recently emitted item by the source, or the `initialValue` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation.
-- `ConcurrentSubject` allows feeding events without the need to respect the back-pressure (waiting on `Ack` after `onNext`). It is similar to [Actor](https://en.wikipedia.org/wiki/Actor_model) and can serve as its replacement in many cases.
-- `PublishSubject` emits to a subscriber only those items that are emitted by the source subsequent to the time of the subscription.
-- `PublishToOneSubject` is a `PublishSubject` that can be susbcribed at most once.
-- `ReplaySubject` emits to a subscriber all of the items that were emitted by the source, regardless of when the observer subscribes.
-- `Var` emits the most recently emmited item by the source, or the `initial` in case no value has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying `ConcurrentSubject`. This is equivalent to a `ConcurrentSubject.behavior(Unbounded)` with ability to expose the current value for immediate usage on top of that.
+- `AsyncSubject` emits the last element (and only the last value) emitted by the source and only after the source completes.
+- `BehaviorSubject` emits the most recently emitted element by the source, or the `initialValue` in case no element has yet been emitted, then continue to emit events subsequent to the time of invocation.
+- `ConcurrentSubject` allows feeding events without the need to respect the back-pressure (waiting on `Ack` after `onNext`). It is similar to an [Actor](https://en.wikipedia.org/wiki/Actor_model) and can serve as its replacement in many cases.
+- `PublishSubject` emits to a subscriber only those elements that were emitted by the source subsequent to the time of the subscription.
+- `PublishToOneSubject` is a `PublishSubject` that can be subscribed at most once.
+- `ReplaySubject` emits to a subscriber all the elements that were emitted by the source, regardless of when the observer subscribes.
+- `Var` emits the most recently emitted element by the source, or the `initial` element in case none has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying `ConcurrentSubject`. This is equivalent to a `ConcurrentSubject.behavior(Unbounded)` with the ability to expose the current value for immediate usage on top of that.
 
-For more information refer to descriptions and methods in `monix.reactive.subjects` package.
+For more information, refer to descriptions and methods in `monix.reactive.subjects` package.
 
-## Sharing Observable
+## Sharing an Observable
 
-As mentioned before - `Observable` doesn't emit any items until something subscribes to it. 
-If it can serve only one subscriber it is called *cold Observable.*
+As mentioned before - an `Observable` doesn't emit any items until something subscribes to it. 
+If it can serve only one subscriber it is called a *cold Observable.*
 
-On the other hand there is also a notion of *hot Observable* denoted as `ConnectableObservable` whose source can be shared between many subscribers.
+On the other hand there is also a notion of a *hot Observable* denoted as a `ConnectableObservable` whose source can be shared between many subscribers.
 
 ### ConnectableObservable
 
-Similarily to standard version, `ConnectableObservable` is lazy, i.e. it will start processing elements after
-processing `connect()`. The crucial difference is that mapping `ConnectableObservable` returns `Observable` which
-shares the source according to the specified strategy, represented by `Subject`.
+Similar to the standard version, a `ConnectableObservable` is lazy, i.e. it will start processing elements after
+processing `connect()`. The crucial difference is that mapping a `ConnectableObservable` returns an `Observable` which
+shares the source according to the specified strategy, represented by a `Subject`.
 
-Consider the following example which uses `.publish` to create a `ConnectableObservable` on top of a `PublishSubject`:
+Consider the following example which uses `publish` to create a `ConnectableObservable` on top of a `PublishSubject`:
 
 ```tut:silent
 import monix.eval.Task
@@ -1577,15 +1576,15 @@ Task.parZip2(o1, o2).map(_ => cancelable.cancel())
 // o1: 4
 ```
 
-Calling `connect()` starts the streaming. In this case, it has managed to process 3 elements before `o2` subscribed 
-so it didn't receive all of them. It only took one element because of `take(1)`. If it was a normal `Observable` it would have been
-canceled but that's not the case with `ConnectableObservable`. Whenever each subscriber stops, it just unsubscribes. 
-If it weren't for `cancelable.cancel()` it would have keep going even after all subscribers stopped listening. Also note the
+Calling `connect()` starts the streaming. In this case, it has managed to process 3 elements before `o2` subscribed, 
+so it didn't receive all of them. It only received one element because of `take(1)`. If it was a normal `Observable` it would have been
+canceled - but that's not the case with `ConnectableObservable`s. Whenever each subscriber stops, it just unsubscribes. 
+If it weren't for `cancelable.cancel()` it would have keep to going on even after all the subscribers stopped listening. Also, note the
 `source` was ran only once.
 
 ### Back-pressure
 
-Source `ConnectableObservable` is back-pressured on *all* subscribers. In other words, it will wait for acknowledgement from
+A source `ConnectableObservable` is back-pressured on *all* subscribers. In other words, it will wait for an acknowledgement from
 all active subscribers before processing the next element. 
 
 Let's see it on an example:
@@ -1630,23 +1629,23 @@ Task.parZip2(o1, o2)
 ```
 
 It might not be always desirable if we don't want to slow down the producer. There are several ways to handle it, depending
-on the use case. In general, if we don't want back-pressure, we need a buffer with proper overflow strategy.
+on the use case. In general, if we don't want back-pressure, we need a buffer with a proper overflow strategy.
 
-For instance, we could introduce buffer per subscriber which can store up to 10 elements and then starts dropping new elements:
+For instance, we could introduce a buffer per subscriber which can store up to 10 elements and then starts dropping new elements:
 
 ```scala
 val subObservable = source.whileBusyBuffer(OverflowStrategy.DropNew(10))
 ```
 
-Or even disable back-pressure completely with a function like `whileBusyDropEvents`.
-From the perspective of `source`, the subscriber is always processing elements right away so it doesn't have to wait on it.
+We could even disable back-pressure completely with a function like `whileBusyDropEvents`.
+From the perspective of the `source`, the subscriber is always processing elements right away so it doesn't have to wait on it.
 
 ### Configuring underlying Subject 
 
 For all plain `Subject`s, there are corresponding methods, i.e. `publish`, `publishLast`, `replay` etc. 
-Different `Subjects` vary in behavior in regard to subscribers but `source` Observable will be always executed just once.
+Different `Subjects` vary in behavior with regard to subscribers, but `source` Observables will always be executed just once.
 
-For instance, `ReplaySubject` will cache and send all elements to new subscribers:
+For instance, a `ReplaySubject` will cache and send all elements to new subscribers:
 
 ```tut:silent
 implicit val s = Scheduler.global
@@ -1690,14 +1689,14 @@ val o1: Task[Unit] = source.foreachL(i => println(s"o1: $i"))
 // o1: 3
 ```
 
-If it were `PublishSubject`, the subscriber would not receive any elements because the `source` has processed everything
+If it were a `PublishSubject`, the subscriber would not receive any elements because the `source` has processed everything
 before subscription.
  
 ### Doing it the pure way
 
 As you probably noticed, `ConnectableObservable` is not very pure because the time of subscription can completely change the result
-and the original `source` is processed only once. Monix also exposes `publishSelector` and `pipeThroughSelector` which allow
-to take advantage of Hot `Observable` in more controlled and purely functional fashion.
+and the original `source` is processed only once. Monix also exposes `publishSelector` and `pipeThroughSelector` which allows
+you to take advantage of Hot `Observable`s in more controlled and purely functional fashion.
 
 ```tut:silent
 implicit val s = Scheduler.global
@@ -1736,9 +1735,9 @@ Consumer 1: got 3
 Consumer 2: got 3
 ```
 
-`source` Observable is shared only in the scope of `publishSelector` and we can freely reuse its result and the original source.
+A `source` Observable is shared only in the scope of `publishSelector` and we can freely reuse its result and the original source.
 
-`publishSelector` uses `PublishSubject`. It is possible to customize it with `pipeThroughSelector`:
+`publishSelector` uses `PublishSubject`. It is possible to customize it with a `pipeThroughSelector`:
 
 ```scala 
 final def pipeThroughSelector[S >: A, B, R](pipe: Pipe[S, B], f: Observable[B] => Observable[R]): Observable[R]
@@ -1748,11 +1747,11 @@ final def pipeThroughSelector[S >: A, B, R](pipe: Pipe[S, B], f: Observable[B] =
 
 ## Interoperability with other Streams API (Akka Streams, FS2)
 
-Due to compability with the [Reactive Streams](http://www.reactive-streams.org/)
-specification `Observable` allows good interoperability with other libraries.
+Due to compatibility with the [Reactive Streams](http://www.reactive-streams.org/)
+specification, an `Observable` allows good interoperability with other libraries.
 
 The next subsections contain examples how to convert between Monix `Observable` and
-two other popular streaming libraries but it should work in similar way with every other library
+two other popular streaming libraries, but it should work in similar way with every other library
 compatible with Reactive Streams protocol.
 
 ### Akka Streams
@@ -1771,7 +1770,7 @@ implicit val system = ActorSystem("akka-streams")
 implicit val materializer = ActorMaterializer()
 ```
 
-To convert Akka `Source` to Monix `Observable`:
+To convert an Akka `Source` to a Monix `Observable`:
 
 ```scala
 val source = Source(1 to 3)
@@ -1784,7 +1783,7 @@ val observable = Observable.fromReactivePublisher(publisher)
 // observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd
 ```
 
-To go back from Monix `Observable` to Akka `Source`:
+To go back from a Monix `Observable` to an Akka `Source`:
 
 ```scala
 val observable = Observable(1, 2, 3)
@@ -1796,9 +1795,9 @@ val source = Source.fromPublisher(observable.toReactivePublisher)
 
 ### FS2
 
-To go between [FS2](https://github.com/functional-streams-for-scala/fs2) Stream 
-and Monix `Observable` you need to use [fs2-reactive-streams](https://github.com/zainab-ali/fs2-reactive-streams)
-library but conversion remains very straightforward.
+To go between an [FS2](https://github.com/functional-streams-for-scala/fs2) Stream 
+and a Monix `Observable` you need to use the [fs2-reactive-streams](https://github.com/zainab-ali/fs2-reactive-streams)
+library, but otherwise the conversion remains very straightforward.
 
 Necessary imports:
 
@@ -1809,7 +1808,7 @@ import monix.reactive.Observable
 import monix.execution.Scheduler.Implicits.global
 ```
 
-To convert FS2 `Stream` to Monix `Observable`:
+To convert an FS2 `Stream` to a Monix `Observable`:
 
 ```scala
 val stream = Stream(1, 2, 3).covary[IO]
@@ -1822,7 +1821,7 @@ val observable = Observable.fromReactivePublisher(publisher)
 // observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725
 ```
 
-To go back from Monix `Observable` to FS2 `Stream`:
+To go back from a Monix `Observable` to an FS2 `Stream`:
 
 ```scala
 val observable = Observable(1, 2, 3)
