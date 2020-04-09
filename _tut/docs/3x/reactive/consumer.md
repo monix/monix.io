@@ -435,7 +435,7 @@ with the parallelism specified as `10`, we could ensure parallel
 execution of 10 http requests at the same time and no more:
 
 ```scala
-Consumer.foreachParallelAsync[Long](parallelism=10) { item =>
+Consumer.foreachParallelTask[Long](parallelism=10) { item =>
   // Play WS, or whatever ...
   val req = ws.clientUrl(s"https://web.com/request/$item").post()
   Task.fromFuture(req).map(_ => ())
@@ -444,7 +444,7 @@ Consumer.foreachParallelAsync[Long](parallelism=10) { item =>
 
 ### Load-balancing consumers and parallel processing
 
-As a generalization of `foreachParallel` and `foreachParallelAsync`,
+As a generalization of `foreachParallel` and `foreachParallelTask`,
 we can place a load-balancer in front of any consumer. Here's a
 consumer that processes sums in parallel:
 
