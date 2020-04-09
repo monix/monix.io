@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1581687056107772633" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1581687056107772633" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1586463497804343872" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1586463497804343872" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1581687056107772633">
+  <link rel="stylesheet" href="/public/css/all.css?1586463497804343872">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1581687056107772633">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1586463497804343872">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -1037,6 +1037,7 @@ after each key entered by a user. Instead we could wait until the user stopped t
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">).</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalAsync</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$l: run asynchronously"</span><span class="o">)))</span>
 
 <span class="nv">stream</span><span class="o">.</span><span class="py">subscribe</span><span class="o">()</span>
+<span class="mi">4</span><span class="k">:</span> <span class="kt">run</span> <span class="kt">asynchronously</span>
 
 <span class="c1">// 1: run asynchronously
 // 2: run asynchronously

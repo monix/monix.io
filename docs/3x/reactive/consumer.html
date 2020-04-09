@@ -30,13 +30,13 @@
   
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1581687056107772633" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1581687056107772633" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1586463497804343872" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1586463497804343872" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1581687056107772633">
+  <link rel="stylesheet" href="/public/css/all.css?1586463497804343872">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1581687056107772633">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1586463497804343872">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -513,7 +513,7 @@ hopes you’re not doing blocking I/O.</p>
 with the parallelism specified as <code class="highlighter-rouge">10</code>, we could ensure parallel
 execution of 10 http requests at the same time and no more:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Consumer</span><span class="o">.</span><span class="py">foreachParallelAsync</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Consumer</span><span class="o">.</span><span class="py">foreachParallelTask</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
   <span class="c1">// Play WS, or whatever ...
 </span>  <span class="k">val</span> <span class="nv">req</span> <span class="k">=</span> <span class="nv">ws</span><span class="o">.</span><span class="py">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="py">post</span><span class="o">()</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="n">req</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
@@ -522,7 +522,7 @@ execution of 10 http requests at the same time and no more:</p>
 
 <h3 id="load-balancing-consumers-and-parallel-processing">Load-balancing consumers and parallel processing</h3>
 
-<p>As a generalization of <code class="highlighter-rouge">foreachParallel</code> and <code class="highlighter-rouge">foreachParallelAsync</code>,
+<p>As a generalization of <code class="highlighter-rouge">foreachParallel</code> and <code class="highlighter-rouge">foreachParallelTask</code>,
 we can place a load-balancer in front of any consumer. Here’s a
 consumer that processes sums in parallel:</p>
 
