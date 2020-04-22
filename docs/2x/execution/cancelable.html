@@ -12,31 +12,35 @@
   
   <title>Cancelable &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Cancelable &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Cancelable &amp;mdash; Monix" />
   <meta name="twitter:description" content="A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/execution/cancelable">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/execution/cancelable" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Cancelable &amp;mdash; Monix" property="og:title">
+  <meta content="A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding." property="og:description">
+  <meta content="https://monix.io/docs/2x/execution/cancelable" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Cancelable &mdash; Monix" />
-  <meta property="og:description" content="A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -142,14 +146,14 @@ idempotency</li>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Cancelable</span>
 
-<span class="c1">// A cancelable that doesn't do anything on cancel
-</span><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
+<span class="c1">// A cancelable that doesn't do anything on cancel</span>
+<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
 
-<span class="c1">// Same thing, a cancelable that doesn't do anything
-</span><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">()</span>
+<span class="c1">// Same thing, a cancelable that doesn't do anything</span>
+<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">()</span>
 
-<span class="c1">// Specify a callback to be called on cancel
-</span><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled!"</span><span class="o">))</span>
+<span class="c1">// Specify a callback to be called on cancel</span>
+<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled!"</span><span class="o">))</span>
 </code></pre></div></div>
 
 <h2 id="booleancancelable">BooleanCancelable</h2>
@@ -173,30 +177,30 @@ already canceled:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.cancelables._</span>
 
-<span class="c1">// Building an instance that's already canceled
-</span><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">BooleanCancelable</span><span class="o">.</span><span class="py">alreadyCanceled</span>
+<span class="c1">// Building an instance that's already canceled</span>
+<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">BooleanCancelable</span><span class="o">.</span><span class="py">alreadyCanceled</span>
 
-<span class="c1">// Doesn't do anything
-</span><span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// Doesn't do anything</span>
+<span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 
-<span class="c1">// Always returns true
-</span><span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
+<span class="c1">// Always returns true</span>
+<span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
 </code></pre></div></div>
 
 <p>To build an instance without a callback, but that can be
 used to check for <code class="highlighter-rouge">isCanceled</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">BooleanCancelable</span><span class="o">()</span>
-<span class="c1">// c: monix.execution.cancelables.BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$3@1bf5f503
-</span>
+<span class="c1">// c: monix.execution.cancelables.BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$3@2329aef</span>
+
 <span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
-<span class="c1">// res5: Boolean = false
-</span>
+<span class="c1">// res5: Boolean = false</span>
+
 <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
-<span class="c1">// res7: Boolean = true
-</span></code></pre></div></div>
+<span class="c1">// res7: Boolean = true</span>
+</code></pre></div></div>
 
 <p>To build an instance out of a callback that behaves like
 you’d expect it to:</p>
@@ -233,14 +237,14 @@ references to it will trigger their cancelation</li>
 <span class="n">c</span> <span class="o">+=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #2"</span><span class="o">))</span>
 <span class="n">c</span> <span class="o">+=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
 
-<span class="c1">// Cancelling will trigger all 3 of them
-</span><span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// Cancelling will trigger all 3 of them</span>
+<span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 
-<span class="c1">// Appending a new cancelable to it after cancel
-// will trigger its cancelation immediately
-</span><span class="n">c</span> <span class="o">+=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #4"</span><span class="o">))</span>
-<span class="c1">// =&gt; Canceled #4
-</span></code></pre></div></div>
+<span class="c1">// Appending a new cancelable to it after cancel</span>
+<span class="c1">// will trigger its cancelation immediately</span>
+<span class="n">c</span> <span class="o">+=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #4"</span><span class="o">))</span>
+<span class="c1">// =&gt; Canceled #4</span>
+</code></pre></div></div>
 
 <p>We can add cancelables references to our composite, but
 we can also remove them, maybe because they are no longer
@@ -254,13 +258,13 @@ relevant, for GC purposes, etc:</p>
 <span class="n">composite</span> <span class="o">+=</span> <span class="n">c1</span>
 <span class="n">composite</span> <span class="o">+=</span> <span class="n">c2</span>
 
-<span class="c1">// Removing from our composite
-</span><span class="n">composite</span> <span class="o">-=</span> <span class="n">c1</span>
+<span class="c1">// Removing from our composite</span>
+<span class="n">composite</span> <span class="o">-=</span> <span class="n">c1</span>
 
-<span class="c1">// Canceling will now only cancel c2
-</span><span class="nv">composite</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">// =&gt; Canceled #2
-</span></code></pre></div></div>
+<span class="c1">// Canceling will now only cancel c2</span>
+<span class="nv">composite</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// =&gt; Canceled #2</span>
+</code></pre></div></div>
 
 <h2 id="multiassignmentcancelable">MultiAssignmentCancelable</h2>
 
@@ -292,15 +296,15 @@ immediately</li>
 <span class="k">val</span> <span class="nv">c2</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #2"</span><span class="o">))</span>
 <span class="n">multiAssignment</span> <span class="o">:=</span> <span class="n">c2</span>
 
-<span class="c1">// Canceling it will only cancel the last assignee
-</span><span class="nv">multiAssignment</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">// =&gt; Cancelled #2
-</span>
-<span class="c1">// Subsequent assignments are canceled immediately
-</span><span class="k">val</span> <span class="nv">c3</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
+<span class="c1">// Canceling it will only cancel the last assignee</span>
+<span class="nv">multiAssignment</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// =&gt; Cancelled #2</span>
+
+<span class="c1">// Subsequent assignments are canceled immediately</span>
+<span class="k">val</span> <span class="nv">c3</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
 <span class="n">multiAssignment</span> <span class="o">:=</span> <span class="n">c3</span>
-<span class="c1">// =&gt; Canceled #3
-</span></code></pre></div></div>
+<span class="c1">// =&gt; Canceled #3</span>
+</code></pre></div></div>
 
 <p>In a multi-threading environment sometimes we cannot guarantee an
 ordering on assignment and obviously ordering is important.  There’s a
@@ -309,8 +313,8 @@ in case the update was made with an <code class="highlighter-rouge">order</code>
 than the current one you’re trying to make, then the assignment gets
 ignored, so:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Let's simulate a race condition
-</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Let's simulate a race condition</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">MultiAssignmentCancelable</span><span class="o">()</span>
 
@@ -342,8 +346,8 @@ add a delay, we’d use a <code class="highlighter-rouge">Scheduler</code> and w
 a <code class="highlighter-rouge">Cancelable</code> that can cancel either the delay or the result
 of our passed function argument, like:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// INCORRECT EXAMPLE
-</span><span class="k">import</span> <span class="nn">concurrent.duration._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// INCORRECT EXAMPLE</span>
+<span class="k">import</span> <span class="nn">concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">monix.execution._</span>
 
 <span class="k">def</span> <span class="nf">delayedExecution</span><span class="o">(</span><span class="n">cb</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">Cancelable</span><span class="o">)</span>
@@ -380,9 +384,9 @@ Which means the cancelable returned by our function will be incorrect.</p>
     <span class="nv">ref</span><span class="o">.</span><span class="py">orderedUpdate</span><span class="o">(</span><span class="nf">cb</span><span class="o">(),</span> <span class="mi">2</span><span class="o">)</span>
   <span class="o">}</span>
 
-  <span class="c1">// This should be the first update, but
-</span>  <span class="c1">// if not, then it is ignored!
-</span>  <span class="nv">ref</span><span class="o">.</span><span class="py">orderedUpdate</span><span class="o">(</span><span class="n">delay</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+  <span class="c1">// This should be the first update, but</span>
+  <span class="c1">// if not, then it is ignored!</span>
+  <span class="nv">ref</span><span class="o">.</span><span class="py">orderedUpdate</span><span class="o">(</span><span class="n">delay</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
   <span class="n">ref</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -413,11 +417,11 @@ will throw an <code class="highlighter-rouge">IllegalStateException</code>, so d
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
 
 <span class="n">ref</span> <span class="o">:=</span> <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleAtFixedRate</span><span class="o">(</span><span class="mf">0.</span><span class="n">seconds</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span> <span class="o">{</span>
-  <span class="c1">// This wouldn't be correct without having an already
-</span>  <span class="c1">// initialized value, as it would be a forward reference
-</span>  <span class="c1">// (e.g. a reference used before it's initialized), which
-</span>  <span class="c1">// could lead to a NullPointerException, not cool!
-</span>  <span class="nv">ref</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+  <span class="c1">// This wouldn't be correct without having an already</span>
+  <span class="c1">// initialized value, as it would be a forward reference</span>
+  <span class="c1">// (e.g. a reference used before it's initialized), which</span>
+  <span class="c1">// could lead to a NullPointerException, not cool!</span>
+  <span class="nv">ref</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -432,9 +436,9 @@ cancelable reference to cancel, in addition to the assigned reference:</p>
 <span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"primary canceled"</span><span class="o">))</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">//=&gt; extra canceled
-//=&gt; primary canceled
-</span></code></pre></div></div>
+<span class="c1">//=&gt; extra canceled</span>
+<span class="c1">//=&gt; primary canceled</span>
+</code></pre></div></div>
 
 <p>You can use <code class="highlighter-rouge">MultiAssignmentCancelable</code> for the same purpose of
 course, but the implementation of <code class="highlighter-rouge">SingleAssignmentCancelable</code> is more
@@ -470,22 +474,22 @@ stored cancelable to be canceled</li>
 
 <span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #1"</span><span class="o">))</span>
 
-<span class="c1">// Will cancel the previous one
-</span><span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #2"</span><span class="o">))</span>
-<span class="c1">// =&gt; Canceled #1
-</span>
-<span class="c1">// Will cancel the previous one
-</span><span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
-<span class="c1">// =&gt; Canceled #2
-</span>
-<span class="c1">// Will cancel the current one
-</span><span class="nv">ref</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">// =&gt; Canceled #3
-</span>
-<span class="c1">// Afterwards everything gets canceled on assignment
-</span><span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #4"</span><span class="o">))</span>
-<span class="c1">// =&gt; Canceled #4
-</span></code></pre></div></div>
+<span class="c1">// Will cancel the previous one</span>
+<span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #2"</span><span class="o">))</span>
+<span class="c1">// =&gt; Canceled #1</span>
+
+<span class="c1">// Will cancel the previous one</span>
+<span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #3"</span><span class="o">))</span>
+<span class="c1">// =&gt; Canceled #2</span>
+
+<span class="c1">// Will cancel the current one</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// =&gt; Canceled #3</span>
+
+<span class="c1">// Afterwards everything gets canceled on assignment</span>
+<span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #4"</span><span class="o">))</span>
+<span class="c1">// =&gt; Canceled #4</span>
+</code></pre></div></div>
 
 <h2 id="refcountcancelable">RefCountCancelable</h2>
 
@@ -513,31 +517,31 @@ canceled, then the returned reference will be a <code class="highlighter-rouge">
   <span class="nf">println</span><span class="o">(</span><span class="s">"Everything was canceled"</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="c1">// acquiring two cancelable references
-</span><span class="k">val</span> <span class="nv">ref1</span> <span class="k">=</span> <span class="nv">refs</span><span class="o">.</span><span class="py">acquire</span><span class="o">()</span>
+<span class="c1">// acquiring two cancelable references</span>
+<span class="k">val</span> <span class="nv">ref1</span> <span class="k">=</span> <span class="nv">refs</span><span class="o">.</span><span class="py">acquire</span><span class="o">()</span>
 <span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nv">refs</span><span class="o">.</span><span class="py">acquire</span><span class="o">()</span>
 
-<span class="c1">// Starting the cancelation process
-</span><span class="nv">refs</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// Starting the cancelation process</span>
+<span class="nv">refs</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 
-<span class="c1">// This is now true, but the callback hasn't been invoked yet
-</span><span class="nv">refs</span><span class="o">.</span><span class="py">isCanceled</span>
-<span class="c1">// res: Boolean = true
-</span>
-<span class="c1">// After our RefCountCancelable was canceled, this will return
-// a Cancelable.empty
-</span><span class="k">val</span> <span class="nv">ref3</span> <span class="k">=</span> <span class="nv">refs</span><span class="o">.</span><span class="py">acquire</span><span class="o">()</span>
+<span class="c1">// This is now true, but the callback hasn't been invoked yet</span>
+<span class="nv">refs</span><span class="o">.</span><span class="py">isCanceled</span>
+<span class="c1">// res: Boolean = true</span>
+
+<span class="c1">// After our RefCountCancelable was canceled, this will return</span>
+<span class="c1">// a Cancelable.empty</span>
+<span class="k">val</span> <span class="nv">ref3</span> <span class="k">=</span> <span class="nv">refs</span><span class="o">.</span><span class="py">acquire</span><span class="o">()</span>
 
 <span class="n">ref3</span> <span class="o">==</span> <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
-<span class="c1">// res: Boolean = true
-</span>
-<span class="c1">// Release reference 1, nothing happens here
-</span><span class="nv">ref1</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// res: Boolean = true</span>
 
-<span class="c1">// Release reference 2, now we can execute
-</span><span class="nv">ref2</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">// =&gt; Everything was canceled
-</span></code></pre></div></div>
+<span class="c1">// Release reference 1, nothing happens here</span>
+<span class="nv">ref1</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+
+<span class="c1">// Release reference 2, now we can execute</span>
+<span class="nv">ref2</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// =&gt; Everything was canceled</span>
+</code></pre></div></div>
 
 <p>This cancelable type is actually used in <code class="highlighter-rouge">Observable.merge</code> (•‿•)</p>
 
@@ -556,5 +560,11 @@ canceled, then the returned reference will be a <code class="highlighter-rouge">
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

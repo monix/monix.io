@@ -12,31 +12,35 @@
   
   <title>MVar &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="MVar &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="MVar &amp;mdash; Monix" />
   <meta name="twitter:description" content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/eval/mvar">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/eval/mvar" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="MVar &amp;mdash; Monix" property="og:title">
+  <meta content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." property="og:description">
+  <meta content="https://monix.io/docs/2x/eval/mvar" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="MVar &mdash; Monix" />
-  <meta property="og:description" content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -178,8 +182,8 @@ except that there’s no actual thread blocking involved and it is powered by <c
 <span class="k">val</span> <span class="nv">state</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nf">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">100</span><span class="o">).</span><span class="py">toList</span><span class="o">)</span>
 
-<span class="c1">// Evaluate
-</span><span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
+<span class="c1">// Evaluate</span>
+<span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
 
 <p>This sample isn’t very useful, except to show how <code class="highlighter-rouge">MVar</code> can be used
@@ -225,8 +229,8 @@ Let’s do it:</p>
 
 <span class="k">val</span> <span class="nv">atomicTask</span> <span class="k">=</span> <span class="nv">lock</span><span class="o">.</span><span class="py">greenLight</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
 
-<span class="c1">// Evaluate
-</span><span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">atomicTask</span><span class="o">.</span><span class="py">runAsync</span>
+<span class="c1">// Evaluate</span>
+<span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">atomicTask</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
 
 <h2 id="use-case-producerconsumer-channel">Use-case: Producer/Consumer Channel</h2>
@@ -238,26 +242,26 @@ But we also need some back-pressure, so we need to wait on the
 consumer to consume the last event before being able to generate
 a new event.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Signaling option, because we need to detect completion
-</span><span class="k">type</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Signaling option, because we need to detect completion</span>
+<span class="k">type</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
 
 <span class="k">def</span> <span class="nf">producer</span><span class="o">(</span><span class="n">ch</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span>
-      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// we are done!
-</span>    <span class="k">case</span> <span class="n">head</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span>
-      <span class="c1">// next please
-</span>      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="n">head</span><span class="o">)).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">producer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">tail</span><span class="o">))</span>
+      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// we are done!</span>
+    <span class="k">case</span> <span class="n">head</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span>
+      <span class="c1">// next please</span>
+      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="n">head</span><span class="o">)).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">producer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">tail</span><span class="o">))</span>
   <span class="o">}</span>
 
 <span class="k">def</span> <span class="nf">consumer</span><span class="o">(</span><span class="n">ch</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">ch</span><span class="o">.</span><span class="py">take</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="c1">// next please
-</span>      <span class="nf">consumer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">x</span><span class="o">)</span>
+      <span class="c1">// next please</span>
+      <span class="nf">consumer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">x</span><span class="o">)</span>
     <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span>
-      <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span> <span class="c1">// we are done!
-</span>  <span class="o">}</span>
+      <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span> <span class="c1">// we are done!</span>
+  <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">channel</span> <span class="k">=</span> <span class="nv">MVar</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span>
 <span class="k">val</span> <span class="nv">count</span> <span class="k">=</span> <span class="mi">100000</span>
@@ -265,11 +269,11 @@ a new event.</p>
 <span class="k">val</span> <span class="nv">producerTask</span> <span class="k">=</span> <span class="nf">producer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="n">count</span><span class="o">).</span><span class="py">toList</span><span class="o">).</span><span class="py">executeWithFork</span>
 <span class="k">val</span> <span class="nv">consumerTask</span> <span class="k">=</span> <span class="nf">consumer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="mi">0L</span><span class="o">).</span><span class="py">executeWithFork</span>
 
-<span class="c1">// Ensure they run in parallel, not really necessary, just for kicks
-</span><span class="k">val</span> <span class="nv">sumTask</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">mapBoth</span><span class="o">(</span><span class="n">producerTask</span><span class="o">,</span> <span class="n">consumerTask</span><span class="o">)((</span><span class="k">_</span><span class="o">,</span><span class="n">sum</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sum</span><span class="o">)</span>
+<span class="c1">// Ensure they run in parallel, not really necessary, just for kicks</span>
+<span class="k">val</span> <span class="nv">sumTask</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">mapBoth</span><span class="o">(</span><span class="n">producerTask</span><span class="o">,</span> <span class="n">consumerTask</span><span class="o">)((</span><span class="k">_</span><span class="o">,</span><span class="n">sum</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sum</span><span class="o">)</span>
 
-<span class="c1">// Evaluate
-</span><span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">sumTask</span><span class="o">.</span><span class="py">runAsync</span>
+<span class="c1">// Evaluate</span>
+<span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">sumTask</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
 
 <p>Running this will work as expected. Our <code class="highlighter-rouge">producer</code> pushes values
@@ -290,5 +294,11 @@ into our <code class="highlighter-rouge">MVar</code> and our <code class="highli
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

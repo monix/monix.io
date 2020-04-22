@@ -12,31 +12,35 @@
   
   <title>Typelevel Cats Integration &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Typelevel Cats Integration &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Typelevel Cats Integration &amp;mdash; Monix" />
   <meta name="twitter:description" content="Integration and usage of the type-classes described in the Typelevel Cats library." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/intro/cats">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/intro/cats" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Typelevel Cats Integration &amp;mdash; Monix" property="og:title">
+  <meta content="Integration and usage of the type-classes described in the Typelevel Cats library." property="og:description">
+  <meta content="https://monix.io/docs/2x/intro/cats" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Typelevel Cats Integration &mdash; Monix" />
-  <meta property="og:description" content="Integration and usage of the type-classes described in the Typelevel Cats library." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -157,7 +161,7 @@ And now we can verify that <code class="highlighter-rouge">Task</code> is indeed
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
 <span class="n">scala</span><span class="o">&gt;</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">cats.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">cats</span><span class="o">.</span><span class="py">MonixToCatsCore11$MonixToCatsMonadRec</span><span class="k">@</span><span class="mi">462</span><span class="n">bbcd9</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">cats.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">cats</span><span class="o">.</span><span class="py">MonixToCatsCore11$MonixToCatsMonadRec</span><span class="k">@</span><span class="mi">1</span><span class="n">b83ed3a</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -177,14 +181,14 @@ can also work in reverse:</p>
 <code class="highlighter-rouge">monix.types.Monad[cats.Eval]</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">cats.Eval</span><span class="o">]]</span>
-<span class="c1">// res0: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@cfd91b6
-</span></code></pre></div></div>
+<span class="c1">// res0: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@3a67f89a</span>
+</code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates
 problems, so avoid doing it:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DO NOT DO THIS!
-</span><span class="k">import</span> <span class="nn">monix.cats._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DO NOT DO THIS!</span>
+<span class="k">import</span> <span class="nn">monix.cats._</span>
 <span class="k">import</span> <span class="nn">monix.cats.reverse._</span>
 </code></pre></div></div>
 
@@ -206,5 +210,11 @@ with Monix’s abstractions, such as <code class="highlighter-rouge">Coeval</cod
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

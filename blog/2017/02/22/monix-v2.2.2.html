@@ -12,31 +12,36 @@
   
   <title>Monix: Version 2.2.2 Released</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
   <meta name="twitter:title" content="Monix: Version 2.2.2 Released" />
   <meta name="twitter:description" content="TaskCircuitBreaker, memoizeOnSuccess, deferFutureAction, critical bug fixes" />
-
+  <meta name="twitter:url" content="https://monix.io/blog/2017/02/22/monix-v2.2.2.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2017/02/22/monix-v2.2.2.html" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix: Version 2.2.2 Released" property="og:title">
+  <meta content="TaskCircuitBreaker, memoizeOnSuccess, deferFutureAction, critical bug fixes" property="og:description">
+  <meta content="https://monix.io/blog/2017/02/22/monix-v2.2.2.html" property="og:url">
+  <meta content="2017-02-22T00:00:00+00:00" property="article:published_time">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix: Version 2.2.2 Released" />
-  <meta property="og:description" content="TaskCircuitBreaker, memoizeOnSuccess, deferFutureAction, critical bug fixes" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -173,11 +178,11 @@ subsequent calls will retry evaluating the source until it succeeds:</p>
 
 <span class="k">val</span> <span class="nv">cached</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">memoizeOnSuccess</span>
 
-<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
-</span><span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
-</span></code></pre></div></div>
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException</span>
+<span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException</span>
+<span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3</span>
+<span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3</span>
+</code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/313">Issue #313</a></strong> - 
 On <code class="highlighter-rouge">Task</code> we added the <code class="highlighter-rouge">deferFutureAction</code> builder,
@@ -189,8 +194,8 @@ specify a callback with an injected <code class="highlighter-rouge">Scheduler</c
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">Future</span><span class="o">(</span><span class="nv">list</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 
-<span class="c1">// Look Ma, no implicit ExecutionContext!
-</span><span class="k">def</span> <span class="nf">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+<span class="c1">// Look Ma, no implicit ExecutionContext!</span>
+<span class="k">def</span> <span class="nf">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">deferFutureAction</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">scheduler</span> <span class="k">=&gt;</span>
     <span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="o">)</span>
   <span class="o">}</span>
@@ -213,9 +218,9 @@ assigned later:</p>
 <span class="n">c</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"primary canceled"</span><span class="o">))</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
-<span class="c1">//=&gt; extra canceled
-//=&gt; primary canceled
-</span></code></pre></div></div>
+<span class="c1">//=&gt; extra canceled</span>
+<span class="c1">//=&gt; primary canceled</span>
+</code></pre></div></div>
 
 <p>This helps with building <code class="highlighter-rouge">Consumer</code> objects that need to specify a 
 cancelable that cancels the data source, plus whatever resources
@@ -291,14 +296,14 @@ have also been upgraded to depend on this new version.</p>
 <p><strong><a href="https://github.com/monix/monix-kafka">monix-kafka</a></strong>, the Apache Kafka
 integration:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.11"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.11"</span>
 
-<span class="c1">// For Kafka 9
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.11"</span>
+<span class="c1">// For Kafka 9</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.11"</span>
 
-<span class="c1">// For Kafka 10
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.11"</span>
+<span class="c1">// For Kafka 10</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.11"</span>
 </code></pre></div></div>
 
 <p>Enjoy!</p>
@@ -341,28 +346,25 @@ integration:</p>
 
   
 <div id="contributions">
-  <script data-isso="/comments/monix/"
-          data-isso-css="true"
-          data-isso-lang="en"
-          data-isso-reply-to-self="true"
-          data-isso-require-author="true"
-          data-isso-require-email="false"
-          data-isso-reply-notifications="true"
-          data-isso-max-comments-top="10"
-          data-isso-max-comments-nested="5"
-          data-isso-reveal-on-click="5"
-          data-isso-gravatar="true"
-          data-isso-avatar="false"
-          data-isso-vote="true"
-          data-vote-levels=""
-          src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.2.2 Released">
-  </section>
+  <h2>Feedback?</h2>
+
+  <div class="address">
+    If you wish to discus this article, jump to our chatroom:
+    <p>
+      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
+    </p>
+  </div>
 </div>
 
 </div>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

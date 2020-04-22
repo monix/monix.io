@@ -12,31 +12,35 @@
   
   <title>Coeval &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Coeval &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Coeval &amp;mdash; Monix" />
   <meta name="twitter:description" content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/3x/eval/coeval">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/eval/coeval" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Coeval &amp;mdash; Monix" property="og:title">
+  <meta content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." property="og:description">
+  <meta content="https://monix.io/docs/3x/eval/coeval" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Coeval &mdash; Monix" />
-  <meta property="og:description" content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -138,14 +142,14 @@ fascination of FP developers for co-things ♥◡♥</p>
   <span class="s">"Hello!"</span>
 <span class="o">}</span>
 
-<span class="c1">// Coeval has lazy behavior, so nothing
-// happens until being evaluated:
-</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect!
-// res1: String = Hello!
-</span>
-<span class="c1">// And we can handle errors explicitly:
-</span><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
+<span class="c1">// Coeval has lazy behavior, so nothing</span>
+<span class="c1">// happens until being evaluated:</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; Effect!</span>
+<span class="c1">// res1: String = Hello!</span>
+
+<span class="c1">// And we can handle errors explicitly:</span>
+<span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
 
 <span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span> <span class="k">match</span> <span class="o">{</span>
  <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
@@ -256,11 +260,11 @@ replacement for Scala’s <code class="highlighter-rouge">Try</code> type.</p>
   <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="o">}</span>
 
-<span class="c1">// Nothing happens until this point:
-</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect!
-// res: Int = 2
-</span></code></pre></div></div>
+<span class="c1">// Nothing happens until this point:</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; Effect!</span>
+<span class="c1">// res: Int = 2</span>
+</code></pre></div></div>
 
 <p>But <code class="highlighter-rouge">value</code> might trigger exceptions, if somewhere in the evaluation
 chain exceptions have happened. Instead of <code class="highlighter-rouge">value</code> we can expose
@@ -279,9 +283,9 @@ errors by means of <code class="highlighter-rouge">runTry</code>:</p>
     <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Error: $ex"</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="c1">// Will print:
-//=&gt; Error: java.lang.RuntimeException: Hello!
-</span></code></pre></div></div>
+<span class="c1">// Will print:</span>
+<span class="c1">//=&gt; Error: java.lang.RuntimeException: Hello!</span>
+</code></pre></div></div>
 
 <h3 id="eager-the-replacement-for-scalautiltry">Eager, the replacement for scala.util.Try</h3>
 
@@ -298,13 +302,13 @@ exposed as an ADT that you can use instead of <code class="highlighter-rouge">sc
 <span class="k">val</span> <span class="nv">coeval1</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">result1</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">coeval1</span><span class="o">.</span><span class="py">run</span>
-<span class="c1">// result1 = Now(2)
-</span>
+<span class="c1">// result1 = Now(2)</span>
+
 <span class="k">val</span> <span class="nv">coeval2</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">))</span>
 
 <span class="k">val</span> <span class="nv">result2</span><span class="k">:</span> <span class="kt">Eager</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">coeval2</span><span class="o">.</span><span class="py">run</span>
-<span class="c1">// result = Error(java.lang.RuntimeException: Hello!)
-</span></code></pre></div></div>
+<span class="c1">// result = Error(java.lang.RuntimeException: Hello!)</span>
+</code></pre></div></div>
 
 <p>Hence the <code class="highlighter-rouge">Coeval</code> type, or more precisely <code class="highlighter-rouge">Coeval.Eager</code>, can work
 as a replacement for <code class="highlighter-rouge">scala.util.Try</code>, although note that even if the
@@ -319,8 +323,8 @@ is the main difference between <code class="highlighter-rouge">Eager</code> and 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">task</span>
-<span class="c1">// task: Task[Int] = Always(&lt;function0&gt;)
-</span></code></pre></div></div>
+<span class="c1">// task: Task[Int] = Always(&lt;function0&gt;)</span>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> being siblings, they have similar internal states
 and conversion from a <code class="highlighter-rouge">Coeval</code> into a <code class="highlighter-rouge">Task</code> is direct and efficient.</p>
@@ -339,9 +343,9 @@ the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
 <span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">//=&gt; Effect
-// coeval: monix.eval.Coeval[String] = Now(Hello!)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">// coeval: monix.eval.Coeval[String] = Now(Hello!)</span>
+</code></pre></div></div>
 
 <h3 id="coevaleval">Coeval.eval</h3>
 
@@ -349,18 +353,18 @@ the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 function that will always be evaluated on invocation of <code class="highlighter-rouge">value</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)
-</span>
+<span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)</span>
+
 <span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
-<span class="c1">// The evaluation (and thus all contained side effects)
-// gets triggered every time
-</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
+<span class="c1">// The evaluation (and thus all contained side effects)</span>
+<span class="c1">// gets triggered every time</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h3 id="coevalevalonce">Coeval.evalOnce</h3>
 
@@ -371,16 +375,16 @@ will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">evalOnce</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)
-</span>
+<span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)</span>
+
 <span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
-<span class="c1">// Result was memoized on the first run!
-</span><span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
+<span class="c1">// Result was memoized on the first run!</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h3 id="coevaldefer">Coeval.defer</h3>
 
@@ -390,28 +394,28 @@ this will behave approximately like <code class="highlighter-rouge">Coeval.eval<
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
   <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="o">}</span>
-<span class="c1">// coeval: monix.eval.Coeval[String] = Suspend(&lt;function0&gt;)
-</span>
+<span class="c1">// coeval: monix.eval.Coeval[String] = Suspend(&lt;function0&gt;)</span>
+
 <span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
 <span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h3 id="coevalraiseerror">Coeval.raiseError</h3>
 
 <p><code class="highlighter-rouge">Coeval.raiseError</code> can lift errors in the monadic context of <code class="highlighter-rouge">Coeval</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">error</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
-<span class="c1">// error: monix.eval.Coeval[Int] =
-//   Error(java.util.concurrent.TimeoutException)
-</span>
+<span class="c1">// error: monix.eval.Coeval[Int] =</span>
+<span class="c1">//   Error(java.util.concurrent.TimeoutException)</span>
+
 <span class="nv">error</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">//=&gt; Failure(java.lang.IllegalStateException)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Failure(java.lang.IllegalStateException)</span>
+</code></pre></div></div>
 
 <h3 id="coevalunit">Coeval.unit</h3>
 
@@ -420,8 +424,8 @@ provided as an utility, to spare you creating new instances with
 <code class="highlighter-rouge">Coeval.now(())</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">unit</span>
-<span class="c1">// coeval: monix.eval.Coeval[Unit] = Now(())
-</span></code></pre></div></div>
+<span class="c1">// coeval: monix.eval.Coeval[Unit] = Now(())</span>
+</code></pre></div></div>
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
@@ -457,18 +461,18 @@ idea of the properties involved: for the layman, you can say that
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
-<span class="c1">// Has async execution, to do the .apply semantics
-</span><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<span class="c1">// Has async execution, to do the .apply semantics</span>
+<span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">memoized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">memoize</span>
 
 <span class="nv">memoized</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
 <span class="nv">memoized</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h2 id="operations">Operations</h2>
 
@@ -526,8 +530,8 @@ as nothing will get triggered until evaluation happens.</p>
 
 <p>But we can also have <strong>mutually tail-recursive calls</strong>, w00t!</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mutual Tail Recursion, ftw!!!
-</span><span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mutual Tail Recursion, ftw!!!</span>
+<span class="o">{</span>
   <span class="k">def</span> <span class="nf">odd</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
     <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
       <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
@@ -554,8 +558,8 @@ as nothing will get triggered until evaluation happens.</p>
 <span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">addressTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 
-<span class="c1">// Ordered operations based on flatMap ...
-</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+<span class="c1">// Ordered operations based on flatMap ...</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
   <span class="n">location</span> <span class="k">&lt;-</span> <span class="n">locationTask</span>
   <span class="n">phone</span> <span class="k">&lt;-</span> <span class="n">phoneTask</span>
   <span class="n">address</span> <span class="k">&lt;-</span> <span class="n">addressTask</span>
@@ -600,8 +604,8 @@ coeval with a sequence of results.</p>
   <span class="nv">Coeval</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ca</span><span class="o">,</span> <span class="n">cb</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; List(1, 2)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; List(1, 2)</span>
+</code></pre></div></div>
 
 <p>The results are ordered in the order of the initial sequence.</p>
 
@@ -619,12 +623,12 @@ over again, until the given predicate is true:</p>
 <span class="o">}</span>
 
 <span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; -2097793116
-</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; 1246761488
-</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; 1053678416
-</span></code></pre></div></div>
+<span class="c1">//=&gt; -2097793116</span>
+<span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; 1246761488</span>
+<span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
+<span class="c1">//=&gt; 1053678416</span>
+</code></pre></div></div>
 
 <h3 id="clean-up-resources-on-finish">Clean-up Resources on Finish</h3>
 
@@ -645,9 +649,9 @@ some scheduled side-effect:</p>
 <span class="o">}</span>
 
 <span class="nv">withFinishCb</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">//=&gt; Was success!
-// res: Int = 1
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Was success!</span>
+<span class="c1">// res: Int = 1</span>
+</code></pre></div></div>
 
 <h2 id="error-handling">Error Handling</h2>
 
@@ -670,11 +674,11 @@ errors, it still catches errors, signaling them on <code class="highlighter-roug
 <span class="o">}</span>
 
 <span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">// res1: Try[Int] = Success(624170708)
-</span>
+<span class="c1">// res1: Try[Int] = Success(624170708)</span>
+
 <span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">// res2: Try[Int] = Failure(IllegalStateException: -814066173)
-</span></code></pre></div></div>
+<span class="c1">// res2: Try[Int] = Failure(IllegalStateException: -814066173)</span>
+</code></pre></div></div>
 
 <h3 id="recovering-from-error">Recovering from Error</h3>
 
@@ -689,29 +693,29 @@ this:</p>
 
 <span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+    <span class="c1">// Oh, we know about illegal states, recover it</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="c1">// We have no idea what happened, raise error!
-</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
+    <span class="c1">// We have no idea what happened, raise error!</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">// res1: Try[String] = Success(Recovered!)
-</span></code></pre></div></div>
+<span class="c1">// res1: Try[String] = Success(Recovered!)</span>
+</code></pre></div></div>
 
 <p>There’s also <code class="highlighter-rouge">Coeval.onErrorRecoverWith</code> that takes a partial function
 instead, so we can omit the “other” branch:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecoverWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+    <span class="c1">// Oh, we know about illegal states, recover it</span>
+    <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">// res: Try[String] = Success(Recovered!)
-</span></code></pre></div></div>
+<span class="c1">// res: Try[String] = Success(Recovered!)</span>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">Coeval.onErrorHandleWith</code> and <code class="highlighter-rouge">Coeval.onErrorRecoverWith</code> are the
 equivalent of <code class="highlighter-rouge">flatMap</code>, only for errors. In case we know or can
@@ -720,19 +724,19 @@ operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="s">"Recovered!"</span>
+    <span class="c1">// Oh, we know about illegal states, recover it</span>
+    <span class="s">"Recovered!"</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="k">throw</span> <span class="n">other</span> <span class="c1">// Rethrowing
-</span><span class="o">}</span>
+    <span class="k">throw</span> <span class="n">other</span> <span class="c1">// Rethrowing</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>Or the partial function version with <code class="highlighter-rouge">onErrorRecover</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecover</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about illegal states, recover it
-</span>    <span class="s">"Recovered!"</span>
+    <span class="c1">// Oh, we know about illegal states, recover it</span>
+    <span class="s">"Recovered!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -751,9 +755,9 @@ restart the source on error, for how many times are needed:</p>
     <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Will retry 4 times for a random even number,
-// or fail if the maxRetries is reached!
-</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
+<span class="c1">// Will retry 4 times for a random even number,</span>
+<span class="c1">// or fail if the maxRetries is reached!</span>
+<span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We can also restart with a given predicate:</p>
@@ -767,9 +771,9 @@ restart the source on error, for how many times are needed:</p>
     <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Will keep retrying for as long as the source fails
-// with an IllegalStateException
-</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
+<span class="c1">// Will keep retrying for as long as the source fails</span>
+<span class="c1">// with an IllegalStateException</span>
+<span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span> <span class="kc">true</span>
   <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
 <span class="o">}</span>
@@ -787,15 +791,15 @@ errors such that we can recover more efficiently:</p>
 <span class="k">val</span> <span class="nv">materialized</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
 
-<span class="c1">// Now we can flatMap over both success and failure:
-</span><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+<span class="c1">// Now we can flatMap over both success and failure:</span>
+<span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
   <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">value</span>
-<span class="c1">// res: Int = 0
-</span></code></pre></div></div>
+<span class="c1">// res: Int = 0</span>
+</code></pre></div></div>
 
 <p>There’s also the reverse of materialize, which is
 <code class="highlighter-rouge">Coeval.dematerialize</code>:</p>
@@ -804,14 +808,14 @@ errors such that we can recover more efficiently:</p>
 
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
-<span class="c1">// Exposing errors
-</span><span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
-<span class="c1">// materialize: Coeval[Try[Int]] = ???
-</span>
-<span class="c1">// Hiding errors again
-</span><span class="k">val</span> <span class="nv">dematerialized</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">dematerialize</span>
-<span class="c1">// dematerialized: Coeval[Int] = ???
-</span></code></pre></div></div>
+<span class="c1">// Exposing errors</span>
+<span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
+<span class="c1">// materialize: Coeval[Try[Int]] = ???</span>
+
+<span class="c1">// Hiding errors again</span>
+<span class="k">val</span> <span class="nv">dematerialized</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">dematerialize</span>
+<span class="c1">// dematerialized: Coeval[Int] = ???</span>
+</code></pre></div></div>
 
 <p>We can also convert any <code class="highlighter-rouge">Coeval</code> into a <code class="highlighter-rouge">Coeval[Throwable]</code> that will
 expose any errors that happen and will also terminate with an
@@ -820,11 +824,11 @@ expose any errors that happen and will also terminate with an
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">throwable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">failed</span>
-<span class="c1">// throwable: Coeval[Throwable] = ???
-</span>
+<span class="c1">// throwable: Coeval[Throwable] = ???</span>
+
 <span class="nv">throwable</span><span class="o">.</span><span class="py">runTry</span>
-<span class="c1">// res: Try[Throwable] = Success(java.lang.IllegalStateException)
-</span></code></pre></div></div>
+<span class="c1">// res: Try[Throwable] = Success(java.lang.IllegalStateException)</span>
+</code></pre></div></div>
 
 
   <div id="version3x">
@@ -847,5 +851,11 @@ expose any errors that happen and will also terminate with an
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

@@ -12,31 +12,35 @@
   
   <title>Javascript Event Listeners &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Javascript Event Listeners &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Javascript Event Listeners &amp;mdash; Monix" />
   <meta name="twitter:description" content="How do you convert Javascript event listeners to Observable?" />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/reactive/javascript">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/reactive/javascript" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Javascript Event Listeners &amp;mdash; Monix" property="og:title">
+  <meta content="How do you convert Javascript event listeners to Observable?" property="og:description">
+  <meta content="https://monix.io/docs/2x/reactive/javascript" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Javascript Event Listeners &mdash; Monix" />
-  <meta property="og:description" content="How do you convert Javascript event listeners to Observable?" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -133,8 +137,8 @@ it and manipulate it, like any other <code class="highlighter-rouge">Observable<
 <span class="k">def</span> <span class="nf">eventListener</span><span class="o">(</span><span class="n">target</span><span class="k">:</span> <span class="kt">EventTarget</span><span class="o">,</span> <span class="n">event</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Event</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">create</span><span class="o">(</span><span class="nc">Unbounded</span><span class="o">)</span> <span class="o">{</span> <span class="n">subscriber</span> <span class="k">=&gt;</span>
     <span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
-    <span class="c1">// Forced conversion, otherwise canceling will not work!
-</span>    <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">scalajs.js.Function1</span><span class="o">[</span><span class="kt">Event</span>,<span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="c1">// Forced conversion, otherwise canceling will not work!</span>
+    <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">scalajs.js.Function1</span><span class="o">[</span><span class="kt">Event</span>,<span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="n">e</span><span class="k">:</span> <span class="kt">Event</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">e</span><span class="o">).</span><span class="py">syncOnStopOrFailure</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">())</span>
 
     <span class="nv">target</span><span class="o">.</span><span class="py">addEventListener</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">f</span><span class="o">)</span>
@@ -148,8 +152,8 @@ it and manipulate it, like any other <code class="highlighter-rouge">Observable<
 
 <span class="nf">println</span><span class="o">(</span><span class="s">"Started! Move mouse over the bottom panel!"</span><span class="o">)</span>
 
-<span class="c1">// Canceling in 20 seconds!
-</span><span class="nv">dom</span><span class="o">.</span><span class="py">window</span><span class="o">.</span><span class="py">setTimeout</span><span class="o">(</span>
+<span class="c1">// Canceling in 20 seconds!</span>
+<span class="nv">dom</span><span class="o">.</span><span class="py">window</span><span class="o">.</span><span class="py">setTimeout</span><span class="o">(</span>
   <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceling!"</span><span class="o">);</span> <span class="nv">conn</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span> <span class="o">},</span>
   <span class="mi">20000</span>
 <span class="o">)</span>
@@ -178,5 +182,11 @@ just <code class="highlighter-rouge">scala.scalajs.js.Dynamic</code>, doesn’t 
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

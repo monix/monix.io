@@ -12,31 +12,35 @@
   
   <title>Best Practice: Should Not Block Threads &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Best Practice: Should Not Block Threads &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Best Practice: Should Not Block Threads &amp;mdash; Monix" />
   <meta name="twitter:description" content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/best-practices/blocking">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/best-practices/blocking" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Best Practice: Should Not Block Threads &amp;mdash; Monix" property="og:title">
+  <meta content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." property="og:description">
+  <meta content="https://monix.io/docs/2x/best-practices/blocking" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Best Practice: Should Not Block Threads &mdash; Monix" />
-  <meta property="og:description" content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -119,8 +123,8 @@ this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fetchSomething</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
 
-<span class="c1">// later ...
-</span><span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">fetchSomething</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+<span class="c1">// later ...</span>
+<span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">fetchSomething</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
 <span class="nv">result</span><span class="o">.</span><span class="py">toUpperCase</span>
 </code></pre></div></div>
 
@@ -161,8 +165,8 @@ never do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">java.util.concurrent.Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
 
-<span class="c1">// BAD CODE, NEVER DO THIS !!!
-</span><span class="nv">future</span><span class="o">.</span><span class="py">get</span>
+<span class="c1">// BAD CODE, NEVER DO THIS !!!</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">get</span>
 </code></pre></div></div>
 
 <p>Instead always specify timeouts, because in case the underlying
@@ -171,16 +175,16 @@ some of them will get unblocked after the specified timespan:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">java.util.concurrent.Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
 
-<span class="c1">// GOOD
-</span><span class="nv">future</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="c1">// GOOD</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="if-blocking-use-scalas-blockcontext">If blocking, use Scala’s BlockContext</h2>
 
 <p>This includes all blocking I/O, including SQL queries. Real sample:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE!
-</span><span class="nc">Future</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE!</span>
+<span class="nc">Future</span> <span class="o">{</span>
   <span class="nv">DB</span><span class="o">.</span><span class="py">withConnection</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">connection</span> <span class="k">=&gt;</span>
     <span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">"select * from bar"</span><span class="o">)</span>
     <span class="nf">query</span><span class="o">()</span>
@@ -205,9 +209,9 @@ bug waiting to happen in production.</p>
   <span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">addOne</span><span class="o">(</span><span class="n">y</span><span class="o">)</span>
   <span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nf">for</span> <span class="o">(</span><span class="n">r1</span> <span class="k">&lt;-</span> <span class="n">a</span><span class="o">;</span> <span class="n">r2</span> <span class="k">&lt;-</span> <span class="n">b</span><span class="o">)</span> <span class="k">yield</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span>
 
-  <span class="c1">// This can dead-lock due to the limited size 
-</span>  <span class="c1">// of our thread-pool!
-</span>  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+  <span class="c1">// This can dead-lock due to the limited size </span>
+  <span class="c1">// of our thread-pool!</span>
+  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -241,8 +245,8 @@ thread-pool to deal with CPU-bound stuff.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.Executors</span>
 
-<span class="c1">// ...
-</span><span class="k">private</span> <span class="k">val</span> <span class="nv">io</span> <span class="k">=</span> <span class="nv">Executors</span><span class="o">.</span><span class="py">newCachedThreadPool</span><span class="o">(</span>
+<span class="c1">// ...</span>
+<span class="k">private</span> <span class="k">val</span> <span class="nv">io</span> <span class="k">=</span> <span class="nv">Executors</span><span class="o">.</span><span class="py">newCachedThreadPool</span><span class="o">(</span>
   <span class="k">new</span> <span class="nc">ThreadFactory</span> <span class="o">{</span>
     <span class="k">private</span> <span class="k">val</span> <span class="nv">counter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicLong</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
 
@@ -307,5 +311,11 @@ backed by a “cached thread-pool”:</p>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

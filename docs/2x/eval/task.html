@@ -12,31 +12,35 @@
   
   <title>Task &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Task &mdash; Monix" />
-  <meta name="twitter:description" content="A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." />
-
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Task &amp;mdash; Monix" />
+  <meta name="twitter:description" content="A data type for controlling possibly lazy &amp;amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." />
+  <meta name="twitter:url" content="https://monix.io/docs/2x/eval/task">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/eval/task" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Task &amp;mdash; Monix" property="og:title">
+  <meta content="A data type for controlling possibly lazy &amp;amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." property="og:description">
+  <meta content="https://monix.io/docs/2x/eval/task" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Task &mdash; Monix" />
-  <meta property="og:description" content="A data type for controlling possibly lazy &amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -122,26 +126,26 @@ nondeterminism and callback-hell.</p>
 
 <p>To get the imports out of the way:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// In order to evaluate tasks, we'll need a Scheduler
-</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// In order to evaluate tasks, we'll need a Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 
-<span class="c1">// A Future type that is also Cancelable
-</span><span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
+<span class="c1">// A Future type that is also Cancelable</span>
+<span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
 
-<span class="c1">// Task is in monix.eval
-</span><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="c1">// Task is in monix.eval</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
 </code></pre></div></div>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Executing a sum, which (due to the semantics of apply)
-// will happen on another thread. Nothing happens on building
-// this instance though, this expression is pure, being
-// just a spec! Task by default has lazy behavior ;-)
-</span><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Executing a sum, which (due to the semantics of apply)</span>
+<span class="c1">// will happen on another thread. Nothing happens on building</span>
+<span class="c1">// this instance though, this expression is pure, being</span>
+<span class="c1">// just a spec! Task by default has lazy behavior ;-)</span>
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span>
 
-<span class="c1">// Tasks get evaluated only on runAsync!
-// Callback style:
-</span><span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
+<span class="c1">// Tasks get evaluated only on runAsync!</span>
+<span class="c1">// Callback style:</span>
+<span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span>
   <span class="n">result</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span>
       <span class="nf">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
@@ -149,16 +153,16 @@ nondeterminism and callback-hell.</p>
       <span class="nv">System</span><span class="o">.</span><span class="py">out</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: ${ex.getMessage}"</span><span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
-<span class="c1">//=&gt; 2
-</span>
-<span class="c1">// Or you can convert it into a Future
-</span><span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+<span class="c1">//=&gt; 2</span>
+
+<span class="c1">// Or you can convert it into a Future</span>
+<span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 
-<span class="c1">// Printing the result asynchronously
-</span><span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 2
-</span></code></pre></div></div>
+<span class="c1">// Printing the result asynchronously</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 2</span>
+</code></pre></div></div>
 
 <h3 id="design-summary">Design Summary</h3>
 
@@ -335,8 +339,8 @@ in return, which is a standard <code class="highlighter-rouge">Future</code> pai
 <span class="k">val</span> <span class="nv">result</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 
-<span class="c1">// If we change our mind
-</span><span class="nv">result</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// If we change our mind</span>
+<span class="nv">result</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>Returning a <code class="highlighter-rouge">Future</code> might be too heavy for your needs, you might want
@@ -356,8 +360,8 @@ Unit</code> callback, just like the standard <code class="highlighter-rouge">Fut
   <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="c1">// If we change our mind...
-</span><span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// If we change our mind...</span>
+<span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>We can also <code class="highlighter-rouge">runOnComplete</code> with a <a href="./callback.html">Callback</a> instance.
@@ -378,8 +382,8 @@ specific to <code class="highlighter-rouge">Try[T]</code>. Sample:</p>
       <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: ${ex.getMessage}"</span><span class="o">)</span>
   <span class="o">})</span>
 
-<span class="c1">// If we change our mind...
-</span><span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
+<span class="c1">// If we change our mind...</span>
+<span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
 <p>But if you just want to trigger some side-effects quickly, you can
@@ -388,11 +392,11 @@ just use <code class="highlighter-rouge">foreach</code> directly:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">);</span> <span class="s">"Result"</span> <span class="o">}</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="o">}</span>
-<span class="c1">//=&gt; Effect!
-//=&gt; Result
-</span>
-<span class="c1">// Or we can use for-comprehensions
-</span><span class="nf">for</span> <span class="o">(</span><span class="n">result</span> <span class="k">&lt;-</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
+<span class="c1">//=&gt; Effect!</span>
+<span class="c1">//=&gt; Result</span>
+
+<span class="c1">// Or we can use for-comprehensions</span>
+<span class="nf">for</span> <span class="o">(</span><span class="n">result</span> <span class="k">&lt;-</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
   <span class="nf">println</span><span class="o">(</span><span class="n">result</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -434,15 +438,15 @@ into a <code class="highlighter-rouge">Future</code> by means of <code class="hi
 <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 
 <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-</span>
-<span class="c1">// Or by using foreach
-</span><span class="k">val</span> <span class="nv">completed</span> <span class="k">=</span> <span class="nf">for</span> <span class="o">(</span><span class="n">r</span> <span class="k">&lt;-</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Completed!"</span><span class="o">)</span> <span class="o">}</span>
+<span class="c1">//=&gt; Hello!</span>
+
+<span class="c1">// Or by using foreach</span>
+<span class="k">val</span> <span class="nv">completed</span> <span class="k">=</span> <span class="nf">for</span> <span class="o">(</span><span class="n">r</span> <span class="k">&lt;-</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Completed!"</span><span class="o">)</span> <span class="o">}</span>
 
 <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">completed</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-//=&gt; Completed!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Hello!</span>
+<span class="c1">//=&gt; Completed!</span>
+</code></pre></div></div>
 
 <p><strong>NOTE:</strong> There is <a href="https://github.com/scala-js/scala-js/issues/186">no blocking</a>
 on Scala.js by design.</p>
@@ -460,12 +464,12 @@ dealing with callbacks.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">tryingNow</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">coeval</span>
-<span class="c1">// tryingNow: Coeval[Either[CancelableFuture[String],String]] = ???
-</span>
+<span class="c1">// tryingNow: Coeval[Either[CancelableFuture[String],String]] = ???</span>
+
 <span class="nv">tryingNow</span><span class="o">.</span><span class="py">value</span> <span class="k">match</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">future</span><span class="o">)</span> <span class="k">=&gt;</span>
-    <span class="c1">// No luck, this Task really wants async execution
-</span>    <span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Async: $r"</span><span class="o">))</span>
+    <span class="c1">// No luck, this Task really wants async execution</span>
+    <span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Async: $r"</span><span class="o">))</span>
   <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Got lucky: $result"</span><span class="o">)</span>
 <span class="o">}</span>
@@ -489,9 +493,9 @@ lifts an already known value in the <code class="highlighter-rouge">Task</code> 
 the equivalent of <code class="highlighter-rouge">Future.successful</code> or of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">//=&gt; Effect
-// task: monix.eval.Task[String] = Delay(Now(Hello!))
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">// task: monix.eval.Task[String] = Delay(Now(Hello!))</span>
+</code></pre></div></div>
 
 <h3 id="taskeval-delay">Task.eval (delay)</h3>
 
@@ -502,18 +506,18 @@ thread (depending on the chosen
 <a href="../execution/scheduler.html#execution-model">execution model</a>):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">// task: monix.eval.Task[String] = Delay(Always(&lt;function0&gt;))
-</span>
+<span class="c1">// task: monix.eval.Task[String] = Delay(Always(&lt;function0&gt;))</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
-<span class="c1">// The evaluation (and thus all contained side effects)
-// gets triggered on each runAsync:
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
+<span class="c1">// The evaluation (and thus all contained side effects)</span>
+<span class="c1">// gets triggered on each runAsync:</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <p>NOTE: for Scalaz converts, this function is also aliased as <code class="highlighter-rouge">Task.delay</code>.</p>
 
@@ -527,16 +531,16 @@ will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalOnce</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
-<span class="c1">// task: monix.eval.Task[String] = EvalOnce(&lt;function0&gt;)
-</span>
+<span class="c1">// task: monix.eval.Task[String] = EvalOnce(&lt;function0&gt;)</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
-<span class="c1">// Result was memoized on the first run!
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
+<span class="c1">// Result was memoized on the first run!</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <p>NOTE: this operation is effectively <code class="highlighter-rouge">Task.eval(f).memoize</code>.</p>
 
@@ -549,16 +553,16 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="o">}</span>
-<span class="c1">// task: monix.eval.Task[String] = Suspend(&lt;function0&gt;)
-</span>
+<span class="c1">// task: monix.eval.Task[String] = Suspend(&lt;function0&gt;)</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <p>NOTE: for Scalaz converts, this function is also aliased as <code class="highlighter-rouge">Task.suspend</code>.</p>
 
@@ -570,13 +574,13 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 
 <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="n">future</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-</span>
+<span class="c1">//=&gt; Effect</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Hello!</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <p>Note that <code class="highlighter-rouge">fromFuture</code> takes a strict argument and that may not be
 what you want. You might want a factory of <code class="highlighter-rouge">Future</code>. The design of
@@ -588,15 +592,15 @@ model, so in case you want a factory, you need to combine it with
   <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="n">future</span><span class="o">)</span>
 <span class="o">}</span>
-<span class="c1">//=&gt; task: monix.eval.Task[Int] = Suspend(&lt;function0&gt;)
-</span>
+<span class="c1">//=&gt; task: monix.eval.Task[Int] = Suspend(&lt;function0&gt;)</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h3 id="taskdeferfuture">Task.deferFuture</h3>
 
@@ -677,8 +681,8 @@ prefers to execute things on the current thread, at first.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">Task</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">apply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
     <span class="nf">fork</span><span class="o">(</span><span class="nf">eval</span><span class="o">(</span><span class="n">f</span><span class="o">))</span>
-  <span class="c1">//...
-</span><span class="o">}</span>
+  <span class="c1">//...</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>Fork also allows us to specify an alternative <code class="highlighter-rouge">Scheduler</code> to use.
@@ -689,25 +693,25 @@ on an alternative thread-pool.</p>
 
 <p>Lets assume we have 2 thread-pools:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The default scheduler
-</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The default scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 
-<span class="c1">// Creating a special scheduler meant for I/O
-</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="c1">// Creating a special scheduler meant for I/O</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
 <span class="k">lazy</span> <span class="k">val</span> <span class="nv">io</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"my-io"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>Then we can manage what executes on which:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Override the default Scheduler by fork:
-</span><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Running on thread: ${Thread.currentThread.getName}"</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Override the default Scheduler by fork:</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Running on thread: ${Thread.currentThread.getName}"</span><span class="o">))</span>
 <span class="k">val</span> <span class="nv">forked</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">fork</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">io</span><span class="o">)</span>
 
 <span class="nv">source</span><span class="o">.</span><span class="py">runAsync</span>
-<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-1
-</span><span class="nv">forked</span><span class="o">.</span><span class="py">runAsync</span>
-<span class="c1">//=&gt; Running on thread: my-io-4
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-1</span>
+<span class="nv">forked</span><span class="o">.</span><span class="py">runAsync</span>
+<span class="c1">//=&gt; Running on thread: my-io-4</span>
+</code></pre></div></div>
 
 <p>Note that, unless another asynchronous boundary is scheduled on the
 default <code class="highlighter-rouge">Scheduler</code>, execution remains on the last scheduler (thread-pool)
@@ -723,10 +727,10 @@ used. Notice what happens in this combination:</p>
     <span class="o">.</span><span class="py">runAsync</span>
 <span class="o">}</span>
 
-<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-7
-//=&gt; Running on thread: my-io-1
-//=&gt; Ends on thread: my-io-1
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-7</span>
+<span class="c1">//=&gt; Running on thread: my-io-1</span>
+<span class="c1">//=&gt; Ends on thread: my-io-1</span>
+</code></pre></div></div>
 
 <p>But if we insert another async boundary, then it switches back
 to the default:</p>
@@ -736,28 +740,28 @@ to the default:</p>
   <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Ends on thread: ${Thread.currentThread.getName}"</span><span class="o">))</span>
 
 <span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="n">source</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io
-</span>    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">asyncBoundary</span><span class="o">)</span> <span class="c1">// switch back to global
-</span>    <span class="o">.</span><span class="py">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="py">runAsync</span>
+  <span class="n">source</span> <span class="c1">// executes on global</span>
+    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io</span>
+    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">asyncBoundary</span><span class="o">)</span> <span class="c1">// switch back to global</span>
+    <span class="o">.</span><span class="py">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global</span>
+    <span class="o">.</span><span class="py">runAsync</span>
 <span class="o">}</span>
 
-<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-5
-//=&gt; Running on thread: my-io-2
-//=&gt; Ends on thread: ForkJoinPool-1-worker-5
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Running on thread: ForkJoinPool-1-worker-5</span>
+<span class="c1">//=&gt; Running on thread: my-io-2</span>
+<span class="c1">//=&gt; Ends on thread: ForkJoinPool-1-worker-5</span>
+</code></pre></div></div>
 
 <p>But <code class="highlighter-rouge">Task</code> also provides a convenient operator for introducing an
 asynchronous boundary without having to manually do this trick, called
 <code class="highlighter-rouge">Task.asyncBoundary</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="n">source</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io
-</span>    <span class="o">.</span><span class="py">asyncBoundary</span> <span class="c1">// switch back to global
-</span>    <span class="o">.</span><span class="py">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global
-</span>    <span class="o">.</span><span class="py">runAsync</span>
+  <span class="n">source</span> <span class="c1">// executes on global</span>
+    <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">forked</span><span class="o">)</span> <span class="c1">// executes on io</span>
+    <span class="o">.</span><span class="py">asyncBoundary</span> <span class="c1">// switch back to global</span>
+    <span class="o">.</span><span class="py">doOnFinish</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">onFinish</span><span class="o">)</span> <span class="c1">// executes on global</span>
+    <span class="o">.</span><span class="py">runAsync</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -767,10 +771,10 @@ because for the <code class="highlighter-rouge">forked</code> instance the <code
 set in stone and we only have flexibility to override the
 default if it hasn’t been overridden already:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Trying to execute on global
-</span><span class="nv">Task</span><span class="o">.</span><span class="py">fork</span><span class="o">(</span><span class="n">forked</span><span class="o">,</span> <span class="n">global</span><span class="o">).</span><span class="py">runAsync</span>
-<span class="c1">//=&gt; Running on thread: my-io-4
-</span></code></pre></div></div>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Trying to execute on global</span>
+<span class="nv">Task</span><span class="o">.</span><span class="py">fork</span><span class="o">(</span><span class="n">forked</span><span class="o">,</span> <span class="n">global</span><span class="o">).</span><span class="py">runAsync</span>
+<span class="c1">//=&gt; Running on thread: my-io-4</span>
+</code></pre></div></div>
 
 <p>There are also two <code class="highlighter-rouge">Task</code> methods specified as aliases for <code class="highlighter-rouge">Task.fork</code>,
 called <code class="highlighter-rouge">executeOn</code> and <code class="highlighter-rouge">executeWithFork</code> respectively. So you can do:</p>
@@ -794,12 +798,12 @@ for actual I/O operations.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
 
 <span class="k">val</span> <span class="nv">error</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">)</span>
-<span class="c1">// error: monix.eval.Task[Int] =
-//   Delay(Error(java.util.concurrent.TimeoutException))
-</span>
+<span class="c1">// error: monix.eval.Task[Int] =</span>
+<span class="c1">//   Delay(Error(java.util.concurrent.TimeoutException))</span>
+
 <span class="nv">error</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(java.util.concurrent.TimeoutException)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Failure(java.util.concurrent.TimeoutException)</span>
+</code></pre></div></div>
 
 <h3 id="tasknever">Task.never</h3>
 
@@ -808,16 +812,16 @@ for actual I/O operations.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
 
-<span class="c1">// A Task instance that never completes
-</span><span class="k">val</span> <span class="nv">never</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">never</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
+<span class="c1">// A Task instance that never completes</span>
+<span class="k">val</span> <span class="nv">never</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">never</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 
 <span class="k">val</span> <span class="nv">timedOut</span> <span class="k">=</span> <span class="nv">never</span><span class="o">.</span><span class="py">timeoutTo</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">,</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">TimeoutException</span><span class="o">))</span>
 
 <span class="nv">timedOut</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">// After 3 seconds:
-// =&gt; Failure(java.util.concurrent.TimeoutException)
-</span></code></pre></div></div>
+<span class="c1">// After 3 seconds:</span>
+<span class="c1">// =&gt; Failure(java.util.concurrent.TimeoutException)</span>
+</code></pre></div></div>
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
@@ -829,8 +833,8 @@ provided as a utility, to spare you creating new instances with
 <code class="highlighter-rouge">Task.now(())</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Delay(Now(()))
-</span></code></pre></div></div>
+<span class="c1">// task: monix.eval.Task[Unit] = Delay(Now(()))</span>
+</code></pre></div></div>
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
@@ -854,17 +858,17 @@ expressions with a given delay:</p>
 <span class="k">def</span> <span class="nf">evalDelayed</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">delay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span>
   <span class="o">(</span><span class="n">f</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
 
-  <span class="c1">// On execution, we have the scheduler and
-</span>  <span class="c1">// the callback injected ;-)
-</span>  <span class="nv">Task</span><span class="o">.</span><span class="py">create</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
+  <span class="c1">// On execution, we have the scheduler and</span>
+  <span class="c1">// the callback injected ;-)</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">create</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="k">val</span> <span class="nv">cancelable</span> <span class="k">=</span>
       <span class="nv">scheduler</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span> <span class="o">{</span>
         <span class="nf">callback</span><span class="o">(</span><span class="nc">Try</span><span class="o">(</span><span class="n">f</span><span class="o">))</span>
       <span class="o">}</span>
 
-    <span class="c1">// We must return something that can
-</span>    <span class="c1">// cancel the async computation
-</span>    <span class="n">cancelable</span>
+    <span class="c1">// We must return something that can</span>
+    <span class="c1">// cancel the async computation</span>
+    <span class="n">cancelable</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -886,9 +890,9 @@ yourself:</p>
         <span class="nv">callback</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
     <span class="o">})(</span><span class="n">scheduler</span><span class="o">)</span>
 
-    <span class="c1">// Scala Futures are not cancelable, so
-</span>    <span class="c1">// we shouldn't pretend that they are!
-</span>    <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
+    <span class="c1">// Scala Futures are not cancelable, so</span>
+    <span class="c1">// we shouldn't pretend that they are!</span>
+    <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
@@ -929,8 +933,8 @@ for certain use-cases.</p>
 this type:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">Task</span> <span class="o">{</span>
-  <span class="c1">// ...
-</span>
+  <span class="c1">// ...</span>
+
   <span class="k">type</span> <span class="kt">OnFinish</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="k">=</span> <span class="o">(</span><span class="nc">Context</span><span class="o">,</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span> <span class="k">=&gt;</span> <span class="nc">Unit</span>
 
   <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Context</span><span class="o">(</span>
@@ -961,31 +965,31 @@ for the kicks:</p>
 
   <span class="nv">Task</span><span class="o">.</span><span class="py">unsafeCreate</span> <span class="o">{</span> <span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">cb</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">context</span><span class="o">.</span><span class="py">scheduler</span>
-    <span class="c1">// A stack that keeps track of what we need to cancel
-</span>    <span class="k">val</span> <span class="nv">conn</span> <span class="k">=</span> <span class="nv">context</span><span class="o">.</span><span class="py">connection</span>
-    <span class="c1">// We need the forward reference, because otherwise `conn.pop`
-</span>    <span class="c1">// below can happen before pushing that reference in `conn`
-</span>    <span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
+    <span class="c1">// A stack that keeps track of what we need to cancel</span>
+    <span class="k">val</span> <span class="nv">conn</span> <span class="k">=</span> <span class="nv">context</span><span class="o">.</span><span class="py">connection</span>
+    <span class="c1">// We need the forward reference, because otherwise `conn.pop`</span>
+    <span class="c1">// below can happen before pushing that reference in `conn`</span>
+    <span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">SingleAssignmentCancelable</span><span class="o">()</span>
     <span class="n">conn</span> <span class="n">push</span> <span class="n">c</span>
 
     <span class="n">c</span> <span class="o">:=</span> <span class="nv">s</span><span class="o">.</span><span class="py">scheduleOnce</span><span class="o">(</span><span class="nv">timespan</span><span class="o">.</span><span class="py">length</span><span class="o">,</span> <span class="nv">timespan</span><span class="o">.</span><span class="py">unit</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
       <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-        <span class="c1">// Releasing our cancelable because our scheduled
-</span>        <span class="c1">// task is done and we need to let the GC collect it
-</span>        <span class="nv">conn</span><span class="o">.</span><span class="py">pop</span><span class="o">()</span>
+        <span class="c1">// Releasing our cancelable because our scheduled</span>
+        <span class="c1">// task is done and we need to let the GC collect it</span>
+        <span class="nv">conn</span><span class="o">.</span><span class="py">pop</span><span class="o">()</span>
 
-        <span class="c1">// We had an async boundary, so we must reset the frame
-</span>        <span class="c1">// index in order to let Monix know we've had a real
-</span>        <span class="c1">// async boundary - on the JVM this is not needed, since
-</span>        <span class="c1">// this is a thread-local, but on JS we don't have threads
-</span>        <span class="nv">context</span><span class="o">.</span><span class="py">frameRef</span><span class="o">.</span><span class="py">reset</span><span class="o">()</span>
+        <span class="c1">// We had an async boundary, so we must reset the frame</span>
+        <span class="c1">// index in order to let Monix know we've had a real</span>
+        <span class="c1">// async boundary - on the JVM this is not needed, since</span>
+        <span class="c1">// this is a thread-local, but on JS we don't have threads</span>
+        <span class="nv">context</span><span class="o">.</span><span class="py">frameRef</span><span class="o">.</span><span class="py">reset</span><span class="o">()</span>
 
-        <span class="c1">// We can now resume execution, by finally starting
-</span>        <span class="c1">// our source. As you can see, we just inject our
-</span>        <span class="c1">// StackedCancelable, there's no need to create another
-</span>        <span class="c1">// Cancelable reference, so at this point it's as if
-</span>        <span class="c1">// the source is being executed without any overhead!
-</span>        <span class="nv">Task</span><span class="o">.</span><span class="py">unsafeStartNow</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">async</span><span class="o">(</span><span class="n">cb</span><span class="o">))</span>
+        <span class="c1">// We can now resume execution, by finally starting</span>
+        <span class="c1">// our source. As you can see, we just inject our</span>
+        <span class="c1">// StackedCancelable, there's no need to create another</span>
+        <span class="c1">// Cancelable reference, so at this point it's as if</span>
+        <span class="c1">// the source is being executed without any overhead!</span>
+        <span class="nv">Task</span><span class="o">.</span><span class="py">unsafeStartNow</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">async</span><span class="o">(</span><span class="n">cb</span><span class="o">))</span>
       <span class="o">}</span>
     <span class="o">})</span>
   <span class="o">}</span>
@@ -1021,18 +1025,18 @@ In fact we can say that:</p>
 <p>They are effectively the same.  And <code class="highlighter-rouge">memoize</code> works
 with any task reference:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Has async execution, to do the .apply semantics
-</span><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Has async execution, to do the .apply semantics</span>
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">memoized</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">memoize</span>
 
 <span class="nv">memoized</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect
-//=&gt; Hello!
-</span>
+<span class="c1">//=&gt; Effect</span>
+<span class="c1">//=&gt; Hello!</span>
+
 <span class="nv">memoized</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Hello!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Hello!</span>
+</code></pre></div></div>
 
 <h3 id="memoize-only-on-success">Memoize Only on Success</h3>
 
@@ -1051,11 +1055,11 @@ keep retrying until a successful value is available.</p>
 
 <span class="k">val</span> <span class="nv">cached</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">memoizeOnSuccess</span>
 
-<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException
-</span><span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
-</span><span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3
-</span></code></pre></div></div>
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException</span>
+<span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields RuntimeException</span>
+<span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3</span>
+<span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runAsync</span> <span class="c1">// yields 3</span>
+</code></pre></div></div>
 
 <h3 id="memoize-versus-runasync">Memoize versus runAsync</h3>
 
@@ -1130,8 +1134,8 @@ as nothing will get triggered until <code class="highlighter-rouge">runAsync</co
 
 <p>But we can also have <strong>mutually tail-recursive calls</strong>, w00t!</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mutual Tail Recursion, ftw!!!
-</span><span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mutual Tail Recursion, ftw!!!</span>
+<span class="o">{</span>
   <span class="k">def</span> <span class="nf">odd</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Boolean</span><span class="o">]</span> <span class="k">=</span>
     <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
       <span class="k">case</span> <span class="kc">true</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
@@ -1162,8 +1166,8 @@ execute things in batches.</p>
 <span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">addressTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 
-<span class="c1">// Ordered operations based on flatMap ...
-</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+<span class="c1">// Ordered operations based on flatMap ...</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
   <span class="n">location</span> <span class="k">&lt;-</span> <span class="n">locationTask</span>
   <span class="n">phone</span> <span class="k">&lt;-</span> <span class="n">phoneTask</span>
   <span class="n">address</span> <span class="k">&lt;-</span> <span class="n">addressTask</span>
@@ -1185,8 +1189,8 @@ as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">
 <span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">addressTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 
-<span class="c1">// Potentially executed in parallel
-</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span>
+<span class="c1">// Potentially executed in parallel</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">zip3</span><span class="o">(</span><span class="n">locationTask</span><span class="o">,</span> <span class="n">phoneTask</span><span class="o">,</span> <span class="n">addressTask</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span>
     <span class="nf">case</span> <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
   <span class="o">}</span>
@@ -1213,12 +1217,12 @@ tasks WILL NOT execute in parallel.</p>
 <span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
-<span class="c1">// We always get this ordering:
-</span><span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect1
-//=&gt; Effect2
-//=&gt; List(1, 2)
-</span></code></pre></div></div>
+<span class="c1">// We always get this ordering:</span>
+<span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; Effect1</span>
+<span class="c1">//=&gt; Effect2</span>
+<span class="c1">//=&gt; List(1, 2)</span>
+</code></pre></div></div>
 
 <p>The results are ordered in the order of the initial sequence, so that
 means in the example above we are guaranteed in the result to first
@@ -1245,15 +1249,15 @@ ordered, meaning that there’s potential for parallel execution:</p>
 <span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect1
-//=&gt; Effect2
-//=&gt; List(1, 2)
-</span>
+<span class="c1">//=&gt; Effect1</span>
+<span class="c1">//=&gt; Effect2</span>
+<span class="c1">//=&gt; List(1, 2)</span>
+
 <span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect2
-//=&gt; Effect1
-//=&gt; List(1, 2)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect2</span>
+<span class="c1">//=&gt; Effect1</span>
+<span class="c1">//=&gt; List(1, 2)</span>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">Task.gatherUnordered</code> is like <code class="highlighter-rouge">gather</code>, except that you don’t get
 ordering for results or effects. The result is thus highly nondeterministic,
@@ -1273,15 +1277,15 @@ but yields better performance than <code class="highlighter-rouge">gather</code>
   <span class="nv">Task</span><span class="o">.</span><span class="py">gatherUnordered</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect2
-//=&gt; Effect1
-//=&gt; Seq(2,1)
-</span>
+<span class="c1">//=&gt; Effect2</span>
+<span class="c1">//=&gt; Effect1</span>
+<span class="c1">//=&gt; Seq(2,1)</span>
+
 <span class="nv">list</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Effect1
-//=&gt; Effect2
-//=&gt; Seq(1,2)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Effect1</span>
+<span class="c1">//=&gt; Effect2</span>
+<span class="c1">//=&gt; Seq(1,2)</span>
+</code></pre></div></div>
 
 <h3 id="choose-first-of-two-tasks">Choose First Of Two Tasks</h3>
 
@@ -1345,8 +1349,8 @@ combine it with <code class="highlighter-rouge">onErrorHandleWith</code> and <co
 
 <span class="k">val</span> <span class="nv">result</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">chooseFirstOfList</span><span class="o">(</span><span class="nv">tasks</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">onErrorHandleWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">never</span><span class="o">))).</span><span class="py">timeout</span><span class="o">(</span><span class="n">timeout</span><span class="o">)</span>
 
-<span class="nv">result</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// will print 10
-</span></code></pre></div></div>
+<span class="nv">result</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span> <span class="c1">// will print 10</span>
+</code></pre></div></div>
 <p>It will turn any failed tasks into non-terminating.</p>
 
 <p>Timeout is necessary in case all tasks fail.</p>
@@ -1452,12 +1456,12 @@ over and over again, until the given predicate is true:</p>
 <span class="o">}</span>
 
 <span class="nv">randomEven</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; -2097793116
-</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 1246761488
-</span><span class="nv">randomEven</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 1053678416
-</span></code></pre></div></div>
+<span class="c1">//=&gt; -2097793116</span>
+<span class="nv">randomEven</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 1246761488</span>
+<span class="nv">randomEven</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 1053678416</span>
+</code></pre></div></div>
 
 <h3 id="clean-up-resources-on-finish">Clean-up Resources on Finish</h3>
 
@@ -1478,9 +1482,9 @@ some scheduled side-effect:</p>
 <span class="o">}</span>
 
 <span class="nv">withFinishCb</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Was success!
-//=&gt; 1
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Was success!</span>
+<span class="c1">//=&gt; 1</span>
+</code></pre></div></div>
 
 <h3 id="convert-to-reactive-publisher">Convert to Reactive Publisher</h3>
 
@@ -1518,10 +1522,10 @@ but doable:</p>
     <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: $ex"</span><span class="o">)</span>
 <span class="o">})</span>
 
-<span class="c1">// Will print:
-//=&gt; OnNext: -228329246
-//=&gt; OnComplete
-</span></code></pre></div></div>
+<span class="c1">// Will print:</span>
+<span class="c1">//=&gt; OnNext: -228329246</span>
+<span class="c1">//=&gt; OnComplete</span>
+</code></pre></div></div>
 
 <p>Awesome, isn’t it?</p>
 
@@ -1564,11 +1568,11 @@ catches errors, signaling them on <code class="highlighter-rouge">runOnComplete<
 <span class="o">}</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Success(-924040280)
-</span>
+<span class="c1">//=&gt; Success(-924040280)</span>
+
 <span class="nv">task</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(java.lang.IllegalStateException: 834919637)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Failure(java.lang.IllegalStateException: 834919637)</span>
+</code></pre></div></div>
 
 <p>In case an error happens in the callback provided to <code class="highlighter-rouge">runOnComplete</code>, then
 Monix can no longer signal an <code class="highlighter-rouge">onError</code>, because it would be a
@@ -1577,25 +1581,25 @@ logs the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
-<span class="c1">// Ensures asynchronous execution, just to show
-// that the action doesn't happen on the
-// current thread
-</span><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
+<span class="c1">// Ensures asynchronous execution, just to show</span>
+<span class="c1">// that the action doesn't happen on the</span>
+<span class="c1">// current thread</span>
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runOnComplete</span> <span class="o">{</span> <span class="n">r</span> <span class="k">=&gt;</span>
   <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">r</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="c1">// After 1 second, this will log the whole stack trace:
-//=&gt; java.lang.IllegalStateException: Success(2)
-//=&gt;    ...
-//=&gt;	at monix.eval.Task$$anon$3.onSuccess(Task.scala:78)
-//=&gt;	at monix.eval.Callback$SafeCallback.onSuccess(Callback.scala:66)
-//=&gt;	at monix.eval.Task$.trampoline$1(Task.scala:1248)
-//=&gt;	at monix.eval.Task$.monix$eval$Task$$resume(Task.scala:1304)
-//=&gt;	at monix.eval.Task$AsyncStateRunnable$$anon$20.onSuccess(Task.scala:1432)
-//=&gt;    ....
-</span></code></pre></div></div>
+<span class="c1">// After 1 second, this will log the whole stack trace:</span>
+<span class="c1">//=&gt; java.lang.IllegalStateException: Success(2)</span>
+<span class="c1">//=&gt;    ...</span>
+<span class="c1">//=&gt;	at monix.eval.Task$$anon$3.onSuccess(Task.scala:78)</span>
+<span class="c1">//=&gt;	at monix.eval.Callback$SafeCallback.onSuccess(Callback.scala:66)</span>
+<span class="c1">//=&gt;	at monix.eval.Task$.trampoline$1(Task.scala:1248)</span>
+<span class="c1">//=&gt;	at monix.eval.Task$.monix$eval$Task$$resume(Task.scala:1304)</span>
+<span class="c1">//=&gt;	at monix.eval.Task$AsyncStateRunnable$$anon$20.onSuccess(Task.scala:1432)</span>
+<span class="c1">//=&gt;    ....</span>
+</code></pre></div></div>
 
 <p>Similarly, when using <code class="highlighter-rouge">Task.create</code>, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
@@ -1609,16 +1613,16 @@ log the error:</p>
 
 <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 
-<span class="c1">// Logs the following to System.err:
-//=&gt; java.lang.IllegalStateException: FTW!
-//=&gt;    ...
-//=&gt; 	at monix.eval.Task$$anonfun$create$1.apply(Task.scala:576)
-//=&gt; 	at monix.eval.Task$$anonfun$create$1.apply(Task.scala:571)
-//=&gt; 	at monix.eval.Task$AsyncStateRunnable.run(Task.scala:1429)
-//=&gt;    ...
-</span>
-<span class="c1">// The Future NEVER COMPLETES, OOPS!
-</span><span class="nv">future</span><span class="o">.</span><span class="py">onComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
+<span class="c1">// Logs the following to System.err:</span>
+<span class="c1">//=&gt; java.lang.IllegalStateException: FTW!</span>
+<span class="c1">//=&gt;    ...</span>
+<span class="c1">//=&gt; 	at monix.eval.Task$$anonfun$create$1.apply(Task.scala:576)</span>
+<span class="c1">//=&gt; 	at monix.eval.Task$$anonfun$create$1.apply(Task.scala:571)</span>
+<span class="c1">//=&gt; 	at monix.eval.Task$AsyncStateRunnable.run(Task.scala:1429)</span>
+<span class="c1">//=&gt;    ...</span>
+
+<span class="c1">// The Future NEVER COMPLETES, OOPS!</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">onComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
 </code></pre></div></div>
 
 <p><strong>WARNING:</strong> In this case the consumer side never gets a completion
@@ -1659,13 +1663,13 @@ a <code class="highlighter-rouge">TimeoutException</code> using <code class="hig
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span>
   <span class="nc">Task</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">10.</span><span class="n">seconds</span><span class="o">)</span>
 
-<span class="c1">// Triggers error if the source does not
-// complete in 3 seconds after runOnComplete
-</span><span class="k">val</span> <span class="nv">timedOut</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+<span class="c1">// Triggers error if the source does not</span>
+<span class="c1">// complete in 3 seconds after runOnComplete</span>
+<span class="k">val</span> <span class="nv">timedOut</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">timeout</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
 
 <span class="nv">timedOut</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(TimeoutException)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Failure(TimeoutException)</span>
+</code></pre></div></div>
 
 <p>On timeout the source gets canceled (if it’s a source that supports
 cancelation). And instead of an error, we can timeout to a <code class="highlighter-rouge">fallback</code>
@@ -1683,8 +1687,8 @@ task. The following example is equivalent to the above one:</p>
 <span class="o">)</span>
 
 <span class="nv">timedOut</span><span class="o">.</span><span class="py">runOnComplete</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Failure(TimeoutException)
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Failure(TimeoutException)</span>
+</code></pre></div></div>
 
 <h3 id="recovering-from-error">Recovering from Error</h3>
 
@@ -1703,29 +1707,29 @@ this:</p>
 
 <span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about timeouts, recover it
-</span>    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+    <span class="c1">// Oh, we know about timeouts, recover it</span>
+    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="c1">// We have no idea what happened, raise error!
-</span>    <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
+    <span class="c1">// We have no idea what happened, raise error!</span>
+    <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">other</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Recovered!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Recovered!</span>
+</code></pre></div></div>
 
 <p>There’s also <code class="highlighter-rouge">Task.onErrorRecoverWith</code> that takes a partial function
 instead, so we can omit the “other” branch:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecoverWith</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about timeouts, recover it
-</span>    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
+    <span class="c1">// Oh, we know about timeouts, recover it</span>
+    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="s">"Recovered!"</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; Recovered!
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Recovered!</span>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">Task.onErrorHandleWith</code> and <code class="highlighter-rouge">Task.onErrorRecoverWith</code> are the
 equivalent of <code class="highlighter-rouge">flatMap</code>, only for errors. In case we know or can
@@ -1734,19 +1738,19 @@ operation <code class="highlighter-rouge">Task.onErrorHandle</code> like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about timeouts, recover it
-</span>    <span class="s">"Recovered!"</span>
+    <span class="c1">// Oh, we know about timeouts, recover it</span>
+    <span class="s">"Recovered!"</span>
   <span class="k">case</span> <span class="n">other</span> <span class="k">=&gt;</span>
-    <span class="k">throw</span> <span class="n">other</span> <span class="c1">// Rethrowing
-</span><span class="o">}</span>
+    <span class="k">throw</span> <span class="n">other</span> <span class="c1">// Rethrowing</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>Or the partial function version with <code class="highlighter-rouge">onErrorRecover</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecover</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
-    <span class="c1">// Oh, we know about timeouts, recover it
-</span>    <span class="s">"Recovered!"</span>
+    <span class="c1">// Oh, we know about timeouts, recover it</span>
+    <span class="s">"Recovered!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -1765,9 +1769,9 @@ restart the source on error, for how many times are needed:</p>
     <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Will retry 4 times for a random even number,
-// or fail if the maxRetries is reached!
-</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
+<span class="c1">// Will retry 4 times for a random even number,</span>
+<span class="c1">// or fail if the maxRetries is reached!</span>
+<span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestart</span><span class="o">(</span><span class="n">maxRetries</span> <span class="k">=</span> <span class="mi">4</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We can also restart with a given predicate:</p>
@@ -1781,9 +1785,9 @@ restart the source on error, for how many times are needed:</p>
     <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">other</span><span class="o">.</span><span class="py">toString</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Will keep retrying for as long as the source fails
-// with an IllegalStateException
-</span><span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
+<span class="c1">// Will keep retrying for as long as the source fails</span>
+<span class="c1">// with an IllegalStateException</span>
+<span class="k">val</span> <span class="nv">randomEven</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRestartIf</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span> <span class="kc">true</span>
   <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
 <span class="o">}</span>
@@ -1798,8 +1802,8 @@ it’s cool doing so:</p>
   <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span>
     <span class="k">case</span> <span class="n">ex</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span>
       <span class="nf">if</span> <span class="o">(</span><span class="n">maxRetries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-        <span class="c1">// Recursive call, it's OK as Monix is stack-safe
-</span>        <span class="nf">retryBackoff</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">maxRetries</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">firstDelay</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span>
+        <span class="c1">// Recursive call, it's OK as Monix is stack-safe</span>
+        <span class="nf">retryBackoff</span><span class="o">(</span><span class="n">source</span><span class="o">,</span> <span class="n">maxRetries</span><span class="o">-</span><span class="mi">1</span><span class="o">,</span> <span class="n">firstDelay</span><span class="o">*</span><span class="mi">2</span><span class="o">)</span>
           <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="n">firstDelay</span><span class="o">)</span>
       <span class="k">else</span>
         <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
@@ -1819,15 +1823,15 @@ errors such that we can recover more efficiently:</p>
 <span class="k">val</span> <span class="nv">materialized</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
   <span class="nv">source</span><span class="o">.</span><span class="py">materialize</span>
 
-<span class="c1">// Now we can flatMap over both success and failure:
-</span><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+<span class="c1">// Now we can flatMap over both success and failure:</span>
+<span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Success</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
   <span class="k">case</span> <span class="nc">Failure</span><span class="o">(</span><span class="k">_</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="nv">recovered</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 0
-</span></code></pre></div></div>
+<span class="c1">//=&gt; 0</span>
+</code></pre></div></div>
 
 <p>There’s also the reverse of materialize, which is <code class="highlighter-rouge">Task.dematerialize</code>:</p>
 
@@ -1835,14 +1839,14 @@ errors such that we can recover more efficiently:</p>
 
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
-<span class="c1">// Exposing errors
-</span><span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">materialize</span>
-<span class="c1">// materialize: Task[Try[Int]] = ???
-</span>
-<span class="c1">// Hiding errors again
-</span><span class="k">val</span> <span class="nv">dematerialized</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">dematerialize</span>
-<span class="c1">// dematerialized: Task[Int] = ???
-</span></code></pre></div></div>
+<span class="c1">// Exposing errors</span>
+<span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">materialize</span>
+<span class="c1">// materialize: Task[Try[Int]] = ???</span>
+
+<span class="c1">// Hiding errors again</span>
+<span class="k">val</span> <span class="nv">dematerialized</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">dematerialize</span>
+<span class="c1">// dematerialized: Task[Int] = ???</span>
+</code></pre></div></div>
 
 <p>We can also convert any <code class="highlighter-rouge">Task</code> into a <code class="highlighter-rouge">Task[Throwable]</code> that will
 expose any errors that happen and will also terminate with an
@@ -1851,11 +1855,11 @@ expose any errors that happen and will also terminate with an
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">throwable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">failed</span>
-<span class="c1">// throwable: Task[Throwable] = ???
-</span>
+<span class="c1">// throwable: Task[Throwable] = ???</span>
+
 <span class="nv">throwable</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; java.lang.IllegalStateException
-</span></code></pre></div></div>
+<span class="c1">//=&gt; java.lang.IllegalStateException</span>
+</code></pre></div></div>
 
 
   <div class="buttons">
@@ -1872,5 +1876,11 @@ expose any errors that happen and will also terminate with an
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

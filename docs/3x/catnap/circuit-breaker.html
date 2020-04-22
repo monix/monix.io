@@ -12,31 +12,35 @@
   
   <title>Circuit Breaker &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Circuit Breaker &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Circuit Breaker &amp;mdash; Monix" />
   <meta name="twitter:description" content="A data type for providing stability and prevent cascading failures in distributed systems." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/3x/catnap/circuit-breaker">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/catnap/circuit-breaker" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Circuit Breaker &amp;mdash; Monix" property="og:title">
+  <meta content="A data type for providing stability and prevent cascading failures in distributed systems." property="og:description">
+  <meta content="https://monix.io/docs/3x/catnap/circuit-breaker" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Circuit Breaker &mdash; Monix" />
-  <meta property="og:description" content="A data type for providing stability and prevent cascading failures in distributed systems." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -266,8 +270,8 @@ handling it would be to retry with a delay:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">circuitBreaker</span><span class="o">.</span><span class="py">protect</span><span class="o">(</span><span class="n">problematic</span><span class="o">)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">onErrorRestartLoop</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">delay</span><span class="o">,</span> <span class="n">retry</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="c1">// Exponential back-off, but with a limit
-</span>  <span class="nf">if</span> <span class="o">(</span><span class="n">delay</span> <span class="o">&lt;</span> <span class="mf">4.</span><span class="n">seconds</span><span class="o">)</span>
+  <span class="c1">// Exponential back-off, but with a limit</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">delay</span> <span class="o">&lt;</span> <span class="mf">4.</span><span class="n">seconds</span><span class="o">)</span>
     <span class="nf">retry</span><span class="o">(</span><span class="n">delay</span> <span class="o">*</span> <span class="mi">2</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="n">delay</span><span class="o">)</span>
   <span class="k">else</span>
     <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
@@ -278,8 +282,8 @@ handling it would be to retry with a delay:</p>
 <code class="highlighter-rouge">CircuitBreaker</code> closes again:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">task</span><span class="o">.</span><span class="py">onErrorRestartLoop</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">times</span><span class="o">,</span> <span class="n">retry</span><span class="o">)</span> <span class="k">=&gt;</span>
-  <span class="c1">// Retrying for a maximum of 10 times
-</span>  <span class="nf">if</span> <span class="o">(</span><span class="n">times</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span>
+  <span class="c1">// Retrying for a maximum of 10 times</span>
+  <span class="nf">if</span> <span class="o">(</span><span class="n">times</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span>
     <span class="nv">circuitBreaker</span><span class="o">.</span><span class="py">awaitClose</span><span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">retry</span><span class="o">(</span><span class="n">times</span> <span class="o">+</span> <span class="mi">1</span><span class="o">))</span>
   <span class="k">else</span>
     <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span>
@@ -319,5 +323,11 @@ Credit should be given where credit is due 😉</p>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

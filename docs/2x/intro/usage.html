@@ -12,31 +12,35 @@
   
   <title>Usage in SBT &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Usage in SBT &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Usage in SBT &amp;mdash; Monix" />
   <meta name="twitter:description" content="Packages are published in Maven Central,cross-compiled for Scala 2.10, 2.11, 2.12 and for Scala.js" />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/intro/usage">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/intro/usage" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Usage in SBT &amp;mdash; Monix" property="og:title">
+  <meta content="Packages are published in Maven Central,cross-compiled for Scala 2.10, 2.11, 2.12 and for Scala.js" property="og:description">
+  <meta content="https://monix.io/docs/2x/intro/usage" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Usage in SBT &mdash; Monix" />
-  <meta property="og:description" content="Packages are published in Maven Central,cross-compiled for Scala 2.10, 2.11, 2.12 and for Scala.js" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -157,15 +161,15 @@ cross-compiled for:</p>
 
 <p>To use with insert the dependency in your <code class="highlighter-rouge">build.sbt</code> or <code class="highlighter-rouge">Build.scala</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <p>Monix is cross-compiled with <a href="http://www.scala-js.org/">Scala.js</a>, 
 so to target Javascript or mixed JVM/Javascript environments:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for Scala.js/Javascript or cross-compilation
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for Scala.js/Javascript or cross-compilation</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-types">Sub-project: monix-types</h2>
@@ -192,11 +196,11 @@ or <code class="highlighter-rouge">Evaluable</code>, a type-class meant to abstr
 
 <p>Has no dependencies.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-types"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-types"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-types"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-types"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-execution">Sub-project: monix-execution</h2>
@@ -219,11 +223,11 @@ with asynchronous execution, thus exposing
 
 <p>Depends on <a href="https://sincron.org">Sincron</a>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-eval">Sub-project: monix-eval</h2>
@@ -251,11 +255,11 @@ with asynchronous execution, thus exposing
   <li><a href="#sub-project-monix-execution">monix-execution</a></li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-reactive">Sub-project: monix-reactive</h2>
@@ -283,11 +287,11 @@ the <a href="/api/2.3/monix/reactive/Observable.html">Observable</a> pattern:</p
   <li><a href="#sub-project-monix-eval">monix-eval</a></li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-cats-optional">Sub-project: monix-cats (Optional)</h2>
@@ -308,11 +312,11 @@ with the <a href="http://typelevel.org/cats/">Cats</a> library.</p>
 
 <p>Depends just on <a href="#sub-project-monix-types">monix-types</a>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-cats"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-cats"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-cats"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-cats"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 <h2 id="sub-project-monix-scalaz-72-optional">Sub-project: monix-scalaz-72 (Optional)</h2>
@@ -335,11 +339,11 @@ with the <a href="http://scalaz.org/">Scalaz</a> library.</p>
 
 <p>Depends just on <a href="#sub-project-monix-types">monix-types</a>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-scalaz-72"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targetting just the JVM</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-scalaz-72"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 
-<span class="c1">// For Scala.js or cross-compiled projects
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-scalaz-72"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
+<span class="c1">// For Scala.js or cross-compiled projects</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-scalaz-72"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
 
 
@@ -357,5 +361,11 @@ with the <a href="http://scalaz.org/">Scalaz</a> library.</p>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

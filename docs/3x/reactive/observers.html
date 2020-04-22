@@ -12,31 +12,35 @@
   
   <title>Observers and Subscribers &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Observers and Subscribers &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Observers and Subscribers &amp;mdash; Monix" />
   <meta name="twitter:description" content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/3x/reactive/observers">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/reactive/observers" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Observers and Subscribers &amp;mdash; Monix" property="og:title">
+  <meta content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." property="og:description">
+  <meta content="https://monix.io/docs/3x/reactive/observers" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Observers and Subscribers &mdash; Monix" />
-  <meta property="og:description" content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -189,8 +193,8 @@ scope, so lets get that out of the way:</p>
 
 <p>Let’s build an observer that just logs events:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Back-pressure related acknowledgement
-</span><span class="k">import</span> <span class="nn">monix.execution.Ack</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Back-pressure related acknowledgement</span>
+<span class="k">import</span> <span class="nn">monix.execution.Ack</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack.</span><span class="o">{</span><span class="nc">Continue</span><span class="o">,</span> <span class="nc">Stop</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observer</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
@@ -198,9 +202,9 @@ scope, so lets get that out of the way:</p>
 <span class="k">val</span> <span class="nv">observer</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">Any</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
     <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"O--&gt;$elem"</span><span class="o">)</span>
-    <span class="c1">// Continue already inherits from Future[Ack],
-</span>    <span class="c1">// so we can return it directly ;-)
-</span>    <span class="nc">Continue</span>
+    <span class="c1">// Continue already inherits from Future[Ack],</span>
+    <span class="c1">// so we can return it directly ;-)</span>
+    <span class="nc">Continue</span>
   <span class="o">}</span>
 
   <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
@@ -222,19 +226,19 @@ it receives. We’ll use this in other samples:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observer</span>
 
 <span class="k">val</span> <span class="nv">out</span> <span class="k">=</span> <span class="nv">Observer</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
-<span class="c1">// out: Observer.Sync[Any]
-</span>
+<span class="c1">// out: Observer.Sync[Any]</span>
+
 <span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-<span class="c1">//=&gt; 0: O--&gt;1
-// res0: Ack = Continue
-</span>
+<span class="c1">//=&gt; 0: O--&gt;1</span>
+<span class="c1">// res0: Ack = Continue</span>
+
 <span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-<span class="c1">//=&gt; 1: O--&gt;2
-// res0: Ack = Continue
-</span>
+<span class="c1">//=&gt; 1: O--&gt;2</span>
+<span class="c1">// res0: Ack = Continue</span>
+
 <span class="nv">out</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
-<span class="c1">//=&gt; 2: O completed
-</span></code></pre></div></div>
+<span class="c1">//=&gt; 2: O completed</span>
+</code></pre></div></div>
 
 <h3 id="feeding-an-observer">Feeding an Observer</h3>
 
@@ -251,16 +255,16 @@ it receives. We’ll use this in other samples:</p>
     <span class="nv">observer</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
     <span class="nc">Stop</span>
   <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
-    <span class="c1">// At this point we know the observer wants
-</span>    <span class="c1">// to stop, so no onComplete!
-</span>    <span class="nc">Stop</span>
+    <span class="c1">// At this point we know the observer wants</span>
+    <span class="c1">// to stop, so no onComplete!</span>
+    <span class="nc">Stop</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Feeding two elements, then stopping. This is NOT legal:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE
-</span><span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE</span>
+<span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
 <span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
 <span class="nv">observer</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
 </code></pre></div></div>
@@ -269,14 +273,14 @@ it receives. We’ll use this in other samples:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
-    <span class="c1">// We have permission to continue
-</span>    <span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-    <span class="c1">// No back-pressure required here
-</span>    <span class="nv">observer</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
+    <span class="c1">// We have permission to continue</span>
+    <span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+    <span class="c1">// No back-pressure required here</span>
+    <span class="nv">observer</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
     <span class="nc">Stop</span>
   <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
-    <span class="c1">// Nothing else to do
-</span>    <span class="nc">Stop</span>
+    <span class="c1">// Nothing else to do</span>
+    <span class="nc">Stop</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -294,48 +298,48 @@ concurrent, we need imposed ordering. But here we have clear
 <span class="k">def</span> <span class="nf">feed</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">in</span><span class="k">:</span> <span class="kt">Iterator</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">out</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span>
   <span class="o">(</span><span class="k">implicit</span> <span class="n">s</span><span class="k">:</span> <span class="kt">Scheduler</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
 
-  <span class="c1">// Indicates whether errors that happen inside the
-</span>  <span class="c1">// logic below should be streamed downstream with
-</span>  <span class="c1">// onError, or whether we aren't allowed because of
-</span>  <span class="c1">// the grammar. Basically we need to differentiate
-</span>  <span class="c1">// between errors triggered by our data source, the
-</span>  <span class="c1">// Iterator, and errors triggered by our Observer,
-</span>  <span class="c1">// which isn't allowed to triggered exceptions.
-</span>  <span class="k">var</span> <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="c1">// Indicates whether errors that happen inside the</span>
+  <span class="c1">// logic below should be streamed downstream with</span>
+  <span class="c1">// onError, or whether we aren't allowed because of</span>
+  <span class="c1">// the grammar. Basically we need to differentiate</span>
+  <span class="c1">// between errors triggered by our data source, the</span>
+  <span class="c1">// Iterator, and errors triggered by our Observer,</span>
+  <span class="c1">// which isn't allowed to triggered exceptions.</span>
+  <span class="k">var</span> <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">true</span>
   <span class="k">try</span> <span class="o">{</span>
-    <span class="c1">// Iterator protocol, we need to ask if it hasNext
-</span>    <span class="nf">if</span> <span class="o">(!</span><span class="nv">in</span><span class="o">.</span><span class="py">hasNext</span><span class="o">)</span> <span class="o">{</span>
-      <span class="c1">// From this point on, we aren't allowed to call onError
-</span>      <span class="c1">// because it can break the contract
-</span>      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
-      <span class="c1">// Signaling the end of the stream, then we are done
-</span>      <span class="nv">out</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
+    <span class="c1">// Iterator protocol, we need to ask if it hasNext</span>
+    <span class="nf">if</span> <span class="o">(!</span><span class="nv">in</span><span class="o">.</span><span class="py">hasNext</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// From this point on, we aren't allowed to call onError</span>
+      <span class="c1">// because it can break the contract</span>
+      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
+      <span class="c1">// Signaling the end of the stream, then we are done</span>
+      <span class="nv">out</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
       <span class="nc">Stop</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-      <span class="c1">// Iterator protocol, we get a next element
-</span>      <span class="k">val</span> <span class="nv">next</span> <span class="k">=</span> <span class="nv">in</span><span class="o">.</span><span class="py">next</span><span class="o">()</span>
-      <span class="c1">// From this point on, we aren't allowed to call onError
-</span>      <span class="c1">// because it can break the contract
-</span>      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
-      <span class="c1">// Signaling onNext, then back-pressuring
-</span>      <span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">next</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
+      <span class="c1">// Iterator protocol, we get a next element</span>
+      <span class="k">val</span> <span class="nv">next</span> <span class="k">=</span> <span class="nv">in</span><span class="o">.</span><span class="py">next</span><span class="o">()</span>
+      <span class="c1">// From this point on, we aren't allowed to call onError</span>
+      <span class="c1">// because it can break the contract</span>
+      <span class="n">streamErrors</span> <span class="k">=</span> <span class="kc">false</span>
+      <span class="c1">// Signaling onNext, then back-pressuring</span>
+      <span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="n">next</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
         <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
-          <span class="c1">// We got permission, go next
-</span>          <span class="nf">feed</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="n">out</span><span class="o">)(</span><span class="n">s</span><span class="o">)</span>
+          <span class="c1">// We got permission, go next</span>
+          <span class="nf">feed</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="n">out</span><span class="o">)(</span><span class="n">s</span><span class="o">)</span>
         <span class="k">case</span> <span class="nc">Stop</span> <span class="k">=&gt;</span>
-          <span class="c1">// Nothing else to do, stop the loop
-</span>          <span class="nc">Stop</span>
+          <span class="c1">// Nothing else to do, stop the loop</span>
+          <span class="nc">Stop</span>
       <span class="o">}</span>
     <span class="o">}</span>
   <span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">NonFatal</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
-      <span class="c1">// The Iterator triggered the error, so stream it
-</span>      <span class="nf">if</span> <span class="o">(</span><span class="n">streamErrors</span><span class="o">)</span>
+      <span class="c1">// The Iterator triggered the error, so stream it</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">streamErrors</span><span class="o">)</span>
         <span class="nv">out</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
-      <span class="k">else</span> <span class="c1">// The Observer triggered the error, so log it
-</span>        <span class="nv">s</span><span class="o">.</span><span class="py">reportFailure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
-      <span class="c1">// Nothing else to do
-</span>      <span class="nc">Stop</span>
+      <span class="k">else</span> <span class="c1">// The Observer triggered the error, so log it</span>
+        <span class="nv">s</span><span class="o">.</span><span class="py">reportFailure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+      <span class="c1">// Nothing else to do</span>
+      <span class="nc">Stop</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -404,8 +408,8 @@ slightly different API, being in fact equivalent.</p>
 <span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
 
-<span class="c1">// Building a Monix Subscriber instance
-</span><span class="k">val</span> <span class="nv">monixSubscriber</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
+<span class="c1">// Building a Monix Subscriber instance</span>
+<span class="k">val</span> <span class="nv">monixSubscriber</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">reactiveSubscriber</span><span class="k">:</span> <span class="kt">org.reactivestreams.Subscriber</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">toReactive</span>
@@ -429,9 +433,9 @@ slightly different API, being in fact equivalent.</p>
       <span class="n">isCanceled</span> <span class="k">=</span> <span class="kc">true</span>
   <span class="o">})</span>
 
-<span class="c1">//=&gt; 0: O--&gt;1
-//=&gt; 1: O completed
-</span></code></pre></div></div>
+<span class="c1">//=&gt; 0: O--&gt;1</span>
+<span class="c1">//=&gt; 1: O completed</span>
+</code></pre></div></div>
 
 <h3 id="convert-from-a-reactive-streams-subscriber">Convert from a Reactive Streams Subscriber</h3>
 
@@ -476,12 +480,12 @@ we can convert Reactive Subscribers to Monix Subscribers.</p>
   <span class="o">)</span>
 
 <span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-<span class="c1">//=&gt; O--&gt;1
-</span><span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
-<span class="c1">//=&gt; O--&gt;2
-</span><span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
-<span class="c1">//=&gt; O completed
-</span></code></pre></div></div>
+<span class="c1">//=&gt; O--&gt;1</span>
+<span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="c1">//=&gt; O--&gt;2</span>
+<span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
+<span class="c1">//=&gt; O completed</span>
+</code></pre></div></div>
 
 <h3 id="safe-subscriber">Safe Subscriber</h3>
 
@@ -519,23 +523,23 @@ is optional, for users of the API it’s safer if they are.</li>
   <span class="o">})</span>
 
 <span class="k">val</span> <span class="nv">out</span> <span class="k">=</span> <span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
-<span class="c1">// Error in onNext gets caught and handled
-</span><span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-<span class="c1">//=&gt; Error: java.lang.IllegalStateException: onNext
-// res: Future[Ack] = Stop
-</span>
-<span class="c1">// Repeating it will have no further effect
-</span><span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
-<span class="c1">// res: Future[Ack] = Stop
-</span>
+<span class="c1">// Error in onNext gets caught and handled</span>
+<span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">//=&gt; Error: java.lang.IllegalStateException: onNext</span>
+<span class="c1">// res: Future[Ack] = Stop</span>
+
+<span class="c1">// Repeating it will have no further effect</span>
+<span class="nv">out</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="c1">// res: Future[Ack] = Stop</span>
+
 <span class="k">val</span> <span class="nv">out2</span> <span class="k">=</span> <span class="n">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 <span class="nv">out2</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
-<span class="c1">//=&gt; Completed!
-</span>
-<span class="c1">// No further events are accepted
-</span><span class="nv">out2</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
-<span class="c1">// res: Future[Ack] = Stop
-</span></code></pre></div></div>
+<span class="c1">//=&gt; Completed!</span>
+
+<span class="c1">// No further events are accepted</span>
+<span class="nv">out2</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">// res: Future[Ack] = Stop</span>
+</code></pre></div></div>
 
 <p>Note that when subscribing to observables, if you use the regular
 <code class="highlighter-rouge">subscribe</code> methods (and not <code class="highlighter-rouge">unsafeSubscribeFn</code>) the callbacks you
@@ -557,30 +561,30 @@ other <code class="highlighter-rouge">onNext</code>.</p>
 <span class="k">val</span> <span class="nv">underlying</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">connectable</span> <span class="k">=</span> <span class="nc">ConnectableSubscriber</span><span class="o">(</span><span class="n">underlying</span><span class="o">)</span>
 
-<span class="c1">// Queue for delivery after connect happens and after
-// enqueued items by means of pushNext. At this point
-// the subscriber back-pressures the source with a
-// Future[Ack] that will complete only after connect()
-</span><span class="k">val</span> <span class="nv">ack</span> <span class="k">=</span> <span class="nv">connectable</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="s">"b1"</span><span class="o">)</span>
+<span class="c1">// Queue for delivery after connect happens and after</span>
+<span class="c1">// enqueued items by means of pushNext. At this point</span>
+<span class="c1">// the subscriber back-pressures the source with a</span>
+<span class="c1">// Future[Ack] that will complete only after connect()</span>
+<span class="k">val</span> <span class="nv">ack</span> <span class="k">=</span> <span class="nv">connectable</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="s">"b1"</span><span class="o">)</span>
 
-<span class="c1">// Acknowledgement not given because we are back-pressuring
-</span><span class="nv">ack</span><span class="o">.</span><span class="py">isCompleted</span>
-<span class="c1">// res: Boolean = false
-</span>
-<span class="c1">// Queueing items to be delivered first on connect()
-</span><span class="nv">connectable</span><span class="o">.</span><span class="py">pushFirst</span><span class="o">(</span><span class="s">"a1"</span><span class="o">)</span>
+<span class="c1">// Acknowledgement not given because we are back-pressuring</span>
+<span class="nv">ack</span><span class="o">.</span><span class="py">isCompleted</span>
+<span class="c1">// res: Boolean = false</span>
+
+<span class="c1">// Queueing items to be delivered first on connect()</span>
+<span class="nv">connectable</span><span class="o">.</span><span class="py">pushFirst</span><span class="o">(</span><span class="s">"a1"</span><span class="o">)</span>
 <span class="nv">connectable</span><span class="o">.</span><span class="py">pushFirst</span><span class="o">(</span><span class="s">"a2"</span><span class="o">)</span>
 
-<span class="c1">// Nothing gets streamed until now:
-</span><span class="nv">connectable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
-<span class="c1">//=&gt; 0: O--&gt;a1
-//=&gt; 1: O--&gt;a2
-//=&gt; 2: O--&gt;b1
-</span>
-<span class="c1">// The data-source is now no longer paused
-</span><span class="nv">ack</span><span class="o">.</span><span class="py">isCompleted</span>
-<span class="c1">// res: Boolean = true
-</span></code></pre></div></div>
+<span class="c1">// Nothing gets streamed until now:</span>
+<span class="nv">connectable</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
+<span class="c1">//=&gt; 0: O--&gt;a1</span>
+<span class="c1">//=&gt; 1: O--&gt;a2</span>
+<span class="c1">//=&gt; 2: O--&gt;b1</span>
+
+<span class="c1">// The data-source is now no longer paused</span>
+<span class="nv">ack</span><span class="o">.</span><span class="py">isCompleted</span>
+<span class="c1">// res: Boolean = true</span>
+</code></pre></div></div>
 
 <h3 id="cache-until-connect-subscriber">Cache Until Connect Subscriber</h3>
 
@@ -598,22 +602,22 @@ which all subsequent events are pushed directly.</p>
 <span class="k">val</span> <span class="nv">underlying</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">subscriber</span> <span class="k">=</span> <span class="nc">CacheUntilConnectSubscriber</span><span class="o">(</span><span class="n">underlying</span><span class="o">)</span>
 
-<span class="c1">// Gets cached in an underlying buffer
-// to be streamed after connect
-</span><span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
-<span class="c1">// res0: Future[Ack] = Continue
-</span><span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span>
-<span class="c1">// res1: Future[Ack] = Continue
-</span><span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">30</span><span class="o">)</span>
-<span class="c1">// res2: Future[Ack] = Continue
-</span>
-<span class="c1">// Nothing happens until connect
-</span><span class="k">val</span> <span class="nv">result</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span>
+<span class="c1">// Gets cached in an underlying buffer</span>
+<span class="c1">// to be streamed after connect</span>
+<span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="c1">// res0: Future[Ack] = Continue</span>
+<span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span>
+<span class="c1">// res1: Future[Ack] = Continue</span>
+<span class="nv">subscriber</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">30</span><span class="o">)</span>
+<span class="c1">// res2: Future[Ack] = Continue</span>
+
+<span class="c1">// Nothing happens until connect</span>
+<span class="k">val</span> <span class="nv">result</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">subscriber</span><span class="o">.</span><span class="py">connect</span><span class="o">()</span>
-<span class="c1">//=&gt; 0: O--&gt;10
-//=&gt; 1: O--&gt;20
-//=&gt; 2: O--&gt;30
-</span></code></pre></div></div>
+<span class="c1">//=&gt; 0: O--&gt;10</span>
+<span class="c1">//=&gt; 1: O--&gt;20</span>
+<span class="c1">//=&gt; 2: O--&gt;30</span>
+</code></pre></div></div>
 
 <h3 id="buffered-subscriber">Buffered Subscriber</h3>
 
@@ -698,5 +702,11 @@ it should drop the entire buffer and start fresh.</li>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

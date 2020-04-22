@@ -12,31 +12,36 @@
   
   <title>Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
   <meta name="twitter:title" content="Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js" />
   <meta name="twitter:description" content="Fixed bugs, upgraded Scala.js to 0.6.15" />
-
+  <meta name="twitter:url" content="https://monix.io/blog/2017/03/27/monix-v2.2.4.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2017/03/27/monix-v2.2.4.html" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js" property="og:title">
+  <meta content="Fixed bugs, upgraded Scala.js to 0.6.15" property="og:description">
+  <meta content="https://monix.io/blog/2017/03/27/monix-v2.2.4.html" property="og:url">
+  <meta content="2017-03-27T00:00:00+00:00" property="article:published_time">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js" />
-  <meta property="og:description" content="Fixed bugs, upgraded Scala.js to 0.6.15" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -155,14 +160,14 @@ have also been upgraded to depend on this new version.</p>
 <p><strong><a href="https://github.com/monix/monix-kafka">monix-kafka</a></strong>, the Apache Kafka
 integration:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.13"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For Kafka 8</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-8"</span> <span class="o">%</span> <span class="s">"0.13"</span>
 
-<span class="c1">// For Kafka 9
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.13"</span>
+<span class="c1">// For Kafka 9</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-9"</span> <span class="o">%</span> <span class="s">"0.13"</span>
 
-<span class="c1">// For Kafka 10
-</span><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.13"</span>
+<span class="c1">// For Kafka 10</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-kafka-10"</span> <span class="o">%</span> <span class="s">"0.13"</span>
 </code></pre></div></div>
 
 <p>Enjoy!</p>
@@ -205,28 +210,25 @@ integration:</p>
 
   
 <div id="contributions">
-  <script data-isso="/comments/monix/"
-          data-isso-css="true"
-          data-isso-lang="en"
-          data-isso-reply-to-self="true"
-          data-isso-require-author="true"
-          data-isso-require-email="false"
-          data-isso-reply-notifications="true"
-          data-isso-max-comments-top="10"
-          data-isso-max-comments-nested="5"
-          data-isso-reveal-on-click="5"
-          data-isso-gravatar="true"
-          data-isso-avatar="false"
-          data-isso-vote="true"
-          data-vote-levels=""
-          src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js">
-  </section>
+  <h2>Feedback?</h2>
+
+  <div class="address">
+    If you wish to discus this article, jump to our chatroom:
+    <p>
+      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
+    </p>
+  </div>
 </div>
 
 </div>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

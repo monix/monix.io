@@ -12,31 +12,35 @@
   
   <title>Consumer &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Consumer &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Consumer &amp;mdash; Monix" />
   <meta name="twitter:description" content="A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks." />
-
+  <meta name="twitter:url" content="https://monix.io/docs/3x/reactive/consumer">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/3x/reactive/consumer" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Consumer &amp;mdash; Monix" property="og:title">
+  <meta content="A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks." property="og:description">
+  <meta content="https://monix.io/docs/3x/reactive/consumer" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Consumer &mdash; Monix" />
-  <meta property="og:description" content="A consumer specifies how to consume observables, being a factory of subscribers that can turn observables into tasks." />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -140,26 +144,26 @@ can build a load-balancer that processes things in parallel</li>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
 <span class="k">import</span> <span class="nn">monix.reactive._</span>
 
-<span class="c1">// A consumer that folds over the elements of the stream,
-// producing a sum as a result
-</span><span class="k">val</span> <span class="nv">sumConsumer</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+<span class="c1">// A consumer that folds over the elements of the stream,</span>
+<span class="c1">// producing a sum as a result</span>
+<span class="k">val</span> <span class="nv">sumConsumer</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 
-<span class="c1">// For processing sums in parallel, useless of course, but can become 
-// really helpful for logic sprinkled with I/O bound stuff
-</span><span class="k">val</span> <span class="nv">loadBalancer</span> <span class="k">=</span> <span class="o">{</span>
+<span class="c1">// For processing sums in parallel, useless of course, but can become </span>
+<span class="c1">// really helpful for logic sprinkled with I/O bound stuff</span>
+<span class="k">val</span> <span class="nv">loadBalancer</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Consumer</span>
     <span class="o">.</span><span class="py">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="n">sumConsumer</span><span class="o">)</span>
     <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100000</span><span class="o">)</span>
-<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
-</span><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
 
-<span class="c1">// Consume the whole stream and get the result
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 4999950000
-</span></code></pre></div></div>
+<span class="c1">// Consume the whole stream and get the result</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4999950000</span>
+</code></pre></div></div>
 
 <h2 id="creating-consumers">Creating Consumers</h2>
 
@@ -190,24 +194,24 @@ sum of all the <code class="highlighter-rouge">Int</code> elements of a stream:<
         <span class="o">}</span>
 
         <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-          <span class="c1">// We are done so we can signal the final result
-</span>          <span class="nv">cb</span><span class="o">.</span><span class="py">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+          <span class="c1">// We are done so we can signal the final result</span>
+          <span class="nv">cb</span><span class="o">.</span><span class="py">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
         <span class="o">}</span>
 
         <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-          <span class="c1">// Error happened, so we signal the error
-</span>          <span class="nv">cb</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+          <span class="c1">// Error happened, so we signal the error</span>
+          <span class="nv">cb</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
         <span class="o">}</span>
       <span class="o">}</span>
 
-      <span class="c1">// Returning a tuple of our subscriber and a dummy 
-</span>      <span class="c1">// AssignableCancelable because we don't intend to use it
-</span>      <span class="o">(</span><span class="n">out</span><span class="o">,</span> <span class="nv">AssignableCancelable</span><span class="o">.</span><span class="py">dummy</span><span class="o">)</span>
+      <span class="c1">// Returning a tuple of our subscriber and a dummy </span>
+      <span class="c1">// AssignableCancelable because we don't intend to use it</span>
+      <span class="o">(</span><span class="n">out</span><span class="o">,</span> <span class="nv">AssignableCancelable</span><span class="o">.</span><span class="py">dummy</span><span class="o">)</span>
     <span class="o">}</span>
   <span class="o">}</span>
 
-<span class="c1">// USAGE:
-</span><span class="o">{</span>
+<span class="c1">// USAGE:</span>
+<span class="o">{</span>
   <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
   <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 
@@ -216,8 +220,8 @@ sum of all the <code class="highlighter-rouge">Int</code> elements of a stream:<
     <span class="o">.</span><span class="py">runToFuture</span>
     <span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
     
-  <span class="c1">//=&gt; Result: 49995000
-</span><span class="o">}</span>
+  <span class="c1">//=&gt; Result: 49995000</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>So for signaling the final result, we need to call the provided
@@ -273,13 +277,13 @@ subscriber implementation to cancel the stream.</p>
       <span class="o">}</span>
 
       <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-        <span class="c1">// We are done so we can signal the final result
-</span>        <span class="nv">callback</span><span class="o">.</span><span class="py">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
+        <span class="c1">// We are done so we can signal the final result</span>
+        <span class="nv">callback</span><span class="o">.</span><span class="py">onSuccess</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
       <span class="o">}</span>
 
       <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
-        <span class="c1">// Error happened, so we signal the error
-</span>        <span class="nv">callback</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+        <span class="c1">// Error happened, so we signal the error</span>
+        <span class="nv">callback</span><span class="o">.</span><span class="py">onError</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
       <span class="o">}</span>
     <span class="o">}</span>
   <span class="o">}</span>
@@ -347,13 +351,13 @@ happens, or signal the error if <code class="highlighter-rouge">onError</code> h
     <span class="o">.</span><span class="py">runToFuture</span>
     <span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Consumer completed"</span><span class="o">))</span>
 
-  <span class="c1">//=&gt; 0: O--&gt;0
-</span>  <span class="c1">//=&gt; 1: O--&gt;1
-</span>  <span class="c1">//=&gt; 2: O--&gt;2
-</span>  <span class="c1">//=&gt; 3: O--&gt;3
-</span>  <span class="c1">//=&gt; 4: O completed
-</span>  <span class="c1">//=&gt; Consumer completed
-</span><span class="o">}</span>
+  <span class="c1">//=&gt; 0: O--&gt;0</span>
+  <span class="c1">//=&gt; 1: O--&gt;1</span>
+  <span class="c1">//=&gt; 2: O--&gt;2</span>
+  <span class="c1">//=&gt; 3: O--&gt;3</span>
+  <span class="c1">//=&gt; 4: O completed</span>
+  <span class="c1">//=&gt; Consumer completed</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <h3 id="cancel-the-stream-on-subscription">Cancel the stream on subscription</h3>
@@ -385,15 +389,15 @@ will emit the final value returned by the function:</p>
 
 <span class="k">val</span> <span class="nv">sum</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 
-<span class="c1">// Usage
-</span><span class="o">{</span>
+<span class="c1">// Usage</span>
+<span class="o">{</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
     <span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
     <span class="o">.</span><span class="py">runToFuture</span>
     <span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"SUM: $r"</span><span class="o">))</span>
   
-  <span class="c1">//=&gt; SUM: 499500
-</span><span class="o">}</span>
+  <span class="c1">//=&gt; SUM: 499500</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>In the example the fold function is returning a simple sum between the
@@ -431,8 +435,8 @@ item and then stop. In such instances we can use <code class="highlighter-rouge"
   
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 <span class="nv">sum</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 499500
-</span></code></pre></div></div>
+<span class="c1">//=&gt; 499500</span>
+</code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">Consumer.head</code> can be problematic for empty streams, since it
 assumes that the source will generate at least one item. Therefore for
@@ -443,8 +447,8 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
     <span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="nv">Consumer</span><span class="o">.</span><span class="py">head</span><span class="o">)</span>
     <span class="o">.</span><span class="py">failed</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
   
-  <span class="c1">//=&gt; java.util.NoSuchElementException: head
-</span><span class="o">}</span>
+  <span class="c1">//=&gt; java.util.NoSuchElementException: head</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>To play it safe, we can use <code class="highlighter-rouge">Consumer.headOption</code> instead:</p>
@@ -453,8 +457,8 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
   <span class="nv">Observable</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">].</span><span class="py">consumeWith</span><span class="o">(</span><span class="nv">Consumer</span><span class="o">.</span><span class="py">headOption</span><span class="o">)</span>
   
 <span class="nv">first</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; None
-</span></code></pre></div></div>
+<span class="c1">//=&gt; None</span>
+</code></pre></div></div>
 
 <p>Or we can simply get the first <code class="highlighter-rouge">Notification</code> that happened, be it
 <code class="highlighter-rouge">OnNext</code>, <code class="highlighter-rouge">OnComplete</code> or <code class="highlighter-rouge">OnError</code> and then stop, by means of
@@ -483,8 +487,8 @@ empty streams it ends up signaling a <code class="highlighter-rouge">NoSuchEleme
 <span class="k">val</span> <span class="nv">logger</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foreach</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Elem: $x"</span><span class="o">))</span>
 
 <span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">logger</span><span class="o">)</span>
-<span class="c1">// task: Task[Unit] = Async(&lt;function3&gt;)
-</span></code></pre></div></div>
+<span class="c1">// task: Task[Unit] = Async(&lt;function3&gt;)</span>
+</code></pre></div></div>
 
 <p>In the context of asynchronous streaming, for each item many times you
 want to execute an asynchronous process, like a web request. In such a
@@ -492,8 +496,8 @@ case there’s <code class="highlighter-rouge">Consumer.foreachAsync</code> whos
 <code class="highlighter-rouge">Task[Unit]</code> instead:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Consumer</span><span class="o">.</span><span class="py">foreachAsync</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
-  <span class="c1">// Play WS, or whatever ...
-</span>  <span class="k">val</span> <span class="nv">req</span> <span class="k">=</span> <span class="nv">ws</span><span class="o">.</span><span class="py">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="py">post</span><span class="o">()</span>
+  <span class="c1">// Play WS, or whatever ...</span>
+  <span class="k">val</span> <span class="nv">req</span> <span class="k">=</span> <span class="nv">ws</span><span class="o">.</span><span class="py">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="py">post</span><span class="o">()</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="n">req</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -514,8 +518,8 @@ with the parallelism specified as <code class="highlighter-rouge">10</code>, we 
 execution of 10 http requests at the same time and no more:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Consumer</span><span class="o">.</span><span class="py">foreachParallelTask</span><span class="o">[</span><span class="kt">Long</span><span class="o">](</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">item</span> <span class="k">=&gt;</span>
-  <span class="c1">// Play WS, or whatever ...
-</span>  <span class="k">val</span> <span class="nv">req</span> <span class="k">=</span> <span class="nv">ws</span><span class="o">.</span><span class="py">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="py">post</span><span class="o">()</span>
+  <span class="c1">// Play WS, or whatever ...</span>
+  <span class="k">val</span> <span class="nv">req</span> <span class="k">=</span> <span class="nv">ws</span><span class="o">.</span><span class="py">clientUrl</span><span class="o">(</span><span class="n">s</span><span class="s">"https://web.com/request/$item"</span><span class="o">).</span><span class="py">post</span><span class="o">()</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">fromFuture</span><span class="o">(</span><span class="n">req</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="o">())</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -537,8 +541,8 @@ consumer that processes sums in parallel:</p>
     <span class="o">.</span><span class="py">runToFuture</span>
     <span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Result: $r"</span><span class="o">))</span>
 
-  <span class="c1">//=&gt; Result: 49995000
-</span><span class="o">}</span>
+  <span class="c1">//=&gt; Result: 49995000</span>
+<span class="o">}</span>
 </code></pre></div></div>
 
 <p>This can be used:</p>
@@ -585,5 +589,11 @@ from all subscribers, hence the final <code class="highlighter-rouge">.map(_.sum
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

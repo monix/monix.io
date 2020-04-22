@@ -12,31 +12,36 @@
   
   <title>Blog &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Blog &mdash; Monix" />
-  <meta name="twitter:description" content="Asynchronous Programming for Scala & Scala.js" />
-
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Blog &amp;mdash; Monix" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala &amp; Scala.js" />
+  <meta name="twitter:url" content="https://monix.io/blog/page6/">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/page6/" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Blog &amp;mdash; Monix" property="og:title">
+  
+  <meta content="Asynchronous Programming for Scala &amp; Scala.js" property="og:description">
+  <meta content="https://monix.io/blog/page6/" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Blog &mdash; Monix" />
-  <meta property="og:description" content="Asynchronous Programming for Scala & Scala.js" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -247,18 +252,18 @@ new bugs aren’t found. Amongst others, it introduces an awesome
 <code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
 consumers. For a teaser:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become 
-// really helpful for logic sprinkled with I/O bound stuff
-</span><span class="k">val</span> <span class="nv">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become </span>
+<span class="c1">// really helpful for logic sprinkled with I/O bound stuff</span>
+<span class="k">val</span> <span class="nv">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
   <span class="o">.</span><span class="py">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="nc">Coeval</span><span class="o">(</span><span class="mi">0L</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">))</span>
   <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
-<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
-</span><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
 
-<span class="c1">// Consume the whole stream and get the result
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">// Consume the whole stream and get the result</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
 
@@ -283,5 +288,11 @@ consumers. For a teaser:</p>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

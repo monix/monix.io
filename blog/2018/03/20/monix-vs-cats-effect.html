@@ -12,31 +12,36 @@
   
   <title>Monix vs Cats-Effect</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
   <meta name="twitter:title" content="Monix vs Cats-Effect" />
   <meta name="twitter:description" content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" />
-
+  <meta name="twitter:url" content="https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix vs Cats-Effect" property="og:title">
+  <meta content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" property="og:description">
+  <meta content="https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html" property="og:url">
+  <meta content="2018-03-20T00:00:00+00:00" property="article:published_time">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Monix vs Cats-Effect" />
-  <meta property="og:description" content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -133,18 +138,18 @@ threads, and you should because they are really good for that, then
 <code class="highlighter-rouge">Task</code> provides <em>scheduling fairness</em> out of the box, whereas your
 logic via <code class="highlighter-rouge">IO</code> will have to include manual <code class="highlighter-rouge">IO.shift</code> calls.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect
-</span><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">IO</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
     <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">else</span> <span class="o">{</span>
       <span class="k">val</span> <span class="nv">next</span> <span class="k">=</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
-      <span class="c1">// Insert async boundary every 128 cycles
-</span>      <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">shift</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>      
+      <span class="c1">// Insert async boundary every 128 cycles</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">shift</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>      
     <span class="o">}</span>
   <span class="o">}</span>
 
-<span class="c1">// Monix simply does it ;-)
-</span><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+<span class="c1">// Monix simply does it ;-)</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
     <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> 
     <span class="k">else</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
@@ -161,26 +166,26 @@ task has to be opt-in, however with <code class="highlighter-rouge">Task</code> 
 auto-cancelable <code class="highlighter-rouge">flatMap</code> loops, whereas with <code class="highlighter-rouge">IO</code> you need manual
 calls to <code class="highlighter-rouge">IO.cancelBoundary</code>.</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect
-</span><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">IO</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
     <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">else</span> <span class="o">{</span>
       <span class="k">val</span> <span class="nv">next</span> <span class="k">=</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
-      <span class="c1">// Check cancelation status every 128 cycles
-</span>      <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">cancelBoundary</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>
+      <span class="c1">// Check cancelation status every 128 cycles</span>
+      <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">128</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">IO</span><span class="o">.</span><span class="py">cancelBoundary</span> <span class="o">*&gt;</span> <span class="n">next</span> <span class="k">else</span> <span class="n">next</span>
     <span class="o">}</span>
   <span class="o">}</span>
 
-<span class="c1">// Monix
-</span><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+<span class="c1">// Monix</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
     <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">pure</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> 
     <span class="k">else</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">)</span>
   <span class="o">}</span>
 
-<span class="c1">// Cancelability is still opt-in, but can be decided at 
-// the call-site for this one:
-</span><span class="nf">fib</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="py">cancelable</span>
+<span class="c1">// Cancelability is still opt-in, but can be decided at </span>
+<span class="c1">// the call-site for this one:</span>
+<span class="nf">fib</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="py">cancelable</span>
 </code></pre></div></div>
 
 <p>So IO’s design is to be very explicit about forking or cancelability,
@@ -477,28 +482,25 @@ you’ve got yourself a credible, pull-based competitor to FS2 as well 😉</p>
 
   
 <div id="contributions">
-  <script data-isso="/comments/monix/"
-          data-isso-css="true"
-          data-isso-lang="en"
-          data-isso-reply-to-self="true"
-          data-isso-require-author="true"
-          data-isso-require-email="false"
-          data-isso-reply-notifications="true"
-          data-isso-max-comments-top="10"
-          data-isso-max-comments-nested="5"
-          data-isso-reveal-on-click="5"
-          data-isso-gravatar="true"
-          data-isso-avatar="false"
-          data-isso-vote="true"
-          data-vote-levels=""
-          src="https://monix.io/comments/monix/js/embed.min.js"></script>
-  <section id="isso-thread" data-title="Monix vs Cats-Effect">
-  </section>
+  <h2>Feedback?</h2>
+
+  <div class="address">
+    If you wish to discus this article, jump to our chatroom:
+    <p>
+      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
+    </p>
+  </div>
 </div>
 
 </div>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

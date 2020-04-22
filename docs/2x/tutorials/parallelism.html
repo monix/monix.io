@@ -12,31 +12,35 @@
   
   <title>Parallel Processing &mdash; Monix</title>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:image" content="https://monix.io/public/images/monix-logo-rect.png" />
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
-  <meta name="twitter:title" content="Parallel Processing &mdash; Monix" />
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Parallel Processing &amp;mdash; Monix" />
   <meta name="twitter:description" content="Recipes for achieving parallelism" />
-
+  <meta name="twitter:url" content="https://monix.io/docs/2x/tutorials/parallelism">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
-  <meta property="og:url" content="https://monix.io/docs/2x/tutorials/parallelism" />
-  <meta property="og:type" content="article" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Parallel Processing &amp;mdash; Monix" property="og:title">
+  <meta content="Recipes for achieving parallelism" property="og:description">
+  <meta content="https://monix.io/docs/2x/tutorials/parallelism" property="og:url">
+    
+  <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <meta property="og:title" content="Parallel Processing &mdash; Monix" />
-  <meta property="og:description" content="Recipes for achieving parallelism" />
-  
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587565527546242876" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587565527546242876" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587565527546242876">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -118,12 +122,12 @@
 
 <p>The samples in this document are copy/paste-able, but to get the imports out of the way:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// On evaluation a Scheduler is needed
-</span><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
-<span class="c1">// For Task
-</span><span class="k">import</span> <span class="nn">monix.eval._</span>
-<span class="c1">// For Observable
-</span><span class="k">import</span> <span class="nn">monix.reactive._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// On evaluation a Scheduler is needed</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<span class="c1">// For Task</span>
+<span class="k">import</span> <span class="nn">monix.eval._</span>
+<span class="c1">// For Observable</span>
+<span class="k">import</span> <span class="nn">monix.reactive._</span>
 </code></pre></div></div>
 
 <h2 id="parallelism-with-task">Parallelism with Task</h2>
@@ -146,15 +150,15 @@ to any task.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
 
-<span class="c1">// The list of all tasks needed for execution
-</span><span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
-<span class="c1">// Processing in parallel
-</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">tasks</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">toList</span><span class="o">)</span>
+<span class="c1">// The list of all tasks needed for execution</span>
+<span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
+<span class="c1">// Processing in parallel</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">tasks</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">toList</span><span class="o">)</span>
 
-<span class="c1">// Evaluation:
-</span><span class="nv">aggregate</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...
-</span></code></pre></div></div>
+<span class="c1">// Evaluation:</span>
+<span class="nv">aggregate</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...</span>
+</code></pre></div></div>
 
 <p>If ordering of results does not matter, you can also use 
 <a href="/api/2.3/monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.gatherUnordered</a>
@@ -172,17 +176,17 @@ server on the other end.</p>
 are then sequenced:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
-<span class="c1">// The list of all tasks needed for execution
-</span><span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
-<span class="c1">// Building batches of 10 tasks to execute in parallel:
-</span><span class="k">val</span> <span class="nv">batches</span> <span class="k">=</span> <span class="nv">tasks</span><span class="o">.</span><span class="py">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
-<span class="c1">// Sequencing batches, then flattening the final result
-</span><span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">.</span><span class="py">toList</span><span class="o">)</span>
+<span class="c1">// The list of all tasks needed for execution</span>
+<span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
+<span class="c1">// Building batches of 10 tasks to execute in parallel:</span>
+<span class="k">val</span> <span class="nv">batches</span> <span class="k">=</span> <span class="nv">tasks</span><span class="o">.</span><span class="py">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+<span class="c1">// Sequencing batches, then flattening the final result</span>
+<span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">.</span><span class="py">toList</span><span class="o">)</span>
 
-<span class="c1">// Evaluation:
-</span><span class="nv">aggregate</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...
-</span></code></pre></div></div>
+<span class="c1">// Evaluation:</span>
+<span class="nv">aggregate</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...</span>
+</code></pre></div></div>
 
 <p>Note how this strategy is difficult to achieve with Scala’s <code class="highlighter-rouge">Future</code>
 because even though we have <code class="highlighter-rouge">Future.sequence</code>, its behavior is strict
@@ -198,28 +202,28 @@ in batches:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
 <span class="k">import</span> <span class="nn">monix.reactive._</span>
 
-<span class="c1">// The `bufferIntrospective` will do buffering, up to a certain
-// `bufferSize`, for as long as the downstream is busy and then
-// stream a whole sequence of all buffered events at once
-</span><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">).</span><span class="py">bufferIntrospective</span><span class="o">(</span><span class="mi">256</span><span class="o">)</span>
+<span class="c1">// The `bufferIntrospective` will do buffering, up to a certain</span>
+<span class="c1">// `bufferSize`, for as long as the downstream is busy and then</span>
+<span class="c1">// stream a whole sequence of all buffered events at once</span>
+<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">).</span><span class="py">bufferIntrospective</span><span class="o">(</span><span class="mi">256</span><span class="o">)</span>
 
-<span class="c1">// Processing in batches, powered by `Task`
-</span><span class="k">val</span> <span class="nv">batched</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">items</span> <span class="k">=&gt;</span>
-  <span class="c1">// The list of all tasks needed for execution
-</span>  <span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
-  <span class="c1">// Building batches of 10 tasks to execute in parallel:
-</span>  <span class="k">val</span> <span class="nv">batches</span> <span class="k">=</span> <span class="nv">tasks</span><span class="o">.</span><span class="py">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
-  <span class="c1">// Sequencing batches, then flattening the final result
-</span>  <span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">)</span>
-  <span class="c1">// Converting into an observable, needed for flatMap
-</span>  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromTask</span><span class="o">(</span><span class="n">aggregate</span><span class="o">)</span>
+<span class="c1">// Processing in batches, powered by `Task`</span>
+<span class="k">val</span> <span class="nv">batched</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">items</span> <span class="k">=&gt;</span>
+  <span class="c1">// The list of all tasks needed for execution</span>
+  <span class="k">val</span> <span class="nv">tasks</span> <span class="k">=</span> <span class="nv">items</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
+  <span class="c1">// Building batches of 10 tasks to execute in parallel:</span>
+  <span class="k">val</span> <span class="nv">batches</span> <span class="k">=</span> <span class="nv">tasks</span><span class="o">.</span><span class="py">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="n">b</span><span class="o">))</span>
+  <span class="c1">// Sequencing batches, then flattening the final result</span>
+  <span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">)</span>
+  <span class="c1">// Converting into an observable, needed for flatMap</span>
+  <span class="nv">Observable</span><span class="o">.</span><span class="py">fromTask</span><span class="o">(</span><span class="n">aggregate</span><span class="o">)</span>
     <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Evaluation:
-</span><span class="nv">batched</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...
-</span></code></pre></div></div>
+<span class="c1">// Evaluation:</span>
+<span class="nv">batched</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...</span>
+</code></pre></div></div>
 
 <p>Note the use of 
 <a href="/api/2.3/monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]">bufferIntrospective</a>,
@@ -235,15 +239,15 @@ operator can be a more deterministic alternative.</p>
 operator:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
-<span class="c1">// The parallelism factor needs to be specified
-</span><span class="k">val</span> <span class="nv">processed</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">i</span> <span class="k">=&gt;</span>
+<span class="c1">// The parallelism factor needs to be specified</span>
+<span class="k">val</span> <span class="nv">processed</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">mapAsync</span><span class="o">(</span><span class="n">parallelism</span> <span class="k">=</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span> <span class="n">i</span> <span class="k">=&gt;</span>
   <span class="nc">Task</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="c1">// Evaluation:
-</span><span class="nv">processed</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; List(2, 10, 0, 4, 8, 6, 12...
-</span></code></pre></div></div>
+<span class="c1">// Evaluation:</span>
+<span class="nv">processed</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; List(2, 10, 0, 4, 8, 6, 12...</span>
+</code></pre></div></div>
 
 <p>Compared with using <code class="highlighter-rouge">Task.gather</code> as exemplified above, this operator
 <strong>does not maintain ordering</strong> of results as signaled by the source.</p>
@@ -261,15 +265,15 @@ complete.</p>
 works by merging <code class="highlighter-rouge">Observable</code> instances.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
-<span class="c1">// The parallelism factor needs to be specified
-</span><span class="k">val</span> <span class="nv">processed</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">mergeMap</span> <span class="o">{</span> <span class="n">i</span> <span class="k">=&gt;</span>
+<span class="c1">// The parallelism factor needs to be specified</span>
+<span class="k">val</span> <span class="nv">processed</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">mergeMap</span> <span class="o">{</span> <span class="n">i</span> <span class="k">=&gt;</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">fork</span><span class="o">(</span><span class="nv">Observable</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="o">))</span>
 <span class="o">}</span>
 
-<span class="c1">// Evaluation:
-</span><span class="nv">processed</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; List(0, 4, 6, 2, 8, 10, 12, 14...
-</span></code></pre></div></div>
+<span class="c1">// Evaluation:</span>
+<span class="nv">processed</span><span class="o">.</span><span class="py">toListL</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; List(0, 4, 6, 2, 8, 10, 12, 14...</span>
+</code></pre></div></div>
 
 <p>Note that <code class="highlighter-rouge">mergeMap</code> is similar with <code class="highlighter-rouge">concatMap</code> (aliased by <code class="highlighter-rouge">flatMap</code>
 in Monix), except that the observable streams emitted by the source
@@ -292,26 +296,26 @@ results of all workers:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
 <span class="k">import</span> <span class="nn">monix.reactive._</span>
 
-<span class="c1">// A consumer that folds over the elements of the stream,
-// producing a sum as a result
-</span><span class="k">val</span> <span class="nv">sumConsumer</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+<span class="c1">// A consumer that folds over the elements of the stream,</span>
+<span class="c1">// producing a sum as a result</span>
+<span class="k">val</span> <span class="nv">sumConsumer</span> <span class="k">=</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">[</span><span class="kt">Long</span>,<span class="kt">Long</span><span class="o">](</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 
-<span class="c1">// For processing sums in parallel, useless of course, but can become 
-// really helpful for logic sprinkled with I/O bound stuff
-</span><span class="k">val</span> <span class="nv">loadBalancer</span> <span class="k">=</span> <span class="o">{</span>
+<span class="c1">// For processing sums in parallel, useless of course, but can become </span>
+<span class="c1">// really helpful for logic sprinkled with I/O bound stuff</span>
+<span class="k">val</span> <span class="nv">loadBalancer</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Consumer</span>
     <span class="o">.</span><span class="py">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="n">sumConsumer</span><span class="o">)</span>
     <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">100000</span><span class="o">)</span>
-<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
-</span><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">loadBalancer</span><span class="o">)</span>
 
-<span class="c1">// Consume the whole stream and get the result
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
-<span class="c1">//=&gt; 4999950000
-</span></code></pre></div></div>
+<span class="c1">// Consume the whole stream and get the result</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4999950000</span>
+</code></pre></div></div>
 
 <p>Read the <a href="../reactive/consumer.html">Consumer</a> document for more details.</p>
 
@@ -330,5 +334,11 @@ results of all workers:</p>
 
       </article>
     </div>
+    
+<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
+<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+
+
+
   </body>
 </html>

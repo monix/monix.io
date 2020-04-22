@@ -6,7 +6,7 @@
  <link type="application/atom+xml" href="https://monix.io/blog/atom.xml" rel="self"/>
  <link type="text/html" href="https://monix.io" rel="alternate"/>
 
- <updated>2020-04-22T14:25:27+00:00</updated>
+ <updated>2020-04-22T17:53:10+00:00</updated>
  <author>
    <name>Alexandru Nedelcu</name>
    <email>noreply@alexn.org</email>
@@ -902,18 +902,18 @@ new bugs aren’t found. Amongst others, it introduces an awesome
 <code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
 consumers. For a teaser:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become 
-// really helpful for logic sprinkled with I/O bound stuff
-</span><span class="k">val</span> <span class="nv">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become </span>
+<span class="c1">// really helpful for logic sprinkled with I/O bound stuff</span>
+<span class="k">val</span> <span class="nv">consumer</span> <span class="k">=</span> <span class="nc">Consumer</span>
   <span class="o">.</span><span class="py">loadBalance</span><span class="o">(</span><span class="n">parallelism</span><span class="k">=</span><span class="mi">10</span><span class="o">,</span> <span class="nv">Consumer</span><span class="o">.</span><span class="py">foldLeft</span><span class="o">(</span><span class="nc">Coeval</span><span class="o">(</span><span class="mi">0L</span><span class="o">))(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">))</span>
   <span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 
 <span class="k">val</span> <span class="nv">observable</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
-<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!
-</span><span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
+<span class="c1">// Our consumer turns our observable into a Task processing sums, w00t!</span>
+<span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">observable</span><span class="o">.</span><span class="py">runWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
 
-<span class="c1">// Consume the whole stream and get the result
-</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">// Consume the whole stream and get the result</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
 
