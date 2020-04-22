@@ -29,7 +29,7 @@ puts "Detected branch or tag: " + branch
 # Forcing a change to the root directory, if not there already
 Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 
-exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g clean run")
+exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g run")
 exec("bundle exec jekyll build")
 
 unless branch == "master" && ENV['TRAVIS_PULL_REQUEST'] == 'false'
