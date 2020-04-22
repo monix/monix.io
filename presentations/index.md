@@ -8,6 +8,8 @@ comments: true
 
 ## Conferences
 
+- [Sleeping well in the lion's den with Monix Catnap]({% link presentations/2020-sleeping-well-lion-den-monix-catnap-piotr-gawrys.md %})<br/>
+  by Piotr Gawryś, [Typelevel Summit 2020](https://typelevel.org/event/2020-03-summit-nyc/)
 - [Functional Concurrency in Scala 101](./2019-functional-concurrency-in-scala-101.html) (repeat with Japanese slides subtitles)<br />
   by Piotr Gawryś, [ScalaMatsuri 2019](https://2019.scalamatsuri.org/index_en.html)
 - [Dispelling magic behind Concurrency in FP](./2019-dispelling-magic-behind-concurrency-in-fp.html)<br />
