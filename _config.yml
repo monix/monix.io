@@ -11,7 +11,7 @@ url:              https://monix.io
 baseurl:          /
 
 exclude:
-  ["README.md", "deploy.sh", "vendor", "src", "project/", "build.sbt", "docs-raw",   "_tut", "target", "scripts"]
+  ["README.md", "deploy.sh", "vendor", "src", "project/", "build.sbt", "docs-raw", "_tut", "target", "scripts"]
 include:
   [".nojekyll"]
 
@@ -20,9 +20,18 @@ author:
   email:          'noreply@alexn.org'
   url:            'https://alexn.org'
 
-permalink:     "/blog/:categories/:year/:month/:day/:title.html"
 paginate_path: "/blog/page:num/"
 paginate:      5
+
+defaults:
+  -
+    scope:
+      path: "_posts" # an empty string here means all files in the project
+    values:
+      permalink: "/blog/:categories/:year/:month/:day/:title.html"
+      layout: post
+      excerpt_separator: "<!--more-->"
+      has_comments: true
 
 code:
   version1x:     "1.2"
