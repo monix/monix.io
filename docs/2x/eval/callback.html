@@ -20,27 +20,27 @@
   <meta name="twitter:creator" content="@monix" />  
   <meta name="twitter:title" content="Callback &amp;mdash; Monix" />
   <meta name="twitter:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " />
-  <meta name="twitter:url" content="https://monix.io/docs/2x/eval/callback">
+  <meta name="twitter:url" content="https://monix.io/docs/2x/eval/callback.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
 
   <meta content="Monix" property="og:site_name">
   <meta content="Callback &amp;mdash; Monix" property="og:title">
   <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " property="og:description">
-  <meta content="https://monix.io/docs/2x/eval/callback" property="og:url">
+  <meta content="https://monix.io/docs/2x/eval/callback.html" property="og:url">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587577990104511557" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587590404785748755" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587590404785748755" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587577990104511557">
+  <link rel="stylesheet" href="/public/css/all.css?1587590404785748755">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587577990104511557">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587590404785748755">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -173,10 +173,10 @@ on <code class="highlighter-rouge">onSuccess</code>, but that can log errors whe
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@1499592287, monix.eval.Task$$$Lambda$7581/1927474655@501f760c)</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Task.FlatMap(Task@1518955710, monix.eval.Task$$$Lambda$7575/249241293@4a699147)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@2b1bee6d</span>
+<span class="c1">// res2: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@64bd086</span>
 </code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
@@ -217,7 +217,7 @@ errors. So to force a protective asynchronous boundary when calling
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1587577990104511557" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1587590404785748755" type="text/javascript" language="javascript"></script>
 
 
 
