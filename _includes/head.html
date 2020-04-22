@@ -7,7 +7,7 @@
 
   {% capture processed_title %}{% if page.title contains "Monix" %}{{ page.title }}{% else %}{{ page.title }} &mdash; {{ site.title }}{% endif %}{% endcapture %}
   {% capture processed_description %}{% if post.excerpt %}{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}{% elsif page.description %}{{ page.description | strip_newlines }}{% else %}{{ site.tagline }}{% endif %}{% endcapture %}
-  <title>{{ processed_title | xml_escape }}</title>
+  <title>{{ processed_title }}</title>
 
   <!-- Twitter Cards -->
   {% if page.vimeo -%}
