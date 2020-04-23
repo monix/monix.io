@@ -10,33 +10,33 @@
 
   
   
-  <title>Functional Concurrency in Scala 101 &mdash; Monix</title>
+  <title>Sleeping well in the lion's den with Monix Catnap</title>
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="player" />
-  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c">
+  <meta name="twitter:player" content="https://www.youtube-nocookie.com/embed/gU0NJwKfDG8">
   <meta name="twitter:player:width" content="560">
   <meta name="twitter:player:height" content="315">
-  <meta name="twitter:image" content="https://img.youtube.com/vi/MeOs9SeO8-c/maxresdefault.jpg" />
+  <meta name="twitter:image" content="https://img.youtube.com/vi/gU0NJwKfDG8/maxresdefault.jpg" />
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:creator" content="@monix" />  
-  <meta name="twitter:title" content="Functional Concurrency in Scala 101 &amp;mdash; Monix" />
-  <meta name="twitter:description" content="Presentation from ScalaMatsuri 2019, by Piotr Gawryś, on concurrency basics in FP." />
-  <meta name="twitter:url" content="https://monix.io/presentations/2019-functional-concurrency-in-scala-101.html">
+  <meta name="twitter:title" content="Sleeping well in the lion's den with Monix Catnap" />
+  <meta name="twitter:description" content="Presentation from Typelevel Summit 2020, by Piotr Gawryś" />
+  <meta name="twitter:url" content="https://monix.io/presentations/2020-sleeping-well-lion-den-monix-catnap-piotr-gawrys.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
 
   <meta content="Monix" property="og:site_name">
-  <meta content="Functional Concurrency in Scala 101 &amp;mdash; Monix" property="og:title">
-  <meta content="Presentation from ScalaMatsuri 2019, by Piotr Gawryś, on concurrency basics in FP." property="og:description">
-  <meta content="https://monix.io/presentations/2019-functional-concurrency-in-scala-101.html" property="og:url">
+  <meta content="Sleeping well in the lion's den with Monix Catnap" property="og:title">
+  <meta content="Presentation from Typelevel Summit 2020, by Piotr Gawryś" property="og:description">
+  <meta content="https://monix.io/presentations/2020-sleeping-well-lion-den-monix-catnap-piotr-gawrys.html" property="og:url">
   <meta property="og:type" content="video.other" />
-  <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" />
-  <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" />
+  <meta property="og:video:url" content="https://www.youtube-nocookie.com/embed/gU0NJwKfDG8" />
+  <meta property="og:video:secure_url" content="https://www.youtube-nocookie.com/embed/gU0NJwKfDG8" />
   <meta property="og:video:type" content="text/html" />
   <meta property="og:video:width" content="560" />
   <meta property="og:video:height" content="315" /> 
-  <meta property="og:image" content="https://img.youtube.com/vi/MeOs9SeO8-c/maxresdefault.jpg" />
+  <meta property="og:image" content="https://img.youtube.com/vi/gU0NJwKfDG8/maxresdefault.jpg" />
   <meta property="og:image:secure_url" content="https://img.youtube.com/vi//maxresdefault.jpg" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
@@ -108,26 +108,41 @@
       <article class="content container">
         <div class="page">
   <a name="start"></a>
-  <h1 class="page-title">Functional Concurrency in Scala 101</h1>
+  <h1 class="page-title">Sleeping well in the lion's den with Monix Catnap</h1>
 
   <p>Presentation from
-<a href="https://2019.scalamatsuri.org/index_en.html">ScalaMatsuri 2019</a> by
+<a href="https://typelevel.org/event/2020-03-summit-nyc/">Typelevel Summit 2020</a> by
 <a href="https://twitter.com/p_gawrys">Piotr Gawryś</a>:</p>
 
 <div id="video-frame" class="presentation" style="padding-bottom: 56.25%;">
-  <iframe src="https://www.youtube-nocookie.com/embed/MeOs9SeO8-c" id="youtube-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
+  <iframe src="https://www.youtube-nocookie.com/embed/gU0NJwKfDG8" id="youtube-iframe" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="">
   </iframe>
 </div>
 
+<p>Resources:</p>
+
+<ul>
+  <li><a href="https://slides.com/avasil/monix-catnap-ea7c27" target="blank">Slides</a></li>
+  <li><a href="/api/3.1/monix/catnap/index.html">API Documentation</a></li>
+</ul>
+
 <h2 id="abstract">Abstract</h2>
 
-<p>Using IO Monads for concurrency gains a lot of recognition lately. However, Functional Programming and JVM’s concurrency model are challenging to learn separately, let alone together. There are many terms like green threads, thread shifting, brackets or fairness thrown around but what are those and why should we keep them in mind?</p>
+<p>Concurrency bugs leave you restless? Monix Catnap provides a ton of
+utilities that will let your worries take a good nap!</p>
 
-<p>Starting from the basics, this talk aims to cover all of these. I hope any listener can walk out with enough knowledge to make a confident jump into FP libraries like Cats-Effect, Monix or ZIO.</p>
+<p>Monix Catnap and Execution are rather unknown modules of Monix which
+have a lot of useful features like Local, <code class="highlighter-rouge">ConcurrentQueue</code> and
+<code class="highlighter-rouge">ConcurrentChannel</code> for everyone to use regardless of their effect of
+choice.</p>
+
+<p>The talk will cover some of the most interesting ones and show how
+they could be of use in your projects.</p>
+
 
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/presentations/2019-functional-concurrency-in-scala-101.md" target="_blank">
+    <a href="https://github.com/monix/monix.io/edit/master/presentations/2020-sleeping-well-lion-den-monix-catnap-piotr-gawrys.md" target="_blank">
       Edit Page</a> •
     <a href="https://gitter.im/monix/monix" target="_blank">
       Join Chat</a> •
