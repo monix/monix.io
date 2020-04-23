@@ -25,9 +25,11 @@ Concurrency bugs leave you restless? Monix Catnap provides a ton of
 utilities that will let your worries take a good nap!
 
 Monix Catnap and Execution are rather unknown modules of Monix which
-have a lot of useful features like Local, `ConcurrentQueue` and
-`ConcurrentChannel` for everyone to use regardless of their effect of
-choice.
+have a lot of useful features like 
+[Local]({{ site.api3x }}{{ 'monix.execution.misc.Local' | replace: '.','/' }}.html),
+[ConcurrentQueue]({{ site.api3x }}{{ 'monix.catnap.ConcurrentQueue' | replace: '.','/' }}.html) and
+[ConcurrentChannel]({{ site.api3x }}{{ 'monix.catnap.ConcurrentChannel' | replace: '.','/' }}.html) 
+for everyone to use regardless of their effect of choice.
 
 The talk will cover some of the most interesting ones and show how
 they could be of use in your projects.
