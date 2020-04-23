@@ -4,7 +4,6 @@ title: "Functional Concurrency in Scala 101"
 description: |
   Presentation from ScalaMatsuri 2019, by Piotr Gawryś, on concurrency basics in FP.
 comments: true
-image: /public/images/thumbs/2019-functional-concurrency-in-scala-101-piotr-gawrys.png
 author: Avasil
 youtube: MeOs9SeO8-c
 ---
