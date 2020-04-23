@@ -4,7 +4,7 @@ title: "Sleeping well in the lion's den with Monix Catnap"
 description: |
   Presentation from Typelevel Summit 2020, by Piotr Gawryś
 comments: true
-author: Avasil
+author: p_gawrys
 youtube: gU0NJwKfDG8
 ---
 

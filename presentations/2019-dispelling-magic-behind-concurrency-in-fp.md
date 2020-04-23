@@ -5,7 +5,7 @@ description: |
   Presentation from flatMap(Oslo) 2019, by Piotr Gawryś, on concurrency basics in FP.
 comments: true
 image: /public/images/thumbs/2019-dispelling-magic-behind-concurrency-in-fp-piotr-gawrys.png
-author: Avasil
+author: p_gawrys
 youtube: InctntW3CAA
 ---
 
