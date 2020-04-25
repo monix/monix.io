@@ -117,25 +117,6 @@ Development of Monix has been initiated by
 Monix being introduced at E.ON Connecting Energies, powering the next
 generation energy grid solutions.
 
-## License
-
-```text
-Copyright (c) 2014-{{ site.time | date: '%Y' }} by The Monix Project Developers.
-See the project homepage at: https://monix.io
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
 ## Adopters
 
 Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/edit/master/README.md)
@@ -148,3 +129,10 @@ Here's a (non-exhaustive) list of companies that use Monix in production. Don't 
 - [Zalando](https://www.zalando.com)
 - [Agoda](https://www.agoda.com)
 - [Hypefactors](https://www.hypefactors.com)
+
+## License
+
+Copyright (c) 2014-{{ site.time | date: '%Y' }} by The Monix Project Developers.
+Some rights reserved.
+
+[See LICENSE]({% link LICENSE.md %})
