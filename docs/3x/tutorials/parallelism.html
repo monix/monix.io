@@ -34,13 +34,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1587841521074090138" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1587841521074090138" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1587973596733355987" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1587973596733355987" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1587841521074090138">
+  <link rel="stylesheet" href="/public/css/all.css?1587973596733355987">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587841521074090138">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1587973596733355987">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -131,14 +131,14 @@
 <h3 id="the-naive-way">The Naive Way</h3>
 
 <p>The following example uses
-<a href="/api/3.1/monix/eval/Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]">Task.gather</a>,
+<a href="/api/3.2/monix/eval/Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]">Task.gather</a>,
 which does parallel processing while preserving result ordering, 
 but in order to ensure that parallel processing actually happens,
 the tasks need to be effectively asynchronous, which for simple
 functions need to fork threads, hence the usage of 
-<a href="/api/3.1/monix/eval/Task$.html#apply[A](f:=&gt;A):monix.eval.Task[A]">Task.apply</a>,
+<a href="/api/3.2/monix/eval/Task$.html#apply[A](f:=&gt;A):monix.eval.Task[A]">Task.apply</a>,
 although remember that you can apply 
-<a href="/api/3.1/monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A]">Task.fork</a>
+<a href="/api/3.2/monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A]">Task.fork</a>
 to any task.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
@@ -154,7 +154,7 @@ to any task.</p>
 </code></pre></div></div>
 
 <p>If ordering of results does not matter, you can also use 
-<a href="/api/3.1/monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.gatherUnordered</a>
+<a href="/api/3.2/monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.gatherUnordered</a>
 instead of <code class="highlighter-rouge">gather</code>, which might yield better results, given its non-blocking execution.</p>
 
 <h3 id="imposing-a-parallelism-limit">Imposing a Parallelism Limit</h3>
@@ -218,16 +218,16 @@ in batches:</p>
 </code></pre></div></div>
 
 <p>Note the use of 
-<a href="/api/3.1/monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]">bufferIntrospective</a>,
+<a href="/api/3.2/monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]">bufferIntrospective</a>,
 which buffers incoming events while the downstream is busy, after which
 it emits the buffer as a single bundle. The
-<a href="/api/3.1/monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]]">bufferTumbling</a>
+<a href="/api/3.2/monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]]">bufferTumbling</a>
 operator can be a more deterministic alternative.</p>
 
 <h2 id="observablemapparallelunordered">Observable.mapParallelUnordered</h2>
 
 <p>Another way to achieve parallelism is to use the 
-<a href="/api/3.1/monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B]):Self[B]">Observable.mapParallelUnordered</a>
+<a href="/api/3.2/monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B]):Self[B]">Observable.mapParallelUnordered</a>
 operator:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
@@ -334,7 +334,7 @@ results of all workers:</p>
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1587841521074090138" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1587973596733355987" type="text/javascript" language="javascript"></script>
 
 
 
