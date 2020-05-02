@@ -1129,7 +1129,7 @@ list.runToFuture.foreach(println)
 This is similar to `Task.sequence` but it uses `f` to generate each `Task`.
 
 All `Task.sequence` semantics hold meaning the effects are ordered and the tasks
-WIL NOT execute in parallel.
+WILL NOT execute in parallel.
 
 ```tut:silent
 def task(i: Int) = Task { println("Effect" + i); i }
