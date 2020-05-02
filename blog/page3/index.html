@@ -35,13 +35,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1588201387352179615" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1588201387352179615" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1588419226613246370" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1588419226613246370" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1588201387352179615">
+  <link rel="stylesheet" href="/public/css/all.css?1588419226613246370">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1588201387352179615">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1588419226613246370">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,6 +102,32 @@
 
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2018/03/20/monix-vs-cats-effect.html">
+        Monix vs Cats-Effect
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2018-03-20">
+      20 Mar 2018
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>I’m the author of Monix and a major contributor to 
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a>.</p>
+
+<p>This post describes the relationship between Monix and Cats-Effect,
+their history and when each should be used.</p>
+
+
+
+    
+    <a href="/blog/2018/03/20/monix-vs-cats-effect.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -253,52 +279,6 @@ warnings in <code class="highlighter-rouge">TaskApp</code></li>
     
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2017/03/10/monix-v2.2.3.html">
-        Monix: Critical Bug Fix in Version 2.2.3 for Scala 2.12
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2017-03-10">
-      10 Mar 2017
-      • <a href="https://twitter.com/monix">@monix</a>
-    </time>
-
-    <p>Version <code class="highlighter-rouge">2.2.3</code> is out now.</p>
-
-<p>It is a minor release that’s binary and source compatible with
-<code class="highlighter-rouge">2.2.x</code>, fixing a critical bug that happens in Scala 2.12, due to
-changes to how <code class="highlighter-rouge">flatMap</code> is implemented in <code class="highlighter-rouge">scala.concurrent.Future</code>:</p>
-
-<ul>
-  <li><a href="https://github.com/monix/monix/issues/330">Bug #330</a>:
-<code class="highlighter-rouge">Ack.Continue.transformWith</code> and <code class="highlighter-rouge">Ack.Stop.transformWith</code> 
-are not stack-safe</li>
-</ul>
-
-<p><strong>Impact of this bug:</strong> it does NOT impact most (probably all)
-functionality in Monix, because Monix rarely flatMaps direct
-<code class="highlighter-rouge">Continue</code> references (due to batching and optimizations) and we have
-had extensive tests for long loops that could trigger this problem.</p>
-
-<p>However this bug can be dangerous for people that have implemented the
-communication protocol (as
-<a href="/docs/2x/reactive/observers.html#feeding-an-observer">described in the docs</a>)
-by themselves. If you’re using Monix with Scala 2.12, then <em>upgrade
-immediately</em>.</p>
-
-<p>Upgrade should be safe, being binary compatible with all previous
-<code class="highlighter-rouge">2.2.x</code> versions.</p>
-
-
-
-    
-    <a href="/blog/2017/03/10/monix-v2.2.3.html">Read more &rarr;</a>
-    
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -316,7 +296,7 @@ immediately</em>.</p>
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1588201387352179615" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1588419226613246370" type="text/javascript" language="javascript"></script>
 
 
 

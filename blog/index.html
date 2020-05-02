@@ -35,13 +35,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1588201387352179615" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1588201387352179615" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1588419226613246370" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1588419226613246370" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1588201387352179615">
+  <link rel="stylesheet" href="/public/css/all.css?1588419226613246370">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1588201387352179615">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1588419226613246370">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,6 +102,27 @@
 
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2020/04/30/monix-v3.2.1.html">
+        Monix 3.2.1
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2020-04-30">
+      30 Apr 2020
+      • <a href="https://twitter.com/monix">@monix</a>
+    </time>
+
+    <p>Bug fix release, fixing a critical issue with ScalaJS 1.0.x <a href="https://github.com/monix/monix/issues/1166">#1666</a> and a corner case with <code class="highlighter-rouge">Bracket</code> <a href="https://github.com/monix/monix/pull/1175">#1175</a></p>
+
+
+    
+    <a href="/blog/2020/04/30/monix-v3.2.1.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -218,53 +239,6 @@ It is released for the following Scala and ScalaJS versions:</p>
     
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2019/08/25/monix-v3.0.0-RC4.html">
-        Monix: Version 3.0.0-RC4
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2019-08-25">
-      25 Aug 2019
-      • <a href="https://twitter.com/monix">@monix</a>
-    </time>
-
-    <p>Last release before <code class="highlighter-rouge">3.0.0</code> which will be released as soon as Cats-Effect 2.0.0 is available. At the time of writing release notes,
-it is only waiting on Cats 2.0.0 which is about to release next RC which will become stable version if no critical issues are discovered.</p>
-
-<p>Any other development for this release is now frozen except if we discover critical bugs like memory leaks. All other changes will target <code class="highlighter-rouge">3.1.0</code>.</p>
-
-<p><code class="highlighter-rouge">3.0.0</code> will be binary and source compatible with <code class="highlighter-rouge">3.0.0-RC4</code> for Scala 2.12. Monix itself will be also binary compatible
-for 2.11 but it will have a dependency on Cats-Effect which is not. <a href="https://github.com/typelevel/cats-effect/releases/tag/v2.0.0-RC1">See Cats-Effect release notes</a> for more details.</p>
-
-<p>We wish we could release <code class="highlighter-rouge">3.0.0</code> already but if we released now, we would have to release <code class="highlighter-rouge">4.0.0</code> for Cats-Effect 2.0 because of 2.11 incompatibility there so we decided to hold on. 
-It was a rough road but currently we have multiple active maintainers that can do releases going forward, instead of just Alex so we hope it can give you a confidence for the future! :)
-Note that Cats-Effect 2.0 is very small release and mostly targeted at support for Scala 2.13 and bug fixes - the upgrade should be limited to bumping version without changing a single line of code.</p>
-
-<p>This release depends on Cats-Effect 1.4.0 and Cats 1.6.1</p>
-
-<p>This release is binary compatible with <code class="highlighter-rouge">3.0.0-RC3</code> on Scala 2.12.
-On Scala 2.11 there is an incompatibility caused by introduction of <code class="highlighter-rouge">Scheduler.features</code>:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude[ReversedMissingMethodProblem]("monix.execution.Scheduler.features")
-</code></pre></div></div>
-
-<h2 id="upgrading">Upgrading</h2>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC4"</span>
-</code></pre></div></div>
-
-
-
-    
-    <a href="/blog/2019/08/25/monix-v3.0.0-RC4.html">Read more &rarr;</a>
-    
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -280,7 +254,7 @@ On Scala 2.11 there is an incompatibility caused by introduction of <code class=
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1588201387352179615" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1588419226613246370" type="text/javascript" language="javascript"></script>
 
 
 
