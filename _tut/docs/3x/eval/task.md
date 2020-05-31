@@ -1062,7 +1062,7 @@ get the result of `ta` (the first task) and then the result of `tb`
 (the second task). The execution itself is also ordered, so `ta`
 executes and completes before `tb`.
 
-`Task.gather`, similar to `Parallel.parSequence`, is the nondeterministic
+`Task.parSequence`, similar to `Parallel.parSequence`, is the nondeterministic
 version of `Task.sequence`.  It also takes a `Seq[Task[A]]` and
 returns a `Task[Seq[A]]`, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
@@ -1081,7 +1081,7 @@ val tb = {
     .delayExecution(1.second)
 }
 
-val list: Task[Seq[Int]] = Task.gather(Seq(ta, tb))
+val list: Task[Seq[Int]] = Task.parSequence(Seq(ta, tb))
 
 list.runToFuture.foreach(println)
 //=> Effect1
@@ -1094,9 +1094,9 @@ list.runToFuture.foreach(println)
 //=> List(1, 2)
 ```
 
-`Task.gatherUnordered` is like `gather`, except that you don't get
+`Task.parSequenceUnordered` is like `parSequence`, except that you don't get
 ordering for results or effects. The result is thus highly nondeterministic,
-but yields better performance than `gather`:
+but yields better performance than `parSequence`:
 
 ```tut:silent
 import scala.concurrent.duration._
@@ -1112,7 +1112,7 @@ val tb = {
 }
 
 val list: Task[Seq[Int]] =
-  Task.gatherUnordered(Seq(ta, tb))
+  Task.parSequenceUnordered(Seq(ta, tb))
 
 list.runToFuture.foreach(println)
 //=> Effect2
@@ -1144,10 +1144,10 @@ list.runToFuture.foreach(println)
 //=> List(1, 2)
 ```
 
-`Task.wander`, similar to `Parallel.parTraverse`, is the nondeterministic
+`Task.parTraverse`, similar to `Parallel.parTraverse`, is the nondeterministic
 version of `Task.traverse`.  It also takes a `Seq[A]`, `f: A => Task[B]` and
 returns a `Task[Seq[B]]`. It applies `f` to each element in the sequence transforming it
-into `Task` and then collecting results. The order in the output sequence is preserved but 
+into `Task` and then collecting results. The order in the output sequence is preserved, but 
 the effects are not ordered, meaning that there's potential for parallel execution:
 
 ```tut:silent
@@ -1156,7 +1156,7 @@ import scala.concurrent.duration._
 def task(i: Int) = 
   Task { println("Effect" + i); i }.delayExecution(1.second)
 
-val list: Task[Seq[Int]] = Task.wander(Seq(1, 2))(i => task(i))
+val list: Task[Seq[Int]] = Task.parTraverse(Seq(1, 2))(i => task(i))
 
 list.runToFuture.foreach(println)
 //=> Effect1
@@ -1169,7 +1169,7 @@ list.runToFuture.foreach(println)
 //=> List(1, 2)
 ```
 
-Similar to `gather` there is also unordered version called `wanderUnordered`.
+Similar to `parSequenceUnordered` there is also unordered version of `parTraverse` called `parTraverseUnordered`.
 
 **NOTE:** If you have the possibility, prefer explicitly using `Task` operators instead of
 those provided by Cats syntax. Their default implementations are derived from other
@@ -1182,8 +1182,8 @@ Refer to the table below to see corresponding methods:
 |:-------------------:|:--------------------------:|
 |    Task.sequence    |    Traverse[F].sequence    |
 |    Task.traverse    |    Traverse[F].traverse    |
-|    Task.gather      |    Parallel.parSequence    |
-|    Task.wander      |    Parallel.parTraverse    |
+|    Task.parSequence |    Parallel.parSequence    |
+|    Task.parTraverse |    Parallel.parTraverse    |
 
 ### Race
 
