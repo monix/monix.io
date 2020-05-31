@@ -34,13 +34,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1588419226613246370" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1588419226613246370" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1590964948525218474" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1590964948525218474" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1588419226613246370">
+  <link rel="stylesheet" href="/public/css/all.css?1590964948525218474">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1588419226613246370">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1590964948525218474">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -1127,7 +1127,7 @@ get the result of <code class="highlighter-rouge">ta</code> (the first task) and
 (the second task). The execution itself is also ordered, so <code class="highlighter-rouge">ta</code>
 executes and completes before <code class="highlighter-rouge">tb</code>.</p>
 
-<p><code class="highlighter-rouge">Task.gather</code>, similar to <code class="highlighter-rouge">Parallel.parSequence</code>, is the nondeterministic
+<p><code class="highlighter-rouge">Task.parSequence</code>, similar to <code class="highlighter-rouge">Parallel.parSequence</code>, is the nondeterministic
 version of <code class="highlighter-rouge">Task.sequence</code>.  It also takes a <code class="highlighter-rouge">Seq[Task[A]]</code> and
 returns a <code class="highlighter-rouge">Task[Seq[A]]</code>, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
@@ -1145,7 +1145,7 @@ ordered, meaning that there’s potential for parallel execution:</p>
     <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">gather</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parSequence</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect1</span>
@@ -1158,9 +1158,9 @@ ordered, meaning that there’s potential for parallel execution:</p>
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.gatherUnordered</code> is like <code class="highlighter-rouge">gather</code>, except that you don’t get
+<p><code class="highlighter-rouge">Task.parSequenceUnordered</code> is like <code class="highlighter-rouge">parSequence</code>, except that you don’t get
 ordering for results or effects. The result is thus highly nondeterministic,
-but yields better performance than <code class="highlighter-rouge">gather</code>:</p>
+but yields better performance than <code class="highlighter-rouge">parSequence</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -1175,7 +1175,7 @@ but yields better performance than <code class="highlighter-rouge">gather</code>
 <span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
-  <span class="nv">Task</span><span class="o">.</span><span class="py">gatherUnordered</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
+  <span class="nv">Task</span><span class="o">.</span><span class="py">parSequenceUnordered</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="n">ta</span><span class="o">,</span> <span class="n">tb</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect2</span>
@@ -1206,10 +1206,10 @@ WILL NOT execute in parallel.</p>
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.wander</code>, similar to <code class="highlighter-rouge">Parallel.parTraverse</code>, is the nondeterministic
+<p><code class="highlighter-rouge">Task.parTraverse</code>, similar to <code class="highlighter-rouge">Parallel.parTraverse</code>, is the nondeterministic
 version of <code class="highlighter-rouge">Task.traverse</code>.  It also takes a <code class="highlighter-rouge">Seq[A]</code>, <code class="highlighter-rouge">f: A =&gt; Task[B]</code> and
 returns a <code class="highlighter-rouge">Task[Seq[B]]</code>. It applies <code class="highlighter-rouge">f</code> to each element in the sequence transforming it
-into <code class="highlighter-rouge">Task</code> and then collecting results. The order in the output sequence is preserved but 
+into <code class="highlighter-rouge">Task</code> and then collecting results. The order in the output sequence is preserved, but 
 the effects are not ordered, meaning that there’s potential for parallel execution:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1217,7 +1217,7 @@ the effects are not ordered, meaning that there’s potential for parallel execu
 <span class="k">def</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> 
   <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span> <span class="n">i</span> <span class="o">}.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">wander</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">))(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parTraverse</span><span class="o">(</span><span class="nc">Seq</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">))(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="o">))</span>
 
 <span class="nv">list</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Effect1</span>
@@ -1230,7 +1230,7 @@ the effects are not ordered, meaning that there’s potential for parallel execu
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p>Similar to <code class="highlighter-rouge">gather</code> there is also unordered version called <code class="highlighter-rouge">wanderUnordered</code>.</p>
+<p>Similar to <code class="highlighter-rouge">parSequenceUnordered</code> there is also unordered version of <code class="highlighter-rouge">parTraverse</code> called <code class="highlighter-rouge">parTraverseUnordered</code>.</p>
 
 <p><strong>NOTE:</strong> If you have the possibility, prefer explicitly using <code class="highlighter-rouge">Task</code> operators instead of
 those provided by Cats syntax. Their default implementations are derived from other
@@ -1255,11 +1255,11 @@ methods and are often much slower than optimized <code class="highlighter-rouge"
       <td style="text-align: center">Traverse[F].traverse</td>
     </tr>
     <tr>
-      <td style="text-align: center">Task.gather</td>
+      <td style="text-align: center">Task.parSequence</td>
       <td style="text-align: center">Parallel.parSequence</td>
     </tr>
     <tr>
-      <td style="text-align: center">Task.wander</td>
+      <td style="text-align: center">Task.parTraverse</td>
       <td style="text-align: center">Parallel.parTraverse</td>
     </tr>
   </tbody>
@@ -1895,7 +1895,7 @@ expose any errors that happen and will also terminate with an
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1588419226613246370" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1590964948525218474" type="text/javascript" language="javascript"></script>
 
 
 
