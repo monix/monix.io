@@ -10,7 +10,7 @@
 
   
   
-  <title>Monix 3.1.0</title>
+  <title>Monix 3.2.2</title>
 
   <!-- Twitter Cards -->
   
@@ -18,17 +18,17 @@
   <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:creator" content="@monix" />  
-  <meta name="twitter:title" content="Monix 3.1.0" />
-  <meta name="twitter:description" content="Major bug fixes and some new operators" />
-  <meta name="twitter:url" content="https://monix.io/blog/2019/11/08/monix-v3.1.0.html">
+  <meta name="twitter:title" content="Monix 3.2.2" />
+  <meta name="twitter:description" content="Bug fixes and performance improvements" />
+  <meta name="twitter:url" content="https://monix.io/blog/2020/06/04/monix-v3.2.2.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
 
   <meta content="Monix" property="og:site_name">
-  <meta content="Monix 3.1.0" property="og:title">
-  <meta content="Major bug fixes and some new operators" property="og:description">
-  <meta content="https://monix.io/blog/2019/11/08/monix-v3.1.0.html" property="og:url">
-  <meta content="2019-11-08T00:00:00+00:00" property="article:published_time">
+  <meta content="Monix 3.2.2" property="og:title">
+  <meta content="Bug fixes and performance improvements" property="og:description">
+  <meta content="https://monix.io/blog/2020/06/04/monix-v3.2.2.html" property="og:url">
+  <meta content="2020-06-04T00:00:00+00:00" property="article:published_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
@@ -103,15 +103,21 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix 3.1.0</h1>
+  <h1 class="post-title">Monix 3.2.2</h1>
 
   <time class="post-date" itemprop="dateCreated"
-    datetime="2019-11-08">
-    08 Nov 2019
+    datetime="2020-06-04">
+    04 Jun 2020
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>The release is binary and source compatible with 3.0.0.</p>
+  <p>The release is binary and source compatible with 3.x.x line.
+It is released for the following Scala and ScalaJS versions:</p>
+<ul>
+  <li>Scala 2.11: ScalaJS 0.6.x</li>
+  <li>Scala 2.12: ScalaJS 0.6.x and 1.0.x</li>
+  <li>Scala 2.13: ScalaJS 0.6.x and 1.0.x</li>
+</ul>
 
 <!--more-->
 
@@ -119,74 +125,62 @@
 
 <p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 </code></pre></div></div>
 
 <p>Or in case you just want any of the sub-projects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Local, Scheduler, Cancelable, CancelableFuture, Atomic, etc</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 
 <span class="c1">// Utilities built for Cats-Effect, e.g. ConcurrentChannel, FutureLift</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 
 <span class="c1">// Task, Coeval</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 
 <span class="c1">// Observable</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 
 <span class="c1">// Iterant</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.1.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.2.2"</span>
 </code></pre></div></div>
 
 <h2 id="changes">Changes</h2>
 
-<p>Important updates:</p>
+<p>Relevant updates:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/pull/1008">#1008</a>: Fixed stack safety issue of Observable.combineLatestList for big lists</li>
-  <li><a href="https://github.com/monix/monix/pull/1010">#1010</a>: flatMapLoop for Task and Coeval</li>
-  <li><a href="https://github.com/monix/monix/pull/1012">#1012</a>: ConcurrentQueue.isEmpty</li>
-  <li><a href="https://github.com/monix/monix/pull/1014">#1014</a>: Observable.timeoutOnSlowDownstreamTo</li>
-  <li><a href="https://github.com/monix/monix/pull/1016">#1016</a>: Observable.takeUntilEval</li>
-  <li><a href="https://github.com/monix/monix/pull/1057">#1057</a>: Fix default scheduleOnce implementation</li>
-  <li><a href="https://github.com/monix/monix/pull/1062">#1062</a>: Solves a memory leak which sometimes occurred when using Task with localContextPropagation and non-TracingScheduler</li>
-  <li><a href="https://github.com/monix/monix/pull/1063">#1063</a>: Ensure async boundary in TaskCreate if LCP is enabled</li>
-  <li><a href="https://github.com/monix/monix/pull/1064">#1064</a> and <a href="https://github.com/monix/monix/pull/1070">#1070</a>: Earlier cancelation in Observable.mapParallel if any task fails</li>
-  <li><a href="https://github.com/monix/monix/pull/1065">#1065</a>: Add mapAccumulate to Observable</li>
+  <li><a href="https://github.com/monix/monix/pull/1197">#1197</a>: Fixes a memory leak in bracket, introduced in 3.2.0</li>
+  <li><a href="https://github.com/monix/monix/pull/1195">#1195</a>: Fixes non-deterministic behavior in Observable.zip of sources different size</li>
+  <li><a href="https://github.com/monix/monix/pull/1190">#1190</a>: Now Observable.groupBy correctly signals error as a failed stream instead of normal completion</li>
+  <li><a href="https://github.com/monix/monix/pull/1188">#1188</a>: Fixes an issue in ForeachAsyncConsumer where it wasn’t properly propagaing errors in some cases</li>
+  <li><a href="https://github.com/monix/monix/pull/1187">#1187</a>: Fixes an issue where Observable.doAfterSubscribe was not executing its finalizer</li>
+  <li><a href="https://github.com/monix/monix/pull/1186">#1186</a>: Observable.interval method now schedules the first tick asynchronously</li>
+  <li><a href="https://github.com/monix/monix/pull/1184">#1184</a>: Huge performance improvement in CharsReader, InputStream and LinesReaderObservable</li>
+  <li><a href="https://github.com/monix/monix/pull/1161">#1154</a>: Observable.fromInputStream and fromCharsReader now respects the chunkSize</li>
+  <li><a href="https://github.com/monix/monix/pull/1181">#1181</a>: Fix MatchError in Iterant.fromReactivePublisher</li>
 </ul>
 
 <h2 id="thanks">Thanks</h2>
 
-<p>People that made this release possible:</p>
+<p>People who made this release possible:</p>
 
 <ul>
-  <li>Alexandru Nedelcu (@alexandru)</li>
-  <li>Allan Timothy Leong (@allantl)</li>
-  <li>fdilg (@fdilg)</li>
-  <li>Jan Bracker (@jbracker)</li>
-  <li>Moritz Bust (@busti)</li>
-  <li>mudsam (@mudsam)</li>
-  <li>Oleg Pyzhcov (@oleg-py)</li>
-  <li>Paweł Kiersznowski (@pk044)</li>
+  <li>Akosh Farkash (@aakoshh)</li>
+  <li>Alexander (@ppressives)</li>
+  <li>fnqista (@fnqista)</li>
+  <li>Kasper Kondzielski (@ghostbuster91)</li>
+  <li>Pau Alarcón (@paualarco)</li>
   <li>Piotr Gawryś (@Avasil)</li>
-  <li>tanaka takaya (@takayahilton)</li>
-  <li>TapanVaishnav (@TapanVaishnav)</li>
+  <li>Vasily Kirichenko (@vasily-kirichenko)</li>
+  <li>Viktor Lövgren (@vlovgr)</li>
 </ul>
-
 
 
   <div class="related">
     <h2>Related Posts</h2>
     <ul class="related-posts">
-      
-        <li>
-            <a href="/blog/2020/06/04/monix-v3.2.2.html">
-              Monix 3.2.2
-              <small>04 Jun 2020</small>
-            </a>
-        </li>
       
         <li>
             <a href="/blog/2020/04/30/monix-v3.2.1.html">
@@ -202,11 +196,18 @@
             </a>
         </li>
       
+        <li>
+            <a href="/blog/2019/11/08/monix-v3.1.0.html">
+              Monix 3.1.0
+              <small>08 Nov 2019</small>
+            </a>
+        </li>
+      
     </ul>
   </div>
 
   <div class="buttons">
-    <a href="https://github.com/monix/monix.io/edit/master/_posts/2019-11-08-monix-v3.1.0.md">
+    <a href="https://github.com/monix/monix.io/edit/master/_posts/2020-06-04-monix-v3.2.2.md">
       Edit Page</a> •
     <a href="https://twitter.com/monix">
       Follow @monix</a>

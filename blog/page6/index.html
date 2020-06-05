@@ -35,13 +35,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1590964948525218474" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1590964948525218474" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1591348582522971201" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1591348582522971201" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1590964948525218474">
+  <link rel="stylesheet" href="/public/css/all.css?1591348582522971201">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1590964948525218474">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591348582522971201">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,6 +102,40 @@
 
       <article class="content container">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/blog/2016/09/25/monix-v2.0.2.html">
+        Monix: Version 2.0.2 Released for Bug Fixing
+      </a>
+    </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-09-25">
+      25 Sep 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a bug fix release
+release:</p>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/issues/224">Bug #224</a>:
+<code class="highlighter-rouge">IllegalStateException</code> logged in parallel consumer, when streaming
+gets canceled due to a subscriber triggering an error</li>
+</ul>
+
+<p>This bug if basically harmless, it’s only effect being to log
+unnecessary <code class="highlighter-rouge">IllegalStateExceptions</code> by means of
+<code class="highlighter-rouge">Scheduler.reportError</code>.</p>
+
+<p>Enjoy!</p>
+
+
+    
+    <a href="/blog/2016/09/25/monix-v2.0.2.html">Read more &rarr;</a>
+    
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -262,38 +296,6 @@ Typelevel Cats / Dogs libraries at least.</p>
     
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/blog/2016/08/10/monix-v2.0-RC10.html">
-        Monix: Version 2.0-RC10 Released
-      </a>
-    </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-08-10">
-      10 Aug 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>This release adds some useful extension methods for <code class="highlighter-rouge">Scheduler</code> and
-<code class="highlighter-rouge">Callback</code>, while optimizing and making safer some <code class="highlighter-rouge">Task</code> operations, like
-<code class="highlighter-rouge">gatherUnordered</code>, ‘chooseFirstOfList’ and <code class="highlighter-rouge">create</code>. On <code class="highlighter-rouge">Observable</code> it
-also changes how <code class="highlighter-rouge">onOverflow</code> behaves when specified in an <code class="highlighter-rouge">OverflowStrategy</code>.
-This will be a breaking, but easy to fix change.</p>
-
-<p>Release RC10 is the last release before 2.0, scheduled for September 1st
-(promise, cross my heart and hope to …).</p>
-
-<p><strong>BUG WARNING:</strong> this release contains a critical bug issue.
-Upgrade to the latest version as soon as possible.</p>
-
-
-
-    
-    <a href="/blog/2016/08/10/monix-v2.0-RC10.html">Read more &rarr;</a>
-    
-  </div>
-  
 </div>
 
 <div class="pagination">
@@ -311,7 +313,7 @@ Upgrade to the latest version as soon as possible.</p>
     </div>
     
 <script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1590964948525218474" type="text/javascript" language="javascript"></script>
+<script async src="/public/js/ga.js?1591348582522971201" type="text/javascript" language="javascript"></script>
 
 
 
