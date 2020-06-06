@@ -16,12 +16,6 @@ jobs:
         with:
           ruby-version: 2.6.x
 
-      - name: Cache SBT Coursier
-        uses: actions/cache@v1.1.2
-        with:
-          path: ~/.cache/coursier
-          key: ${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}
-
       - name: Cache Ruby Bundler
         uses: actions/cache@v1
         with:
@@ -30,6 +24,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
+      - name: Cache SBT Coursier
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.cache/coursier
+          key: ${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}
+      
       - name: Install dependencies
         run: |
           gem update --system
