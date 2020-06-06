@@ -2,37 +2,57 @@
 layout: null
 ---
 
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- <id>{{ site.url }}</id>
- <title>{{ site.title }}</title>
+  <id>{{ site.url }}</id>
+  <title>{{ site.title }}</title>
 
- <link type="application/atom+xml" href="{{ site.url }}/blog/atom.xml" rel="self"/>
- <link type="text/html" href="{{ site.url }}" rel="alternate"/>
+  <link type="application/atom+xml" href="{{ site.url }}/blog/atom.xml" rel="self" />
+  <link type="text/html" href="{{ site.url }}" rel="alternate" />
 
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <author>
-   <name>{{ site.author.name }}</name>
-   <email>{{ site.author.email }}</email>
-   <url>{{ site.author.url }}</url>
- </author>
-
- {% for post in site.posts %}
- <entry>
-   <title>{{ post.title }}</title>
-   <link href="{{ site.url }}{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>{{ site.url }}{{ post.id }}</id>
-   <content type="html"><![CDATA[
-   {{ post | rss_summary }}
-   <p><a rel="full-article" href="{{ site.url }}{{ post.url }}?utm_source=RSS_Feed&utm_medium=RSS&utm_campaign=RSS_Syndication">
-     {% if post.vimeo %}
-     <b>Read This Article and Watch Video &raquo;</b>
-     {% else %}
-     <b>Read This Article &raquo;</b>
-     {% endif %}
-   </a></p>
-   ]]></content>
- </entry>
- {% endfor %}
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <author>
+    <name>{{ site.author.name }}</name>
+    <email>{{ site.author.email }}</email>
+    <url>{{ site.author.url }}</url>
+  </author>
+  {% for post in site.posts %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ site.url }}{{ post.url }}" />
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <id>{{ site.url }}{{ post.id }}</id>
+    <content type="html">
+      <![CDATA[
+        {% if forloop.first %}
+        <img src="https://ly.alexn.org/m.php?idsite=1&rec=1&action_name=RSS+Feed" style="border:0" alt="" />
+        {% endif -%}
+        {% unless post.image_hide_in_post %}
+        {% if post.image %}
+        <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
+          <img src="{{ post.image | absolute_url }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        </a>
+        <br />
+        {% elsif post.vimeo %}
+        <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
+          <img src="{{ post.vimeo | vimeo_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        </a>
+        {% elsif post.youtube %}
+        <a href="{{ post.url | absolute_url | rss_campaign_link: 'image' }}">
+          <img src="{{ post.youtube | youtube_thumb_link }}" align="middle" style="display: block; max-width:100%; margin: 0 auto;" />
+        </a>
+        {% endif %}
+        {% endunless -%}
+        {{ post | rss_summary }}
+        <p><a rel="full-article" href="{{ post.url | absolute_url | rss_campaign_link: 'read-more' }}">
+          {% if post.vimeo %}
+          <b>Read This Article and Watch Video &raquo;</b>
+          {% else %}
+          <b>Read This Article &raquo;</b>
+          {% endif %}
+        </a></p>
+      ]]>
+    </content>
+  </entry>
+  {% endfor %}
 </feed>
