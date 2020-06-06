@@ -34,13 +34,13 @@
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- Javascript -->
   <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591348582522971201" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591348582522971201" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/toc.js?1591438775447587969" type="text/javascript" language="javascript"></script>
+  <script src="/public/js/init.js?1591438775447587969" type="text/javascript" language="javascript"></script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591348582522971201">
+  <link rel="stylesheet" href="/public/css/all.css?1591438775447587969">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591348582522971201">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591438775447587969">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -1835,8 +1835,7 @@ errors such that we can recover more efficiently:</p>
 
 <p>There’s also the reverse of materialize, which is <code class="highlighter-rouge">Task.dematerialize</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Recovered</span><span class="o">!</span>
-<span class="k">import</span> <span class="nn">scala.util.Try</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
 
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
@@ -1877,10 +1876,24 @@ expose any errors that happen and will also terminate with an
 
       </article>
     </div>
-    
-<script type="text/javascript">window.siteGaID = 'UA-84530423-2';</script>
-<script async src="/public/js/ga.js?1591348582522971201" type="text/javascript" language="javascript"></script>
-
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=1&rec=1&action_name=Task" style="border:0" alt="" />
+</noscript>
 
 
   </body>
