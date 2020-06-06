@@ -1,7 +1,29 @@
 require "nokogiri"
 
+def to_absolute_url(site, url)
+  if url =~ /^\//
+    site['url'] + site['baseurl'] + url
+  else
+    url
+  end
+end
+
 module Jekyll
-  module RssSummary
+  module RssUtils
+    @@site = Jekyll.configuration({})
+
+    def rss_campaign_link(link, keyword)
+      l = if link.include? '?'
+        link + "&"
+      else
+        link + "?"
+      end
+
+      l = l + "pk_campaign=rss"
+      l = l + "&pk_kwd=" + keyword if keyword
+      l
+    end
+
     def rss_summary(post)
       html = post.excerpt
       doc = Nokogiri::HTML(html)
@@ -48,10 +70,17 @@ module Jekyll
         elem["style"] = elem["style"].strip
       }
 
+      doc.css("a").each{|elem|
+        elem["href"] = to_absolute_url(@@site, elem['href'])
+        if elem["href"].include?("monix.io")
+          elem["href"] = rss_campaign_link(elem["href"], "inner-link")
+        end
+      }
+
       body = doc.at_css("body")
       body ? body.inner_html : ""
     end
   end
 end
 
-Liquid::Template.register_filter(Jekyll::RssSummary)
+Liquid::Template.register_filter(Jekyll::RssUtils)

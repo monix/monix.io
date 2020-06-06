@@ -3,21 +3,25 @@ layout: page
 title: Privacy Policy
 ---
 
-**UPDATED:** Apr 22, 2020
+**UPDATED:** Jun 06, 2020
+
+This website does not collect personally identifiable information, no first-party cookies are installed that could be used to track visitors and we strive hard to prevent tracking from any third-party services used to deliver content or to improve the experience.
+
+## Third-Party Services
+
+Some embedded third-party services might drop cookies (e.g. YouTube, Vimeo players), however our implementation activates their "do not track" options when embedded.
+
+- Read [Google's Privacy Policy](https://policies.google.com/privacy){:rel="nofollow",target="_blank"}; note we use `youtube-nocookie.com` for activating YouTube's "privacy enhanced mode", see [embedding options](https://support.google.com/youtube/answer/171780?hl=en){:rel="nofollow",target="_blank"}
+- Read [Vimeo's Privacy Policy](https://vimeo.com/privacy){:rel="nofollow",target="_blank"}; note we [embed the player](https://vimeo.zendesk.com/hc/en-us/articles/360001494447-Using-Player-Parameters){:rel="nofollow",target="_blank"} with a `dnt=1` flag that deactivates session cookies and tracking
 
 ## Analytics
 
-The `monix.io` website uses Google Analytics, a service which transmits website traffic data to Google servers. Google Analytics does not identify individual users or associate your IP address with any other data held by Google. Reports provided by Google Analytics are used to help us understand website traffic and webpage usage.
+This website uses a self-hosted (first party) [Matomo](https://matomo.org/) instance for tracking users' visits, with these characteristics:
 
-You may opt out of this tracking at any time by activating the “Do Not Track” setting in your browser.
+1. No cookies are being set and no cookies will be set in the future without explicit permission
+2. IPs are anonymized
+3. No data is being shared with any first party
 
-<!--sse-->
-## Contact
+We track visits, not visitors.
 
-If you wish to export or delete your commenting data,
-you can send a request to:
-
-<a href="mailto:&#109;&#057;+&#108;&#101;&#103;&#097;&#108;&#064;&#109;&#111;&#110;&#105;&#120;&#046;&#105;&#111;">&#109;&#057;+&#108;&#101;&#103;&#097;&#108;&#064;&#109;&#111;&#110;&#105;&#120;&#046;&#105;&#111;</a>
-<!--/sse-->
-
-<br/>
+{% include legal-contact.html %}
