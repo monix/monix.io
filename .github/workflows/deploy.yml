@@ -24,19 +24,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
-      - name: Cache SBT Coursier
-        uses: actions/cache@v1.1.2
-        with:
-          path: ~/.cache/coursier
-          key: ${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}        
-          
       - name: Install dependencies
         run: |
           gem update --system
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          ./scripts/sbt clean compile
 
       - name: Build
         run: |
