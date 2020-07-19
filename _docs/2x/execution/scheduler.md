@@ -533,9 +533,10 @@ awaiting execution, and no new tasks can be submitted. An unused
 When building a new scheduler from scratch, most builders will return
 a `SchedulerService` instance whenever it makes sense:
 
-```scala mdoc:silent:nest
+```scala mdoc:silent:reset
 import monix.execution.Scheduler
 import monix.execution.schedulers.SchedulerService
+import monix.execution.Scheduler.Implicits.global
 
 val io: SchedulerService = Scheduler.io("my-io")
 
@@ -568,9 +569,12 @@ to use for waiting:
 
 ```scala mdoc:silent:nest
 import scala.concurrent._
+import scala.concurrent.duration._
 
 val termination: Future[Boolean] =
-  io.awaitTermination(3, TimeUnit.SECONDS, global)
+  io.awaitTermination(30, TimeUnit.SECONDS, global)
+
+Await.result(termination, 3.seconds)
 ```
 
 We can now further inspect the state of our `SchedulerService`:

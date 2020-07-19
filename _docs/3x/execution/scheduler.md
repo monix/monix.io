@@ -68,7 +68,7 @@ provides a common API reusable in both environments. Remember, the
 The `Scheduler` can be a replacement for Scala's `ExecutionContext`
 because:
 
-```tut:silent
+```scala mdoc:silent:nest
 import scala.concurrent.ExecutionContext
 
 trait Scheduler extends ExecutionContext {
@@ -78,19 +78,19 @@ trait Scheduler extends ExecutionContext {
 
 And there's also a lazy `global` that you can use as an implicit:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.Scheduler.Implicits.global
 ```
 
 We can now execute futures, because this will be our execution
 context:
 
-```tut:reset:invisible
+```scala mdoc:reset:invisible
 import monix.execution.schedulers.TestScheduler
 implicit val global = TestScheduler()
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 import concurrent.Future
 Future(1 + 1).foreach(println)
 // 2
@@ -125,7 +125,7 @@ In order to schedule a
 [Runnable](https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html)
 to execute asynchronously:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.Scheduler.{global => scheduler}
 
 scheduler.execute(new Runnable {
@@ -143,7 +143,7 @@ there's no way to cancel it.
 To execute a `Runnable` with a given delay, let's
 say for example 5 seconds:
 
-```tut:silent
+```scala mdoc:silent:nest
 import java.util.concurrent.TimeUnit
 
 val cancelable = scheduler.scheduleOnce(
@@ -160,7 +160,7 @@ cancelable.cancel()
 
 Monix also supplies a more Scala-friendly extension:
 
-```tut:silent
+```scala mdoc:silent:nest
 import scala.concurrent.duration._
 
 val c = scheduler.scheduleOnce(5.seconds) {
@@ -175,7 +175,7 @@ let's say with an initial delay of 3 seconds before the
 first execution and then with a fixed delay between subsequent
 executions of 5 seconds:
 
-```tut:silent
+```scala mdoc:silent:nest
 val c = scheduler.scheduleWithFixedDelay(
   3, 5, TimeUnit.SECONDS,
   new Runnable {
@@ -193,7 +193,7 @@ the delay between tasks will be constant. So in this
 sample, we are actually going to have an accumulated
 delay of 7 seconds between `println` calls:
 
-```tut:silent
+```scala mdoc:silent:nest
 val c = scheduler.scheduleWithFixedDelay(
   3, 5, TimeUnit.SECONDS,
   new Runnable {
@@ -206,7 +206,7 @@ val c = scheduler.scheduleWithFixedDelay(
 
 There's also a more Scala-friendly extension:
 
-```tut:silent
+```scala mdoc:silent:nest
 scheduler.scheduleWithFixedDelay(3.seconds, 5.seconds) {
   println("Fixed delay task")
 }
@@ -216,7 +216,7 @@ So, in order to take execution duration into account,
 we can use the second variant, scheduling periodic
 execution at a fixed rate.
 
-```tut:silent
+```scala mdoc:silent:nest
 val c = scheduler.scheduleAtFixedRate(
   3, 5, TimeUnit.SECONDS,
   new Runnable {
@@ -244,15 +244,15 @@ returns the number of milliseconds since the 1970-01-01 00:00:00 UTC.
 Doing this is bad because it is a global singleton and we cannot
 override its behavior:
 
-```tut:silent
+```scala mdoc:silent:nest
 System.currentTimeMillis
 // res1: Long = 1464223070198
 ```
 
 But if given a scheduler, we can now do this:
 
-```tut:silent
-scheduler.currentTimeMillis
+```scala mdoc:silent:nest
+scheduler.clockRealTime(MILLISECONDS)
 // res2: Long = 1464223092089
 ```
 
@@ -260,7 +260,7 @@ All of Monix's time-based operations are relying on this.
 Which means that in tests we can *mock time* along with
 faking asynchronous execution. Here's how:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.schedulers.TestScheduler
 
 val testScheduler = TestScheduler()
@@ -288,12 +288,12 @@ order of execution for tasks that have the same priority will be
 randomly chosen, so you can't say which is going to execute first or
 which is second.
 
-```tut:invisible
+```scala mdoc:invisible:nest
 val runnable1 = new Runnable { def run() = () }
 val runnable2 = new Runnable { def run() = () }
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 // runnable1 might execute first, or second
 testScheduler.execute(runnable1)
 // runnable2 might execute first, or second
@@ -330,7 +330,7 @@ Currently there are 3 execution models available:
 You can retrieve the configured `ExecutionModel` by calling
 `Scheduler.executionModel`.  Here's the default:
 
-```tut:silent
+```scala mdoc:silent:nest
 global.executionModel
 // res: monix.execution.ExecutionModel =
 //   BatchedExecution(1024)
@@ -356,7 +356,7 @@ scheduling delayed executions, but that won't run the tasks
 themselves. There are multiple overloads available, but lets do
 the most general:
 
-```tut:silent
+```scala mdoc:silent:nest
 import java.util.concurrent.Executors
 import monix.execution.ExecutionModel.AlwaysAsyncExecution
 import monix.execution.{Scheduler, UncaughtExceptionReporter}
@@ -384,13 +384,13 @@ lazy val scheduler = Scheduler(
 There are multiple overloads available, so you may skip
 some of those params:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler = Scheduler(scheduledExecutor, executorService)
 ```
 
 Or even:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler = Scheduler(executorService)
 ```
 
@@ -406,7 +406,7 @@ But maybe we want to only wrap just a Java `ScheduledExecutorService`
 instance, a service capable of everything we'd want out of our
 `Scheduler`. We can do that as well:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler = {
   val javaService = Executors.newScheduledThreadPool(10)
   Scheduler(javaService)
@@ -415,7 +415,7 @@ lazy val scheduler = {
 
 Or with an optional execution model:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler = {
   val javaService = Executors.newScheduledThreadPool(10)
   Scheduler(javaService, AlwaysAsyncExecution)
@@ -425,13 +425,13 @@ lazy val scheduler = {
 Also on the JVM, we can create a `ForkJoinPool` meant for
 CPU-bound tasks like so:
 
-```tut:silent
+```scala mdoc:silent:nest
 // Simple constructor
-lazy val scheduler =
+lazy val scheduler1 =
   Scheduler.computation(parallelism=10)
 
 // Specify an optional ExecutionModel
-lazy val scheduler =
+lazy val scheduler2 =
   Scheduler.computation(
     parallelism = 10,
     executionModel = AlwaysAsyncExecution
@@ -442,12 +442,12 @@ Or we can create an unbounded thread-pool meant for I/O-bound tasks,
 backed by a Java
 [CachedThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()):
 
-```tut:silent
-lazy val scheduler =
+```scala mdoc:silent:nest
+lazy val scheduler1 =
   Scheduler.io()
 
 // Giving it a name
-lazy val scheduler =
+lazy val scheduler2 =
   Scheduler.io(name="my-io")
 
 // Explicit execution model
@@ -461,7 +461,7 @@ Or in case we want to be precise or feel like emulating Javascript's
 environment, we could create a single threaded thread-pool, backed
 by a Java [SingleThreadScheduledExecutor](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newSingleThreadScheduledExecutor()):
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler =
   Scheduler.singleThread(name="my-thread")
 ```
@@ -471,7 +471,7 @@ variable one like the `ForkJoinPool` above), backed by a Java
 [ScheduledThreadPool](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newScheduledThreadPool(int))
 for both executing and scheduling delays:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler =
   Scheduler.fixedPool(name="my-fixed", poolSize=10)
 ```
@@ -482,7 +482,7 @@ On top of Javascript things are simpler, since you can
 rely on `setTimeout`. But you might still want to tweak settings,
 so this works:
 
-```tut:silent
+```scala mdoc:silent:nest
 lazy val scheduler =
   Scheduler(executionModel=AlwaysAsyncExecution)
 ```
@@ -490,11 +490,11 @@ lazy val scheduler =
 We might also want to execute undelayed tasks immediately
 by means of an internal trampoline:
 
-```tut:silent
-lazy val scheduler =
+```scala mdoc:silent:nest
+lazy val scheduler1 =
   Scheduler.trampoline()
 
-lazy val scheduler =
+lazy val scheduler2 =
   Scheduler.trampoline(executionModel=AlwaysAsyncExecution)
 ```
 
@@ -520,9 +520,11 @@ awaiting execution, and no new tasks can be submitted. An unused
 When building a new scheduler from scratch, most builders will return
 a `SchedulerService` instance whenever it makes sense:
 
-```tut:silent
+```scala mdoc:silent:reset
 import monix.execution.Scheduler
 import monix.execution.schedulers.SchedulerService
+import monix.execution.Scheduler.Implicits.global
+import scala.concurrent._
 
 val io: SchedulerService = Scheduler.io("my-io")
 
@@ -536,13 +538,13 @@ io.execute(new Runnable {
 At this point we can initiate an orderly shutdown that will execute our
 pending tasks first, but will accept no more tasks:
 
-```tut:silent
+```scala mdoc:silent:nest
 io.shutdown()
 ```
 
 We can also inspect the state of our service:
 
-```tut:book
+```scala mdoc:nest
 io.isShutdown
 ```
 
@@ -553,19 +555,18 @@ a general rule of thumb avoids blocking threads, so our `awaitTermination`
 operation returns a `Future` and thus requires an alternative `Scheduler`
 to use for waiting:
 
-```tut:silent
+```scala mdoc:silent:nest
 import scala.concurrent._
 import scala.concurrent.duration._
-import monix.execution.Scheduler.global
 
 val termination: Future[Boolean] =
-  io.awaitTermination(30.seconds, global)
+  io.awaitTermination(30, TimeUnit.SECONDS, Scheduler.global)
 
-Await.result(termination, Duration.Inf)
+Await.result(termination, 3.seconds)
 ```
 
 We can now further inspect the state of our `SchedulerService`:
 
-```tut:book
+```scala mdoc:nest
 io.isTerminated
 ```

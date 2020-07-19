@@ -65,7 +65,7 @@ trait BooleanCancelable extends Cancelable {
 To have a reusable (immutable) `BooleanCancelable` instance that's
 already canceled:
 
-```scala mdoc:reset:silent:nest
+```scala mdoc:reset:silent
 import monix.execution.cancelables._
 
 // Building an instance that's already canceled
