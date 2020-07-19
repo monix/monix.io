@@ -75,7 +75,7 @@ and Monix's implementation does in fact implement that interface.
 
 ## Use-case: Synchronized Mutable Variables
 
-```tut:invisible
+```scala mdoc:invisible:nest
 import monix.eval._
 import monix.execution._
 import monix.execution.Scheduler
@@ -84,7 +84,7 @@ import monix.execution.schedulers.TestScheduler
 implicit val scheduler: Scheduler = TestScheduler()
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.CancelableFuture
 import monix.catnap.MVar
 import monix.eval.Task
@@ -126,7 +126,7 @@ this sample to be *safe*, then we need extra synchronization.
 The `take` operation can act as "acquire" and `put` can act as the "release".
 Let's do it:
 
-```tut:silent
+```scala mdoc:silent:nest
 final class MLock(mvar: MVar[Task, Unit]) {
   def acquire: Task[Unit] =
     mvar.take
@@ -151,7 +151,7 @@ object MLock {
 
 And now we can apply synchronization to the previous example:
 
-```tut:silent
+```scala mdoc:silent:nest
 val task = 
   for {
     lock <- MLock()
@@ -174,7 +174,7 @@ But we also need some back-pressure, so we need to wait on the
 consumer to consume the last event before being able to generate
 a new event.
 
-```tut:silent
+```scala mdoc:silent:nest
 // Signaling option, because we need to detect completion
 type Channel[A] = MVar[Task, Option[A]]
 

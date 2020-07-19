@@ -15,7 +15,7 @@ When building an asynchronous `Task`, on execution the API gives you a
 computation, on completion. Its definition is something like:
 
 
-```tut:silent
+```scala mdoc:silent:nest
 trait Callback[-E, -A] extends (Either[E, A] => Unit) {
   def onSuccess(value: A): Unit
   def onError(ex: E): Unit
@@ -32,7 +32,7 @@ This callback type has a contract:
 In order to protect the contract, you can wrap any such callback into
 a "safe" implementation that protects against violations:
 
-```tut:reset:silent
+```scala mdoc:reset:silent
 import monix.execution.Callback
 
 val callback = new Callback[Throwable, Int] {
@@ -49,7 +49,7 @@ val safeCallback1 = Callback.safe(callback)
 
 // But really, we don't need a Scheduler
 import monix.execution.UncaughtExceptionReporter
-import UncaughtExceptionReporter.{LogExceptionsToStandardErr => r}
+import UncaughtExceptionReporter.{default => r}
 
 val safeCallback2 = Callback.safe(callback)(r)
 ```
@@ -62,7 +62,7 @@ In case you just want an *empty* callback that doesn't do anything
 on `onSuccess`, but that can log errors when `onError` happens,
 maybe because you just want the side-effects:
 
-```tut:book
+```scala mdoc:nest
 val task = monix.eval.Task(println("Sample"))
 
 task.runAsync(Callback.empty[Throwable, Unit])
@@ -70,7 +70,7 @@ task.runAsync(Callback.empty[Throwable, Unit])
 
 Or maybe you want to convert a Scala `Promise` to a `Callback`:
 
-```tut:book
+```scala mdoc:nest
 val p = scala.concurrent.Promise[String]()
 
 val callback = Callback.fromPromise(p)
@@ -81,7 +81,7 @@ calling other callbacks can quickly and easily lead to stack-overflow
 errors. So to force a protective asynchronous boundary when calling
 `onSuccess` or `onError` (which may or may not fork a thread):
 
-```tut:silent
+```scala mdoc:silent:nest
 // Lets pretend we have something meaningful
 val ref = Callback.empty[Throwable, String]
 

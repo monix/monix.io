@@ -931,7 +931,7 @@ stream.foreachL(println).runToFuture
 // new elem: 4
 ```
 
-Prefer to use functions that are total because any exception will terminate the stream (see [Error Handling](#errorHandling) section) :
+Prefer to use functions that are total because any exception will terminate the stream (see [Error Handling](#error-handling) section) :
 
 ```tut:silent
 val failed = { 

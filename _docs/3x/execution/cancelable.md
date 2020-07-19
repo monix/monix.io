@@ -32,17 +32,17 @@ The contract for well-behaved `Cancelable` instances:
 
 In order to quickly build `Cancelable` instances:
 
-```tut:reset:silent
+```scala mdoc:reset:silent
 import monix.execution.Cancelable
 
 // A cancelable that doesn't do anything on cancel
-val c = Cancelable.empty
+val c1 = Cancelable.empty
 
 // Same thing, a cancelable that doesn't do anything
-val c = Cancelable()
+val c2 = Cancelable()
 
 // Specify a callback to be called on cancel
-val c = Cancelable(() => println("Canceled!"))
+val c3 = Cancelable(() => println("Canceled!"))
 ```
 
 ## BooleanCancelable
@@ -65,7 +65,7 @@ trait BooleanCancelable extends Cancelable {
 To have a reusable (immutable) `BooleanCancelable` instance that's
 already canceled:
 
-```tut:reset:silent
+```scala mdoc:reset:silent:nest
 import monix.execution.cancelables._
 
 // Building an instance that's already canceled
@@ -82,7 +82,7 @@ To build an instance without a callback, but that can be
 used to check for `isCanceled`:
 
 
-```tut:book
+```scala mdoc:nest
 val c = BooleanCancelable()
 
 c.isCanceled
@@ -95,7 +95,7 @@ c.isCanceled
 To build an instance out of a callback that behaves like
 you'd expect it to:
 
-```tut:silent
+```scala mdoc:silent:nest
 val c = BooleanCancelable(() => println("Effect!"))
 ```
 
@@ -118,7 +118,7 @@ The contract for `CompositeCancelable`:
 
 Usage:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.Cancelable
 
 val c = CompositeCancelable()
@@ -140,7 +140,7 @@ We can add cancelables references to our composite, but
 we can also remove them, maybe because they are no longer
 relevant, for GC purposes, etc:
 
-```tut:silent
+```scala mdoc:silent:nest
 val composite = CompositeCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
@@ -177,7 +177,7 @@ Contract:
 
 Usage:
 
-```tut:silent
+```scala mdoc:silent:nest
 val multiAssign = MultiAssignCancelable()
 
 val c1 = Cancelable(() => println("Canceled #1"))
@@ -207,7 +207,7 @@ in case the update was made with an `order` that's strictly bigger
 than the current one you're trying to make, then the assignment gets
 ignored, so:
 
-```tut:silent
+```scala mdoc:silent:nest
 // Let's simulate a race condition
 import monix.execution.Scheduler.{global => scheduler}
 
@@ -241,7 +241,7 @@ add a delay, we'd use a `Scheduler` and we want to return
 a `Cancelable` that can cancel either the delay or the result
 of our passed function argument, like:
 
-```tut:silent
+```scala mdoc:silent:nest
 // INCORRECT EXAMPLE
 import concurrent.duration._
 import monix.execution._
@@ -269,7 +269,7 @@ Which means the cancelable returned by our function will be incorrect.
 
 Lets fix it:
 
-```tut:silent
+```scala mdoc:silent:nest
 import concurrent.duration._
 import monix.execution._
 
@@ -309,7 +309,7 @@ The contract:
 
 It is useful in cases you need a forward reference, like:
 
-```tut:silent
+```scala mdoc:silent:nest
 val ref = SingleAssignCancelable()
 
 ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
@@ -324,7 +324,7 @@ ref := scheduler.scheduleAtFixedRate(0.seconds, 5.seconds) {
 It is also possible to specify at construction time an extra
 cancelable reference to cancel, in addition to the assigned reference:
 
-```tut:silent
+```scala mdoc:silent:nest
 val c = {
   val guest = Cancelable(() => println("extra canceled"))
   SingleAssignCancelable.plusOne(guest)
@@ -365,7 +365,7 @@ Contract:
 
 Usage:
 
-```tut:silent
+```scala mdoc:silent:nest
 val ref = SerialCancelable()
 
 ref := Cancelable(() => println("Canceled #1"))
@@ -407,7 +407,7 @@ Contract:
 
 Sample:
 
-```tut:silent
+```scala mdoc:silent:nest
 val refs = RefCountCancelable { () =>
   println("Everything was canceled")
 }

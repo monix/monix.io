@@ -69,7 +69,7 @@ any of these 3 states:
 
 ## Usage
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.catnap.CircuitBreaker
 import monix.eval._
 import scala.concurrent.duration._
@@ -88,7 +88,7 @@ would violate in some cases referential transparency.
 You can workaround it by using the `unsafe` builder, but only do this
 if you know what you're doing, otherwise prefer the safe alternative:
 
-```tut:silent
+```scala mdoc:silent:nest
 CircuitBreaker[Task].unsafe(
   maxFailures = 5,
   resetTimeout = 10.seconds
@@ -97,7 +97,7 @@ CircuitBreaker[Task].unsafe(
 
 And in order to protect tasks being processed, one can use `protect`:
 
-```tut:silent
+```scala mdoc:silent:nest
 val problematic = Task {
   val nr = util.Random.nextInt()
   if (nr % 2 == 0) nr else
@@ -114,7 +114,7 @@ When attempting to close the circuit breaker and resume normal
 operations, we can also apply an exponential backoff for repeated
 failed attempts, like so:
 
-```tut:silent
+```scala mdoc:silent:nest
 val circuitBreaker = CircuitBreaker[Task].of(
   maxFailures = 5,
   resetTimeout = 10.seconds,
@@ -132,7 +132,7 @@ maximum of 10 minutes.
 In case you want to trigger events when the Circuit Breaker changes
 its state, like logging or metrics-related:
 
-```tut:silent
+```scala mdoc:silent:nest
 CircuitBreaker[Task].of(
   maxFailures = 5,
   resetTimeout = 10.seconds,
@@ -157,7 +157,7 @@ CircuitBreaker[Task].of(
 In case a retry strategy needs to be implemented, the naive way of
 handling it would be to retry with a delay:
 
-```tut:invisible
+```scala mdoc:invisible:nest
 val circuitBreaker = 
   CircuitBreaker[Task].unsafe(
     maxFailures = 5,
@@ -165,7 +165,7 @@ val circuitBreaker =
   )
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 val task = circuitBreaker.protect(problematic)
 
 task.onErrorRestartLoop(100.millis) { (e, delay, retry) =>
@@ -180,7 +180,7 @@ task.onErrorRestartLoop(100.millis) { (e, delay, retry) =>
 But on the other hand you can wait for the precise moment the
 `CircuitBreaker` closes again:
 
-```tut:silent
+```scala mdoc:silent:nest
 task.onErrorRestartLoop(0) { (e, times, retry) =>
   // Retrying for a maximum of 10 times
   if (times < 10)

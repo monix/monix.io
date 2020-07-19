@@ -34,7 +34,7 @@ and use it safely, plus you've got the whole boxing/unboxing overhead.
 One problem is that all of these classes do not share a common
 interface and there's no reason for why they shouldn't.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.atomic._
 
 val refInt1: Atomic[Int] = Atomic(0)
@@ -60,7 +60,7 @@ In Scala, thanks to the
 [Numeric[T]](http://www.scala-lang.org/api/current/index.html#scala.math.Numeric)
 type-class, we can do this:
 
-```tut:book
+```scala mdoc:nest
 val ref = Atomic(BigInt(1))
 
 // now we can increment a BigInt
@@ -72,13 +72,13 @@ ref.addAndGet(BigInt("329084291234234"))
 
 But then if we have a type that isn't a number:
 
-```tut:silent
+```scala mdoc:silent:nest
 val string = Atomic("hello")
 ```
 
 Trying to apply numeric operations will of course fail:
 
-```tut:fail
+```scala mdoc:fail:nest
 string.incrementAndGet()
 ```
 
@@ -87,7 +87,7 @@ string.incrementAndGet()
 Here's a common gotcha with Java's `AtomicReference<V>`. Suppose
 we've got this Java atomic:
 
-```tut:silent
+```scala mdoc:silent:nest
 import java.util.concurrent.atomic.AtomicReference
 
 val ref = new AtomicReference(0.0)
@@ -95,7 +95,7 @@ val ref = new AtomicReference(0.0)
 
 The unexpected happens on `compareAndSet`:
 
-```tut:book
+```scala mdoc:nest
 val isSuccess = ref.compareAndSet(0.0, 100.0)
 ```
 
@@ -114,18 +114,18 @@ stored inside an `AtomicLong` by using Java's
 with special care to handle overflows correctly. All this is done to avoid boxing
 for performance reasons.
 
-```tut:book
+```scala mdoc:nest
 val ref = Atomic(0.0)
 
 ref.compareAndSet(0.0, 100.0)
 
 ref.incrementAndGet()
 
-val ref = Atomic('a')
+val ref2 = Atomic('a')
 
-ref.incrementAndGet()
+ref2.incrementAndGet()
 
-ref.incrementAndGet()
+ref2.incrementAndGet()
 ```
 
 ### Common Pattern: Loops for Transforming the Value
@@ -134,7 +134,7 @@ ref.incrementAndGet()
 general pattern. To push items in a queue for example, one would
 normally do something like this in Java:
 
-```tut:silent
+```scala mdoc:silent:nest
 import collection.immutable.Queue
 import java.util.concurrent.atomic.AtomicReference
 
@@ -158,7 +158,7 @@ This is such a common pattern. Taking a page from the wonderful
 [ScalaSTM](https://nbronson.github.io/scala-stm/),
 with `Atomic` you can simply do this:
 
-```tut:book
+```scala mdoc:nest
 val ref = Atomic(Queue.empty[String])
 
 // Transforms the value and returns the update
@@ -205,14 +205,14 @@ Working with a common `Atomic[T]` interface implies boxing/unboxing of
 primitives. This is why the constructor for atomic references always
 returns the most specialized version, as to avoid boxing and unboxing:
 
-```tut:book
-val ref = Atomic(1)
+```scala mdoc:nest
+val ref1 = Atomic(1)
 
-val ref = Atomic(1L)
+val ref2 = Atomic(1L)
 
-val ref = Atomic(true)
+val ref3 = Atomic(true)
 
-val ref = Atomic("")
+val ref4 = Atomic("")
 ```
 
 Increments/decrements are done by going through the
@@ -232,7 +232,7 @@ classes are provided. For reference on what that means, see:
 To use the cache-padded versions, you need to override the default
 `PaddingStrategy`:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.atomic.PaddingStrategy.{Left64, LeftRight256}
 
 // Applies padding to the left of the value for a cache line 
@@ -282,7 +282,7 @@ to normal `compareAndSet` loops if running on top of Java 6 or 7.
 
 So when you do this:
 
-```tut:book
+```scala mdoc:nest
 val numberRef = Atomic(0)
 
 val previous = numberRef.getAndSet(1)
