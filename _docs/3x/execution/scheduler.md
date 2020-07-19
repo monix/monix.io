@@ -560,9 +560,7 @@ import scala.concurrent._
 import scala.concurrent.duration._
 
 val termination: Future[Boolean] =
-  io.awaitTermination(30, TimeUnit.SECONDS, Scheduler.global)
-
-Await.result(termination, 3.seconds)
+  io.awaitTermination(30, SECONDS, Scheduler.global)
 ```
 
 We can now further inspect the state of our `SchedulerService`:

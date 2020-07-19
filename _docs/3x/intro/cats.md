@@ -16,7 +16,7 @@ making use of the vast ecosystem.
 
 We can verify that `Task` is indeed a `cats.Monad`:
 
-```tut:book
+```scala mdoc:nest
 import cats.Monad
 import monix.eval.Task
 

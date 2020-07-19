@@ -9,7 +9,7 @@ Let's do instant gratification stuff.
 First, we need a [Scheduler]({{ site.api3x }}monix/execution/Scheduler.html)
 whenever asynchronous execution happens.
 
-```tut:silent
+```scala mdoc:silent:nest
 // We need a scheduler whenever asynchronous
 // execution happens, substituting your ExecutionContext
 import monix.execution.Scheduler.Implicits.global
@@ -26,7 +26,7 @@ For using [Task]({{ site.api3x }}monix/eval/Task$.html) or
 fairly similar with Scala's own `Future`, except that
 `Task` behaves lazily:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval._
 
 // A specification for evaluating a sum,
@@ -38,7 +38,7 @@ val task = Task { 1 + 1 }
 so nothing gets evaluated yet. We can convert it into
 a `Future` and evaluate it:
 
-```tut:book
+```scala mdoc:nest
 // Actual execution, making use of the Scheduler in
 // our scope, imported above
 val future = task.runToFuture
@@ -46,7 +46,7 @@ val future = task.runToFuture
 
 We now have a standard `Future`, so we can use its result:
 
-```tut:book
+```scala mdoc:nest
 // Avoid blocking; this is done for demostrative purposes
 Await.result(future, 5.seconds)
 ```
@@ -56,7 +56,7 @@ Await.result(future, 5.seconds)
 We already have the `Scheduler` in our local scope,
 so lets make a tick that gets triggered every second.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.reactive._
 
 // Nothing happens here, as observable is lazily
