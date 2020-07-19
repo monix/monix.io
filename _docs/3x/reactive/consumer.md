@@ -111,17 +111,13 @@ val sumConsumer: Consumer[Int,Long] =
   }
 
 // USAGE:
-{
-  import monix.reactive.Observable
-  import monix.execution.Scheduler.Implicits.global
+import monix.reactive.Observable
 
-  Observable.fromIterable(0 until 10000)
-    .consumeWith(sumConsumer)
-    .runToFuture
-    .foreach(r => println(s"Result: $r"))
-    
-  //=> Result: 49995000
-}
+Observable.fromIterable(0 until 10000)
+  .consumeWith(sumConsumer)
+  .runToFuture
+  .foreach(r => println(s"Result: $r"))
+//=> Result: 49995000
 ```
 
 So for signaling the final result, we need to call the provided
@@ -287,20 +283,16 @@ the source emits its final item and completes, whereupon the consumer
 will emit the final value returned by the function:
 
 ```scala mdoc:silent:nest
-import monix.execution.Scheduler.Implicits.global
 import monix.reactive._
 
 val sum = Consumer.foldLeft[Long,Long](0L)(_ + _)
 
 // Usage
-{
-  Observable.range(0, 1000)
-    .consumeWith(sum)
-    .runToFuture
-    .foreach(r => println(s"SUM: $r"))
-  
-  //=> SUM: 499500
-}
+Observable.range(0, 1000)
+ .consumeWith(sum)
+ .runToFuture
+ .foreach(r => println(s"SUM: $r"))
+//=> SUM: 499500
 ```
 
 In the example the fold function is returning a simple sum between the
@@ -334,11 +326,10 @@ import monix.reactive._
 val sum: Task[Long] = {
   Observable
   .range(0,1000)
-  .sumF
+  .sum
   .consumeWith(Consumer.head)
 }
   
-import monix.execution.Scheduler.Implicits.global
 sum.runToFuture.foreach(println)
 //=> 499500
 ```
@@ -348,13 +339,11 @@ assumes that the source will generate at least one item. Therefore for
 empty streams it ends up signaling a `NoSuchElementException`:
 
 ```scala mdoc:silent:nest
-{
-  Observable.empty[Int]
-    .consumeWith(Consumer.head)
-    .failed.runToFuture.foreach(println)
-  
-  //=> java.util.NoSuchElementException: head
-}
+Observable.empty[Int]
+ .consumeWith(Consumer.head)
+ .failed.runToFuture.foreach(println)
+
+//=> java.util.NoSuchElementException: head
 ```
 
 To play it safe, we can use `Consumer.headOption` instead:

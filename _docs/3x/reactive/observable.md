@@ -267,13 +267,13 @@ These methods are available via the `Observable` companion object. Below are sev
 
 `Observable.pure` (alias for `now`) simply lifts an already known value in the `Observable` context.
 
-```tut:reset:invisible
+```scala mdoc:reset:invisible
 import monix.reactive.Observable
 import monix.execution.Scheduler.Implicits.global
 import monix.execution.exceptions.DummyException
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 val obs = Observable.now { println("Effect"); "Hello!" }
 //=> Effect
 // obs: monix.reactive.Observable[String] = NowObservable@327a283b
@@ -283,7 +283,7 @@ val obs = Observable.now { println("Effect"); "Hello!" }
 
 `Observable.delay` (alias for `eval`) lifts non-strict value in the `Observable`. It is evaluated upon subscription.
 
-```tut:silent
+```scala mdoc:silent:nest
 val obs = Observable.delay { println("Effect"); "Hello!" }
 // obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050
 val task = obs.foreachL(println)
@@ -306,7 +306,7 @@ task.runToFuture
 that emits a single element and memoizes the value for subsequent invocations.
 It also has guaranteed idempotency and thread-safety:
 
-```tut:silent
+```scala mdoc:silent:nest
 val obs = Observable.evalOnce { println("Effect"); "Hello!" }
 // obs: monix.reactive.Observable[String] = EvalOnceObservable@3233e694
 val task = obs.foreachL(println)
@@ -325,7 +325,7 @@ task.runToFuture.foreach(println)
 
 `Observable.fromIterable` converts any `Iterable` into an `Observable`:
 
-```tut:silent
+```scala mdoc:silent:nest
 val obs = Observable.fromIterable(List(1, 2, 3))
 // obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d
 
@@ -339,7 +339,7 @@ obs.foreachL(println).runToFuture
 
 `Observable.suspend` (alias for defer) allows suspending side effects:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.reactive.Observable
 import scala.io.Source
@@ -356,7 +356,7 @@ def readFile(path: String): Observable[String] =
 
 `Observable.raiseError` constructs an Observable that calls `onError` on any subscriber emitting specified `Exception`:
 
-```tut:silent
+```scala mdoc:silent:nest
 val observable = Observable.raiseError[Int](new Exception("my exception"))
 // observable: monix.reactive.Observable[Int]
 
@@ -382,7 +382,7 @@ An `Observable` which is returned by the method will receive all elements which 
 Since they could be sent concurrently, it buffers the elements when busy, according to the specified `OverflowStrategy`.
 `Cancelable` can contain special logic in case the subscription is canceled:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.Ack
 import monix.reactive.Observable
@@ -428,7 +428,7 @@ The latter will short-circuit when a `Stop` event is returned.
 The `monix-catnap` module provides a [ConcurrentQueue](https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html) which can be used 
 with the `Observable.repeatEvalF` builder to create an `Observable` from it.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.catnap.ConcurrentQueue
 import monix.eval.Task
 import monix.reactive.Observable
@@ -463,7 +463,7 @@ Note that you can also create an `Observable` from the other tools for concurren
 
 You can use a `ConcurrentSubject` to get similar functionality:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.Ack
 import monix.reactive.subjects.ConcurrentSubject
@@ -521,7 +521,7 @@ The following are the policies available:
 
 We can think of a back-pressured stream as synchronous processing, where the upstream waits until a particular element has been fully processed.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable("A", "B", "C", "D")
     .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
@@ -543,7 +543,7 @@ Asynchronous processing would then be a case in which the downstream acknowledge
 The `Observable` provides the `asyncBoundary` method which creates a buffered asynchronous boundary. 
 The buffer is configured according to the `OverflowStrategy`.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable("A", "B", "C", "D")
     .mapEval(i => Task { println(s"1: Processing $i"); i ++ i })
@@ -600,7 +600,7 @@ The bundles can overlap, depending on parameters:
 
 Let's take a look at an example demonstrating the case of `skip > count`:
 
-```tut:silent
+```scala mdoc:silent:nest
 Observable.range(2, 7).bufferSliding(count = 2, skip = 3).dump("O")
 
 // Output when executed
@@ -613,7 +613,7 @@ Observable.range(2, 7).bufferSliding(count = 2, skip = 3).dump("O")
 
 The element `4` has been skipped. If the situation was reversed, it would be duplicated instead:
 
-```tut:silent
+```scala mdoc:silent:nest
 Observable.range(2, 7).bufferSliding(count = 3, skip = 2).dump("O")
 
 // Output when executed
@@ -637,7 +637,7 @@ In case of an error, it will be dropped.
 def bufferTumbling(count: Int): Observable[Seq[A]]
 ```
 
-```tut:silent
+```scala mdoc:silent:nest
 Observable.range(2, 7).bufferTumbling(count = 2).dump("O")
   
 // Output when executed
@@ -653,7 +653,7 @@ Observable.range(2, 7).bufferTumbling(count = 2).dump("O")
 
 You can also buffer elements depending on a duration, using `bufferTimed(timespan: FiniteDuration)`.
 
-```tut:silent
+```scala mdoc:silent:nest
 Observable.intervalAtFixedRate(100.millis).bufferTimed(timespan = 1.second).dump("O")
   
 // Emits 10 elements each second when executed
@@ -674,7 +674,7 @@ If these are possible issues in an application, you could use `bufferTimedAndCou
 This buffering method emits non-overlapping bundles, each of a fixed duration specified by the `timespan` argument,
 or a maximum size specified by the `maxCount` argument (whichever is reached first).
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   (Observable(1, 2, 3) ++ Observable.never)
     .bufferTimedAndCounted(timespan = 1.second, maxCount = 2)
@@ -695,7 +695,7 @@ There are more sophisticated buffering options available and one of them is `buf
 This operator buffers elements only if the downstream is busy, otherwise it sends them as they come.
 Once the buffer is full, it will back-pressure upstream.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable.range(1, 6)
     .doOnNext(l => Task(println(s"Started $l")))
@@ -734,7 +734,7 @@ Any size below 1 will use an unbounded buffer.
 
 Let's take a look at an example similar to the one with `bufferIntrospective` but this time it will emit elements every 100 milliseconds.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable.range(1, 6)
     .doOnNext(l => Task(println(s"Started $l")))
@@ -784,7 +784,7 @@ val program = for {
 `Observable#bufferTimedWithPressure` is similar to `bufferTimedAndCounted` but it applies back-pressure if the buffer is full,
 instead of emitting it. Another difference is that it allows to pass a function to calculate the weight of an element.
 
-```tut:silent
+```scala mdoc:silent:nest
 sealed trait Elem
 case object A extends Elem
 case object B extends Elem
@@ -821,7 +821,7 @@ The purpose of `throttle(period, n)` is to control the rate of events emitted do
 The operator will buffer incoming events up to `n` and emit them each `period` as individual elements.
 Once the internal buffer is filled, it will back-pressure the upstream.
 
-```tut:silent
+```scala mdoc:silent:nest
 // Emits 1 element per 1 second
 Observable.fromIterable(0 to 10).throttle(1.second, 1)
 ```
@@ -834,7 +834,7 @@ An important difference from the other throttling operators is that `throttle` d
 Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
 in user-facing features.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable.fromIterable(0 to 10)
     .delayOnNext(200.millis)
@@ -853,7 +853,7 @@ val stream = {
 
 `throttleLast` (aliased to `sample`) is similar to `throttleFirst` but it always emits the most recent (last one) element in the window.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable.fromIterable(0 to 10)
     .delayOnNext(200.millis)
@@ -878,7 +878,7 @@ This behavior is different from `throttleFirst` and `throttleLast` where the tim
 This operator is well-suited for situations like a search query - it can be quite expensive for the downstream to process  
 each key entered by a user, so instead we could wait until the user stopped typing before we send the events.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   (Observable("M", "O", "N", "I", "X") ++ Observable.never)
     .delayOnNext(100.millis)
@@ -893,7 +893,7 @@ val stream = {
 
 Note that if the source emits elements too fast and ends, all elements will be skipped, as presented in the next example:
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable.fromIterable(0 to 10)
     .delayOnNext(200.millis)
@@ -913,7 +913,7 @@ val stream = {
 
 <img src="{{ site.baseurl }}public/images/marbles/map.png" align="center" style="max-width: 100%" />
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.execution.Scheduler
 import monix.execution.exceptions.DummyException
 import monix.reactive.Observable
@@ -933,7 +933,7 @@ stream.foreachL(println).runToFuture
 
 Prefer to use functions that are total because any exception will terminate the stream (see [Error Handling](#error-handling) section) :
 
-```tut:silent
+```scala mdoc:silent:nest
 val failed = { 
   Observable.range(1, 5)
     .map(_ => throw DummyException("avoid it!"))
@@ -952,7 +952,7 @@ failed.subscribe()
 
 `Observable#mapEval` is similar to `map` but it takes a `f: A => Task[B]` which represents a function with an effectful result that can produce at most one value.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = Observable.range(1, 5).mapEval(l => Task.evalAsync(println(s"$l: run asynchronously")))
 
 stream.subscribe()
@@ -965,7 +965,7 @@ stream.subscribe()
 
 There is also a `mapEvalF` variant for other types which can be converted to a `Task`, i.e. `Future`, `cats.effect.IO`, `ZIO` etc.
 
-```tut:silent
+```scala mdoc:silent:nest
 import scala.concurrent.Future
 
 val stream = Observable.range(1, 5).mapEvalF(l => Future(println(s"$l: run asynchronously")))
@@ -983,7 +983,7 @@ stream.subscribe()
 `mapEval` can process elements asynchronously but does it one-by-one. 
 In case we would like to run `n` tasks in parallel, we can use either `mapParallelOrdered` or `mapParallelUnordered`.
 
-```tut:silent
+```scala mdoc:silent:nest
 import scala.concurrent.duration._
 
 val stream = {
@@ -1027,7 +1027,7 @@ For each input element, the resulting `Observable` is processed before the next 
 
 <img src="{{ site.baseurl }}public/images/marbles/flat-map.png" align="center" style="max-width: 100%" />
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable(2, 3, 4)
     .flatMap(i => Observable(s"${i}A", s"${i}B"))
@@ -1044,7 +1044,7 @@ val stream = {
 
 Note that if a function returns an infinite `Observable`, it will never process the next elements from the source:
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable(2, 3, 4)
     .flatMap(i => if (i == 2) Observable.never else Observable(s"${i}A", s"${i}B"))
@@ -1059,7 +1059,7 @@ val stream = {
 `Observable#mergeMap` takes a function which can return an `Observable` but it can process the source *concurrently*. It doesn't back-pressure on elements
 from the source and subscribes to all of the `Observable`s produced from the source until they terminate. These produced `Observable`s are often called *inner* or *child*.
 
-```tut:silent
+```scala mdoc:silent:nest
 val source = Observable(2) ++ Observable(3, 4).delayExecution(50.millis)
 
 val stream = {
@@ -1075,7 +1075,7 @@ The possible result of the snippet above is depicted in the following picture:
 
 Since the inner `Observables` are executed concurrently, we can also return an `Observable` which takes a very long time or does not terminate at all without slowing down the entire stream.
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable(2, 3, 4)
     .mergeMap(i => if (i == 2) Observable.never else Observable(s"${i}A", s"${i}B"))
@@ -1091,7 +1091,7 @@ val stream = {
 Keep in mind that `mergeMap` keeps all active subscriptions so it is possible to end up with a memory leak if we forget to close the infinite `Observable`.
 In case one of the `Observable`s returns an error, other active streams will be canceled and resulting `Observable` will return the original error:
 
-```tut:silent
+```scala mdoc:silent:nest
 val stream = {
   Observable(2, 3, 4)
     .mergeMap(i =>
@@ -1112,7 +1112,7 @@ Similar to `mergeMap`, `Observable#switchMap` does not back-pressure on elements
 
 <img src="{{ site.baseurl }}public/images/marbles/switch-map.png" align="center" style="max-width: 100%" />
 
-```tut:silent
+```scala mdoc:silent:nest
 import cats.effect.ExitCase
 
 def child(i: Int): Observable[String] = {
@@ -1167,7 +1167,7 @@ emits auto-incremented natural numbers (`Long`s) spaced by a given time interval
 after which it emits incremented numbers spaced by the `delay` of time. The given `delay` of time acts as a fixed 
 delay between successive events.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.schedulers.TestScheduler
 import monix.reactive.Observable
@@ -1201,7 +1201,7 @@ tries to emit events spaced by the given time interval, regardless of how long t
 The difference should be clearer after looking at the example below. 
 Notice how it makes up for time spent in each `mapEval`.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.schedulers.TestScheduler
 import monix.reactive.Observable
@@ -1238,7 +1238,7 @@ If the `Observable` encounters an error, it cannot ignore and keep going. The be
 
 `Observable.handleError` (alias for `onErrorHandle`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` emitting one specific element generated by given total function.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.reactive.Observable
 
 val observable = Observable(1, 2, 3) ++ Observable.raiseError(new Exception) ++ Observable(0)
@@ -1258,7 +1258,7 @@ observable
 
 `Observable.handleErrorWith` (alias for `onErrorHandleWith`) mirrors the original source unless an error happens - in which case it falls back to an `Observable` generated by the given total function.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.reactive.Observable
 
 val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
@@ -1286,7 +1286,7 @@ observable
 
 `Observable.onErrorFallbackTo` mirrors the behavior of the source, unless it is terminated with an `onError`, in which case the streaming of events continues with the specified backup sequence regardless of the error.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.reactive.Observable
 
 val observable = Observable(1, 2) ++ Observable.raiseError(new Exception) ++ Observable(0)
@@ -1322,7 +1322,7 @@ There is also `onErrorRestartUnlimited` variant for an unlimited number of retri
 
 `Observable.onErrorRestartIf` mirrors the behavior of the source unless it is terminated with an `onError`, in which case it invokes the  provided function and tries re-subscribing to the source with the hope that it will complete without an error.
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.reactive.Observable
 
 case object TimeoutException extends Exception
@@ -1350,7 +1350,7 @@ observable
 
 Since `Observable` methods compose pretty nicely, you could easily combine them to write some custom retry mechanisms, like the one below:
 
-```tut:silent
+```scala mdoc:silent:nest
 def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[A] = 
   source.onErrorHandleWith { _ =>
     retryWithDelay(source, delay).delayExecution(delay)
@@ -1359,7 +1359,7 @@ def retryWithDelay[A](source: Observable[A], delay: FiniteDuration): Observable[
 
 It can be customized further. For example, we can also implement an exponential back-off:
 
-```tut:silent
+```scala mdoc:silent:nest
 def retryBackoff[A](source: Observable[A],
   maxRetries: Int, firstDelay: FiniteDuration): Observable[A] = {
   source.onErrorHandleWith {
@@ -1378,7 +1378,7 @@ def retryBackoff[A](source: Observable[A],
 Sometimes we would like to ignore elements that caused failure and keep going, but 
 if something fails in an `Observable` operator (e.g. mapEval), the entire `Observable` is stopped with a failure.
 
-```tut:silent
+```scala mdoc:silent:nest
 val observable = Observable(1, 2, 3)
 
 def task(i: Int): Task[Int] = {
@@ -1398,7 +1398,7 @@ observable
 There is nothing like a `supervision mechanism` (like in Akka Streams), but if we control it at the `Effect` level, we could achieve similar behavior.
 For instance, we could wrap our elements in `Option` or `Either` and then do a `collect { case Right(e) => e }`.
 
-```tut:silent
+```scala mdoc:silent:nest
 val observable = Observable(1, 2, 3)
 
 def task(i: Int): Task[Int] = {
@@ -1437,7 +1437,7 @@ Usually these method names start with `doOn` or `doAfter`.
 
 Executes a given callback for each element generated by the source `Observable`, useful for doing side-effects.
 
-```tut:silent
+```scala mdoc:silent:nest
 var counter = 0
 val observable = Observable(1, 2, 3)
 
@@ -1453,7 +1453,7 @@ observable
 
 You could also write it preserving referential transparency using `Ref` from `Cats-Effect`:
 
-```tut:silent
+```scala mdoc:silent:nest
 import cats.effect.concurrent.Ref
 import monix.eval.Task
 import monix.reactive.Observable
@@ -1480,7 +1480,7 @@ There is also a `doOnNextF` variant which works for data types other than `Task`
 from other parts of the application.
 It is presented in the following example:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.Ack
 import monix.reactive.subjects.ConcurrentSubject
@@ -1536,7 +1536,7 @@ shares the source according to the specified strategy, represented by a `Subject
 
 Consider the following example which uses `publish` to create a `ConnectableObservable` on top of a `PublishSubject`:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.{Cancelable, Scheduler}
 import monix.reactive.Observable
@@ -1583,7 +1583,7 @@ all active subscribers before processing the next element.
 
 Let's see it on an example:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval.Task
 import monix.execution.{Cancelable, Scheduler}
 import monix.reactive.Observable
@@ -1641,7 +1641,7 @@ Different `Subjects` vary in behavior with regard to subscribers, but `source` O
 
 For instance, a `ReplaySubject` will cache and send all elements to new subscribers:
 
-```tut:silent
+```scala mdoc:silent:nest
 implicit val s = Scheduler.global
 
 val source: ConnectableObservable[Int] = {
@@ -1664,7 +1664,7 @@ val o1: Task[Unit] = source.foreachL(i => println(s"o1: $i"))
 
 Another example could be `BehaviorSubject` which remembers the latest element to feed to new subscribers:
 
-```tut:silent
+```scala mdoc:silent:nest
 implicit val s = Scheduler.global
 
 val source: ConnectableObservable[Int] = {
@@ -1692,7 +1692,7 @@ As you probably noticed, `ConnectableObservable` is not very pure because the ti
 and the original `source` is processed only once. Monix also exposes `publishSelector` and `pipeThroughSelector` which allows
 you to take advantage of Hot `Observable`s in more controlled and purely functional fashion.
 
-```tut:silent
+```scala mdoc:silent:nest
 implicit val s = Scheduler.global
 
 val source = {  

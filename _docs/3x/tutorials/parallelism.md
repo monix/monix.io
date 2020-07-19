@@ -9,7 +9,7 @@ Monix provides multiple ways for achieving parallelism, depending on use-case.
 
 The samples in this document are copy/paste-able, but to get the imports out of the way:
 
-```tut:silent
+```scala mdoc:silent:nest
 // On evaluation a Scheduler is needed
 import monix.execution.Scheduler.Implicits.global
 // For Task
@@ -18,7 +18,7 @@ import monix.eval._
 import monix.reactive._
 ```
 
-```tut:invisible
+```scala mdoc:invisible:nest
 import monix.execution.schedulers.TestScheduler
 implicit val global = TestScheduler()
 ```
@@ -41,7 +41,7 @@ although remember that you can apply
 [Task.fork]({{ site.api3x }}monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A])
 to any task.
 
-```tut:silent
+```scala mdoc:silent:nest
 val items = 0 until 1000
 
 // The list of all tasks needed for execution
@@ -69,7 +69,7 @@ server on the other end.
 To solve this we can split the workload in batches of parallel tasks that
 are then sequenced:
 
-```tut:silent
+```scala mdoc:silent:nest
 val items = 0 until 1000
 // The list of all tasks needed for execution
 val tasks = items.map(i => Task(i * 2))
@@ -94,7 +94,7 @@ strict sequence to `Future.sequence`, which is obviously error-prone.
 We can also combine this with `Observable.flatMap` for doing requests
 in batches:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval._
 import monix.reactive._
 
@@ -133,7 +133,7 @@ Another way to achieve parallelism is to use the
 [Observable.mapParallelUnordered]({{ site.api3x }}monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=>monix.eval.Task[B]):Self[B])
 operator:
 
-```tut:silent
+```scala mdoc:silent:nest
 val source = Observable.range(0,1000)
 // The parallelism factor needs to be specified
 val processed = source.mapParallelUnordered(parallelism = 10) { i =>
@@ -160,7 +160,7 @@ If `Observable.mapParallelUnordered` works with `Task`, then
 [Observable.mergeMap](https://monix.io/api/2.2/monix/reactive/Observable.html#mergeMap[B](f:A=%3Emonix.reactive.Observable[B])(implicitos:monix.reactive.OverflowStrategy[B]):Self[B])
 works by merging `Observable` instances.
 
-```tut:silent
+```scala mdoc:silent:nest
 val source = Observable.range(0,1000)
 // The parallelism factor needs to be specified
 val processed = source.mergeMap { i =>
@@ -190,7 +190,7 @@ exemplified in the [Consumer](../reactive/consumer.md) tutorial, by means of a
 load-balanced consumer, being able to do a final aggregate of the
 results of all workers:
 
-```tut:silent
+```scala mdoc:silent:nest
 import monix.eval._
 import monix.reactive._
 
