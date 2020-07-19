@@ -16,7 +16,7 @@ end
 # Forcing a change to the root directory, if not there already
 Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
 
-exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g run")
+exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
 exec("bundle exec jekyll build")
 
 unless ENV['CI_DEPLOY'] == "true"
