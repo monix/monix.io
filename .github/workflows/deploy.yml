@@ -6,10 +6,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@master
+
+      - uses: olafurpg/setup-scala@v5
+        with:
+          java-version: "adopt@1.11"
 
       - name: Set up Ruby 2.6 (for microsite)
         uses: actions/setup-ruby@v1
@@ -36,7 +40,7 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          ./scripts/sbt clean compile
+          sbt update
           
       - name: Build
         run: |

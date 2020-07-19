@@ -20,8 +20,12 @@ author:
   email:          'noreply@alexn.org'
   url:            'https://alexn.org'
 
-paginate_path: "/blog/page:num/"
-paginate:      5
+pagination:
+  enabled: true
+  per_page: 5
+  permalink: "/page:num/"
+  title: ":title - pagina :num"
+  sort_reverse: true
 
 defaults:
   -
@@ -62,7 +66,11 @@ github:
 
 # Gems
 plugins:
-  - jekyll-paginate
+  - jekyll-paginate-v2
+  - jekyll-sitemap
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
+  - jekyll-last-modified-at
   - jekyll-gist
 
 sass:
