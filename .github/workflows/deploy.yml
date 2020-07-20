@@ -24,16 +24,16 @@ jobs:
         uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          key: v2-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gems-
+            v2-${{ runner.os }}-gems-
 
       - name: Cache SBT Coursier
         uses: actions/cache@v1.1.2
         with:
           path: ~/.cache/coursier
-          key: ${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}
-      
+          key: v2-${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}
+
       - name: Install dependencies
         run: |
           gem update --system
