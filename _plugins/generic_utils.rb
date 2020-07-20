@@ -9,8 +9,24 @@ def to_absolute_url(site, url)
 end
 
 module Jekyll
-  module RssUtils
+  module MyGenericUtils
     @@site = Jekyll.configuration({})
+    @@pages_cache = {}
+
+    def current_doc_link(path, pages)
+      if @@pages_cache.length == 0
+        pages.each do |p|
+          @@pages_cache[p.path] = true
+        end
+      end
+      
+      p = path.sub(/docs\/[^\/]+/, "docs/#{@@site['docsCurrent']}")
+      if @@pages_cache.key?(p)
+        p
+      else
+        path
+      end
+    end
 
     def rss_campaign_link(link, keyword)
       l = if link.include? '?'
@@ -83,4 +99,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_filter(Jekyll::RssUtils)
+Liquid::Template.register_filter(Jekyll::MyGenericUtils)

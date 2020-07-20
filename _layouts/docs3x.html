@@ -4,6 +4,12 @@ layout: default
 
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
+    <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
+  </time>
+
   <nav role="navigation" id="type-info">
     {% if page.type_api %}<a href="{{ site.api3x }}{{ page.type_api | replace: '.','/' }}.html">API Documentation</a>{% endif %}
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/{{ page.type_source }}">Source Code</a>{% endif %}
@@ -11,11 +17,6 @@ layout: default
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
     {% if page.has_comments %}<a href="#comments">Comments</a>{% endif %}
   </nav>
-
-  <time class="post-date" itemprop="dateModified"
-    datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
-    <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
-  </time>
 
   <nav role="navigation" id="toc">
     {% include toc.html h_min=2 h_max=3 html=content %}
