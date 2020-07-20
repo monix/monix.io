@@ -1,48 +1,39 @@
-name := "monix-website"
-
-scalaVersion := "2.12.8"
-
-scalacOptions ++= Seq(
-  "-deprecation",
-  "-feature"
+lazy val sharedSettings = Seq(
+  scalaVersion := "2.12.12"
 )
 
-resolvers ++= Seq(
-  DefaultMavenRepository,
-  Resolver.sbtPluginRepo("releases"),
-  Resolver.typesafeRepo("releases"),
-  Resolver.typesafeIvyRepo("releases")
-)
+lazy val root = project
+  .in(file("."))
+  .aggregate(docs2x, docs3x)
+  .settings(sharedSettings)
+  .settings(
+    Global / onChangedBuildSource := ReloadOnSourceChanges
+  )
 
-libraryDependencies ++= Seq(
-  "io.get-coursier" %% "coursier" % "1.0.0",
-  "io.get-coursier" %% "coursier-cache" % "1.0.0",
-  "com.chuusai" %% "shapeless" % "2.3.3",
-  "org.yaml" % "snakeyaml" % "1.19"
-)
+lazy val docs2x = project       // new documentation project
+  .in(file(".mdoc-projects/2x")) // important: it must not be docs/  
+  .enablePlugins(MdocPlugin)
+  .settings(sharedSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "io.monix" %% "monix" % "2.3.3",
+      "io.monix" %% "monix-scalaz-72" % "2.3.3",
+      "io.monix" %% "monix-cats" % "2.3.3",
+      "org.slf4j" % "slf4j-api" % "1.7.30",
+    ),
+    mdocIn := file("_docs/2x"),
+    mdocOut := file("docs/2x"),
+  )
 
-lazy val configFile = SettingKey[File]("configFile")
-lazy val tutInput = SettingKey[File]("tutInput")
-lazy val tutOutput = SettingKey[File]("tutOutput")
-lazy val tutVersion = SettingKey[String]("tutVersion")
-
-configFile := (baseDirectory in ThisBuild).value / "_config.yml"
-tutInput := (baseDirectory in ThisBuild).value / "_tut"
-tutOutput := (baseDirectory in ThisBuild).value
-
-// WARNING — do not update until this is fixed:
-// https://github.com/tpolecat/tut/issues/243
-tutVersion := "0.6.3"
-
-watchSources ++= (tutInput.value ** "*.md").get
-
-enablePlugins(BuildInfoPlugin)
-
-buildInfoKeys := Seq[BuildInfoKey](tutInput, tutOutput, tutVersion, configFile, scalaVersion)
-
-buildInfoPackage := "io.monix.website"
-
-cleanFiles ++= Seq(
-  (baseDirectory in ThisBuild).value / "docs",
-  (baseDirectory in ThisBuild).value / "_site"
-)
+lazy val docs3x = project       // new documentation project
+  .in(file(".mdoc-projects/3x")) // important: it must not be docs/  
+  .enablePlugins(MdocPlugin)
+  .settings(sharedSettings)
+  .settings(
+    libraryDependencies ++= Seq(
+      "io.monix" %% "monix" % "3.2.2",
+      "org.slf4j" % "slf4j-api" % "1.7.30",
+    ),
+    mdocIn := file("_docs/3x"),
+    mdocOut := file("docs/3x"),
+  )

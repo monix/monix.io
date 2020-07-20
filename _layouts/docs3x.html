@@ -9,9 +9,17 @@ layout: default
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/{{ page.type_source }}">Source Code</a>{% endif %}
     {% if page.play_url %}<a href="{{ page.play_url }}" target="_blank">Try It in ScalaFiddle</a>{% endif %}
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
+    {% if page.has_comments %}<a href="#comments">Comments</a>{% endif %}
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
+    <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
+  </time>
+
+  <nav role="navigation" id="toc">
+    {% include toc.html h_min=2 h_max=3 html=content %}
+  </nav>
 
   {{ content }}
 
@@ -32,4 +40,6 @@ layout: default
     <a href="{{ site.baseurl }}social.html">
       Follow</a>
   </div>
+
+  {% if page.has_comments %}{% include comments.html %}{% endif -%}
 </div>

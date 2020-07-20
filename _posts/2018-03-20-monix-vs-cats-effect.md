@@ -20,7 +20,7 @@ But to start with the most pressing concern ...
 ## Monix's Task vs cats.effect.IO
 
 [cats.effect.IO](https://typelevel.org/cats-effect/datatypes/io.html)
-and [monix.eval.Task](https://monix.io/docs/3x/eval/task.html) are
+and [monix.eval.Task](https://monix.io/docs/3x/eval/task.md) are
 very similar, plus I ended up working on both, so design decisions I
 made for `Task` ended up in `IO` as well. That said `IO` is designed
 to be a simple, reliable, pure reference implementation, whereas
