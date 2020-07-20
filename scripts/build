@@ -21,7 +21,7 @@ puts "Compiling documentation (via mdoc) ..."
 puts 
 
 exec("rm -rf docs/")
-exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
+exec("./scripts/sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
 
 puts "---------------------------------------------------------------------"
 puts "Updating mtimes ..."
