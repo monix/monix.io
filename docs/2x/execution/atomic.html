@@ -30,15 +30,15 @@
   <meta content="Atomic &amp;mdash; Monix" property="og:title">
   <meta content="References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better." property="og:description">
   <meta content="https://monix.io/docs/2x/execution/atomic.html" property="og:url">
-  <meta content="2020-07-20T17:59:49+00:00" property="article:modified_time">
+  <meta content="2020-07-20T18:03:50+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1595268179110750129">
+  <link rel="stylesheet" href="/public/css/all.css?1595268443674468646">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595268179110750129">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595268443674468646">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -116,7 +116,7 @@
     <a href="/api/2.3/monix/execution/atomic/Atomic.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-execution/jvm/src/main/scala/monix/execution/atomic/Atomic.scala">Source Code</a>
     
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/execution/atomic.md">Edit Page</a>
+    <a href="https://github.com/monix/monix.io/edit/master/_docs/2x/execution/atomic.md">Edit Page</a>
     
   </nav>
   
@@ -212,7 +212,7 @@ you normally need. How about <code class="language-plaintext highlighter-rouge">
 type-class, we can do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
-<span class="c1">// ref: AtomicNumberAny[BigInt] = monix.execution.atomic.AtomicNumberAny@7e2fd4a2</span>
+<span class="c1">// ref: AtomicNumberAny[BigInt] = monix.execution.atomic.AtomicNumberAny@77d0a4e1</span>
 
 <span class="c1">// now we can increment a BigInt</span>
 <span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
@@ -274,7 +274,7 @@ with special care to handle overflows correctly. All this is done to avoid boxin
 for performance reasons.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
-<span class="c1">// ref: AtomicDouble = monix.execution.atomic.AtomicDouble@5cfe1ce4</span>
+<span class="c1">// ref: AtomicDouble = monix.execution.atomic.AtomicDouble@11f3e488</span>
 
 <span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
 <span class="c1">// res3: Boolean = true</span>
@@ -283,7 +283,7 @@ for performance reasons.</p>
 <span class="c1">// res4: Double = 101.0</span>
 
 <span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
-<span class="c1">// ref2: AtomicChar = monix.execution.atomic.AtomicChar@62bc8037</span>
+<span class="c1">// ref2: AtomicChar = monix.execution.atomic.AtomicChar@7ceb3fbf</span>
 
 <span class="nv">ref2</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res5: Char = 'b'</span>
@@ -328,7 +328,7 @@ normally do something like this in Java:</p>
 with <code class="language-plaintext highlighter-rouge">Atomic</code> you can simply do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nv">Queue</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="c1">// ref: AtomicAny[Queue[String]] = monix.execution.atomic.AtomicAny@632dcd74</span>
+<span class="c1">// ref: AtomicAny[Queue[String]] = monix.execution.atomic.AtomicAny@1712888c</span>
 
 <span class="c1">// Transforms the value and returns the update</span>
 <span class="nv">ref</span><span class="o">.</span><span class="py">transformAndGet</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
@@ -408,7 +408,7 @@ returns the most specialized version, as to avoid boxing and unboxing:</p>
 <span class="c1">// ref3: AtomicBoolean = AtomicBoolean(true)</span>
 
 <span class="k">val</span> <span class="nv">ref4</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
-<span class="c1">// ref4: AtomicAny[String] = monix.execution.atomic.AtomicAny@5cb3279</span>
+<span class="c1">// ref4: AtomicAny[String] = monix.execution.atomic.AtomicAny@74f4f84</span>
 </code></pre></div></div>
 
 <p>Increments/decrements are done by going through the
@@ -512,7 +512,7 @@ loops (e.g. Java 6 and 7, Android).</p>
 
   <div class="buttons">
     <a href="/docs/current/">Contents</a> •
-    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/execution/atomic.md">
+    <a href="https://github.com/monix/monix.io/edit/master/_docs/2x/execution/atomic.md">
       Edit Page</a> •
     
     <a href="https://gitter.im/monix/monix">
