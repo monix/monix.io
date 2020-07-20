@@ -25,7 +25,7 @@ layout: default
     Older versions:
     {% for version in site.deprecated_versions %}
       {% capture alt_link %}{{ page.path | current_doc_link: site.pages, version.path }}{% endcapture -%}      
-      <a href="{% link {{ alt_link }} %}">{{ version.label }}</a>{% unless forloop.last == true %}, {% endunless -%}      
+      <a href="{% if alt_link != page.path %}{% link {{ alt_link }} %}{% else %}{% link docs/{{ version.path }}/index.md %}{% endif %}">{{ version.label }}</a>{% unless forloop.last == true %}, {% endunless -%}      
     {% endfor %}
   </div>
 

@@ -23,8 +23,8 @@ layout: default
   {% capture alt_link %}{{ page.path | current_doc_link: site.pages }}{% endcapture -%}
   <div id="version2x">
     You are viewing the documentation for the <em>older</em> Monix 2.x series.<br />
-    If you're looking for the latest 3.x
-    <a href="{% link {{ alt_link }} %}">see here</a>!
+    For the latest version:
+    <a href="{% if alt_link != page.path %}{% link {{ alt_link }} %}{% else %}{% link docs/current/index.md %}{% endif %}">see here</a>!
   </div>
 
   <nav role="navigation" id="toc">
