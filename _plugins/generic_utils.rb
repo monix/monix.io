@@ -24,11 +24,17 @@ module Jekyll
     end
 
     def doc_contents_link(path)
-      if path =~ /\/docs\//
-        path.sub(/docs\/([^\/]+)(\/[^$]*)$/, "docs/current/$1")
+      if path =~ /^docs\//
+        path.sub(/^docs\/([^\/]+)(\/[^$]*)$/, "docs/\\1/index.md")
       else
         "docs/current/index.md"
       end
+    end
+
+    def doc_edit_link(path)
+      path
+        .sub(/^docs\/current\//, "docs/#{@@site['docs']['current']['path']}/")
+        .sub(/^docs\/([^$]*)$/, "_docs/\\1")
     end
 
     def current_doc_link(path, pages, version=nil)
