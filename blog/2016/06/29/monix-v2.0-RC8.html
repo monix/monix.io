@@ -29,19 +29,15 @@
   <meta content="Adds an awesome Consumer type, Observable.interleave, introduces Coeval params in operators" property="og:description">
   <meta content="https://monix.io/blog/2016/06/29/monix-v2.0-RC8.html" property="og:url">
   <meta content="2016-06-29T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC8 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-RC8 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-06-29">
@@ -111,9 +113,14 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
-  <p>This release candidate is probably the last one before <code class="highlighter-rouge">2.0</code>, assuming
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p>This release candidate is probably the last one before <code class="language-plaintext highlighter-rouge">2.0</code>, assuming
 new bugs aren’t found. Amongst others, it introduces an awesome
-<code class="highlighter-rouge">Consumer</code> type which makes it possible to describe composable
+<code class="language-plaintext highlighter-rouge">Consumer</code> type which makes it possible to describe composable
 consumers. For a teaser:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// For processing sums in parallel, useless of course, but can become </span>
@@ -138,48 +145,48 @@ consumers. For a teaser:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/181">BUG #181</a>: the default operators
-on <code class="highlighter-rouge">CancelableFuture</code> are triggering <code class="highlighter-rouge">StackOverflow</code> exceptions</li>
+on <code class="language-plaintext highlighter-rouge">CancelableFuture</code> are triggering <code class="language-plaintext highlighter-rouge">StackOverflow</code> exceptions</li>
 </ul>
 
 <p>New Features:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/184">Issue #184</a>: introducing the
-<code class="highlighter-rouge">Consumer</code> type, a factory of subscribers that makes it easier to specify 
+<code class="language-plaintext highlighter-rouge">Consumer</code> type, a factory of subscribers that makes it easier to specify 
 reusable and composable consumers and for example, it makes it possible, 
 out of the box, to load-balance the workload between multiple subscribers in
 parallel; see the description</li>
   <li><a href="https://github.com/monix/monix/pull/186">Issue #186</a> (related to 
 <a href="https://github.com/monix/monix/issues/168">issue #168</a>): adds the 
-<code class="highlighter-rouge">Observable.interleave2</code> operator, similar with the one in <code class="highlighter-rouge">FS2</code> 
+<code class="language-plaintext highlighter-rouge">Observable.interleave2</code> operator, similar with the one in <code class="language-plaintext highlighter-rouge">FS2</code> 
 (former scalaz-streams)</li>
-  <li><a href="https://github.com/monix/monix/issues/180">Issue #180</a>: the <code class="highlighter-rouge">Observer.feed</code>
+  <li><a href="https://github.com/monix/monix/issues/180">Issue #180</a>: the <code class="language-plaintext highlighter-rouge">Observer.feed</code>
 function now has an overload that does not take a cancelable, because
 it’s awkward coming up with one if it isn’t needed; there’s also a 
-<code class="highlighter-rouge">onNextAll</code> extension for both <code class="highlighter-rouge">Observer</code> and <code class="highlighter-rouge">Subscriber</code> which can push
+<code class="language-plaintext highlighter-rouge">onNextAll</code> extension for both <code class="language-plaintext highlighter-rouge">Observer</code> and <code class="language-plaintext highlighter-rouge">Subscriber</code> which can push
 a whole collection of events</li>
   <li><a href="https://github.com/monix/monix/issues/187">Issue #187</a>: integrates
-the <code class="highlighter-rouge">MonadCombine</code> type-class from <a href="http://typelevel.org/cats/">Cats</a>,
-being similar to the Scalaz <code class="highlighter-rouge">MonadPlus</code>, as somehow this was missed in 
+the <code class="language-plaintext highlighter-rouge">MonadCombine</code> type-class from <a href="http://typelevel.org/cats/">Cats</a>,
+being similar to the Scalaz <code class="language-plaintext highlighter-rouge">MonadPlus</code>, as somehow this was missed in 
 the initial integration</li>
   <li><a href="https://github.com/monix/monix/issues/177">Issue #177</a> reviews exposed
-traits and abstract classes, making sure they inherit from <code class="highlighter-rouge">Serializable</code></li>
+traits and abstract classes, making sure they inherit from <code class="language-plaintext highlighter-rouge">Serializable</code></li>
   <li><a href="https://github.com/monix/monix/issues/85">Issue #85</a>: small change,<br />
-clarifies the ScalaDoc on the <code class="highlighter-rouge">RefCountCancelable</code> type</li>
+clarifies the ScalaDoc on the <code class="language-plaintext highlighter-rouge">RefCountCancelable</code> type</li>
   <li><a href="https://github.com/monix/monix/issues/162">Issue #162</a>: implements
-the <code class="highlighter-rouge">Observable.takeUntil(trigger: Observable[Any])</code> operator, an operator
+the <code class="language-plaintext highlighter-rouge">Observable.takeUntil(trigger: Observable[Any])</code> operator, an operator
 that takes from the source until another observable triggers an event</li>
-  <li><a href="https://github.com/monix/monix/issues/189">Issue #189</a>: for <code class="highlighter-rouge">Observable</code>
-operators that return a single item (e.g. <code class="highlighter-rouge">sumF</code>, <code class="highlighter-rouge">foldLeftF</code>, etc.) adds
-variants that do the same thing, but return <code class="highlighter-rouge">Task</code> results instead, so now
-we have <code class="highlighter-rouge">foldLeftL</code>, <code class="highlighter-rouge">sumL</code>, etc. that return tasks</li>
+  <li><a href="https://github.com/monix/monix/issues/189">Issue #189</a>: for <code class="language-plaintext highlighter-rouge">Observable</code>
+operators that return a single item (e.g. <code class="language-plaintext highlighter-rouge">sumF</code>, <code class="language-plaintext highlighter-rouge">foldLeftF</code>, etc.) adds
+variants that do the same thing, but return <code class="language-plaintext highlighter-rouge">Task</code> results instead, so now
+we have <code class="language-plaintext highlighter-rouge">foldLeftL</code>, <code class="language-plaintext highlighter-rouge">sumL</code>, etc. that return tasks</li>
   <li><a href="https://github.com/monix/monix/issues/190">Issue #190</a>: changes many 
 observable operators, that were taking by-name parameters or initial state
-parameters (e.g. <code class="highlighter-rouge">headOrElseF</code>, <code class="highlighter-rouge">foldLeftF</code>, etc), to take <code class="highlighter-rouge">Coeval</code> params
+parameters (e.g. <code class="language-plaintext highlighter-rouge">headOrElseF</code>, <code class="language-plaintext highlighter-rouge">foldLeftF</code>, etc), to take <code class="language-plaintext highlighter-rouge">Coeval</code> params
 instead, in order to have fine control over the evaluation model</li>
   <li><a href="https://github.com/monix/monix/issues/191">Issue #191</a>: introduces 
-by default an implicit conversion from <code class="highlighter-rouge">Any</code> to <code class="highlighter-rouge">Coeval.Now</code>, to make it 
-easier to use <code class="highlighter-rouge">Coeval</code> as function parameters - the default will thus 
+by default an implicit conversion from <code class="language-plaintext highlighter-rouge">Any</code> to <code class="language-plaintext highlighter-rouge">Coeval.Now</code>, to make it 
+easier to use <code class="language-plaintext highlighter-rouge">Coeval</code> as function parameters - the default will thus 
 simply be strict evaluation, strictness being usually the default in Scala</li>
 </ul>
 
@@ -190,7 +197,14 @@ simply be strict evaluation, strictness being usually the default in Scala</li>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -226,18 +240,45 @@ simply be strict evaluation, strictness being usually the default in Scala</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

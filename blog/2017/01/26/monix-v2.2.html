@@ -29,19 +29,15 @@
   <meta content="MVar, SchedulerService, performance improvements, Cats 0.9.0" property="og:description">
   <meta content="https://monix.io/blog/2017/01/26/monix-v2.2.html" property="og:url">
   <meta content="2017-01-26T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.2.1 Final Release</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.2.1 Final Release
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2017-01-26">
@@ -111,23 +113,40 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>Version <code class="highlighter-rouge">2.2.1</code> is out now.</p>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#new-synchronization-primitive-monixevalmvar">New Synchronization Primitive: monix.eval.MVar</a></li>
+  <li><a href="#schedulerservice-for-shutting-down-schedulers">SchedulerService: for shutting down Schedulers</a></li>
+  <li><a href="#performance-improvements">Performance Improvements</a></li>
+  <li><a href="#all-issues">All Issues</a></li>
+  <li><a href="#upgrading">Upgrading</a></li>
+</ul>
 
-<p>It is a major release that shouldn’t be considered binary compatible with <code class="highlighter-rouge">2.1.x</code>,
+  </nav>
+
+  <p>Version <code class="language-plaintext highlighter-rouge">2.2.1</code> is out now.</p>
+
+<p>It is a major release that shouldn’t be considered binary compatible with <code class="language-plaintext highlighter-rouge">2.1.x</code>,
 even though it is source compatible. This is due to several operators being
-changed in <code class="highlighter-rouge">Observable</code> and <code class="highlighter-rouge">Task</code>, but extension methods are provided for the older
+changed in <code class="language-plaintext highlighter-rouge">Observable</code> and <code class="language-plaintext highlighter-rouge">Task</code>, but extension methods are provided for the older
 versions, therefore source compatibility is maintained.</p>
 
-<p>As a summary: the new <code class="highlighter-rouge">MVar</code> synchronization primitive, performance improvements
-in <code class="highlighter-rouge">Observable.concatMap</code> and in the <code class="highlighter-rouge">Task</code> run-loop, new <code class="highlighter-rouge">SchedulerService</code>
+<p>As a summary: the new <code class="language-plaintext highlighter-rouge">MVar</code> synchronization primitive, performance improvements
+in <code class="language-plaintext highlighter-rouge">Observable.concatMap</code> and in the <code class="language-plaintext highlighter-rouge">Task</code> run-loop, new <code class="language-plaintext highlighter-rouge">SchedulerService</code>
 interface for shutting down schedulers, bug fixes and upgrade to Cats 0.9.0.
 See details below.</p>
 
 <!--more-->
+    
+      <h3 id="new-synchronization-primitive-monixevalmvar">
+        
+        
+          New Synchronization Primitive: monix.eval.MVar <a href="#new-synchronization-primitive-monixevalmvar" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="new-synchronization-primitive-monixevalmvar">New Synchronization Primitive: monix.eval.MVar</h3>
-
-<p>The <code class="highlighter-rouge">MVar</code> is a new synchronization primitive, a mutable location that can
+<p>The <code class="language-plaintext highlighter-rouge">MVar</code> is a new synchronization primitive, a mutable location that can
 be empty or contains a value, asynchronously blocking reads when empty and
 blocking writes when full.</p>
 
@@ -135,28 +154,40 @@ blocking writes when full.</p>
 
 <ol>
   <li>As synchronized, thread-safe mutable variables</li>
-  <li>As channels, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “receive” and “send”</li>
-  <li>As a binary semaphore, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “acquire” and “release”</li>
+  <li>As channels, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “receive” and “send”</li>
+  <li>As a binary semaphore, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “acquire” and “release”</li>
 </ol>
 
-<p>Read <a href="/docs/2x/eval/mvar.html">the tutorial</a> or the
+<p>Read <a href="/docs/2x/eval/mvar.md">the tutorial</a> or the
 <a href="/api/2.3/monix/eval/MVar.html">api documentation</a>.</p>
+    
+      <h3 id="schedulerservice-for-shutting-down-schedulers">
+        
+        
+          SchedulerService: for shutting down Schedulers <a href="#schedulerservice-for-shutting-down-schedulers" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="schedulerservice-for-shutting-down-schedulers">SchedulerService: for shutting down Schedulers</h3>
-
-<p>Sometimes there’s a need to create a temporary <code class="highlighter-rouge">Scheduler</code> whose resources
-need to be discarded. The new <code class="highlighter-rouge">SchedulerService</code> is a new interface that
-adds <code class="highlighter-rouge">shutdown</code> and <code class="highlighter-rouge">awaitTermination</code> methods to the base <code class="highlighter-rouge">Scheduler</code>,
-similar in spirit with <code class="highlighter-rouge">java.util.concurrent.ExecutorService</code>.</p>
+<p>Sometimes there’s a need to create a temporary <code class="language-plaintext highlighter-rouge">Scheduler</code> whose resources
+need to be discarded. The new <code class="language-plaintext highlighter-rouge">SchedulerService</code> is a new interface that
+adds <code class="language-plaintext highlighter-rouge">shutdown</code> and <code class="language-plaintext highlighter-rouge">awaitTermination</code> methods to the base <code class="language-plaintext highlighter-rouge">Scheduler</code>,
+similar in spirit with <code class="language-plaintext highlighter-rouge">java.util.concurrent.ExecutorService</code>.</p>
 
 <p>Read
-<a href="/docs/2x/execution/scheduler.html#shutdown-with-schedulerservice">the tutorial</a>
+<a href="/docs/2x/execution/scheduler.md#shutdown-with-schedulerservice">the tutorial</a>
 or the
 <a href="/api/2.3/monix/execution/schedulers/SchedulerService.html">api documentation</a>.</p>
+    
+      <h3 id="performance-improvements">
+        
+        
+          Performance Improvements <a href="#performance-improvements" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="performance-improvements">Performance Improvements</h3>
-
-<p>The <code class="highlighter-rouge">Task</code> run-loop has suffered from a performance regression in version 2.1.x,
+<p>The <code class="language-plaintext highlighter-rouge">Task</code> run-loop has suffered from a performance regression in version 2.1.x,
 due to safety reasons.</p>
 
 <p>In this new release I managed to eliminate that regression and right now
@@ -164,16 +195,22 @@ the Monix Task has the best throughput among all the similar data type
 implementations in Scala land, see
 <a href="https://github.com/rossabaker/benchmarks/pull/4">github.com/rossabaker/benchmarks/pull/4</a>.</p>
 
-<p><code class="highlighter-rouge">Observable</code> also has performance improvements in <code class="highlighter-rouge">concatMap</code>, which is now
-using the <code class="highlighter-rouge">getAndSet</code> platform intrinsics from Java 8 to speed up the
-concurrency for the handling of <code class="highlighter-rouge">onComplete</code>. If you’re into JVM concurrency, the
+<p><code class="language-plaintext highlighter-rouge">Observable</code> also has performance improvements in <code class="language-plaintext highlighter-rouge">concatMap</code>, which is now
+using the <code class="language-plaintext highlighter-rouge">getAndSet</code> platform intrinsics from Java 8 to speed up the
+concurrency for the handling of <code class="language-plaintext highlighter-rouge">onComplete</code>. If you’re into JVM concurrency, the
 <a href="https://github.com/monix/monix/blob/v2.2.1/monix-reactive/shared/src/main/scala/monix/reactive/internal/operators/ConcatMapObservable.scala">implementation is beautiful</a> ;-)</p>
 
-<p>In addition to that, <code class="highlighter-rouge">Observable</code> has performance improvements for the
-<code class="highlighter-rouge">bufferSliding</code> operator, as it was revealed in a recent benchmark
+<p>In addition to that, <code class="language-plaintext highlighter-rouge">Observable</code> has performance improvements for the
+<code class="language-plaintext highlighter-rouge">bufferSliding</code> operator, as it was revealed in a recent benchmark
 that it had terrible performance. Now it is fine :-)</p>
-
-<h3 id="all-issues">All Issues</h3>
+    
+      <h3 id="all-issues">
+        
+        
+          All Issues <a href="#all-issues" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>The full list of changes (with descriptions below):</p>
 
@@ -183,43 +220,49 @@ Don’t publish empty jars in root projects</li>
   <li><a href="https://github.com/monix/monix/pull/300">Issue #300</a>:
 Update to cats 0.9.0</li>
   <li><a href="https://github.com/monix/monix/pull/301">Issue #301</a>:
-<code class="highlighter-rouge">MVar</code>, a non-blocking Task-based implementation</li>
+<code class="language-plaintext highlighter-rouge">MVar</code>, a non-blocking Task-based implementation</li>
   <li><a href="https://github.com/monix/monix/issues/303">Issue #303</a>:
 Observable “doOn” operators refactoring</li>
   <li><a href="https://github.com/monix/monix/issues/281">Issue #281</a>:
-Fix performance regression in <code class="highlighter-rouge">Task.flatMap</code></li>
+Fix performance regression in <code class="language-plaintext highlighter-rouge">Task.flatMap</code></li>
   <li><a href="https://github.com/monix/monix/issues/284">Issue #284</a>:
-Move <code class="highlighter-rouge">ExecutionModel</code> to <code class="highlighter-rouge">monix.execution</code></li>
+Move <code class="language-plaintext highlighter-rouge">ExecutionModel</code> to <code class="language-plaintext highlighter-rouge">monix.execution</code></li>
   <li><a href="https://github.com/monix/monix/issues/285">Issue #285</a>:
-Rename <code class="highlighter-rouge">Task.runAsync(f: Try[A] =&gt; Unit)</code> to <code class="highlighter-rouge">Task.runOnComplete</code></li>
+Rename <code class="language-plaintext highlighter-rouge">Task.runAsync(f: Try[A] =&gt; Unit)</code> to <code class="language-plaintext highlighter-rouge">Task.runOnComplete</code></li>
   <li><a href="https://github.com/monix/monix/issues/286">Issue #286</a>:
-Add <code class="highlighter-rouge">Task.runSyncMaybe</code></li>
+Add <code class="language-plaintext highlighter-rouge">Task.runSyncMaybe</code></li>
   <li><a href="https://github.com/monix/monix/issues/287">Issue #287</a>:
-Add <code class="highlighter-rouge">Scheduler.forkJoin</code> builder</li>
+Add <code class="language-plaintext highlighter-rouge">Scheduler.forkJoin</code> builder</li>
   <li><a href="https://github.com/monix/monix/issues/266">Issue #266</a>:
-Add <code class="highlighter-rouge">SchedulerService</code> interface in <code class="highlighter-rouge">monix.execution.schedulers</code></li>
+Add <code class="language-plaintext highlighter-rouge">SchedulerService</code> interface in <code class="language-plaintext highlighter-rouge">monix.execution.schedulers</code></li>
   <li><a href="https://github.com/monix/monix/issues/288">Issue #288</a>:
-<code class="highlighter-rouge">Task.create</code> should not force async boundary</li>
+<code class="language-plaintext highlighter-rouge">Task.create</code> should not force async boundary</li>
   <li><a href="https://github.com/monix/monix/issues/289">Issue #289</a>:
-<code class="highlighter-rouge">Observable.foreach</code> should not fork</li>
+<code class="language-plaintext highlighter-rouge">Observable.foreach</code> should not fork</li>
   <li><a href="https://github.com/monix/monix/issues/291">Issue #291</a>:
-Add <code class="highlighter-rouge">Observable.takeEveryNth</code> operator</li>
+Add <code class="language-plaintext highlighter-rouge">Observable.takeEveryNth</code> operator</li>
   <li><a href="https://github.com/monix/monix/issues/292">Issue #292</a>:
-Optimize <code class="highlighter-rouge">Observable.concatMap</code></li>
+Optimize <code class="language-plaintext highlighter-rouge">Observable.concatMap</code></li>
   <li><a href="https://github.com/monix/monix/issues/294">Issue #294</a>:
-Optimize <code class="highlighter-rouge">Observable.bufferSliding</code></li>
+Optimize <code class="language-plaintext highlighter-rouge">Observable.bufferSliding</code></li>
   <li><a href="https://github.com/monix/monix/issues/295">Issue #295</a>:
-Add <code class="highlighter-rouge">Observable.publishSelector</code>, <code class="highlighter-rouge">Observable.pipeThroughSelector</code></li>
+Add <code class="language-plaintext highlighter-rouge">Observable.publishSelector</code>, <code class="language-plaintext highlighter-rouge">Observable.pipeThroughSelector</code></li>
   <li><a href="https://github.com/monix/monix/issues/296">Issue #296</a>:
-Add <code class="highlighter-rouge">Task.deferFuture</code> builder</li>
+Add <code class="language-plaintext highlighter-rouge">Task.deferFuture</code> builder</li>
   <li><a href="https://github.com/monix/monix/pull/305">Issue #305</a>:
-Fix stack-overflow error in <code class="highlighter-rouge">MVar</code></li>
+Fix stack-overflow error in <code class="language-plaintext highlighter-rouge">MVar</code></li>
 </ul>
+    
+      <h3 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="upgrading">Upgrading</h3>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
-<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code> (and use
+<code class="language-plaintext highlighter-rouge">%%%</code> for Scala.js):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.2.1"</span>
 </code></pre></div></div>
@@ -249,7 +292,14 @@ integration:</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -285,18 +335,45 @@ integration:</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

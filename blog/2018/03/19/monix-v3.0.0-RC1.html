@@ -29,19 +29,15 @@
   <meta content="3.0.0 is coming, try it out now!" property="og:description">
   <meta content="https://monix.io/blog/2018/03/19/monix-v3.0.0-RC1.html" property="og:url">
   <meta content="2018-03-19T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 3.0.0-RC1</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 3.0.0-RC1
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2018-03-19">
@@ -111,17 +113,34 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>The <code class="highlighter-rouge">3.0.0</code> release is near and it’s going to be huge. This is the first of the two 
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#milestones">Milestones</a></li>
+  <li><a href="#upgrading">Upgrading</a></li>
+  <li><a href="#changes">Changes</a>
+    <ul>
+      <li><a href="#300-rc1">3.0.0-RC1</a></li>
+      <li><a href="#300-m3">3.0.0-M3</a></li>
+      <li><a href="#300-m2">3.0.0-M2</a></li>
+      <li><a href="#300-m1">3.0.0-M1</a></li>
+    </ul>
+  </li>
+  <li><a href="#special-thanks">Special Thanks</a></li>
+</ul>
+
+  </nav>
+
+  <p>The <code class="language-plaintext highlighter-rouge">3.0.0</code> release is near and it’s going to be huge. This is the first of the two 
 release candidates planned, see below for the timeline.</p>
 
-<p>The theme of the <code class="highlighter-rouge">3.x</code> series are:</p>
+<p>The theme of the <code class="language-plaintext highlighter-rouge">3.x</code> series are:</p>
 
 <ol>
   <li>deep integration with <a href="https://typelevel.org/cats/">Typelevel Cats</a></li>
   <li>deep integration with <a href="https://typelevel.org/cats-effect/">cats-effect</a></li>
-  <li>a much improved <code class="highlighter-rouge">Task</code>, in concert with its <code class="highlighter-rouge">cats-effect</code> integration</li>
-  <li>improvements across the board to <code class="highlighter-rouge">Observable</code>, <code class="highlighter-rouge">CancelableFuture</code>, etc.</li>
-  <li>the introduction of <code class="highlighter-rouge">monix.tail.Iterant</code>, a purely functional, pull-based 
+  <li>a much improved <code class="language-plaintext highlighter-rouge">Task</code>, in concert with its <code class="language-plaintext highlighter-rouge">cats-effect</code> integration</li>
+  <li>improvements across the board to <code class="language-plaintext highlighter-rouge">Observable</code>, <code class="language-plaintext highlighter-rouge">CancelableFuture</code>, etc.</li>
+  <li>the introduction of <code class="language-plaintext highlighter-rouge">monix.tail.Iterant</code>, a purely functional, pull-based 
 streaming alternative</li>
 </ol>
 
@@ -133,16 +152,22 @@ streaming alternative</li>
 </div>
 
 <!--more-->
-
-<h2 id="milestones">Milestones</h2>
+    
+      <h2 id="milestones">
+        
+        
+          Milestones <a href="#milestones" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>This release candidate is the first of two release candidates to follow.
 The remaining <a href="https://github.com/monix/monix/milestones">milestones</a> 
 are these:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">3.0.0-RC2</code> to be released on April 15, 2018</li>
-  <li><code class="highlighter-rouge">3.0.0</code> to be released on May 15, 2018</li>
+  <li><code class="language-plaintext highlighter-rouge">3.0.0-RC2</code> to be released on April 15, 2018</li>
+  <li><code class="language-plaintext highlighter-rouge">3.0.0</code> to be released on May 15, 2018</li>
 </ol>
 
 <p>These dates are synchronized with the 
@@ -150,47 +175,65 @@ are these:</p>
 <a href="https://typelevel.org/cats-effect/">cats-effect</a>:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">1.0.0-RC</code> on April 15, 2018</li>
-  <li><code class="highlighter-rouge">1.0.0</code> on May 15, 2018</li>
+  <li><code class="language-plaintext highlighter-rouge">1.0.0-RC</code> on April 15, 2018</li>
+  <li><code class="language-plaintext highlighter-rouge">1.0.0</code> on May 15, 2018</li>
 </ol>
 
 <p>On API compatibility, going forward we’ll try our best to keep it and to
-re-add symbols that were removed from <code class="highlighter-rouge">2.x</code> to ease migration, but until
-<code class="highlighter-rouge">RC2</code> that is a best effort, due to <code class="highlighter-rouge">cats-effect</code> planned API breakage in its
-<code class="highlighter-rouge">1.0.0</code>. But from <code class="highlighter-rouge">RC2</code> onwards, you should expect both source and binary
+re-add symbols that were removed from <code class="language-plaintext highlighter-rouge">2.x</code> to ease migration, but until
+<code class="language-plaintext highlighter-rouge">RC2</code> that is a best effort, due to <code class="language-plaintext highlighter-rouge">cats-effect</code> planned API breakage in its
+<code class="language-plaintext highlighter-rouge">1.0.0</code>. But from <code class="language-plaintext highlighter-rouge">RC2</code> onwards, you should expect both source and binary
 compatibility.</p>
+    
+      <h2 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="upgrading">Upgrading</h2>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC1"</span>
 </code></pre></div></div>
 
-<p>Note this depends on Cats <code class="highlighter-rouge">1.1.0</code> and cats-effect <code class="highlighter-rouge">0.10</code>!</p>
-
-<h2 id="changes">Changes</h2>
+<p>Note this depends on Cats <code class="language-plaintext highlighter-rouge">1.1.0</code> and cats-effect <code class="language-plaintext highlighter-rouge">0.10</code>!</p>
+    
+      <h2 id="changes">
+        
+        
+          Changes <a href="#changes" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>We haven’t announced any milestones on the website, due to their instability, 
 therefore here’s the full list of changes that happened since the currently stable 
-<code class="highlighter-rouge">2.3.x</code>:</p>
-
-<h3 id="300-rc1">3.0.0-RC1</h3>
+<code class="language-plaintext highlighter-rouge">2.3.x</code>:</p>
+    
+      <h3 id="300-rc1">
+        
+        
+          3.0.0-RC1 <a href="#300-rc1" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><a href="https://typelevel.org/cats-effect/">Cats Effect</a> integration:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/598">PR #598</a>:
-Integrates <code class="highlighter-rouge">cats.effect.Timer</code> and <code class="highlighter-rouge">IO.cancelable</code></li>
+Integrates <code class="language-plaintext highlighter-rouge">cats.effect.Timer</code> and <code class="language-plaintext highlighter-rouge">IO.cancelable</code></li>
   <li><a href="https://github.com/monix/monix/pull/600">PR #600</a>:
-Add <code class="highlighter-rouge">Sync</code> &amp; <code class="highlighter-rouge">Async</code> instances for <code class="highlighter-rouge">Iterant</code></li>
+Add <code class="language-plaintext highlighter-rouge">Sync</code> &amp; <code class="language-plaintext highlighter-rouge">Async</code> instances for <code class="language-plaintext highlighter-rouge">Iterant</code></li>
   <li><a href="https://github.com/monix/monix/pull/607">PR #607</a>:
-implement <code class="highlighter-rouge">ConcurrentEffect[Task]</code> (upgrade to cats-effect 0.10)</li>
+implement <code class="language-plaintext highlighter-rouge">ConcurrentEffect[Task]</code> (upgrade to cats-effect 0.10)</li>
   <li><a href="https://github.com/monix/monix/pull/609">PR #609</a>:
 update Cats to 1.1.0 &amp; Cats Effect to 0.10</li>
 </ul>
 
-<p>Features for <code class="highlighter-rouge">monix-execution</code>:</p>
+<p>Features for <code class="language-plaintext highlighter-rouge">monix-execution</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/527">PR #527</a>
@@ -198,144 +241,144 @@ update Cats to 1.1.0 &amp; Cats Effect to 0.10</li>
 <a href="https://github.com/monix/monix/issues/525">#525</a> and
 <a href="https://github.com/monix/monix/issues/526">#526</a>):
 removes macros, replacing them with plain extension methods,
-removes <code class="highlighter-rouge">SerialCancelable#orderedUpdate</code></li>
+removes <code class="language-plaintext highlighter-rouge">SerialCancelable#orderedUpdate</code></li>
   <li><a href="https://github.com/monix/monix/pull/556">PR #556</a>:
-<code class="highlighter-rouge">SchedulerService.awaitTermination</code> and fix concurrency tests</li>
+<code class="language-plaintext highlighter-rouge">SchedulerService.awaitTermination</code> and fix concurrency tests</li>
   <li><a href="https://github.com/monix/monix/pull/584">PR #584</a>
 (<a href="https://github.com/monix/monix/issues/221">#221</a>):
-add conversions module for the Java 8 <code class="highlighter-rouge">CompletableFuture</code></li>
+add conversions module for the Java 8 <code class="language-plaintext highlighter-rouge">CompletableFuture</code></li>
 </ul>
 
-<p>Features for <code class="highlighter-rouge">monix-eval</code>:</p>
+<p>Features for <code class="language-plaintext highlighter-rouge">monix-eval</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/507">PR #507</a>: add
-<code class="highlighter-rouge">onErrorRestartLoop</code> for <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code></li>
+<code class="language-plaintext highlighter-rouge">onErrorRestartLoop</code> for <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code></li>
   <li><a href="https://github.com/monix/monix/pull/533">PR #533</a>
 (<a href="https://github.com/monix/monix/issues/532">#523</a>):
-add <code class="highlighter-rouge">Task.fork</code> operator, deprecate old <code class="highlighter-rouge">Task.fork</code> and
-<code class="highlighter-rouge">executeWithFork</code>, renamed to <code class="highlighter-rouge">executeAsync</code></li>
+add <code class="language-plaintext highlighter-rouge">Task.fork</code> operator, deprecate old <code class="language-plaintext highlighter-rouge">Task.fork</code> and
+<code class="language-plaintext highlighter-rouge">executeWithFork</code>, renamed to <code class="language-plaintext highlighter-rouge">executeAsync</code></li>
   <li><a href="https://github.com/monix/monix/pull/530">PR #530</a>
 (<a href="https://github.com/monix/monix/issues/520">#520</a>):
-add <code class="highlighter-rouge">Task.forkAndForget</code></li>
+add <code class="language-plaintext highlighter-rouge">Task.forkAndForget</code></li>
   <li><a href="https://github.com/monix/monix/pull/537">PR #537</a>
 (<a href="https://github.com/monix/monix/issues/535">#535</a>):
-Make <code class="highlighter-rouge">MVar</code> constructors return <code class="highlighter-rouge">Task</code></li>
+Make <code class="language-plaintext highlighter-rouge">MVar</code> constructors return <code class="language-plaintext highlighter-rouge">Task</code></li>
   <li><a href="https://github.com/monix/monix/pull/540">PR #540</a>
 (<a href="https://github.com/monix/monix/issues/539">#539</a>):
-make all <code class="highlighter-rouge">Task</code> abstractions referentially transparent</li>
+make all <code class="language-plaintext highlighter-rouge">Task</code> abstractions referentially transparent</li>
   <li><a href="https://github.com/monix/monix/pull/545">PR #545</a>
 (<a href="https://github.com/monix/monix/issues/538">#538</a>):
-add <code class="highlighter-rouge">newtype</code> for <code class="highlighter-rouge">Task.Par</code>, using same encoding used in <code class="highlighter-rouge">cats-effect</code></li>
+add <code class="language-plaintext highlighter-rouge">newtype</code> for <code class="language-plaintext highlighter-rouge">Task.Par</code>, using same encoding used in <code class="language-plaintext highlighter-rouge">cats-effect</code></li>
   <li><a href="https://github.com/monix/monix/pull/547">PR #547</a>
 (<a href="https://github.com/monix/monix/issues/542">#542</a>):
-add <code class="highlighter-rouge">Task.runSyncUnsafe</code></li>
+add <code class="language-plaintext highlighter-rouge">Task.runSyncUnsafe</code></li>
   <li><a href="https://github.com/monix/monix/pull/550">PR #550</a>:
-add <code class="highlighter-rouge">Task.sleep</code>, refactor the implementation of <code class="highlighter-rouge">delayExecution</code> and
-<code class="highlighter-rouge">delayResult</code> and deprecate <code class="highlighter-rouge">delayExecutionWith</code> and
-<code class="highlighter-rouge">delayResultBySelector</code></li>
+add <code class="language-plaintext highlighter-rouge">Task.sleep</code>, refactor the implementation of <code class="language-plaintext highlighter-rouge">delayExecution</code> and
+<code class="language-plaintext highlighter-rouge">delayResult</code> and deprecate <code class="language-plaintext highlighter-rouge">delayExecutionWith</code> and
+<code class="language-plaintext highlighter-rouge">delayResultBySelector</code></li>
   <li><a href="https://github.com/monix/monix/pull/482">PR #482</a>
 (<a href="https://github.com/monix/monix/issues/477">#477</a>):
-add the <code class="highlighter-rouge">.cancelable</code> operator on <code class="highlighter-rouge">Task</code></li>
+add the <code class="language-plaintext highlighter-rouge">.cancelable</code> operator on <code class="language-plaintext highlighter-rouge">Task</code></li>
   <li><a href="https://github.com/monix/monix/pull/561">PR #561</a>:
-Bracket for <code class="highlighter-rouge">Task</code> / <code class="highlighter-rouge">Coeval</code>, <code class="highlighter-rouge">Task.cancelable</code> and <code class="highlighter-rouge">Task.onCancelRaiseError</code></li>
+Bracket for <code class="language-plaintext highlighter-rouge">Task</code> / <code class="language-plaintext highlighter-rouge">Coeval</code>, <code class="language-plaintext highlighter-rouge">Task.cancelable</code> and <code class="language-plaintext highlighter-rouge">Task.onCancelRaiseError</code></li>
   <li><a href="https://github.com/monix/monix/pull/596">PR #596</a>:
-add <code class="highlighter-rouge">Fiber</code> interface, refactor <code class="highlighter-rouge">memoize</code> for <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code></li>
+add <code class="language-plaintext highlighter-rouge">Fiber</code> interface, refactor <code class="language-plaintext highlighter-rouge">memoize</code> for <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code></li>
   <li><a href="https://github.com/monix/monix/pull/602">PR #602</a>:
-<code class="highlighter-rouge">TaskLocal</code> should expose <code class="highlighter-rouge">Local</code></li>
+<code class="language-plaintext highlighter-rouge">TaskLocal</code> should expose <code class="language-plaintext highlighter-rouge">Local</code></li>
   <li><a href="https://github.com/monix/monix/pull/603">PR #603</a>:
-Changed implementation <code class="highlighter-rouge">TaskLocal#bind</code> in terms of <code class="highlighter-rouge">Task#bracket</code></li>
+Changed implementation <code class="language-plaintext highlighter-rouge">TaskLocal#bind</code> in terms of <code class="language-plaintext highlighter-rouge">Task#bracket</code></li>
 </ul>
 
-<p>Features for <code class="highlighter-rouge">monix-reactive</code>:</p>
+<p>Features for <code class="language-plaintext highlighter-rouge">monix-reactive</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/511">PR #511</a> 
 (<a href="https://github.com/monix/monix/issues/279">#269</a>):
-add <code class="highlighter-rouge">monix.reactive.subjects.Var</code> type</li>
+add <code class="language-plaintext highlighter-rouge">monix.reactive.subjects.Var</code> type</li>
   <li><a href="https://github.com/monix/monix/pull/528">PR #528</a>:
-add <code class="highlighter-rouge">Observable.scanMap</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Observable.scanMap</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/536">PR #536</a>
 (<a href="https://github.com/monix/monix/issues/459">#459</a>):
-add a <code class="highlighter-rouge">NonEmptyParallel</code> for <code class="highlighter-rouge">Observable</code> using <code class="highlighter-rouge">combineLatest</code></li>
+add a <code class="language-plaintext highlighter-rouge">NonEmptyParallel</code> for <code class="language-plaintext highlighter-rouge">Observable</code> using <code class="language-plaintext highlighter-rouge">combineLatest</code></li>
 </ul>
 
-<p>Features for <code class="highlighter-rouge">monix-tail</code>:</p>
+<p>Features for <code class="language-plaintext highlighter-rouge">monix-tail</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/503">PR #503</a>
 (<a href="https://github.com/monix/monix/issues/487">#487</a>): 
-add <code class="highlighter-rouge">Iterant.liftF</code> builder for lifting monadic values</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.liftF</code> builder for lifting monadic values</li>
   <li><a href="https://github.com/monix/monix/pull/510">PR #510</a>
 (<a href="https://github.com/monix/monix/issues/500">#500</a>): 
-add <code class="highlighter-rouge">Iterant.takeEveryNth</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.takeEveryNth</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/504">PR #504</a>
 (<a href="https://github.com/monix/monix/issues/499">#499</a>):
-add <code class="highlighter-rouge">Iterant.switchIfEmpty</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.switchIfEmpty</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/509">PR #509</a>
 (<a href="https://github.com/monix/monix/issues/495">#495</a>):
-add <code class="highlighter-rouge">Iterant.dropLast</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.dropLast</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/508">PR #508</a>
 (<a href="https://github.com/monix/monix/issues/501">#501</a>):
-add <code class="highlighter-rouge">Iterant.intersperse</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.intersperse</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/512">PR #512</a>
 (<a href="https://github.com/monix/monix/issues/496">#496</a>):
-add <code class="highlighter-rouge">Iterant.dropWhileWithIndex</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.dropWhileWithIndex</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/514">PR #514</a>
 (<a href="https://github.com/monix/monix/issues/497">#497</a>): 
-add <code class="highlighter-rouge">Iterant.takeWhileWithIndex</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.takeWhileWithIndex</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/523">PR #523</a>
 (<a href="https://github.com/monix/monix/issues/519">#519</a>):
-add <code class="highlighter-rouge">Iterant.scanMap</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.scanMap</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/518">PR #518</a>
 (<a href="https://github.com/monix/monix/issues/516">#516</a>):
-add <code class="highlighter-rouge">Iterant[Task].intervalAtFixedRate</code></li>
+add <code class="language-plaintext highlighter-rouge">Iterant[Task].intervalAtFixedRate</code></li>
   <li><a href="https://github.com/monix/monix/pull/524">PR #524</a>
 (<a href="https://github.com/monix/monix/issues/498">#498</a>):
-add <code class="highlighter-rouge">Iterant.interleave</code></li>
+add <code class="language-plaintext highlighter-rouge">Iterant.interleave</code></li>
   <li><a href="https://github.com/monix/monix/pull/549">PR #549</a>
 (<a href="https://github.com/monix/monix/issues/548">#548</a>):
-add <code class="highlighter-rouge">Iterant.fromStateAction</code> and <code class="highlighter-rouge">fromStateActionL</code></li>
+add <code class="language-plaintext highlighter-rouge">Iterant.fromStateAction</code> and <code class="language-plaintext highlighter-rouge">fromStateActionL</code></li>
   <li><a href="https://github.com/monix/monix/pull/567">PR #567</a>
 (related to <a href="https://github.com/monix/monix/issues/563">#563</a>):
-<code class="highlighter-rouge">completeL</code> should handle <code class="highlighter-rouge">F[_]</code> errors, <code class="highlighter-rouge">mapEval</code> should not</li>
+<code class="language-plaintext highlighter-rouge">completeL</code> should handle <code class="language-plaintext highlighter-rouge">F[_]</code> errors, <code class="language-plaintext highlighter-rouge">mapEval</code> should not</li>
   <li><a href="https://github.com/monix/monix/pull/569">PR #569</a>
 (related to <a href="https://github.com/monix/monix/issues/563">#563</a>):
-<code class="highlighter-rouge">Iterant</code> fold left operators (yielding <code class="highlighter-rouge">F[_]</code>) need to handle errors 
-thrown in <code class="highlighter-rouge">F[_]</code></li>
+<code class="language-plaintext highlighter-rouge">Iterant</code> fold left operators (yielding <code class="language-plaintext highlighter-rouge">F[_]</code>) need to handle errors 
+thrown in <code class="language-plaintext highlighter-rouge">F[_]</code></li>
   <li><a href="https://github.com/monix/monix/pull/566">PR #566</a>
 (<a href="https://github.com/monix/monix/issues/562">#562</a>):
-improve safety of <code class="highlighter-rouge">attempt</code> &amp; <code class="highlighter-rouge">onErrorHandleWith</code> on <code class="highlighter-rouge">Iterant</code></li>
+improve safety of <code class="language-plaintext highlighter-rouge">attempt</code> &amp; <code class="language-plaintext highlighter-rouge">onErrorHandleWith</code> on <code class="language-plaintext highlighter-rouge">Iterant</code></li>
   <li><a href="https://github.com/monix/monix/pull/578">PR #578</a>
 (<a href="https://github.com/monix/monix/issues/570">#570</a>):
-add <code class="highlighter-rouge">Iterant#sumL</code> method</li>
+add <code class="language-plaintext highlighter-rouge">Iterant#sumL</code> method</li>
   <li><a href="https://github.com/monix/monix/pull/579">PR #579</a>
 (<a href="https://github.com/monix/monix/issues/577">#577</a>):
-make <code class="highlighter-rouge">Iterant#reduceL</code> and <code class="highlighter-rouge">headOptionL</code> left folds handle errors 
-from <code class="highlighter-rouge">F[_]</code> context</li>
+make <code class="language-plaintext highlighter-rouge">Iterant#reduceL</code> and <code class="language-plaintext highlighter-rouge">headOptionL</code> left folds handle errors 
+from <code class="language-plaintext highlighter-rouge">F[_]</code> context</li>
   <li><a href="https://github.com/monix/monix/pull/575">PR #575</a>
 (<a href="https://github.com/monix/monix/issues/571">##571</a> and
 <a href="https://github.com/monix/monix/issues/572">#572</a>):
-add <code class="highlighter-rouge">Iterant.repeat</code> (method and builder)</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.repeat</code> (method and builder)</li>
   <li><a href="https://github.com/monix/monix/pull/583">PR #583</a>
 (<a href="https://github.com/monix/monix/pull/549">#549</a>):
-add <code class="highlighter-rouge">Iterant.fromStateAction</code> builder</li>
+add <code class="language-plaintext highlighter-rouge">Iterant.fromStateAction</code> builder</li>
   <li><a href="https://github.com/monix/monix/pull/582">PR #582</a>
 (<a href="https://github.com/monix/monix/issues/573">#573</a> and
 <a href="https://github.com/monix/monix/issues/574">#574</a>):
-add <code class="highlighter-rouge">repeatEval</code>/<code class="highlighter-rouge">repeatEvalF</code> for <code class="highlighter-rouge">Iterant</code> &amp; <code class="highlighter-rouge">repeatEvalF</code> 
-for <code class="highlighter-rouge">Observable</code></li>
+add <code class="language-plaintext highlighter-rouge">repeatEval</code>/<code class="language-plaintext highlighter-rouge">repeatEvalF</code> for <code class="language-plaintext highlighter-rouge">Iterant</code> &amp; <code class="language-plaintext highlighter-rouge">repeatEvalF</code> 
+for <code class="language-plaintext highlighter-rouge">Observable</code></li>
   <li><a href="https://github.com/monix/monix/pull/554">PR #554</a>
 (<a href="https://github.com/monix/monix/issues/479">#479</a>):
-add <code class="highlighter-rouge">Iterant#bracket</code> operator</li>
+add <code class="language-plaintext highlighter-rouge">Iterant#bracket</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/581">PR #581</a>
 (<a href="https://github.com/monix/monix/issues/559">#559</a>):
-handle broken nodes in <code class="highlighter-rouge">Iterant.skipSuspendL</code></li>
+handle broken nodes in <code class="language-plaintext highlighter-rouge">Iterant.skipSuspendL</code></li>
   <li><a href="https://github.com/monix/monix/pull/589">PR #589</a>:
-improve handling of broken batches/cursors in <code class="highlighter-rouge">Iterant.attempt</code></li>
+improve handling of broken batches/cursors in <code class="language-plaintext highlighter-rouge">Iterant.attempt</code></li>
   <li><a href="https://github.com/monix/monix/pull/591">PR #591</a>
 (<a href="https://github.com/monix/monix/issues/580">#580</a>):
-improve strictness of <code class="highlighter-rouge">Eq</code> of <code class="highlighter-rouge">Iterant</code>, fix <code class="highlighter-rouge">doOnFinish</code> on <code class="highlighter-rouge">Last</code></li>
+improve strictness of <code class="language-plaintext highlighter-rouge">Eq</code> of <code class="language-plaintext highlighter-rouge">Iterant</code>, fix <code class="language-plaintext highlighter-rouge">doOnFinish</code> on <code class="language-plaintext highlighter-rouge">Last</code></li>
 </ul>
 
 <p>Bug fixes:</p>
@@ -343,19 +386,19 @@ improve strictness of <code class="highlighter-rouge">Eq</code> of <code class="
 <ul>
   <li><a href="https://github.com/monix/monix/pull/552">PR #552</a> 
 (<a href="https://github.com/monix/monix/issues/483">#483</a>):
-<code class="highlighter-rouge">MVar</code> is stack unsafe, triggering stack overflow on <code class="highlighter-rouge">put</code></li>
+<code class="language-plaintext highlighter-rouge">MVar</code> is stack unsafe, triggering stack overflow on <code class="language-plaintext highlighter-rouge">put</code></li>
   <li><a href="https://github.com/monix/monix/pull/543">PR #543</a>
 (<a href="https://github.com/monix/monix/issues/541">#541</a>):
-<code class="highlighter-rouge">Observable.take(0)</code> shouldn’t subscribe to the source at all</li>
+<code class="language-plaintext highlighter-rouge">Observable.take(0)</code> shouldn’t subscribe to the source at all</li>
   <li><a href="https://github.com/monix/monix/pull/469">PR #496</a>
 (<a href="https://github.com/monix/monix/issues/468">#468</a>):
-race condition for <code class="highlighter-rouge">Observable</code> in concatenation operators</li>
+race condition for <code class="language-plaintext highlighter-rouge">Observable</code> in concatenation operators</li>
   <li><a href="https://github.com/monix/monix/pull/568">PR #568</a>:
-in <code class="highlighter-rouge">Iterant.toReactivePublisher</code> the <code class="highlighter-rouge">cancel</code> should be made 
-by <code class="highlighter-rouge">request()</code></li>
+in <code class="language-plaintext highlighter-rouge">Iterant.toReactivePublisher</code> the <code class="language-plaintext highlighter-rouge">cancel</code> should be made 
+by <code class="language-plaintext highlighter-rouge">request()</code></li>
   <li><a href="https://github.com/monix/monix/pull/592">PR #592</a>
 (<a href="https://github.com/monix/monix/issues/590">#590</a>):
-potential nontermination in <code class="highlighter-rouge">Observable.zip[Map]</code></li>
+potential nontermination in <code class="language-plaintext highlighter-rouge">Observable.zip[Map]</code></li>
 </ul>
 
 <p>Chores:</p>
@@ -363,7 +406,7 @@ potential nontermination in <code class="highlighter-rouge">Observable.zip[Map]<
 <ul>
   <li><a href="https://github.com/monix/monix/pull/502">PR #502</a>: update SBT to 1.1</li>
   <li><a href="https://github.com/monix/monix/pull/488">PR #488</a>:
-add note about execution model for <code class="highlighter-rouge">Observable.fromInputStream</code></li>
+add note about execution model for <code class="language-plaintext highlighter-rouge">Observable.fromInputStream</code></li>
   <li><a href="https://github.com/monix/monix/pull/531">PR #531</a>
 (related to <a href="https://github.com/monix/monix/issues/513">#513</a>):
 add automatic header creation on compilation</li>
@@ -371,9 +414,9 @@ add automatic header creation on compilation</li>
 disable automatic publishing, too dangerous</li>
   <li><a href="https://github.com/monix/monix/pull/546">PR #546</a>
 (related to <a href="https://github.com/monix/monix/issues/513">#513</a>):
-add <code class="highlighter-rouge">scalafmt.conf</code> configuration</li>
+add <code class="language-plaintext highlighter-rouge">scalafmt.conf</code> configuration</li>
   <li><a href="https://github.com/monix/monix/pull/565">PR #565</a>:
-correct small typo in doc of <code class="highlighter-rouge">Task#executeOn</code></li>
+correct small typo in doc of <code class="language-plaintext highlighter-rouge">Task#executeOn</code></li>
   <li><a href="https://github.com/monix/monix/pull/576">PR #576</a>:
 fix comment mentioning Akka instead of Monix</li>
   <li><a href="https://github.com/monix/monix/pull/588">PR #588</a>:
@@ -381,161 +424,179 @@ update copyright headers for Scala 2.11 source files</li>
   <li><a href="https://github.com/monix/monix/pull/605">PR #605</a>:
 Make concurrent Atomic tests more resilient to timeouts</li>
 </ul>
-
-<h3 id="300-m3">3.0.0-M3</h3>
+    
+      <h3 id="300-m3">
+        
+        
+          3.0.0-M3 <a href="#300-m3" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/464">PR #464</a>:
-updates dependencies, Scala to <code class="highlighter-rouge">2.12.4</code> and <code class="highlighter-rouge">2.11.12</code>, JCTools to 
-<code class="highlighter-rouge">2.1.1</code>, Minitest to <code class="highlighter-rouge">2.0.0</code>, Scala.js to <code class="highlighter-rouge">0.6.21</code></li>
+updates dependencies, Scala to <code class="language-plaintext highlighter-rouge">2.12.4</code> and <code class="language-plaintext highlighter-rouge">2.11.12</code>, JCTools to 
+<code class="language-plaintext highlighter-rouge">2.1.1</code>, Minitest to <code class="language-plaintext highlighter-rouge">2.0.0</code>, Scala.js to <code class="language-plaintext highlighter-rouge">0.6.21</code></li>
   <li><a href="https://github.com/monix/monix/pull/462">PR #462</a>:
-Fix for <code class="highlighter-rouge">timeoutTo</code> to cancel source task directly after timeout</li>
+Fix for <code class="language-plaintext highlighter-rouge">timeoutTo</code> to cancel source task directly after timeout</li>
   <li><a href="https://github.com/monix/monix/pull/444">PR #444</a>:
-Add <code class="highlighter-rouge">localContextPropagation</code> to <code class="highlighter-rouge">Task.Options</code>, implement tracing 
-<code class="highlighter-rouge">Local</code> vars</li>
+Add <code class="language-plaintext highlighter-rouge">localContextPropagation</code> to <code class="language-plaintext highlighter-rouge">Task.Options</code>, implement tracing 
+<code class="language-plaintext highlighter-rouge">Local</code> vars</li>
   <li><a href="https://github.com/monix/monix/pull/470">PR 470</a>:
 increase test coverage</li>
   <li><a href="https://github.com/monix/monix/pull/473">PR #473</a>:
-Fix issue where <code class="highlighter-rouge">fromAsyncStateAction</code> is not safe for user code</li>
+Fix issue where <code class="language-plaintext highlighter-rouge">fromAsyncStateAction</code> is not safe for user code</li>
   <li><a href="https://github.com/monix/monix/pull/485">PR #485</a> and 
 <a href="https://github.com/monix/monix/pull/489">PR #489</a>:
-Updates Cats to <code class="highlighter-rouge">1.0.1</code> and cats-effect to <code class="highlighter-rouge">0.8</code></li>
+Updates Cats to <code class="language-plaintext highlighter-rouge">1.0.1</code> and cats-effect to <code class="language-plaintext highlighter-rouge">0.8</code></li>
   <li><a href="https://github.com/monix/monix/pull/474">PR #474</a>:
-<code class="highlighter-rouge">Task</code> / <code class="highlighter-rouge">Coeval</code> Run-loop Optimizations, First Batch</li>
+<code class="language-plaintext highlighter-rouge">Task</code> / <code class="language-plaintext highlighter-rouge">Coeval</code> Run-loop Optimizations, First Batch</li>
   <li><a href="https://github.com/monix/monix/pull/492">PR #492</a>:
 Second batch of optimizations</li>
   <li><a href="https://github.com/monix/monix/pull/494">PR #494</a>:
-<code class="highlighter-rouge">Task.cancel</code> as a pure action, along with <code class="highlighter-rouge">.start</code>, 
-<code class="highlighter-rouge">.race</code> and <code class="highlighter-rouge">.uncancelable</code></li>
+<code class="language-plaintext highlighter-rouge">Task.cancel</code> as a pure action, along with <code class="language-plaintext highlighter-rouge">.start</code>, 
+<code class="language-plaintext highlighter-rouge">.race</code> and <code class="language-plaintext highlighter-rouge">.uncancelable</code></li>
 </ul>
-
-<h3 id="300-m2">3.0.0-M2</h3>
+    
+      <h3 id="300-m2">
+        
+        
+          3.0.0-M2 <a href="#300-m2" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/437">PR #437</a>: 
-Added <code class="highlighter-rouge">Iterant.zipWithIndex</code></li>
+Added <code class="language-plaintext highlighter-rouge">Iterant.zipWithIndex</code></li>
   <li><a href="https://github.com/monix/monix/pull/439">PR #439</a>:
-Added <code class="highlighter-rouge">Iterant.dump</code></li>
+Added <code class="language-plaintext highlighter-rouge">Iterant.dump</code></li>
   <li><a href="https://github.com/monix/monix/pull/441">PR #441</a>:
-<code class="highlighter-rouge">Observable.mapParallelUnordered</code> needs configurable overflow strategy</li>
+<code class="language-plaintext highlighter-rouge">Observable.mapParallelUnordered</code> needs configurable overflow strategy</li>
   <li><a href="https://github.com/monix/monix/pull/445">PR #445</a>:
-Added <code class="highlighter-rouge">ShiftedRunnable</code> in <code class="highlighter-rouge">monix.execution</code></li>
+Added <code class="language-plaintext highlighter-rouge">ShiftedRunnable</code> in <code class="language-plaintext highlighter-rouge">monix.execution</code></li>
   <li><a href="https://github.com/monix/monix/pull/443">PR #443</a>:
-Iterant <code class="highlighter-rouge">maxByL</code> and <code class="highlighter-rouge">minByL</code> ops</li>
+Iterant <code class="language-plaintext highlighter-rouge">maxByL</code> and <code class="language-plaintext highlighter-rouge">minByL</code> ops</li>
   <li><a href="https://github.com/monix/monix/pull/442">PR #442</a>:
-small fixes in <code class="highlighter-rouge">takeWhileNotCanceled</code> and <code class="highlighter-rouge">runAsyncGetFirst</code> docs</li>
+small fixes in <code class="language-plaintext highlighter-rouge">takeWhileNotCanceled</code> and <code class="language-plaintext highlighter-rouge">runAsyncGetFirst</code> docs</li>
   <li><a href="https://github.com/monix/monix/pull/450">PR #450</a>:
 Minor test description fix</li>
   <li><a href="https://github.com/monix/monix/pull/458">PR #458</a>:
 Updates to cats 1.0-RC1 and cats-effect 0.5, along with
-redesigning that integration, e.g. added <code class="highlighter-rouge">cats.Parallel</code> instance,
-<code class="highlighter-rouge">Iterant.parZip</code> and <code class="highlighter-rouge">Iterant.parZipMap</code></li>
+redesigning that integration, e.g. added <code class="language-plaintext highlighter-rouge">cats.Parallel</code> instance,
+<code class="language-plaintext highlighter-rouge">Iterant.parZip</code> and <code class="language-plaintext highlighter-rouge">Iterant.parZipMap</code></li>
 </ul>
-
-<h3 id="300-m1">3.0.0-M1</h3>
+    
+      <h3 id="300-m1">
+        
+        
+          3.0.0-M1 <a href="#300-m1" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/370">PR #370</a>: introduced
-Cats and <code class="highlighter-rouge">cats-effect</code> as direct dependencies</li>
+Cats and <code class="language-plaintext highlighter-rouge">cats-effect</code> as direct dependencies</li>
   <li><a href="https://github.com/monix/monix/pull/377">PR #377</a>: added
 Cats related conversions, along with naming changes for consistency
-(e.g. renamed <code class="highlighter-rouge">Coeval.Attempt</code> to <code class="highlighter-rouge">Coeval.Eager</code>)</li>
+(e.g. renamed <code class="language-plaintext highlighter-rouge">Coeval.Attempt</code> to <code class="language-plaintext highlighter-rouge">Coeval.Eager</code>)</li>
   <li><a href="https://github.com/monix/monix/pull/387">PR #387</a>: updated Cats to 
-<code class="highlighter-rouge">1.0.0-MF</code>, removed deprecated functions and classes</li>
+<code class="language-plaintext highlighter-rouge">1.0.0-MF</code>, removed deprecated functions and classes</li>
   <li><a href="https://github.com/monix/monix/pull/397">PR #397</a>: standardizes
-on Cats-related naming, removes <code class="highlighter-rouge">Coeval</code>’s <code class="highlighter-rouge">Comonad</code> implementation</li>
+on Cats-related naming, removes <code class="language-plaintext highlighter-rouge">Coeval</code>’s <code class="language-plaintext highlighter-rouge">Comonad</code> implementation</li>
   <li><a href="https://github.com/monix/monix/pull/398">PR #398</a>: re-adds
-instances for <code class="highlighter-rouge">CoflatMap</code></li>
+instances for <code class="language-plaintext highlighter-rouge">CoflatMap</code></li>
   <li><a href="https://github.com/monix/monix/pull/427">PR #427</a>: adds
 conversions from Cats to Observable</li>
 </ul>
 
-<p>New <code class="highlighter-rouge">monix-tail</code> sub-project, exposing <code class="highlighter-rouge">monix.tail.Iterant[F[_], A]</code>:</p>
+<p>New <code class="language-plaintext highlighter-rouge">monix-tail</code> sub-project, exposing <code class="language-plaintext highlighter-rouge">monix.tail.Iterant[F[_], A]</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/280">PR #280</a>: introduces
-<code class="highlighter-rouge">Iterant[F[_], A]</code> for pull-based streaming based on <code class="highlighter-rouge">Task</code> / <code class="highlighter-rouge">Coeval</code></li>
+<code class="language-plaintext highlighter-rouge">Iterant[F[_], A]</code> for pull-based streaming based on <code class="language-plaintext highlighter-rouge">Task</code> / <code class="language-plaintext highlighter-rouge">Coeval</code></li>
   <li><a href="https://github.com/monix/monix/pull/396">PR #396</a>:
-adds the <code class="highlighter-rouge">Iterant.scan</code> operator</li>
+adds the <code class="language-plaintext highlighter-rouge">Iterant.scan</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/403">PR #403</a>:
-adds <code class="highlighter-rouge">Iterant.foldWhileLeftL</code> and <code class="highlighter-rouge">Iterant.foldWhileLeftEvalL</code>
+adds <code class="language-plaintext highlighter-rouge">Iterant.foldWhileLeftL</code> and <code class="language-plaintext highlighter-rouge">Iterant.foldWhileLeftEvalL</code>
 operators</li>
   <li><a href="https://github.com/monix/monix/pull/404">PR #404</a>:
-adds Iterant <code class="highlighter-rouge">existsL</code>, <code class="highlighter-rouge">forallL</code>, changes <code class="highlighter-rouge">Observable.foldWhileL</code>
+adds Iterant <code class="language-plaintext highlighter-rouge">existsL</code>, <code class="language-plaintext highlighter-rouge">forallL</code>, changes <code class="language-plaintext highlighter-rouge">Observable.foldWhileL</code>
 (breaking change)</li>
   <li><a href="https://github.com/monix/monix/pull/402">PR #402</a>:
-adds <code class="highlighter-rouge">Iterant.foldRightL</code> operator</li>
+adds <code class="language-plaintext highlighter-rouge">Iterant.foldRightL</code> operator</li>
   <li><a href="https://github.com/monix/monix/pull/405">PR #405</a>:
-adds <code class="highlighter-rouge">Iterant</code> ops - <code class="highlighter-rouge">findL</code>, <code class="highlighter-rouge">foldL</code>, <code class="highlighter-rouge">maxL</code>, <code class="highlighter-rouge">minL</code>, <code class="highlighter-rouge">reduceL</code></li>
+adds <code class="language-plaintext highlighter-rouge">Iterant</code> ops - <code class="language-plaintext highlighter-rouge">findL</code>, <code class="language-plaintext highlighter-rouge">foldL</code>, <code class="language-plaintext highlighter-rouge">maxL</code>, <code class="language-plaintext highlighter-rouge">minL</code>, <code class="language-plaintext highlighter-rouge">reduceL</code></li>
   <li><a href="https://github.com/monix/monix/pull/407">PR #407</a>:
-adds <code class="highlighter-rouge">Iterant</code> ops - <code class="highlighter-rouge">countL</code>, <code class="highlighter-rouge">distinctUntilChanged</code>, 
-<code class="highlighter-rouge">distinctUntilChangedByKey</code></li>
+adds <code class="language-plaintext highlighter-rouge">Iterant</code> ops - <code class="language-plaintext highlighter-rouge">countL</code>, <code class="language-plaintext highlighter-rouge">distinctUntilChanged</code>, 
+<code class="language-plaintext highlighter-rouge">distinctUntilChangedByKey</code></li>
   <li><a href="https://github.com/monix/monix/pull/412">PR #412</a>:
-adds <code class="highlighter-rouge">scanEval</code> on both <code class="highlighter-rouge">Iterant</code> and <code class="highlighter-rouge">Observable</code></li>
+adds <code class="language-plaintext highlighter-rouge">scanEval</code> on both <code class="language-plaintext highlighter-rouge">Iterant</code> and <code class="language-plaintext highlighter-rouge">Observable</code></li>
   <li><a href="https://github.com/monix/monix/pull/411">PR #411</a>:
-another naming consistency change between <code class="highlighter-rouge">Observable</code> 
-and <code class="highlighter-rouge">Iterant</code></li>
+another naming consistency change between <code class="language-plaintext highlighter-rouge">Observable</code> 
+and <code class="language-plaintext highlighter-rouge">Iterant</code></li>
   <li><a href="https://github.com/monix/monix/pull/413">PR #413</a>:
-<code class="highlighter-rouge">Iterant.bufferSliding</code>, <code class="highlighter-rouge">bufferTumbling</code> and <code class="highlighter-rouge">batched</code>
+<code class="language-plaintext highlighter-rouge">Iterant.bufferSliding</code>, <code class="language-plaintext highlighter-rouge">bufferTumbling</code> and <code class="language-plaintext highlighter-rouge">batched</code>
 operators</li>
   <li><a href="https://github.com/monix/monix/pull/417">PR #417</a> and
 <a href="https://github.com/monix/monix/pull/418">PR #418</a>:
-Reactive Streams implementation for <code class="highlighter-rouge">Iterant</code></li>
+Reactive Streams implementation for <code class="language-plaintext highlighter-rouge">Iterant</code></li>
 </ul>
 
-<p>Improvements for <code class="highlighter-rouge">monix-execution</code> and <code class="highlighter-rouge">CancelableFuture</code>:</p>
+<p>Improvements for <code class="language-plaintext highlighter-rouge">monix-execution</code> and <code class="language-plaintext highlighter-rouge">CancelableFuture</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/390">PR #390</a>: changes for
-<code class="highlighter-rouge">flatMap</code> on <code class="highlighter-rouge">CancelableFuture</code> to cancel all involved futures
+<code class="language-plaintext highlighter-rouge">flatMap</code> on <code class="language-plaintext highlighter-rouge">CancelableFuture</code> to cancel all involved futures
 (thanks to <a href="https://github.com/larsrh">@larsrh</a>)</li>
   <li><a href="https://github.com/monix/monix/pull/395">PR #395</a>: adds 
-Cats type class implementations for <code class="highlighter-rouge">CancelableFuture</code></li>
+Cats type class implementations for <code class="language-plaintext highlighter-rouge">CancelableFuture</code></li>
   <li><a href="https://github.com/monix/monix/pull/431">PR #431</a>: improvements
-to <code class="highlighter-rouge">CancelableFuture</code> to get rid of memory leak, also adding utils
-like <code class="highlighter-rouge">CancelableFuture.async</code></li>
+to <code class="language-plaintext highlighter-rouge">CancelableFuture</code> to get rid of memory leak, also adding utils
+like <code class="language-plaintext highlighter-rouge">CancelableFuture.async</code></li>
   <li><a href="https://github.com/monix/monix/pull/432">PR #432</a>: further 
-fixes to <code class="highlighter-rouge">CancelableFuture</code>, since describing a cancellable <code class="highlighter-rouge">flatMap</code>
+fixes to <code class="language-plaintext highlighter-rouge">CancelableFuture</code>, since describing a cancellable <code class="language-plaintext highlighter-rouge">flatMap</code>
 is a hard problem</li>
   <li><a href="https://github.com/monix/monix/pull/418">PR #418</a>:
-adds flip convenience method to <code class="highlighter-rouge">AtomicBoolean</code>
-(thanks to <code class="highlighter-rouge">@Wogan</code>)</li>
+adds flip convenience method to <code class="language-plaintext highlighter-rouge">AtomicBoolean</code>
+(thanks to <code class="language-plaintext highlighter-rouge">@Wogan</code>)</li>
 </ul>
 
-<p>Improvements for <code class="highlighter-rouge">monix-reactive</code> and <code class="highlighter-rouge">Observable</code>:</p>
+<p>Improvements for <code class="language-plaintext highlighter-rouge">monix-reactive</code> and <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/391">PR #391</a>:
 makes Observable concatenation (++) stack safe</li>
   <li><a href="https://github.com/monix/monix/pull/408">PR #408</a>:
-changes for <code class="highlighter-rouge">Iterant</code> and Cats consistency (make use of <code class="highlighter-rouge">Eq</code> and
-<code class="highlighter-rouge">Order</code> type classes, add <code class="highlighter-rouge">foldF</code> and <code class="highlighter-rouge">foldL</code>, remove <code class="highlighter-rouge">distinct</code>
-and <code class="highlighter-rouge">distinctByKey</code>)</li>
+changes for <code class="language-plaintext highlighter-rouge">Iterant</code> and Cats consistency (make use of <code class="language-plaintext highlighter-rouge">Eq</code> and
+<code class="language-plaintext highlighter-rouge">Order</code> type classes, add <code class="language-plaintext highlighter-rouge">foldF</code> and <code class="language-plaintext highlighter-rouge">foldL</code>, remove <code class="language-plaintext highlighter-rouge">distinct</code>
+and <code class="language-plaintext highlighter-rouge">distinctByKey</code>)</li>
   <li><a href="https://github.com/monix/monix/pull/368">PR #368</a>: added 
-the <code class="highlighter-rouge">Observable.intersperse</code> operator (thanks to 
+the <code class="language-plaintext highlighter-rouge">Observable.intersperse</code> operator (thanks to 
 <a href="https://github.com/omainegra">@omainegra</a>)</li>
-  <li><a href="https://github.com/monix/monix/pull/384">PR #384</a>: added <code class="highlighter-rouge">contramap</code> 
+  <li><a href="https://github.com/monix/monix/pull/384">PR #384</a>: added <code class="language-plaintext highlighter-rouge">contramap</code> 
 method to Callback (thanks to <a href="https://github.com/Wogan">@Wogan</a>)</li>
   <li><a href="https://github.com/monix/monix/pull/425">PR #425</a>: gets rid of 
-<code class="highlighter-rouge">ObservableLike</code>, makes <code class="highlighter-rouge">Observable</code> an <code class="highlighter-rouge">abstract class</code> where
-the operators are final, <code class="highlighter-rouge">Pipe</code> no longer has <code class="highlighter-rouge">Observable</code>’s 
-operators, just <code class="highlighter-rouge">transform</code></li>
+<code class="language-plaintext highlighter-rouge">ObservableLike</code>, makes <code class="language-plaintext highlighter-rouge">Observable</code> an <code class="language-plaintext highlighter-rouge">abstract class</code> where
+the operators are final, <code class="language-plaintext highlighter-rouge">Pipe</code> no longer has <code class="language-plaintext highlighter-rouge">Observable</code>’s 
+operators, just <code class="language-plaintext highlighter-rouge">transform</code></li>
 </ul>
 
-<p>Improvements for <code class="highlighter-rouge">monix-eval</code>, <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code>:</p>
+<p>Improvements for <code class="language-plaintext highlighter-rouge">monix-eval</code>, <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code>:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/pull/410">PR #410</a>: <code class="highlighter-rouge">Task</code> and
-<code class="highlighter-rouge">Coeval</code> performance optimisations</li>
-  <li><a href="https://github.com/monix/monix/pull/422">PR #422</a>: adds <code class="highlighter-rouge">Task.shift</code>,
-an innovation inspired by <code class="highlighter-rouge">cats.effect.IO</code></li>
+  <li><a href="https://github.com/monix/monix/pull/410">PR #410</a>: <code class="language-plaintext highlighter-rouge">Task</code> and
+<code class="language-plaintext highlighter-rouge">Coeval</code> performance optimisations</li>
+  <li><a href="https://github.com/monix/monix/pull/422">PR #422</a>: adds <code class="language-plaintext highlighter-rouge">Task.shift</code>,
+an innovation inspired by <code class="language-plaintext highlighter-rouge">cats.effect.IO</code></li>
   <li><a href="https://github.com/monix/monix/pull/424">PR #424</a>:
-<code class="highlighter-rouge">Task</code> refactoring, gets rid of <code class="highlighter-rouge">Task.OnFinish</code> type alias</li>
+<code class="language-plaintext highlighter-rouge">Task</code> refactoring, gets rid of <code class="language-plaintext highlighter-rouge">Task.OnFinish</code> type alias</li>
   <li><a href="https://github.com/monix/monix/pull/430">PR #430</a>:
-<code class="highlighter-rouge">Coeval</code> and <code class="highlighter-rouge">Task</code> refactoring to the <code class="highlighter-rouge">run</code> methods for
-consistency, introduced <code class="highlighter-rouge">map2</code>, <code class="highlighter-rouge">map3</code>…<code class="highlighter-rouge">map6</code> on both
-<code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code>, renamed <code class="highlighter-rouge">zipMap*</code> to <code class="highlighter-rouge">parMap2</code>, <code class="highlighter-rouge">parMap3</code>…
-<code class="highlighter-rouge">parMap6</code> for <code class="highlighter-rouge">Task</code></li>
+<code class="language-plaintext highlighter-rouge">Coeval</code> and <code class="language-plaintext highlighter-rouge">Task</code> refactoring to the <code class="language-plaintext highlighter-rouge">run</code> methods for
+consistency, introduced <code class="language-plaintext highlighter-rouge">map2</code>, <code class="language-plaintext highlighter-rouge">map3</code>…<code class="language-plaintext highlighter-rouge">map6</code> on both
+<code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code>, renamed <code class="language-plaintext highlighter-rouge">zipMap*</code> to <code class="language-plaintext highlighter-rouge">parMap2</code>, <code class="language-plaintext highlighter-rouge">parMap3</code>…
+<code class="language-plaintext highlighter-rouge">parMap6</code> for <code class="language-plaintext highlighter-rouge">Task</code></li>
 </ul>
 
 <p>Administrative and build changes:</p>
@@ -551,8 +612,14 @@ documenting the necessarily steps, see
   <li><a href="https://github.com/monix/monix/pull/423">PR #423</a>: updates Scala.js
 to 0.6.20, the final in the series before 1.0.0</li>
 </ul>
-
-<h2 id="special-thanks">Special Thanks</h2>
+    
+      <h2 id="special-thanks">
+        
+        
+          Special Thanks <a href="#special-thanks" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>For this release I’d like to give warm thanks to:</p>
 
@@ -569,7 +636,14 @@ but also in helping people on the Gitter channel ❤️</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -605,18 +679,45 @@ but also in helping people on the Gitter channel ❤️</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

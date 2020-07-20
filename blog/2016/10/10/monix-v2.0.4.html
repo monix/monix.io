@@ -29,19 +29,15 @@
   <meta content="Fixes an issue with AsyncScheduler" property="og:description">
   <meta content="https://monix.io/blog/2016/10/10/monix-v2.0.4.html" property="og:url">
   <meta content="2016-10-10T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.4 Released for Bug Fixing</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0.4 Released for Bug Fixing
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-10-10">
@@ -111,22 +113,35 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#details">Details</a></li>
+</ul>
+
+  </nav>
+
   <p>This release is binary compatible with 2.0.x, being a bug fix release
 for <a href="https://github.com/monix/monix/issues/244">Issue #244</a>:
-<em><code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
+<em><code class="language-plaintext highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="language-plaintext highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
 have incorrect behavior</em>.</p>
 
-<p>In order to upgrade, just increment the version number in <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>In order to upgrade, just increment the version number in <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.4"</span>
 </code></pre></div></div>
 
 <!--more-->
+    
+      <h3 id="details">
+        
+        
+          Details <a href="#details" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="details">Details</h3>
-
-<p>The <code class="highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> method implementation has
-incorrect behavior and this includes <code class="highlighter-rouge">monix.execution.Scheduler.Implicits.global</code>.
+<p>The <code class="language-plaintext highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> method implementation has
+incorrect behavior and this includes <code class="language-plaintext highlighter-rouge">monix.execution.Scheduler.Implicits.global</code>.
 Sample:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.TimeUnit</span>
@@ -137,36 +152,43 @@ Sample:</p>
 <span class="nv">global</span><span class="o">.</span><span class="py">scheduleWithFixedDelay</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span> <span class="n">runnable</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>What happens is that if the given <code class="highlighter-rouge">runnable</code> takes more than 2 seconds to
+<p>What happens is that if the given <code class="language-plaintext highlighter-rouge">runnable</code> takes more than 2 seconds to
 execute, then subsequent runnables are going to be executed concurrently,
 without waiting for the current runnable to finish. So if runnables are
 slow, you can end up with 2 or even more runnables being executed
 at the same time.</p>
 
 <p>This happens because this periodic scheduling is deferred to the global
-<code class="highlighter-rouge">Scheduler.DefaultScheduledExecutor</code> instance, a single threaded Java
-<code class="highlighter-rouge">ScheduledExecutor</code> that then defers the actual execution of the task to the
-<code class="highlighter-rouge">ForkJoinPool</code> in charge of the actual execution. But by doing this deferring,
+<code class="language-plaintext highlighter-rouge">Scheduler.DefaultScheduledExecutor</code> instance, a single threaded Java
+<code class="language-plaintext highlighter-rouge">ScheduledExecutor</code> that then defers the actual execution of the task to the
+<code class="language-plaintext highlighter-rouge">ForkJoinPool</code> in charge of the actual execution. But by doing this deferring,
 the time it takes that runnable to execute is not taken into account at all.
 This behavior is inconsistent with how these operations work for Java’s
-<code class="highlighter-rouge">ScheduledExecutor</code> and with how they are documented in ScalaDoc.</p>
+<code class="language-plaintext highlighter-rouge">ScheduledExecutor</code> and with how they are documented in ScalaDoc.</p>
 
-<p>NOTE: this behavior does NOT happen for <code class="highlighter-rouge">ExecutorScheduler</code>
-(e.g. <code class="highlighter-rouge">Scheduler.io</code>, <code class="highlighter-rouge">Scheduler.fixedPool</code>, <code class="highlighter-rouge">Scheduler.singleThread</code>)
+<p>NOTE: this behavior does NOT happen for <code class="language-plaintext highlighter-rouge">ExecutorScheduler</code>
+(e.g. <code class="language-plaintext highlighter-rouge">Scheduler.io</code>, <code class="language-plaintext highlighter-rouge">Scheduler.fixedPool</code>, <code class="language-plaintext highlighter-rouge">Scheduler.singleThread</code>)
 or any of the 2 available scheduler implementations for Javascript.
-It also doesn’t affect <code class="highlighter-rouge">Observable.interval</code>, <code class="highlighter-rouge">Observable.intervalWithFixedDelay</code>
-and <code class="highlighter-rouge">Observable.intervalAtFixedRate</code>. These observable builders have had
+It also doesn’t affect <code class="language-plaintext highlighter-rouge">Observable.interval</code>, <code class="language-plaintext highlighter-rouge">Observable.intervalWithFixedDelay</code>
+and <code class="language-plaintext highlighter-rouge">Observable.intervalAtFixedRate</code>. These observable builders have had
 correct behavior, regardless of the scheduler used.</p>
 
-<p>The fix involves the <code class="highlighter-rouge">AsyncScheduler</code> implementation to piggy-back on the
-implementation in <code class="highlighter-rouge">ReferenceScheduler</code>, just like the Javascript scheduler
+<p>The fix involves the <code class="language-plaintext highlighter-rouge">AsyncScheduler</code> implementation to piggy-back on the
+implementation in <code class="language-plaintext highlighter-rouge">ReferenceScheduler</code>, just like the Javascript scheduler
 implementations.</p>
 
 <p>Cheers,</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -202,18 +224,45 @@ implementations.</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

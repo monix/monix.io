@@ -28,19 +28,15 @@
   <meta content="Cancelable &amp;mdash; Monix" property="og:title">
   <meta content="A one-time idempotent action that can be used to cancel async computations, or to release resources that active data-sources are holding." property="og:description">
   <meta content="https://monix.io/docs/3x/execution/cancelable.html" property="og:url">
+  <meta content="2020-07-20T09:13:57+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,23 +97,53 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Cancelable</h1>
+      <h1 class="page-title">
+        
+        
+          Cancelable
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/execution/Cancelable.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v3.2.2/monix-execution/shared/src/main/scala/monix/execution/Cancelable.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/execution/cancelable.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#base-cancelable">Base Cancelable</a></li>
+  <li><a href="#booleancancelable">BooleanCancelable</a></li>
+  <li><a href="#compositecancelable">CompositeCancelable</a></li>
+  <li><a href="#multiassigncancelable">MultiAssignCancelable</a></li>
+  <li><a href="#orderedcancelable">OrderedCancelable</a></li>
+  <li><a href="#singleassigncancelable">SingleAssignCancelable</a></li>
+  <li><a href="#serialcancelable">SerialCancelable</a></li>
+  <li><a href="#refcountcancelable">RefCountCancelable</a></li>
+</ul>
+
+  </nav>
 
   <p>A one-time idempotent action that can be used to cancel async
 computations, or to release resources that active data-sources are
-holding, it is the equivalent of <code class="highlighter-rouge">java.io.Closable</code>, but without the
-I/O focus, or to <code class="highlighter-rouge">IDisposable</code> from .NET, or to
-<code class="highlighter-rouge">akka.actor.Cancellable</code> (but with an <code class="highlighter-rouge">l</code> dropped :)).</p>
-
-<h2 id="base-cancelable">Base Cancelable</h2>
+holding, it is the equivalent of <code class="language-plaintext highlighter-rouge">java.io.Closable</code>, but without the
+I/O focus, or to <code class="language-plaintext highlighter-rouge">IDisposable</code> from .NET, or to
+<code class="language-plaintext highlighter-rouge">akka.actor.Cancellable</code> (but with an <code class="language-plaintext highlighter-rouge">l</code> dropped :)).</p>
+    
+      <h2 id="base-cancelable">
+        
+        
+          Base Cancelable <a href="#base-cancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="nn">monix.execution</span>
 
@@ -126,33 +152,39 @@ I/O focus, or to <code class="highlighter-rouge">IDisposable</code> from .NET, o
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The contract for well-behaved <code class="highlighter-rouge">Cancelable</code> instances:</p>
+<p>The contract for well-behaved <code class="language-plaintext highlighter-rouge">Cancelable</code> instances:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">cancel</code> is idempotent, calling it multiple times has
+  <li><code class="language-plaintext highlighter-rouge">cancel</code> is idempotent, calling it multiple times has
 the same effect as calling it once</li>
-  <li><code class="highlighter-rouge">cancel</code> is thread-safe, otherwise you cannot guarantee
+  <li><code class="language-plaintext highlighter-rouge">cancel</code> is thread-safe, otherwise you cannot guarantee
 idempotency</li>
 </ol>
 
-<p>In order to quickly build <code class="highlighter-rouge">Cancelable</code> instances:</p>
+<p>In order to quickly build <code class="language-plaintext highlighter-rouge">Cancelable</code> instances:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Cancelable</span>
 
 <span class="c1">// A cancelable that doesn't do anything on cancel</span>
-<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
+<span class="k">val</span> <span class="nv">c1</span> <span class="k">=</span> <span class="nv">Cancelable</span><span class="o">.</span><span class="py">empty</span>
 
 <span class="c1">// Same thing, a cancelable that doesn't do anything</span>
-<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">()</span>
+<span class="k">val</span> <span class="nv">c2</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">()</span>
 
 <span class="c1">// Specify a callback to be called on cancel</span>
-<span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled!"</span><span class="o">))</span>
+<span class="k">val</span> <span class="nv">c3</span> <span class="k">=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled!"</span><span class="o">))</span>
 </code></pre></div></div>
+    
+      <h2 id="booleancancelable">
+        
+        
+          BooleanCancelable <a href="#booleancancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="booleancancelable">BooleanCancelable</h2>
-
-<p>The <code class="highlighter-rouge">BooleanCancelable</code> represents a cancelable that can be queried
-for its canceled status, adding the necessary <code class="highlighter-rouge">isCanceled</code> query for
+<p>The <code class="language-plaintext highlighter-rouge">BooleanCancelable</code> represents a cancelable that can be queried
+for its canceled status, adding the necessary <code class="language-plaintext highlighter-rouge">isCanceled</code> query for
 when we need it.</p>
 
 <p>See the
@@ -165,7 +197,7 @@ when we need it.</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>To have a reusable (immutable) <code class="highlighter-rouge">BooleanCancelable</code> instance that’s
+<p>To have a reusable (immutable) <code class="language-plaintext highlighter-rouge">BooleanCancelable</code> instance that’s
 already canceled:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.cancelables._</span>
@@ -181,18 +213,18 @@ already canceled:</p>
 </code></pre></div></div>
 
 <p>To build an instance without a callback, but that can be
-used to check for <code class="highlighter-rouge">isCanceled</code>:</p>
+used to check for <code class="language-plaintext highlighter-rouge">isCanceled</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">BooleanCancelable</span><span class="o">()</span>
-<span class="c1">// c: monix.execution.cancelables.BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$1@7b8603b7</span>
+<span class="c1">// c: BooleanCancelable = monix.execution.cancelables.BooleanCancelable$$anon$1@29dc16af</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
-<span class="c1">// res5: Boolean = false</span>
+<span class="c1">// res4: Boolean = false</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 
 <span class="nv">c</span><span class="o">.</span><span class="py">isCanceled</span>
-<span class="c1">// res7: Boolean = true</span>
+<span class="c1">// res6: Boolean = true</span>
 </code></pre></div></div>
 
 <p>To build an instance out of a callback that behaves like
@@ -200,17 +232,23 @@ you’d expect it to:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">c</span> <span class="k">=</span> <span class="nc">BooleanCancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">))</span>
 </code></pre></div></div>
+    
+      <h2 id="compositecancelable">
+        
+        
+          CompositeCancelable <a href="#compositecancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="compositecancelable">CompositeCancelable</h2>
-
-<p>The <code class="highlighter-rouge">CompositeCancelable</code> is an aggregate of cancelable
+<p>The <code class="language-plaintext highlighter-rouge">CompositeCancelable</code> is an aggregate of cancelable
 references (to which you can add new references or remove existing ones)
-and that are handled in aggregate when doing a <code class="highlighter-rouge">cancel()</code>.</p>
+and that are handled in aggregate when doing a <code class="language-plaintext highlighter-rouge">cancel()</code>.</p>
 
 <p>See the
 <a href="/api/3.2/monix/execution/cancelables/CompositeCancelable.html">API Documentation</a>.</p>
 
-<p>The contract for <code class="highlighter-rouge">CompositeCancelable</code>:</p>
+<p>The contract for <code class="language-plaintext highlighter-rouge">CompositeCancelable</code>:</p>
 
 <ul>
   <li>adding and removing cancelables from the composite
@@ -258,10 +296,16 @@ relevant, for GC purposes, etc:</p>
 <span class="nv">composite</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 <span class="c1">// =&gt; Canceled #2</span>
 </code></pre></div></div>
+    
+      <h2 id="multiassigncancelable">
+        
+        
+          MultiAssignCancelable <a href="#multiassigncancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="multiassigncancelable">MultiAssignCancelable</h2>
-
-<p>The <code class="highlighter-rouge">MultiAssignCancelable</code> is a cancelable that behaves like a
+<p>The <code class="language-plaintext highlighter-rouge">MultiAssignCancelable</code> is a cancelable that behaves like a
 variable, referencing another cancelable reference that can be
 swapped as needed.</p>
 
@@ -298,15 +342,21 @@ immediately</li>
 <span class="n">multiAssign</span> <span class="o">:=</span> <span class="n">c3</span>
 <span class="c1">// =&gt; Canceled #3</span>
 </code></pre></div></div>
-
-<h2 id="orderedcancelable">OrderedCancelable</h2>
+    
+      <h2 id="orderedcancelable">
+        
+        
+          OrderedCancelable <a href="#orderedcancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>In a multi-threading environment sometimes we cannot guarantee an
 ordering on assignment and obviously ordering is important. 
-<code class="highlighter-rouge">OrderedCancelable</code> is similar to <code class="highlighter-rouge">MultiAssignCancelable</code> with an
-extra ability to do <code class="highlighter-rouge">orderedUpdate</code>. There’s a second assignment 
-operation that takes an <code class="highlighter-rouge">order</code> numeric argument and
-in case the update was made with an <code class="highlighter-rouge">order</code> that’s strictly bigger
+<code class="language-plaintext highlighter-rouge">OrderedCancelable</code> is similar to <code class="language-plaintext highlighter-rouge">MultiAssignCancelable</code> with an
+extra ability to do <code class="language-plaintext highlighter-rouge">orderedUpdate</code>. There’s a second assignment 
+operation that takes an <code class="language-plaintext highlighter-rouge">order</code> numeric argument and
+in case the update was made with an <code class="language-plaintext highlighter-rouge">order</code> that’s strictly bigger
 than the current one you’re trying to make, then the assignment gets
 ignored, so:</p>
 
@@ -328,19 +378,19 @@ ignored, so:</p>
 </code></pre></div></div>
 
 <p>In the example above, there is no happens-before relationship between
-the two <code class="highlighter-rouge">orderedUpdate</code> attempts, so we have non-determinism, because
+the two <code class="language-plaintext highlighter-rouge">orderedUpdate</code> attempts, so we have non-determinism, because
 a parallel thread might be faster than our current one and trigger the
 number 2 update before number 1. But this will leave us with a result
 that we might not want, because then the last update would be
-number 1.  So here is where <code class="highlighter-rouge">orderedUpdate</code> comes in handy. We
-explicitly specify an <code class="highlighter-rouge">order</code> argument and thus force an ordering to
+number 1.  So here is where <code class="language-plaintext highlighter-rouge">orderedUpdate</code> comes in handy. We
+explicitly specify an <code class="language-plaintext highlighter-rouge">order</code> argument and thus force an ordering to
 it.</p>
 
 <p>The example above is obvious, right? But the following one isn’t and
 it’s in fact a pretty common pattern. Let’s build a function that
 executes things with a delay, tasks that can be canceled. To
-add a delay, we’d use a <code class="highlighter-rouge">Scheduler</code> and we want to return
-a <code class="highlighter-rouge">Cancelable</code> that can cancel either the delay or the result
+add a delay, we’d use a <code class="language-plaintext highlighter-rouge">Scheduler</code> and we want to return
+a <code class="language-plaintext highlighter-rouge">Cancelable</code> that can cancel either the delay or the result
 of our passed function argument, like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// INCORRECT EXAMPLE</span>
@@ -363,8 +413,8 @@ of our passed function argument, like:</p>
 <p>You may not notice it, but this is a race condition that can
 yield non-deterministic behavior. Lets say the garbage collector
 has problems and freezes the whole process for 5 whole seconds.
-This can mean that <code class="highlighter-rouge">ref := cb()</code> might execute before the result
-of <code class="highlighter-rouge">s.scheduleOnce</code> returns, as the call to <code class="highlighter-rouge">:=</code> does not have
+This can mean that <code class="language-plaintext highlighter-rouge">ref := cb()</code> might execute before the result
+of <code class="language-plaintext highlighter-rouge">s.scheduleOnce</code> returns, as the call to <code class="language-plaintext highlighter-rouge">:=</code> does not have
 a happens-before relationship with the actual delayed scheduling.
 Which means the cancelable returned by our function will be incorrect.</p>
 
@@ -387,11 +437,17 @@ Which means the cancelable returned by our function will be incorrect.</p>
   <span class="n">ref</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h2 id="singleassigncancelable">
+        
+        
+          SingleAssignCancelable <a href="#singleassigncancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="singleassigncancelable">SingleAssignCancelable</h2>
-
-<p>The <code class="highlighter-rouge">SingleAssignCancelable</code> is similar to the
-<code class="highlighter-rouge">OrderedCancelable</code>, except that it can be assigned once and
+<p>The <code class="language-plaintext highlighter-rouge">SingleAssignCancelable</code> is similar to the
+<code class="language-plaintext highlighter-rouge">OrderedCancelable</code>, except that it can be assigned once and
 only once.</p>
 
 <p>See the
@@ -406,7 +462,7 @@ canceled and the reference released for GC purposes</li>
   <li>if canceled while empty, then the assigned cancelable will be
 canceled immediately on assignment</li>
   <li>if assignment happens a second time, then the operation
-will throw an <code class="highlighter-rouge">IllegalStateException</code>, so don’t do that</li>
+will throw an <code class="language-plaintext highlighter-rouge">IllegalStateException</code>, so don’t do that</li>
 </ul>
 
 <p>It is useful in cases you need a forward reference, like:</p>
@@ -437,15 +493,21 @@ cancelable reference to cancel, in addition to the assigned reference:</p>
 <span class="c1">//=&gt; primary canceled</span>
 </code></pre></div></div>
 
-<p>You can use <code class="highlighter-rouge">OrderedCancelable</code> for the same purpose of
-course, but the implementation of <code class="highlighter-rouge">SingleAssignCancelable</code> is more
-efficient (e.g. using <code class="highlighter-rouge">getAndSet</code>, cheaper than <code class="highlighter-rouge">compareAndSet</code>) and
-the <code class="highlighter-rouge">IllegalStateException</code> is nice when dealing with concurrent code
+<p>You can use <code class="language-plaintext highlighter-rouge">OrderedCancelable</code> for the same purpose of
+course, but the implementation of <code class="language-plaintext highlighter-rouge">SingleAssignCancelable</code> is more
+efficient (e.g. using <code class="language-plaintext highlighter-rouge">getAndSet</code>, cheaper than <code class="language-plaintext highlighter-rouge">compareAndSet</code>) and
+the <code class="language-plaintext highlighter-rouge">IllegalStateException</code> is nice when dealing with concurrent code
 that isn’t doing what it’s supposed to do.</p>
+    
+      <h2 id="serialcancelable">
+        
+        
+          SerialCancelable <a href="#serialcancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="serialcancelable">SerialCancelable</h2>
-
-<p>The <code class="highlighter-rouge">SerialCancelable</code> is also similar to <code class="highlighter-rouge">OrderedCancelable</code>,
+<p>The <code class="language-plaintext highlighter-rouge">SerialCancelable</code> is also similar to <code class="language-plaintext highlighter-rouge">OrderedCancelable</code>,
 being a cancelable whose underlying reference can be swapped by another
 cancelable, causing the previous cancelable to be canceled on assignment.</p>
 
@@ -487,10 +549,16 @@ stored cancelable to be canceled</li>
 <span class="n">ref</span> <span class="o">:=</span> <span class="nc">Cancelable</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Canceled #4"</span><span class="o">))</span>
 <span class="c1">// =&gt; Canceled #4</span>
 </code></pre></div></div>
+    
+      <h2 id="refcountcancelable">
+        
+        
+          RefCountCancelable <a href="#refcountcancelable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="refcountcancelable">RefCountCancelable</h2>
-
-<p>Represents a <code class="highlighter-rouge">Cancelable</code> that can create dependent cancelable objects
+<p>Represents a <code class="language-plaintext highlighter-rouge">Cancelable</code> that can create dependent cancelable objects
 and that only executes the canceling logic when all dependent
 cancelable objects have been canceled.</p>
 
@@ -498,14 +566,14 @@ cancelable objects have been canceled.</p>
 
 <ul>
   <li>thread-safe</li>
-  <li>if we create a total number of <code class="highlighter-rouge">N</code> children cancelables with
-<code class="highlighter-rouge">acquire()</code>, in order for cancelation to occur we need to cancel all
-<code class="highlighter-rouge">N</code> cancelables, in addition to triggering a cancelation on the
+  <li>if we create a total number of <code class="language-plaintext highlighter-rouge">N</code> children cancelables with
+<code class="language-plaintext highlighter-rouge">acquire()</code>, in order for cancelation to occur we need to cancel all
+<code class="language-plaintext highlighter-rouge">N</code> cancelables, in addition to triggering a cancelation on the
 parent</li>
   <li>the ordering of cancelation doesn’t matter (e.g. parent first,
 children next, or vice-versa)</li>
-  <li>on creating cancelables with <code class="highlighter-rouge">acquire()</code>, if our parent is already
-canceled, then the returned reference will be a <code class="highlighter-rouge">Cancelable.empty</code></li>
+  <li>on creating cancelables with <code class="language-plaintext highlighter-rouge">acquire()</code>, if our parent is already
+canceled, then the returned reference will be a <code class="language-plaintext highlighter-rouge">Cancelable.empty</code></li>
 </ul>
 
 <p>Sample:</p>
@@ -540,7 +608,7 @@ canceled, then the returned reference will be a <code class="highlighter-rouge">
 <span class="c1">// =&gt; Everything was canceled</span>
 </code></pre></div></div>
 
-<p>This cancelable type is actually used in <code class="highlighter-rouge">Observable.merge</code> (•‿•)</p>
+<p>This cancelable type is actually used in <code class="language-plaintext highlighter-rouge">Observable.merge</code> (•‿•)</p>
 
 
   <div id="version3x">
@@ -559,8 +627,8 @@ canceled, then the returned reference will be a <code class="highlighter-rouge">
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

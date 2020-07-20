@@ -29,19 +29,15 @@
   <meta content="TaskCircuitBreaker, memoizeOnSuccess, deferFutureAction, critical bug fixes" property="og:description">
   <meta content="https://monix.io/blog/2017/02/22/monix-v2.2.2.html" property="og:url">
   <meta content="2017-02-22T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.2.2 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.2.2 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2017-02-22">
@@ -111,26 +113,35 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>Version <code class="highlighter-rouge">2.2.2</code> is out now.</p>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#new-features">New Features</a></li>
+  <li><a href="#list-of-changes">List of Changes</a></li>
+  <li><a href="#upgrading">Upgrading</a></li>
+</ul>
 
-<p>It is a minor release that’s binary and source compatible with <code class="highlighter-rouge">2.2.x</code>.</p>
+  </nav>
+
+  <p>Version <code class="language-plaintext highlighter-rouge">2.2.2</code> is out now.</p>
+
+<p>It is a minor release that’s binary and source compatible with <code class="language-plaintext highlighter-rouge">2.2.x</code>.</p>
 
 <p>In summary:</p>
 
 <ul>
-  <li>Implemented a circuit breaker for <code class="highlighter-rouge">Task</code>, for providing stability
+  <li>Implemented a circuit breaker for <code class="language-plaintext highlighter-rouge">Task</code>, for providing stability
 and preventing cascading failures in distributed systems</li>
-  <li>Added <code class="highlighter-rouge">Task!.memoizeOnSuccess</code> and <code class="highlighter-rouge">Coeval!.memoizeOnSuccess</code>
+  <li>Added <code class="language-plaintext highlighter-rouge">Task!.memoizeOnSuccess</code> and <code class="language-plaintext highlighter-rouge">Coeval!.memoizeOnSuccess</code>
 operators that only caches the result (with idempotency guarantees)
 for successful results, while re-evaluating the source on failures</li>
-  <li>Added <code class="highlighter-rouge">Task.deferFutureAction</code> that helps with wrapping
-<code class="highlighter-rouge">Future</code>-enabled APIs without requiring <code class="highlighter-rouge">ExecutionContext</code> in the
-function signature, since <code class="highlighter-rouge">Task</code> can inject it for you</li>
-  <li>Added <code class="highlighter-rouge">SingleAssignmentCancelable.plusOne</code> for helping with building
-<code class="highlighter-rouge">Consumer</code> objects</li>
-  <li>Moved and redesigned exceptions in <code class="highlighter-rouge">monix.execution</code></li>
-  <li><code class="highlighter-rouge">Task.sequence</code> now has lazy behavior in evaluating the given
-sequence (previously we were doing a <code class="highlighter-rouge">foldLeft</code> on that sequence,
+  <li>Added <code class="language-plaintext highlighter-rouge">Task.deferFutureAction</code> that helps with wrapping
+<code class="language-plaintext highlighter-rouge">Future</code>-enabled APIs without requiring <code class="language-plaintext highlighter-rouge">ExecutionContext</code> in the
+function signature, since <code class="language-plaintext highlighter-rouge">Task</code> can inject it for you</li>
+  <li>Added <code class="language-plaintext highlighter-rouge">SingleAssignmentCancelable.plusOne</code> for helping with building
+<code class="language-plaintext highlighter-rouge">Consumer</code> objects</li>
+  <li>Moved and redesigned exceptions in <code class="language-plaintext highlighter-rouge">monix.execution</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Task.sequence</code> now has lazy behavior in evaluating the given
+sequence (previously we were doing a <code class="language-plaintext highlighter-rouge">foldLeft</code> on that sequence,
 which could have strict behavior, depending on the collection type)</li>
   <li>Critical bugs fixed!</li>
 </ul>
@@ -138,12 +149,18 @@ which could have strict behavior, depending on the collection type)</li>
 <p>Details below!</p>
 
 <!--more-->
-
-<h3 id="new-features">New Features</h3>
+    
+      <h3 id="new-features">
+        
+        
+          New Features <a href="#new-features" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><strong><a href="https://github.com/monix/monix/issues/306">Issue #306</a></strong> -
-Introduced a circuit breaker in <code class="highlighter-rouge">monix.eval.TaskCircuitBreaker</code>,
-<a href="/docs/2x/eval/circuit-breaker.html">see documentation</a>:</p>
+Introduced a circuit breaker in <code class="language-plaintext highlighter-rouge">monix.eval.TaskCircuitBreaker</code>,
+<a href="/docs/2x/eval/circuit-breaker.md">see documentation</a>:</p>
 
 <p>A circuit breaker is used to provide stability and prevent cascading
 failures in distributed systems:</p>
@@ -160,11 +177,11 @@ failures in distributed systems:</p>
 </code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/312">Issue #312</a></strong> -
-Introduced the <code class="highlighter-rouge">Task!.memoizeOnSuccess</code> operator, 
-<a href="/docs/2x/eval/task.html#memoize-only-on-success">see documentation</a>:</p>
+Introduced the <code class="language-plaintext highlighter-rouge">Task!.memoizeOnSuccess</code> operator, 
+<a href="/docs/2x/eval/task.md#memoize-only-on-success">see documentation</a>:</p>
 
-<p>This <code class="highlighter-rouge">Task!.memoizeOnSuccess</code> operator, caches the result (with
-idempotency guarantees), just like the normal <code class="highlighter-rouge">memoize</code> operator, only
+<p>This <code class="language-plaintext highlighter-rouge">Task!.memoizeOnSuccess</code> operator, caches the result (with
+idempotency guarantees), just like the normal <code class="language-plaintext highlighter-rouge">memoize</code> operator, only
 it does so only on a successful result, whereas if failures happens,
 subsequent calls will retry evaluating the source until it succeeds:</p>
 
@@ -185,11 +202,11 @@ subsequent calls will retry evaluating the source until it succeeds:</p>
 </code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/313">Issue #313</a></strong> - 
-On <code class="highlighter-rouge">Task</code> we added the <code class="highlighter-rouge">deferFutureAction</code> builder,
-<a href="/docs/2x/eval/task.html#taskdeferfutureaction">see documentation</a>:</p>
+On <code class="language-plaintext highlighter-rouge">Task</code> we added the <code class="language-plaintext highlighter-rouge">deferFutureAction</code> builder,
+<a href="/docs/2x/eval/task.md#taskdeferfutureaction">see documentation</a>:</p>
 
-<p>This helps with wrapping <code class="highlighter-rouge">Future</code>-enabled APIs, by being able to
-specify a callback with an injected <code class="highlighter-rouge">Scheduler</code>:</p>
+<p>This helps with wrapping <code class="language-plaintext highlighter-rouge">Future</code>-enabled APIs, by being able to
+specify a callback with an injected <code class="language-plaintext highlighter-rouge">Scheduler</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">Future</span><span class="o">(</span><span class="nv">list</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
@@ -202,10 +219,10 @@ specify a callback with an injected <code class="highlighter-rouge">Scheduler</c
 </code></pre></div></div>
 
 <p><strong><a href="https://github.com/monix/monix/issues/325">Issue #325</a></strong>:
-Added <code class="highlighter-rouge">SingleAssignmentCancelable.plusOne</code> builder,
-<a href="/docs/2x/execution/cancelable.html#singleassignmentcancelable">see documentation</a>:</p>
+Added <code class="language-plaintext highlighter-rouge">SingleAssignmentCancelable.plusOne</code> builder,
+<a href="/docs/2x/execution/cancelable.md#singleassignmentcancelable">see documentation</a>:</p>
 
-<p>This <code class="highlighter-rouge">plusOne</code> function builds a <code class="highlighter-rouge">SingleAssignmentCancelable</code>
+<p>This <code class="language-plaintext highlighter-rouge">plusOne</code> function builds a <code class="language-plaintext highlighter-rouge">SingleAssignmentCancelable</code>
 reference which also cancels an extra cancelable specified at
 construction time, in addition to the underlying cancelable that gets
 assigned later:</p>
@@ -222,27 +239,33 @@ assigned later:</p>
 <span class="c1">//=&gt; primary canceled</span>
 </code></pre></div></div>
 
-<p>This helps with building <code class="highlighter-rouge">Consumer</code> objects that need to specify a 
+<p>This helps with building <code class="language-plaintext highlighter-rouge">Consumer</code> objects that need to specify a 
 cancelable that cancels the data source, plus whatever resources
 the consumer itself has opened.</p>
-
-<h3 id="list-of-changes">List of Changes</h3>
+    
+      <h3 id="list-of-changes">
+        
+        
+          List of Changes <a href="#list-of-changes" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>New Features and Enhancements:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/306">Issue #306</a>:
-Circuit Breaker for <code class="highlighter-rouge">Task</code></li>
+Circuit Breaker for <code class="language-plaintext highlighter-rouge">Task</code></li>
   <li><a href="https://github.com/monix/monix/issues/312">Issue #312</a>:
-Add <code class="highlighter-rouge">Task.memoizeOnSuccess</code> and <code class="highlighter-rouge">Coeval.memoizeOnSuccess</code></li>
+Add <code class="language-plaintext highlighter-rouge">Task.memoizeOnSuccess</code> and <code class="language-plaintext highlighter-rouge">Coeval.memoizeOnSuccess</code></li>
   <li><a href="https://github.com/monix/monix/issues/313">Issue #313</a>:
-Add <code class="highlighter-rouge">Task.deferFutureAction</code> builder</li>
+Add <code class="language-plaintext highlighter-rouge">Task.deferFutureAction</code> builder</li>
   <li><a href="https://github.com/monix/monix/issues/325">Issue #325</a>:
-Add <code class="highlighter-rouge">SingleAssignmentCancelable.plusOne</code></li>
+Add <code class="language-plaintext highlighter-rouge">SingleAssignmentCancelable.plusOne</code></li>
   <li><a href="https://github.com/monix/monix/issues/319">Issue #319</a>:
-Move and redesign exceptions in <code class="highlighter-rouge">monix.execution</code></li>
+Move and redesign exceptions in <code class="language-plaintext highlighter-rouge">monix.execution</code></li>
   <li><a href="https://github.com/monix/monix/issues/314">Issue #314</a>:
-<code class="highlighter-rouge">Task.sequence</code> should have lazy behavior in evaluating 
+<code class="language-plaintext highlighter-rouge">Task.sequence</code> should have lazy behavior in evaluating 
 the given sequence</li>
 </ul>
 
@@ -250,13 +273,13 @@ the given sequence</li>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/268">Bug #268</a>:
-Optimise the unsubscribe logic in <code class="highlighter-rouge">PublishSubject</code></li>
+Optimise the unsubscribe logic in <code class="language-plaintext highlighter-rouge">PublishSubject</code></li>
   <li><a href="https://github.com/monix/monix/issues/308">Bug #308</a>:
-Fix NPE on <code class="highlighter-rouge">AsyncSubject.unsubscribe</code></li>
+Fix NPE on <code class="language-plaintext highlighter-rouge">AsyncSubject.unsubscribe</code></li>
   <li><a href="https://github.com/monix/monix/issues/315">Bug #315</a>:
-The <code class="highlighter-rouge">MapTaskObservable</code> internal object is exposed (ScalaDoc)</li>
+The <code class="language-plaintext highlighter-rouge">MapTaskObservable</code> internal object is exposed (ScalaDoc)</li>
   <li><a href="https://github.com/monix/monix/issues/321">Bug #321</a>:
-<code class="highlighter-rouge">Observable.concatMap</code> and <code class="highlighter-rouge">mapTask</code> cannot be canceled if
+<code class="language-plaintext highlighter-rouge">Observable.concatMap</code> and <code class="language-plaintext highlighter-rouge">mapTask</code> cannot be canceled if
 the source has already completed</li>
   <li>Documentation fixes: 
 <a href="https://github.com/monix/monix/pull/307">#307</a>, 
@@ -271,16 +294,22 @@ the source has already completed</li>
 <ul>
   <li>enabled the Scala 
 <a href="https://github.com/typesafehub/migration-manager">Migration Manager</a> 
-(MiMa) in <code class="highlighter-rouge">build.sbt</code> to check for backwards compatibility problems</li>
+(MiMa) in <code class="language-plaintext highlighter-rouge">build.sbt</code> to check for backwards compatibility problems</li>
   <li><a href="https://github.com/monix/monix/issues/322">Issue #322</a>:
-Switch projects which use <code class="highlighter-rouge">CrossVersion.full/"org.scala-lang"</code> 
-to <code class="highlighter-rouge">CrossVersion.patch/scalaOrganization.value</code></li>
+Switch projects which use <code class="language-plaintext highlighter-rouge">CrossVersion.full/"org.scala-lang"</code> 
+to <code class="language-plaintext highlighter-rouge">CrossVersion.patch/scalaOrganization.value</code></li>
 </ul>
+    
+      <h3 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="upgrading">Upgrading</h3>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
-<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code> (and use
+<code class="language-plaintext highlighter-rouge">%%%</code> for Scala.js):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.2.2"</span>
 </code></pre></div></div>
@@ -310,7 +339,14 @@ integration:</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -346,18 +382,45 @@ integration:</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

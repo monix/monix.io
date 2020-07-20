@@ -28,19 +28,15 @@
   <meta content="Observers and Subscribers &amp;mdash; Monix" property="og:title">
   <meta content="The listener types that can be called asynchronously with the events of a reactive stream. Used by the Monix Observable." property="og:description">
   <meta content="https://monix.io/docs/3x/reactive/observers.html" property="og:url">
+  <meta content="2020-07-20T09:14:12+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,25 +97,64 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Observers and Subscribers</h1>
+      <h1 class="page-title">
+        
+        
+          Observers and Subscribers
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/reactive/observers.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="observer">Observer</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#observer">Observer</a>
+    <ul>
+      <li><a href="#contract">Contract</a></li>
+      <li><a href="#building-an-observer">Building an Observer</a></li>
+      <li><a href="#feeding-an-observer">Feeding an Observer</a></li>
+    </ul>
+  </li>
+  <li><a href="#subscriber">Subscriber</a>
+    <ul>
+      <li><a href="#convert-to-a-reactive-streams-subscriber">Convert to a Reactive Streams Subscriber</a></li>
+      <li><a href="#convert-from-a-reactive-streams-subscriber">Convert from a Reactive Streams Subscriber</a></li>
+      <li><a href="#safe-subscriber">Safe Subscriber</a></li>
+      <li><a href="#connectable-subscriber">Connectable Subscriber</a></li>
+      <li><a href="#cache-until-connect-subscriber">Cache Until Connect Subscriber</a></li>
+      <li><a href="#buffered-subscriber">Buffered Subscriber</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+    
+      <h2 id="observer">
+        
+        
+          Observer <a href="#observer" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p><a href="/api/3.2/monix/reactive/Observer.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a></p>
 
-<p>The <code class="highlighter-rouge">Observer</code> from the Rx pattern is the trio of callbacks that get
-subscribed to an <a href="./observable.html">Observable</a> for receiving events.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Observer</code> from the Rx pattern is the trio of callbacks that get
+subscribed to an <a href="/docs/3x/reactive/observable.html">Observable</a> for receiving events.</p>
 
-<p>In essence the <code class="highlighter-rouge">Observer</code> is this type:</p>
+<p>In essence the <code class="language-plaintext highlighter-rouge">Observer</code> is this type:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
@@ -129,37 +164,43 @@ subscribed to an <a href="./observable.html">Observable</a> for receiving events
   <span class="k">def</span> <span class="nf">onComplete</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="contract">
+        
+        
+          Contract <a href="#contract" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="contract">Contract</h3>
-
-<p>Obviously the <code class="highlighter-rouge">Observer</code> interface doesn’t do much other than
+<p>Obviously the <code class="language-plaintext highlighter-rouge">Observer</code> interface doesn’t do much other than
 establishing a communication protocol between producers and consumers.
-Therefore when pushing items into an <code class="highlighter-rouge">Observer</code>, we need a contract:</p>
+Therefore when pushing items into an <code class="language-plaintext highlighter-rouge">Observer</code>, we need a contract:</p>
 
 <ol>
-  <li>Grammar: <code class="highlighter-rouge">onNext</code> CAN be called zero, one or multiple times,
-followed by an optional <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> if the stream is
-finite, so in other words <code class="highlighter-rouge">onNext* (onComplete | onError)?</code>.
-And once a final event happens, either <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code>, then
+  <li>Grammar: <code class="language-plaintext highlighter-rouge">onNext</code> CAN be called zero, one or multiple times,
+followed by an optional <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code> if the stream is
+finite, so in other words <code class="language-plaintext highlighter-rouge">onNext* (onComplete | onError)?</code>.
+And once a final event happens, either <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code>, then
 no further calls are allowed.</li>
-  <li>Back-pressure: each <code class="highlighter-rouge">onNext</code> call MUST wait on a <code class="highlighter-rouge">Continue</code> result
-returned by the <code class="highlighter-rouge">Future[Ack]</code> of the previous <code class="highlighter-rouge">onNext</code> call.</li>
-  <li>Back-pressure for <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> is optional:
-when calling <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> you are not
-required to wait on the <code class="highlighter-rouge">Future[Ack]</code> of the previous <code class="highlighter-rouge">onNext</code>.</li>
-  <li>Stream cancellation: <code class="highlighter-rouge">onNext</code> calls can return <code class="highlighter-rouge">Stop</code> or
-<code class="highlighter-rouge">Future[Stop]</code> and after receiving it the data-source MUST no
+  <li>Back-pressure: each <code class="language-plaintext highlighter-rouge">onNext</code> call MUST wait on a <code class="language-plaintext highlighter-rouge">Continue</code> result
+returned by the <code class="language-plaintext highlighter-rouge">Future[Ack]</code> of the previous <code class="language-plaintext highlighter-rouge">onNext</code> call.</li>
+  <li>Back-pressure for <code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code> is optional:
+when calling <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code> you are not
+required to wait on the <code class="language-plaintext highlighter-rouge">Future[Ack]</code> of the previous <code class="language-plaintext highlighter-rouge">onNext</code>.</li>
+  <li>Stream cancellation: <code class="language-plaintext highlighter-rouge">onNext</code> calls can return <code class="language-plaintext highlighter-rouge">Stop</code> or
+<code class="language-plaintext highlighter-rouge">Future[Stop]</code> and after receiving it the data-source MUST no
 longer send any events.  Tied with the back-pressure requirement,
-it means that cancellation by means of <code class="highlighter-rouge">Stop</code> is always
+it means that cancellation by means of <code class="language-plaintext highlighter-rouge">Stop</code> is always
 deterministic and immediate.</li>
-  <li>Ordering/non-concurrent guarantee: calls to <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code>
-and <code class="highlighter-rouge">onError</code> MUST BE ordered and thus non-concurrent.
-As a consequence <code class="highlighter-rouge">Observer</code> implementations don’t normally need to
-<code class="highlighter-rouge">synchronize</code> their <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> methods.</li>
+  <li>Ordering/non-concurrent guarantee: calls to <code class="language-plaintext highlighter-rouge">onNext</code>, <code class="language-plaintext highlighter-rouge">onComplete</code>
+and <code class="language-plaintext highlighter-rouge">onError</code> MUST BE ordered and thus non-concurrent.
+As a consequence <code class="language-plaintext highlighter-rouge">Observer</code> implementations don’t normally need to
+<code class="language-plaintext highlighter-rouge">synchronize</code> their <code class="language-plaintext highlighter-rouge">onNext</code>, <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code> methods.</li>
   <li>Exactly once delivery for final events: you are allowed to call
-either <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> at most one time. And you cannot
-call both <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code>.</li>
-  <li>The implementation of <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onError</code> or <code class="highlighter-rouge">onComplete</code> MUST NOT throw
+either <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code> at most one time. And you cannot
+call both <code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code>.</li>
+  <li>The implementation of <code class="language-plaintext highlighter-rouge">onNext</code>, <code class="language-plaintext highlighter-rouge">onError</code> or <code class="language-plaintext highlighter-rouge">onComplete</code> MUST NOT throw
 exceptions. Never throw exceptions in their implementation and
 protect against code that might do that.</li>
 </ol>
@@ -169,23 +210,29 @@ protect against code that might do that.</li>
 <ol>
   <li>An observer can subscribe to at most one observable and
 cannot subscribe to multiple observables.</li>
-  <li>When returning <code class="highlighter-rouge">Stop</code> from <code class="highlighter-rouge">onNext</code>, no further <code class="highlighter-rouge">onNext</code> events can
-be received, but this requirement is optional for <code class="highlighter-rouge">onComplete</code> and
-<code class="highlighter-rouge">onError</code> because back-pressure is also optional for these final
-events - in other words, after returning <code class="highlighter-rouge">Stop</code>, the observer can
-receive a final <code class="highlighter-rouge">onComplete</code> if that <code class="highlighter-rouge">onNext</code> happened to be the
-last one, or an <code class="highlighter-rouge">onError</code> if an error just happened.</li>
-  <li>Once a final event happened, like <code class="highlighter-rouge">onComplete</code>, we have nowhere to
-send eventual errors through <code class="highlighter-rouge">onError</code> and we cannot send <code class="highlighter-rouge">onError</code>
+  <li>When returning <code class="language-plaintext highlighter-rouge">Stop</code> from <code class="language-plaintext highlighter-rouge">onNext</code>, no further <code class="language-plaintext highlighter-rouge">onNext</code> events can
+be received, but this requirement is optional for <code class="language-plaintext highlighter-rouge">onComplete</code> and
+<code class="language-plaintext highlighter-rouge">onError</code> because back-pressure is also optional for these final
+events - in other words, after returning <code class="language-plaintext highlighter-rouge">Stop</code>, the observer can
+receive a final <code class="language-plaintext highlighter-rouge">onComplete</code> if that <code class="language-plaintext highlighter-rouge">onNext</code> happened to be the
+last one, or an <code class="language-plaintext highlighter-rouge">onError</code> if an error just happened.</li>
+  <li>Once a final event happened, like <code class="language-plaintext highlighter-rouge">onComplete</code>, we have nowhere to
+send eventual errors through <code class="language-plaintext highlighter-rouge">onError</code> and we cannot send <code class="language-plaintext highlighter-rouge">onError</code>
 twice, so such errors will at best get logged and at worst get lost.
 Behavior is undefined for errors that break the contract.</li>
   <li>The data-source can get canceled without the observer receiving
 any notification about it.</li>
 </ol>
+    
+      <h3 id="building-an-observer">
+        
+        
+          Building an Observer <a href="#building-an-observer" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="building-an-observer">Building an Observer</h3>
-
-<p>Some of the following samples will need an implicit <code class="highlighter-rouge">Scheduler</code> in 
+<p>Some of the following samples will need an implicit <code class="language-plaintext highlighter-rouge">Scheduler</code> in 
 scope, so lets get that out of the way:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
@@ -214,13 +261,13 @@ scope, so lets get that out of the way:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>And in case you just want an empty <code class="highlighter-rouge">Observer</code> that does nothing but
-logs <code class="highlighter-rouge">onError</code> in case it happens:</p>
+<p>And in case you just want an empty <code class="language-plaintext highlighter-rouge">Observer</code> that does nothing but
+logs <code class="language-plaintext highlighter-rouge">onError</code> in case it happens:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observer</span> <span class="k">=</span> <span class="nv">Observer</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 </code></pre></div></div>
 
-<p>Or you can quickly build an <code class="highlighter-rouge">Observer</code> that only logs the events that
+<p>Or you can quickly build an <code class="language-plaintext highlighter-rouge">Observer</code> that only logs the events that
 it receives. We’ll use this in other samples:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observer</span>
@@ -239,8 +286,14 @@ it receives. We’ll use this in other samples:</p>
 <span class="nv">out</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
 <span class="c1">//=&gt; 2: O completed</span>
 </code></pre></div></div>
-
-<h3 id="feeding-an-observer">Feeding an Observer</h3>
+    
+      <h3 id="feeding-an-observer">
+        
+        
+          Feeding an Observer <a href="#feeding-an-observer" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Feeding one element, then stopping. This is legal:</p>
 
@@ -248,7 +301,7 @@ it receives. We’ll use this in other samples:</p>
 <span class="nv">observer</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>Back-pressuring <code class="highlighter-rouge">onComplete</code> is optional, so you can also do this:</p>
+<p>Back-pressuring <code class="language-plaintext highlighter-rouge">onComplete</code> is optional, so you can also do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">observer</span><span class="o">.</span><span class="py">onNext</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="py">map</span> <span class="o">{</span>
   <span class="k">case</span> <span class="nc">Continue</span> <span class="k">=&gt;</span>
@@ -288,7 +341,7 @@ it receives. We’ll use this in other samples:</p>
 concurrent, we need imposed ordering. But here we have clear
 <em>happens-before</em> relationships between calls, so this code is correct.</p>
 
-<p>All together now. Lets feed an entire <code class="highlighter-rouge">Iterator</code>:</p>
+<p>All together now. Lets feed an entire <code class="language-plaintext highlighter-rouge">Iterator</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Ack.</span><span class="o">{</span><span class="nc">Continue</span><span class="o">,</span> <span class="nc">Stop</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">monix.execution.</span><span class="o">{</span><span class="nc">Ack</span><span class="o">,</span> <span class="nc">Scheduler</span><span class="o">}</span>
@@ -345,34 +398,40 @@ concurrent, we need imposed ordering. But here we have clear
 </code></pre></div></div>
 
 <p>You’ll notice that the implementation tries really hard to not break
-the contract. The <code class="highlighter-rouge">streamErrors</code> pattern is peculiar. We are making a
-difference between errors thrown by the <code class="highlighter-rouge">Iterator</code>, which we should
-stream with <code class="highlighter-rouge">onError</code> and errors thrown by the <code class="highlighter-rouge">Observer</code>
-implementation. By contract the <code class="highlighter-rouge">Observer</code> is not allowed to throw
+the contract. The <code class="language-plaintext highlighter-rouge">streamErrors</code> pattern is peculiar. We are making a
+difference between errors thrown by the <code class="language-plaintext highlighter-rouge">Iterator</code>, which we should
+stream with <code class="language-plaintext highlighter-rouge">onError</code> and errors thrown by the <code class="language-plaintext highlighter-rouge">Observer</code>
+implementation. By contract the <code class="language-plaintext highlighter-rouge">Observer</code> is not allowed to throw
 errors, ever, therefore if it happens, the behavior is undefined -
 though we prefer to log it when we catch such instances.</p>
-
-<h2 id="subscriber">Subscriber</h2>
+    
+      <h2 id="subscriber">
+        
+        
+          Subscriber <a href="#subscriber" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p><a href="/api/3.2/monix/reactive/observers/Subscriber.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a></p>
 
-<p>Given that, in order to do anything with an <code class="highlighter-rouge">Observer</code> we always need
-a <a href="../execution/scheduler.html">Scheduler</a>, the <code class="highlighter-rouge">Subscriber</code> is a data
-type that’s an <code class="highlighter-rouge">Observer</code> with a <code class="highlighter-rouge">Scheduler</code> attached:</p>
+<p>Given that, in order to do anything with an <code class="language-plaintext highlighter-rouge">Observer</code> we always need
+a <a href="/docs/3x/execution/scheduler.html">Scheduler</a>, the <code class="language-plaintext highlighter-rouge">Subscriber</code> is a data
+type that’s an <code class="language-plaintext highlighter-rouge">Observer</code> with a <code class="language-plaintext highlighter-rouge">Scheduler</code> attached:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Subscriber</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">implicit</span> <span class="k">def</span> <span class="nf">scheduler</span><span class="k">:</span> <span class="kt">Scheduler</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>When subscribing to an <code class="highlighter-rouge">Observable</code>, the base subscribe method wants a
-<code class="highlighter-rouge">Subscriber</code>, because observables need a <code class="highlighter-rouge">Scheduler</code> when consumed. So
-on <code class="highlighter-rouge">subscribe</code> you either have to specify it directly, or you specify
-a plain <code class="highlighter-rouge">Observer</code> with a <code class="highlighter-rouge">Scheduler</code> taken implicitly and then under
-the covers a <code class="highlighter-rouge">Subscriber</code> instance is being built for you.</p>
+<p>When subscribing to an <code class="language-plaintext highlighter-rouge">Observable</code>, the base subscribe method wants a
+<code class="language-plaintext highlighter-rouge">Subscriber</code>, because observables need a <code class="language-plaintext highlighter-rouge">Scheduler</code> when consumed. So
+on <code class="language-plaintext highlighter-rouge">subscribe</code> you either have to specify it directly, or you specify
+a plain <code class="language-plaintext highlighter-rouge">Observer</code> with a <code class="language-plaintext highlighter-rouge">Scheduler</code> taken implicitly and then under
+the covers a <code class="language-plaintext highlighter-rouge">Subscriber</code> instance is being built for you.</p>
 
-<p>To convert a plain <code class="highlighter-rouge">Observer</code> into a <code class="highlighter-rouge">Subscriber</code>:</p>
+<p>To convert a plain <code class="language-plaintext highlighter-rouge">Observer</code> into a <code class="language-plaintext highlighter-rouge">Subscriber</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.</span><span class="o">{</span><span class="n">global</span> <span class="k">=&gt;</span> <span class="n">scheduler</span><span class="o">}</span>
 <span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
@@ -382,19 +441,25 @@ the covers a <code class="highlighter-rouge">Subscriber</code> instance is being
 <span class="k">val</span> <span class="nv">subscriber</span> <span class="k">=</span> <span class="nc">Subscriber</span><span class="o">(</span><span class="n">observer</span><span class="o">,</span> <span class="n">scheduler</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>To build a <code class="highlighter-rouge">Subscriber</code> instance that does nothing but logs
-<code class="highlighter-rouge">onError</code> in case it happens:</p>
+<p>To build a <code class="language-plaintext highlighter-rouge">Subscriber</code> instance that does nothing but logs
+<code class="language-plaintext highlighter-rouge">onError</code> in case it happens:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">subscriber</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>
 </code></pre></div></div>
 
-<p>Or to build a <code class="highlighter-rouge">Subscriber</code> that logs events to standard output
+<p>Or to build a <code class="language-plaintext highlighter-rouge">Subscriber</code> that logs events to standard output
 for debugging purposes:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">subscriber</span> <span class="k">=</span> <span class="nv">Subscriber</span><span class="o">.</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 </code></pre></div></div>
-
-<h3 id="convert-to-a-reactive-streams-subscriber">Convert to a Reactive Streams Subscriber</h3>
+    
+      <h3 id="convert-to-a-reactive-streams-subscriber">
+        
+        
+          Convert to a Reactive Streams Subscriber <a href="#convert-to-a-reactive-streams-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Given the integration with
 <a href="http://www.reactive-streams.org/">Reactive Streams</a>,
@@ -415,7 +480,7 @@ slightly different API, being in fact equivalent.</p>
   <span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">toReactive</span>
 </code></pre></div></div>
 
-<p>And usage of the <code class="highlighter-rouge">org.reactivestreams.Subscriber</code> interface:</p>
+<p>And usage of the <code class="language-plaintext highlighter-rouge">org.reactivestreams.Subscriber</code> interface:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">reactiveSubscriber</span><span class="o">.</span><span class="py">onSubscribe</span><span class="o">(</span>
   <span class="k">new</span> <span class="nv">org</span><span class="o">.</span><span class="py">reactivestreams</span><span class="o">.</span><span class="py">Subscription</span> <span class="o">{</span>
@@ -436,14 +501,20 @@ slightly different API, being in fact equivalent.</p>
 <span class="c1">//=&gt; 0: O--&gt;1</span>
 <span class="c1">//=&gt; 1: O completed</span>
 </code></pre></div></div>
-
-<h3 id="convert-from-a-reactive-streams-subscriber">Convert from a Reactive Streams Subscriber</h3>
+    
+      <h3 id="convert-from-a-reactive-streams-subscriber">
+        
+        
+          Convert from a Reactive Streams Subscriber <a href="#convert-from-a-reactive-streams-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Given the integration with
 <a href="http://www.reactive-streams.org/">Reactive Streams</a>,
 we can convert Reactive Subscribers to Monix Subscribers.</p>
 
-<p>Let’s implement an <code class="highlighter-rouge">org.reactivestreams.Subscriber</code>:</p>
+<p>Let’s implement an <code class="language-plaintext highlighter-rouge">org.reactivestreams.Subscriber</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">org.reactivestreams.</span><span class="o">{</span><span class="nc">Subscription</span> <span class="k">=&gt;</span> <span class="nc">RSubscription</span><span class="o">}</span>
 
@@ -468,7 +539,7 @@ we can convert Reactive Subscribers to Monix Subscribers.</p>
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>And now we can covert it into a <code class="highlighter-rouge">Subscriber</code> that Monix can use:</p>
+<p>And now we can covert it into a <code class="language-plaintext highlighter-rouge">Subscriber</code> that Monix can use:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.observers.Subscriber</span>
 <span class="k">import</span> <span class="nn">monix.execution.Cancelable</span>
@@ -486,24 +557,30 @@ we can convert Reactive Subscribers to Monix Subscribers.</p>
 <span class="nv">monixSubscriber</span><span class="o">.</span><span class="py">onComplete</span><span class="o">()</span>
 <span class="c1">//=&gt; O completed</span>
 </code></pre></div></div>
-
-<h3 id="safe-subscriber">Safe Subscriber</h3>
+    
+      <h3 id="safe-subscriber">
+        
+        
+          Safe Subscriber <a href="#safe-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><a href="/api/3.2/monix/reactive/observers/SafeSubscriber.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a></p>
 
-<p>The <code class="highlighter-rouge">SafeSubscriber</code> wraps a <code class="highlighter-rouge">Subscriber</code> implementation into one that
+<p>The <code class="language-plaintext highlighter-rouge">SafeSubscriber</code> wraps a <code class="language-plaintext highlighter-rouge">Subscriber</code> implementation into one that
 is safer for usage and protecting some parts of the contract:</p>
 
 <ol>
   <li>Exceptions thrown in the underlying subscriber implementation are
 being caught and treated, since exceptions break the contract.</li>
-  <li>If the downstream subscriber returns <code class="highlighter-rouge">Stop</code> from <code class="highlighter-rouge">onNext</code>, then
-this will enforce the grammar by stopping further <code class="highlighter-rouge">onNext</code> and even
-<code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> events.</li>
-  <li>Once final events, <code class="highlighter-rouge">onComplete</code> or <code class="highlighter-rouge">onError</code> are noticed, no
+  <li>If the downstream subscriber returns <code class="language-plaintext highlighter-rouge">Stop</code> from <code class="language-plaintext highlighter-rouge">onNext</code>, then
+this will enforce the grammar by stopping further <code class="language-plaintext highlighter-rouge">onNext</code> and even
+<code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code> events.</li>
+  <li>Once final events, <code class="language-plaintext highlighter-rouge">onComplete</code> or <code class="language-plaintext highlighter-rouge">onError</code> are noticed, no
 further events are accepted.</li>
-  <li>The <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> are back-pressured. Even though this
+  <li>The <code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code> are back-pressured. Even though this
 is optional, for users of the API it’s safer if they are.</li>
 </ol>
 
@@ -542,19 +619,25 @@ is optional, for users of the API it’s safer if they are.</li>
 </code></pre></div></div>
 
 <p>Note that when subscribing to observables, if you use the regular
-<code class="highlighter-rouge">subscribe</code> methods (and not <code class="highlighter-rouge">unsafeSubscribeFn</code>) the callbacks you
-give are automatically wrapped in a <code class="highlighter-rouge">SafeSubscriber</code>, so you don’t
+<code class="language-plaintext highlighter-rouge">subscribe</code> methods (and not <code class="language-plaintext highlighter-rouge">unsafeSubscribeFn</code>) the callbacks you
+give are automatically wrapped in a <code class="language-plaintext highlighter-rouge">SafeSubscriber</code>, so you don’t
 have to do it by yourself.</p>
-
-<h3 id="connectable-subscriber">Connectable Subscriber</h3>
+    
+      <h3 id="connectable-subscriber">
+        
+        
+          Connectable Subscriber <a href="#connectable-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><a href="/api/3.2/monix/reactive/observers/ConnectableSubscriber.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a></p>
 
-<p>Wraps a <code class="highlighter-rouge">Subscriber</code> implementation into one that back-pressures the
-upstream until the call to <code class="highlighter-rouge">connect()</code> happens. Before <code class="highlighter-rouge">connect()</code> it
+<p>Wraps a <code class="language-plaintext highlighter-rouge">Subscriber</code> implementation into one that back-pressures the
+upstream until the call to <code class="language-plaintext highlighter-rouge">connect()</code> happens. Before <code class="language-plaintext highlighter-rouge">connect()</code> it
 also allows for scheduling the delivery of additional items before any
-other <code class="highlighter-rouge">onNext</code>.</p>
+other <code class="language-plaintext highlighter-rouge">onNext</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.observers._</span>
 
@@ -585,14 +668,20 @@ other <code class="highlighter-rouge">onNext</code>.</p>
 <span class="nv">ack</span><span class="o">.</span><span class="py">isCompleted</span>
 <span class="c1">// res: Boolean = true</span>
 </code></pre></div></div>
-
-<h3 id="cache-until-connect-subscriber">Cache Until Connect Subscriber</h3>
+    
+      <h3 id="cache-until-connect-subscriber">
+        
+        
+          Cache Until Connect Subscriber <a href="#cache-until-connect-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><a href="/api/3.2/monix/reactive/observers/CacheUntilConnectSubscriber.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a></p>
 
-<p>Wraps an underlying <code class="highlighter-rouge">Subscriber</code> into an implementation that caches
-all events until the call to <code class="highlighter-rouge">connect()</code> happens. After being
+<p>Wraps an underlying <code class="language-plaintext highlighter-rouge">Subscriber</code> into an implementation that caches
+all events until the call to <code class="language-plaintext highlighter-rouge">connect()</code> happens. After being
 connected, the buffer is drained into the underlying subscriber, after
 which all subsequent events are pushed directly.</p>
 
@@ -618,8 +707,14 @@ which all subsequent events are pushed directly.</p>
 <span class="c1">//=&gt; 1: O--&gt;20</span>
 <span class="c1">//=&gt; 2: O--&gt;30</span>
 </code></pre></div></div>
-
-<h3 id="buffered-subscriber">Buffered Subscriber</h3>
+    
+      <h3 id="buffered-subscriber">
+        
+        
+          Buffered Subscriber <a href="#buffered-subscriber" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><a href="/api/3.2/monix/reactive/observers/BufferedSubscriber.html">API Documentation</a> •
 <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a></p>
@@ -632,15 +727,15 @@ which all subsequent events are pushed directly.</p>
 </ul>
 
 <p>There are instances in which these requirements are limiting. A
-<code class="highlighter-rouge">BufferedSubscriber</code> describes (and Monix can wrap any implementation
-into) a <code class="highlighter-rouge">Subscriber</code> that:</p>
+<code class="language-plaintext highlighter-rouge">BufferedSubscriber</code> describes (and Monix can wrap any implementation
+into) a <code class="language-plaintext highlighter-rouge">Subscriber</code> that:</p>
 
 <ol>
-  <li>has <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> methods that can be called
+  <li>has <code class="language-plaintext highlighter-rouge">onNext</code>, <code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code> methods that can be called
 concurrently</li>
   <li>has implementations that always have synchronous behavior, returning
-an immediate <code class="highlighter-rouge">Continue</code></li>
-  <li>has an <code class="highlighter-rouge">onNext</code> that returns an immediate <code class="highlighter-rouge">Continue</code> for as long as
+an immediate <code class="language-plaintext highlighter-rouge">Continue</code></li>
+  <li>has an <code class="language-plaintext highlighter-rouge">onNext</code> that returns an immediate <code class="language-plaintext highlighter-rouge">Continue</code> for as long as
 the buffer isn’t full</li>
   <li>buffers the connection between the upstream and the underlying
 subscriber such that the underlying subscriber can consume events
@@ -657,28 +752,28 @@ parameter dictates the strategy of the used buffer. We’ve got these
 strategies available:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Unbounded</code> indicates that the buffer should be unlimited. In this
+  <li><code class="language-plaintext highlighter-rouge">Unbounded</code> indicates that the buffer should be unlimited. In this
 case the buffer can expand to fill the whole available heap
 memory. And so in case of slow consumers, the process can naturally
 run out of memory.</li>
-  <li><code class="highlighter-rouge">Fail</code> indicates a limited size for the buffer and on overflow the
+  <li><code class="language-plaintext highlighter-rouge">Fail</code> indicates a limited size for the buffer and on overflow the
 connection will be closed, the underlying subscriber receiving an
-<code class="highlighter-rouge">onError</code> notification and the data source receiving a <code class="highlighter-rouge">Stop</code> on
-<code class="highlighter-rouge">onNext</code>.</li>
-  <li><code class="highlighter-rouge">BackPressure</code> indicates a limited size for the buffer and on
+<code class="language-plaintext highlighter-rouge">onError</code> notification and the data source receiving a <code class="language-plaintext highlighter-rouge">Stop</code> on
+<code class="language-plaintext highlighter-rouge">onNext</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">BackPressure</code> indicates a limited size for the buffer and on
 overflow it should try to back-pressure the source until the buffer
-is empty again. This isn’t a <code class="highlighter-rouge">Synchronous</code> strategy obviously and so
-it cannot be used in cases where one really needs <code class="highlighter-rouge">Synchronous</code>
+is empty again. This isn’t a <code class="language-plaintext highlighter-rouge">Synchronous</code> strategy obviously and so
+it cannot be used in cases where one really needs <code class="language-plaintext highlighter-rouge">Synchronous</code>
 behavior.</li>
-  <li><code class="highlighter-rouge">DropNew</code> indicates a limited size for the buffer and on overflow
+  <li><code class="language-plaintext highlighter-rouge">DropNew</code> indicates a limited size for the buffer and on overflow
 it should drop incoming events.</li>
-  <li><code class="highlighter-rouge">DropNewAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped incoming events.</li>
-  <li><code class="highlighter-rouge">DropOld</code> indicates a limited size for the buffer and on overflow
+  <li><code class="language-plaintext highlighter-rouge">DropNewAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped incoming events.</li>
+  <li><code class="language-plaintext highlighter-rouge">DropOld</code> indicates a limited size for the buffer and on overflow
 it should drop older enqueued events.</li>
-  <li><code class="highlighter-rouge">DropOldAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped older enqueued events.</li>
-  <li><code class="highlighter-rouge">ClearBuffer</code> indicates a limited size for the buffer and on overflow
+  <li><code class="language-plaintext highlighter-rouge">DropOldAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropped older enqueued events.</li>
+  <li><code class="language-plaintext highlighter-rouge">ClearBuffer</code> indicates a limited size for the buffer and on overflow
 it should drop the entire buffer and start fresh.</li>
-  <li><code class="highlighter-rouge">ClearBufferAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.</li>
+  <li><code class="language-plaintext highlighter-rouge">ClearBufferAndSignal</code> indicates a limited size for the buffer and on overflow it will optionally emit specified message to the downstream consumers to inform them of dropping the entire buffer.</li>
 </ul>
 
 
@@ -698,8 +793,8 @@ it should drop the entire buffer and start fresh.</li>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

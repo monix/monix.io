@@ -28,19 +28,15 @@
   <meta content="Best Practice: Should Not Block Threads &amp;mdash; Monix" property="og:title">
   <meta content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." property="og:description">
   <meta content="https://monix.io/docs/2x/best-practices/blocking.html" property="og:url">
+  <meta content="2020-07-20T09:12:59+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Best Practice: Should Not Block Threads</h1>
+      <h1 class="page-title">
+        
+        
+          Best Practice: Should Not Block Threads
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/best-practices/blocking.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,7 +119,19 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#if-blocking-specify-explicit-timeouts">If blocking, specify explicit timeouts</a></li>
+  <li><a href="#if-blocking-use-scalas-blockcontext">If blocking, use Scala’s BlockContext</a></li>
+  <li><a href="#if-blocking-use-a-separate-thread-pool-for-blocking-io">If blocking, use a separate thread-pool for blocking I/O</a></li>
+</ul>
+
+  </nav>
 
   <p>When you have a choice, you should never block. For example, don’t do
 this:</p>
@@ -141,19 +156,25 @@ easier.</p>
 
 <p><strong>REASON:</strong> blocking threads is error prone because you have to know
 and control the configuration of the underlying thread-pool. For
-example even Scala’s <code class="highlighter-rouge">ExecutionContext.Implicits.global</code> has an upper
+example even Scala’s <code class="language-plaintext highlighter-rouge">ExecutionContext.Implicits.global</code> has an upper
 limit to the number of threads spawned, which means that you can end
 up in a <em>dead-lock</em>, because all of your threads can end up blocked,
 with no threads available in the pool to finish the required
 callbacks.</p>
-
-<h2 id="if-blocking-specify-explicit-timeouts">If blocking, specify explicit timeouts</h2>
+    
+      <h2 id="if-blocking-specify-explicit-timeouts">
+        
+        
+          If blocking, specify explicit timeouts <a href="#if-blocking-specify-explicit-timeouts" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>If you have to block, specify explicit timeouts for failure and never
 use APIs that block on some result and that don’t have explicit
 timeouts.</p>
 
-<p>For example Scala’s own <code class="highlighter-rouge">Await.result</code> is very well behaved ands
+<p>For example Scala’s own <code class="language-plaintext highlighter-rouge">Await.result</code> is very well behaved ands
 that’s good:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
@@ -178,8 +199,14 @@ some of them will get unblocked after the specified timespan:</p>
 <span class="c1">// GOOD</span>
 <span class="nv">future</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 </code></pre></div></div>
-
-<h2 id="if-blocking-use-scalas-blockcontext">If blocking, use Scala’s BlockContext</h2>
+    
+      <h2 id="if-blocking-use-scalas-blockcontext">
+        
+        
+          If blocking, use Scala’s BlockContext <a href="#if-blocking-use-scalas-blockcontext" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>This includes all blocking I/O, including SQL queries. Real sample:</p>
 
@@ -219,22 +246,28 @@ bug waiting to happen in production.</p>
 thread-pools configured with upper bounds will sooner or later be
 affected by this.</p>
 
-<p>Blocking calls have to be marked with a <code class="highlighter-rouge">blocking</code> call that signals
-to the <code class="highlighter-rouge">BlockContext</code> a blocking operation. It’s a very neat mechanism
-in Scala that lets the <code class="highlighter-rouge">ExecutionContext</code> know that a blocking operation
-happens, such that the <code class="highlighter-rouge">ExecutionContext</code> can decide what to do about
+<p>Blocking calls have to be marked with a <code class="language-plaintext highlighter-rouge">blocking</code> call that signals
+to the <code class="language-plaintext highlighter-rouge">BlockContext</code> a blocking operation. It’s a very neat mechanism
+in Scala that lets the <code class="language-plaintext highlighter-rouge">ExecutionContext</code> know that a blocking operation
+happens, such that the <code class="language-plaintext highlighter-rouge">ExecutionContext</code> can decide what to do about
 it, such as adding more threads to the thread-pool (which is what
 Scala’s ForkJoin thread-pool does).</p>
 
-<p><strong>WARNING:</strong> Scala’s <code class="highlighter-rouge">ExecutionContext.Implicits.global</code> is backed by
-a cool <code class="highlighter-rouge">ForkJoinPool</code> implementation that has an absolute maximum
+<p><strong>WARNING:</strong> Scala’s <code class="language-plaintext highlighter-rouge">ExecutionContext.Implicits.global</code> is backed by
+a cool <code class="language-plaintext highlighter-rouge">ForkJoinPool</code> implementation that has an absolute maximum
 number of threads limit. What this means is that, in spite of well
 behaved code, you can still hit that limit and you can still end up in
 a dead-lock. This is why blocking threads is error prone, as nothing
 saves you from knowing and controlling the thread-pools that you end
 up blocking.</p>
-
-<h2 id="if-blocking-use-a-separate-thread-pool-for-blocking-io">If blocking, use a separate thread-pool for blocking I/O</h2>
+    
+      <h2 id="if-blocking-use-a-separate-thread-pool-for-blocking-io">
+        
+        
+          If blocking, use a separate thread-pool for blocking I/O <a href="#if-blocking-use-a-separate-thread-pool-for-blocking-io" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>If you’re doing a lot of blocking I/O (e.g. a lot of calls to JDBC),
 it’s better to create a second thread-pool / execution context and
@@ -266,7 +299,7 @@ you’ve got to have enough threads that you can block. But if unbounded
 is too much, depending on use-case, you can later fine-tune it, the
 idea with this sample being that you get the ball rolling.</p>
 
-<p>You could also use Monix’s <code class="highlighter-rouge">Scheduler.io</code> of course, which is also
+<p>You could also use Monix’s <code class="language-plaintext highlighter-rouge">Scheduler.io</code> of course, which is also
 backed by a “cached thread-pool”:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
@@ -307,8 +340,8 @@ backed by a “cached thread-pool”:</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

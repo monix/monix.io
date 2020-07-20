@@ -28,19 +28,15 @@
   <meta content="Parallel Processing &amp;mdash; Monix" property="og:title">
   <meta content="Recipes for achieving parallelism" property="og:description">
   <meta content="https://monix.io/docs/2x/tutorials/parallelism.html" property="og:url">
+  <meta content="2020-07-20T09:13:58+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Parallel Processing</h1>
+      <h1 class="page-title">
+        
+        
+          Parallel Processing
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/tutorials/parallelism.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,7 +119,26 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#parallelism-with-task">Parallelism with Task</a>
+    <ul>
+      <li><a href="#the-naive-way">The Naive Way</a></li>
+      <li><a href="#imposing-a-parallelism-limit">Imposing a Parallelism Limit</a></li>
+      <li><a href="#batched-observables">Batched Observables</a></li>
+    </ul>
+  </li>
+  <li><a href="#observablemapasync">Observable.mapAsync</a></li>
+  <li><a href="#observablemergemap">Observable.mergeMap</a></li>
+  <li><a href="#consumerloadbalancer">Consumer.loadBalancer</a></li>
+</ul>
+
+  </nav>
 
   <p>Monix provides multiple ways for achieving parallelism, depending on use-case.</p>
 
@@ -129,13 +151,25 @@
 <span class="c1">// For Observable</span>
 <span class="k">import</span> <span class="nn">monix.reactive._</span>
 </code></pre></div></div>
-
-<h2 id="parallelism-with-task">Parallelism with Task</h2>
+    
+      <h2 id="parallelism-with-task">
+        
+        
+          Parallelism with Task <a href="#parallelism-with-task" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>We can do parallel execution in batches, that does deterministic
-(ordered) signaling of results with the help of <a href="../eval/task.html">Task</a>.</p>
-
-<h3 id="the-naive-way">The Naive Way</h3>
+(ordered) signaling of results with the help of <a href="/docs/2x/eval/task.html">Task</a>.</p>
+    
+      <h3 id="the-naive-way">
+        
+        
+          The Naive Way <a href="#the-naive-way" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>The following example uses
 <a href="/api/2.3/monix/eval/Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]">Task.gather</a>,
@@ -162,11 +196,17 @@ to any task.</p>
 
 <p>If ordering of results does not matter, you can also use 
 <a href="/api/2.3/monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.gatherUnordered</a>
-instead of <code class="highlighter-rouge">gather</code>, which might yield better results, given its non-blocking execution.</p>
+instead of <code class="language-plaintext highlighter-rouge">gather</code>, which might yield better results, given its non-blocking execution.</p>
+    
+      <h3 id="imposing-a-parallelism-limit">
+        
+        
+          Imposing a Parallelism Limit <a href="#imposing-a-parallelism-limit" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="imposing-a-parallelism-limit">Imposing a Parallelism Limit</h3>
-
-<p>The <code class="highlighter-rouge">Task.gather</code> builder, as exemplified above, will potentially execute
+<p>The <code class="language-plaintext highlighter-rouge">Task.gather</code> builder, as exemplified above, will potentially execute
 all given tasks in parallel, the problem being that this can lead to inefficiency.
 For example we might be doing HTTP requests and starting 10000 HTTP
 requests in parallel is not necessarily wise as it can choke the
@@ -188,15 +228,21 @@ are then sequenced:</p>
 <span class="c1">//=&gt; List(0, 2, 4, 6, 8, 10, 12, 14, 16,...</span>
 </code></pre></div></div>
 
-<p>Note how this strategy is difficult to achieve with Scala’s <code class="highlighter-rouge">Future</code>
-because even though we have <code class="highlighter-rouge">Future.sequence</code>, its behavior is strict
+<p>Note how this strategy is difficult to achieve with Scala’s <code class="language-plaintext highlighter-rouge">Future</code>
+because even though we have <code class="language-plaintext highlighter-rouge">Future.sequence</code>, its behavior is strict
 and is thus not able to differentiate well between sequencing and
 parallelism, this behavior being controlled by passing a lazy or a
-strict sequence to <code class="highlighter-rouge">Future.sequence</code>, which is obviously error-prone.</p>
+strict sequence to <code class="language-plaintext highlighter-rouge">Future.sequence</code>, which is obviously error-prone.</p>
+    
+      <h3 id="batched-observables">
+        
+        
+          Batched Observables <a href="#batched-observables" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="batched-observables">Batched Observables</h3>
-
-<p>We can also combine this with <code class="highlighter-rouge">Observable.flatMap</code> for doing requests
+<p>We can also combine this with <code class="language-plaintext highlighter-rouge">Observable.flatMap</code> for doing requests
 in batches:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
@@ -231,8 +277,14 @@ which buffers incoming events while the downstream is busy, after which
 it emits the buffer as a single bundle. The
 <a href="/api/2.3/monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]]">bufferTumbling</a>
 operator can be a more deterministic alternative.</p>
-
-<h2 id="observablemapasync">Observable.mapAsync</h2>
+    
+      <h2 id="observablemapasync">
+        
+        
+          Observable.mapAsync <a href="#observablemapasync" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Another way to achieve parallelism is to use the 
 <a href="/api/2.3/monix/reactive/Observable.html#mapAsync[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B]):Self[B]">Observable.mapAsync</a>
@@ -249,7 +301,7 @@ operator:</p>
 <span class="c1">//=&gt; List(2, 10, 0, 4, 8, 6, 12...</span>
 </code></pre></div></div>
 
-<p>Compared with using <code class="highlighter-rouge">Task.gather</code> as exemplified above, this operator
+<p>Compared with using <code class="language-plaintext highlighter-rouge">Task.gather</code> as exemplified above, this operator
 <strong>does not maintain ordering</strong> of results as signaled by the source.</p>
 
 <p>This leads to a more efficient execution, because the source doesn’t
@@ -257,12 +309,18 @@ get back-pressured for as long as there’s at least one worker active,
 whereas with the batched execution strategy exemplified above we can
 have inefficiencies due to a single async task that takes too long to
 complete.</p>
+    
+      <h2 id="observablemergemap">
+        
+        
+          Observable.mergeMap <a href="#observablemergemap" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="observablemergemap">Observable.mergeMap</h2>
-
-<p>If <code class="highlighter-rouge">Observable.mapAsync</code> works with <code class="highlighter-rouge">Task</code>, then 
+<p>If <code class="language-plaintext highlighter-rouge">Observable.mapAsync</code> works with <code class="language-plaintext highlighter-rouge">Task</code>, then 
 <a href="https://monix.io/api/2.2/monix/reactive/Observable.html#mergeMap[B](f:A=%3Emonix.reactive.Observable[B])(implicitos:monix.reactive.OverflowStrategy[B]):Self[B]">Observable.mergeMap</a>
-works by merging <code class="highlighter-rouge">Observable</code> instances.</p>
+works by merging <code class="language-plaintext highlighter-rouge">Observable</code> instances.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>
 <span class="c1">// The parallelism factor needs to be specified</span>
@@ -275,21 +333,27 @@ works by merging <code class="highlighter-rouge">Observable</code> instances.</p
 <span class="c1">//=&gt; List(0, 4, 6, 2, 8, 10, 12, 14...</span>
 </code></pre></div></div>
 
-<p>Note that <code class="highlighter-rouge">mergeMap</code> is similar with <code class="highlighter-rouge">concatMap</code> (aliased by <code class="highlighter-rouge">flatMap</code>
+<p>Note that <code class="language-plaintext highlighter-rouge">mergeMap</code> is similar with <code class="language-plaintext highlighter-rouge">concatMap</code> (aliased by <code class="language-plaintext highlighter-rouge">flatMap</code>
 in Monix), except that the observable streams emitted by the source
 get subscribed in parallel and thus the result is non-deterministic.</p>
 
-<p>Note that this <code class="highlighter-rouge">mergeMap</code> call, as exemplified above, does not have an
-optional <code class="highlighter-rouge">parallelism</code> parameter, which means that if the source is
+<p>Note that this <code class="language-plaintext highlighter-rouge">mergeMap</code> call, as exemplified above, does not have an
+optional <code class="language-plaintext highlighter-rouge">parallelism</code> parameter, which means that if the source is
 chatty, we can end up with <em>a lot</em> of observables subscribed in
-parallel. The issue is that the <code class="highlighter-rouge">mergeMap</code> operator is not meant for
+parallel. The issue is that the <code class="language-plaintext highlighter-rouge">mergeMap</code> operator is not meant for
 actual processing in parallel, but for joining active, concurrent
 streams.</p>
+    
+      <h2 id="consumerloadbalancer">
+        
+        
+          Consumer.loadBalancer <a href="#consumerloadbalancer" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="consumerloadbalancer">Consumer.loadBalancer</h2>
-
-<p>We can apply a <code class="highlighter-rouge">mapAsync</code> like operation on the consumer side, as
-exemplified in the <a href="../reactive/consumer.html">Consumer</a> tutorial, by means of a
+<p>We can apply a <code class="language-plaintext highlighter-rouge">mapAsync</code> like operation on the consumer side, as
+exemplified in the <a href="/docs/2x/reactive/consumer.html">Consumer</a> tutorial, by means of a
 load-balanced consumer, being able to do a final aggregate of the
 results of all workers:</p>
 
@@ -317,7 +381,7 @@ results of all workers:</p>
 <span class="c1">//=&gt; 4999950000</span>
 </code></pre></div></div>
 
-<p>Read the <a href="../reactive/consumer.html">Consumer</a> document for more details.</p>
+<p>Read the <a href="/docs/2x/reactive/consumer.html">Consumer</a> document for more details.</p>
 
 
   <div class="buttons">
@@ -330,8 +394,8 @@ results of all workers:</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

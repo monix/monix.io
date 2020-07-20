@@ -19,28 +19,24 @@
   <meta name="twitter:site" content="@monix" />  
   <meta name="twitter:creator" content="@monix" />  
   <meta name="twitter:title" content="Callback &amp;mdash; Monix" />
-  <meta name="twitter:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " />
+  <meta name="twitter:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." />
   <meta name="twitter:url" content="https://monix.io/docs/3x/execution/callback.html">
   <!-- Facebook Open-Graph -->
   <meta property="fb:app_id" content="2160100887367418" />
 
   <meta content="Monix" property="og:site_name">
   <meta content="Callback &amp;mdash; Monix" property="og:title">
-  <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task.  " property="og:description">
+  <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." property="og:description">
   <meta content="https://monix.io/docs/3x/execution/callback.html" property="og:url">
+  <meta content="2020-07-20T09:13:54+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,21 +97,36 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Callback</h1>
+      <h1 class="page-title">
+        
+        
+          Callback
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/execution/Callback.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v3.2.2/monix-execution/shared/src/main/scala/monix/execution/Callback.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/execution/callback.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <p><code class="highlighter-rouge">Callback</code> is a listener type that can be called asynchronously with
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p><code class="language-plaintext highlighter-rouge">Callback</code> is a listener type that can be called asynchronously with
 the result of a computation.</p>
 
-<p>When building an asynchronous <code class="highlighter-rouge">Task</code>, on execution the API gives you a
-<code class="highlighter-rouge">Callback</code> instance that you can invoke with the result of a
+<p>When building an asynchronous <code class="language-plaintext highlighter-rouge">Task</code>, on execution the API gives you a
+<code class="language-plaintext highlighter-rouge">Callback</code> instance that you can invoke with the result of a
 computation, on completion. Its definition is something like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">-E</span>, <span class="kt">-A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="o">{</span>
@@ -127,9 +138,9 @@ computation, on completion. Its definition is something like:</p>
 <p>This callback type has a contract:</p>
 
 <ol>
-  <li>on completion, if it was a successful execution, one needs to call <code class="highlighter-rouge">onSuccess</code></li>
-  <li>on completion, if the execution ended in error, one needs to call <code class="highlighter-rouge">onError</code></li>
-  <li>after calling <code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> then no more calls are allowed, as
+  <li>on completion, if it was a successful execution, one needs to call <code class="language-plaintext highlighter-rouge">onSuccess</code></li>
+  <li>on completion, if the execution ended in error, one needs to call <code class="language-plaintext highlighter-rouge">onError</code></li>
+  <li>after calling <code class="language-plaintext highlighter-rouge">onSuccess</code> or <code class="language-plaintext highlighter-rouge">onError</code> then no more calls are allowed, as
 that would be a contract violation</li>
 </ol>
 
@@ -152,40 +163,40 @@ a “safe” implementation that protects against violations:</p>
 
 <span class="c1">// But really, we don't need a Scheduler</span>
 <span class="k">import</span> <span class="nn">monix.execution.UncaughtExceptionReporter</span>
-<span class="k">import</span> <span class="nn">UncaughtExceptionReporter.</span><span class="o">{</span><span class="nc">LogExceptionsToStandardErr</span> <span class="k">=&gt;</span> <span class="n">r</span><span class="o">}</span>
+<span class="k">import</span> <span class="nn">UncaughtExceptionReporter.</span><span class="o">{</span><span class="n">default</span> <span class="k">=&gt;</span> <span class="n">r</span><span class="o">}</span>
 
 <span class="k">val</span> <span class="nv">safeCallback2</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)(</span><span class="n">r</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p><strong>NOTE:</strong> when executing <code class="highlighter-rouge">Task.runToFuture(callback)</code>, the provided
-callback is automatically wrapped in <code class="highlighter-rouge">Callback.safe</code>, so you don’t
+<p><strong>NOTE:</strong> when executing <code class="language-plaintext highlighter-rouge">Task.runToFuture(callback)</code>, the provided
+callback is automatically wrapped in <code class="language-plaintext highlighter-rouge">Callback.safe</code>, so you don’t
 need to worry about it.</p>
 
 <p>In case you just want an <em>empty</em> callback that doesn’t do anything
-on <code class="highlighter-rouge">onSuccess</code>, but that can log errors when <code class="highlighter-rouge">onError</code> happens,
+on <code class="language-plaintext highlighter-rouge">onSuccess</code>, but that can log errors when <code class="language-plaintext highlighter-rouge">onError</code> happens,
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Task.Eval$1056548588</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Eval(&lt;function0&gt;)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Unit</span><span class="o">])</span>
 <span class="c1">// Sample</span>
-<span class="c1">// res2: monix.execution.Cancelable = monix.execution.Cancelable.empty</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.Cancelable.empty</span>
 </code></pre></div></div>
 
-<p>Or maybe you want to convert a Scala <code class="highlighter-rouge">Promise</code> to a <code class="highlighter-rouge">Callback</code>:</p>
+<p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nv">scala</span><span class="o">.</span><span class="py">concurrent</span><span class="o">.</span><span class="py">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
-<span class="c1">// p: scala.concurrent.Promise[String] = Future(&lt;not completed&gt;)</span>
+<span class="c1">// p: concurrent.Promise[String] = Future(&lt;not completed&gt;)</span>
 
 <span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
-<span class="c1">// callback: monix.execution.Callback[Throwable,String] = &lt;function1&gt;</span>
+<span class="c1">// callback: Callback[Throwable, String] = &lt;function1&gt;</span>
 </code></pre></div></div>
 
 <p>An interesting effect when dealing with callbacks is that callbacks
 calling other callbacks can quickly and easily lead to stack-overflow
 errors. So to force a protective asynchronous boundary when calling
-<code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> (which may or may not fork a thread):</p>
+<code class="language-plaintext highlighter-rouge">onSuccess</code> or <code class="language-plaintext highlighter-rouge">onError</code> (which may or may not fork a thread):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Lets pretend we have something meaningful</span>
 <span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">String</span><span class="o">]</span>
@@ -210,8 +221,8 @@ errors. So to force a protective asynchronous boundary when calling
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

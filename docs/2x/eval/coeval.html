@@ -28,19 +28,15 @@
   <meta content="Coeval &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." property="og:description">
   <meta content="https://monix.io/docs/2x/eval/coeval.html" property="og:url">
+  <meta content="2020-07-20T09:13:19+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Coeval</h1>
+      <h1 class="page-title">
+        
+        
+          Coeval
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     <a href="/api/2.3/monix/eval/Coeval.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-eval/shared/src/main/scala/monix/eval/Coeval.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/eval/coeval.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,13 +119,67 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="introduction">Introduction</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#design-summary">Design Summary</a></li>
+      <li><a href="#comparison-with-cats-eval">Comparison with Cats Eval</a></li>
+    </ul>
+  </li>
+  <li><a href="#evaluation">Evaluation</a>
+    <ul>
+      <li><a href="#attempt-the-replacement-for-scalautiltry">Attempt, the replacement for scala.util.Try</a></li>
+      <li><a href="#convert-any-coeval-into-a-task">Convert any Coeval into a Task</a></li>
+    </ul>
+  </li>
+  <li><a href="#builders">Builders</a>
+    <ul>
+      <li><a href="#coevalnow">Coeval.now</a></li>
+      <li><a href="#coevaleval">Coeval.eval</a></li>
+      <li><a href="#coevalevalonce">Coeval.evalOnce</a></li>
+      <li><a href="#coevaldefer">Coeval.defer</a></li>
+      <li><a href="#coevalraiseerror">Coeval.raiseError</a></li>
+      <li><a href="#coevalunit">Coeval.unit</a></li>
+    </ul>
+  </li>
+  <li><a href="#memoization">Memoization</a></li>
+  <li><a href="#operations">Operations</a>
+    <ul>
+      <li><a href="#flatmap-and-tail-recursive-loops">FlatMap and Tail-Recursive Loops</a></li>
+      <li><a href="#the-applicative-zip2-zip3--zip6">The Applicative: zip2, zip3, … zip6</a></li>
+      <li><a href="#gather-results-from-a-seq-of-coevals">Gather results from a Seq of Coevals</a></li>
+      <li><a href="#restart-until-predicate-is-true">Restart Until Predicate is True</a></li>
+      <li><a href="#clean-up-resources-on-finish">Clean-up Resources on Finish</a></li>
+    </ul>
+  </li>
+  <li><a href="#error-handling">Error Handling</a>
+    <ul>
+      <li><a href="#recovering-from-error">Recovering from Error</a></li>
+      <li><a href="#restart-on-error">Restart On Error</a></li>
+      <li><a href="#expose-errors">Expose Errors</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Coeval is a data type for controlling synchronous, possibly lazy
 evaluation, useful for describing lazy expressions and for controlling
-side-effects. It is the sidekick of <a href="./task.html">Task</a>, being meant
+side-effects. It is the sidekick of <a href="/docs/2x/eval/task.html">Task</a>, being meant
 for computations that are guaranteed to execute immediately
 (synchronously).</p>
 
@@ -165,21 +222,27 @@ fascination of FP developers for co-things ♥◡♥</p>
    <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="design-summary">
+        
+        
+          Design Summary <a href="#design-summary" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="design-summary">Design Summary</h3>
-
-<p>In summary the Monix <code class="highlighter-rouge">Coeval</code>:</p>
+<p>In summary the Monix <code class="language-plaintext highlighter-rouge">Coeval</code>:</p>
 
 <ul>
-  <li>resembles <a href="./task.html">Task</a>, but works only for immediate,
+  <li>resembles <a href="/docs/2x/eval/task.html">Task</a>, but works only for immediate,
 synchronous evaluation</li>
-  <li>can be a replacement for <code class="highlighter-rouge">lazy val</code> and by-name parameters</li>
-  <li>doesn’t trigger the execution, or any effects until <code class="highlighter-rouge">value</code> or <code class="highlighter-rouge">run</code></li>
+  <li>can be a replacement for <code class="language-plaintext highlighter-rouge">lazy val</code> and by-name parameters</li>
+  <li>doesn’t trigger the execution, or any effects until <code class="language-plaintext highlighter-rouge">value</code> or <code class="language-plaintext highlighter-rouge">run</code></li>
   <li>allows for controlling of side-effects</li>
   <li>handles errors</li>
 </ul>
 
-<p>A visual representation of where <code class="highlighter-rouge">Coeval</code> sits in the design space:</p>
+<p>A visual representation of where <code class="language-plaintext highlighter-rouge">Coeval</code> sits in the design space:</p>
 
 <table>
   <thead>
@@ -208,7 +271,7 @@ synchronous evaluation</li>
     <tr>
       <td style="text-align: center"> </td>
       <td style="text-align: center">Future[A]</td>
-      <td style="text-align: center"><a href="./task.html">Task[A]</a></td>
+      <td style="text-align: center"><a href="/docs/2x/eval/task.html">Task[A]</a></td>
     </tr>
   </tbody>
 </table>
@@ -216,51 +279,63 @@ synchronous evaluation</li>
 <p>So what problems are we solving?</p>
 
 <ul>
-  <li><code class="highlighter-rouge">lazy val</code> cannot be expressed by developers as a type, you cannot
-take a <code class="highlighter-rouge">lazy val</code> parameter or return a <code class="highlighter-rouge">lazy val</code> from a function</li>
+  <li><code class="language-plaintext highlighter-rouge">lazy val</code> cannot be expressed by developers as a type, you cannot
+take a <code class="language-plaintext highlighter-rouge">lazy val</code> parameter or return a <code class="language-plaintext highlighter-rouge">lazy val</code> from a function</li>
   <li>ditto for by-name parameters, being just syntactic sugar that the
 compiler understand, but a proper type isn’t properly exposed by
 Scala</li>
-  <li>Scala has <code class="highlighter-rouge">@tailrec</code> as a compiler workaround to the JVM not
+  <li>Scala has <code class="language-plaintext highlighter-rouge">@tailrec</code> as a compiler workaround to the JVM not
 supporting tail-calls elimination, but it does not work for
 mutually tail recursive calls and thus limited</li>
-  <li>The <code class="highlighter-rouge">scala.util.Try</code> type is overlapping in scope, given the
-<code class="highlighter-rouge">Coeval</code> focus on error handling, but doesn’t have lazy behavior</li>
+  <li>The <code class="language-plaintext highlighter-rouge">scala.util.Try</code> type is overlapping in scope, given the
+<code class="language-plaintext highlighter-rouge">Coeval</code> focus on error handling, but doesn’t have lazy behavior</li>
 </ul>
 
-<p><code class="highlighter-rouge">Coeval</code> can replace both <code class="highlighter-rouge">lazy val</code> and by-name parameters, allowing
+<p><code class="language-plaintext highlighter-rouge">Coeval</code> can replace both <code class="language-plaintext highlighter-rouge">lazy val</code> and by-name parameters, allowing
 one to control evaluation and to do error handling. It’s also stack
 safe and with it you can describe mutually tail-recursive algorithms,
 which are incredibly important in FP.</p>
+    
+      <h3 id="comparison-with-cats-eval">
+        
+        
+          Comparison with Cats Eval <a href="#comparison-with-cats-eval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="comparison-with-cats-eval">Comparison with Cats Eval</h3>
-
-<p>The whole Monix library stands on the shoulders of giants and <code class="highlighter-rouge">Coeval</code>
-is definitely inspired by the <code class="highlighter-rouge">Eval</code> data-type in
+<p>The whole Monix library stands on the shoulders of giants and <code class="language-plaintext highlighter-rouge">Coeval</code>
+is definitely inspired by the <code class="language-plaintext highlighter-rouge">Eval</code> data-type in
 <a href="http://typelevel.org/cats/">Cats</a>, hence credit should be given where
 credit is due.</p>
 
-<p>The Cats <code class="highlighter-rouge">Eval</code> is a very light type that’s concerned just with
+<p>The Cats <code class="language-plaintext highlighter-rouge">Eval</code> is a very light type that’s concerned just with
 controlling evaluation. It’s more limited and that’s not a bad
-thing. People using <code class="highlighter-rouge">Eval</code> are not using it as a replacement for an
+thing. People using <code class="language-plaintext highlighter-rouge">Eval</code> are not using it as a replacement for an
 <a href="https://apocalisp.wordpress.com/2011/12/19/towards-an-effect-system-in-scala-part-2-io-monad/">I/O Monad</a>.</p>
 
-<p>But the Monix <code class="highlighter-rouge">Coeval</code> works as a side-kick to <code class="highlighter-rouge">Task</code>, being for those
-instances where you don’t want the asynchronous nature of <code class="highlighter-rouge">Task</code>. This
-means that <code class="highlighter-rouge">Coeval</code> scales from delaying simple arithmetic operations
+<p>But the Monix <code class="language-plaintext highlighter-rouge">Coeval</code> works as a side-kick to <code class="language-plaintext highlighter-rouge">Task</code>, being for those
+instances where you don’t want the asynchronous nature of <code class="language-plaintext highlighter-rouge">Task</code>. This
+means that <code class="language-plaintext highlighter-rouge">Coeval</code> scales from delaying simple arithmetic operations
 up to controlling side-effects, and if you want, it can also function
 as a replacement for an I/O Monad. And because it’s the legitimate
-sibling of <a href="./task.html">Task</a>, conversion back and forth is smooth
+sibling of <a href="/docs/2x/eval/task.html">Task</a>, conversion back and forth is smooth
 (within limits).</p>
 
 <p>Or in more concrete terms, at the moment of writing this, the Monix
-<code class="highlighter-rouge">Coeval</code> takes care of error handling, while the Cats <code class="highlighter-rouge">Eval</code> does not,
+<code class="language-plaintext highlighter-rouge">Coeval</code> takes care of error handling, while the Cats <code class="language-plaintext highlighter-rouge">Eval</code> does not,
 providing operations for recovery, thus also working well as a
-replacement for Scala’s <code class="highlighter-rouge">Try</code> type.</p>
+replacement for Scala’s <code class="language-plaintext highlighter-rouge">Try</code> type.</p>
+    
+      <h2 id="evaluation">
+        
+        
+          Evaluation <a href="#evaluation" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="evaluation">Evaluation</h2>
-
-<p>To evaluate a <code class="highlighter-rouge">Coeval</code> instance you can invoke its <code class="highlighter-rouge">value</code> command:</p>
+<p>To evaluate a <code class="language-plaintext highlighter-rouge">Coeval</code> instance you can invoke its <code class="language-plaintext highlighter-rouge">value</code> command:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nc">Coeval</span> <span class="o">{</span>
   <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">)</span>
@@ -273,9 +348,9 @@ replacement for Scala’s <code class="highlighter-rouge">Try</code> type.</p>
 <span class="c1">// res: Int = 2</span>
 </code></pre></div></div>
 
-<p>But <code class="highlighter-rouge">value</code> might trigger exceptions, if somewhere in the evaluation
-chain exceptions have happened. Instead of <code class="highlighter-rouge">value</code> we can expose
-errors by means of <code class="highlighter-rouge">runTry</code>:</p>
+<p>But <code class="language-plaintext highlighter-rouge">value</code> might trigger exceptions, if somewhere in the evaluation
+chain exceptions have happened. Instead of <code class="language-plaintext highlighter-rouge">value</code> we can expose
+errors by means of <code class="language-plaintext highlighter-rouge">runTry</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Failure</span><span class="o">,</span> <span class="nc">Success</span><span class="o">}</span>
 
@@ -293,15 +368,21 @@ errors by means of <code class="highlighter-rouge">runTry</code>:</p>
 <span class="c1">// Will print:</span>
 <span class="c1">//=&gt; Error: java.lang.RuntimeException: Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="attempt-the-replacement-for-scalautiltry">
+        
+        
+          Attempt, the replacement for scala.util.Try <a href="#attempt-the-replacement-for-scalautiltry" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="attempt-the-replacement-for-scalautiltry">Attempt, the replacement for scala.util.Try</h3>
-
-<p>The <code class="highlighter-rouge">runTry</code> method returns a <code class="highlighter-rouge">scala.util.Try</code>, but if you looked at
-the source code, the implementation of <code class="highlighter-rouge">Coeval</code> uses two states called
-<code class="highlighter-rouge">Now(value)</code> and <code class="highlighter-rouge">Error(ex)</code>, inheriting from <code class="highlighter-rouge">Coeval</code> and that are
-perfect equivalents for the <code class="highlighter-rouge">scala.util.Try</code> states called <code class="highlighter-rouge">Success</code>
-and <code class="highlighter-rouge">Failure</code>. And in fact an <code class="highlighter-rouge">Attempt</code> sub-type of <code class="highlighter-rouge">Coeval</code> is
-exposed as an ADT that you can use instead of <code class="highlighter-rouge">scala.util.Try</code>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">runTry</code> method returns a <code class="language-plaintext highlighter-rouge">scala.util.Try</code>, but if you looked at
+the source code, the implementation of <code class="language-plaintext highlighter-rouge">Coeval</code> uses two states called
+<code class="language-plaintext highlighter-rouge">Now(value)</code> and <code class="language-plaintext highlighter-rouge">Error(ex)</code>, inheriting from <code class="language-plaintext highlighter-rouge">Coeval</code> and that are
+perfect equivalents for the <code class="language-plaintext highlighter-rouge">scala.util.Try</code> states called <code class="language-plaintext highlighter-rouge">Success</code>
+and <code class="language-plaintext highlighter-rouge">Failure</code>. And in fact an <code class="language-plaintext highlighter-rouge">Attempt</code> sub-type of <code class="language-plaintext highlighter-rouge">Coeval</code> is
+exposed as an ADT that you can use instead of <code class="language-plaintext highlighter-rouge">scala.util.Try</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 <span class="k">import</span> <span class="nn">monix.eval.Coeval.</span><span class="o">{</span><span class="nc">Attempt</span><span class="o">,</span> <span class="nc">Now</span><span class="o">,</span> <span class="nc">Error</span><span class="o">}</span>
@@ -317,15 +398,21 @@ exposed as an ADT that you can use instead of <code class="highlighter-rouge">sc
 <span class="c1">// result = Error(java.lang.RuntimeException: Hello!)</span>
 </code></pre></div></div>
 
-<p>Hence the <code class="highlighter-rouge">Coeval</code> type, or more precisely <code class="highlighter-rouge">Coeval.Attempt</code>, can work
-as a replacement for <code class="highlighter-rouge">scala.util.Try</code>, although note that even if the
-values boxed by <code class="highlighter-rouge">Now</code> and <code class="highlighter-rouge">Error</code> are already evaluated, when invoking
-operators on them, like <code class="highlighter-rouge">flatMap</code>, the behavior is still lazy, which
-is the main difference between <code class="highlighter-rouge">Attempt</code> and <code class="highlighter-rouge">Try</code>.</p>
+<p>Hence the <code class="language-plaintext highlighter-rouge">Coeval</code> type, or more precisely <code class="language-plaintext highlighter-rouge">Coeval.Attempt</code>, can work
+as a replacement for <code class="language-plaintext highlighter-rouge">scala.util.Try</code>, although note that even if the
+values boxed by <code class="language-plaintext highlighter-rouge">Now</code> and <code class="language-plaintext highlighter-rouge">Error</code> are already evaluated, when invoking
+operators on them, like <code class="language-plaintext highlighter-rouge">flatMap</code>, the behavior is still lazy, which
+is the main difference between <code class="language-plaintext highlighter-rouge">Attempt</code> and <code class="language-plaintext highlighter-rouge">Try</code>.</p>
+    
+      <h3 id="convert-any-coeval-into-a-task">
+        
+        
+          Convert any Coeval into a Task <a href="#convert-any-coeval-into-a-task" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="convert-any-coeval-into-a-task">Convert any Coeval into a Task</h3>
-
-<p>For converting any <code class="highlighter-rouge">Coeval</code> into a <a href="./task.html">Task</a>:</p>
+<p>For converting any <code class="language-plaintext highlighter-rouge">Coeval</code> into a <a href="/docs/2x/eval/task.html">Task</a>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
 
@@ -333,19 +420,31 @@ is the main difference between <code class="highlighter-rouge">Attempt</code> an
 <span class="c1">// task: Task[Int] = Always(&lt;function0&gt;)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> being siblings, they have similar internal states
-and conversion from a <code class="highlighter-rouge">Coeval</code> into a <code class="highlighter-rouge">Task</code> is direct and efficient.</p>
+<p><code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code> being siblings, they have similar internal states
+and conversion from a <code class="language-plaintext highlighter-rouge">Coeval</code> into a <code class="language-plaintext highlighter-rouge">Task</code> is direct and efficient.</p>
+    
+      <h2 id="builders">
+        
+        
+          Builders <a href="#builders" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="builders">Builders</h2>
-
-<p><code class="highlighter-rouge">Coeval</code> can replace functions accepting zero arguments, Scala by-name
-params, <code class="highlighter-rouge">lazy val</code> or <code class="highlighter-rouge">scala.util.Try</code>. Here’s how you can build
+<p><code class="language-plaintext highlighter-rouge">Coeval</code> can replace functions accepting zero arguments, Scala by-name
+params, <code class="language-plaintext highlighter-rouge">lazy val</code> or <code class="language-plaintext highlighter-rouge">scala.util.Try</code>. Here’s how you can build
 instances:</p>
+    
+      <h3 id="coevalnow">
+        
+        
+          Coeval.now <a href="#coevalnow" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevalnow">Coeval.now</h3>
-
-<p><code class="highlighter-rouge">Coeval.now</code> lifts an already known value in the <code class="highlighter-rouge">Coeval</code> context,
-the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Coeval.now</code> lifts an already known value in the <code class="language-plaintext highlighter-rouge">Coeval</code> context,
+the equivalent of <code class="language-plaintext highlighter-rouge">Applicative.pure</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
@@ -353,11 +452,17 @@ the equivalent of <code class="highlighter-rouge">Applicative.pure</code>:</p>
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">// coeval: monix.eval.Coeval[String] = Now(Hello!)</span>
 </code></pre></div></div>
+    
+      <h3 id="coevaleval">
+        
+        
+          Coeval.eval <a href="#coevaleval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevaleval">Coeval.eval</h3>
-
-<p><code class="highlighter-rouge">Coeval.eval</code> is the equivalent of <code class="highlighter-rouge">Function0</code>, taking a
-function that will always be evaluated on invocation of <code class="highlighter-rouge">value</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Coeval.eval</code> is the equivalent of <code class="language-plaintext highlighter-rouge">Function0</code>, taking a
+function that will always be evaluated on invocation of <code class="language-plaintext highlighter-rouge">value</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// coeval: monix.eval.Coeval[String] = Once(&lt;function0&gt;)</span>
@@ -372,11 +477,17 @@ function that will always be evaluated on invocation of <code class="highlighter
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="coevalevalonce">
+        
+        
+          Coeval.evalOnce <a href="#coevalevalonce" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevalevalonce">Coeval.evalOnce</h3>
-
-<p><code class="highlighter-rouge">Coeval.evalOnce</code> is the equivalent of a <code class="highlighter-rouge">lazy val</code>, a type that cannot
-be precisely expressed in Scala. The <code class="highlighter-rouge">evalOnce</code> builder does
+<p><code class="language-plaintext highlighter-rouge">Coeval.evalOnce</code> is the equivalent of a <code class="language-plaintext highlighter-rouge">lazy val</code>, a type that cannot
+be precisely expressed in Scala. The <code class="language-plaintext highlighter-rouge">evalOnce</code> builder does
 memoization on the first run, such that the result of the evaluation
 will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:</p>
@@ -392,11 +503,17 @@ idempotency and thread-safety:</p>
 <span class="nv">coeval</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="coevaldefer">
+        
+        
+          Coeval.defer <a href="#coevaldefer" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevaldefer">Coeval.defer</h3>
-
-<p><code class="highlighter-rouge">Coeval.defer</code> is about building a factory of coevals. For example
-this will behave approximately like <code class="highlighter-rouge">Coeval.eval</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Coeval.defer</code> is about building a factory of coevals. For example
+this will behave approximately like <code class="language-plaintext highlighter-rouge">Coeval.eval</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
   <span class="nv">Coeval</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
@@ -411,10 +528,16 @@ this will behave approximately like <code class="highlighter-rouge">Coeval.eval<
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="coevalraiseerror">
+        
+        
+          Coeval.raiseError <a href="#coevalraiseerror" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevalraiseerror">Coeval.raiseError</h3>
-
-<p><code class="highlighter-rouge">Coeval.raiseError</code> can lift errors in the monadic context of <code class="highlighter-rouge">Coeval</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Coeval.raiseError</code> can lift errors in the monadic context of <code class="language-plaintext highlighter-rouge">Coeval</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">error</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 <span class="c1">// error: monix.eval.Coeval[Int] =</span>
@@ -423,12 +546,18 @@ this will behave approximately like <code class="highlighter-rouge">Coeval.eval<
 <span class="nv">error</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">//=&gt; Failure(java.lang.IllegalStateException)</span>
 </code></pre></div></div>
+    
+      <h3 id="coevalunit">
+        
+        
+          Coeval.unit <a href="#coevalunit" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="coevalunit">Coeval.unit</h3>
-
-<p><code class="highlighter-rouge">Coeval.unit</code> is returning an already completed <code class="highlighter-rouge">Coeval[Unit]</code> instance,
+<p><code class="language-plaintext highlighter-rouge">Coeval.unit</code> is returning an already completed <code class="language-plaintext highlighter-rouge">Coeval[Unit]</code> instance,
 provided as an utility, to spare you creating new instances with
-<code class="highlighter-rouge">Coeval.now(())</code>:</p>
+<code class="language-plaintext highlighter-rouge">Coeval.now(())</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">coeval</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">unit</span>
 <span class="c1">// coeval: monix.eval.Coeval[Unit] = Now(())</span>
@@ -436,35 +565,41 @@ provided as an utility, to spare you creating new instances with
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
-
-<h2 id="memoization">Memoization</h2>
+    
+      <h2 id="memoization">
+        
+        
+          Memoization <a href="#memoization" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>The
 <a href="/api/2.3/monix/eval/Coeval.html#memoize:monix.eval.Coeval[A]">Coeval#memoize</a>
-operator can take any <code class="highlighter-rouge">Coeval</code> and apply memoization on the first evaluation
-(such as <code class="highlighter-rouge">value</code>, <code class="highlighter-rouge">runTry</code>) such that:</p>
+operator can take any <code class="language-plaintext highlighter-rouge">Coeval</code> and apply memoization on the first evaluation
+(such as <code class="language-plaintext highlighter-rouge">value</code>, <code class="language-plaintext highlighter-rouge">runTry</code>) such that:</p>
 
 <ol>
-  <li>you have guaranteed idempotency, calling <code class="highlighter-rouge">value</code> multiple times
+  <li>you have guaranteed idempotency, calling <code class="language-plaintext highlighter-rouge">value</code> multiple times
 will have the same effect as calling it once</li>
   <li>subsequent evaluations will reuse the result computed by the
 first evaluation</li>
 </ol>
 
-<p>So <code class="highlighter-rouge">memoize</code> effectively caches the result of the first <code class="highlighter-rouge">value</code> or
-<code class="highlighter-rouge">runTry</code> call. In fact we can say that:</p>
+<p>So <code class="language-plaintext highlighter-rouge">memoize</code> effectively caches the result of the first <code class="language-plaintext highlighter-rouge">value</code> or
+<code class="language-plaintext highlighter-rouge">runTry</code> call. In fact we can say that:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Coeval</span><span class="o">.</span><span class="py">evalOnce</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="py">memoize</span>
 </code></pre></div></div>
 
 <p>They are effectively the same. And at the moment of writing, the
-implementation of <code class="highlighter-rouge">memoize</code> actually pattern matches on the source to
-see if we are dealing with an <code class="highlighter-rouge">Always</code> transforming it into an
-<code class="highlighter-rouge">Once</code>. You shouldn’t rely on this behavior, but this gives you an
+implementation of <code class="language-plaintext highlighter-rouge">memoize</code> actually pattern matches on the source to
+see if we are dealing with an <code class="language-plaintext highlighter-rouge">Always</code> transforming it into an
+<code class="language-plaintext highlighter-rouge">Once</code>. You shouldn’t rely on this behavior, but this gives you an
 idea of the properties involved: for the layman, you can say that
-<code class="highlighter-rouge">memoize</code> turns your <code class="highlighter-rouge">Coeval</code> into a <code class="highlighter-rouge">lazy val</code>.</p>
+<code class="language-plaintext highlighter-rouge">memoize</code> turns your <code class="language-plaintext highlighter-rouge">Coeval</code> into a <code class="language-plaintext highlighter-rouge">lazy val</code>.</p>
 
-<p>And <code class="highlighter-rouge">memoize</code> works with any coeval reference:</p>
+<p>And <code class="language-plaintext highlighter-rouge">memoize</code> works with any coeval reference:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 
@@ -480,10 +615,22 @@ idea of the properties involved: for the layman, you can say that
 <span class="nv">memoized</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
-
-<h2 id="operations">Operations</h2>
-
-<h3 id="flatmap-and-tail-recursive-loops">FlatMap and Tail-Recursive Loops</h3>
+    
+      <h2 id="operations">
+        
+        
+          Operations <a href="#operations" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="flatmap-and-tail-recursive-loops">
+        
+        
+          FlatMap and Tail-Recursive Loops <a href="#flatmap-and-tail-recursive-loops" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>So lets start with a stupid example that calculates the N-th number in
 the Fibonacci sequence:</p>
@@ -502,7 +649,7 @@ the Fibonacci sequence:</p>
 <p>We need this to be tail-recursive, hence the use of the
 <a href="http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec">@tailrec</a>
 annotation from Scala’s standard library. And if we’d describe it with
-<code class="highlighter-rouge">Coeval</code>, one possible implementation would be:</p>
+<code class="language-plaintext highlighter-rouge">Coeval</code>, one possible implementation would be:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nf">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
@@ -514,11 +661,11 @@ annotation from Scala’s standard library. And if we’d describe it with
 
 <p>And now there are already differences. This is lazy, as the N-th
 Fibonacci number won’t get calculated until we evaluate it. The
-<code class="highlighter-rouge">@tailrec</code> annotation is also not needed, as this is stack (and heap)
+<code class="language-plaintext highlighter-rouge">@tailrec</code> annotation is also not needed, as this is stack (and heap)
 safe.</p>
 
-<p><code class="highlighter-rouge">Coeval</code> has <code class="highlighter-rouge">flatMap</code>, which is the monadic <code class="highlighter-rouge">bind</code> operation, that
-for things like <code class="highlighter-rouge">Coeval</code>, <code class="highlighter-rouge">Task</code> or <code class="highlighter-rouge">Future</code> is the operation that
+<p><code class="language-plaintext highlighter-rouge">Coeval</code> has <code class="language-plaintext highlighter-rouge">flatMap</code>, which is the monadic <code class="language-plaintext highlighter-rouge">bind</code> operation, that
+for things like <code class="language-plaintext highlighter-rouge">Coeval</code>, <code class="language-plaintext highlighter-rouge">Task</code> or <code class="language-plaintext highlighter-rouge">Future</code> is the operation that
 describes recursivity or that forces ordering (e.g. execute this, then
 that, then that). And we can use it to describe recursive calls:</p>
 
@@ -532,7 +679,7 @@ that, then that). And we can use it to describe recursive calls:</p>
 </code></pre></div></div>
 
 <p>Again, this is stack safe and uses a constant amount of memory, so no
-<code class="highlighter-rouge">@tailrec</code> annotation is needed or wanted. And it has lazy behavior,
+<code class="language-plaintext highlighter-rouge">@tailrec</code> annotation is needed or wanted. And it has lazy behavior,
 as nothing will get triggered until evaluation happens.</p>
 
 <p>But we can also have <strong>mutually tail-recursive calls</strong>, w00t!</p>
@@ -556,10 +703,16 @@ as nothing will get triggered until evaluation happens.</p>
 </code></pre></div></div>
 
 <p>Again, this is stack safe and uses a constant amount of memory.</p>
+    
+      <h3 id="the-applicative-zip2-zip3--zip6">
+        
+        
+          The Applicative: zip2, zip3, … zip6 <a href="#the-applicative-zip2-zip3--zip6" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="the-applicative-zip2-zip3--zip6">The Applicative: zip2, zip3, … zip6</h3>
-
-<p>When using <code class="highlighter-rouge">flatMap</code>, we often end up with this:</p>
+<p>When using <code class="language-plaintext highlighter-rouge">flatMap</code>, we often end up with this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
@@ -575,10 +728,10 @@ as nothing will get triggered until evaluation happens.</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>This gets transformed by the compiler into a batch of <code class="highlighter-rouge">flatMap</code> calls.
-But <code class="highlighter-rouge">Coeval</code> is also an <code class="highlighter-rouge">Applicative</code> and hence it has utilities, such
-as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">zip3</code>, up until <code class="highlighter-rouge">zip6</code> (at the moment of writing) and also
-<code class="highlighter-rouge">zipList</code>. The example above could be written as:</p>
+<p>This gets transformed by the compiler into a batch of <code class="language-plaintext highlighter-rouge">flatMap</code> calls.
+But <code class="language-plaintext highlighter-rouge">Coeval</code> is also an <code class="language-plaintext highlighter-rouge">Applicative</code> and hence it has utilities, such
+as <code class="language-plaintext highlighter-rouge">zip2</code>, <code class="language-plaintext highlighter-rouge">zip3</code>, up until <code class="language-plaintext highlighter-rouge">zip6</code> (at the moment of writing) and also
+<code class="language-plaintext highlighter-rouge">zipList</code>. The example above could be written as:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">phoneCoeval</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
@@ -590,18 +743,24 @@ as <code class="highlighter-rouge">zip2</code>, <code class="highlighter-rouge">
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>In order to avoid boxing into tuples, you can also use <code class="highlighter-rouge">zipMap2</code>,
-<code class="highlighter-rouge">zipMap3</code> … <code class="highlighter-rouge">zipMap6</code>:</p>
+<p>In order to avoid boxing into tuples, you can also use <code class="language-plaintext highlighter-rouge">zipMap2</code>,
+<code class="language-plaintext highlighter-rouge">zipMap3</code> … <code class="language-plaintext highlighter-rouge">zipMap6</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Coeval</span><span class="o">.</span><span class="py">zipMap3</span><span class="o">(</span><span class="n">locationCoeval</span><span class="o">,</span> <span class="n">phoneCoeval</span><span class="o">,</span> <span class="n">addressCoeval</span><span class="o">)</span> <span class="o">{</span> 
   <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="gather-results-from-a-seq-of-coevals">
+        
+        
+          Gather results from a Seq of Coevals <a href="#gather-results-from-a-seq-of-coevals" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="gather-results-from-a-seq-of-coevals">Gather results from a Seq of Coevals</h3>
-
-<p><code class="highlighter-rouge">Coeval.sequence</code>, takes a <code class="highlighter-rouge">Seq[Coeval[A]]</code> and returns a
-<code class="highlighter-rouge">Coeval[Seq[A]]</code>, thus transforming any sequence of coevals into a
+<p><code class="language-plaintext highlighter-rouge">Coeval.sequence</code>, takes a <code class="language-plaintext highlighter-rouge">Seq[Coeval[A]]</code> and returns a
+<code class="language-plaintext highlighter-rouge">Coeval[Seq[A]]</code>, thus transforming any sequence of coevals into a
 coeval with a sequence of results.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ca</span> <span class="k">=</span> <span class="nc">Coeval</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
@@ -615,11 +774,17 @@ coeval with a sequence of results.</p>
 </code></pre></div></div>
 
 <p>The results are ordered in the order of the initial sequence.</p>
+    
+      <h3 id="restart-until-predicate-is-true">
+        
+        
+          Restart Until Predicate is True <a href="#restart-until-predicate-is-true" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="restart-until-predicate-is-true">Restart Until Predicate is True</h3>
-
-<p>The <code class="highlighter-rouge">Coeval</code> being a spec, we can restart it at will.  And
-<code class="highlighter-rouge">restartUntil(predicate)</code> does that, executing the source over and
+<p>The <code class="language-plaintext highlighter-rouge">Coeval</code> being a spec, we can restart it at will.  And
+<code class="language-plaintext highlighter-rouge">restartUntil(predicate)</code> does that, executing the source over and
 over again, until the given predicate is true:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Random</span>
@@ -636,11 +801,17 @@ over again, until the given predicate is true:</p>
 <span class="nv">randomEven</span><span class="o">.</span><span class="py">value</span>
 <span class="c1">//=&gt; 1053678416</span>
 </code></pre></div></div>
+    
+      <h3 id="clean-up-resources-on-finish">
+        
+        
+          Clean-up Resources on Finish <a href="#clean-up-resources-on-finish" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="clean-up-resources-on-finish">Clean-up Resources on Finish</h3>
-
-<p><code class="highlighter-rouge">Coeval.doOnFinish</code> executes the supplied
-<code class="highlighter-rouge">Option[Throwable] =&gt; Coeval[Unit]</code> function when the source finishes,
+<p><code class="language-plaintext highlighter-rouge">Coeval.doOnFinish</code> executes the supplied
+<code class="language-plaintext highlighter-rouge">Option[Throwable] =&gt; Coeval[Unit]</code> function when the source finishes,
 being meant for cleaning up resources or executing
 some scheduled side-effect:</p>
 
@@ -659,16 +830,22 @@ some scheduled side-effect:</p>
 <span class="c1">//=&gt; Was success!</span>
 <span class="c1">// res: Int = 1</span>
 </code></pre></div></div>
+    
+      <h2 id="error-handling">
+        
+        
+          Error Handling <a href="#error-handling" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="error-handling">Error Handling</h2>
-
-<p><code class="highlighter-rouge">Coeval</code> does error handling. Being the side-kick of <code class="highlighter-rouge">Task</code> means it
+<p><code class="language-plaintext highlighter-rouge">Coeval</code> does error handling. Being the side-kick of <code class="language-plaintext highlighter-rouge">Task</code> means it
 gets mostly the same facilities for recovering from error.</p>
 
 <p>First off, even though Monix expects for the arguments given to its
-operators, like <code class="highlighter-rouge">flatMap</code>, to be pure or at least protected from
-errors, it still catches errors, signaling them on <code class="highlighter-rouge">runTry</code> or
-<code class="highlighter-rouge">runAttempt</code>:</p>
+operators, like <code class="language-plaintext highlighter-rouge">flatMap</code>, to be pure or at least protected from
+errors, it still catches errors, signaling them on <code class="language-plaintext highlighter-rouge">runTry</code> or
+<code class="language-plaintext highlighter-rouge">runAttempt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Coeval</span>
 <span class="k">import</span> <span class="nn">scala.util.Random</span>
@@ -686,10 +863,16 @@ errors, it still catches errors, signaling them on <code class="highlighter-roug
 <span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
 <span class="c1">// res2: Try[Int] = Failure(IllegalStateException: -814066173)</span>
 </code></pre></div></div>
+    
+      <h3 id="recovering-from-error">
+        
+        
+          Recovering from Error <a href="#recovering-from-error" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="recovering-from-error">Recovering from Error</h3>
-
-<p><code class="highlighter-rouge">Coeval.onErrorHandleWith</code> is an operation that takes a function mapping
+<p><code class="language-plaintext highlighter-rouge">Coeval.onErrorHandleWith</code> is an operation that takes a function mapping
 possible exceptions to a desired fallback outcome, so we could do
 this:</p>
 
@@ -711,7 +894,7 @@ this:</p>
 <span class="c1">// res1: Try[String] = Success(Recovered!)</span>
 </code></pre></div></div>
 
-<p>There’s also <code class="highlighter-rouge">Coeval.onErrorRecoverWith</code> that takes a partial function
+<p>There’s also <code class="language-plaintext highlighter-rouge">Coeval.onErrorRecoverWith</code> that takes a partial function
 instead, so we can omit the “other” branch:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecoverWith</span> <span class="o">{</span>
@@ -724,10 +907,10 @@ instead, so we can omit the “other” branch:</p>
 <span class="c1">// res: Try[String] = Success(Recovered!)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Coeval.onErrorHandleWith</code> and <code class="highlighter-rouge">Coeval.onErrorRecoverWith</code> are the
-equivalent of <code class="highlighter-rouge">flatMap</code>, only for errors. In case we know or can
+<p><code class="language-plaintext highlighter-rouge">Coeval.onErrorHandleWith</code> and <code class="language-plaintext highlighter-rouge">Coeval.onErrorRecoverWith</code> are the
+equivalent of <code class="language-plaintext highlighter-rouge">flatMap</code>, only for errors. In case we know or can
 evaluate a fallback result eagerly, we could use the shortcut
-operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
+operation <code class="language-plaintext highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
@@ -738,7 +921,7 @@ operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Or the partial function version with <code class="highlighter-rouge">onErrorRecover</code>:</p>
+<p>Or the partial function version with <code class="language-plaintext highlighter-rouge">onErrorRecover</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecover</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">IllegalStateException</span> <span class="o">=&gt;</span>
@@ -746,10 +929,16 @@ operation <code class="highlighter-rouge">Coeval.onErrorHandle</code> like:</p>
     <span class="s">"Recovered!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="restart-on-error">
+        
+        
+          Restart On Error <a href="#restart-on-error" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="restart-on-error">Restart On Error</h3>
-
-<p>The <code class="highlighter-rouge">Coeval</code> type, being just a specification, it can usually restart
+<p>The <code class="language-plaintext highlighter-rouge">Coeval</code> type, being just a specification, it can usually restart
 whatever process is supposed to deliver the final result and we can
 restart the source on error, for how many times are needed:</p>
 
@@ -785,11 +974,17 @@ restart the source on error, for how many times are needed:</p>
   <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="expose-errors">
+        
+        
+          Expose Errors <a href="#expose-errors" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="expose-errors">Expose Errors</h3>
-
-<p>The <code class="highlighter-rouge">Coeval</code> monadic context is hiding errors that happen, much like
-Scala’s <code class="highlighter-rouge">Try</code> or <code class="highlighter-rouge">Future</code>. But sometimes we want to expose those
+<p>The <code class="language-plaintext highlighter-rouge">Coeval</code> monadic context is hiding errors that happen, much like
+Scala’s <code class="language-plaintext highlighter-rouge">Try</code> or <code class="language-plaintext highlighter-rouge">Future</code>. But sometimes we want to expose those
 errors such that we can recover more efficiently:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Try</span><span class="o">,</span> <span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
@@ -809,7 +1004,7 @@ errors such that we can recover more efficiently:</p>
 </code></pre></div></div>
 
 <p>There’s also the reverse of materialize, which is
-<code class="highlighter-rouge">Coeval.dematerialize</code>:</p>
+<code class="language-plaintext highlighter-rouge">Coeval.dematerialize</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
 
@@ -824,9 +1019,9 @@ errors such that we can recover more efficiently:</p>
 <span class="c1">// dematerialized: Coeval[Int] = ???</span>
 </code></pre></div></div>
 
-<p>We can also convert any <code class="highlighter-rouge">Coeval</code> into a <code class="highlighter-rouge">Coeval[Throwable]</code> that will
+<p>We can also convert any <code class="language-plaintext highlighter-rouge">Coeval</code> into a <code class="language-plaintext highlighter-rouge">Coeval[Throwable]</code> that will
 expose any errors that happen and will also terminate with an
-<code class="highlighter-rouge">NoSuchElementException</code> in case the source completes with success:</p>
+<code class="language-plaintext highlighter-rouge">NoSuchElementException</code> in case the source completes with success:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
@@ -848,8 +1043,8 @@ expose any errors that happen and will also terminate with an
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

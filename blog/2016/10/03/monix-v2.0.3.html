@@ -30,19 +30,15 @@
   <meta content="Asynchronous Programming for Scala &amp; Scala.js" property="og:description">
   <meta content="https://monix.io/blog/2016/10/03/monix-v2.0.3.html" property="og:url">
   <meta content="2016-10-03T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -104,7 +100,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0.3 Released for Bug Fixing</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0.3 Released for Bug Fixing
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-10-03">
@@ -112,18 +114,23 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
   <p>This release is binary compatible with 2.0.x, being a bug fix release
 release for <a href="https://github.com/monix/monix/issues/230">Issue #230</a>:
-Deadlocks when blocking threads due to <code class="highlighter-rouge">LocalBatchingExecutor</code>
-(affects <code class="highlighter-rouge">Task</code> usage).</p>
+Deadlocks when blocking threads due to <code class="language-plaintext highlighter-rouge">LocalBatchingExecutor</code>
+(affects <code class="language-plaintext highlighter-rouge">Task</code> usage).</p>
 
 <!--more-->
 
 <p>Basically the implementation of
 <a href="https://github.com/monix/monix/blob/v2.0.3/monix-execution/jvm/src/main/scala/monix/execution/schedulers/LocalBatchingExecutor.scala">LocalBatchingExecutor</a>
-assumed that the given <code class="highlighter-rouge">LocalRunnable</code> instances will not block
+assumed that the given <code class="language-plaintext highlighter-rouge">LocalRunnable</code> instances will not block
 the current thread. However there are clearly cases in which
-users and up blocking during a <code class="highlighter-rouge">LocalRunnable</code>. For example:</p>
+users and up blocking during a <code class="language-plaintext highlighter-rouge">LocalRunnable</code>. For example:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source1</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">source2</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">200</span><span class="o">).</span><span class="py">onErrorHandleWith</span> <span class="o">{</span> <span class="k">case</span> <span class="n">e</span><span class="k">:</span> <span class="kt">Exception</span> <span class="o">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">}</span>
@@ -137,18 +144,25 @@ users and up blocking during a <code class="highlighter-rouge">LocalRunnable</co
 </code></pre></div></div>
 
 <p>This is clearly not idiomatic usage because
-<a href="/docs/2x/best-practices/blocking.html">blocking threads is evil</a>,
+<a href="/docs/2x/best-practices/blocking.md">blocking threads is evil</a>,
 however it does happen in code and it has to work. As can be seen in the
 <a href="https://github.com/monix/monix/commit/6effcba053c26edec5fa9d9e5844bf8148d9be57">committed fix</a>
-the JVM-specific implementation for the <code class="highlighter-rouge">LocalBatchingExecutor</code> now
-uses Scala’s <code class="highlighter-rouge">BlockContext</code> to workaround this limitation of our
+the JVM-specific implementation for the <code class="language-plaintext highlighter-rouge">LocalBatchingExecutor</code> now
+uses Scala’s <code class="language-plaintext highlighter-rouge">BlockContext</code> to workaround this limitation of our
 local trampoline.</p>
 
 <p>Enjoy!</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -184,18 +198,45 @@ local trampoline.</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

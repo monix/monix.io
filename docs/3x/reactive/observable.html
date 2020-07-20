@@ -28,19 +28,15 @@
   <meta content="Observable &amp;mdash; Monix" property="og:title">
   <meta content="A data type for modeling and processing asynchronous and reactive streaming of events with non-blocking back-pressure." property="og:description">
   <meta content="https://monix.io/docs/3x/reactive/observable.html" property="og:url">
+  <meta content="2020-07-20T09:14:10+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,23 +97,139 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Observable</h1>
+      <h1 class="page-title">
+        
+        
+          Observable
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/reactive/Observable.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v3.2.2/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/reactive/observable.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="introduction">Introduction</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#design-summary">Design Summary</a></li>
+      <li><a href="#learning-resources">Learning resources</a></li>
+    </ul>
+  </li>
+  <li><a href="#observable-contract">Observable Contract</a>
+    <ul>
+      <li><a href="#how-it-works-internally">How it works internally</a></li>
+    </ul>
+  </li>
+  <li><a href="#observable-and-functional-programming">Observable and Functional Programming</a></li>
+  <li><a href="#execution">Execution</a>
+    <ul>
+      <li><a href="#consumer">Consumer</a></li>
+      <li><a href="#foldleft-methods">FoldLeft Methods</a></li>
+    </ul>
+  </li>
+  <li><a href="#building-an-observable">Building an Observable</a>
+    <ul>
+      <li><a href="#observablepure-now">Observable.pure (now)</a></li>
+      <li><a href="#observabledelay-eval">Observable.delay (eval)</a></li>
+      <li><a href="#observableevalonce">Observable.evalOnce</a></li>
+      <li><a href="#observablefromiterable">Observable.fromIterable</a></li>
+      <li><a href="#observablesuspend-defer">Observable.suspend (defer)</a></li>
+      <li><a href="#observableraiseerror">Observable.raiseError</a></li>
+    </ul>
+  </li>
+  <li><a href="#sending-elements-to-an-observable">Sending elements to an Observable</a>
+    <ul>
+      <li><a href="#observablecreate">Observable.create</a></li>
+      <li><a href="#observablerepeatevalf--concurrent-data-structure">Observable.repeatEvalF + concurrent data structure</a></li>
+      <li><a href="#concurrentsubject">ConcurrentSubject</a></li>
+    </ul>
+  </li>
+  <li><a href="#back-pressure-buffering-throttling">Back-pressure, buffering, throttling</a>
+    <ul>
+      <li><a href="#overflowstrategy">OverflowStrategy</a></li>
+      <li><a href="#asynchronous-processing">Asynchronous processing</a></li>
+      <li><a href="#processing-elements-in-batches">Processing elements in batches</a></li>
+      <li><a href="#limiting-the-rate-of-emission-of-elements">Limiting the rate of emission of elements</a></li>
+    </ul>
+  </li>
+  <li><a href="#transforming-observables">Transforming Observables</a>
+    <ul>
+      <li><a href="#map">map</a></li>
+      <li><a href="#mapeval">mapEval</a></li>
+      <li><a href="#mapparallel">mapParallel</a></li>
+      <li><a href="#flatmap-concatmap">flatMap (concatMap)</a></li>
+      <li><a href="#mergemap">mergeMap</a></li>
+      <li><a href="#switchmap">switchMap</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </li>
+  <li><a href="#scheduling">Scheduling</a>
+    <ul>
+      <li><a href="#intervalwithfixeddelay-interval">intervalWithFixedDelay (interval)</a></li>
+      <li><a href="#intervalatfixedrate">intervalAtFixedRate</a></li>
+    </ul>
+  </li>
+  <li><a href="#error-handling">Error Handling</a>
+    <ul>
+      <li><a href="#handleerror-onerrorhandle">handleError (onErrorHandle)</a></li>
+      <li><a href="#handleerrorwith-onerrorhandlewith">handleErrorWith (onErrorHandleWith)</a></li>
+      <li><a href="#recover-onerrorrecover">recover (onErrorRecover)</a></li>
+      <li><a href="#recoverwith-onerrorrecoverwith">recoverWith (onErrorRecoverWith)</a></li>
+      <li><a href="#onerrorfallbackto">onErrorFallbackTo</a></li>
+      <li><a href="#onerrorrestart">onErrorRestart</a></li>
+      <li><a href="#onerrorrestartif">onErrorRestartIf</a></li>
+      <li><a href="#retrying-with-delay">Retrying with delay</a></li>
+      <li><a href="#dropping-failed-elements">Dropping failed elements</a></li>
+      <li><a href="#monaderror-instance">MonadError instance</a></li>
+    </ul>
+  </li>
+  <li><a href="#reacting-to-internal-events">Reacting to internal events</a>
+    <ul>
+      <li><a href="#doonnext">doOnNext</a></li>
+    </ul>
+  </li>
+  <li><a href="#subjects">Subjects</a></li>
+  <li><a href="#sharing-an-observable">Sharing an Observable</a>
+    <ul>
+      <li><a href="#connectableobservable">ConnectableObservable</a></li>
+      <li><a href="#back-pressure">Back-pressure</a></li>
+      <li><a href="#configuring-underlying-subject">Configuring underlying Subject</a></li>
+      <li><a href="#doing-it-the-pure-way">Doing it the pure way</a></li>
+    </ul>
+  </li>
+  <li><a href="#interoperability-with-other-streams-api-akka-streams-fs2">Interoperability with other Streams API (Akka Streams, FS2)</a>
+    <ul>
+      <li><a href="#akka-streams">Akka Streams</a></li>
+      <li><a href="#fs2">FS2</a></li>
+    </ul>
+  </li>
+</ul>
 
-<p>The <code class="highlighter-rouge">Observable</code> is a data type for modeling and processing
+  </nav>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> is a data type for modeling and processing
 asynchronous and reactive streaming of events with non-blocking
 back-pressure.</p>
 
-<p>The <code class="highlighter-rouge">Observable</code> is strongly inspired by
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> is strongly inspired by
 <a href="http://reactivex.io/">ReactiveX</a>, but with an idiomatic Scala API and
 influenced by the Scala ecosystem of projects such as
 <a href="http://typelevel.org/cats/">Cats</a> and
@@ -152,20 +264,26 @@ hence it has good interoperability.</p>
 
 </code></pre></div></div>
 
-<p>At its simplest, an <code class="highlighter-rouge">Observable</code> is a replacement for your regular
+<p>At its simplest, an <code class="language-plaintext highlighter-rouge">Observable</code> is a replacement for your regular
 <a href="#scala.collection.Iterable">Iterable</a>
 or Scala 
 <a href="#scala.collection.immutable.Stream">Stream</a>, 
 but with the ability to process asynchronous events without blocking. 
-In fact, you can convert any <code class="highlighter-rouge">Iterable</code> into an <code class="highlighter-rouge">Observable</code>.</p>
+In fact, you can convert any <code class="language-plaintext highlighter-rouge">Iterable</code> into an <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
-<p>But this <code class="highlighter-rouge">Observable</code> implementation scales to complex problems, touching on
+<p>But this <code class="language-plaintext highlighter-rouge">Observable</code> implementation scales to complex problems, touching on
 <em><a href="https://en.wikipedia.org/wiki/Functional_reactive_programming">functional reactive programming (FRP)</a></em>,
 and it can also model complex interactions between producers and consumers,
 being a potent alternative for
 <a href="http://akka.io/">the actor model</a>.</p>
-
-<h3 id="design-summary">Design Summary</h3>
+    
+      <h3 id="design-summary">
+        
+        
+          Design Summary <a href="#design-summary" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>A visual representation of where it sits in the design space:</p>
 
@@ -191,7 +309,7 @@ being a potent alternative for
   </tbody>
 </table>
 
-<p>The Monix <code class="highlighter-rouge">Observable</code>:</p>
+<p>The Monix <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <ul>
   <li>models lazy &amp; asynchronous streaming of events</li>
@@ -201,7 +319,7 @@ being a potent alternative for
 on steroids</li>
   <li>you can also think of it as being like a Scala
 <a href="#scala.concurrent.Future">Future</a> or like
-a <a href="../eval/task.html">Task</a>, except with the ability to stream 
+a <a href="/docs/3x/eval/task.html">Task</a>, except with the ability to stream 
 multiple items instead of just one, or you can think of it as an asynchronous 
 and non-blocking
 <a href="#scala.collection.Iterable">Iterable</a>
@@ -209,19 +327,25 @@ with benefits</li>
   <li>models producer-consumer relationships, where you can have a single
 producer pushing data into one or multiple consumers</li>
   <li>works best for unidirectional communications</li>
-  <li>allows fine-grained control over the <a href="../execution/scheduler.html#execution-model">execution model</a></li>
-  <li>doesn’t trigger the execution, or any effects until a client <code class="highlighter-rouge">subscribe</code>s</li>
+  <li>allows fine-grained control over the <a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a></li>
+  <li>doesn’t trigger the execution, or any effects until a client <code class="language-plaintext highlighter-rouge">subscribe</code>s</li>
   <li>allows cancellation of active streams</li>
   <li>never blocks any threads in its implementation</li>
   <li>does not expose any API calls that can block threads</li>
   <li>compatible with <a href="http://www.scala-js.org/">Scala.js</a> like the rest of Monix</li>
 </ul>
 
-<p>See <strong><a href="./observable-comparisons.html">comparisons with similar tools, like Akka or FS2</a></strong>.</p>
+<p>See <strong><a href="/docs/3x/reactive/observable-comparisons.html">comparisons with similar tools, like Akka or FS2</a></strong>.</p>
+    
+      <h3 id="learning-resources">
+        
+        
+          Learning resources <a href="#learning-resources" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="learning-resources">Learning resources</h3>
-
-<p>The following documentation barely scratches the surface of <code class="highlighter-rouge">Observable</code> and is rather incomplete.
+<p>The following documentation barely scratches the surface of <code class="language-plaintext highlighter-rouge">Observable</code> and is rather incomplete.
 If you find it lacking, make sure to check either the <a href="/api/3.2/monix/reactive/Observable.html">Observable API</a> or
 look at the comments <a href="https://github.com/monix/monix">in the code</a> directly. We put a lot of focus on scaladocs.</p>
 
@@ -232,19 +356,25 @@ of examples and additional explanations.</p>
 
 <p>And last but not the least, we are always happy to help on <a href="https://gitter.im/monix/monix">gitter channel</a>. Any feedback
 regarding the documentation itself (like confusing wording) is really appreciated too.</p>
+    
+      <h2 id="observable-contract">
+        
+        
+          Observable Contract <a href="#observable-contract" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="observable-contract">Observable Contract</h2>
+<p>An <code class="language-plaintext highlighter-rouge">Observable</code> can be thought of as the next layer of abstraction with regard to <code class="language-plaintext highlighter-rouge">Observer</code> and <code class="language-plaintext highlighter-rouge">Subscriber</code>.</p>
 
-<p>An <code class="highlighter-rouge">Observable</code> can be thought of as the next layer of abstraction with regard to <code class="highlighter-rouge">Observer</code> and <code class="highlighter-rouge">Subscriber</code>.</p>
-
-<p>An <code class="highlighter-rouge">Observable</code> can be described in the following way:</p>
+<p>An <code class="language-plaintext highlighter-rouge">Observable</code> can be described in the following way:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observable</span><span class="o">[</span><span class="kt">+A</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">subscribe</span><span class="o">(</span><span class="n">o</span><span class="k">:</span> <span class="kt">Observer</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Cancelable</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>where an <code class="highlighter-rouge">Observer</code> is:</p>
+<p>where an <code class="language-plaintext highlighter-rouge">Observer</code> is:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Observer</span><span class="o">[</span><span class="kt">-T</span><span class="o">]</span> <span class="o">{</span>
   <span class="k">def</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">elem</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Ack</span><span class="o">]</span>
@@ -255,16 +385,22 @@ regarding the documentation itself (like confusing wording) is really appreciate
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>An <code class="highlighter-rouge">Observer</code> subscribes to an <code class="highlighter-rouge">Observable</code>, so the <code class="highlighter-rouge">Observable</code> internals need to respect the <code class="highlighter-rouge">Observer</code> <a href="./observers.html#contract">contract</a> when it passes element(s) to it. You can consider it being a higher level interface which abstracts away the details of the contract and handles it for the user.</p>
-
-<h3 id="how-it-works-internally">How it works internally</h3>
+<p>An <code class="language-plaintext highlighter-rouge">Observer</code> subscribes to an <code class="language-plaintext highlighter-rouge">Observable</code>, so the <code class="language-plaintext highlighter-rouge">Observable</code> internals need to respect the <code class="language-plaintext highlighter-rouge">Observer</code> <a href="/docs/3x/reactive/observers.html#contract">contract</a> when it passes element(s) to it. You can consider it being a higher level interface which abstracts away the details of the contract and handles it for the user.</p>
+    
+      <h3 id="how-it-works-internally">
+        
+        
+          How it works internally <a href="#how-it-works-internally" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>If you are inexperienced with non-blocking reactive streams, it probably sounds confusing. The understanding of the underlying model 
-is not necessary to be a successful user of the <code class="highlighter-rouge">Observable</code>, but if you would like to know anyway (also perhaps to contribute your own low level operators),
+is not necessary to be a successful user of the <code class="language-plaintext highlighter-rouge">Observable</code>, but if you would like to know anyway (also perhaps to contribute your own low level operators),
 the following paragraph tries to explain the essence of how it works. Note that the implementations of many operators are sometimes obfuscated with optimizations, which make them look much more
 complicated than they really are.</p>
 
-<p>An <code class="highlighter-rouge">Observable</code> will pass through the generated items to the <code class="highlighter-rouge">Observer</code>, by calling <code class="highlighter-rouge">onNext</code>.
+<p>An <code class="language-plaintext highlighter-rouge">Observable</code> will pass through the generated items to the <code class="language-plaintext highlighter-rouge">Observer</code>, by calling <code class="language-plaintext highlighter-rouge">onNext</code>.
 Imagine the following situation:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
@@ -274,17 +410,17 @@ Imagine the following situation:</p>
   <span class="o">.</span><span class="py">firstL</span> <span class="c1">// returns Task[Long]</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">fromIterable</code> is a builder which creates an <code class="highlighter-rouge">Observable</code>. Hence, it implements <code class="highlighter-rouge">subscribe</code>. This method passes 
-each element to its subscribers by calling its <code class="highlighter-rouge">onNext</code> method. Once the sequence is empty it calls <code class="highlighter-rouge">onComplete</code> to signal that there aren’t any 
-elements left to process and the entire <code class="highlighter-rouge">Observable</code> can end. 
-Note that the <code class="highlighter-rouge">observer.onNext(elem)</code> returns a <code class="highlighter-rouge">Future[Ack]</code>. To obey the contract and preserve back-pressure, the <code class="highlighter-rouge">Observable</code> will have to wait for its result before it can pass the next element. 
-<code class="highlighter-rouge">Ack</code> can be either <code class="highlighter-rouge">Continue</code> (ok to send the next element) or <code class="highlighter-rouge">Stop</code> (we should shut down).
-This way, we can stop the downstream processing (by calling <code class="highlighter-rouge">onComplete</code>) and the upstream (returning <code class="highlighter-rouge">Stop</code> after <code class="highlighter-rouge">onNext</code>).</p>
+<p><code class="language-plaintext highlighter-rouge">fromIterable</code> is a builder which creates an <code class="language-plaintext highlighter-rouge">Observable</code>. Hence, it implements <code class="language-plaintext highlighter-rouge">subscribe</code>. This method passes 
+each element to its subscribers by calling its <code class="language-plaintext highlighter-rouge">onNext</code> method. Once the sequence is empty it calls <code class="language-plaintext highlighter-rouge">onComplete</code> to signal that there aren’t any 
+elements left to process and the entire <code class="language-plaintext highlighter-rouge">Observable</code> can end. 
+Note that the <code class="language-plaintext highlighter-rouge">observer.onNext(elem)</code> returns a <code class="language-plaintext highlighter-rouge">Future[Ack]</code>. To obey the contract and preserve back-pressure, the <code class="language-plaintext highlighter-rouge">Observable</code> will have to wait for its result before it can pass the next element. 
+<code class="language-plaintext highlighter-rouge">Ack</code> can be either <code class="language-plaintext highlighter-rouge">Continue</code> (ok to send the next element) or <code class="language-plaintext highlighter-rouge">Stop</code> (we should shut down).
+This way, we can stop the downstream processing (by calling <code class="language-plaintext highlighter-rouge">onComplete</code>) and the upstream (returning <code class="language-plaintext highlighter-rouge">Stop</code> after <code class="language-plaintext highlighter-rouge">onNext</code>).</p>
 
-<p><code class="highlighter-rouge">map</code> is essentially an <code class="highlighter-rouge">Observer =&gt; Observer</code> function. It implements <code class="highlighter-rouge">onNext</code>, <code class="highlighter-rouge">onError</code> and <code class="highlighter-rouge">onComplete</code>.
+<p><code class="language-plaintext highlighter-rouge">map</code> is essentially an <code class="language-plaintext highlighter-rouge">Observer =&gt; Observer</code> function. It implements <code class="language-plaintext highlighter-rouge">onNext</code>, <code class="language-plaintext highlighter-rouge">onError</code> and <code class="language-plaintext highlighter-rouge">onComplete</code>.
  The happy path goes like:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1) fromIterable calls map1.onNext(i)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1) fromIterable calls map1.onNext(i)
 (2) map1 does some transformation and calls map2.onNext(i + 2)
 (3) map2 does some transformation and calls sumL.onNext(i * 3)
 (4) sum saves and acknowledges the incoming items and holds off on calling firstL.onNext until it receives an onComplete signal.
@@ -292,54 +428,72 @@ This way, we can stop the downstream processing (by calling <code class="highlig
 </code></pre></div></div>
 
 <p>Points (1) to (3) iterate until the entire sequence of elements (in this case, numbers) are consumed. 
-When <code class="highlighter-rouge">sum</code> acknowledges (returns from <code class="highlighter-rouge">onNext</code> method) to its caller <code class="highlighter-rouge">map2</code>, <code class="highlighter-rouge">map2</code> in turn can acknowledge to its caller <code class="highlighter-rouge">map1</code>, which then
-acknowledges to its caller <code class="highlighter-rouge">fromIterable</code> - only then can a new element be sent. 
-In case any <code class="highlighter-rouge">onNext</code> invocations return a <code class="highlighter-rouge">Stop</code>, this would also propagate upstream and there wouldn’t be any new elements generated.</p>
+When <code class="language-plaintext highlighter-rouge">sum</code> acknowledges (returns from <code class="language-plaintext highlighter-rouge">onNext</code> method) to its caller <code class="language-plaintext highlighter-rouge">map2</code>, <code class="language-plaintext highlighter-rouge">map2</code> in turn can acknowledge to its caller <code class="language-plaintext highlighter-rouge">map1</code>, which then
+acknowledges to its caller <code class="language-plaintext highlighter-rouge">fromIterable</code> - only then can a new element be sent. 
+In case any <code class="language-plaintext highlighter-rouge">onNext</code> invocations return a <code class="language-plaintext highlighter-rouge">Stop</code>, this would also propagate upstream and there wouldn’t be any new elements generated.</p>
 
 <p>If you try to jump into the source code of operators, you will see that they are obfuscated by concurrency, error handling 
 and lots of optimizations, but the essence of the model works as described above. There is nothing more to it, no extra
 interpreters or materializers to add an extra layer of indirection - so if this section makes sense to you, you should have
 a decent idea of what’s going on “behind the scenes”.</p>
+    
+      <h2 id="observable-and-functional-programming">
+        
+        
+          Observable and Functional Programming <a href="#observable-and-functional-programming" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="observable-and-functional-programming">Observable and Functional Programming</h2>
-
-<p>The <code class="highlighter-rouge">Observable</code> internals are written in an imperative, Java-like style. It doesn’t look pretty and can be discouraging
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> internals are written in an imperative, Java-like style. It doesn’t look pretty and can be discouraging
 if you’re trying to write your own operator. However, by using a relatively simple model (in terms of operations to do) the implementation
 is very performant and this design choice is a big reason why it does so well <a href="https://github.com/monix/streaming-benchmarks">in comparison to the competition</a>.</p>
 
-<p>Despite a mostly-imperative base, an <code class="highlighter-rouge">Observable</code> exposes a vast number of purely functional operators that compose really well, allowing you to build functionality on top of them in
+<p>Despite a mostly-imperative base, an <code class="language-plaintext highlighter-rouge">Observable</code> exposes a vast number of purely functional operators that compose really well, allowing you to build functionality on top of them in
 similar way to how it’s done in other streaming libraries from the FP ecosystem.</p>
 
 <p>If you’re mostly using available methods and want to write a purely functional application then you’re in luck because the 
-dirty internals don’t leak outside and the majority of the API and the process of constructing and executing <code class="highlighter-rouge">Observable</code>s are all pure.</p>
+dirty internals don’t leak outside and the majority of the API and the process of constructing and executing <code class="language-plaintext highlighter-rouge">Observable</code>s are all pure.</p>
 
 <p>The main drawback in comparison to purely functional streams, such as <a href="https://github.com/functional-streams-for-scala/fs2">fs2</a> or
 <a href="/api/3.2/monix/tail/Iterant.html">Iterant</a>, is the presence of impure functions in the API. If you have inexperienced 
-team members, they could be tempted to use them. Fortunately, all of them are marked with the <code class="highlighter-rouge">@UnsafeBecauseImpure</code> annotation and are explained in the ScalaDoc. 
+team members, they could be tempted to use them. Fortunately, all of them are marked with the <code class="language-plaintext highlighter-rouge">@UnsafeBecauseImpure</code> annotation and are explained in the ScalaDoc. 
 There should always be a referentially transparent replacement to solve your specific use case but if your team is not fully committed to FP, these functions can be very useful.</p>
 
-<p>For instance, an efficient and convenient way to share an <code class="highlighter-rouge">Observable</code> is by using a <strong>hot</strong> <code class="highlighter-rouge">Observable</code> - but it’s not referentially transparent.
-Nevertheless, you could do the same thing using the <code class="highlighter-rouge">doOnNext</code> or <code class="highlighter-rouge">doOnNextF</code> together with some purely functional concurrency structures from <code class="highlighter-rouge">Cats-Effect</code> such as <code class="highlighter-rouge">Ref</code> or <code class="highlighter-rouge">MVar</code> to share state in a more controlled manner.</p>
+<p>For instance, an efficient and convenient way to share an <code class="language-plaintext highlighter-rouge">Observable</code> is by using a <strong>hot</strong> <code class="language-plaintext highlighter-rouge">Observable</code> - but it’s not referentially transparent.
+Nevertheless, you could do the same thing using the <code class="language-plaintext highlighter-rouge">doOnNext</code> or <code class="language-plaintext highlighter-rouge">doOnNextF</code> together with some purely functional concurrency structures from <code class="language-plaintext highlighter-rouge">Cats-Effect</code> such as <code class="language-plaintext highlighter-rouge">Ref</code> or <code class="language-plaintext highlighter-rouge">MVar</code> to share state in a more controlled manner.</p>
 
 <p>Just like in Scala itself, the decision is up to the user to choose what’s better for them and their team.</p>
+    
+      <h2 id="execution">
+        
+        
+          Execution <a href="#execution" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="execution">Execution</h2>
+<p>When you create an <code class="language-plaintext highlighter-rouge">Observable</code> nothing actually happens until <code class="language-plaintext highlighter-rouge">subscribe</code> is called.
+Processing can be triggered directly by calling <code class="language-plaintext highlighter-rouge">subscribe()(implicit s: Scheduler): Cancelable</code> which starts
+in the background and return a <code class="language-plaintext highlighter-rouge">Cancelable</code> which can be used to stop the streaming.</p>
 
-<p>When you create an <code class="highlighter-rouge">Observable</code> nothing actually happens until <code class="highlighter-rouge">subscribe</code> is called.
-Processing can be triggered directly by calling <code class="highlighter-rouge">subscribe()(implicit s: Scheduler): Cancelable</code> which starts
-in the background and return a <code class="highlighter-rouge">Cancelable</code> which can be used to stop the streaming.</p>
+<p>If you write programs in purely functional manner and would rather combine the results of <code class="language-plaintext highlighter-rouge">Observable</code>s, 
+you can convert them to <a href="/docs/3x/eval/task.html">Task</a>s and compose them all the way through your program until the very end (Main method).
+The resulting <code class="language-plaintext highlighter-rouge">Task</code> can also be cancelled and is the recommended way to execute an <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
-<p>If you write programs in purely functional manner and would rather combine the results of <code class="highlighter-rouge">Observable</code>s, 
-you can convert them to <a href="./../eval/task.html">Task</a>s and compose them all the way through your program until the very end (Main method).
-The resulting <code class="highlighter-rouge">Task</code> can also be cancelled and is the recommended way to execute an <code class="highlighter-rouge">Observable</code>.</p>
+<p>Two main ways to convert an <code class="language-plaintext highlighter-rouge">Observable</code> into a <code class="language-plaintext highlighter-rouge">Task</code> are described below.</p>
+    
+      <h3 id="consumer">
+        
+        
+          Consumer <a href="#consumer" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>Two main ways to convert an <code class="highlighter-rouge">Observable</code> into a <code class="highlighter-rouge">Task</code> are described below.</p>
+<p>One of the ways to trigger an <code class="language-plaintext highlighter-rouge">Observable</code> is to use a <a href="/docs/3x/reactive/consumer.html">Consumer</a> - which can thought of as a function that converts an <code class="language-plaintext highlighter-rouge">Observable</code> into a <code class="language-plaintext highlighter-rouge">Task</code>.</p>
 
-<h3 id="consumer">Consumer</h3>
-
-<p>One of the ways to trigger an <code class="highlighter-rouge">Observable</code> is to use a <a href="./consumer.html">Consumer</a> - which can thought of as a function that converts an <code class="highlighter-rouge">Observable</code> into a <code class="highlighter-rouge">Task</code>.</p>
-
-<p>You can either create your own <code class="highlighter-rouge">Consumer</code> or use one of the many prebuilt ones:</p>
+<p>You can either create your own <code class="language-plaintext highlighter-rouge">Consumer</code> or use one of the many prebuilt ones:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
     <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
@@ -353,18 +507,24 @@ The resulting <code class="highlighter-rouge">Task</code> can also be cancelled 
     <span class="nv">list</span><span class="o">.</span><span class="py">consumeWith</span><span class="o">(</span><span class="n">consumer</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>You can find more examples in the <a href="./consumer.html">Consumer documentation</a>.</p>
+<p>You can find more examples in the <a href="/docs/3x/reactive/consumer.html">Consumer documentation</a>.</p>
+    
+      <h3 id="foldleft-methods">
+        
+        
+          FoldLeft Methods <a href="#foldleft-methods" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="foldleft-methods">FoldLeft Methods</h3>
+<p>Any method suffixed with <code class="language-plaintext highlighter-rouge">L</code> in the API converts an <code class="language-plaintext highlighter-rouge">Observable</code> into a <code class="language-plaintext highlighter-rouge">Task</code>.</p>
 
-<p>Any method suffixed with <code class="highlighter-rouge">L</code> in the API converts an <code class="highlighter-rouge">Observable</code> into a <code class="highlighter-rouge">Task</code>.</p>
-
-<p>For example, you can use the <code class="highlighter-rouge">firstL</code> method to obtain the first element of the <code class="highlighter-rouge">Observable</code>:</p>
+<p>For example, you can use the <code class="language-plaintext highlighter-rouge">firstL</code> method to obtain the first element of the <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Task(0)</span>
 <span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">).</span><span class="py">firstL</span>
 </code></pre></div></div>
 
-<p>The following example achieves the same result as the previous section on <code class="highlighter-rouge">Consumer</code>:</p>
+<p>The following example achieves the same result as the previous section on <code class="language-plaintext highlighter-rouge">Consumer</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">list</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> 
     <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">1000</span><span class="o">)</span>
@@ -374,22 +534,41 @@ The resulting <code class="highlighter-rouge">Task</code> can also be cancelled 
 <span class="k">val</span> <span class="nv">task</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
     <span class="nv">list</span><span class="o">.</span><span class="py">foldLeftL</span><span class="o">(</span><span class="mi">0L</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
 </code></pre></div></div>
-<h2 id="building-an-observable">Building an Observable</h2>
+    
+      <h2 id="building-an-observable">
+        
+        
+          Building an Observable <a href="#building-an-observable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<p>These methods are available via the <code class="highlighter-rouge">Observable</code> companion object. Below are several examples:</p>
+<p>These methods are available via the <code class="language-plaintext highlighter-rouge">Observable</code> companion object. Below are several examples:</p>
+    
+      <h3 id="observablepure-now">
+        
+        
+          Observable.pure (now) <a href="#observablepure-now" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observablepure-now">Observable.pure (now)</h3>
-
-<p><code class="highlighter-rouge">Observable.pure</code> (alias for <code class="highlighter-rouge">now</code>) simply lifts an already known value in the <code class="highlighter-rouge">Observable</code> context.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.pure</code> (alias for <code class="language-plaintext highlighter-rouge">now</code>) simply lifts an already known value in the <code class="language-plaintext highlighter-rouge">Observable</code> context.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">// obs: monix.reactive.Observable[String] = NowObservable@327a283b</span>
 </code></pre></div></div>
+    
+      <h3 id="observabledelay-eval">
+        
+        
+          Observable.delay (eval) <a href="#observabledelay-eval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observabledelay-eval">Observable.delay (eval)</h3>
-
-<p><code class="highlighter-rouge">Observable.delay</code> (alias for <code class="highlighter-rouge">eval</code>) lifts non-strict value in the <code class="highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.delay</code> (alias for <code class="language-plaintext highlighter-rouge">eval</code>) lifts non-strict value in the <code class="language-plaintext highlighter-rouge">Observable</code>. It is evaluated upon subscription.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">delay</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// obs: monix.reactive.Observable[String] = EvalAlwaysObservable@48a8050</span>
@@ -406,10 +585,16 @@ The resulting <code class="highlighter-rouge">Task</code> can also be cancelled 
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="observableevalonce">
+        
+        
+          Observable.evalOnce <a href="#observableevalonce" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observableevalonce">Observable.evalOnce</h3>
-
-<p><code class="highlighter-rouge">Observable.evalOnce</code> takes a non-strict value and converts it into an Observable
+<p><code class="language-plaintext highlighter-rouge">Observable.evalOnce</code> takes a non-strict value and converts it into an Observable
 that emits a single element and memoizes the value for subsequent invocations.
 It also has guaranteed idempotency and thread-safety:</p>
 
@@ -426,10 +611,16 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="observablefromiterable">
+        
+        
+          Observable.fromIterable <a href="#observablefromiterable" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observablefromiterable">Observable.fromIterable</h3>
-
-<p><code class="highlighter-rouge">Observable.fromIterable</code> converts any <code class="highlighter-rouge">Iterable</code> into an <code class="highlighter-rouge">Observable</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.fromIterable</code> converts any <code class="language-plaintext highlighter-rouge">Iterable</code> into an <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">obs</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
 <span class="c1">// obs: monix.reactive.Observable[Int] = IterableAsObservable@7b0e123d</span>
@@ -439,10 +630,16 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="c1">//=&gt; 2</span>
 <span class="c1">//=&gt; 3</span>
 </code></pre></div></div>
+    
+      <h3 id="observablesuspend-defer">
+        
+        
+          Observable.suspend (defer) <a href="#observablesuspend-defer" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observablesuspend-defer">Observable.suspend (defer)</h3>
-
-<p><code class="highlighter-rouge">Observable.suspend</code> (alias for defer) allows suspending side effects:</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.suspend</code> (alias for defer) allows suspending side effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
@@ -455,10 +652,16 @@ It also has guaranteed idempotency and thread-safety:</p>
         <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="n">lines</span><span class="o">))</span>
     <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="observableraiseerror">
+        
+        
+          Observable.raiseError <a href="#observableraiseerror" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observableraiseerror">Observable.raiseError</h3>
-
-<p><code class="highlighter-rouge">Observable.raiseError</code> constructs an Observable that calls <code class="highlighter-rouge">onError</code> on any subscriber emitting specified <code class="highlighter-rouge">Exception</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.raiseError</code> constructs an Observable that calls <code class="language-plaintext highlighter-rouge">onError</code> on any subscriber emitting specified <code class="language-plaintext highlighter-rouge">Exception</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"my exception"</span><span class="o">))</span>
 <span class="c1">// observable: monix.reactive.Observable[Int]</span>
@@ -471,19 +674,31 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="c1">//=&gt; Got exception: my exception</span>
 <span class="c1">//=&gt; 1</span>
 </code></pre></div></div>
+    
+      <h2 id="sending-elements-to-an-observable">
+        
+        
+          Sending elements to an Observable <a href="#sending-elements-to-an-observable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sending-elements-to-an-observable">Sending elements to an Observable</h2>
+<p>There are several options to feed an <code class="language-plaintext highlighter-rouge">Observable</code> with elements from another part of an application.</p>
+    
+      <h3 id="observablecreate">
+        
+        
+          Observable.create <a href="#observablecreate" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>There are several options to feed an <code class="highlighter-rouge">Observable</code> with elements from another part of an application.</p>
-
-<h3 id="observablecreate">Observable.create</h3>
-
-<p><code class="highlighter-rouge">Observable.create</code> is a builder for creating an <code class="highlighter-rouge">Observable</code> from sources which can’t be back-pressured.
-It takes a <code class="highlighter-rouge">f: Subscriber.Sync[A] =&gt; Cancelable</code>. <code class="highlighter-rouge">Subscriber.Sync</code> is an <code class="highlighter-rouge">Observer</code> with a built-in <code class="highlighter-rouge">Scheduler</code> which 
-doesn’t have to worry about the back-pressure contract, which makes it safe to use even for inexperienced <code class="highlighter-rouge">Observable</code> users. 
-An <code class="highlighter-rouge">Observable</code> which is returned by the method will receive all elements which were sent to the <code class="highlighter-rouge">Subscriber</code>.
-Since they could be sent concurrently, it buffers the elements when busy, according to the specified <code class="highlighter-rouge">OverflowStrategy</code>.
-<code class="highlighter-rouge">Cancelable</code> can contain special logic in case the subscription is canceled:</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.create</code> is a builder for creating an <code class="language-plaintext highlighter-rouge">Observable</code> from sources which can’t be back-pressured.
+It takes a <code class="language-plaintext highlighter-rouge">f: Subscriber.Sync[A] =&gt; Cancelable</code>. <code class="language-plaintext highlighter-rouge">Subscriber.Sync</code> is an <code class="language-plaintext highlighter-rouge">Observer</code> with a built-in <code class="language-plaintext highlighter-rouge">Scheduler</code> which 
+doesn’t have to worry about the back-pressure contract, which makes it safe to use even for inexperienced <code class="language-plaintext highlighter-rouge">Observable</code> users. 
+An <code class="language-plaintext highlighter-rouge">Observable</code> which is returned by the method will receive all elements which were sent to the <code class="language-plaintext highlighter-rouge">Subscriber</code>.
+Since they could be sent concurrently, it buffers the elements when busy, according to the specified <code class="language-plaintext highlighter-rouge">OverflowStrategy</code>.
+<code class="language-plaintext highlighter-rouge">Cancelable</code> can contain special logic in case the subscription is canceled:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack</span>
@@ -517,18 +732,24 @@ Since they could be sent concurrently, it buffers the elements when busy, accord
 <span class="c1">// 2: O completed</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Subscriber</code> has an underlying <code class="highlighter-rouge">Scheduler</code> which can be used to run <code class="highlighter-rouge">producerLoop</code> inside of <code class="highlighter-rouge">Observable.create</code>.
-Note that the function is still pure - no side effect can be observed before the <code class="highlighter-rouge">Observable</code> is executed.</p>
+<p><code class="language-plaintext highlighter-rouge">Subscriber</code> has an underlying <code class="language-plaintext highlighter-rouge">Scheduler</code> which can be used to run <code class="language-plaintext highlighter-rouge">producerLoop</code> inside of <code class="language-plaintext highlighter-rouge">Observable.create</code>.
+Note that the function is still pure - no side effect can be observed before the <code class="language-plaintext highlighter-rouge">Observable</code> is executed.</p>
 
-<p><code class="highlighter-rouge">Task#runToFuture</code> returns a <code class="highlighter-rouge">CancelableFuture</code>. You can use it to return a <code class="highlighter-rouge">Cancelable</code> from a function, or you can just use 
-<code class="highlighter-rouge">Cancelable.empty</code>.
-The former choice will be able to cancel a <code class="highlighter-rouge">producerLoop</code> during <code class="highlighter-rouge">delayExecution(100.millis)</code> if the <code class="highlighter-rouge">source</code> is canceled. 
-The latter will short-circuit when a <code class="highlighter-rouge">Stop</code> event is returned.</p>
+<p><code class="language-plaintext highlighter-rouge">Task#runToFuture</code> returns a <code class="language-plaintext highlighter-rouge">CancelableFuture</code>. You can use it to return a <code class="language-plaintext highlighter-rouge">Cancelable</code> from a function, or you can just use 
+<code class="language-plaintext highlighter-rouge">Cancelable.empty</code>.
+The former choice will be able to cancel a <code class="language-plaintext highlighter-rouge">producerLoop</code> during <code class="language-plaintext highlighter-rouge">delayExecution(100.millis)</code> if the <code class="language-plaintext highlighter-rouge">source</code> is canceled. 
+The latter will short-circuit when a <code class="language-plaintext highlighter-rouge">Stop</code> event is returned.</p>
+    
+      <h3 id="observablerepeatevalf--concurrent-data-structure">
+        
+        
+          Observable.repeatEvalF + concurrent data structure <a href="#observablerepeatevalf--concurrent-data-structure" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="observablerepeatevalf--concurrent-data-structure">Observable.repeatEvalF + concurrent data structure</h3>
-
-<p>The <code class="highlighter-rouge">monix-catnap</code> module provides a <a href="https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html">ConcurrentQueue</a> which can be used 
-with the <code class="highlighter-rouge">Observable.repeatEvalF</code> builder to create an <code class="highlighter-rouge">Observable</code> from it.</p>
+<p>The <code class="language-plaintext highlighter-rouge">monix-catnap</code> module provides a <a href="https://monix.io/api/3.0/monix/catnap/ConcurrentQueue.html">ConcurrentQueue</a> which can be used 
+with the <code class="language-plaintext highlighter-rouge">Observable.repeatEvalF</code> builder to create an <code class="language-plaintext highlighter-rouge">Observable</code> from it.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.catnap.ConcurrentQueue</span>
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
@@ -555,14 +776,20 @@ with the <code class="highlighter-rouge">Observable.repeatEvalF</code> builder t
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">ConcurrentQueue</code> has a bounded variant which will back-pressure the producer if it is too fast.</p>
+<p>The <code class="language-plaintext highlighter-rouge">ConcurrentQueue</code> has a bounded variant which will back-pressure the producer if it is too fast.</p>
 
-<p>If you’re curious as to why we have to <code class="highlighter-rouge">flatMap</code> in this case, <a href="https://vimeo.com/294736344">see the excellent presentation by Fabio Labella</a>.
-Note that you can also create an <code class="highlighter-rouge">Observable</code> from the other tools for concurrency, such as <code class="highlighter-rouge">MVar</code> or <code class="highlighter-rouge">Deferred</code>.</p>
+<p>If you’re curious as to why we have to <code class="language-plaintext highlighter-rouge">flatMap</code> in this case, <a href="https://vimeo.com/294736344">see the excellent presentation by Fabio Labella</a>.
+Note that you can also create an <code class="language-plaintext highlighter-rouge">Observable</code> from the other tools for concurrency, such as <code class="language-plaintext highlighter-rouge">MVar</code> or <code class="language-plaintext highlighter-rouge">Deferred</code>.</p>
+    
+      <h3 id="concurrentsubject">
+        
+        
+          ConcurrentSubject <a href="#concurrentsubject" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="concurrentsubject">ConcurrentSubject</h3>
-
-<p>You can use a <code class="highlighter-rouge">ConcurrentSubject</code> to get similar functionality:</p>
+<p>You can use a <code class="language-plaintext highlighter-rouge">ConcurrentSubject</code> to get similar functionality:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.Ack</span>
@@ -591,35 +818,53 @@ Note that you can also create an <code class="highlighter-rouge">Observable</cod
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>One important difference is that <code class="highlighter-rouge">subject</code> will be shared between subscribers (here it is implied in the <code class="highlighter-rouge">processStream</code> method).
-It might not be noticeable with <code class="highlighter-rouge">MulticastStrategy.replay</code> which caches incoming elements. 
-If we use a different strategy such as <code class="highlighter-rouge">MulticastStrategy.publish</code>, <code class="highlighter-rouge">processStream</code> won’t receive any elements which were sent before subscription.</p>
+<p>One important difference is that <code class="language-plaintext highlighter-rouge">subject</code> will be shared between subscribers (here it is implied in the <code class="language-plaintext highlighter-rouge">processStream</code> method).
+It might not be noticeable with <code class="language-plaintext highlighter-rouge">MulticastStrategy.replay</code> which caches incoming elements. 
+If we use a different strategy such as <code class="language-plaintext highlighter-rouge">MulticastStrategy.publish</code>, <code class="language-plaintext highlighter-rouge">processStream</code> won’t receive any elements which were sent before subscription.</p>
 
 <p><a href="#subjects">More on Subjects later.</a></p>
+    
+      <h2 id="back-pressure-buffering-throttling">
+        
+        
+          Back-pressure, buffering, throttling <a href="#back-pressure-buffering-throttling" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="back-pressure-buffering-throttling">Back-pressure, buffering, throttling</h2>
-
-<p>The <code class="highlighter-rouge">Observable</code> is back-pressured, i.e. if the producer (upstream) is faster than consumer (downstream), the producer will 
-wait for an <code class="highlighter-rouge">Ack</code> from the consumer before sending the next element. However, that’s not always desirable.
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> is back-pressured, i.e. if the producer (upstream) is faster than consumer (downstream), the producer will 
+wait for an <code class="language-plaintext highlighter-rouge">Ack</code> from the consumer before sending the next element. However, that’s not always desirable.
 For instance, we might want to process messages in batches for better throughput, or have strict latency requirements 
 which we need to fulfil even at the cost of dropping some messages. Fortunately, Monix provides a ton of operators in this space.</p>
-
-<h3 id="overflowstrategy">OverflowStrategy</h3>
+    
+      <h3 id="overflowstrategy">
+        
+        
+          OverflowStrategy <a href="#overflowstrategy" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Many operators which limit, or disable back-pressure will take an <a href="https://monix.io/api/3.0/monix/reactive/OverflowStrategy.html">OverflowStrategy</a> as a parameter.
 The following are the policies available:</p>
 <ul>
-  <li><code class="highlighter-rouge">Unbounded</code> does not limit the size of the buffer, which means an upstream won’t ever be back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.</li>
-  <li><code class="highlighter-rouge">Fail(bufferSize: Int)</code> will send an <code class="highlighter-rouge">onError</code> signal to downstream, ending the <code class="highlighter-rouge">Observable</code> if the buffer grows too large.</li>
-  <li><code class="highlighter-rouge">Backpressure(bufferSize: Int)</code> will back-pressure an upstream if the buffer grows too large.</li>
-  <li><code class="highlighter-rouge">DropNew(bufferSize: Int)</code> will drop incoming elements if the buffer grows too large. This version is more efficient than <code class="highlighter-rouge">DropOld</code>.</li>
-  <li><code class="highlighter-rouge">DropOld(bufferSize: Int)</code> will drop the oldest elements if the buffer grows too large.</li>
-  <li><code class="highlighter-rouge">ClearBuffer(bufferSize: Int)</code> will clear the buffer if it grows beyond limit.</li>
+  <li><code class="language-plaintext highlighter-rouge">Unbounded</code> does not limit the size of the buffer, which means an upstream won’t ever be back-pressured. If there is a lot of traffic and the downstream is very slow, it can lead to high latencies and even out of memory errors if the buffer grows too large.</li>
+  <li><code class="language-plaintext highlighter-rouge">Fail(bufferSize: Int)</code> will send an <code class="language-plaintext highlighter-rouge">onError</code> signal to downstream, ending the <code class="language-plaintext highlighter-rouge">Observable</code> if the buffer grows too large.</li>
+  <li><code class="language-plaintext highlighter-rouge">Backpressure(bufferSize: Int)</code> will back-pressure an upstream if the buffer grows too large.</li>
+  <li><code class="language-plaintext highlighter-rouge">DropNew(bufferSize: Int)</code> will drop incoming elements if the buffer grows too large. This version is more efficient than <code class="language-plaintext highlighter-rouge">DropOld</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">DropOld(bufferSize: Int)</code> will drop the oldest elements if the buffer grows too large.</li>
+  <li><code class="language-plaintext highlighter-rouge">ClearBuffer(bufferSize: Int)</code> will clear the buffer if it grows beyond limit.</li>
 </ul>
 
-<p><code class="highlighter-rouge">DropNew</code>, <code class="highlighter-rouge">DropOld</code> and <code class="highlighter-rouge">ClearBuffer</code> allow to send a signal downstream if the buffer reaches its capacity.</p>
-
-<h3 id="asynchronous-processing">Asynchronous processing</h3>
+<p><code class="language-plaintext highlighter-rouge">DropNew</code>, <code class="language-plaintext highlighter-rouge">DropOld</code> and <code class="language-plaintext highlighter-rouge">ClearBuffer</code> allow to send a signal downstream if the buffer reaches its capacity.</p>
+    
+      <h3 id="asynchronous-processing">
+        
+        
+          Asynchronous processing <a href="#asynchronous-processing" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>We can think of a back-pressured stream as synchronous processing, where the upstream waits until a particular element has been fully processed.</p>
 
@@ -641,8 +886,8 @@ The following are the policies available:</p>
 </code></pre></div></div>
 
 <p>Asynchronous processing would then be a case in which the downstream acknowledges new events immediately and processes them independently.
-The <code class="highlighter-rouge">Observable</code> provides the <code class="highlighter-rouge">asyncBoundary</code> method which creates a buffered asynchronous boundary. 
-The buffer is configured according to the <code class="highlighter-rouge">OverflowStrategy</code>.</p>
+The <code class="language-plaintext highlighter-rouge">Observable</code> provides the <code class="language-plaintext highlighter-rouge">asyncBoundary</code> method which creates a buffered asynchronous boundary. 
+The buffer is configured according to the <code class="language-plaintext highlighter-rouge">OverflowStrategy</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">(</span><span class="s">"A"</span><span class="o">,</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"C"</span><span class="o">,</span> <span class="s">"D"</span><span class="o">)</span>
@@ -662,13 +907,13 @@ The buffer is configured according to the <code class="highlighter-rouge">Overfl
 <span class="c1">// 2: Processing DD</span>
 </code></pre></div></div>
 
-<p>In the example above, we introduced <code class="highlighter-rouge">asyncBoundary</code> before last <code class="highlighter-rouge">mapEval</code> which introduced an unbounded buffer before this operation.
+<p>In the example above, we introduced <code class="language-plaintext highlighter-rouge">asyncBoundary</code> before last <code class="language-plaintext highlighter-rouge">mapEval</code> which introduced an unbounded buffer before this operation.
 From the perspective of the upstream, the downstream is always keeping up with all the elements so it can always take the next one from the source.
-Anything after the <code class="highlighter-rouge">asyncBoundary</code> is back-pressured as usual - each <code class="highlighter-rouge">2: Processing XX</code> will be emitted in 100 millisecond intervals.</p>
+Anything after the <code class="language-plaintext highlighter-rouge">asyncBoundary</code> is back-pressured as usual - each <code class="language-plaintext highlighter-rouge">2: Processing XX</code> will be emitted in 100 millisecond intervals.</p>
 
-<p>You can use another <code class="highlighter-rouge">OverflowStrategy</code>, e.g. <code class="highlighter-rouge">OverflowStrategy.BackPressure(2)</code>, which would return following output:</p>
+<p>You can use another <code class="language-plaintext highlighter-rouge">OverflowStrategy</code>, e.g. <code class="language-plaintext highlighter-rouge">OverflowStrategy.BackPressure(2)</code>, which would return following output:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1: Processing A
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1: Processing A
 1: Processing B
 1: Processing C
 2: Processing AA
@@ -678,28 +923,40 @@ Anything after the <code class="highlighter-rouge">asyncBoundary</code> is back-
 2: Processing DD
 </code></pre></div></div>
 
-<p>When <code class="highlighter-rouge">AA</code> is being processed in the second stage, the source can send two more (size of the buffer) elements, 
+<p>When <code class="language-plaintext highlighter-rouge">AA</code> is being processed in the second stage, the source can send two more (size of the buffer) elements, 
 after which, it is back-pressured until there is more space available.</p>
+    
+      <h3 id="processing-elements-in-batches">
+        
+        
+          Processing elements in batches <a href="#processing-elements-in-batches" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="processing-elements-in-batches">Processing elements in batches</h3>
-
-<p>Operations like <code class="highlighter-rouge">asyncBoundary</code> and <code class="highlighter-rouge">ConcurrentSubject</code> will introduce internal buffers which we can’t access.
+<p>Operations like <code class="language-plaintext highlighter-rouge">asyncBoundary</code> and <code class="language-plaintext highlighter-rouge">ConcurrentSubject</code> will introduce internal buffers which we can’t access.
 We can also buffer elements to process elements in batches.</p>
+    
+      <h4 id="buffersliding">
+        
+        
+          bufferSliding <a href="#buffersliding" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="buffersliding">bufferSliding</h4>
-
-<p><code class="highlighter-rouge">Observable#bufferSliding</code> emits buffers every <code class="highlighter-rouge">skip</code> items, each containing <code class="highlighter-rouge">count</code> items.
+<p><code class="language-plaintext highlighter-rouge">Observable#bufferSliding</code> emits buffers every <code class="language-plaintext highlighter-rouge">skip</code> items, each containing <code class="language-plaintext highlighter-rouge">count</code> items.
 If the stream completes, it will emit an incomplete buffer downstream. 
 In case of an error, it will be dropped.</p>
 
 <p>The bundles can overlap, depending on parameters:</p>
 <ul>
-  <li>In case of <code class="highlighter-rouge">skip == count</code>, then all elements are emitted without any overlap</li>
-  <li>In case of <code class="highlighter-rouge">skip &lt; count</code>, then buffers overlap with the number of elements repeated being <code class="highlighter-rouge">count - skip</code></li>
-  <li>In case of <code class="highlighter-rouge">skip &gt; count</code>, then <code class="highlighter-rouge">skip - count</code> elements start getting dropped between windows</li>
+  <li>In case of <code class="language-plaintext highlighter-rouge">skip == count</code>, then all elements are emitted without any overlap</li>
+  <li>In case of <code class="language-plaintext highlighter-rouge">skip &lt; count</code>, then buffers overlap with the number of elements repeated being <code class="language-plaintext highlighter-rouge">count - skip</code></li>
+  <li>In case of <code class="language-plaintext highlighter-rouge">skip &gt; count</code>, then <code class="language-plaintext highlighter-rouge">skip - count</code> elements start getting dropped between windows</li>
 </ul>
 
-<p>Let’s take a look at an example demonstrating the case of <code class="highlighter-rouge">skip &gt; count</code>:</p>
+<p>Let’s take a look at an example demonstrating the case of <code class="language-plaintext highlighter-rouge">skip &gt; count</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">7</span><span class="o">).</span><span class="py">bufferSliding</span><span class="o">(</span><span class="n">count</span> <span class="k">=</span> <span class="mi">2</span><span class="o">,</span> <span class="n">skip</span> <span class="k">=</span> <span class="mi">3</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 
@@ -711,7 +968,7 @@ In case of an error, it will be dropped.</p>
 
 <p><img src="/public/images/marbles/buffer-sliding-1.png" align="center" style="max-width: 100%" /></p>
 
-<p>The element <code class="highlighter-rouge">4</code> has been skipped. If the situation was reversed, it would be duplicated instead:</p>
+<p>The element <code class="language-plaintext highlighter-rouge">4</code> has been skipped. If the situation was reversed, it would be duplicated instead:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">7</span><span class="o">).</span><span class="py">bufferSliding</span><span class="o">(</span><span class="n">count</span> <span class="k">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">skip</span> <span class="k">=</span> <span class="mi">2</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
 
@@ -723,12 +980,18 @@ In case of an error, it will be dropped.</p>
 
 <p><img src="/public/images/marbles/buffer-sliding-2.png" align="center" style="max-width: 100%" /></p>
 
-<p>For <code class="highlighter-rouge">skip == count</code> scenario, take a look at the <code class="highlighter-rouge">bufferTumbling</code> example.</p>
+<p>For <code class="language-plaintext highlighter-rouge">skip == count</code> scenario, take a look at the <code class="language-plaintext highlighter-rouge">bufferTumbling</code> example.</p>
+    
+      <h4 id="buffertumbling">
+        
+        
+          bufferTumbling <a href="#buffertumbling" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="buffertumbling">bufferTumbling</h4>
-
-<p><code class="highlighter-rouge">Observable#bufferTumbling</code> will gather elements and emit them in non-overlapping bundles of a specified <code class="highlighter-rouge">count</code>. 
-It is essentially <code class="highlighter-rouge">bufferSliding</code> where <code class="highlighter-rouge">count</code> is equal to <code class="highlighter-rouge">skip</code>.
+<p><code class="language-plaintext highlighter-rouge">Observable#bufferTumbling</code> will gather elements and emit them in non-overlapping bundles of a specified <code class="language-plaintext highlighter-rouge">count</code>. 
+It is essentially <code class="language-plaintext highlighter-rouge">bufferSliding</code> where <code class="language-plaintext highlighter-rouge">count</code> is equal to <code class="language-plaintext highlighter-rouge">skip</code>.
 If the stream completes, it will emit an incomplete buffer downstream. 
 In case of an error, it will be dropped.</p>
 
@@ -745,10 +1008,16 @@ In case of an error, it will be dropped.</p>
 </code></pre></div></div>
 
 <p><img src="/public/images/marbles/buffer-tumbling.png" align="center" style="max-width: 100%" /></p>
+    
+      <h4 id="buffertimed">
+        
+        
+          bufferTimed <a href="#buffertimed" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="buffertimed">bufferTimed</h4>
-
-<p>You can also buffer elements depending on a duration, using <code class="highlighter-rouge">bufferTimed(timespan: FiniteDuration)</code>.</p>
+<p>You can also buffer elements depending on a duration, using <code class="language-plaintext highlighter-rouge">bufferTimed(timespan: FiniteDuration)</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Observable</span><span class="o">.</span><span class="py">intervalAtFixedRate</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">).</span><span class="py">bufferTimed</span><span class="o">(</span><span class="n">timespan</span> <span class="k">=</span> <span class="mf">1.</span><span class="n">second</span><span class="o">).</span><span class="py">dump</span><span class="o">(</span><span class="s">"O"</span><span class="o">)</span>
   
@@ -758,17 +1027,23 @@ In case of an error, it will be dropped.</p>
 <span class="c1">// 2: O --&gt; List(20, 21, 22, 23, 24, 25, 26, 27, 28, 29)</span>
 <span class="c1">// ...</span>
 </code></pre></div></div>
+    
+      <h4 id="buffertimedandcounted">
+        
+        
+          bufferTimedAndCounted <a href="#buffertimedandcounted" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="buffertimedandcounted">bufferTimedAndCounted</h4>
-
-<p>Using either <code class="highlighter-rouge">bufferTimed</code> or <code class="highlighter-rouge">bufferCounted</code> has its drawbacks. 
-In <code class="highlighter-rouge">bufferTimed</code>, the buffer sizes can be very inconsistent, so you might have to wait on more elements even if we could
+<p>Using either <code class="language-plaintext highlighter-rouge">bufferTimed</code> or <code class="language-plaintext highlighter-rouge">bufferCounted</code> has its drawbacks. 
+In <code class="language-plaintext highlighter-rouge">bufferTimed</code>, the buffer sizes can be very inconsistent, so you might have to wait on more elements even if we could
 already be processing them, increasing latency. 
-When using <code class="highlighter-rouge">bufferCounted</code>, there is a risk of waiting a very long time (or forever) until there are enough elements to send downstream.
-If these are possible issues in an application, you could use <code class="highlighter-rouge">bufferTimedAndCounted</code> to do both at the same time.</p>
+When using <code class="language-plaintext highlighter-rouge">bufferCounted</code>, there is a risk of waiting a very long time (or forever) until there are enough elements to send downstream.
+If these are possible issues in an application, you could use <code class="language-plaintext highlighter-rouge">bufferTimedAndCounted</code> to do both at the same time.</p>
 
-<p>This buffering method emits non-overlapping bundles, each of a fixed duration specified by the <code class="highlighter-rouge">timespan</code> argument,
-or a maximum size specified by the <code class="highlighter-rouge">maxCount</code> argument (whichever is reached first).</p>
+<p>This buffering method emits non-overlapping bundles, each of a fixed duration specified by the <code class="language-plaintext highlighter-rouge">timespan</code> argument,
+or a maximum size specified by the <code class="language-plaintext highlighter-rouge">maxCount</code> argument (whichever is reached first).</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="o">(</span><span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span> <span class="o">++</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">never</span><span class="o">)</span>
@@ -783,10 +1058,16 @@ or a maximum size specified by the <code class="highlighter-rouge">maxCount</cod
 <span class="c1">// 3: O --&gt; List()</span>
 <span class="c1">// ...</span>
 </code></pre></div></div>
+    
+      <h4 id="bufferintrospective">
+        
+        
+          bufferIntrospective <a href="#bufferintrospective" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="bufferintrospective">bufferIntrospective</h4>
-
-<p>There are more sophisticated buffering options available and one of them is <code class="highlighter-rouge">bufferIntrospective(maxSize: Int)</code>.
+<p>There are more sophisticated buffering options available and one of them is <code class="language-plaintext highlighter-rouge">bufferIntrospective(maxSize: Int)</code>.
 This operator buffers elements only if the downstream is busy, otherwise it sends them as they come.
 Once the buffer is full, it will back-pressure upstream.</p>
 
@@ -814,21 +1095,27 @@ Once the buffer is full, it will back-pressure upstream.</p>
 
 <p>The example is a quite involved one so let’s break it down:</p>
 <ul>
-  <li>Element <code class="highlighter-rouge">1</code> can be started immediately and since the downstream is free, it is passed until the end</li>
-  <li>There is a free space in the buffer, so elements <code class="highlighter-rouge">2</code> and <code class="highlighter-rouge">3</code> can be started</li>
+  <li>Element <code class="language-plaintext highlighter-rouge">1</code> can be started immediately and since the downstream is free, it is passed until the end</li>
+  <li>There is a free space in the buffer, so elements <code class="language-plaintext highlighter-rouge">2</code> and <code class="language-plaintext highlighter-rouge">3</code> can be started</li>
   <li>Now, the buffer is filled-up, so the upstream is back-pressured</li>
-  <li>Once the first batch has been processed, <code class="highlighter-rouge">bufferIntrospective</code> can send a new one</li>
-  <li>There is a space in the buffer again so <code class="highlighter-rouge">4</code> and <code class="highlighter-rouge">5</code> can start, and they will be emitted when the current batch has been processed</li>
+  <li>Once the first batch has been processed, <code class="language-plaintext highlighter-rouge">bufferIntrospective</code> can send a new one</li>
+  <li>There is a space in the buffer again so <code class="language-plaintext highlighter-rouge">4</code> and <code class="language-plaintext highlighter-rouge">5</code> can start, and they will be emitted when the current batch has been processed</li>
 </ul>
+    
+      <h4 id="bufferwithselector">
+        
+        
+          bufferWithSelector <a href="#bufferwithselector" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="bufferwithselector">bufferWithSelector</h4>
-
-<p>Next sophisticated buffering operator is <code class="highlighter-rouge">bufferWithSelector(selector, maxSize)</code>. 
-It takes a selector <code class="highlighter-rouge">Observable</code> and emits a new buffer whenever it emits an element. 
-The second parameter, <code class="highlighter-rouge">maxSize</code> determines the maximum size of the buffer - if it is exceeded, the upstream will be back-pressured.
+<p>Next sophisticated buffering operator is <code class="language-plaintext highlighter-rouge">bufferWithSelector(selector, maxSize)</code>. 
+It takes a selector <code class="language-plaintext highlighter-rouge">Observable</code> and emits a new buffer whenever it emits an element. 
+The second parameter, <code class="language-plaintext highlighter-rouge">maxSize</code> determines the maximum size of the buffer - if it is exceeded, the upstream will be back-pressured.
 Any size below 1 will use an unbounded buffer.</p>
 
-<p>Let’s take a look at an example similar to the one with <code class="highlighter-rouge">bufferIntrospective</code> but this time it will emit elements every 100 milliseconds.</p>
+<p>Let’s take a look at an example similar to the one with <code class="language-plaintext highlighter-rouge">bufferIntrospective</code> but this time it will emit elements every 100 milliseconds.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">6</span><span class="o">)</span>
@@ -852,12 +1139,12 @@ Any size below 1 will use an unbounded buffer.</p>
 <span class="c1">// Processed batch List(5)</span>
 </code></pre></div></div>
 
-<p>The output can be a bit confusing because it suggests that element <code class="highlighter-rouge">3</code> has been started before emitting the first batch.
+<p>The output can be a bit confusing because it suggests that element <code class="language-plaintext highlighter-rouge">3</code> has been started before emitting the first batch.
 In reality, it was back-pressured as expected but emitting a batch downstream and acknowledging upstream is a concurrent operation, so
 it could happen before the “Emitted batch …” print-out.</p>
 
-<p>Since <code class="highlighter-rouge">bufferWithSelector</code> takes an <code class="highlighter-rouge">Observable</code>, it can be used to customize buffering to a pretty great extent.
-For instance, we could use <a href="https://typelevel.org/cats-effect/concurrency/mvar.html">MVar</a> or <a href="https://typelevel.org/cats-effect/concurrency/semaphore.html">Semaphore</a> to
+<p>Since <code class="language-plaintext highlighter-rouge">bufferWithSelector</code> takes an <code class="language-plaintext highlighter-rouge">Observable</code>, it can be used to customize buffering to a pretty great extent.
+For instance, we could use <a href="https://typelevel.org/cats-effect/concurrency/mvar.md">MVar</a> or <a href="https://typelevel.org/cats-effect/concurrency/semaphore.html">Semaphore</a> to
 buffer messages until we receive a signal from a different part of the application.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">bufferUntilSignalled</span><span class="o">(</span><span class="n">mvar</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">])</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Long</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
@@ -872,10 +1159,16 @@ buffer messages until we receive a signal from a different part of the applicati
   <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">mvar</span><span class="o">.</span><span class="py">put</span><span class="o">(())</span> <span class="c1">// signal buffer to be sent</span>
 <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
 </code></pre></div></div>
+    
+      <h4 id="buffertimedwithpressure">
+        
+        
+          bufferTimedWithPressure <a href="#buffertimedwithpressure" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="buffertimedwithpressure">bufferTimedWithPressure</h4>
-
-<p><code class="highlighter-rouge">Observable#bufferTimedWithPressure</code> is similar to <code class="highlighter-rouge">bufferTimedAndCounted</code> but it applies back-pressure if the buffer is full,
+<p><code class="language-plaintext highlighter-rouge">Observable#bufferTimedWithPressure</code> is similar to <code class="language-plaintext highlighter-rouge">bufferTimedAndCounted</code> but it applies back-pressure if the buffer is full,
 instead of emitting it. Another difference is that it allows to pass a function to calculate the weight of an element.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Elem</span>
@@ -902,27 +1195,45 @@ instead of emitting it. Another difference is that it allows to pass a function 
 <span class="c1">// 3: O --&gt; List(A, B)</span>
 <span class="c1">// 4: O completed</span>
 </code></pre></div></div>
-
-<h3 id="limiting-the-rate-of-emission-of-elements">Limiting the rate of emission of elements</h3>
+    
+      <h3 id="limiting-the-rate-of-emission-of-elements">
+        
+        
+          Limiting the rate of emission of elements <a href="#limiting-the-rate-of-emission-of-elements" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>The following subsection covers some of the operators that can help with limiting the rate and/or filtering of incoming events.
 As usual, there is more information in the API and if you’re missing something familiar from ReactiveX then it is most likely an easy addition - so do not hesitate to open an issue.</p>
+    
+      <h4 id="throttle">
+        
+        
+          throttle <a href="#throttle" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="throttle">throttle</h4>
-
-<p>The purpose of <code class="highlighter-rouge">throttle(period, n)</code> is to control the rate of events emitted downstream.
-The operator will buffer incoming events up to <code class="highlighter-rouge">n</code> and emit them each <code class="highlighter-rouge">period</code> as individual elements.
+<p>The purpose of <code class="language-plaintext highlighter-rouge">throttle(period, n)</code> is to control the rate of events emitted downstream.
+The operator will buffer incoming events up to <code class="language-plaintext highlighter-rouge">n</code> and emit them each <code class="language-plaintext highlighter-rouge">period</code> as individual elements.
 Once the internal buffer is filled, it will back-pressure the upstream.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Emits 1 element per 1 second</span>
 <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">).</span><span class="py">throttle</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>An important difference from the other throttling operators is that <code class="highlighter-rouge">throttle</code> does not skip any elements.</p>
+<p>An important difference from the other throttling operators is that <code class="language-plaintext highlighter-rouge">throttle</code> does not skip any elements.</p>
+    
+      <h4 id="throttlefirst">
+        
+        
+          throttleFirst <a href="#throttlefirst" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="throttlefirst">throttleFirst</h4>
-
-<p><code class="highlighter-rouge">Observable#throttleFirst(interval)</code> emits only the first item from the source in specified intervals.
+<p><code class="language-plaintext highlighter-rouge">Observable#throttleFirst(interval)</code> emits only the first item from the source in specified intervals.
 Other elements will be dropped. The most classic use case of this operator is to avoid multiple clicks on the same button
 in user-facing features.</p>
 
@@ -939,10 +1250,16 @@ in user-facing features.</p>
 <span class="c1">// 2: O --&gt; 10</span>
 <span class="c1">// 3: O completed</span>
 </code></pre></div></div>
+    
+      <h4 id="throttlelast-sample">
+        
+        
+          throttleLast (sample) <a href="#throttlelast-sample" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="throttlelast-sample">throttleLast (sample)</h4>
-
-<p><code class="highlighter-rouge">throttleLast</code> (aliased to <code class="highlighter-rouge">sample</code>) is similar to <code class="highlighter-rouge">throttleFirst</code> but it always emits the most recent (last one) element in the window.</p>
+<p><code class="language-plaintext highlighter-rouge">throttleLast</code> (aliased to <code class="language-plaintext highlighter-rouge">sample</code>) is similar to <code class="language-plaintext highlighter-rouge">throttleFirst</code> but it always emits the most recent (last one) element in the window.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterable</span><span class="o">(</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">10</span><span class="o">)</span>
@@ -957,13 +1274,19 @@ in user-facing features.</p>
 <span class="c1">// 2: O --&gt; 10</span>
 <span class="c1">// 3: O completed</span>
 </code></pre></div></div>
+    
+      <h4 id="throttlewithtimeout-debounce">
+        
+        
+          throttleWithTimeout (debounce) <a href="#throttlewithtimeout-debounce" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h4 id="throttlewithtimeout-debounce">throttleWithTimeout (debounce)</h4>
-
-<p><code class="highlighter-rouge">throttleWithTimeout</code> (aliased to <code class="highlighter-rouge">debounce</code>) will drop any events that were emitted in a short succession.
-An event will be passed to downstream only after a given <code class="highlighter-rouge">timeout</code> passes. Each event resets the timer, even if it is dropped.
+<p><code class="language-plaintext highlighter-rouge">throttleWithTimeout</code> (aliased to <code class="language-plaintext highlighter-rouge">debounce</code>) will drop any events that were emitted in a short succession.
+An event will be passed to downstream only after a given <code class="language-plaintext highlighter-rouge">timeout</code> passes. Each event resets the timer, even if it is dropped.
 The operator will wait until it is “calm” and then emit the latest event.
-This behavior is different from <code class="highlighter-rouge">throttleFirst</code> and <code class="highlighter-rouge">throttleLast</code> where the time window was static.</p>
+This behavior is different from <code class="language-plaintext highlighter-rouge">throttleFirst</code> and <code class="language-plaintext highlighter-rouge">throttleLast</code> where the time window was static.</p>
 
 <p>This operator is well-suited for situations like a search query - it can be quite expensive for the downstream to process<br />
 each key entered by a user, so instead we could wait until the user stopped typing before we send the events.</p>
@@ -992,12 +1315,24 @@ each key entered by a user, so instead we could wait until the user stopped typi
 <span class="c1">// Output after execution</span>
 <span class="c1">// 0: O completed</span>
 </code></pre></div></div>
+    
+      <h2 id="transforming-observables">
+        
+        
+          Transforming Observables <a href="#transforming-observables" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="map">
+        
+        
+          map <a href="#map" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h2 id="transforming-observables">Transforming Observables</h2>
-
-<h3 id="map">map</h3>
-
-<p><code class="highlighter-rouge">Observable#map</code> applies a function <code class="highlighter-rouge">f</code> to all elements in the source stream.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable#map</code> applies a function <code class="language-plaintext highlighter-rouge">f</code> to all elements in the source stream.</p>
 
 <p><img src="/public/images/marbles/map.png" align="center" style="max-width: 100%" /></p>
 
@@ -1018,7 +1353,7 @@ each key entered by a user, so instead we could wait until the user stopped typi
 <span class="c1">// new elem: 4</span>
 </code></pre></div></div>
 
-<p>Prefer to use functions that are total because any exception will terminate the stream (see <a href="#errorHandling">Error Handling</a> section) :</p>
+<p>Prefer to use functions that are total because any exception will terminate the stream (see <a href="#error-handling">Error Handling</a> section) :</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">failed</span> <span class="k">=</span> <span class="o">{</span> 
   <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
@@ -1032,10 +1367,16 @@ each key entered by a user, so instead we could wait until the user stopped typi
 <span class="c1">//	at MapObservable$.$anonfun$failedStream$1$adapted(MapObservable.scala:14)</span>
 <span class="c1">//	at monix.reactive.internal.operators.MapOperator$$anon$1.onNext(MapOperator.scala:41)</span>
 </code></pre></div></div>
+    
+      <h3 id="mapeval">
+        
+        
+          mapEval <a href="#mapeval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="mapeval">mapEval</h3>
-
-<p><code class="highlighter-rouge">Observable#mapEval</code> is similar to <code class="highlighter-rouge">map</code> but it takes a <code class="highlighter-rouge">f: A =&gt; Task[B]</code> which represents a function with an effectful result that can produce at most one value.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable#mapEval</code> is similar to <code class="language-plaintext highlighter-rouge">map</code> but it takes a <code class="language-plaintext highlighter-rouge">f: A =&gt; Task[B]</code> which represents a function with an effectful result that can produce at most one value.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">).</span><span class="py">mapEval</span><span class="o">(</span><span class="n">l</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalAsync</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$l: run asynchronously"</span><span class="o">)))</span>
 
@@ -1047,7 +1388,7 @@ each key entered by a user, so instead we could wait until the user stopped typi
 <span class="c1">// 4: run asynchronously</span>
 </code></pre></div></div>
 
-<p>There is also a <code class="highlighter-rouge">mapEvalF</code> variant for other types which can be converted to a <code class="highlighter-rouge">Task</code>, i.e. <code class="highlighter-rouge">Future</code>, <code class="highlighter-rouge">cats.effect.IO</code>, <code class="highlighter-rouge">ZIO</code> etc.</p>
+<p>There is also a <code class="language-plaintext highlighter-rouge">mapEvalF</code> variant for other types which can be converted to a <code class="language-plaintext highlighter-rouge">Task</code>, i.e. <code class="language-plaintext highlighter-rouge">Future</code>, <code class="language-plaintext highlighter-rouge">cats.effect.IO</code>, <code class="language-plaintext highlighter-rouge">ZIO</code> etc.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
 
@@ -1060,11 +1401,17 @@ each key entered by a user, so instead we could wait until the user stopped typi
 <span class="c1">// 3: run asynchronously</span>
 <span class="c1">// 4: run asynchronously</span>
 </code></pre></div></div>
+    
+      <h3 id="mapparallel">
+        
+        
+          mapParallel <a href="#mapparallel" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="mapparallel">mapParallel</h3>
-
-<p><code class="highlighter-rouge">mapEval</code> can process elements asynchronously but does it one-by-one. 
-In case we would like to run <code class="highlighter-rouge">n</code> tasks in parallel, we can use either <code class="highlighter-rouge">mapParallelOrdered</code> or <code class="highlighter-rouge">mapParallelUnordered</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">mapEval</code> can process elements asynchronously but does it one-by-one. 
+In case we would like to run <code class="language-plaintext highlighter-rouge">n</code> tasks in parallel, we can use either <code class="language-plaintext highlighter-rouge">mapParallelOrdered</code> or <code class="language-plaintext highlighter-rouge">mapParallelUnordered</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -1088,10 +1435,10 @@ In case we would like to run <code class="highlighter-rouge">n</code> tasks in p
 <span class="c1">// 4: done</span>
 </code></pre></div></div>
 
-<p>The order of execution of <code class="highlighter-rouge">Tasks</code> inside <code class="highlighter-rouge">mapParallelOrdered</code> is nondeterministic, but they will always be passed to the downstream in the FIFO order, i.e. all <code class="highlighter-rouge">done</code> prints will have increasing indices in this example.
-In case we don’t need this guarantee, we can use <code class="highlighter-rouge">mapParallelUnordered</code> which is faster. The code above would result in the following output:</p>
+<p>The order of execution of <code class="language-plaintext highlighter-rouge">Tasks</code> inside <code class="language-plaintext highlighter-rouge">mapParallelOrdered</code> is nondeterministic, but they will always be passed to the downstream in the FIFO order, i.e. all <code class="language-plaintext highlighter-rouge">done</code> prints will have increasing indices in this example.
+In case we don’t need this guarantee, we can use <code class="language-plaintext highlighter-rouge">mapParallelUnordered</code> which is faster. The code above would result in the following output:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2: start asynchronously
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2: start asynchronously
 1: start asynchronously
 1: done
 3: start asynchronously
@@ -1100,11 +1447,17 @@ In case we don’t need this guarantee, we can use <code class="highlighter-roug
 2: done
 4: done
 </code></pre></div></div>
+    
+      <h3 id="flatmap-concatmap">
+        
+        
+          flatMap (concatMap) <a href="#flatmap-concatmap" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="flatmap-concatmap">flatMap (concatMap)</h3>
-
-<p><code class="highlighter-rouge">Observable#flatMap</code> (aliased to <code class="highlighter-rouge">concatMap</code>) applies a function which returns an <code class="highlighter-rouge">Observable</code>. 
-For each input element, the resulting <code class="highlighter-rouge">Observable</code> is processed before the next input element.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable#flatMap</code> (aliased to <code class="language-plaintext highlighter-rouge">concatMap</code>) applies a function which returns an <code class="language-plaintext highlighter-rouge">Observable</code>. 
+For each input element, the resulting <code class="language-plaintext highlighter-rouge">Observable</code> is processed before the next input element.</p>
 
 <p><img src="/public/images/marbles/flat-map.png" align="center" style="max-width: 100%" /></p>
 
@@ -1122,7 +1475,7 @@ For each input element, the resulting <code class="highlighter-rouge">Observable
 <span class="c1">// 4B</span>
 </code></pre></div></div>
 
-<p>Note that if a function returns an infinite <code class="highlighter-rouge">Observable</code>, it will never process the next elements from the source:</p>
+<p>Note that if a function returns an infinite <code class="language-plaintext highlighter-rouge">Observable</code>, it will never process the next elements from the source:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
@@ -1132,11 +1485,17 @@ For each input element, the resulting <code class="highlighter-rouge">Observable
 
 <span class="c1">// Nothing is printed</span>
 </code></pre></div></div>
+    
+      <h3 id="mergemap">
+        
+        
+          mergeMap <a href="#mergemap" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="mergemap">mergeMap</h3>
-
-<p><code class="highlighter-rouge">Observable#mergeMap</code> takes a function which can return an <code class="highlighter-rouge">Observable</code> but it can process the source <em>concurrently</em>. It doesn’t back-pressure on elements
-from the source and subscribes to all of the <code class="highlighter-rouge">Observable</code>s produced from the source until they terminate. These produced <code class="highlighter-rouge">Observable</code>s are often called <em>inner</em> or <em>child</em>.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable#mergeMap</code> takes a function which can return an <code class="language-plaintext highlighter-rouge">Observable</code> but it can process the source <em>concurrently</em>. It doesn’t back-pressure on elements
+from the source and subscribes to all of the <code class="language-plaintext highlighter-rouge">Observable</code>s produced from the source until they terminate. These produced <code class="language-plaintext highlighter-rouge">Observable</code>s are often called <em>inner</em> or <em>child</em>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">++</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">50.</span><span class="n">millis</span><span class="o">)</span>
 
@@ -1151,7 +1510,7 @@ from the source and subscribes to all of the <code class="highlighter-rouge">Obs
 
 <p><img src="/public/images/marbles/merge-map.png" align="center" style="max-width: 100%" /></p>
 
-<p>Since the inner <code class="highlighter-rouge">Observables</code> are executed concurrently, we can also return an <code class="highlighter-rouge">Observable</code> which takes a very long time or does not terminate at all without slowing down the entire stream.</p>
+<p>Since the inner <code class="language-plaintext highlighter-rouge">Observables</code> are executed concurrently, we can also return an <code class="language-plaintext highlighter-rouge">Observable</code> which takes a very long time or does not terminate at all without slowing down the entire stream.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
@@ -1165,8 +1524,8 @@ from the source and subscribes to all of the <code class="highlighter-rouge">Obs
 <span class="c1">// 4B</span>
 </code></pre></div></div>
 
-<p>Keep in mind that <code class="highlighter-rouge">mergeMap</code> keeps all active subscriptions so it is possible to end up with a memory leak if we forget to close the infinite <code class="highlighter-rouge">Observable</code>.
-In case one of the <code class="highlighter-rouge">Observable</code>s returns an error, other active streams will be canceled and resulting <code class="highlighter-rouge">Observable</code> will return the original error:</p>
+<p>Keep in mind that <code class="language-plaintext highlighter-rouge">mergeMap</code> keeps all active subscriptions so it is possible to end up with a memory leak if we forget to close the infinite <code class="language-plaintext highlighter-rouge">Observable</code>.
+In case one of the <code class="language-plaintext highlighter-rouge">Observable</code>s returns an error, other active streams will be canceled and resulting <code class="language-plaintext highlighter-rouge">Observable</code> will return the original error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="o">{</span>
   <span class="nc">Observable</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
@@ -1182,9 +1541,15 @@ In case one of the <code class="highlighter-rouge">Observable</code>s returns an
 <span class="c1">// 4: cancelled</span>
 <span class="c1">// Exception in thread "main" monix.execution.exceptions.DummyException: fail</span>
 </code></pre></div></div>
-
-<h3 id="switchmap">switchMap</h3>
-<p>Similar to <code class="highlighter-rouge">mergeMap</code>, <code class="highlighter-rouge">Observable#switchMap</code> does not back-pressure on elements from the source stream but instead <em>switches</em> to the first <code class="highlighter-rouge">Observable</code> returned by the provided function that will produce an element. It then cancels the other inner streams so there is only one active subscription at the time. It is safer than <code class="highlighter-rouge">mergeMap</code> in a way because there is no danger of a memory leak - although, it interrupts ongoing requests if something new arrives.</p>
+    
+      <h3 id="switchmap">
+        
+        
+          switchMap <a href="#switchmap" class="anchor">#</a>
+        
+        
+      </h3>
+<p>Similar to <code class="language-plaintext highlighter-rouge">mergeMap</code>, <code class="language-plaintext highlighter-rouge">Observable#switchMap</code> does not back-pressure on elements from the source stream but instead <em>switches</em> to the first <code class="language-plaintext highlighter-rouge">Observable</code> returned by the provided function that will produce an element. It then cancels the other inner streams so there is only one active subscription at the time. It is safer than <code class="language-plaintext highlighter-rouge">mergeMap</code> in a way because there is no danger of a memory leak - although, it interrupts ongoing requests if something new arrives.</p>
 
 <p><img src="/public/images/marbles/switch-map.png" align="center" style="max-width: 100%" /></p>
 
@@ -1217,33 +1582,51 @@ In case one of the <code class="highlighter-rouge">Observable</code>s returns an
 <span class="c1">// 4C</span>
 <span class="c1">// 4: Request has been completed.</span>
 </code></pre></div></div>
+    
+      <h3 id="summary">
+        
+        
+          Summary <a href="#summary" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="summary">Summary</h3>
-
-<p>If you want to back-pressure a source <code class="highlighter-rouge">Observable</code> when emitting new events, use:</p>
+<p>If you want to back-pressure a source <code class="language-plaintext highlighter-rouge">Observable</code> when emitting new events, use:</p>
 <ul>
-  <li><code class="highlighter-rouge">map</code> for pure, synchronous functions which return only one value</li>
-  <li><code class="highlighter-rouge">mapEval</code> or <code class="highlighter-rouge">mapParallel</code> for effectful, possibly asynchronous functions which return up to one value</li>
-  <li><code class="highlighter-rouge">flatMap</code> for effectful, possibly asynchronous functions which return a stream of values</li>
+  <li><code class="language-plaintext highlighter-rouge">map</code> for pure, synchronous functions which return only one value</li>
+  <li><code class="language-plaintext highlighter-rouge">mapEval</code> or <code class="language-plaintext highlighter-rouge">mapParallel</code> for effectful, possibly asynchronous functions which return up to one value</li>
+  <li><code class="language-plaintext highlighter-rouge">flatMap</code> for effectful, possibly asynchronous functions which return a stream of values</li>
 </ul>
 
-<p>If you want to process source <code class="highlighter-rouge">Observable</code>s concurrently, use:</p>
+<p>If you want to process source <code class="language-plaintext highlighter-rouge">Observable</code>s concurrently, use:</p>
 <ul>
-  <li><code class="highlighter-rouge">mergeMap</code> if you want to process all inner streams</li>
-  <li><code class="highlighter-rouge">switchMap</code> if you want to keep only the most recent inner stream</li>
+  <li><code class="language-plaintext highlighter-rouge">mergeMap</code> if you want to process all inner streams</li>
+  <li><code class="language-plaintext highlighter-rouge">switchMap</code> if you want to keep only the most recent inner stream</li>
 </ul>
+    
+      <h2 id="scheduling">
+        
+        
+          Scheduling <a href="#scheduling" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="scheduling">Scheduling</h2>
+<p><code class="language-plaintext highlighter-rouge">Observable</code> is a great fit not only for streaming data but also for control flow such as scheduling. 
+It provides several builders for this purpose and is quite easy to combine with <code class="language-plaintext highlighter-rouge">Task</code> if all you want is to
+run a <code class="language-plaintext highlighter-rouge">Task</code> in specific intervals.</p>
+    
+      <h3 id="intervalwithfixeddelay-interval">
+        
+        
+          intervalWithFixedDelay (interval) <a href="#intervalwithfixeddelay-interval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p><code class="highlighter-rouge">Observable</code> is a great fit not only for streaming data but also for control flow such as scheduling. 
-It provides several builders for this purpose and is quite easy to combine with <code class="highlighter-rouge">Task</code> if all you want is to
-run a <code class="highlighter-rouge">Task</code> in specific intervals.</p>
-
-<h3 id="intervalwithfixeddelay-interval">intervalWithFixedDelay (interval)</h3>
-
-<p><code class="highlighter-rouge">Observable.intervalWithFixedDelay</code> takes a <code class="highlighter-rouge">delay</code> and an optional <code class="highlighter-rouge">initialDelay</code>. It creates an <code class="highlighter-rouge">Observable</code> that
-emits auto-incremented natural numbers (<code class="highlighter-rouge">Long</code>s) spaced by a given time interval. It starts from 0 with an <code class="highlighter-rouge">initialDelay</code> (or immediately), 
-after which it emits incremented numbers spaced by the <code class="highlighter-rouge">delay</code> of time. The given <code class="highlighter-rouge">delay</code> of time acts as a fixed 
+<p><code class="language-plaintext highlighter-rouge">Observable.intervalWithFixedDelay</code> takes a <code class="language-plaintext highlighter-rouge">delay</code> and an optional <code class="language-plaintext highlighter-rouge">initialDelay</code>. It creates an <code class="language-plaintext highlighter-rouge">Observable</code> that
+emits auto-incremented natural numbers (<code class="language-plaintext highlighter-rouge">Long</code>s) spaced by a given time interval. It starts from 0 with an <code class="language-plaintext highlighter-rouge">initialDelay</code> (or immediately), 
+after which it emits incremented numbers spaced by the <code class="language-plaintext highlighter-rouge">delay</code> of time. The given <code class="language-plaintext highlighter-rouge">delay</code> of time acts as a fixed 
 delay between successive events.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
@@ -1269,15 +1652,21 @@ delay between successive events.</p>
 <span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2</span>
 <span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">4.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3</span>
 </code></pre></div></div>
+    
+      <h3 id="intervalatfixedrate">
+        
+        
+          intervalAtFixedRate <a href="#intervalatfixedrate" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="intervalatfixedrate">intervalAtFixedRate</h3>
-
-<p><code class="highlighter-rouge">Observable.intervalAtFixedRate</code> is similar to <code class="highlighter-rouge">Observable.intervalWithFixedDelay</code>, but the time it takes to
-process an <code class="highlighter-rouge">onNext</code> event gets deducted from the specified <code class="highlighter-rouge">period</code>. In other words, the created <code class="highlighter-rouge">Observable</code>
-tries to emit events spaced by the given time interval, regardless of how long the processing of <code class="highlighter-rouge">onNext</code> takes.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.intervalAtFixedRate</code> is similar to <code class="language-plaintext highlighter-rouge">Observable.intervalWithFixedDelay</code>, but the time it takes to
+process an <code class="language-plaintext highlighter-rouge">onNext</code> event gets deducted from the specified <code class="language-plaintext highlighter-rouge">period</code>. In other words, the created <code class="language-plaintext highlighter-rouge">Observable</code>
+tries to emit events spaced by the given time interval, regardless of how long the processing of <code class="language-plaintext highlighter-rouge">onNext</code> takes.</p>
 
 <p>The difference should be clearer after looking at the example below. 
-Notice how it makes up for time spent in each <code class="highlighter-rouge">mapEval</code>.</p>
+Notice how it makes up for time spent in each <code class="language-plaintext highlighter-rouge">mapEval</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.schedulers.TestScheduler</span>
@@ -1302,18 +1691,30 @@ Notice how it makes up for time spent in each <code class="highlighter-rouge">ma
 <span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 2</span>
 <span class="nv">sc</span><span class="o">.</span><span class="py">tick</span><span class="o">(</span><span class="mf">2.</span><span class="n">second</span><span class="o">)</span> <span class="c1">// prints 3</span>
 </code></pre></div></div>
+    
+      <h2 id="error-handling">
+        
+        
+          Error Handling <a href="#error-handling" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="error-handling">Error Handling</h2>
+<p>Failing in any operator in an <code class="language-plaintext highlighter-rouge">Observable</code> will lead to the termination of the stream. It will inform the downstream and the upstream
+about the failure, stopping the entire <code class="language-plaintext highlighter-rouge">Observable</code> chain - unless the error is handled.</p>
 
-<p>Failing in any operator in an <code class="highlighter-rouge">Observable</code> will lead to the termination of the stream. It will inform the downstream and the upstream
-about the failure, stopping the entire <code class="highlighter-rouge">Observable</code> chain - unless the error is handled.</p>
+<p>Note that most errors should be handled at the <code class="language-plaintext highlighter-rouge">Effect</code> level (e.g. <code class="language-plaintext highlighter-rouge">Task</code>, <code class="language-plaintext highlighter-rouge">IO</code> in <code class="language-plaintext highlighter-rouge">mapEval</code>), and not by using <code class="language-plaintext highlighter-rouge">Observable</code> error handling operators. 
+If the <code class="language-plaintext highlighter-rouge">Observable</code> encounters an error, it cannot ignore and keep going. The best you can do (without using some bigger machinery) is to restart the <code class="language-plaintext highlighter-rouge">Observable</code> or replace it with different one.</p>
+    
+      <h3 id="handleerror-onerrorhandle">
+        
+        
+          handleError (onErrorHandle) <a href="#handleerror-onerrorhandle" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>Note that most errors should be handled at the <code class="highlighter-rouge">Effect</code> level (e.g. <code class="highlighter-rouge">Task</code>, <code class="highlighter-rouge">IO</code> in <code class="highlighter-rouge">mapEval</code>), and not by using <code class="highlighter-rouge">Observable</code> error handling operators. 
-If the <code class="highlighter-rouge">Observable</code> encounters an error, it cannot ignore and keep going. The best you can do (without using some bigger machinery) is to restart the <code class="highlighter-rouge">Observable</code> or replace it with different one.</p>
-
-<h3 id="handleerror-onerrorhandle">handleError (onErrorHandle)</h3>
-
-<p><code class="highlighter-rouge">Observable.handleError</code> (alias for <code class="highlighter-rouge">onErrorHandle</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="highlighter-rouge">Observable</code> emitting one specific element generated by given total function.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.handleError</code> (alias for <code class="language-plaintext highlighter-rouge">onErrorHandle</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="language-plaintext highlighter-rouge">Observable</code> emitting one specific element generated by given total function.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
@@ -1329,10 +1730,16 @@ If the <code class="highlighter-rouge">Observable</code> encounters an error, it
 <span class="c1">//=&gt; 3</span>
 <span class="c1">//=&gt; 4</span>
 </code></pre></div></div>
+    
+      <h3 id="handleerrorwith-onerrorhandlewith">
+        
+        
+          handleErrorWith (onErrorHandleWith) <a href="#handleerrorwith-onerrorhandlewith" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="handleerrorwith-onerrorhandlewith">handleErrorWith (onErrorHandleWith)</h3>
-
-<p><code class="highlighter-rouge">Observable.handleErrorWith</code> (alias for <code class="highlighter-rouge">onErrorHandleWith</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="highlighter-rouge">Observable</code> generated by the given total function.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.handleErrorWith</code> (alias for <code class="language-plaintext highlighter-rouge">onErrorHandleWith</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="language-plaintext highlighter-rouge">Observable</code> generated by the given total function.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
@@ -1348,18 +1755,36 @@ If the <code class="highlighter-rouge">Observable</code> encounters an error, it
 <span class="c1">//=&gt; 3</span>
 <span class="c1">//=&gt; 4</span>
 </code></pre></div></div>
+    
+      <h3 id="recover-onerrorrecover">
+        
+        
+          recover (onErrorRecover) <a href="#recover-onerrorrecover" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="recover-onerrorrecover">recover (onErrorRecover)</h3>
+<p><code class="language-plaintext highlighter-rouge">Observable.recover</code> (alias for <code class="language-plaintext highlighter-rouge">onErrorRecover</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="language-plaintext highlighter-rouge">Observable</code> emitting one specified element generated by given partial function. The difference between <code class="language-plaintext highlighter-rouge">recover</code> and <code class="language-plaintext highlighter-rouge">handleError</code> is that the latter takes a total function as a parameter.</p>
+    
+      <h3 id="recoverwith-onerrorrecoverwith">
+        
+        
+          recoverWith (onErrorRecoverWith) <a href="#recoverwith-onerrorrecoverwith" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p><code class="highlighter-rouge">Observable.recover</code> (alias for <code class="highlighter-rouge">onErrorRecover</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="highlighter-rouge">Observable</code> emitting one specified element generated by given partial function. The difference between <code class="highlighter-rouge">recover</code> and <code class="highlighter-rouge">handleError</code> is that the latter takes a total function as a parameter.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.recoverWith</code> (alias for <code class="language-plaintext highlighter-rouge">onErrorRecoverWith</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="language-plaintext highlighter-rouge">Observable</code> generated by the given partial function. The difference between <code class="language-plaintext highlighter-rouge">recoverWith</code> and <code class="language-plaintext highlighter-rouge">handleErrorWith</code> is that the latter takes a total function as a parameter.</p>
+    
+      <h3 id="onerrorfallbackto">
+        
+        
+          onErrorFallbackTo <a href="#onerrorfallbackto" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="recoverwith-onerrorrecoverwith">recoverWith (onErrorRecoverWith)</h3>
-
-<p><code class="highlighter-rouge">Observable.recoverWith</code> (alias for <code class="highlighter-rouge">onErrorRecoverWith</code>) mirrors the original source unless an error happens - in which case it falls back to an <code class="highlighter-rouge">Observable</code> generated by the given partial function. The difference between <code class="highlighter-rouge">recoverWith</code> and <code class="highlighter-rouge">handleErrorWith</code> is that the latter takes a total function as a parameter.</p>
-
-<h3 id="onerrorfallbackto">onErrorFallbackTo</h3>
-
-<p><code class="highlighter-rouge">Observable.onErrorFallbackTo</code> mirrors the behavior of the source, unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case the streaming of events continues with the specified backup sequence regardless of the error.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.onErrorFallbackTo</code> mirrors the behavior of the source, unless it is terminated with an <code class="language-plaintext highlighter-rouge">onError</code>, in which case the streaming of events continues with the specified backup sequence regardless of the error.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
@@ -1382,18 +1807,30 @@ If the <code class="highlighter-rouge">Observable</code> encounters an error, it
   <span class="o">.</span><span class="py">handleErrorWith</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="onerrorrestart">
+        
+        
+          onErrorRestart <a href="#onerrorrestart" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="onerrorrestart">onErrorRestart</h3>
+<p><code class="language-plaintext highlighter-rouge">Observable.onErrorRestart</code> mirrors the behavior of the source unless it is terminated with an <code class="language-plaintext highlighter-rouge">onError</code>, in which case it tries re-subscribing to the source with the hope that it will complete without an error.</p>
 
-<p><code class="highlighter-rouge">Observable.onErrorRestart</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it tries re-subscribing to the source with the hope that it will complete without an error.</p>
+<p>The number of retries is limited by the specified <code class="language-plaintext highlighter-rouge">maxRetries</code> parameter.</p>
 
-<p>The number of retries is limited by the specified <code class="highlighter-rouge">maxRetries</code> parameter.</p>
+<p>There is also <code class="language-plaintext highlighter-rouge">onErrorRestartUnlimited</code> variant for an unlimited number of retries.</p>
+    
+      <h3 id="onerrorrestartif">
+        
+        
+          onErrorRestartIf <a href="#onerrorrestartif" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>There is also <code class="highlighter-rouge">onErrorRestartUnlimited</code> variant for an unlimited number of retries.</p>
-
-<h3 id="onerrorrestartif">onErrorRestartIf</h3>
-
-<p><code class="highlighter-rouge">Observable.onErrorRestartIf</code> mirrors the behavior of the source unless it is terminated with an <code class="highlighter-rouge">onError</code>, in which case it invokes the  provided function and tries re-subscribing to the source with the hope that it will complete without an error.</p>
+<p><code class="language-plaintext highlighter-rouge">Observable.onErrorRestartIf</code> mirrors the behavior of the source unless it is terminated with an <code class="language-plaintext highlighter-rouge">onError</code>, in which case it invokes the  provided function and tries re-subscribing to the source with the hope that it will complete without an error.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 
@@ -1417,10 +1854,16 @@ If the <code class="highlighter-rouge">Observable</code> encounters an error, it
 <span class="c1">//=&gt; 3</span>
 <span class="c1">// ... fails and restarts infinitely</span>
 </code></pre></div></div>
+    
+      <h3 id="retrying-with-delay">
+        
+        
+          Retrying with delay <a href="#retrying-with-delay" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="retrying-with-delay">Retrying with delay</h3>
-
-<p>Since <code class="highlighter-rouge">Observable</code> methods compose pretty nicely, you could easily combine them to write some custom retry mechanisms, like the one below:</p>
+<p>Since <code class="language-plaintext highlighter-rouge">Observable</code> methods compose pretty nicely, you could easily combine them to write some custom retry mechanisms, like the one below:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">retryWithDelay</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">source</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">],</span> <span class="n">delay</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> 
   <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandleWith</span> <span class="o">{</span> <span class="k">_</span> <span class="k">=&gt;</span>
@@ -1442,11 +1885,17 @@ If the <code class="highlighter-rouge">Observable</code> encounters an error, it
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-
-<h3 id="dropping-failed-elements">Dropping failed elements</h3>
+    
+      <h3 id="dropping-failed-elements">
+        
+        
+          Dropping failed elements <a href="#dropping-failed-elements" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Sometimes we would like to ignore elements that caused failure and keep going, but 
-if something fails in an <code class="highlighter-rouge">Observable</code> operator (e.g. mapEval), the entire <code class="highlighter-rouge">Observable</code> is stopped with a failure.</p>
+if something fails in an <code class="language-plaintext highlighter-rouge">Observable</code> operator (e.g. mapEval), the entire <code class="language-plaintext highlighter-rouge">Observable</code> is stopped with a failure.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
@@ -1464,8 +1913,8 @@ if something fails in an <code class="highlighter-rouge">Observable</code> opera
 <span class="c1">//=&gt; Exception in thread "main" monix.execution.exceptions.DummyException: error</span>
 </code></pre></div></div>
 
-<p>There is nothing like a <code class="highlighter-rouge">supervision mechanism</code> (like in Akka Streams), but if we control it at the <code class="highlighter-rouge">Effect</code> level, we could achieve similar behavior.
-For instance, we could wrap our elements in <code class="highlighter-rouge">Option</code> or <code class="highlighter-rouge">Either</code> and then do a <code class="highlighter-rouge">collect { case Right(e) =&gt; e }</code>.</p>
+<p>There is nothing like a <code class="language-plaintext highlighter-rouge">supervision mechanism</code> (like in Akka Streams), but if we control it at the <code class="language-plaintext highlighter-rouge">Effect</code> level, we could achieve similar behavior.
+For instance, we could wrap our elements in <code class="language-plaintext highlighter-rouge">Option</code> or <code class="language-plaintext highlighter-rouge">Either</code> and then do a <code class="language-plaintext highlighter-rouge">collect { case Right(e) =&gt; e }</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 
@@ -1486,24 +1935,42 @@ For instance, we could wrap our elements in <code class="highlighter-rouge">Opti
 </code></pre></div></div>
 
 <p>It’s not as nice as having one global Supervisor that handles the errors if something goes wrong, but as long as you follow
-basic rules such as not throwing exceptions and remembering that any <code class="highlighter-rouge">Task</code> can fail then you should be good to go.</p>
+basic rules such as not throwing exceptions and remembering that any <code class="language-plaintext highlighter-rouge">Task</code> can fail then you should be good to go.</p>
+    
+      <h3 id="monaderror-instance">
+        
+        
+          MonadError instance <a href="#monaderror-instance" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="monaderror-instance">MonadError instance</h3>
-
-<p>The <code class="highlighter-rouge">Observable</code> provides a <code class="highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="highlighter-rouge">MonadError</code> operator for error handling.
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> provides a <code class="language-plaintext highlighter-rouge">MonadError[Observable, Throwable]</code> instance so you can use any <code class="language-plaintext highlighter-rouge">MonadError</code> operator for error handling.
 If you are curious what it brings you in practice, check the methods in <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala">cats.MonadError</a> and <a href="https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala">cats.ApplicativeError</a>.</p>
 
-<p>Many of these methods (and more) are defined directly on the <code class="highlighter-rouge">Observable</code> and the rest can be acquired by calling <code class="highlighter-rouge">import cats.implicits._</code>.</p>
+<p>Many of these methods (and more) are defined directly on the <code class="language-plaintext highlighter-rouge">Observable</code> and the rest can be acquired by calling <code class="language-plaintext highlighter-rouge">import cats.implicits._</code>.</p>
+    
+      <h2 id="reacting-to-internal-events">
+        
+        
+          Reacting to internal events <a href="#reacting-to-internal-events" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="reacting-to-internal-events">Reacting to internal events</h2>
-
-<p>If you remember, an <code class="highlighter-rouge">Observable</code> internally calls <code class="highlighter-rouge">onNext</code> on every element, <code class="highlighter-rouge">onError</code> during error and <code class="highlighter-rouge">onComplete</code> after
+<p>If you remember, an <code class="language-plaintext highlighter-rouge">Observable</code> internally calls <code class="language-plaintext highlighter-rouge">onNext</code> on every element, <code class="language-plaintext highlighter-rouge">onError</code> during error and <code class="language-plaintext highlighter-rouge">onComplete</code> after
 stream completion. There are many other methods for executing a given callback when the stream acquires a specific type of event.
-Usually these method names start with <code class="highlighter-rouge">doOn</code> or <code class="highlighter-rouge">doAfter</code>.</p>
+Usually these method names start with <code class="language-plaintext highlighter-rouge">doOn</code> or <code class="language-plaintext highlighter-rouge">doAfter</code>.</p>
+    
+      <h3 id="doonnext">
+        
+        
+          doOnNext <a href="#doonnext" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="doonnext">doOnNext</h3>
-
-<p>Executes a given callback for each element generated by the source <code class="highlighter-rouge">Observable</code>, useful for doing side-effects.</p>
+<p>Executes a given callback for each element generated by the source <code class="language-plaintext highlighter-rouge">Observable</code>, useful for doing side-effects.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">counter</span> <span class="k">=</span> <span class="mi">0</span>
 <span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
@@ -1518,7 +1985,7 @@ Usually these method names start with <code class="highlighter-rouge">doOn</code
 <span class="c1">//=&gt; elem: 3, counter: 6</span>
 </code></pre></div></div>
 
-<p>You could also write it preserving referential transparency using <code class="highlighter-rouge">Ref</code> from <code class="highlighter-rouge">Cats-Effect</code>:</p>
+<p>You could also write it preserving referential transparency using <code class="language-plaintext highlighter-rouge">Ref</code> from <code class="language-plaintext highlighter-rouge">Cats-Effect</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.concurrent.Ref</span>
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
@@ -1538,11 +2005,17 @@ Usually these method names start with <code class="highlighter-rouge">doOn</code
 <span class="c1">//=&gt; elem: 3, counter: 6</span>
 </code></pre></div></div>
 
-<p>There is also a <code class="highlighter-rouge">doOnNextF</code> variant which works for data types other than <code class="highlighter-rouge">Task</code>.</p>
+<p>There is also a <code class="language-plaintext highlighter-rouge">doOnNextF</code> variant which works for data types other than <code class="language-plaintext highlighter-rouge">Task</code>.</p>
+    
+      <h2 id="subjects">
+        
+        
+          Subjects <a href="#subjects" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="subjects">Subjects</h2>
-
-<p><code class="highlighter-rouge">Subject</code> acts both as an <code class="highlighter-rouge">Observer</code> and as an <code class="highlighter-rouge">Observable</code>. Use <code class="highlighter-rouge">Subject</code> if you need to send elements to the <code class="highlighter-rouge">Observable</code>
+<p><code class="language-plaintext highlighter-rouge">Subject</code> acts both as an <code class="language-plaintext highlighter-rouge">Observer</code> and as an <code class="language-plaintext highlighter-rouge">Observable</code>. Use <code class="language-plaintext highlighter-rouge">Subject</code> if you need to send elements to the <code class="language-plaintext highlighter-rouge">Observable</code>
 from other parts of the application.
 It is presented in the following example:</p>
 
@@ -1573,35 +2046,47 @@ It is presented in the following example:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Subject</code> is also often used to specify a multicast strategy in shared (hot) <code class="highlighter-rouge">Observable</code>s to specify which elements are sent to
+<p><code class="language-plaintext highlighter-rouge">Subject</code> is also often used to specify a multicast strategy in shared (hot) <code class="language-plaintext highlighter-rouge">Observable</code>s to specify which elements are sent to
 new subscribers. There are several strategies available - you can find their short characteristics below.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">AsyncSubject</code> emits the last element (and only the last value) emitted by the source and only after the source completes.</li>
-  <li><code class="highlighter-rouge">BehaviorSubject</code> emits the most recently emitted element by the source, or the <code class="highlighter-rouge">initialValue</code> in case no element has yet been emitted, then continue to emit events subsequent to the time of invocation.</li>
-  <li><code class="highlighter-rouge">ConcurrentSubject</code> allows feeding events without the need to respect the back-pressure (waiting on <code class="highlighter-rouge">Ack</code> after <code class="highlighter-rouge">onNext</code>). It is similar to an <a href="https://en.wikipedia.org/wiki/Actor_model">Actor</a> and can serve as its replacement in many cases.</li>
-  <li><code class="highlighter-rouge">PublishSubject</code> emits to a subscriber only those elements that were emitted by the source subsequent to the time of the subscription.</li>
-  <li><code class="highlighter-rouge">PublishToOneSubject</code> is a <code class="highlighter-rouge">PublishSubject</code> that can be subscribed at most once.</li>
-  <li><code class="highlighter-rouge">ReplaySubject</code> emits to a subscriber all the elements that were emitted by the source, regardless of when the observer subscribes.</li>
-  <li><code class="highlighter-rouge">Var</code> emits the most recently emitted element by the source, or the <code class="highlighter-rouge">initial</code> element in case none has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying <code class="highlighter-rouge">ConcurrentSubject</code>. This is equivalent to a <code class="highlighter-rouge">ConcurrentSubject.behavior(Unbounded)</code> with the ability to expose the current value for immediate usage on top of that.</li>
+  <li><code class="language-plaintext highlighter-rouge">AsyncSubject</code> emits the last element (and only the last value) emitted by the source and only after the source completes.</li>
+  <li><code class="language-plaintext highlighter-rouge">BehaviorSubject</code> emits the most recently emitted element by the source, or the <code class="language-plaintext highlighter-rouge">initialValue</code> in case no element has yet been emitted, then continue to emit events subsequent to the time of invocation.</li>
+  <li><code class="language-plaintext highlighter-rouge">ConcurrentSubject</code> allows feeding events without the need to respect the back-pressure (waiting on <code class="language-plaintext highlighter-rouge">Ack</code> after <code class="language-plaintext highlighter-rouge">onNext</code>). It is similar to an <a href="https://en.wikipedia.org/wiki/Actor_model">Actor</a> and can serve as its replacement in many cases.</li>
+  <li><code class="language-plaintext highlighter-rouge">PublishSubject</code> emits to a subscriber only those elements that were emitted by the source subsequent to the time of the subscription.</li>
+  <li><code class="language-plaintext highlighter-rouge">PublishToOneSubject</code> is a <code class="language-plaintext highlighter-rouge">PublishSubject</code> that can be subscribed at most once.</li>
+  <li><code class="language-plaintext highlighter-rouge">ReplaySubject</code> emits to a subscriber all the elements that were emitted by the source, regardless of when the observer subscribes.</li>
+  <li><code class="language-plaintext highlighter-rouge">Var</code> emits the most recently emitted element by the source, or the <code class="language-plaintext highlighter-rouge">initial</code> element in case none has yet been emitted, then continue to emit events subsequent to the time of invocation via an underlying <code class="language-plaintext highlighter-rouge">ConcurrentSubject</code>. This is equivalent to a <code class="language-plaintext highlighter-rouge">ConcurrentSubject.behavior(Unbounded)</code> with the ability to expose the current value for immediate usage on top of that.</li>
 </ul>
 
-<p>For more information, refer to descriptions and methods in <code class="highlighter-rouge">monix.reactive.subjects</code> package.</p>
+<p>For more information, refer to descriptions and methods in <code class="language-plaintext highlighter-rouge">monix.reactive.subjects</code> package.</p>
+    
+      <h2 id="sharing-an-observable">
+        
+        
+          Sharing an Observable <a href="#sharing-an-observable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sharing-an-observable">Sharing an Observable</h2>
-
-<p>As mentioned before - an <code class="highlighter-rouge">Observable</code> doesn’t emit any items until something subscribes to it. 
+<p>As mentioned before - an <code class="language-plaintext highlighter-rouge">Observable</code> doesn’t emit any items until something subscribes to it. 
 If it can serve only one subscriber it is called a <em>cold Observable.</em></p>
 
-<p>On the other hand there is also a notion of a <em>hot Observable</em> denoted as a <code class="highlighter-rouge">ConnectableObservable</code> whose source can be shared between many subscribers.</p>
+<p>On the other hand there is also a notion of a <em>hot Observable</em> denoted as a <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> whose source can be shared between many subscribers.</p>
+    
+      <h3 id="connectableobservable">
+        
+        
+          ConnectableObservable <a href="#connectableobservable" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="connectableobservable">ConnectableObservable</h3>
+<p>Similar to the standard version, a <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> is lazy, i.e. it will start processing elements after
+processing <code class="language-plaintext highlighter-rouge">connect()</code>. The crucial difference is that mapping a <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> returns an <code class="language-plaintext highlighter-rouge">Observable</code> which
+shares the source according to the specified strategy, represented by a <code class="language-plaintext highlighter-rouge">Subject</code>.</p>
 
-<p>Similar to the standard version, a <code class="highlighter-rouge">ConnectableObservable</code> is lazy, i.e. it will start processing elements after
-processing <code class="highlighter-rouge">connect()</code>. The crucial difference is that mapping a <code class="highlighter-rouge">ConnectableObservable</code> returns an <code class="highlighter-rouge">Observable</code> which
-shares the source according to the specified strategy, represented by a <code class="highlighter-rouge">Subject</code>.</p>
-
-<p>Consider the following example which uses <code class="highlighter-rouge">publish</code> to create a <code class="highlighter-rouge">ConnectableObservable</code> on top of a <code class="highlighter-rouge">PublishSubject</code>:</p>
+<p>Consider the following example which uses <code class="language-plaintext highlighter-rouge">publish</code> to create a <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> on top of a <code class="language-plaintext highlighter-rouge">PublishSubject</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.</span><span class="o">{</span><span class="nc">Cancelable</span><span class="o">,</span> <span class="nc">Scheduler</span><span class="o">}</span>
@@ -1636,15 +2121,21 @@ shares the source according to the specified strategy, represented by a <code cl
 <span class="c1">// o1: 4</span>
 </code></pre></div></div>
 
-<p>Calling <code class="highlighter-rouge">connect()</code> starts the streaming. In this case, it has managed to process 3 elements before <code class="highlighter-rouge">o2</code> subscribed, 
-so it didn’t receive all of them. It only received one element because of <code class="highlighter-rouge">take(1)</code>. If it was a normal <code class="highlighter-rouge">Observable</code> it would have been
-canceled - but that’s not the case with <code class="highlighter-rouge">ConnectableObservable</code>s. Whenever each subscriber stops, it just unsubscribes. 
-If it weren’t for <code class="highlighter-rouge">cancelable.cancel()</code> it would have keep to going on even after all the subscribers stopped listening. Also, note the
-<code class="highlighter-rouge">source</code> was ran only once.</p>
+<p>Calling <code class="language-plaintext highlighter-rouge">connect()</code> starts the streaming. In this case, it has managed to process 3 elements before <code class="language-plaintext highlighter-rouge">o2</code> subscribed, 
+so it didn’t receive all of them. It only received one element because of <code class="language-plaintext highlighter-rouge">take(1)</code>. If it was a normal <code class="language-plaintext highlighter-rouge">Observable</code> it would have been
+canceled - but that’s not the case with <code class="language-plaintext highlighter-rouge">ConnectableObservable</code>s. Whenever each subscriber stops, it just unsubscribes. 
+If it weren’t for <code class="language-plaintext highlighter-rouge">cancelable.cancel()</code> it would have keep to going on even after all the subscribers stopped listening. Also, note the
+<code class="language-plaintext highlighter-rouge">source</code> was ran only once.</p>
+    
+      <h3 id="back-pressure">
+        
+        
+          Back-pressure <a href="#back-pressure" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="back-pressure">Back-pressure</h3>
-
-<p>A source <code class="highlighter-rouge">ConnectableObservable</code> is back-pressured on <em>all</em> subscribers. In other words, it will wait for an acknowledgement from
+<p>A source <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> is back-pressured on <em>all</em> subscribers. In other words, it will wait for an acknowledgement from
 all active subscribers before processing the next element.</p>
 
 <p>Let’s see it on an example:</p>
@@ -1695,15 +2186,21 @@ on the use case. In general, if we don’t want back-pressure, we need a buffer 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">subObservable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">whileBusyBuffer</span><span class="o">(</span><span class="nv">OverflowStrategy</span><span class="o">.</span><span class="py">DropNew</span><span class="o">(</span><span class="mi">10</span><span class="o">))</span>
 </code></pre></div></div>
 
-<p>We could even disable back-pressure completely with a function like <code class="highlighter-rouge">whileBusyDropEvents</code>.
-From the perspective of the <code class="highlighter-rouge">source</code>, the subscriber is always processing elements right away so it doesn’t have to wait on it.</p>
+<p>We could even disable back-pressure completely with a function like <code class="language-plaintext highlighter-rouge">whileBusyDropEvents</code>.
+From the perspective of the <code class="language-plaintext highlighter-rouge">source</code>, the subscriber is always processing elements right away so it doesn’t have to wait on it.</p>
+    
+      <h3 id="configuring-underlying-subject">
+        
+        
+          Configuring underlying Subject <a href="#configuring-underlying-subject" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="configuring-underlying-subject">Configuring underlying Subject</h3>
+<p>For all plain <code class="language-plaintext highlighter-rouge">Subject</code>s, there are corresponding methods, i.e. <code class="language-plaintext highlighter-rouge">publish</code>, <code class="language-plaintext highlighter-rouge">publishLast</code>, <code class="language-plaintext highlighter-rouge">replay</code> etc. 
+Different <code class="language-plaintext highlighter-rouge">Subjects</code> vary in behavior with regard to subscribers, but <code class="language-plaintext highlighter-rouge">source</code> Observables will always be executed just once.</p>
 
-<p>For all plain <code class="highlighter-rouge">Subject</code>s, there are corresponding methods, i.e. <code class="highlighter-rouge">publish</code>, <code class="highlighter-rouge">publishLast</code>, <code class="highlighter-rouge">replay</code> etc. 
-Different <code class="highlighter-rouge">Subjects</code> vary in behavior with regard to subscribers, but <code class="highlighter-rouge">source</code> Observables will always be executed just once.</p>
-
-<p>For instance, a <code class="highlighter-rouge">ReplaySubject</code> will cache and send all elements to new subscribers:</p>
+<p>For instance, a <code class="language-plaintext highlighter-rouge">ReplaySubject</code> will cache and send all elements to new subscribers:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">global</span>
 
@@ -1725,7 +2222,7 @@ Different <code class="highlighter-rouge">Subjects</code> vary in behavior with 
 <span class="c1">// o1: 3</span>
 </code></pre></div></div>
 
-<p>Another example could be <code class="highlighter-rouge">BehaviorSubject</code> which remembers the latest element to feed to new subscribers:</p>
+<p>Another example could be <code class="language-plaintext highlighter-rouge">BehaviorSubject</code> which remembers the latest element to feed to new subscribers:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">global</span>
 
@@ -1745,14 +2242,20 @@ Different <code class="highlighter-rouge">Subjects</code> vary in behavior with 
 <span class="c1">// o1: 3</span>
 </code></pre></div></div>
 
-<p>If it were a <code class="highlighter-rouge">PublishSubject</code>, the subscriber would not receive any elements because the <code class="highlighter-rouge">source</code> has processed everything
+<p>If it were a <code class="language-plaintext highlighter-rouge">PublishSubject</code>, the subscriber would not receive any elements because the <code class="language-plaintext highlighter-rouge">source</code> has processed everything
 before subscription.</p>
+    
+      <h3 id="doing-it-the-pure-way">
+        
+        
+          Doing it the pure way <a href="#doing-it-the-pure-way" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="doing-it-the-pure-way">Doing it the pure way</h3>
-
-<p>As you probably noticed, <code class="highlighter-rouge">ConnectableObservable</code> is not very pure because the time of subscription can completely change the result
-and the original <code class="highlighter-rouge">source</code> is processed only once. Monix also exposes <code class="highlighter-rouge">publishSelector</code> and <code class="highlighter-rouge">pipeThroughSelector</code> which allows
-you to take advantage of Hot <code class="highlighter-rouge">Observable</code>s in more controlled and purely functional fashion.</p>
+<p>As you probably noticed, <code class="language-plaintext highlighter-rouge">ConnectableObservable</code> is not very pure because the time of subscription can completely change the result
+and the original <code class="language-plaintext highlighter-rouge">source</code> is processed only once. Monix also exposes <code class="language-plaintext highlighter-rouge">publishSelector</code> and <code class="language-plaintext highlighter-rouge">pipeThroughSelector</code> which allows
+you to take advantage of Hot <code class="language-plaintext highlighter-rouge">Observable</code>s in more controlled and purely functional fashion.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">global</span>
 
@@ -1779,7 +2282,7 @@ you to take advantage of Hot <code class="highlighter-rouge">Observable</code>s 
 
 <p>The code would print the following output twice:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Produced 1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Produced 1
 Consumer 1: got 1
 Produced 2
 Consumer 1: got 2
@@ -1789,27 +2292,39 @@ Consumer 1: got 3
 Consumer 2: got 3
 </code></pre></div></div>
 
-<p>A <code class="highlighter-rouge">source</code> Observable is shared only in the scope of <code class="highlighter-rouge">publishSelector</code> and we can freely reuse its result and the original source.</p>
+<p>A <code class="language-plaintext highlighter-rouge">source</code> Observable is shared only in the scope of <code class="language-plaintext highlighter-rouge">publishSelector</code> and we can freely reuse its result and the original source.</p>
 
-<p><code class="highlighter-rouge">publishSelector</code> uses <code class="highlighter-rouge">PublishSubject</code>. It is possible to customize it with a <code class="highlighter-rouge">pipeThroughSelector</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">publishSelector</code> uses <code class="language-plaintext highlighter-rouge">PublishSubject</code>. It is possible to customize it with a <code class="language-plaintext highlighter-rouge">pipeThroughSelector</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">final</span> <span class="k">def</span> <span class="nf">pipeThroughSelector</span><span class="o">[</span><span class="kt">S</span> <span class="k">&gt;:</span> <span class="kt">A</span>, <span class="kt">B</span>, <span class="kt">R</span><span class="o">](</span><span class="n">pipe</span><span class="k">:</span> <span class="kt">Pipe</span><span class="o">[</span><span class="kt">S</span>, <span class="kt">B</span><span class="o">],</span> <span class="n">f</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Observable</span><span class="o">[</span><span class="kt">R</span><span class="o">])</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">R</span><span class="o">]</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Pipe</code> has variants for all types of subjects, e.g. <code class="highlighter-rouge">source.pipeThroughSelector(Pipe.replay[Int], f)</code>.</p>
-
-<h2 id="interoperability-with-other-streams-api-akka-streams-fs2">Interoperability with other Streams API (Akka Streams, FS2)</h2>
+<p><code class="language-plaintext highlighter-rouge">Pipe</code> has variants for all types of subjects, e.g. <code class="language-plaintext highlighter-rouge">source.pipeThroughSelector(Pipe.replay[Int], f)</code>.</p>
+    
+      <h2 id="interoperability-with-other-streams-api-akka-streams-fs2">
+        
+        
+          Interoperability with other Streams API (Akka Streams, FS2) <a href="#interoperability-with-other-streams-api-akka-streams-fs2" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Due to compatibility with the <a href="http://www.reactive-streams.org/">Reactive Streams</a>
-specification, an <code class="highlighter-rouge">Observable</code> allows good interoperability with other libraries.</p>
+specification, an <code class="language-plaintext highlighter-rouge">Observable</code> allows good interoperability with other libraries.</p>
 
-<p>The next subsections contain examples how to convert between Monix <code class="highlighter-rouge">Observable</code> and
+<p>The next subsections contain examples how to convert between Monix <code class="language-plaintext highlighter-rouge">Observable</code> and
 two other popular streaming libraries, but it should work in similar way with every other library
 compatible with Reactive Streams protocol.</p>
+    
+      <h3 id="akka-streams">
+        
+        
+          Akka Streams <a href="#akka-streams" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="akka-streams">Akka Streams</h3>
-
-<p>Necessary imports and initialization for <code class="highlighter-rouge">Akka Streams</code>:</p>
+<p>Necessary imports and initialization for <code class="language-plaintext highlighter-rouge">Akka Streams</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive.Observable</span>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
@@ -1822,7 +2337,7 @@ compatible with Reactive Streams protocol.</p>
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>To convert an Akka <code class="highlighter-rouge">Source</code> to a Monix <code class="highlighter-rouge">Observable</code>:</p>
+<p>To convert an Akka <code class="language-plaintext highlighter-rouge">Source</code> to a Monix <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Source</span><span class="o">(</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(StatefulMapConcat.out(1887925338)))</span>
@@ -1834,7 +2349,7 @@ compatible with Reactive Streams protocol.</p>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@72f8ecd</span>
 </code></pre></div></div>
 
-<p>To go back from a Monix <code class="highlighter-rouge">Observable</code> to an Akka <code class="highlighter-rouge">Source</code>:</p>
+<p>To go back from a Monix <code class="language-plaintext highlighter-rouge">Observable</code> to an Akka <code class="language-plaintext highlighter-rouge">Source</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8</span>
@@ -1842,11 +2357,17 @@ compatible with Reactive Streams protocol.</p>
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Source</span><span class="o">.</span><span class="py">fromPublisher</span><span class="o">(</span><span class="nv">observable</span><span class="o">.</span><span class="py">toReactivePublisher</span><span class="o">)</span>
 <span class="c1">// source: akka.stream.scaladsl.Source[Int,akka.NotUsed] = Source(SourceShape(PublisherSource.out(989856637)))</span>
 </code></pre></div></div>
-
-<h3 id="fs2">FS2</h3>
+    
+      <h3 id="fs2">
+        
+        
+          FS2 <a href="#fs2" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>To go between an <a href="https://github.com/functional-streams-for-scala/fs2">FS2</a> Stream 
-and a Monix <code class="highlighter-rouge">Observable</code> you need to use the <a href="https://github.com/zainab-ali/fs2-reactive-streams">fs2-reactive-streams</a>
+and a Monix <code class="language-plaintext highlighter-rouge">Observable</code> you need to use the <a href="https://github.com/zainab-ali/fs2-reactive-streams">fs2-reactive-streams</a>
 library, but otherwise the conversion remains very straightforward.</p>
 
 <p>Necessary imports:</p>
@@ -1857,7 +2378,7 @@ library, but otherwise the conversion remains very straightforward.</p>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 </code></pre></div></div>
 
-<p>To convert an FS2 <code class="highlighter-rouge">Stream</code> to a Monix <code class="highlighter-rouge">Observable</code>:</p>
+<p>To convert an FS2 <code class="language-plaintext highlighter-rouge">Stream</code> to a Monix <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="nc">Stream</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">).</span><span class="py">covary</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
 <span class="c1">// stream: fs2.Stream[cats.effect.IO,Int] = Stream(..)</span>
@@ -1869,7 +2390,7 @@ library, but otherwise the conversion remains very straightforward.</p>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.ReactiveObservable@7130d725</span>
 </code></pre></div></div>
 
-<p>To go back from a Monix <code class="highlighter-rouge">Observable</code> to an FS2 <code class="highlighter-rouge">Stream</code>:</p>
+<p>To go back from a Monix <code class="language-plaintext highlighter-rouge">Observable</code> to an FS2 <code class="language-plaintext highlighter-rouge">Stream</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">observable</span> <span class="k">=</span> <span class="nc">Observable</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
 <span class="c1">// observable: monix.reactive.Observable[Int] = monix.reactive.internal.builders.IterableAsObservable@4783cc8</span>
@@ -1895,8 +2416,8 @@ library, but otherwise the conversion remains very straightforward.</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

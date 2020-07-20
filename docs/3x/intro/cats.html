@@ -28,19 +28,15 @@
   <meta content="Typelevel Cats Integration &amp;mdash; Monix" property="og:title">
   <meta content="Integration and usage of the type-classes described in the Typelevel Cats library." property="og:description">
   <meta content="https://monix.io/docs/3x/intro/cats.html" property="og:url">
+  <meta content="2020-07-20T09:14:00+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,33 +97,53 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Typelevel Cats Integration</h1>
+      <h1 class="page-title">
+        
+        
+          Typelevel Cats Integration
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/cats/package.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v3.2.2/monix-cats/shared/src/main/scala/monix/cats/">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/intro/cats.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#sample">Sample</a></li>
+</ul>
+
+  </nav>
 
   <p>Since series 3.x Monix depends on and provides direct integration
 with <a href="http://typelevel.org/cats/">Typelevel’s Cats</a> library,
 implementing useful type-classes for the data types exposed and
 making use of the vast ecosystem.</p>
+    
+      <h2 id="sample">
+        
+        
+          Sample <a href="#sample" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sample">Sample</h2>
-
-<p>We can verify that <code class="highlighter-rouge">Task</code> is indeed a <code class="highlighter-rouge">cats.Monad</code>:</p>
+<p>We can verify that <code class="language-plaintext highlighter-rouge">Task</code> is indeed a <code class="language-plaintext highlighter-rouge">cats.Monad</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.Monad</span>
-<span class="c1">// import cats.Monad</span>
-
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
-<span class="c1">// import monix.eval.Task</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="c1">// res0: cats.Monad[monix.eval.Task] = monix.eval.instances.CatsConcurrentForTask$@31390bbf</span>
+<span class="c1">// res0: Monad[Task] = monix.eval.instances.CatsConcurrentForTask$@67c5c9d5</span>
 </code></pre></div></div>
 
 
@@ -147,8 +163,8 @@ making use of the vast ecosystem.</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

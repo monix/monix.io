@@ -28,19 +28,15 @@
   <meta content="Javascript Event Listeners &amp;mdash; Monix" property="og:title">
   <meta content="How do you convert Javascript event listeners to Observable?" property="og:description">
   <meta content="https://monix.io/docs/3x/reactive/javascript.html" property="og:url">
+  <meta content="2020-07-20T09:14:02+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,22 +97,37 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Javascript Event Listeners</h1>
+      <h1 class="page-title">
+        
+        
+          Javascript Event Listeners
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/reactive/javascript.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
 
   <p>A common problem on the client side, when working with Javascript, is
 dealing with event listeners. How do you convert a Javascript event
-listener to an <code class="highlighter-rouge">Observable</code>?</p>
+listener to an <code class="language-plaintext highlighter-rouge">Observable</code>?</p>
 
 <p>It’s simple, as seen in the example below. Then you can subscribe to
-it and manipulate it, like any other <code class="highlighter-rouge">Observable</code></p>
+it and manipulate it, like any other <code class="language-plaintext highlighter-rouge">Observable</code></p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">org.scalajs.dom</span>
 <span class="k">import</span> <span class="nn">org.scalajs.dom.</span><span class="o">{</span><span class="nc">Event</span><span class="o">,</span> <span class="nc">EventTarget</span><span class="o">,</span> <span class="nc">MouseEvent</span><span class="o">}</span>
@@ -152,13 +163,13 @@ it and manipulate it, like any other <code class="highlighter-rouge">Observable<
 <span class="o">)</span>
 </code></pre></div></div>
 
-<p>Above I’m using <code class="highlighter-rouge">sampleRepeated</code> for effect. Of special interest for
-Javascript developers is <code class="highlighter-rouge">debounce</code>, try it out.</p>
+<p>Above I’m using <code class="language-plaintext highlighter-rouge">sampleRepeated</code> for effect. Of special interest for
+Javascript developers is <code class="language-plaintext highlighter-rouge">debounce</code>, try it out.</p>
 
 <p>Note that I’m using
 <a href="https://github.com/scala-js/scala-js-dom">scala-js-dom</a>, which is a
 small library providing static types for your DOM. But you could use
-just <code class="highlighter-rouge">scala.scalajs.js.Dynamic</code>, doesn’t really matter.</p>
+just <code class="language-plaintext highlighter-rouge">scala.scalajs.js.Dynamic</code>, doesn’t really matter.</p>
 
 
   <div id="version3x">
@@ -177,8 +188,8 @@ just <code class="highlighter-rouge">scala.scalajs.js.Dynamic</code>, doesn’t 
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

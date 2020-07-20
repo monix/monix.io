@@ -29,19 +29,15 @@
   
   <meta content="Asynchronous Programming for Scala &amp; Scala.js" property="og:description">
   <meta content="https://monix.io/docs/3x/" property="og:url">
+  <meta content="2020-07-20T09:14:00+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,17 +98,54 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Monix Documentation</h1>
+      <h1 class="page-title">
+        
+        
+          Monix Documentation
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/index.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="api-documentation">API Documentation</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#api-documentation">API Documentation</a></li>
+  <li><a href="#getting-started">Getting Started</a></li>
+  <li><a href="#sub-projects">Sub-projects</a>
+    <ul>
+      <li><a href="#monix-execution">monix-execution</a></li>
+      <li><a href="#monix-catnap">monix-catnap</a></li>
+      <li><a href="#monix-eval">monix-eval</a></li>
+      <li><a href="#monix-reactive">monix-reactive</a></li>
+      <li><a href="#monix-tail">monix-tail</a></li>
+    </ul>
+  </li>
+  <li><a href="#tutorials">Tutorials</a></li>
+  <li><a href="#best-practices">Best Practices</a></li>
+  <li><a href="#samples">Samples</a></li>
+  <li><a href="#presentations">Presentations</a></li>
+</ul>
+
+  </nav>
+    
+      <h2 id="api-documentation">
+        
+        
+          API Documentation <a href="#api-documentation" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p><a href="/api/3.2/">ScalaDoc for Monix 3.x</a></p>
 
@@ -122,42 +155,66 @@
   <li><a href="https://typelevel.org/cats/api/">Cats ScalaDoc</a></li>
   <li><a href="https://typelevel.org/cats-effect/api/">Cats-Effect ScalaDoc</a></li>
 </ul>
-
-<h2 id="getting-started">Getting Started</h2>
+    
+      <h2 id="getting-started">
+        
+        
+          Getting Started <a href="#getting-started" class="anchor">#</a>
+        
+        
+      </h2>
 
 <ul>
-  <li><a href="./intro/usage.html">Usage with SBT</a></li>
-  <li><a href="./intro/hello-world.html">Hello World!</a></li>
-  <li><a href="./intro/cats.html">Typelevel Cats Integration</a></li>
+  <li><a href="/docs/3x/intro/usage.html">Usage with SBT</a></li>
+  <li><a href="/docs/3x/intro/hello-world.html">Hello World!</a></li>
+  <li><a href="/docs/3x/intro/cats.html">Typelevel Cats Integration</a></li>
 </ul>
 
 <p>Quick-start template:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new monix/monix-3x.g8
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new monix/monix-3x.g8
 </code></pre></div></div>
+    
+      <h2 id="sub-projects">
+        
+        
+          Sub-projects <a href="#sub-projects" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="monix-execution">
+        
+        
+          monix-execution <a href="#monix-execution" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h2 id="sub-projects">Sub-projects</h2>
-
-<h3 id="monix-execution">monix-execution</h3>
-
-<p>The <code class="highlighter-rouge">monix-execution</code> sub-project provides low level, side effectful
+<p>The <code class="language-plaintext highlighter-rouge">monix-execution</code> sub-project provides low level, side effectful
 utilities for dealing with concurrency, exposing the JVM’s primitives
-and building on top of the <code class="highlighter-rouge">scala.concurrent</code> package.</p>
+and building on top of the <code class="language-plaintext highlighter-rouge">scala.concurrent</code> package.</p>
 
 <p><img src="/public/images/logos/java.png" alt="Java's Duke" title="Java's Duke" class="doc-icon" /></p>
 
 <ul>
   <li><a href="/api/3.2/monix/execution/index.html">API Documentation</a></li>
-  <li><a href="./execution/scheduler.html">Scheduler</a></li>
-  <li><a href="./execution/cancelable.html">Cancelable</a></li>
-  <li><a href="./execution/callback.html">Callback</a></li>
-  <li><a href="./execution/future-utils.html">Future Utils</a></li>
-  <li><a href="./execution/atomic.html">Atomic</a></li>
+  <li><a href="/docs/3x/execution/scheduler.html">Scheduler</a></li>
+  <li><a href="/docs/3x/execution/cancelable.html">Cancelable</a></li>
+  <li><a href="/docs/3x/execution/callback.html">Callback</a></li>
+  <li><a href="/docs/3x/execution/future-utils.html">Future Utils</a></li>
+  <li><a href="/docs/3x/execution/atomic.html">Atomic</a></li>
 </ul>
+    
+      <h3 id="monix-catnap">
+        
+        
+          monix-catnap <a href="#monix-catnap" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="monix-catnap">monix-catnap</h3>
-
-<p>The <code class="highlighter-rouge">monix-catnap</code> sub-project is for generic, purely functional
+<p>The <code class="language-plaintext highlighter-rouge">monix-catnap</code> sub-project is for generic, purely functional
 utilities for managing concurrency, building on top of the
 <a href="https://typelevel.org/cats-effect/">Cats-Effect</a> type classes:</p>
 
@@ -165,24 +222,36 @@ utilities for managing concurrency, building on top of the
 
 <ul>
   <li><a href="/api/3.2/monix/catnap/index.html">API Documentation</a></li>
-  <li><a href="./catnap/circuit-breaker.html">Circuit Breaker</a></li>
-  <li><a href="./catnap/mvar.html">MVar</a></li>
+  <li><a href="/docs/3x/catnap/circuit-breaker.html">Circuit Breaker</a></li>
+  <li><a href="/docs/3x/catnap/mvar.html">MVar</a></li>
 </ul>
+    
+      <h3 id="monix-eval">
+        
+        
+          monix-eval <a href="#monix-eval" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="monix-eval">monix-eval</h3>
-
-<p>The <code class="highlighter-rouge">monix-eval</code> sub-project exposes the <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> data
+<p>The <code class="language-plaintext highlighter-rouge">monix-eval</code> sub-project exposes the <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code> data
 types, for dealing with purely functional effects in a principled way:</p>
 
 <ul>
   <li><a href="/api/3.2/monix/eval/index.html">API Documentation</a></li>
-  <li><a href="./eval/task.html">Task</a></li>
-  <li><a href="./eval/coeval.html">Coeval</a></li>
+  <li><a href="/docs/3x/eval/task.html">Task</a></li>
+  <li><a href="/docs/3x/eval/coeval.html">Coeval</a></li>
 </ul>
+    
+      <h3 id="monix-reactive">
+        
+        
+          monix-reactive <a href="#monix-reactive" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="monix-reactive">monix-reactive</h3>
-
-<p>The <code class="highlighter-rouge">monix-reactive</code> sub-project exposes the <code class="highlighter-rouge">Observable</code> data type,
+<p>The <code class="language-plaintext highlighter-rouge">monix-reactive</code> sub-project exposes the <code class="language-plaintext highlighter-rouge">Observable</code> data type,
 along with adjacent utilities, a high performance streaming abstraction
 that’s an idiomatic implementation of ReactiveX for Scala:</p>
 
@@ -190,29 +259,41 @@ that’s an idiomatic implementation of ReactiveX for Scala:</p>
 
 <ul>
   <li><a href="/api/3.2/monix/reactive/index.html">API Documentation</a></li>
-  <li><a href="./reactive/observable.html">Observable</a></li>
-  <li><a href="./reactive/observable-comparisons.html">Comparisons with Other Solutions</a></li>
-  <li><a href="./reactive/observers.html">Observers and Subscribers</a></li>
-  <li><a href="./reactive/consumer.html">Consumer</a></li>
-  <li><a href="./reactive/javascript.html">Javascript Event Listeners</a></li>
+  <li><a href="/docs/3x/reactive/observable.html">Observable</a></li>
+  <li><a href="/docs/3x/reactive/observable-comparisons.html">Comparisons with Other Solutions</a></li>
+  <li><a href="/docs/3x/reactive/observers.html">Observers and Subscribers</a></li>
+  <li><a href="/docs/3x/reactive/consumer.html">Consumer</a></li>
+  <li><a href="/docs/3x/reactive/javascript.html">Javascript Event Listeners</a></li>
 </ul>
-
-<h3 id="monix-tail">monix-tail</h3>
+    
+      <h3 id="monix-tail">
+        
+        
+          monix-tail <a href="#monix-tail" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p><img src="/public/images/logos/many-cats.png" alt="Cats friendly" title="Cats friendly" class="doc-icon2x" /></p>
 
-<p>The <code class="highlighter-rouge">monix-tail</code> sub-projects exposes <code class="highlighter-rouge">Iterant</code>, a generic, purely
+<p>The <code class="language-plaintext highlighter-rouge">monix-tail</code> sub-projects exposes <code class="language-plaintext highlighter-rouge">Iterant</code>, a generic, purely
 functional, principled, pull-based streaming data type:</p>
 
 <ul>
   <li><a href="/api/3.2/monix/tail/index.html">API Documentation</a></li>
 </ul>
-
-<h2 id="tutorials">Tutorials</h2>
+    
+      <h2 id="tutorials">
+        
+        
+          Tutorials <a href="#tutorials" class="anchor">#</a>
+        
+        
+      </h2>
 
 <ul>
   <li>
-    <p><a href="./tutorials/parallelism.html">Parallel Processing</a></p>
+    <p><a href="/docs/3x/tutorials/parallelism.html">Parallel Processing</a></p>
   </li>
   <li>
     <p><a href="/blog/2018/11/08/tutorial-future-to-task.html">Converting Scala’s Future to Task (Video)</a></p>
@@ -221,22 +302,40 @@ functional, principled, pull-based streaming data type:</p>
     <p><a href="/blog/2018/11/07/tutorial-bracket.html">Task’s Bracket, Cats-Effect’s Resource and Streaming (Video)</a></p>
   </li>
 </ul>
-
-<h2 id="best-practices">Best Practices</h2>
+    
+      <h2 id="best-practices">
+        
+        
+          Best Practices <a href="#best-practices" class="anchor">#</a>
+        
+        
+      </h2>
 
 <ul>
-  <li><a href="./best-practices/blocking.html">Should Not Block Threads</a></li>
+  <li><a href="/docs/3x/best-practices/blocking.html">Should Not Block Threads</a></li>
 </ul>
-
-<h2 id="samples">Samples</h2>
+    
+      <h2 id="samples">
+        
+        
+          Samples <a href="#samples" class="anchor">#</a>
+        
+        
+      </h2>
 
 <ul>
   <li><a href="https://github.com/monixio/monix-sample/">Client/Server Communications</a>:
 a mixed <a href="https://www.playframework.com/">Play Framework</a> /
 <a href="http://www.scala-js.org/">Scala.js</a> app</li>
 </ul>
-
-<h2 id="presentations">Presentations</h2>
+    
+      <h2 id="presentations">
+        
+        
+          Presentations <a href="#presentations" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Featured presentation:</p>
 
@@ -267,8 +366,8 @@ a mixed <a href="https://www.playframework.com/">Play Framework</a> /
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

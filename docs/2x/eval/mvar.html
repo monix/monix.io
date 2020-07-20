@@ -28,19 +28,15 @@
   <meta content="MVar &amp;mdash; Monix" property="og:title">
   <meta content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." property="og:description">
   <meta content="https://monix.io/docs/2x/eval/mvar.html" property="og:url">
+  <meta content="2020-07-20T09:13:21+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">MVar</h1>
+      <h1 class="page-title">
+        
+        
+          MVar
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     <a href="/api/2.3/monix/eval/MVar.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-eval/shared/src/main/scala/monix/eval/MVar.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/eval/mvar.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,56 +119,91 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <p>An <code class="highlighter-rouge">MVar</code> is a mutable location that can be empty or contains a value,
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#inspiration">Inspiration</a></li>
+    </ul>
+  </li>
+  <li><a href="#use-case-synchronized-mutable-variables">Use-case: Synchronized Mutable Variables</a></li>
+  <li><a href="#use-case-asynchronous-lock-binary-semaphore-mutex">Use-case: Asynchronous Lock (Binary Semaphore, Mutex)</a></li>
+  <li><a href="#use-case-producerconsumer-channel">Use-case: Producer/Consumer Channel</a></li>
+</ul>
+
+  </nav>
+
+  <p>An <code class="language-plaintext highlighter-rouge">MVar</code> is a mutable location that can be empty or contains a value,
 asynchronously blocking reads when empty and blocking writes when full.</p>
-
-<h2 id="introduction">Introduction</h2>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Use-cases:</p>
 
 <ol>
   <li>As synchronized, thread-safe mutable variables</li>
-  <li>As channels, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “receive” and “send”</li>
-  <li>As a binary semaphore, with <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> acting as “acquire” and “release”</li>
+  <li>As channels, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “receive” and “send”</li>
+  <li>As a binary semaphore, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “acquire” and “release”</li>
 </ol>
 
 <p>It has two fundamental (atomic) operations:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">put</code>: fills the <code class="highlighter-rouge">MVar</code> if it is empty, or blocks (asynchronously)
-if the <code class="highlighter-rouge">MVar</code> is full, until the given value is next in line to be
-consumed on <code class="highlighter-rouge">take</code></li>
-  <li><code class="highlighter-rouge">take</code>: tries reading the current value, or blocks (asynchronously)
+  <li><code class="language-plaintext highlighter-rouge">put</code>: fills the <code class="language-plaintext highlighter-rouge">MVar</code> if it is empty, or blocks (asynchronously)
+if the <code class="language-plaintext highlighter-rouge">MVar</code> is full, until the given value is next in line to be
+consumed on <code class="language-plaintext highlighter-rouge">take</code></li>
+  <li><code class="language-plaintext highlighter-rouge">take</code>: tries reading the current value, or blocks (asynchronously)
 until there is a value available, at which point the operation resorts
-to a <code class="highlighter-rouge">take</code> followed by a <code class="highlighter-rouge">put</code></li>
+to a <code class="language-plaintext highlighter-rouge">take</code> followed by a <code class="language-plaintext highlighter-rouge">put</code></li>
 </ul>
 
-<p>An additional but non-atomic operation is <code class="highlighter-rouge">read</code>, which tries reading the
+<p>An additional but non-atomic operation is <code class="language-plaintext highlighter-rouge">read</code>, which tries reading the
 current value, or blocks (asynchronously) until there is a value available,
-at which point the operation resorts to a <code class="highlighter-rouge">take</code> followed by a <code class="highlighter-rouge">put</code>.</p>
+at which point the operation resorts to a <code class="language-plaintext highlighter-rouge">take</code> followed by a <code class="language-plaintext highlighter-rouge">put</code>.</p>
 
 <p class="extra">
 In this context “<i>asynchronous blocking</i>” means that we are not blocking
 any threads. Instead the implementation uses callbacks to notify clients
-when the operation has finished (notifications exposed by means of <a href="./task.html">Task</a>)
+when the operation has finished (notifications exposed by means of <a href="/docs/2x/eval/task.html">Task</a>)
 and it thus works on top of Javascript as well.
 </p>
+    
+      <h3 id="inspiration">
+        
+        
+          Inspiration <a href="#inspiration" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="inspiration">Inspiration</h3>
-
-<p>This data type is inspired by <code class="highlighter-rouge">Control.Concurrent.MVar</code> from Haskell, introduced in the paper
+<p>This data type is inspired by <code class="language-plaintext highlighter-rouge">Control.Concurrent.MVar</code> from Haskell, introduced in the paper
 <a href="http://research.microsoft.com/~simonpj/papers/concurrent-haskell.ps.gz">Concurrent Haskell</a>,
 by Simon Peyton Jones, Andrew Gordon and Sigbjorn Finne, though some details of
-their implementation are changed (in particular, a put on a full <code class="highlighter-rouge">MVar</code> used
+their implementation are changed (in particular, a put on a full <code class="language-plaintext highlighter-rouge">MVar</code> used
 to error, but now merely blocks).</p>
 
 <p>Appropriate for building synchronization primitives and  performing simple
-interthread communication, it’s the equivalent of a <code class="highlighter-rouge">BlockingQueue(capacity = 1)</code>,
-except that there’s no actual thread blocking involved and it is powered by <code class="highlighter-rouge">Task</code>.</p>
-
-<h2 id="use-case-synchronized-mutable-variables">Use-case: Synchronized Mutable Variables</h2>
+interthread communication, it’s the equivalent of a <code class="language-plaintext highlighter-rouge">BlockingQueue(capacity = 1)</code>,
+except that there’s no actual thread blocking involved and it is powered by <code class="language-plaintext highlighter-rouge">Task</code>.</p>
+    
+      <h2 id="use-case-synchronized-mutable-variables">
+        
+        
+          Use-case: Synchronized Mutable Variables <a href="#use-case-synchronized-mutable-variables" class="anchor">#</a>
+        
+        
+      </h2>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
 <span class="k">import</span> <span class="nn">monix.eval.</span><span class="o">{</span><span class="nc">MVar</span><span class="o">,</span> <span class="nc">Task</span><span class="o">}</span>
@@ -186,21 +224,27 @@ except that there’s no actual thread blocking involved and it is powered by <c
 <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
 
-<p>This sample isn’t very useful, except to show how <code class="highlighter-rouge">MVar</code> can be used
-as a variable. The <code class="highlighter-rouge">take</code> and <code class="highlighter-rouge">put</code> operations are atomic.
-The <code class="highlighter-rouge">take</code> call will (asynchronously) block if there isn’t a value
-available, whereas the call to <code class="highlighter-rouge">put</code> blocks if the <code class="highlighter-rouge">MVar</code> already
+<p>This sample isn’t very useful, except to show how <code class="language-plaintext highlighter-rouge">MVar</code> can be used
+as a variable. The <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> operations are atomic.
+The <code class="language-plaintext highlighter-rouge">take</code> call will (asynchronously) block if there isn’t a value
+available, whereas the call to <code class="language-plaintext highlighter-rouge">put</code> blocks if the <code class="language-plaintext highlighter-rouge">MVar</code> already
 has a value in it waiting to be consumed.</p>
 
-<p>Obviously after the call for <code class="highlighter-rouge">take</code> and before the call for <code class="highlighter-rouge">put</code> happens
+<p>Obviously after the call for <code class="language-plaintext highlighter-rouge">take</code> and before the call for <code class="language-plaintext highlighter-rouge">put</code> happens
 we could have concurrent logic that can update the same variable.
 While the two operations are atomic by themselves, a combination of them
 isn’t atomic (i.e. atomic operations don’t compose), therefore if we want
 this sample to be <em>safe</em>, then we need extra synchronization.</p>
+    
+      <h2 id="use-case-asynchronous-lock-binary-semaphore-mutex">
+        
+        
+          Use-case: Asynchronous Lock (Binary Semaphore, Mutex) <a href="#use-case-asynchronous-lock-binary-semaphore-mutex" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="use-case-asynchronous-lock-binary-semaphore-mutex">Use-case: Asynchronous Lock (Binary Semaphore, Mutex)</h2>
-
-<p>The <code class="highlighter-rouge">take</code> operation can act as “acquire” and <code class="highlighter-rouge">put</code> can act as the “release”.
+<p>The <code class="language-plaintext highlighter-rouge">take</code> operation can act as “acquire” and <code class="language-plaintext highlighter-rouge">put</code> can act as the “release”.
 Let’s do it:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">MLock</span> <span class="o">{</span>
@@ -232,8 +276,14 @@ Let’s do it:</p>
 <span class="c1">// Evaluate</span>
 <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nv">atomicTask</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
-
-<h2 id="use-case-producerconsumer-channel">Use-case: Producer/Consumer Channel</h2>
+    
+      <h2 id="use-case-producerconsumer-channel">
+        
+        
+          Use-case: Producer/Consumer Channel <a href="#use-case-producerconsumer-channel" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>An obvious use-case is to model a simple producer-consumer channel.</p>
 
@@ -276,8 +326,8 @@ a new event.</p>
 <span class="k">val</span> <span class="nv">f</span><span class="k">:</span> <span class="kt">CancelableFuture</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nv">sumTask</span><span class="o">.</span><span class="py">runAsync</span>
 </code></pre></div></div>
 
-<p>Running this will work as expected. Our <code class="highlighter-rouge">producer</code> pushes values
-into our <code class="highlighter-rouge">MVar</code> and our <code class="highlighter-rouge">consumer</code> will consume all of those values.</p>
+<p>Running this will work as expected. Our <code class="language-plaintext highlighter-rouge">producer</code> pushes values
+into our <code class="language-plaintext highlighter-rouge">MVar</code> and our <code class="language-plaintext highlighter-rouge">consumer</code> will consume all of those values.</p>
 
 
   <div class="buttons">
@@ -290,8 +340,8 @@ into our <code class="highlighter-rouge">MVar</code> and our <code class="highli
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

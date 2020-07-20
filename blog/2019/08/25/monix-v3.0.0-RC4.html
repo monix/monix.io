@@ -29,19 +29,15 @@
   <meta content="Final release before 3.0.0" property="og:description">
   <meta content="https://monix.io/blog/2019/08/25/monix-v3.0.0-RC4.html" property="og:url">
   <meta content="2019-08-25T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 3.0.0-RC4</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 3.0.0-RC4
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2019-08-25">
@@ -111,63 +113,110 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>Last release before <code class="highlighter-rouge">3.0.0</code> which will be released as soon as Cats-Effect 2.0.0 is available. At the time of writing release notes,
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#upgrading">Upgrading</a></li>
+  <li><a href="#changes">Changes</a>
+    <ul>
+      <li><a href="#sub-project-monix-execution">Sub-project: monix-execution</a></li>
+      <li><a href="#sub-project-monix-eval">Sub-project: monix-eval</a></li>
+      <li><a href="#sub-project-monix-reactive">Sub-project: monix-reactive</a></li>
+      <li><a href="#sub-project-monix-tail">Sub-project: monix-tail</a></li>
+      <li><a href="#chores">Chores</a></li>
+      <li><a href="#thanks">Thanks</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+
+  <p>Last release before <code class="language-plaintext highlighter-rouge">3.0.0</code> which will be released as soon as Cats-Effect 2.0.0 is available. At the time of writing release notes,
 it is only waiting on Cats 2.0.0 which is about to release next RC which will become stable version if no critical issues are discovered.</p>
 
-<p>Any other development for this release is now frozen except if we discover critical bugs like memory leaks. All other changes will target <code class="highlighter-rouge">3.1.0</code>.</p>
+<p>Any other development for this release is now frozen except if we discover critical bugs like memory leaks. All other changes will target <code class="language-plaintext highlighter-rouge">3.1.0</code>.</p>
 
-<p><code class="highlighter-rouge">3.0.0</code> will be binary and source compatible with <code class="highlighter-rouge">3.0.0-RC4</code> for Scala 2.12. Monix itself will be also binary compatible
+<p><code class="language-plaintext highlighter-rouge">3.0.0</code> will be binary and source compatible with <code class="language-plaintext highlighter-rouge">3.0.0-RC4</code> for Scala 2.12. Monix itself will be also binary compatible
 for 2.11 but it will have a dependency on Cats-Effect which is not. <a href="https://github.com/typelevel/cats-effect/releases/tag/v2.0.0-RC1">See Cats-Effect release notes</a> for more details.</p>
 
-<p>We wish we could release <code class="highlighter-rouge">3.0.0</code> already but if we released now, we would have to release <code class="highlighter-rouge">4.0.0</code> for Cats-Effect 2.0 because of 2.11 incompatibility there so we decided to hold on. 
+<p>We wish we could release <code class="language-plaintext highlighter-rouge">3.0.0</code> already but if we released now, we would have to release <code class="language-plaintext highlighter-rouge">4.0.0</code> for Cats-Effect 2.0 because of 2.11 incompatibility there so we decided to hold on. 
 It was a rough road but currently we have multiple active maintainers that can do releases going forward, instead of just Alex so we hope it can give you a confidence for the future! :)
 Note that Cats-Effect 2.0 is very small release and mostly targeted at support for Scala 2.13 and bug fixes - the upgrade should be limited to bumping version without changing a single line of code.</p>
 
 <p>This release depends on Cats-Effect 1.4.0 and Cats 1.6.1</p>
 
-<p>This release is binary compatible with <code class="highlighter-rouge">3.0.0-RC3</code> on Scala 2.12.
-On Scala 2.11 there is an incompatibility caused by introduction of <code class="highlighter-rouge">Scheduler.features</code>:</p>
+<p>This release is binary compatible with <code class="language-plaintext highlighter-rouge">3.0.0-RC3</code> on Scala 2.12.
+On Scala 2.11 there is an incompatibility caused by introduction of <code class="language-plaintext highlighter-rouge">Scheduler.features</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude[ReversedMissingMethodProblem]("monix.execution.Scheduler.features")
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude[ReversedMissingMethodProblem]("monix.execution.Scheduler.features")
 </code></pre></div></div>
+    
+      <h2 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="upgrading">Upgrading</h2>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC4"</span>
 </code></pre></div></div>
 
 <!--more-->
+    
+      <h2 id="changes">
+        
+        
+          Changes <a href="#changes" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h4 id="local">
+        
+        
+          Local <a href="#local" class="anchor">#</a>
+        
+        
+      </h4>
 
-<h2 id="changes">Changes</h2>
-
-<h4 id="local">Local</h4>
-
-<p>There are several fixes related to <code class="highlighter-rouge">Local</code> usage.</p>
+<p>There are several fixes related to <code class="language-plaintext highlighter-rouge">Local</code> usage.</p>
 <ul>
-  <li>Using <code class="highlighter-rouge">TracingScheduler</code> will also automatically enable local context propagation in <code class="highlighter-rouge">Task</code> so
-running it with <code class="highlighter-rouge">runToFutureOpt</code> or setting env variable is no longer a necessity.</li>
-  <li><code class="highlighter-rouge">Local.isolate</code> has a overload for isolating <code class="highlighter-rouge">Future</code> which is safer than regular <code class="highlighter-rouge">Local.isolate</code>.</li>
+  <li>Using <code class="language-plaintext highlighter-rouge">TracingScheduler</code> will also automatically enable local context propagation in <code class="language-plaintext highlighter-rouge">Task</code> so
+running it with <code class="language-plaintext highlighter-rouge">runToFutureOpt</code> or setting env variable is no longer a necessity.</li>
+  <li><code class="language-plaintext highlighter-rouge">Local.isolate</code> has a overload for isolating <code class="language-plaintext highlighter-rouge">Future</code> which is safer than regular <code class="language-plaintext highlighter-rouge">Local.isolate</code>.</li>
 </ul>
 
-<p>The <code class="highlighter-rouge">Local</code> model since <code class="highlighter-rouge">3.0.0-RC3</code> shares by default. To isolate modifications of <code class="highlighter-rouge">Local</code> by
-other concurrently running <code class="highlighter-rouge">Future</code>, you have to call <code class="highlighter-rouge">Local.isolate</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">Local</code> model since <code class="language-plaintext highlighter-rouge">3.0.0-RC3</code> shares by default. To isolate modifications of <code class="language-plaintext highlighter-rouge">Local</code> by
+other concurrently running <code class="language-plaintext highlighter-rouge">Future</code>, you have to call <code class="language-plaintext highlighter-rouge">Local.isolate</code>.</p>
 
-<p>In case of <code class="highlighter-rouge">Task</code>, there is a <code class="highlighter-rouge">TaskLocal.isolate</code> version. It is automatically called whenever you run <code class="highlighter-rouge">Task</code>
-so if your use case is setting <code class="highlighter-rouge">correlationId</code> or similar, it probably won’t require any explicit isolation because
-your HTTP library will most likely run the <code class="highlighter-rouge">Task</code> per request.</p>
-
-<h4 id="task-builders">Task Builders</h4>
+<p>In case of <code class="language-plaintext highlighter-rouge">Task</code>, there is a <code class="language-plaintext highlighter-rouge">TaskLocal.isolate</code> version. It is automatically called whenever you run <code class="language-plaintext highlighter-rouge">Task</code>
+so if your use case is setting <code class="language-plaintext highlighter-rouge">correlationId</code> or similar, it probably won’t require any explicit isolation because
+your HTTP library will most likely run the <code class="language-plaintext highlighter-rouge">Task</code> per request.</p>
+    
+      <h4 id="task-builders">
+        
+        
+          Task Builders <a href="#task-builders" class="anchor">#</a>
+        
+        
+      </h4>
 
 <p>There are two major improvements:</p>
 <ul>
-  <li>Now all <code class="highlighter-rouge">Task</code> builders (<code class="highlighter-rouge">Task.create</code>, <code class="highlighter-rouge">Task.async</code>, <code class="highlighter-rouge">Task.fromFuture</code> etc.) will return a <code class="highlighter-rouge">Task</code> that continues on default <code class="highlighter-rouge">Scheduler</code> which is
-the one supplied during execution unless overriden by <code class="highlighter-rouge">executeOn</code>.</li>
-  <li>Callback in <code class="highlighter-rouge">Task.create</code> is now thread-safe against contract violation (calling it more than once) so does not require synchronization on the user side.</li>
+  <li>Now all <code class="language-plaintext highlighter-rouge">Task</code> builders (<code class="language-plaintext highlighter-rouge">Task.create</code>, <code class="language-plaintext highlighter-rouge">Task.async</code>, <code class="language-plaintext highlighter-rouge">Task.fromFuture</code> etc.) will return a <code class="language-plaintext highlighter-rouge">Task</code> that continues on default <code class="language-plaintext highlighter-rouge">Scheduler</code> which is
+the one supplied during execution unless overriden by <code class="language-plaintext highlighter-rouge">executeOn</code>.</li>
+  <li>Callback in <code class="language-plaintext highlighter-rouge">Task.create</code> is now thread-safe against contract violation (calling it more than once) so does not require synchronization on the user side.</li>
 </ul>
-
-<h3 id="sub-project-monix-execution">Sub-project: monix-execution</h3>
+    
+      <h3 id="sub-project-monix-execution">
+        
+        
+          Sub-project: monix-execution <a href="#sub-project-monix-execution" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -192,8 +241,14 @@ the one supplied during execution unless overriden by <code class="highlighter-r
     <p><a href="https://github.com/monix/monix/pull/977">PR #977</a>: Use type classes instead of overloads in Local.isolate/bind</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-eval">Sub-project: monix-eval</h3>
+    
+      <h3 id="sub-project-monix-eval">
+        
+        
+          Sub-project: monix-eval <a href="#sub-project-monix-eval" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -222,11 +277,17 @@ always return to the main Scheduler.</p>
     <p><a href="https://github.com/monix/monix/pull/954">PR #954</a>: Add gatherN + wanderN</p>
   </li>
   <li>
-    <p><a href="https://github.com/monix/monix/pull/972">PR #972</a>: Rename <code class="highlighter-rouge">Task.forkAndForget</code> to <code class="highlighter-rouge">Task.startAndForget</code></p>
+    <p><a href="https://github.com/monix/monix/pull/972">PR #972</a>: Rename <code class="language-plaintext highlighter-rouge">Task.forkAndForget</code> to <code class="language-plaintext highlighter-rouge">Task.startAndForget</code></p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-reactive">Sub-project: monix-reactive</h3>
+    
+      <h3 id="sub-project-monix-reactive">
+        
+        
+          Sub-project: monix-reactive <a href="#sub-project-monix-reactive" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -260,14 +321,26 @@ always return to the main Scheduler.</p>
     <p><a href="https://github.com/monix/monix/pull/989">PR #989</a>: Observable.unfoldEval and Observable.unfoldEvalF</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-tail">Sub-project: monix-tail</h3>
+    
+      <h3 id="sub-project-monix-tail">
+        
+        
+          Sub-project: monix-tail <a href="#sub-project-monix-tail" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li><a href="https://github.com/monix/monix/pull/965">PR #965</a>: fixes resource handling in Iterant.repeat, adds Iterant.retryIfEmpty</li>
 </ul>
-
-<h3 id="chores">Chores</h3>
+    
+      <h3 id="chores">
+        
+        
+          Chores <a href="#chores" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -277,8 +350,14 @@ always return to the main Scheduler.</p>
     <p>Tons of updates by https://github.com/fthomas/scala-steward</p>
   </li>
 </ul>
-
-<h3 id="thanks">Thanks</h3>
+    
+      <h3 id="thanks">
+        
+        
+          Thanks <a href="#thanks" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>People that made this release possible, in alphabetical order:</p>
 
@@ -299,7 +378,14 @@ always return to the main Scheduler.</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -335,18 +421,45 @@ always return to the main Scheduler.</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

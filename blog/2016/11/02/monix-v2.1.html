@@ -29,19 +29,15 @@
   <meta content="Major performance optimizations, concurrency improvements, new operators" property="og:description">
   <meta content="https://monix.io/blog/2016/11/02/monix-v2.1.html" property="og:url">
   <meta content="2016-11-02T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.1.x</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.1.x
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-11-02">
@@ -111,16 +113,21 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
   <p>Greetings,</p>
 
-<p>Version <code class="highlighter-rouge">2.1.1</code> is out now, while version <code class="highlighter-rouge">2.1.0</code> was out
+<p>Version <code class="language-plaintext highlighter-rouge">2.1.1</code> is out now, while version <code class="language-plaintext highlighter-rouge">2.1.0</code> was out
 on <a href="https://github.com/monix/monix/blob/master/CHANGES.md">Nov 9</a>.
 The official announcement was then postponed because we waited to see
-if bug reports are going to happen. Today version <code class="highlighter-rouge">2.1.1</code> was
+if bug reports are going to happen. Today version <code class="language-plaintext highlighter-rouge">2.1.1</code> was
 released, fixing such a problem.</p>
 
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
-<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code> (and use
+<code class="language-plaintext highlighter-rouge">%%%</code> for Scala.js):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.1.1"</span>
 </code></pre></div></div>
@@ -136,69 +143,69 @@ released, fixing such a problem.</p>
   <li>Android, at least since 2.x</li>
 </ul>
 
-<p>The theme of the <code class="highlighter-rouge">2.1</code> release has been performance optimizations, in
-some cases quite massive, improving <code class="highlighter-rouge">Task</code> and parallelizing work by
-means of the new <code class="highlighter-rouge">Observable.mapAsync</code> or by <code class="highlighter-rouge">TaskSemaphore</code>.</p>
+<p>The theme of the <code class="language-plaintext highlighter-rouge">2.1</code> release has been performance optimizations, in
+some cases quite massive, improving <code class="language-plaintext highlighter-rouge">Task</code> and parallelizing work by
+means of the new <code class="language-plaintext highlighter-rouge">Observable.mapAsync</code> or by <code class="language-plaintext highlighter-rouge">TaskSemaphore</code>.</p>
 
 <!--more-->
 
-<p>List of changes for <code class="highlighter-rouge">2.1.0</code>:</p>
+<p>List of changes for <code class="language-plaintext highlighter-rouge">2.1.0</code>:</p>
 
 <ul>
-  <li>The GitHub organization was renamed to <code class="highlighter-rouge">monix</code>, so we are
+  <li>The GitHub organization was renamed to <code class="language-plaintext highlighter-rouge">monix</code>, so we are
 now <a href="https://github.com/monix">github.com/monix</a> because its
 owner, <a href="https://github.com/vanit">Lucas Brown</a>, has kindly donated
 it to us, thanks a lot Lucas</li>
   <li><a href="https://github.com/monix/monix/issues/226">Issue #226</a>:
-Add <code class="highlighter-rouge">Task.Options</code> with an <code class="highlighter-rouge">autoCancelableRunLoops</code> property</li>
+Add <code class="language-plaintext highlighter-rouge">Task.Options</code> with an <code class="language-plaintext highlighter-rouge">autoCancelableRunLoops</code> property</li>
   <li><a href="https://github.com/monix/monix/issues/227">Issue #227</a>: 
-Add <code class="highlighter-rouge">executeWithFork</code>, <code class="highlighter-rouge">executeWithModel</code> and <code class="highlighter-rouge">asyncBoundary</code> 
-operators on <code class="highlighter-rouge">Task</code></li>
+Add <code class="language-plaintext highlighter-rouge">executeWithFork</code>, <code class="language-plaintext highlighter-rouge">executeWithModel</code> and <code class="language-plaintext highlighter-rouge">asyncBoundary</code> 
+operators on <code class="language-plaintext highlighter-rouge">Task</code></li>
   <li><a href="https://github.com/monix/monix/issues/232">Issue #232</a>:
-Async <code class="highlighter-rouge">Task</code> instances should execute with <code class="highlighter-rouge">TrampolinedRunnable</code> 
+Async <code class="language-plaintext highlighter-rouge">Task</code> instances should execute with <code class="language-plaintext highlighter-rouge">TrampolinedRunnable</code> 
 everywhere we can</li>
   <li><a href="https://github.com/monix/monix/issues/236">Issue #236</a>: 
-<code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Coeval</code> need <code class="highlighter-rouge">foreach</code> and <code class="highlighter-rouge">foreachL</code></li>
+<code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code> need <code class="language-plaintext highlighter-rouge">foreach</code> and <code class="language-plaintext highlighter-rouge">foreachL</code></li>
   <li><a href="https://github.com/monix/monix/issues/237">Issue #237</a>: 
-Introduce <code class="highlighter-rouge">monix.execution.misc.ThreadLocal</code></li>
+Introduce <code class="language-plaintext highlighter-rouge">monix.execution.misc.ThreadLocal</code></li>
   <li><a href="https://github.com/monix/monix/issues/238">Issue #238</a>:
-Add <code class="highlighter-rouge">Coeval.Attempt.get</code></li>
+Add <code class="language-plaintext highlighter-rouge">Coeval.Attempt.get</code></li>
   <li><a href="https://github.com/monix/monix/issues/239">Issue #239</a>:<br />
-<code class="highlighter-rouge">Task.flatMap</code> loops should not be auto-cancelable by default</li>
+<code class="language-plaintext highlighter-rouge">Task.flatMap</code> loops should not be auto-cancelable by default</li>
   <li><a href="https://github.com/monix/monix/pull/240">Issue #240</a>:
-Change type-class encoding, provide optimal <code class="highlighter-rouge">Observable.tailRecM</code>,
-upgrade Cats to <code class="highlighter-rouge">0.8.x</code></li>
+Change type-class encoding, provide optimal <code class="language-plaintext highlighter-rouge">Observable.tailRecM</code>,
+upgrade Cats to <code class="language-plaintext highlighter-rouge">0.8.x</code></li>
   <li><a href="https://github.com/monix/monix/issues/251">Issue #251</a>:
-Provide instances for Scalaz <code class="highlighter-rouge">Catchable</code></li>
-  <li><a href="https://github.com/monix/monix/issues/241">Issue #241</a>: <code class="highlighter-rouge">TestScheduler</code>’s 
-exposed <code class="highlighter-rouge">state</code> should return the <code class="highlighter-rouge">State</code> and not <code class="highlighter-rouge">Atomic[State]</code></li>
+Provide instances for Scalaz <code class="language-plaintext highlighter-rouge">Catchable</code></li>
+  <li><a href="https://github.com/monix/monix/issues/241">Issue #241</a>: <code class="language-plaintext highlighter-rouge">TestScheduler</code>’s 
+exposed <code class="language-plaintext highlighter-rouge">state</code> should return the <code class="language-plaintext highlighter-rouge">State</code> and not <code class="language-plaintext highlighter-rouge">Atomic[State]</code></li>
   <li><a href="https://github.com/monix/monix/issues/243">Issue #243</a>: 
-Add the <code class="highlighter-rouge">TrampolineScheduler</code> for the JVM, in addition to Javascript</li>
+Add the <code class="language-plaintext highlighter-rouge">TrampolineScheduler</code> for the JVM, in addition to Javascript</li>
   <li><a href="https://github.com/monix/monix/issues/256">Issue #256</a>:
-Refine extension methods on <code class="highlighter-rouge">Scheduler</code></li>
+Refine extension methods on <code class="language-plaintext highlighter-rouge">Scheduler</code></li>
   <li><a href="https://github.com/monix/monix/issues/264">Issue #264</a>:
-<code class="highlighter-rouge">AtomicNumber</code> classes need <code class="highlighter-rouge">getAndAdd</code> intrinsic</li>
+<code class="language-plaintext highlighter-rouge">AtomicNumber</code> classes need <code class="language-plaintext highlighter-rouge">getAndAdd</code> intrinsic</li>
   <li><a href="https://github.com/monix/monix/issues/262">Issue #262</a>:
-Add <code class="highlighter-rouge">TaskSemaphore</code> and <code class="highlighter-rouge">AsyncSemaphore</code></li>
+Add <code class="language-plaintext highlighter-rouge">TaskSemaphore</code> and <code class="language-plaintext highlighter-rouge">AsyncSemaphore</code></li>
   <li><a href="https://github.com/monix/monix/issues/263">Issue #263</a>: 
-Add <code class="highlighter-rouge">Observable.mapTask</code> and <code class="highlighter-rouge">Observable.mapFuture</code></li>
+Add <code class="language-plaintext highlighter-rouge">Observable.mapTask</code> and <code class="language-plaintext highlighter-rouge">Observable.mapFuture</code></li>
   <li><a href="https://github.com/monix/monix/issues/205">Issue #205</a>:
-Add <code class="highlighter-rouge">Observable.mapAsync</code> for parallel mapping over <code class="highlighter-rouge">Observable</code></li>
+Add <code class="language-plaintext highlighter-rouge">Observable.mapAsync</code> for parallel mapping over <code class="language-plaintext highlighter-rouge">Observable</code></li>
   <li><a href="https://github.com/monix/monix/issues/261">Issue #261</a>:
-Optimize the performance of the <code class="highlighter-rouge">Observable</code> buffers</li>
+Optimize the performance of the <code class="language-plaintext highlighter-rouge">Observable</code> buffers</li>
   <li><a href="https://github.com/monix/monix/issues/254">Issue #254</a>
-Rename <code class="highlighter-rouge">Observable.runWith</code> to <code class="highlighter-rouge">Observable.consumeWith</code></li>
+Rename <code class="language-plaintext highlighter-rouge">Observable.runWith</code> to <code class="language-plaintext highlighter-rouge">Observable.consumeWith</code></li>
   <li><a href="https://github.com/monix/monix/issues/242">Issue #242</a>:
-Add <code class="highlighter-rouge">Scheduler.cached</code> builder for the JVM</li>
+Add <code class="language-plaintext highlighter-rouge">Scheduler.cached</code> builder for the JVM</li>
 </ul>
 
-<p>The issue being addressed in <code class="highlighter-rouge">2.1.1</code>:</p>
+<p>The issue being addressed in <code class="language-plaintext highlighter-rouge">2.1.1</code>:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/269">Bug #269</a>: Observable
-throws <code class="highlighter-rouge">NoSuchFieldException</code> (via jctools) on Android</li>
+throws <code class="language-plaintext highlighter-rouge">NoSuchFieldException</code> (via jctools) on Android</li>
   <li><a href="https://github.com/monix/monix/issues/270">Issue #270</a>: Add support
-for platforms that do not have <code class="highlighter-rouge">sun.misc.Unsafe</code>
+for platforms that do not have <code class="language-plaintext highlighter-rouge">sun.misc.Unsafe</code>
 (with the corresponding <a href="https://github.com/monix/monix/pull/272">PR #272</a>)</li>
 </ul>
 
@@ -206,7 +213,14 @@ for platforms that do not have <code class="highlighter-rouge">sun.misc.Unsafe</
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -242,18 +256,45 @@ for platforms that do not have <code class="highlighter-rouge">sun.misc.Unsafe</
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

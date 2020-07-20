@@ -29,19 +29,15 @@
   <meta content="Huge step closer to the 3.0.0!" property="og:description">
   <meta content="https://monix.io/blog/2019/06/18/monix-v3.0.0-RC3.html" property="og:url">
   <meta content="2019-06-18T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 3.0.0-RC3</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 3.0.0-RC3
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2019-06-18">
@@ -111,28 +113,64 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#upgrading">Upgrading</a></li>
+  <li><a href="#changes">Changes</a>
+    <ul>
+      <li><a href="#sub-project-monix-execution">Sub-project: monix-execution</a></li>
+      <li><a href="#sub-project-monix-catnap">Sub-project: monix-catnap</a></li>
+      <li><a href="#sub-project-monix-eval">Sub-project: monix-eval</a></li>
+      <li><a href="#sub-project-monix-reactive">Sub-project: monix-reactive</a></li>
+      <li><a href="#sub-project-monix-tail">Sub-project: monix-tail</a></li>
+      <li><a href="#chores">Chores</a></li>
+      <li><a href="#thanks">Thanks</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+
   <p>This release depends on Cats-Effect 1.3.1 and Cats 1.6.1.</p>
 
 <p>The next planned release will target Cats-Effect 2.0.0 with Scala 2.13 support.</p>
 
-<p>NOTE: this release IS NOT binary compatible with 3.0.0-RC2, as it contains some API changes, but it should be source compatible (with <code class="highlighter-rouge">@deprecated</code> symbols where the case).</p>
+<p>NOTE: this release IS NOT binary compatible with 3.0.0-RC2, as it contains some API changes, but it should be source compatible (with <code class="language-plaintext highlighter-rouge">@deprecated</code> symbols where the case).</p>
+    
+      <h2 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="upgrading">Upgrading</h2>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.0.0-RC3"</span>
 </code></pre></div></div>
 
 <!--more-->
-
-<h2 id="changes">Changes</h2>
-
-<h3 id="sub-project-monix-execution">Sub-project: monix-execution</h3>
+    
+      <h2 id="changes">
+        
+        
+          Changes <a href="#changes" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="sub-project-monix-execution">
+        
+        
+          Sub-project: monix-execution <a href="#sub-project-monix-execution" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>This sub-project no longer depends on cats-effect and there are various
-improvement to <code class="highlighter-rouge">Local</code> aimed at fixing interop with <code class="highlighter-rouge">Future</code>. Note that
-you might have to call <code class="highlighter-rouge">Local.isolate</code> to disable any sharing between tasks.</p>
+improvement to <code class="language-plaintext highlighter-rouge">Local</code> aimed at fixing interop with <code class="language-plaintext highlighter-rouge">Future</code>. Note that
+you might have to call <code class="language-plaintext highlighter-rouge">Local.isolate</code> to disable any sharing between tasks.</p>
 
 <ul>
   <li>
@@ -164,8 +202,14 @@ Shared locals with binds</p>
 Fix uncaught exception reporting for Scheduler</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-catnap">Sub-project: monix-catnap</h3>
+    
+      <h3 id="sub-project-monix-catnap">
+        
+        
+          Sub-project: monix-catnap <a href="#sub-project-monix-catnap" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -181,8 +225,14 @@ More concurrent tests for MVar/Semaphore</p>
 Adding FunctionK values for Task, Coeval</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-eval">Sub-project: monix-eval</h3>
+    
+      <h3 id="sub-project-monix-eval">
+        
+        
+          Sub-project: monix-eval <a href="#sub-project-monix-eval" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -214,8 +264,14 @@ Shared locals with binds</p>
 Adding FunctionK values for Task, Coeval</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-reactive">Sub-project: monix-reactive</h3>
+    
+      <h3 id="sub-project-monix-reactive">
+        
+        
+          Sub-project: monix-reactive <a href="#sub-project-monix-reactive" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -267,8 +323,14 @@ Add observable take while inclusive</p>
 Fix memory leak in MapParallelOrderedObservable</p>
   </li>
 </ul>
-
-<h3 id="sub-project-monix-tail">Sub-project: monix-tail</h3>
+    
+      <h3 id="sub-project-monix-tail">
+        
+        
+          Sub-project: monix-tail <a href="#sub-project-monix-tail" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -280,8 +342,14 @@ Adds Iterant.channel, Iterant#consume</p>
 add Iterant.uncons operation</p>
   </li>
 </ul>
-
-<h3 id="chores">Chores</h3>
+    
+      <h3 id="chores">
+        
+        
+          Chores <a href="#chores" class="anchor">#</a>
+        
+        
+      </h3>
 
 <ul>
   <li>
@@ -477,8 +545,14 @@ avoid deprecated unicode arrow chars</p>
 reformat build files</p>
   </li>
 </ul>
-
-<h3 id="thanks">Thanks</h3>
+    
+      <h3 id="thanks">
+        
+        
+          Thanks <a href="#thanks" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>People that made this release possible, in alphabetical order:</p>
 
@@ -511,7 +585,14 @@ https://github.com/fthomas/scala-steward :)</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -547,18 +628,45 @@ https://github.com/fthomas/scala-steward :)</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

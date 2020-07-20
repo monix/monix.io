@@ -29,19 +29,15 @@
   <meta content="Fifth RC release, Cats integration, enhancements to Task, bug fixes!" property="og:description">
   <meta content="https://monix.io/blog/2016/05/31/monix-v2.0-RC5.html" property="og:url">
   <meta content="2016-05-31T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC5 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-RC5 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-05-31">
@@ -111,10 +113,15 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
   <p>The fifth release candidate, re-introduces the
-<a href="http://typelevel.org/cats/">Cats</a> integration, introduces new <code class="highlighter-rouge">Task</code>
-operators <code class="highlighter-rouge">doOnFinish</code>, <code class="highlighter-rouge">gather</code> and <code class="highlighter-rouge">gatherUnordered</code> and changes
-the behavior of <code class="highlighter-rouge">Task.sequence</code>. Also contains a critical bug fix.</p>
+<a href="http://typelevel.org/cats/">Cats</a> integration, introduces new <code class="language-plaintext highlighter-rouge">Task</code>
+operators <code class="language-plaintext highlighter-rouge">doOnFinish</code>, <code class="language-plaintext highlighter-rouge">gather</code> and <code class="language-plaintext highlighter-rouge">gatherUnordered</code> and changes
+the behavior of <code class="language-plaintext highlighter-rouge">Task.sequence</code>. Also contains a critical bug fix.</p>
 
 <!--more-->
 
@@ -124,27 +131,27 @@ the behavior of <code class="highlighter-rouge">Task.sequence</code>. Also conta
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/149">Issue #89</a> - reintroducing a minimal 
-Cats integration, along with tests based on <code class="highlighter-rouge">cats-laws</code>. We are splitting <code class="highlighter-rouge">monix.type</code> 
-into its own sub-project and <code class="highlighter-rouge">monix-cats</code> depends on it. This ensures that the pick what
-you use approach also works with <code class="highlighter-rouge">monix-cats</code>, as people wanting just <code class="highlighter-rouge">Task</code> should not
-get <code class="highlighter-rouge">Observable</code>, yet <code class="highlighter-rouge">Observable</code> needs integration as well.</li>
+Cats integration, along with tests based on <code class="language-plaintext highlighter-rouge">cats-laws</code>. We are splitting <code class="language-plaintext highlighter-rouge">monix.type</code> 
+into its own sub-project and <code class="language-plaintext highlighter-rouge">monix-cats</code> depends on it. This ensures that the pick what
+you use approach also works with <code class="language-plaintext highlighter-rouge">monix-cats</code>, as people wanting just <code class="language-plaintext highlighter-rouge">Task</code> should not
+get <code class="language-plaintext highlighter-rouge">Observable</code>, yet <code class="language-plaintext highlighter-rouge">Observable</code> needs integration as well.</li>
   <li><a href="https://github.com/monix/monix/issues/149">Issue #149</a> - documentation related fixes
     <ul>
-      <li>Improved the description of <code class="highlighter-rouge">Task</code></li>
-      <li><code class="highlighter-rouge">Task.unit</code> is now a final val</li>
-      <li><code class="highlighter-rouge">Task.never</code> now shares the reference instead of building a new instance every time</li>
-      <li>Exposing <code class="highlighter-rouge">Task.unsafeStartNow</code> and <code class="highlighter-rouge">Task.unsafeStartAsync</code>, as otherwise <code class="highlighter-rouge">Task.unsafeCreate</code> 
+      <li>Improved the description of <code class="language-plaintext highlighter-rouge">Task</code></li>
+      <li><code class="language-plaintext highlighter-rouge">Task.unit</code> is now a final val</li>
+      <li><code class="language-plaintext highlighter-rouge">Task.never</code> now shares the reference instead of building a new instance every time</li>
+      <li>Exposing <code class="language-plaintext highlighter-rouge">Task.unsafeStartNow</code> and <code class="language-plaintext highlighter-rouge">Task.unsafeStartAsync</code>, as otherwise <code class="language-plaintext highlighter-rouge">Task.unsafeCreate</code> 
 is useless. So we should expose all of them, or none at all.</li>
-      <li><code class="highlighter-rouge">FutureUtils.Extensions.dematerialize</code> was named “materialize” (WTF!) and is renamed</li>
-      <li>Task should inherit just from <code class="highlighter-rouge">Serializable</code> and not from <code class="highlighter-rouge">Product</code></li>
+      <li><code class="language-plaintext highlighter-rouge">FutureUtils.Extensions.dematerialize</code> was named “materialize” (WTF!) and is renamed</li>
+      <li>Task should inherit just from <code class="language-plaintext highlighter-rouge">Serializable</code> and not from <code class="language-plaintext highlighter-rouge">Product</code></li>
     </ul>
   </li>
-  <li><a href="https://github.com/monix/monix/issues/150">Issue #150</a> - add a new <code class="highlighter-rouge">Task.doOnFinish</code> 
+  <li><a href="https://github.com/monix/monix/issues/150">Issue #150</a> - add a new <code class="language-plaintext highlighter-rouge">Task.doOnFinish</code> 
 operator that executes once a task is finished.</li>
-  <li><a href="https://github.com/monix/monix/issues/151">Issue #151</a> - changing <code class="highlighter-rouge">Future.sequence</code> to be 
+  <li><a href="https://github.com/monix/monix/issues/151">Issue #151</a> - changing <code class="language-plaintext highlighter-rouge">Future.sequence</code> to be 
 ordered in both execution and effects</li>
-  <li><a href="https://github.com/monix/monix/issues/152">Issue #152</a> - introduce <code class="highlighter-rouge">Task.gather</code> which 
-behaves like the previous <code class="highlighter-rouge">sequence</code> and <code class="highlighter-rouge">Task.gatherUnordered</code> which doesn’t do ordering
+  <li><a href="https://github.com/monix/monix/issues/152">Issue #152</a> - introduce <code class="language-plaintext highlighter-rouge">Task.gather</code> which 
+behaves like the previous <code class="language-plaintext highlighter-rouge">sequence</code> and <code class="language-plaintext highlighter-rouge">Task.gatherUnordered</code> which doesn’t do ordering
 for results either.</li>
   <li><a href="https://github.com/monix/monix/issues/153">Bug 153</a> - Task.sequence and Task.gather 
 return a shared mutable.ListBuffer</li>
@@ -154,7 +161,14 @@ return a shared mutable.ListBuffer</li>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -190,18 +204,45 @@ return a shared mutable.ListBuffer</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

@@ -28,19 +28,15 @@
   <meta content="Scalaz 7.2 Integration &amp;mdash; Monix" property="og:title">
   <meta content="Integration and usage of the type-classes described in the Scalaz library, version 7.2." property="og:description">
   <meta content="https://monix.io/docs/2x/intro/scalaz72.html" property="og:url">
+  <meta content="2020-07-20T09:13:53+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Scalaz 7.2 Integration</h1>
+      <h1 class="page-title">
+        
+        
+          Scalaz 7.2 Integration
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     <a href="/api/2.3/monix/scalaz/package.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-scalaz/series-7.2/shared/src/main/scala/monix/scalaz">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/intro/scalaz72.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,15 +119,32 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#adding-the-optional-dependency">Adding the Optional Dependency</a></li>
+  <li><a href="#usage">Usage</a></li>
+</ul>
+
+  </nav>
 
   <p>Monix provides integration with <a href="http://scalaz.org/">Scalaz</a> library,
 implementing useful type-classes for the data types exposed.</p>
+    
+      <h2 id="adding-the-optional-dependency">
+        
+        
+          Adding the Optional Dependency <a href="#adding-the-optional-dependency" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="adding-the-optional-dependency">Adding the Optional Dependency</h2>
-
-<p>The <code class="highlighter-rouge">monix-scalaz-72</code> is an optional dependency that you can add alongside
-the main Monix dependency. So in <code class="highlighter-rouge">build.sbt</code>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">monix-scalaz-72</code> is an optional dependency that you can add alongside
+the main Monix dependency. So in <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
   <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span><span class="o">,</span>
@@ -132,7 +152,7 @@ the main Monix dependency. So in <code class="highlighter-rouge">build.sbt</code
 <span class="o">)</span>
 </code></pre></div></div>
 
-<p>Or maybe you want to use just <code class="highlighter-rouge">Task</code> along with this integration:</p>
+<p>Or maybe you want to use just <code class="language-plaintext highlighter-rouge">Task</code> along with this integration:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span>
   <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span><span class="o">,</span>
@@ -141,9 +161,15 @@ the main Monix dependency. So in <code class="highlighter-rouge">build.sbt</code
 </code></pre></div></div>
 
 <p>For more details, see
-<a href="./usage.html#sub-project-monix-scalaz-72-optional">Usage in SBT and Maven</a>.</p>
-
-<h2 id="usage">Usage</h2>
+<a href="/docs/2x/intro/usage.html#sub-project-monix-scalaz-72-optional">Usage in SBT and Maven</a>.</p>
+    
+      <h2 id="usage">
+        
+        
+          Usage <a href="#usage" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>You just need to import the defined implicits:</p>
 
@@ -151,16 +177,13 @@ the main Monix dependency. So in <code class="highlighter-rouge">build.sbt</code
 </code></pre></div></div>
 
 <p>This will bring Monix’s type-class instances in scope.
-And now we can verify that <code class="highlighter-rouge">Task</code> is indeed a <code class="highlighter-rouge">scalaz.Monad</code>:</p>
+And now we can verify that <code class="language-plaintext highlighter-rouge">Task</code> is indeed a <code class="language-plaintext highlighter-rouge">scalaz.Monad</code>:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">scalaz.Monad</span>
-<span class="k">import</span> <span class="nn">scalaz.Monad</span>
-
-<span class="n">scala</span><span class="o">&gt;</span> <span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scalaz.Monad</span>
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
-<span class="n">scala</span><span class="o">&gt;</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="n">res0</span><span class="k">:</span> <span class="kt">scalaz.Monad</span><span class="o">[</span><span class="kt">monix.eval.Task</span><span class="o">]</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">scalaz</span><span class="o">.</span><span class="py">MonixToScalaz10$MonixToScalazBindRec</span><span class="nd">@ebb0aed</span>
+<span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
+<span class="c1">// res0: Monad[Task] = monix.scalaz.MonixToScalaz10$MonixToScalazBindRec@1d74aa9c</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -170,7 +193,7 @@ possible as well:</p>
 </code></pre></div></div>
 
 <p>What these imports are doing is to convert the types defined 
-in <code class="highlighter-rouge">monix.types</code> to the Scalaz type-classes. However the convertion
+in <code class="language-plaintext highlighter-rouge">monix.types</code> to the Scalaz type-classes. However the convertion
 can also work in reverse:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.scalaz.reverse._</span>
@@ -180,10 +203,10 @@ can also work in reverse:</p>
 </code></pre></div></div>
 
 <p>Here is a reverse conversion in action, pulling a
-<code class="highlighter-rouge">monix.types.Monad[List]</code> out of the instances defined for Scalaz:</p>
+<code class="language-plaintext highlighter-rouge">monix.types.Monad[List]</code> out of the instances defined for Scalaz:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">List</span><span class="o">]]</span>
-<span class="c1">// res0: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@1fba9f54</span>
+<span class="c1">// res2: monix.types.Monad[List] = monix.scalaz.ScalazToMonix2$$anon$4@6502813b</span>
 </code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates
@@ -195,7 +218,7 @@ problems, so avoid doing it:</p>
 </code></pre></div></div>
 
 <p>That’s it, now you can use the Scalaz awesome type-classes along
-with Monix’s abstractions, such as <code class="highlighter-rouge">Coeval</code>, <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Observable</code>.</p>
+with Monix’s abstractions, such as <code class="language-plaintext highlighter-rouge">Coeval</code>, <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
 
   <div class="buttons">
@@ -208,8 +231,8 @@ with Monix’s abstractions, such as <code class="highlighter-rouge">Coeval</cod
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

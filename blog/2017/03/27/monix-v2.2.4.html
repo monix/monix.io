@@ -29,19 +29,15 @@
   <meta content="Fixed bugs, upgraded Scala.js to 0.6.15" property="og:description">
   <meta content="https://monix.io/blog/2017/03/27/monix-v2.2.4.html" property="og:url">
   <meta content="2017-03-27T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.2.4, Bug Fixes, Upgraded Scala.js
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2017-03-27">
@@ -111,40 +113,53 @@
     • <a href="https://twitter.com/monix">@monix</a>
   </time>
 
-  <p>Version <code class="highlighter-rouge">2.2.4</code> is out now.</p>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#upgrading">Upgrading</a></li>
+</ul>
+
+  </nav>
+
+  <p>Version <code class="language-plaintext highlighter-rouge">2.2.4</code> is out now.</p>
 
 <p>It is a minor release that’s binary and source compatible with
-<code class="highlighter-rouge">2.2.x</code>, fixing a bugs and upgrading Scala.js:</p>
+<code class="language-plaintext highlighter-rouge">2.2.x</code>, fixing a bugs and upgrading Scala.js:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/328">Bug #338</a>:
 Fix broken test that can yield errors in Scala’s community build</li>
   <li><a href="https://github.com/monix/monix/issues/333">Bug #333</a>:
-<code class="highlighter-rouge">Observable.firstStartedOf</code> fails due to off-by-one error</li>
+<code class="language-plaintext highlighter-rouge">Observable.firstStartedOf</code> fails due to off-by-one error</li>
   <li><a href="https://github.com/monix/monix/issues/335">Bug #335</a>:
-Observable <code class="highlighter-rouge">concatMap</code> / <code class="highlighter-rouge">mapTask</code> trigger invalid state warning
-on <code class="highlighter-rouge">raiseError</code> children</li>
+Observable <code class="language-plaintext highlighter-rouge">concatMap</code> / <code class="language-plaintext highlighter-rouge">mapTask</code> trigger invalid state warning
+on <code class="language-plaintext highlighter-rouge">raiseError</code> children</li>
 </ul>
 
 <p>Changes:</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/334">Issue #334</a>:
-Add <code class="highlighter-rouge">CompositeCancelable.getAndResetTo</code>, needed for the new
-<code class="highlighter-rouge">firstStartedOf</code> implementation</li>
-  <li>Upgrade Scala.js to latest version <code class="highlighter-rouge">0.6.15</code>, handing deprecation
-warnings in <code class="highlighter-rouge">TaskApp</code></li>
+Add <code class="language-plaintext highlighter-rouge">CompositeCancelable.getAndResetTo</code>, needed for the new
+<code class="language-plaintext highlighter-rouge">firstStartedOf</code> implementation</li>
+  <li>Upgrade Scala.js to latest version <code class="language-plaintext highlighter-rouge">0.6.15</code>, handing deprecation
+warnings in <code class="language-plaintext highlighter-rouge">TaskApp</code></li>
 </ul>
 
 <p>Upgrade should be safe, being binary compatible with all previous
-<code class="highlighter-rouge">2.2.x</code> versions.</p>
+<code class="language-plaintext highlighter-rouge">2.2.x</code> versions.</p>
 
 <!--more-->
+    
+      <h3 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="upgrading">Upgrading</h3>
-
-<p>To use the new version, include this in your <code class="highlighter-rouge">build.sbt</code> (and use
-<code class="highlighter-rouge">%%%</code> for Scala.js):</p>
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code> (and use
+<code class="language-plaintext highlighter-rouge">%%%</code> for Scala.js):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.2.4"</span>
 </code></pre></div></div>
@@ -174,7 +189,14 @@ integration:</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -210,18 +232,45 @@ integration:</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

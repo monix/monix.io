@@ -29,19 +29,15 @@
   <meta content="Bug fixes, generalized Task's sequence, gather and gatherUnordered" property="og:description">
   <meta content="https://monix.io/blog/2016/08/01/monix-v2.0-RC9.html" property="og:url">
   <meta content="2016-08-01T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC9 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-RC9 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-08-01">
@@ -111,13 +113,18 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
-  <p>This release fixes a bug in <code class="highlighter-rouge">Task.mapBoth</code> and thus the operations
-depending on it, like <code class="highlighter-rouge">Task.gather</code>. It also fixes another bug in
-the Cats <code class="highlighter-rouge">Applicative</code> instance for <code class="highlighter-rouge">Task</code>, adding a required overload
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p>This release fixes a bug in <code class="language-plaintext highlighter-rouge">Task.mapBoth</code> and thus the operations
+depending on it, like <code class="language-plaintext highlighter-rouge">Task.gather</code>. It also fixes another bug in
+the Cats <code class="language-plaintext highlighter-rouge">Applicative</code> instance for <code class="language-plaintext highlighter-rouge">Task</code>, adding a required overload
 for running Tasks in parallel when using the applicative builder.</p>
 
-<p>This release also changes the signatures of Task’s <code class="highlighter-rouge">sequence</code>, <code class="highlighter-rouge">gather</code> and
-<code class="highlighter-rouge">gatherUnordered</code> to use the <code class="highlighter-rouge">CanBuildFrom</code> pattern, a contribution
+<p>This release also changes the signatures of Task’s <code class="language-plaintext highlighter-rouge">sequence</code>, <code class="language-plaintext highlighter-rouge">gather</code> and
+<code class="language-plaintext highlighter-rouge">gatherUnordered</code> to use the <code class="language-plaintext highlighter-rouge">CanBuildFrom</code> pattern, a contribution
 by <a href="https://github.com/guersam">@guersam</a>.</p>
 
 <!--more-->
@@ -127,9 +134,9 @@ by <a href="https://github.com/guersam">@guersam</a>.</p>
 <p>Bug fixes:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/193">Issue #193</a>: Task <code class="highlighter-rouge">Applicative</code>
+  <li><a href="https://github.com/monix/monix/issues/193">Issue #193</a>: Task <code class="language-plaintext highlighter-rouge">Applicative</code>
 instance doesn’t run the tasks in parallel</li>
-  <li><a href="https://github.com/monix/monix/issues/194">Issue #194</a>: <code class="highlighter-rouge">Task.mapBoth</code> is
+  <li><a href="https://github.com/monix/monix/issues/194">Issue #194</a>: <code class="language-plaintext highlighter-rouge">Task.mapBoth</code> is
 not stack-safe</li>
 </ul>
 
@@ -137,18 +144,18 @@ not stack-safe</li>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/196">Issue #196</a>: Add the
-<code class="highlighter-rouge">Consumer.create</code> builder</li>
+<code class="language-plaintext highlighter-rouge">Consumer.create</code> builder</li>
   <li><a href="https://github.com/monix/monix/issues/166">Issue #166</a>: Generalize
-<code class="highlighter-rouge">Task.sequence</code>, <code class="highlighter-rouge">Task.gather</code> and <code class="highlighter-rouge">Task.gatherUnordered</code> for arbitrary
+<code class="language-plaintext highlighter-rouge">Task.sequence</code>, <code class="language-plaintext highlighter-rouge">Task.gather</code> and <code class="language-plaintext highlighter-rouge">Task.gatherUnordered</code> for arbitrary
 collections</li>
 </ul>
 
 <p>Misc:</p>
 
 <ul>
-  <li>updated Scala.js version to <code class="highlighter-rouge">0.6.11</code></li>
-  <li>updated Cats version to <code class="highlighter-rouge">0.6.1</code></li>
-  <li>changed PGP signing key to one that’s owned by <code class="highlighter-rouge">contact@monix.io</code></li>
+  <li>updated Scala.js version to <code class="language-plaintext highlighter-rouge">0.6.11</code></li>
+  <li>updated Cats version to <code class="language-plaintext highlighter-rouge">0.6.1</code></li>
+  <li>changed PGP signing key to one that’s owned by <code class="language-plaintext highlighter-rouge">contact@monix.io</code></li>
   <li>increased timeout on the reactive streams publisher tests</li>
   <li>fixed the <a href="https://codecov.io/gh/monix/monix/">Codecov.io</a> integration</li>
 </ul>
@@ -157,7 +164,14 @@ collections</li>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -193,18 +207,45 @@ collections</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

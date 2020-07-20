@@ -29,19 +29,15 @@
   <meta content="Task is probably the most performant implementation around." property="og:description">
   <meta content="https://monix.io/blog/2016/08/25/monix-v2.0-RC13.html" property="og:url">
   <meta content="2016-08-25T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC13 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-RC13 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-08-25">
@@ -111,12 +113,17 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
-  <p>This version fixes <code class="highlighter-rouge">Task.memoize</code> and <code class="highlighter-rouge">Coeval.memoize</code>, while
-introducing even more and quite significant <code class="highlighter-rouge">Task</code> optimizations.
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p>This version fixes <code class="language-plaintext highlighter-rouge">Task.memoize</code> and <code class="language-plaintext highlighter-rouge">Coeval.memoize</code>, while
+introducing even more and quite significant <code class="language-plaintext highlighter-rouge">Task</code> optimizations.
 More details on performance to follow.</p>
 
-<p>NOTE: version <code class="highlighter-rouge">2.0-RC13</code> was published immediately after version
-<code class="highlighter-rouge">2.0-RC12</code>, due to a critical bug reported by Mark Tomko and
+<p>NOTE: version <code class="language-plaintext highlighter-rouge">2.0-RC13</code> was published immediately after version
+<code class="language-plaintext highlighter-rouge">2.0-RC12</code>, due to a critical bug reported by Mark Tomko and
 immediately fixed in
 <a href="https://github.com/monix/monix/issues/215">issue #215</a>.</p>
 
@@ -130,10 +137,10 @@ immediately fixed in
   <li><a href="https://github.com/monix/monix/issues/215">Issue #215</a>:
 Bug in Task.gatherUnordered</li>
   <li><a href="https://github.com/monix/monix/issues/211">Issue #211</a>:
-<code class="highlighter-rouge">CompositeCancelable.remove</code> wasn’t working after the changes in
+<code class="language-plaintext highlighter-rouge">CompositeCancelable.remove</code> wasn’t working after the changes in
 RC10, fixed it in RC11 and now added some more tests</li>
   <li><a href="https://github.com/monix/monix/pull/213">Issue #213</a>: Fixes
-<code class="highlighter-rouge">Task</code> / <code class="highlighter-rouge">Coeval</code> memoize operation</li>
+<code class="language-plaintext highlighter-rouge">Task</code> / <code class="language-plaintext highlighter-rouge">Coeval</code> memoize operation</li>
 </ul>
 
 <p>Enhancements:</p>
@@ -152,47 +159,54 @@ refactorings, some deprecations (details below)</li>
 that (see
 <a href="https://github.com/typelevel/cats/issues/1329">cats#1329</a>), but it
 is now functional</li>
-  <li>Renamed <code class="highlighter-rouge">eval</code> to <code class="highlighter-rouge">evalAlways</code> across the board (in <code class="highlighter-rouge">Task</code>, <code class="highlighter-rouge">Coeval</code>
-and <code class="highlighter-rouge">Observable</code>), but kept <code class="highlighter-rouge">evalAlways</code> with the <code class="highlighter-rouge">@deprecated</code>
-sign, so upgrade should be smooth. The reason is that <code class="highlighter-rouge">evalAlways</code>
+  <li>Renamed <code class="language-plaintext highlighter-rouge">eval</code> to <code class="language-plaintext highlighter-rouge">evalAlways</code> across the board (in <code class="language-plaintext highlighter-rouge">Task</code>, <code class="language-plaintext highlighter-rouge">Coeval</code>
+and <code class="language-plaintext highlighter-rouge">Observable</code>), but kept <code class="language-plaintext highlighter-rouge">evalAlways</code> with the <code class="language-plaintext highlighter-rouge">@deprecated</code>
+sign, so upgrade should be smooth. The reason is that <code class="language-plaintext highlighter-rouge">evalAlways</code>
 is an often used operation and deserves a shorter name</li>
-  <li>For Scalaz converts introduced <code class="highlighter-rouge">Task.delay</code> as an alias of
-<code class="highlighter-rouge">Task.eval</code>, <code class="highlighter-rouge">Task.suspend</code> as an alias of <code class="highlighter-rouge">Task.defer</code> and
-<code class="highlighter-rouge">Task.async</code> as an alias of <code class="highlighter-rouge">Task.create</code></li>
-  <li>Renamed <code class="highlighter-rouge">Task.eval(Coeval)</code> to <code class="highlighter-rouge">Task.coeval(Coeval)</code> and
-<code class="highlighter-rouge">Observable.eval(Coeval)</code> to <code class="highlighter-rouge">Observable.coeval(Coeval)</code> in order to
+  <li>For Scalaz converts introduced <code class="language-plaintext highlighter-rouge">Task.delay</code> as an alias of
+<code class="language-plaintext highlighter-rouge">Task.eval</code>, <code class="language-plaintext highlighter-rouge">Task.suspend</code> as an alias of <code class="language-plaintext highlighter-rouge">Task.defer</code> and
+<code class="language-plaintext highlighter-rouge">Task.async</code> as an alias of <code class="language-plaintext highlighter-rouge">Task.create</code></li>
+  <li>Renamed <code class="language-plaintext highlighter-rouge">Task.eval(Coeval)</code> to <code class="language-plaintext highlighter-rouge">Task.coeval(Coeval)</code> and
+<code class="language-plaintext highlighter-rouge">Observable.eval(Coeval)</code> to <code class="language-plaintext highlighter-rouge">Observable.coeval(Coeval)</code> in order to
 avoid a conflict</li>
-  <li>Removed <code class="highlighter-rouge">Task.both</code> because it is just an alias for <code class="highlighter-rouge">Task.mapBoth</code>. Judging
-in retrospective, we probably should’ve added it a <code class="highlighter-rouge">@deprecated</code> warning
-instead; on the other hand <code class="highlighter-rouge">both</code> and <code class="highlighter-rouge">mapBoth</code> are so close that the IDE
-will probably suggest <code class="highlighter-rouge">mapBoth</code> (at least IntelliJ IDEA does)</li>
-  <li>Refactor the <code class="highlighter-rouge">Task</code> internals again, for optimizations and simplifications:
+  <li>Removed <code class="language-plaintext highlighter-rouge">Task.both</code> because it is just an alias for <code class="language-plaintext highlighter-rouge">Task.mapBoth</code>. Judging
+in retrospective, we probably should’ve added it a <code class="language-plaintext highlighter-rouge">@deprecated</code> warning
+instead; on the other hand <code class="language-plaintext highlighter-rouge">both</code> and <code class="language-plaintext highlighter-rouge">mapBoth</code> are so close that the IDE
+will probably suggest <code class="language-plaintext highlighter-rouge">mapBoth</code> (at least IntelliJ IDEA does)</li>
+  <li>Refactor the <code class="language-plaintext highlighter-rouge">Task</code> internals again, for optimizations and simplifications:
     <ul>
-      <li>Simplified the internal states, e.g. instead of having <code class="highlighter-rouge">Now</code>,
-<code class="highlighter-rouge">Error</code>, <code class="highlighter-rouge">Always</code> and <code class="highlighter-rouge">Once</code>, we now have a single
-<code class="highlighter-rouge">Delay(coeval)</code>, thus reusing the <code class="highlighter-rouge">Coeval</code> type for computing
+      <li>Simplified the internal states, e.g. instead of having <code class="language-plaintext highlighter-rouge">Now</code>,
+<code class="language-plaintext highlighter-rouge">Error</code>, <code class="language-plaintext highlighter-rouge">Always</code> and <code class="language-plaintext highlighter-rouge">Once</code>, we now have a single
+<code class="language-plaintext highlighter-rouge">Delay(coeval)</code>, thus reusing the <code class="language-plaintext highlighter-rouge">Coeval</code> type for computing
 asynchronous values</li>
-      <li>Get rid of the <code class="highlighter-rouge">Task.Attempt</code> type, it never made any sense that
-one. People can use <code class="highlighter-rouge">Coeval.Attempt</code> if they need a <code class="highlighter-rouge">Try</code>
-alternative (and convert to <code class="highlighter-rouge">Task</code> if they end up needing a
-<code class="highlighter-rouge">Task</code>)</li>
-      <li>Introduced <code class="highlighter-rouge">Scheduler.executeAsync</code> and <code class="highlighter-rouge">Scheduler.executeLocal</code>
+      <li>Get rid of the <code class="language-plaintext highlighter-rouge">Task.Attempt</code> type, it never made any sense that
+one. People can use <code class="language-plaintext highlighter-rouge">Coeval.Attempt</code> if they need a <code class="language-plaintext highlighter-rouge">Try</code>
+alternative (and convert to <code class="language-plaintext highlighter-rouge">Task</code> if they end up needing a
+<code class="language-plaintext highlighter-rouge">Task</code>)</li>
+      <li>Introduced <code class="language-plaintext highlighter-rouge">Scheduler.executeAsync</code> and <code class="language-plaintext highlighter-rouge">Scheduler.executeLocal</code>
 as extension methods powered by macros, for zero-overhead, because
-building <code class="highlighter-rouge">Runnable</code> instances is too annoying</li>
-      <li>Used <code class="highlighter-rouge">Scheduler.executeLocal</code> and <code class="highlighter-rouge">LocalRunnable</code> in key points in
-the <code class="highlighter-rouge">Task</code> implementation to reduce forking</li>
-      <li>Made <code class="highlighter-rouge">Task.gather</code> be based on <code class="highlighter-rouge">Task.gatherUnordered</code> and it is
+building <code class="language-plaintext highlighter-rouge">Runnable</code> instances is too annoying</li>
+      <li>Used <code class="language-plaintext highlighter-rouge">Scheduler.executeLocal</code> and <code class="language-plaintext highlighter-rouge">LocalRunnable</code> in key points in
+the <code class="language-plaintext highlighter-rouge">Task</code> implementation to reduce forking</li>
+      <li>Made <code class="language-plaintext highlighter-rouge">Task.gather</code> be based on <code class="language-plaintext highlighter-rouge">Task.gatherUnordered</code> and it is
 now way faster</li>
     </ul>
   </li>
-  <li>Moved everything from <code class="highlighter-rouge">monix.types.shims</code> to <code class="highlighter-rouge">monix.types</code></li>
+  <li>Moved everything from <code class="language-plaintext highlighter-rouge">monix.types.shims</code> to <code class="language-plaintext highlighter-rouge">monix.types</code></li>
 </ul>
 
 <p>Enjoy!</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -228,18 +242,45 @@ now way faster</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

@@ -28,19 +28,15 @@
   <meta content="Task &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling possibly lazy &amp;amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." property="og:description">
   <meta content="https://monix.io/docs/3x/eval/task.html" property="og:url">
+  <meta content="2020-07-20T09:13:51+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,17 +97,101 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Task</h1>
+      <h1 class="page-title">
+        
+        
+          Task
+        
+        
+      </h1>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/eval/Task.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v3.2.2/monix-eval/shared/src/main/scala/monix/eval/Task.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/3x/eval/task.md">Edit Page</a>
+    
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="introduction">Introduction</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#design-summary">Design Summary</a></li>
+      <li><a href="#comparison-with-scalas-future">Comparison with Scala’s Future</a></li>
+      <li><a href="#comparison-with-the-scalaz-task">Comparison with the Scalaz Task</a></li>
+    </ul>
+  </li>
+  <li><a href="#execution-runtofuture--foreach">Execution (runToFuture &amp; foreach)</a>
+    <ul>
+      <li><a href="#blocking-for-a-result">Blocking for a Result</a></li>
+      <li><a href="#try-immediate-execution">Try Immediate Execution</a></li>
+    </ul>
+  </li>
+  <li><a href="#simple-builders">Simple Builders</a>
+    <ul>
+      <li><a href="#tasknow">Task.now</a></li>
+      <li><a href="#taskeval-delay">Task.eval (delay)</a></li>
+      <li><a href="#taskevalonce">Task.evalOnce</a></li>
+      <li><a href="#taskdefer-suspend">Task.defer (suspend)</a></li>
+      <li><a href="#taskfromfuture">Task.fromFuture</a></li>
+      <li><a href="#taskdeferfuture">Task.deferFuture</a></li>
+      <li><a href="#taskdeferfutureaction">Task.deferFutureAction</a></li>
+      <li><a href="#taskexecuteasync-taskasyncboundary-taskexecuteon">Task.executeAsync, Task.asyncBoundary, Task.executeOn</a></li>
+      <li><a href="#taskraiseerror">Task.raiseError</a></li>
+      <li><a href="#tasknever">Task.never</a></li>
+      <li><a href="#taskunit">Task.unit</a></li>
+    </ul>
+  </li>
+  <li><a href="#asynchronous-builders">Asynchronous Builders</a>
+    <ul>
+      <li><a href="#taskcreate">Task.create</a></li>
+    </ul>
+  </li>
+  <li><a href="#memoization">Memoization</a>
+    <ul>
+      <li><a href="#memoize-only-on-success">Memoize Only on Success</a></li>
+      <li><a href="#memoize-versus-runtofuture">Memoize versus runToFuture</a></li>
+    </ul>
+  </li>
+  <li><a href="#operations">Operations</a>
+    <ul>
+      <li><a href="#flatmap-and-tail-recursive-loops">FlatMap and Tail-Recursive Loops</a></li>
+      <li><a href="#parallelism-catsparallel">Parallelism (cats.Parallel)</a></li>
+      <li><a href="#gather-results-from-a-seq-of-tasks">Gather results from a Seq of Tasks</a></li>
+      <li><a href="#race">Race</a></li>
+      <li><a href="#race-many">Race Many</a></li>
+      <li><a href="#delay-execution">Delay Execution</a></li>
+      <li><a href="#delay-signaling-of-the-result">Delay Signaling of the Result</a></li>
+      <li><a href="#restart-until-predicate-is-true">Restart Until Predicate is True</a></li>
+      <li><a href="#clean-up-resources-on-finish">Clean-up Resources on Finish</a></li>
+      <li><a href="#convert-to-reactive-publisher">Convert to Reactive Publisher</a></li>
+    </ul>
+  </li>
+  <li><a href="#error-handling">Error Handling</a>
+    <ul>
+      <li><a href="#overriding-the-error-logging">Overriding the Error Logging</a></li>
+      <li><a href="#trigger-a-timeout">Trigger a Timeout</a></li>
+      <li><a href="#recovering-from-error">Recovering from Error</a></li>
+      <li><a href="#restart-on-error">Restart On Error</a></li>
+      <li><a href="#expose-errors">Expose Errors</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Task is a data type for controlling possibly lazy &amp; asynchronous
 computations, useful for controlling side-effects, avoiding
@@ -156,16 +236,22 @@ nondeterminism and callback-hell.</p>
 <span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 2</span>
 </code></pre></div></div>
+    
+      <h3 id="design-summary">
+        
+        
+          Design Summary <a href="#design-summary" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="design-summary">Design Summary</h3>
-
-<p>In summary the Monix <code class="highlighter-rouge">Task</code>:</p>
+<p>In summary the Monix <code class="language-plaintext highlighter-rouge">Task</code>:</p>
 
 <ul>
   <li>models lazy &amp; asynchronous evaluation</li>
   <li>models a producer pushing only one value to one or multiple consumers</li>
-  <li>allows fine-grained control over the <a href="../execution/scheduler.html#execution-model">execution model</a></li>
-  <li>doesn’t trigger the execution, or any effects until <code class="highlighter-rouge">runToFuture</code></li>
+  <li>allows fine-grained control over the <a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a></li>
+  <li>doesn’t trigger the execution, or any effects until <code class="language-plaintext highlighter-rouge">runToFuture</code></li>
   <li>doesn’t necessarily execute on another logical thread</li>
   <li>allows for cancelling of a running computation</li>
   <li>allows for controlling of side-effects, being just as
@@ -194,7 +280,7 @@ space:</p>
     <tr>
       <td style="text-align: center"> </td>
       <td style="text-align: center"> </td>
-      <td style="text-align: center"><a href="./coeval.html">Coeval[A]</a></td>
+      <td style="text-align: center"><a href="/docs/3x/eval/coeval.html">Coeval[A]</a></td>
     </tr>
     <tr>
       <td style="text-align: center"><strong>Asynchronous</strong></td>
@@ -208,10 +294,16 @@ space:</p>
     </tr>
   </tbody>
 </table>
+    
+      <h3 id="comparison-with-scalas-future">
+        
+        
+          Comparison with Scala’s Future <a href="#comparison-with-scalas-future" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="comparison-with-scalas-future">Comparison with Scala’s Future</h3>
-
-<p><code class="highlighter-rouge">Task</code> sounds similar with Scala’s
+<p><code class="language-plaintext highlighter-rouge">Task</code> sounds similar with Scala’s
 <a href="http://docs.scala-lang.org/overviews/core/futures.html">Future</a>, but
 has a different character and the two types as you’ll see are actually
 complementary. A wise man once said:</p>
@@ -222,37 +314,43 @@ complementary. A wise man once said:</p>
 
 <p>That’s certainly a poetic notion, making one think about what values
 are and how they incorporate time. But more importantly, while we
-cannot say that a <code class="highlighter-rouge">Future</code> is a
+cannot say that a <code class="language-plaintext highlighter-rouge">Future</code> is a
 <a href="https://en.wikipedia.org/wiki/Value_(computer_science)">value</a>,
 we can certainly say that it’s a <em>value-wannabe</em>, meaning that when
-users receive a <code class="highlighter-rouge">Future</code> reference, they know that whatever process
+users receive a <code class="language-plaintext highlighter-rouge">Future</code> reference, they know that whatever process
 that’s going to evaluate it has probably already started and it might
 have even finished already. This makes the behavior of Scala’s
-<code class="highlighter-rouge">Future</code> to be about <em>eager evaluation</em> and certainly its design helps
+<code class="language-plaintext highlighter-rouge">Future</code> to be about <em>eager evaluation</em> and certainly its design helps
 with that, if you think about how it takes that implicit execution
-context whenever you call its operators, like <code class="highlighter-rouge">map</code> and <code class="highlighter-rouge">flatMap</code>.</p>
+context whenever you call its operators, like <code class="language-plaintext highlighter-rouge">map</code> and <code class="language-plaintext highlighter-rouge">flatMap</code>.</p>
 
-<p>But <code class="highlighter-rouge">Task</code> is different. <code class="highlighter-rouge">Task</code> is about lazy evaluation. Well, not
-always lazy, in fact <code class="highlighter-rouge">Task</code> allows for fine-tuning the execution
+<p>But <code class="language-plaintext highlighter-rouge">Task</code> is different. <code class="language-plaintext highlighter-rouge">Task</code> is about lazy evaluation. Well, not
+always lazy, in fact <code class="language-plaintext highlighter-rouge">Task</code> allows for fine-tuning the execution
 model, as you’ll see, but that’s the primary distinction between
-them. If <code class="highlighter-rouge">Future</code> is like a value, then <code class="highlighter-rouge">Task</code> is like a function. And
-in fact <code class="highlighter-rouge">Task</code> can function as a “factory” of <code class="highlighter-rouge">Future</code> instances.</p>
+them. If <code class="language-plaintext highlighter-rouge">Future</code> is like a value, then <code class="language-plaintext highlighter-rouge">Task</code> is like a function. And
+in fact <code class="language-plaintext highlighter-rouge">Task</code> can function as a “factory” of <code class="language-plaintext highlighter-rouge">Future</code> instances.</p>
 
-<p>Another distinction is that <code class="highlighter-rouge">Future</code> is “<em>memoized</em>” by default,
+<p>Another distinction is that <code class="language-plaintext highlighter-rouge">Future</code> is “<em>memoized</em>” by default,
 meaning that its result is going to be shared between multiple
-consumers if needed. But the evaluation of a <code class="highlighter-rouge">Task</code> is not memoized by
+consumers if needed. But the evaluation of a <code class="language-plaintext highlighter-rouge">Task</code> is not memoized by
 default. No, you have to want memoization to happen, you have to
 specify it explicitly, as you’ll see.</p>
 
-<p>In terms of efficiency, <code class="highlighter-rouge">Future</code> having eager behavior, happens to be
+<p>In terms of efficiency, <code class="language-plaintext highlighter-rouge">Future</code> having eager behavior, happens to be
 less efficient because whatever operation you’re doing on it, the
-implementation will end up sending <code class="highlighter-rouge">Runnable</code> instances in the
+implementation will end up sending <code class="language-plaintext highlighter-rouge">Runnable</code> instances in the
 thread-pool and because the result is always memoized on each step,
 invoking that machinery (e.g. going into compare-and-set loops)
-whatever you’re doing. On the other hand <code class="highlighter-rouge">Task</code> can do execution in
+whatever you’re doing. On the other hand <code class="language-plaintext highlighter-rouge">Task</code> can do execution in
 synchronous batches.</p>
-
-<h3 id="comparison-with-the-scalaz-task">Comparison with the Scalaz Task</h3>
+    
+      <h3 id="comparison-with-the-scalaz-task">
+        
+        
+          Comparison with the Scalaz Task <a href="#comparison-with-the-scalaz-task" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>It’s no secret that the Monix Task was inspired by the
 <a href="https://github.com/scalaz/scalaz">Scalaz</a> Task, an otherwise solid
@@ -266,7 +364,7 @@ execution, but asynchronous execution is about jumping over
 asynchronous and thus trampoline boundaries. So the API is limited
 by what the trampoline can do and for example in order to not block
 the current thread in a big loop, you have to <em>manually insert</em>
-async boundaries yourself by means of <code class="highlighter-rouge">Task.executeAsync</code>. The Monix Task
+async boundaries yourself by means of <code class="language-plaintext highlighter-rouge">Task.executeAsync</code>. The Monix Task
 on the other hand manages to do that automatically by default,
 which is very useful when running on top of
 <a href="http://www.scala-js.org/">Javascript</a>, where
@@ -275,14 +373,14 @@ is not only nice to have, but required.</li>
   <li>The Scalaz Task has a dual synchronous / asynchronous
 personality. That is fine for optimization purposes as far as the
 producer is concerned (i.e. why fork a thread when you don’t have
-to), but from the consumer’s point of view having a <code class="highlighter-rouge">def run: A</code>
+to), but from the consumer’s point of view having a <code class="language-plaintext highlighter-rouge">def run: A</code>
 means that the API cannot be fully supported on top of Javascript
-and on top of the JVM it means that the <code class="highlighter-rouge">Task</code> ends up faking
-synchronous evaluation and blocking threads. And <a href="../best-practices/blocking.html">blocking threads
+and on top of the JVM it means that the <code class="language-plaintext highlighter-rouge">Task</code> ends up faking
+synchronous evaluation and blocking threads. And <a href="../best-practices/blocking.md">blocking threads
 is very unsafe</a>.</li>
   <li>The Scalaz Task cannot cancel running computations. This is
 important for nondeterministic operations. For example when you
-create a race condition with a <code class="highlighter-rouge">race</code>, you may want to
+create a race condition with a <code class="language-plaintext highlighter-rouge">race</code>, you may want to
 cancel the slower task that didn’t finish in time, because
 unfortunately, if we don’t release resources soon enough, we can
 end up with serious leakage that can crash our process.</li>
@@ -291,37 +389,43 @@ dealing with asynchronous execution. This is bad for portability
 reasons, as this API is not supported on top of
 <a href="http://www.scala-js.org/">Scala.js</a>.</li>
 </ol>
+    
+      <h2 id="execution-runtofuture--foreach">
+        
+        
+          Execution (runToFuture &amp; foreach) <a href="#execution-runtofuture--foreach" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="execution-runtofuture--foreach">Execution (runToFuture &amp; foreach)</h2>
+<p><code class="language-plaintext highlighter-rouge">Task</code> instances won’t do anything until they are executed by means
+of <code class="language-plaintext highlighter-rouge">runToFuture</code>. And there are multiple overloads of it.</p>
 
-<p><code class="highlighter-rouge">Task</code> instances won’t do anything until they are executed by means
-of <code class="highlighter-rouge">runToFuture</code>. And there are multiple overloads of it.</p>
+<p><code class="language-plaintext highlighter-rouge">Task.runToFuture</code> also wants an implicit
+<a href="/docs/3x/execution/scheduler.html">Scheduler</a> in scope, that can supplant
+your <code class="language-plaintext highlighter-rouge">ExecutionContext</code> (since it inherits from it). But this is where
+the design of <code class="language-plaintext highlighter-rouge">Task</code> diverges from Scala’s own <code class="language-plaintext highlighter-rouge">Future</code>. The <code class="language-plaintext highlighter-rouge">Task</code>
+being lazy, it only wants this <code class="language-plaintext highlighter-rouge">Scheduler</code> on execution with
+<code class="language-plaintext highlighter-rouge">runToFuture</code>, instead of wanting it on every operation (like <code class="language-plaintext highlighter-rouge">map</code> or
+<code class="language-plaintext highlighter-rouge">flatMap</code>), the way that Scala’s <code class="language-plaintext highlighter-rouge">Future</code> does.</p>
 
-<p><code class="highlighter-rouge">Task.runToFuture</code> also wants an implicit
-<a href="../execution/scheduler.html">Scheduler</a> in scope, that can supplant
-your <code class="highlighter-rouge">ExecutionContext</code> (since it inherits from it). But this is where
-the design of <code class="highlighter-rouge">Task</code> diverges from Scala’s own <code class="highlighter-rouge">Future</code>. The <code class="highlighter-rouge">Task</code>
-being lazy, it only wants this <code class="highlighter-rouge">Scheduler</code> on execution with
-<code class="highlighter-rouge">runToFuture</code>, instead of wanting it on every operation (like <code class="highlighter-rouge">map</code> or
-<code class="highlighter-rouge">flatMap</code>), the way that Scala’s <code class="highlighter-rouge">Future</code> does.</p>
-
-<p>So first things first, we need a <code class="highlighter-rouge">Scheduler</code> in scope. The <code class="highlighter-rouge">global</code> is
-piggybacking on Scala’s own <code class="highlighter-rouge">global</code>, so now you can do this:</p>
+<p>So first things first, we need a <code class="language-plaintext highlighter-rouge">Scheduler</code> in scope. The <code class="language-plaintext highlighter-rouge">global</code> is
+piggybacking on Scala’s own <code class="language-plaintext highlighter-rouge">global</code>, so now you can do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 </code></pre></div></div>
 
-<p><strong>NOTE:</strong> The <a href="../execution/scheduler.html">Scheduler</a> can inject a
+<p><strong>NOTE:</strong> The <a href="/docs/3x/execution/scheduler.html">Scheduler</a> can inject a
 configurable
-<a href="../execution/scheduler.html#execution-model">execution model</a> which
+<a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a> which
 determines how asynchronous boundaries get forced (or not). Read up on
 it.</p>
 
 <p>The most straightforward and idiomatic way would be to execute
 tasks and get a
 <a href="/api/3.2/monix/execution/CancelableFuture.html">CancelableFuture</a>
-in return, which is a standard <code class="highlighter-rouge">Future</code> paired with a
-<a href="../execution/cancelable.html">Cancelable</a>:</p>
+in return, which is a standard <code class="language-plaintext highlighter-rouge">Future</code> paired with a
+<a href="/docs/3x/execution/cancelable.html">Cancelable</a>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
@@ -336,9 +440,9 @@ in return, which is a standard <code class="highlighter-rouge">Future</code> pai
 <span class="nv">result</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>Returning a <code class="highlighter-rouge">Future</code> might be too heavy for your needs, you might want
-to provide a simple callback. We can also <code class="highlighter-rouge">runAsync</code> with a <code class="highlighter-rouge">Either[Throwable, A] =&gt;
-Unit</code> callback, similar to the standard <code class="highlighter-rouge">Future.onComplete</code>.</p>
+<p>Returning a <code class="language-plaintext highlighter-rouge">Future</code> might be too heavy for your needs, you might want
+to provide a simple callback. We can also <code class="language-plaintext highlighter-rouge">runAsync</code> with a <code class="language-plaintext highlighter-rouge">Either[Throwable, A] =&gt;
+Unit</code> callback, similar to the standard <code class="language-plaintext highlighter-rouge">Future.onComplete</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">).</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
 
@@ -355,11 +459,11 @@ Unit</code> callback, similar to the standard <code class="highlighter-rouge">Fu
 <span class="nv">cancelable</span><span class="o">.</span><span class="py">cancel</span><span class="o">()</span>
 </code></pre></div></div>
 
-<p>We can also <code class="highlighter-rouge">runAsync</code> with a <a href="../execution/callback.html">Callback</a> instance.
+<p>We can also <code class="language-plaintext highlighter-rouge">runAsync</code> with a <a href="/docs/3x/execution/callback.html">Callback</a> instance.
 This is like a Java-ish API, useful in case, for any reason whatsoever,
-you want to keep state. <code class="highlighter-rouge">Callback</code> is also used internally, because it
+you want to keep state. <code class="language-plaintext highlighter-rouge">Callback</code> is also used internally, because it
 allows us to guard against contract violations and to avoid the boxing
-specific to <code class="highlighter-rouge">Try[T]</code> or <code class="highlighter-rouge">Either[E, A]</code>. Sample:</p>
+specific to <code class="language-plaintext highlighter-rouge">Try[T]</code> or <code class="language-plaintext highlighter-rouge">Either[E, A]</code>. Sample:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Callback</span>
 
@@ -378,7 +482,7 @@ specific to <code class="highlighter-rouge">Try[T]</code> or <code class="highli
 </code></pre></div></div>
 
 <p>But if you just want to trigger some side-effects quickly, you can
-just use <code class="highlighter-rouge">foreach</code> directly:</p>
+just use <code class="language-plaintext highlighter-rouge">foreach</code> directly:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect!"</span><span class="o">);</span> <span class="s">"Result"</span> <span class="o">}</span>
 
@@ -392,36 +496,43 @@ just use <code class="highlighter-rouge">foreach</code> directly:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>NOTE: <code class="highlighter-rouge">foreach</code> on <code class="highlighter-rouge">Task</code> does not block, but returns a
-<code class="highlighter-rouge">CancelableFuture[Unit]</code> that can be used to block on the execution,
+<p>NOTE: <code class="language-plaintext highlighter-rouge">foreach</code> on <code class="language-plaintext highlighter-rouge">Task</code> does not block, but returns a
+<code class="language-plaintext highlighter-rouge">CancelableFuture[Unit]</code> that can be used to block on the execution,
 or for cancellation.</p>
+    
+      <h3 id="blocking-for-a-result">
+        
+        
+          Blocking for a Result <a href="#blocking-for-a-result" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="blocking-for-a-result">Blocking for a Result</h3>
-
-<p>Monix is <a href="../best-practices/blocking.html">against blocking</a> as a
-matter of philosophy, therefore <code class="highlighter-rouge">Task</code> doesn’t have any API calls that
+<p>Monix is <a href="/docs/3x/best-practices/blocking.html">against blocking</a> as a
+matter of philosophy, therefore <code class="language-plaintext highlighter-rouge">Task</code> doesn’t have any API calls that
 blocks threads, none!</p>
 
 <p>However, on top of the JVM sometimes we have to block. And if we have
 to block, Monix doesn’t try to outsmart Scala’s standard library,
-because the standard <code class="highlighter-rouge">Await.result</code> and <code class="highlighter-rouge">Await.ready</code> have two healthy
+because the standard <code class="language-plaintext highlighter-rouge">Await.result</code> and <code class="language-plaintext highlighter-rouge">Await.ready</code> have two healthy
 design choices:</p>
 
 <ol>
-  <li>These calls use Scala’s <code class="highlighter-rouge">BlockContext</code> in their implementation,
+  <li>These calls use Scala’s <code class="language-plaintext highlighter-rouge">BlockContext</code> in their implementation,
 signaling to the underlying thread-pool that a blocking operation
 is being executed, allowing the thread-pool to act on it. For
 example it might decide to add more threads in the pool, like
-Scala’s <code class="highlighter-rouge">ForkJoinPool</code> is doing.</li>
+Scala’s <code class="language-plaintext highlighter-rouge">ForkJoinPool</code> is doing.</li>
   <li>These calls require a very explicit timeout parameter, specified as
-a <code class="highlighter-rouge">FiniteDuration</code>, triggering a <code class="highlighter-rouge">TimeoutException</code> in case that
+a <code class="language-plaintext highlighter-rouge">FiniteDuration</code>, triggering a <code class="language-plaintext highlighter-rouge">TimeoutException</code> in case that
 specified timespan is exceeded without the source being ready.</li>
 </ol>
 
 <p>Therefore in order to block on a result, you have to first convert it
-into a <code class="highlighter-rouge">Future</code> by means of <code class="highlighter-rouge">runToFuture</code> and then you can block on it:</p>
+into a <code class="language-plaintext highlighter-rouge">Future</code> by means of <code class="language-plaintext highlighter-rouge">runToFuture</code> and then you can block on it:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.Await</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -434,60 +545,81 @@ into a <code class="highlighter-rouge">Future</code> by means of <code class="hi
 
 <p><strong>NOTE:</strong> There is <a href="https://github.com/scala-js/scala-js/issues/186">no blocking</a>
 on Scala.js by design.</p>
-
-<h3 id="try-immediate-execution-coeval">Try Immediate Execution (Coeval)</h3>
+    
+      <h3 id="try-immediate-execution">
+        
+        
+          Try Immediate Execution <a href="#try-immediate-execution" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Monix is against blocking, we’ve established that. But clearly some
-<code class="highlighter-rouge">Task</code> instances can be evaluated immediately on the current logical
+<code class="language-plaintext highlighter-rouge">Task</code> instances can be evaluated immediately on the current logical
 thread, if allowed by the execution model. And for <em>optimization
 purposes</em>, we might want to act immediately on their results, avoiding
 dealing with callbacks.</p>
 
-<p>To do that, we can convert a <code class="highlighter-rouge">Task</code> into a <code class="highlighter-rouge">Coeval</code>:</p>
+<p>To do that, we can use <code class="language-plaintext highlighter-rouge">runSyncStep</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">)</span>
 
-<span class="k">val</span> <span class="nv">tryingNow</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">coeval</span>
-<span class="c1">// tryingNow: Coeval[Either[CancelableFuture[String],String]] = ???</span>
-
-<span class="nv">tryingNow</span><span class="o">.</span><span class="py">value</span> <span class="k">match</span> <span class="o">{</span>
-  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">future</span><span class="o">)</span> <span class="k">=&gt;</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runSyncStep</span> <span class="k">match</span> <span class="o">{</span>
+  <span class="k">case</span> <span class="nc">Left</span><span class="o">(</span><span class="n">task</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="c1">// No luck, this Task really wants async execution</span>
-    <span class="nv">future</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Async: $r"</span><span class="o">))</span>
+    <span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Async: $r"</span><span class="o">))</span>
   <span class="k">case</span> <span class="nc">Right</span><span class="o">(</span><span class="n">result</span><span class="o">)</span> <span class="k">=&gt;</span>
     <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Got lucky: $result"</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><strong>NOTE:</strong> as it happens, by default the <code class="highlighter-rouge">eval</code> builder is
+<p><strong>NOTE:</strong> as it happens, by default the <code class="language-plaintext highlighter-rouge">runSyncStep</code> evaluation is
 executing things on the current thread, unless an async boundary is
 forced by the underlying loop. So this code will always print “<em>Got
 Lucky</em>” ;-)</p>
+    
+      <h2 id="simple-builders">
+        
+        
+          Simple Builders <a href="#simple-builders" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="simple-builders">Simple Builders</h2>
+<p>If you can accept its possibly asynchronous nature, <code class="language-plaintext highlighter-rouge">Task</code> can replace
+functions accepting zero arguments, Scala by-name params and <code class="language-plaintext highlighter-rouge">lazy
+val</code>. And any Scala <code class="language-plaintext highlighter-rouge">Future</code> is convertible to <code class="language-plaintext highlighter-rouge">Task</code>.</p>
+    
+      <h3 id="tasknow">
+        
+        
+          Task.now <a href="#tasknow" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>If you can accept its possibly asynchronous nature, <code class="highlighter-rouge">Task</code> can replace
-functions accepting zero arguments, Scala by-name params and <code class="highlighter-rouge">lazy
-val</code>. And any Scala <code class="highlighter-rouge">Future</code> is convertible to <code class="highlighter-rouge">Task</code>.</p>
-
-<h3 id="tasknow">Task.now</h3>
-
-<p><code class="highlighter-rouge">Task.now</code>
-lifts an already known value in the <code class="highlighter-rouge">Task</code> context,
-the equivalent of <code class="highlighter-rouge">Future.successful</code> or of <code class="highlighter-rouge">Applicative.pure</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Task.now</code>
+lifts an already known value in the <code class="language-plaintext highlighter-rouge">Task</code> context,
+the equivalent of <code class="language-plaintext highlighter-rouge">Future.successful</code> or of <code class="language-plaintext highlighter-rouge">Applicative.pure</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">// task: monix.eval.Task[String] = Delay(Now(Hello!))</span>
 </code></pre></div></div>
+    
+      <h3 id="taskeval-delay">
+        
+        
+          Task.eval (delay) <a href="#taskeval-delay" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskeval-delay">Task.eval (delay)</h3>
-
-<p><code class="highlighter-rouge">Task.eval</code>
-is the equivalent of <code class="highlighter-rouge">Function0</code>, taking a function
-that will always be evaluated on <code class="highlighter-rouge">runToFuture</code>, possibly on the same
+<p><code class="language-plaintext highlighter-rouge">Task.eval</code>
+is the equivalent of <code class="language-plaintext highlighter-rouge">Function0</code>, taking a function
+that will always be evaluated on <code class="language-plaintext highlighter-rouge">runToFuture</code>, possibly on the same
 thread (depending on the chosen
-<a href="../execution/scheduler.html#execution-model">execution model</a>):</p>
+<a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a>):</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="c1">// task: monix.eval.Task[String] = Delay(Always(&lt;function0&gt;))</span>
@@ -503,13 +635,19 @@ thread (depending on the chosen
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
 
-<p>NOTE: for Scalaz converts, this function is also aliased as <code class="highlighter-rouge">Task.delay</code>.</p>
+<p>NOTE: for Scalaz converts, this function is also aliased as <code class="language-plaintext highlighter-rouge">Task.delay</code>.</p>
+    
+      <h3 id="taskevalonce">
+        
+        
+          Task.evalOnce <a href="#taskevalonce" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskevalonce">Task.evalOnce</h3>
-
-<p><code class="highlighter-rouge">Task.evalOnce</code>
-is the equivalent of a <code class="highlighter-rouge">lazy val</code>, a type that cannot
-be precisely expressed in Scala. The <code class="highlighter-rouge">evalOnce</code> builder does
+<p><code class="language-plaintext highlighter-rouge">Task.evalOnce</code>
+is the equivalent of a <code class="language-plaintext highlighter-rouge">lazy val</code>, a type that cannot
+be precisely expressed in Scala. The <code class="language-plaintext highlighter-rouge">evalOnce</code> builder does
 memoization on the first run, such that the result of the evaluation
 will be available for subsequent runs. It also has guaranteed
 idempotency and thread-safety:</p>
@@ -526,13 +664,19 @@ idempotency and thread-safety:</p>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
 
-<p>NOTE: this operation is effectively <code class="highlighter-rouge">Task.eval(f).memoize</code>.</p>
+<p>NOTE: this operation is effectively <code class="language-plaintext highlighter-rouge">Task.eval(f).memoize</code>.</p>
+    
+      <h3 id="taskdefer-suspend">
+        
+        
+          Task.defer (suspend) <a href="#taskdefer-suspend" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskdefer-suspend">Task.defer (suspend)</h3>
-
-<p><code class="highlighter-rouge">Task.defer</code>
+<p><code class="language-plaintext highlighter-rouge">Task.defer</code>
 is about building a factory of tasks. For example this
-will behave approximately like <code class="highlighter-rouge">Task.eval</code>:</p>
+will behave approximately like <code class="language-plaintext highlighter-rouge">Task.eval</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">now</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
@@ -548,11 +692,17 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
 
-<p>NOTE: for Scalaz converts, this function is also aliased as <code class="highlighter-rouge">Task.suspend</code>.</p>
+<p>NOTE: for Scalaz converts, this function is also aliased as <code class="language-plaintext highlighter-rouge">Task.suspend</code>.</p>
+    
+      <h3 id="taskfromfuture">
+        
+        
+          Task.fromFuture <a href="#taskfromfuture" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskfromfuture">Task.fromFuture</h3>
-
-<p><code class="highlighter-rouge">Task.fromFuture</code> can convert any Scala <code class="highlighter-rouge">Future</code> instance into a <code class="highlighter-rouge">Task</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Task.fromFuture</code> can convert any Scala <code class="language-plaintext highlighter-rouge">Future</code> instance into a <code class="language-plaintext highlighter-rouge">Task</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.Future</span>
 
@@ -566,11 +716,11 @@ will behave approximately like <code class="highlighter-rouge">Task.eval</code>:
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
 
-<p>Note that <code class="highlighter-rouge">fromFuture</code> takes a strict argument and that may not be
-what you want. You might want a factory of <code class="highlighter-rouge">Future</code>. The design of
-<code class="highlighter-rouge">Task</code> however is to have fine-grained control over the evaluation
+<p>Note that <code class="language-plaintext highlighter-rouge">fromFuture</code> takes a strict argument and that may not be
+what you want. You might want a factory of <code class="language-plaintext highlighter-rouge">Future</code>. The design of
+<code class="language-plaintext highlighter-rouge">Task</code> however is to have fine-grained control over the evaluation
 model, so in case you want a factory, you need to combine it with
-<code class="highlighter-rouge">Task.defer</code>:</p>
+<code class="language-plaintext highlighter-rouge">Task.defer</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">defer</span> <span class="o">{</span>
   <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
@@ -585,10 +735,16 @@ model, so in case you want a factory, you need to combine it with
 <span class="c1">//=&gt; Effect</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
+    
+      <h3 id="taskdeferfuture">
+        
+        
+          Task.deferFuture <a href="#taskdeferfuture" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskdeferfuture">Task.deferFuture</h3>
-
-<p>A <code class="highlighter-rouge">Future</code> reference is like a strict value, meaning that when you receive one,
+<p>A <code class="language-plaintext highlighter-rouge">Future</code> reference is like a strict value, meaning that when you receive one,
 whatever process that’s supposed to complete it has probably started already.</p>
 
 <p>Therefore it makes sense to defer the evaluation of futures when building tasks:</p>
@@ -599,22 +755,28 @@ whatever process that’s supposed to complete it has probably started already.<
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>As a shortcut, you can also use the <code class="highlighter-rouge">deferFuture</code> builder, which is equivalent
+<p>As a shortcut, you can also use the <code class="language-plaintext highlighter-rouge">deferFuture</code> builder, which is equivalent
 with the above:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span> <span class="o">{</span>
   <span class="nc">Future</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span><span class="o">);</span> <span class="s">"Hello!"</span> <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="taskdeferfutureaction">
+        
+        
+          Task.deferFutureAction <a href="#taskdeferfutureaction" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskdeferfutureaction">Task.deferFutureAction</h3>
+<p>Wraps calls that generate <code class="language-plaintext highlighter-rouge">Future</code> results into <code class="language-plaintext highlighter-rouge">Task</code>, provided a
+callback with an injected <code class="language-plaintext highlighter-rouge">Scheduler</code> to act as the necessary
+<code class="language-plaintext highlighter-rouge">ExecutionContext</code>.</p>
 
-<p>Wraps calls that generate <code class="highlighter-rouge">Future</code> results into <code class="highlighter-rouge">Task</code>, provided a
-callback with an injected <code class="highlighter-rouge">Scheduler</code> to act as the necessary
-<code class="highlighter-rouge">ExecutionContext</code>.</p>
-
-<p>This builder helps with wrapping <code class="highlighter-rouge">Future</code>-enabled APIs that need an
-implicit <code class="highlighter-rouge">ExecutionContext</code> to work. Consider this example:</p>
+<p>This builder helps with wrapping <code class="language-plaintext highlighter-rouge">Future</code>-enabled APIs that need an
+implicit <code class="language-plaintext highlighter-rouge">ExecutionContext</code> to work. Consider this example:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.</span><span class="o">{</span><span class="nc">ExecutionContext</span><span class="o">,</span> <span class="nc">Future</span><span class="o">}</span>
 
@@ -622,20 +784,20 @@ implicit <code class="highlighter-rouge">ExecutionContext</code> to work. Consid
   <span class="nc">Future</span><span class="o">(</span><span class="nv">list</span><span class="o">.</span><span class="py">sum</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>We’d like to wrap this function into one that returns a lazy <code class="highlighter-rouge">Task</code>
+<p>We’d like to wrap this function into one that returns a lazy <code class="language-plaintext highlighter-rouge">Task</code>
 that evaluates this sum every time it is called, because that’s how
 tasks work best. However in order to invoke this function an
-<code class="highlighter-rouge">ExecutionContext</code> is needed:</p>
+<code class="language-plaintext highlighter-rouge">ExecutionContext</code> is needed:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])(</span><span class="k">implicit</span> <span class="n">ec</span><span class="k">:</span> <span class="kt">ExecutionContext</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
   <span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nf">sumFuture</span><span class="o">(</span><span class="n">list</span><span class="o">))</span>
 </code></pre></div></div>
 
 <p>But this is not only superfluous, but against the best practices of
-using <code class="highlighter-rouge">Task</code>. The difference is that <code class="highlighter-rouge">Task</code> takes a <code class="highlighter-rouge">Scheduler</code>
-(inheriting from <code class="highlighter-rouge">ExecutionContext</code>) only when <code class="highlighter-rouge">runToFuture</code> gets called,
-but we don’t need it just for building a <code class="highlighter-rouge">Task</code> reference.  With
-<code class="highlighter-rouge">deferFutureAction</code> we get to have an injected <code class="highlighter-rouge">Scheduler</code> in the
+using <code class="language-plaintext highlighter-rouge">Task</code>. The difference is that <code class="language-plaintext highlighter-rouge">Task</code> takes a <code class="language-plaintext highlighter-rouge">Scheduler</code>
+(inheriting from <code class="language-plaintext highlighter-rouge">ExecutionContext</code>) only when <code class="language-plaintext highlighter-rouge">runToFuture</code> gets called,
+but we don’t need it just for building a <code class="language-plaintext highlighter-rouge">Task</code> reference.  With
+<code class="language-plaintext highlighter-rouge">deferFutureAction</code> we get to have an injected <code class="language-plaintext highlighter-rouge">Scheduler</code> in the
 passed callback:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sumTask</span><span class="o">(</span><span class="n">list</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
@@ -644,15 +806,21 @@ passed callback:</p>
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Voilà! No more implicit <code class="highlighter-rouge">ExecutionContext</code> passed around.</p>
+<p>Voilà! No more implicit <code class="language-plaintext highlighter-rouge">ExecutionContext</code> passed around.</p>
+    
+      <h3 id="taskexecuteasync-taskasyncboundary-taskexecuteon">
+        
+        
+          Task.executeAsync, Task.asyncBoundary, Task.executeOn <a href="#taskexecuteasync-taskasyncboundary-taskexecuteon" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskexecuteasync-taskasyncboundary-taskexecuteon">Task.executeAsync, Task.asyncBoundary, Task.executeOn</h3>
-
-<p><code class="highlighter-rouge">Task.executeAsync</code> ensures an asynchronous boundary, forcing the fork of a
+<p><code class="language-plaintext highlighter-rouge">Task.executeAsync</code> ensures an asynchronous boundary, forcing the fork of a
 (logical) thread on execution. Sometimes we are doing something really
 wasteful and we want to guarantee that an asynchronous boundary
 happens, given that by default
-the <a href="../execution/scheduler.html#execution-model">execution model</a>
+the <a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a>
 prefers to execute things on the current thread, at first.</p>
 
 <p>So this guarantees that our task will get executed asynchronously:</p>
@@ -660,8 +828,8 @@ prefers to execute things on the current thread, at first.</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">).</span><span class="py">executeAsync</span>
 </code></pre></div></div>
 
-<p>ExecuteOn allows us to specify an alternative <code class="highlighter-rouge">Scheduler</code> to use.
-You see, the run-loop of <code class="highlighter-rouge">Task</code> always has a <code class="highlighter-rouge">Scheduler</code> available, but
+<p>ExecuteOn allows us to specify an alternative <code class="language-plaintext highlighter-rouge">Scheduler</code> to use.
+You see, the run-loop of <code class="language-plaintext highlighter-rouge">Task</code> always has a <code class="language-plaintext highlighter-rouge">Scheduler</code> available, but
 for certain operations you might want to divert the processing to an alternative
 scheduler. For example you might want to execute blocking I/O operations
 on an alternative thread-pool.</p>
@@ -689,7 +857,7 @@ on an alternative thread-pool.</p>
 </code></pre></div></div>
 
 <p>Note that, unless another asynchronous boundary is scheduled on the
-default <code class="highlighter-rouge">Scheduler</code>, execution remains on the last scheduler (thread-pool)
+default <code class="language-plaintext highlighter-rouge">Scheduler</code>, execution remains on the last scheduler (thread-pool)
 used. Notice what happens in this combination:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">onFinish</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span>
@@ -727,9 +895,9 @@ to the default:</p>
 <span class="c1">//=&gt; Ends on thread: ForkJoinPool-1-worker-5</span>
 </code></pre></div></div>
 
-<p>But <code class="highlighter-rouge">Task</code> also provides a convenient operator for introducing an
+<p>But <code class="language-plaintext highlighter-rouge">Task</code> also provides a convenient operator for introducing an
 asynchronous boundary without having to manually do this trick, called
-<code class="highlighter-rouge">Task.asyncBoundary</code>:</p>
+<code class="language-plaintext highlighter-rouge">Task.asyncBoundary</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="o">{</span>
   <span class="n">source</span> <span class="c1">// executes on global</span>
@@ -741,8 +909,8 @@ asynchronous boundary without having to manually do this trick, called
 </code></pre></div></div>
 
 <p>Note that overriding of the scheduler can only happen once, as
-<code class="highlighter-rouge">Task</code> instances are immutable, so the following does not work,
-because for the <code class="highlighter-rouge">forked</code> instance the <code class="highlighter-rouge">Scheduler</code> was already
+<code class="language-plaintext highlighter-rouge">Task</code> instances are immutable, so the following does not work,
+because for the <code class="language-plaintext highlighter-rouge">forked</code> instance the <code class="language-plaintext highlighter-rouge">Scheduler</code> was already
 set in stone and we only have flexibility to override the
 default if it hasn’t been overridden already:</p>
 
@@ -752,14 +920,20 @@ default if it hasn’t been overridden already:</p>
 </code></pre></div></div>
 
 <p><strong>General advice:</strong> unless you’re doing blocking I/O, keep using
-the default thread-pool, with <code class="highlighter-rouge">global</code> being a good default.
+the default thread-pool, with <code class="language-plaintext highlighter-rouge">global</code> being a good default.
 For blocking I/O it is OK to have a second thread-pool,
 but isolate those I/O operations and only override the scheduler
 for actual I/O operations.</p>
+    
+      <h3 id="taskraiseerror">
+        
+        
+          Task.raiseError <a href="#taskraiseerror" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskraiseerror">Task.raiseError</h3>
-
-<p><code class="highlighter-rouge">Task.raiseError</code> can lift errors in the monadic context of <code class="highlighter-rouge">Task</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">Task.raiseError</code> can lift errors in the monadic context of <code class="language-plaintext highlighter-rouge">Task</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
 
@@ -770,10 +944,16 @@ for actual I/O operations.</p>
 <span class="nv">error</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="n">result</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">result</span><span class="o">))</span>
 <span class="c1">//=&gt; Left(java.util.concurrent.TimeoutException)</span>
 </code></pre></div></div>
+    
+      <h3 id="tasknever">
+        
+        
+          Task.never <a href="#tasknever" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="tasknever">Task.never</h3>
-
-<p><code class="highlighter-rouge">Task.never</code> returns a <code class="highlighter-rouge">Task</code> instance that never completes:</p>
+<p><code class="language-plaintext highlighter-rouge">Task.never</code> returns a <code class="language-plaintext highlighter-rouge">Task</code> instance that never completes:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
@@ -791,12 +971,18 @@ for actual I/O operations.</p>
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
+    
+      <h3 id="taskunit">
+        
+        
+          Task.unit <a href="#taskunit" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskunit">Task.unit</h3>
-
-<p><code class="highlighter-rouge">Task.unit</code> is returning an already completed <code class="highlighter-rouge">Task[Unit]</code> instance,
+<p><code class="language-plaintext highlighter-rouge">Task.unit</code> is returning an already completed <code class="language-plaintext highlighter-rouge">Task[Unit]</code> instance,
 provided as a utility, to spare you creating new instances with
-<code class="highlighter-rouge">Task.now(())</code>:</p>
+<code class="language-plaintext highlighter-rouge">Task.now(())</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
 <span class="c1">// task: monix.eval.Task[Unit] = Delay(Now(()))</span>
@@ -804,17 +990,29 @@ provided as a utility, to spare you creating new instances with
 
 <p>This instance is shared, so that can relieve some stress from the
 garbage collector.</p>
+    
+      <h2 id="asynchronous-builders">
+        
+        
+          Asynchronous Builders <a href="#asynchronous-builders" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="asynchronous-builders">Asynchronous Builders</h2>
-
-<p>You can use any async API to build a <code class="highlighter-rouge">Task</code>. There’s an unsafe
+<p>You can use any async API to build a <code class="language-plaintext highlighter-rouge">Task</code>. There’s an unsafe
 version, for people knowing what they are doing and a safe version, that
 handles some of the nitty-gritty automatically.</p>
+    
+      <h3 id="taskcreate">
+        
+        
+          Task.create <a href="#taskcreate" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="taskcreate">Task.create</h3>
-
-<p>Also known as <code class="highlighter-rouge">Task.async</code> (for Scalaz refugees), the <code class="highlighter-rouge">Task.create</code>
-function allows for creating an asynchronous <code class="highlighter-rouge">Task</code> using a
+<p>Also known as <code class="language-plaintext highlighter-rouge">Task.async</code> (for Scalaz refugees), the <code class="language-plaintext highlighter-rouge">Task.create</code>
+function allows for creating an asynchronous <code class="language-plaintext highlighter-rouge">Task</code> using a
 callback-based API. For example, let’s create a utility that evaluates
 expressions with a given delay:</p>
 
@@ -867,44 +1065,50 @@ yourself:</p>
 <ul>
   <li>Tasks created with this builder are guaranteed to execute
 asynchronously (on another logical thread)</li>
-  <li>The <a href="../execution/scheduler.html">Scheduler</a> gets injected and with
+  <li>The <a href="/docs/3x/execution/scheduler.html">Scheduler</a> gets injected and with
 it we can schedule things for async execution, we can delay,
 etc…</li>
   <li>But as said, this callback will already execute asynchronously, so
 you don’t need to explicitly schedule things to run on the provided
-<code class="highlighter-rouge">Scheduler</code>, unless you really need to do it.</li>
-  <li><a href="(../execution/callback.html)">The Callback</a> gets injected on execution and that
+<code class="language-plaintext highlighter-rouge">Scheduler</code>, unless you really need to do it.</li>
+  <li><a href="/docs/3x/execution/callback.html">The Callback</a> gets injected on execution and that
 callback has a contract. In particular you need to execute
-<code class="highlighter-rouge">onSuccess</code> or <code class="highlighter-rouge">onError</code> or <code class="highlighter-rouge">apply</code> only once. The implementation
+<code class="language-plaintext highlighter-rouge">onSuccess</code> or <code class="language-plaintext highlighter-rouge">onError</code> or <code class="language-plaintext highlighter-rouge">apply</code> only once. The implementation
 does a reasonably good job to protect against contract violations,
 but if you do call it multiple times, then you’re doing it risking
 undefined and nondeterministic behavior.</li>
-  <li>It’s OK to return a <code class="highlighter-rouge">Cancelable.empty</code> in case the executed
+  <li>It’s OK to return a <code class="language-plaintext highlighter-rouge">Cancelable.empty</code> in case the executed
 process really can’t be canceled in time, but you should strive to
 return a cancelable that does cancel your execution, if possible.</li>
 </ul>
-
-<h2 id="memoization">Memoization</h2>
+    
+      <h2 id="memoization">
+        
+        
+          Memoization <a href="#memoization" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>The
 <a href="/api/3.2/monix/eval/Task.html#memoize:monix.eval.Task[A]">Task#memoize</a>
-operator can take any <code class="highlighter-rouge">Task</code> and apply memoization on the first <code class="highlighter-rouge">runToFuture</code>,
+operator can take any <code class="language-plaintext highlighter-rouge">Task</code> and apply memoization on the first <code class="language-plaintext highlighter-rouge">runToFuture</code>,
 such that:</p>
 
 <ol>
-  <li>you have guaranteed idempotency, calling <code class="highlighter-rouge">runToFuture</code> multiple times
+  <li>you have guaranteed idempotency, calling <code class="language-plaintext highlighter-rouge">runToFuture</code> multiple times
 will have the same effect as calling it once</li>
-  <li>subsequent <code class="highlighter-rouge">runToFuture</code> calls will reuse the result computed by the
-first <code class="highlighter-rouge">runToFuture</code></li>
+  <li>subsequent <code class="language-plaintext highlighter-rouge">runToFuture</code> calls will reuse the result computed by the
+first <code class="language-plaintext highlighter-rouge">runToFuture</code></li>
 </ol>
 
-<p>So <code class="highlighter-rouge">memoize</code> effectively caches the result of the first <code class="highlighter-rouge">runToFuture</code>.
+<p>So <code class="language-plaintext highlighter-rouge">memoize</code> effectively caches the result of the first <code class="language-plaintext highlighter-rouge">runToFuture</code>.
 In fact we can say that:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Task</span><span class="o">.</span><span class="py">evalOnce</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="n">f</span><span class="o">).</span><span class="py">memoize</span>
 </code></pre></div></div>
 
-<p>They are effectively the same.  And <code class="highlighter-rouge">memoize</code> works
+<p>They are effectively the same.  And <code class="language-plaintext highlighter-rouge">memoize</code> works
 with any task reference:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Has async execution, to do the .apply semantics</span>
@@ -919,14 +1123,20 @@ with any task reference:</p>
 <span class="nv">memoized</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; Hello!</span>
 </code></pre></div></div>
-
-<h3 id="memoize-only-on-success">Memoize Only on Success</h3>
+    
+      <h3 id="memoize-only-on-success">
+        
+        
+          Memoize Only on Success <a href="#memoize-only-on-success" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Sometimes you just want memoization, along with idempotency
 guarantees, only for successful values. For failures you might want to
 keep retrying until a successful value is available.</p>
 
-<p>This is where the <code class="highlighter-rouge">memoizeOnSuccess</code> operator comes in handy:</p>
+<p>This is where the <code class="language-plaintext highlighter-rouge">memoizeOnSuccess</code> operator comes in handy:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">var</span> <span class="n">effect</span> <span class="k">=</span> <span class="mi">0</span>
 
@@ -942,8 +1152,14 @@ keep retrying until a successful value is available.</p>
 <span class="k">val</span> <span class="nv">f3</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runToFuture</span> <span class="c1">// yields 3</span>
 <span class="k">val</span> <span class="nv">f4</span> <span class="k">=</span> <span class="nv">cached</span><span class="o">.</span><span class="py">runToFuture</span> <span class="c1">// yields 3</span>
 </code></pre></div></div>
-
-<h3 id="memoize-versus-runtofuture">Memoize versus runToFuture</h3>
+    
+      <h3 id="memoize-versus-runtofuture">
+        
+        
+          Memoize versus runToFuture <a href="#memoize-versus-runtofuture" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>You can say that when we do this:</p>
 
@@ -951,18 +1167,30 @@ keep retrying until a successful value is available.</p>
 <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span>
 </code></pre></div></div>
 
-<p>That <code class="highlighter-rouge">future</code> instance is also going to be a memoized value of the
-first <code class="highlighter-rouge">runToFuture</code> execution, which can be reused for other <code class="highlighter-rouge">onComplete</code>
+<p>That <code class="language-plaintext highlighter-rouge">future</code> instance is also going to be a memoized value of the
+first <code class="language-plaintext highlighter-rouge">runToFuture</code> execution, which can be reused for other <code class="language-plaintext highlighter-rouge">onComplete</code>
 subscribers.</p>
 
-<p>The difference is the same as the difference between <code class="highlighter-rouge">Task</code> and
-<code class="highlighter-rouge">Future</code>. The <code class="highlighter-rouge">memoize</code> operation is lazy, evaluation only being
-triggered on the first <code class="highlighter-rouge">runToFuture</code>, whereas the result of <code class="highlighter-rouge">runToFuture</code> is
+<p>The difference is the same as the difference between <code class="language-plaintext highlighter-rouge">Task</code> and
+<code class="language-plaintext highlighter-rouge">Future</code>. The <code class="language-plaintext highlighter-rouge">memoize</code> operation is lazy, evaluation only being
+triggered on the first <code class="language-plaintext highlighter-rouge">runToFuture</code>, whereas the result of <code class="language-plaintext highlighter-rouge">runToFuture</code> is
 eager.</p>
-
-<h2 id="operations">Operations</h2>
-
-<h3 id="flatmap-and-tail-recursive-loops">FlatMap and Tail-Recursive Loops</h3>
+    
+      <h2 id="operations">
+        
+        
+          Operations <a href="#operations" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="flatmap-and-tail-recursive-loops">
+        
+        
+          FlatMap and Tail-Recursive Loops <a href="#flatmap-and-tail-recursive-loops" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>So let’s start with a simple example that calculates the N-th number in
 the Fibonacci sequence:</p>
@@ -981,7 +1209,7 @@ the Fibonacci sequence:</p>
 <p>We need this to be tail-recursive, hence the use of the
 <a href="http://www.scala-lang.org/api/current/index.html#scala.annotation.tailrec">@tailrec</a>
 annotation from Scala’s standard library. And if we’d describe it with
-<code class="highlighter-rouge">Task</code>, one possible implementation would be:</p>
+<code class="language-plaintext highlighter-rouge">Task</code>, one possible implementation would be:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">cycles</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">BigInt</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">BigInt</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
  <span class="nf">if</span> <span class="o">(</span><span class="n">cycles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
@@ -992,12 +1220,12 @@ annotation from Scala’s standard library. And if we’d describe it with
 </code></pre></div></div>
 
 <p>And now there are already differences. This is lazy, as the N-th
-Fibonacci number won’t get calculated until we <code class="highlighter-rouge">runToFuture</code>. The
-<code class="highlighter-rouge">@tailrec</code> annotation is also not needed, as this is stack (and heap)
+Fibonacci number won’t get calculated until we <code class="language-plaintext highlighter-rouge">runToFuture</code>. The
+<code class="language-plaintext highlighter-rouge">@tailrec</code> annotation is also not needed, as this is stack (and heap)
 safe.</p>
 
-<p><code class="highlighter-rouge">Task</code> has <code class="highlighter-rouge">flatMap</code>, which is the monadic <code class="highlighter-rouge">bind</code> operation, that for
-things like <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">Future</code> is the operation that describes
+<p><code class="language-plaintext highlighter-rouge">Task</code> has <code class="language-plaintext highlighter-rouge">flatMap</code>, which is the monadic <code class="language-plaintext highlighter-rouge">bind</code> operation, that for
+things like <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Future</code> is the operation that describes
 recursivity or that forces ordering (e.g. execute this, then that,
 then that). And we can use it to describe recursive calls:</p>
 
@@ -1011,8 +1239,8 @@ then that). And we can use it to describe recursive calls:</p>
 </code></pre></div></div>
 
 <p>Again, this is stack safe and uses a constant amount of memory, so no
-<code class="highlighter-rouge">@tailrec</code> annotation is needed or wanted. And it has lazy behavior,
-as nothing will get triggered until <code class="highlighter-rouge">runToFuture</code> happens.</p>
+<code class="language-plaintext highlighter-rouge">@tailrec</code> annotation is needed or wanted. And it has lazy behavior,
+as nothing will get triggered until <code class="language-plaintext highlighter-rouge">runToFuture</code> happens.</p>
 
 <p>But we can also have <strong>mutually tail-recursive calls</strong>, w00t!</p>
 
@@ -1036,13 +1264,19 @@ as nothing will get triggered until <code class="highlighter-rouge">runToFuture<
 
 <p>Again, this is stack safe and uses a constant amount of memory.  And
 best of all, because of the
-<a href="../execution/scheduler.html#execution-model">execution model</a>, by
+<a href="/docs/3x/execution/scheduler.html#execution-model">execution model</a>, by
 default these loops won’t block the current thread forever, preferring to
 execute things in batches.</p>
+    
+      <h3 id="parallelism-catsparallel">
+        
+        
+          Parallelism (cats.Parallel) <a href="#parallelism-catsparallel" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="parallelism-catsparallel">Parallelism (cats.Parallel)</h3>
-
-<p>When using <code class="highlighter-rouge">flatMap</code>, we often end up with this:</p>
+<p>When using <code class="language-plaintext highlighter-rouge">flatMap</code>, we often end up with this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
 <span class="k">val</span> <span class="nv">phoneTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
@@ -1059,15 +1293,15 @@ execute things in batches.</p>
 </code></pre></div></div>
 
 <p>For one the problem here is that these operations are executed in
-order. This also happens with Scala’s standard <code class="highlighter-rouge">Future</code>, being
-sometimes an unwanted effect, but because <code class="highlighter-rouge">Task</code> is lazily evaluated,
-this effect is even more pronounced with <code class="highlighter-rouge">Task</code>.</p>
+order. This also happens with Scala’s standard <code class="language-plaintext highlighter-rouge">Future</code>, being
+sometimes an unwanted effect, but because <code class="language-plaintext highlighter-rouge">Task</code> is lazily evaluated,
+this effect is even more pronounced with <code class="language-plaintext highlighter-rouge">Task</code>.</p>
 
-<p>But <code class="highlighter-rouge">Task</code> also has a
+<p>But <code class="language-plaintext highlighter-rouge">Task</code> also has a
 <a href="https://typelevel.org/cats/typeclasses/parallel.html">cats.Parallel</a>
 implementation, being able to trigger evaluation of multiple
 tasks in parallel and hence it has utilities, such
-as <code class="highlighter-rouge">parZip2</code>, <code class="highlighter-rouge">parZip3</code>, up until <code class="highlighter-rouge">parZip6</code> (at the moment of writing). 
+as <code class="language-plaintext highlighter-rouge">parZip2</code>, <code class="language-plaintext highlighter-rouge">parZip3</code>, up until <code class="language-plaintext highlighter-rouge">parZip6</code> (at the moment of writing). 
 The example above could be written as:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">locationTask</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(???)</span>
@@ -1081,15 +1315,15 @@ The example above could be written as:</p>
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>In order to avoid boxing into tuples, you can also use <code class="highlighter-rouge">parMap2</code>,
-<code class="highlighter-rouge">parMap3</code> … <code class="highlighter-rouge">parMap6</code>:</p>
+<p>In order to avoid boxing into tuples, you can also use <code class="language-plaintext highlighter-rouge">parMap2</code>,
+<code class="language-plaintext highlighter-rouge">parMap3</code> … <code class="language-plaintext highlighter-rouge">parMap6</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Task</span><span class="o">.</span><span class="py">parMap3</span><span class="o">(</span><span class="n">locationTask</span><span class="o">,</span> <span class="n">phoneTask</span><span class="o">,</span> <span class="n">addressTask</span><span class="o">)</span> <span class="o">{</span>
   <span class="o">(</span><span class="n">location</span><span class="o">,</span> <span class="n">phone</span><span class="o">,</span> <span class="n">address</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Gotcha!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>And you can use Cats’ syntax for <code class="highlighter-rouge">parMapN</code>:</p>
+<p>And you can use Cats’ syntax for <code class="language-plaintext highlighter-rouge">parMapN</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.syntax.all._</span>
 
@@ -1100,10 +1334,16 @@ The example above could be written as:</p>
 
 <p>Also see the documentation for
 <a href="https://typelevel.org/cats/typeclasses/parallel.html">cats.Parallel</a>.</p>
+    
+      <h3 id="gather-results-from-a-seq-of-tasks">
+        
+        
+          Gather results from a Seq of Tasks <a href="#gather-results-from-a-seq-of-tasks" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="gather-results-from-a-seq-of-tasks">Gather results from a Seq of Tasks</h3>
-
-<p><code class="highlighter-rouge">Task.sequence</code>, takes a <code class="highlighter-rouge">Seq[Task[A]]</code> and returns a <code class="highlighter-rouge">Task[Seq[A]]</code>,
+<p><code class="language-plaintext highlighter-rouge">Task.sequence</code>, takes a <code class="language-plaintext highlighter-rouge">Seq[Task[A]]</code> and returns a <code class="language-plaintext highlighter-rouge">Task[Seq[A]]</code>,
 thus transforming any sequence of tasks into a task with a sequence of
 results and with ordered effects and results. This means that the
 tasks WILL NOT execute in parallel.</p>
@@ -1123,13 +1363,13 @@ tasks WILL NOT execute in parallel.</p>
 
 <p>The results are ordered in the order of the initial sequence, so that
 means in the example above we are guaranteed in the result to first
-get the result of <code class="highlighter-rouge">ta</code> (the first task) and then the result of <code class="highlighter-rouge">tb</code>
-(the second task). The execution itself is also ordered, so <code class="highlighter-rouge">ta</code>
-executes and completes before <code class="highlighter-rouge">tb</code>.</p>
+get the result of <code class="language-plaintext highlighter-rouge">ta</code> (the first task) and then the result of <code class="language-plaintext highlighter-rouge">tb</code>
+(the second task). The execution itself is also ordered, so <code class="language-plaintext highlighter-rouge">ta</code>
+executes and completes before <code class="language-plaintext highlighter-rouge">tb</code>.</p>
 
-<p><code class="highlighter-rouge">Task.parSequence</code>, similar to <code class="highlighter-rouge">Parallel.parSequence</code>, is the nondeterministic
-version of <code class="highlighter-rouge">Task.sequence</code>.  It also takes a <code class="highlighter-rouge">Seq[Task[A]]</code> and
-returns a <code class="highlighter-rouge">Task[Seq[A]]</code>, thus transforming any sequence of tasks into
+<p><code class="language-plaintext highlighter-rouge">Task.parSequence</code>, similar to <code class="language-plaintext highlighter-rouge">Parallel.parSequence</code>, is the nondeterministic
+version of <code class="language-plaintext highlighter-rouge">Task.sequence</code>.  It also takes a <code class="language-plaintext highlighter-rouge">Seq[Task[A]]</code> and
+returns a <code class="language-plaintext highlighter-rouge">Task[Seq[A]]</code>, thus transforming any sequence of tasks into
 a task with a sequence of ordered results. But the effects are not
 ordered, meaning that there’s potential for parallel execution:</p>
 
@@ -1158,9 +1398,9 @@ ordered, meaning that there’s potential for parallel execution:</p>
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.parSequenceUnordered</code> is like <code class="highlighter-rouge">parSequence</code>, except that you don’t get
+<p><code class="language-plaintext highlighter-rouge">Task.parSequenceUnordered</code> is like <code class="language-plaintext highlighter-rouge">parSequence</code>, except that you don’t get
 ordering for results or effects. The result is thus highly nondeterministic,
-but yields better performance than <code class="highlighter-rouge">parSequence</code>:</p>
+but yields better performance than <code class="language-plaintext highlighter-rouge">parSequence</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -1188,10 +1428,10 @@ but yields better performance than <code class="highlighter-rouge">parSequence</
 <span class="c1">//=&gt; Seq(1,2)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.traverse</code>, takes a <code class="highlighter-rouge">Seq[A]</code>, <code class="highlighter-rouge">f: A =&gt; Task[B]</code> and returns a <code class="highlighter-rouge">Task[Seq[B]]</code>.
-This is similar to <code class="highlighter-rouge">Task.sequence</code> but it uses <code class="highlighter-rouge">f</code> to generate each <code class="highlighter-rouge">Task</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">Task.traverse</code>, takes a <code class="language-plaintext highlighter-rouge">Seq[A]</code>, <code class="language-plaintext highlighter-rouge">f: A =&gt; Task[B]</code> and returns a <code class="language-plaintext highlighter-rouge">Task[Seq[B]]</code>.
+This is similar to <code class="language-plaintext highlighter-rouge">Task.sequence</code> but it uses <code class="language-plaintext highlighter-rouge">f</code> to generate each <code class="language-plaintext highlighter-rouge">Task</code>.</p>
 
-<p>All <code class="highlighter-rouge">Task.sequence</code> semantics hold meaning the effects are ordered and the tasks
+<p>All <code class="language-plaintext highlighter-rouge">Task.sequence</code> semantics hold meaning the effects are ordered and the tasks
 WILL NOT execute in parallel.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">task</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Effect"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span> <span class="n">i</span> <span class="o">}</span>
@@ -1206,10 +1446,10 @@ WILL NOT execute in parallel.</p>
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.parTraverse</code>, similar to <code class="highlighter-rouge">Parallel.parTraverse</code>, is the nondeterministic
-version of <code class="highlighter-rouge">Task.traverse</code>.  It also takes a <code class="highlighter-rouge">Seq[A]</code>, <code class="highlighter-rouge">f: A =&gt; Task[B]</code> and
-returns a <code class="highlighter-rouge">Task[Seq[B]]</code>. It applies <code class="highlighter-rouge">f</code> to each element in the sequence transforming it
-into <code class="highlighter-rouge">Task</code> and then collecting results. The order in the output sequence is preserved, but 
+<p><code class="language-plaintext highlighter-rouge">Task.parTraverse</code>, similar to <code class="language-plaintext highlighter-rouge">Parallel.parTraverse</code>, is the nondeterministic
+version of <code class="language-plaintext highlighter-rouge">Task.traverse</code>.  It also takes a <code class="language-plaintext highlighter-rouge">Seq[A]</code>, <code class="language-plaintext highlighter-rouge">f: A =&gt; Task[B]</code> and
+returns a <code class="language-plaintext highlighter-rouge">Task[Seq[B]]</code>. It applies <code class="language-plaintext highlighter-rouge">f</code> to each element in the sequence transforming it
+into <code class="language-plaintext highlighter-rouge">Task</code> and then collecting results. The order in the output sequence is preserved, but 
 the effects are not ordered, meaning that there’s potential for parallel execution:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1230,11 +1470,11 @@ the effects are not ordered, meaning that there’s potential for parallel execu
 <span class="c1">//=&gt; List(1, 2)</span>
 </code></pre></div></div>
 
-<p>Similar to <code class="highlighter-rouge">parSequenceUnordered</code> there is also unordered version of <code class="highlighter-rouge">parTraverse</code> called <code class="highlighter-rouge">parTraverseUnordered</code>.</p>
+<p>Similar to <code class="language-plaintext highlighter-rouge">parSequenceUnordered</code> there is also unordered version of <code class="language-plaintext highlighter-rouge">parTraverse</code> called <code class="language-plaintext highlighter-rouge">parTraverseUnordered</code>.</p>
 
-<p><strong>NOTE:</strong> If you have the possibility, prefer explicitly using <code class="highlighter-rouge">Task</code> operators instead of
+<p><strong>NOTE:</strong> If you have the possibility, prefer explicitly using <code class="language-plaintext highlighter-rouge">Task</code> operators instead of
 those provided by Cats syntax. Their default implementations are derived from other
-methods and are often much slower than optimized <code class="highlighter-rouge">Task</code> versions.</p>
+methods and are often much slower than optimized <code class="language-plaintext highlighter-rouge">Task</code> versions.</p>
 
 <p>Refer to the table below to see corresponding methods:</p>
 
@@ -1264,11 +1504,17 @@ methods and are often much slower than optimized <code class="highlighter-rouge"
     </tr>
   </tbody>
 </table>
+    
+      <h3 id="race">
+        
+        
+          Race <a href="#race" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="race">Race</h3>
-
-<p>The <code class="highlighter-rouge">racePair</code> operation will choose the winner between two
-<code class="highlighter-rouge">Task</code> that will potentially run in parallel:</p>
+<p>The <code class="language-plaintext highlighter-rouge">racePair</code> operation will choose the winner between two
+<code class="language-plaintext highlighter-rouge">Task</code> that will potentially run in parallel:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -1287,14 +1533,20 @@ methods and are often much slower than optimized <code class="highlighter-rouge"
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The result generated will be an <code class="highlighter-rouge">Either</code> of tuples, giving you the
+<p>The result generated will be an <code class="language-plaintext highlighter-rouge">Either</code> of tuples, giving you the
 opportunity to do something with the other task that lost the race.
 You can cancel it, or you can use its result somehow, or you can
 simply ignore it, your choice depending on use-case.</p>
+    
+      <h3 id="race-many">
+        
+        
+          Race Many <a href="#race-many" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="race-many">Race Many</h3>
-
-<p>The <code class="highlighter-rouge">raceMany</code> operation takes as input a list of tasks,
+<p>The <code class="language-plaintext highlighter-rouge">raceMany</code> operation takes as input a list of tasks,
 and upon execution will generate the result of the first task
 that completes and wins the race:</p>
 
@@ -1312,12 +1564,12 @@ that completes and wins the race:</p>
 
 <p>It is similar to Scala’s
 <a href="http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future$@firstCompletedOf[T](futures:TraversableOnce[scala.concurrent.Future[T]])(implicitexecutor:scala.concurrent.ExecutionContext):scala.concurrent.Future[T]">Future.firstCompletedOf</a>
-operation, except that it operates on <code class="highlighter-rouge">Task</code> and upon execution it has
+operation, except that it operates on <code class="language-plaintext highlighter-rouge">Task</code> and upon execution it has
 a better model, as when a task wins the race the other tasks get
 immediately canceled.</p>
 
 <p>If you want to ignore errors and wait for the first successful result you could 
-combine it with <code class="highlighter-rouge">onErrorHandleWith</code> and <code class="highlighter-rouge">timeout</code>:</p>
+combine it with <code class="language-plaintext highlighter-rouge">onErrorHandleWith</code> and <code class="language-plaintext highlighter-rouge">timeout</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
 <span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
@@ -1337,10 +1589,10 @@ combine it with <code class="highlighter-rouge">onErrorHandleWith</code> and <co
 </code></pre></div></div>
 <p>It will turn any failed tasks into non-terminating.</p>
 
-<p>Timeout is necessary in case all tasks fail. In the example above, if <code class="highlighter-rouge">task1</code> also fails we will have to wait for the timeout
+<p>Timeout is necessary in case all tasks fail. In the example above, if <code class="language-plaintext highlighter-rouge">task1</code> also fails we will have to wait for the timeout
 to expire despite knowing that we won’t get any successful result.</p>
 
-<p>We can optimize it by doing second <code class="highlighter-rouge">race </code>that uses <code class="highlighter-rouge">Semaphore</code>:</p>
+<p>We can optimize it by doing second <code class="language-plaintext highlighter-rouge">race </code>that uses <code class="language-plaintext highlighter-rouge">Semaphore</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.concurrent.Semaphore</span>
 <span class="k">import</span> <span class="nn">cats.syntax.apply._</span>
@@ -1365,10 +1617,16 @@ to expire despite knowing that we won’t get any successful result.</p>
 
 <span class="nf">println</span><span class="o">(</span><span class="nv">result</span><span class="o">.</span><span class="py">runSyncUnsafe</span><span class="o">())</span> <span class="c1">// will finish and print after 3 seconds</span>
 </code></pre></div></div>
+    
+      <h3 id="delay-execution">
+        
+        
+          Delay Execution <a href="#delay-execution" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="delay-execution">Delay Execution</h3>
-
-<p><code class="highlighter-rouge">Task.delayExecution</code>, as the name says, delays the execution of a
+<p><code class="language-plaintext highlighter-rouge">Task.delayExecution</code>, as the name says, delays the execution of a
 given task by the given timespan.</p>
 
 <p>In this example we are delaying the execution of the source by 3
@@ -1385,25 +1643,30 @@ seconds:</p>
 <span class="nv">delayed</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 </code></pre></div></div>
 
-<p>Or, instead of a delay we might want to use another <code class="highlighter-rouge">Task</code> as the
+<p>Or, instead of a delay we might want to use another <code class="language-plaintext highlighter-rouge">Task</code> as the
 signal for starting the execution, so the following example is
 equivalent to the one above:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">trigger</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
   <span class="nf">println</span><span class="o">(</span><span class="s">"Side-effect!"</span><span class="o">)</span>
   <span class="s">"Hello, world!"</span>
 <span class="o">}</span>
 
-<span class="k">val</span> <span class="nv">delayed</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">delayExecutionWith</span><span class="o">(</span><span class="n">trigger</span><span class="o">)</span>
-<span class="nv">delayed</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
+  <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+  <span class="o">.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">source</span><span class="o">)</span>
 </code></pre></div></div>
+    
+      <h3 id="delay-signaling-of-the-result">
+        
+        
+          Delay Signaling of the Result <a href="#delay-signaling-of-the-result" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="delay-signaling-of-the-result">Delay Signaling of the Result</h3>
-
-<p><code class="highlighter-rouge">Task.delayResult</code> delays the signaling of the result, but not the
-execution of the <code class="highlighter-rouge">Task</code>. Consider this example:</p>
+<p><code class="language-plaintext highlighter-rouge">Task.delayResult</code> delays the signaling of the result, but not the
+execution of the <code class="language-plaintext highlighter-rouge">Task</code>. Consider this example:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 
@@ -1423,40 +1686,17 @@ execution of the <code class="highlighter-rouge">Task</code>. Consider this exam
 
 <p>Here, you’ll see the “side-effect happening after only 1 second, but
 the signaling of the result will happen after another 5 seconds.</p>
+    
+      <h3 id="restart-until-predicate-is-true">
+        
+        
+          Restart Until Predicate is True <a href="#restart-until-predicate-is-true" class="anchor">#</a>
+        
+        
+      </h3>
 
-<p>There’s also another variant called <code class="highlighter-rouge">delayResultBySelector</code>, where you
-can have another task signal the right moment when to signal the
-result downstream. This allows to customize the delay based on the
-result signaled by the source:</p>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
-<span class="k">import</span> <span class="nn">scala.util.Random</span>
-
-<span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span>
-  <span class="nf">println</span><span class="o">(</span><span class="s">"Side-effect!"</span><span class="o">)</span>
-  <span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
-<span class="o">}</span>
-
-<span class="k">def</span> <span class="nf">selector</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="nv">x</span><span class="o">.</span><span class="py">seconds</span><span class="o">)</span>
-
-<span class="k">val</span> <span class="nv">delayed</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="n">source</span>
-    <span class="o">.</span><span class="py">delayExecution</span><span class="o">(</span><span class="mf">1.</span><span class="n">second</span><span class="o">)</span>
-    <span class="o">.</span><span class="py">delayResultBySelector</span><span class="o">(</span><span class="n">x</span> <span class="k">=&gt;</span> <span class="nf">selector</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
-<span class="o">}</span>
-
-<span class="nv">delayed</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span> <span class="o">{</span> <span class="n">x</span> <span class="k">=&gt;</span>
-  <span class="nf">println</span><span class="o">(</span>
-    <span class="n">s</span><span class="s">"Result: $x "</span> <span class="o">+</span>
-    <span class="n">s</span><span class="s">"(signaled after at least ${x+1} seconds)"</span><span class="o">)</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<h3 id="restart-until-predicate-is-true">Restart Until Predicate is True</h3>
-
-<p>The <code class="highlighter-rouge">Task</code> being a spec, we can restart it at will.
-<code class="highlighter-rouge">Task.restartUntil(predicate)</code> does just that, executing the source
+<p>The <code class="language-plaintext highlighter-rouge">Task</code> being a spec, we can restart it at will.
+<code class="language-plaintext highlighter-rouge">Task.restartUntil(predicate)</code> does just that, executing the source
 over and over again, until the given predicate is true:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Random</span>
@@ -1473,11 +1713,17 @@ over and over again, until the given predicate is true:</p>
 <span class="nv">randomEven</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
 <span class="c1">//=&gt; 1053678416</span>
 </code></pre></div></div>
+    
+      <h3 id="clean-up-resources-on-finish">
+        
+        
+          Clean-up Resources on Finish <a href="#clean-up-resources-on-finish" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="clean-up-resources-on-finish">Clean-up Resources on Finish</h3>
-
-<p><code class="highlighter-rouge">Task.doOnFinish</code> executes the supplied
-<code class="highlighter-rouge">Option[Throwable] =&gt; Task[Unit]</code> function when the source finishes,
+<p><code class="language-plaintext highlighter-rouge">Task.doOnFinish</code> executes the supplied
+<code class="language-plaintext highlighter-rouge">Option[Throwable] =&gt; Task[Unit]</code> function when the source finishes,
 being meant for cleaning up resources or executing
 some scheduled side-effect:</p>
 
@@ -1496,16 +1742,22 @@ some scheduled side-effect:</p>
 <span class="c1">//=&gt; Was success!</span>
 <span class="c1">//=&gt; 1</span>
 </code></pre></div></div>
-
-<h3 id="convert-to-reactive-publisher">Convert to Reactive Publisher</h3>
+    
+      <h3 id="convert-to-reactive-publisher">
+        
+        
+          Convert to Reactive Publisher <a href="#convert-to-reactive-publisher" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>Did you know that Monix integrates with the
 <a href="http://www.reactive-streams.org/">Reactive Streams</a>
 specification?</p>
 
-<p>Well, <code class="highlighter-rouge">Task</code> can be seen as an <code class="highlighter-rouge">org.reactivestreams.Publisher</code> that
+<p>Well, <code class="language-plaintext highlighter-rouge">Task</code> can be seen as an <code class="language-plaintext highlighter-rouge">org.reactivestreams.Publisher</code> that
 emits exactly one event upon subscription and then stops. And we can
-convert any <code class="highlighter-rouge">Task</code> to such a publisher directly:</p>
+convert any <code class="language-plaintext highlighter-rouge">Task</code> to such a publisher directly:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">eval</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">())</span>
 
@@ -1533,7 +1785,6 @@ but doable:</p>
     <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">s</span><span class="s">"ERROR: $ex"</span><span class="o">)</span>
 <span class="o">})</span>
 
-
 <span class="c1">// Will print:</span>
 <span class="c1">//=&gt; OnNext: -228329246</span>
 <span class="c1">//=&gt; OnComplete</span>
@@ -1542,10 +1793,16 @@ but doable:</p>
 <p>Awesome, isn’t it?</p>
 
 <p>(◑‿◐)</p>
+    
+      <h2 id="error-handling">
+        
+        
+          Error Handling <a href="#error-handling" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="error-handling">Error Handling</h2>
-
-<p><code class="highlighter-rouge">Task</code> takes error handling very seriously. You see, there’s this famous
+<p><code class="language-plaintext highlighter-rouge">Task</code> takes error handling very seriously. You see, there’s this famous
 <a href="https://en.wikipedia.org/wiki/If_a_tree_falls_in_a_forest">thought experiment</a>
 regarding <em>observation</em>:</p>
 
@@ -1564,13 +1821,13 @@ without any hints of the error involved.</p>
 <p>This is why Monix will always attempt to catch and signal or at least
 log any errors that happen. In case signaling is not possible for
 whatever reason (like the callback was already called), then the
-logging is done by means of the provided <code class="highlighter-rouge">Scheduler.reportFailure</code>,
-which defaults to <code class="highlighter-rouge">System.err</code>, unless you provide something more
+logging is done by means of the provided <code class="language-plaintext highlighter-rouge">Scheduler.reportFailure</code>,
+which defaults to <code class="language-plaintext highlighter-rouge">System.err</code>, unless you provide something more
 concrete, like going through SLF4J or whatever.</p>
 
 <p>Even though Monix expects for the arguments given to its operators,
-like <code class="highlighter-rouge">flatMap</code>, to be pure or at least protected from errors, it still
-catches errors, signaling them on <code class="highlighter-rouge">runAsync</code>:</p>
+like <code class="language-plaintext highlighter-rouge">flatMap</code>, to be pure or at least protected from errors, it still
+catches errors, signaling them on <code class="language-plaintext highlighter-rouge">runAsync</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">Random</span><span class="o">.</span><span class="py">nextInt</span><span class="o">).</span><span class="py">flatMap</span> <span class="o">{</span>
   <span class="k">case</span> <span class="n">even</span> <span class="k">if</span> <span class="n">even</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">=&gt;</span>
@@ -1586,9 +1843,9 @@ catches errors, signaling them on <code class="highlighter-rouge">runAsync</code
 <span class="c1">//=&gt; Right(java.lang.IllegalStateException: 834919637)</span>
 </code></pre></div></div>
 
-<p>In case an error happens in the callback provided to <code class="highlighter-rouge">runAsync</code>, then
-Monix can no longer signal an <code class="highlighter-rouge">onError</code>, because it would be a
-contract violation (see <a href="../execution/callback.html">Callback</a>). But it still
+<p>In case an error happens in the callback provided to <code class="language-plaintext highlighter-rouge">runAsync</code>, then
+Monix can no longer signal an <code class="language-plaintext highlighter-rouge">onError</code>, because it would be a
+contract violation (see <a href="/docs/3x/execution/callback.html">Callback</a>). But it still
 logs the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1613,10 +1870,10 @@ logs the error:</p>
 <span class="c1">//=&gt;    ....</span>
 </code></pre></div></div>
 
-<p>Similarly, when using <code class="highlighter-rouge">Task.create</code>, Monix attempts to catch any
+<p>Similarly, when using <code class="language-plaintext highlighter-rouge">Task.create</code>, Monix attempts to catch any
 uncaught errors, but because we did not know what happened in the
 provided callback, we cannot signal the error as it would be a
-contract violation (see <a href="../execution/callback.html">Callback</a>), but Monix does
+contract violation (see <a href="/docs/3x/execution/callback.html">Callback</a>), but Monix does
 log the error:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">create</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="o">{</span> <span class="o">(</span><span class="n">scheduler</span><span class="o">,</span> <span class="n">callback</span><span class="o">)</span> <span class="k">=&gt;</span>
@@ -1640,13 +1897,19 @@ log the error:</p>
 <p><strong>WARNING:</strong> In this case the consumer side never gets a completion
 signal. The moral of the story is: even if Monix makes a best effort
 to do the right thing, you should protect your freaking code against
-unwanted exceptions, especially in <code class="highlighter-rouge">Task.create</code>!!!</p>
+unwanted exceptions, especially in <code class="language-plaintext highlighter-rouge">Task.create</code>!!!</p>
+    
+      <h3 id="overriding-the-error-logging">
+        
+        
+          Overriding the Error Logging <a href="#overriding-the-error-logging" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="overriding-the-error-logging">Overriding the Error Logging</h3>
-
-<p>The article on <a href="../execution/scheduler.html">Scheduler</a> has recipes
-for building your own <code class="highlighter-rouge">Scheduler</code> instances, with your own logic. But
-here’s a quick snippet for building such a <code class="highlighter-rouge">Scheduler</code> that could do
+<p>The article on <a href="/docs/3x/execution/scheduler.html">Scheduler</a> has recipes
+for building your own <code class="language-plaintext highlighter-rouge">Scheduler</code> instances, with your own logic. But
+here’s a quick snippet for building such a <code class="language-plaintext highlighter-rouge">Scheduler</code> that could do
 logging by means of a library, such as the standard
 <a href="http://www.slf4j.org/">SLF4J</a>:</p>
 
@@ -1663,11 +1926,17 @@ logging by means of a library, such as the standard
 <span class="k">implicit</span> <span class="k">val</span> <span class="nv">global</span><span class="k">:</span> <span class="kt">Scheduler</span> <span class="o">=</span>
   <span class="nc">Scheduler</span><span class="o">(</span><span class="n">default</span><span class="o">,</span> <span class="n">reporter</span><span class="o">)</span>
 </code></pre></div></div>
+    
+      <h3 id="trigger-a-timeout">
+        
+        
+          Trigger a Timeout <a href="#trigger-a-timeout" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="trigger-a-timeout">Trigger a Timeout</h3>
-
-<p>In case a <code class="highlighter-rouge">Task</code> is too slow to execute, we can cancel it and trigger
-a <code class="highlighter-rouge">TimeoutException</code> using <code class="highlighter-rouge">Task.timeout</code>:</p>
+<p>In case a <code class="language-plaintext highlighter-rouge">Task</code> is too slow to execute, we can cancel it and trigger
+a <code class="language-plaintext highlighter-rouge">TimeoutException</code> using <code class="language-plaintext highlighter-rouge">Task.timeout</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.TimeoutException</span>
@@ -1684,7 +1953,7 @@ a <code class="highlighter-rouge">TimeoutException</code> using <code class="hig
 </code></pre></div></div>
 
 <p>On timeout the source gets canceled (if it’s a source that supports
-cancelation). And instead of an error, we can timeout to a <code class="highlighter-rouge">fallback</code>
+cancelation). And instead of an error, we can timeout to a <code class="language-plaintext highlighter-rouge">fallback</code>
 task. The following example is equivalent to the above one:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
@@ -1701,10 +1970,16 @@ task. The following example is equivalent to the above one:</p>
 <span class="nv">timedOut</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
 <span class="c1">//=&gt; Left(TimeoutException)</span>
 </code></pre></div></div>
+    
+      <h3 id="recovering-from-error">
+        
+        
+          Recovering from Error <a href="#recovering-from-error" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="recovering-from-error">Recovering from Error</h3>
-
-<p><code class="highlighter-rouge">Task.onErrorHandleWith</code> is an operation that takes a function mapping
+<p><code class="language-plaintext highlighter-rouge">Task.onErrorHandleWith</code> is an operation that takes a function mapping
 possible exceptions to a desired fallback outcome, so we could do
 this:</p>
 
@@ -1730,7 +2005,7 @@ this:</p>
 <span class="c1">//=&gt; Recovered!</span>
 </code></pre></div></div>
 
-<p>There’s also <code class="highlighter-rouge">Task.onErrorRecoverWith</code> that takes a partial function
+<p>There’s also <code class="language-plaintext highlighter-rouge">Task.onErrorRecoverWith</code> that takes a partial function
 instead, so we can omit the “other” branch:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecoverWith</span> <span class="o">{</span>
@@ -1743,10 +2018,10 @@ instead, so we can omit the “other” branch:</p>
 <span class="c1">//=&gt; Recovered!</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task.onErrorHandleWith</code> and <code class="highlighter-rouge">Task.onErrorRecoverWith</code> are the
-equivalent of <code class="highlighter-rouge">flatMap</code>, only for errors. In case we know or can
+<p><code class="language-plaintext highlighter-rouge">Task.onErrorHandleWith</code> and <code class="language-plaintext highlighter-rouge">Task.onErrorRecoverWith</code> are the
+equivalent of <code class="language-plaintext highlighter-rouge">flatMap</code>, only for errors. In case we know or can
 evaluate a fallback result eagerly, we could use the shortcut
-operation <code class="highlighter-rouge">Task.onErrorHandle</code> like:</p>
+operation <code class="language-plaintext highlighter-rouge">Task.onErrorHandle</code> like:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorHandle</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
@@ -1757,7 +2032,7 @@ operation <code class="highlighter-rouge">Task.onErrorHandle</code> like:</p>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Or the partial function version with <code class="highlighter-rouge">onErrorRecover</code>:</p>
+<p>Or the partial function version with <code class="language-plaintext highlighter-rouge">onErrorRecover</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">onErrorRecover</span> <span class="o">{</span>
   <span class="k">case</span> <span class="k">_:</span> <span class="kt">TimeoutException</span> <span class="o">=&gt;</span>
@@ -1765,10 +2040,16 @@ operation <code class="highlighter-rouge">Task.onErrorHandle</code> like:</p>
     <span class="s">"Recovered!"</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="restart-on-error">
+        
+        
+          Restart On Error <a href="#restart-on-error" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="restart-on-error">Restart On Error</h3>
-
-<p>The <code class="highlighter-rouge">Task</code> type, being just a specification, it can usually restart
+<p>The <code class="language-plaintext highlighter-rouge">Task</code> type, being just a specification, it can usually restart
 whatever process is supposed to deliver the final result and we can
 restart the source on error, for how many times are needed:</p>
 
@@ -1822,11 +2103,17 @@ it’s cool doing so:</p>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
+    
+      <h3 id="expose-errors">
+        
+        
+          Expose Errors <a href="#expose-errors" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="expose-errors">Expose Errors</h3>
-
-<p>The <code class="highlighter-rouge">Task</code> monadic context is hiding errors that happen, much like
-Scala’s <code class="highlighter-rouge">Try</code> or <code class="highlighter-rouge">Future</code>. But sometimes we want to expose those
+<p>The <code class="language-plaintext highlighter-rouge">Task</code> monadic context is hiding errors that happen, much like
+Scala’s <code class="language-plaintext highlighter-rouge">Try</code> or <code class="language-plaintext highlighter-rouge">Future</code>. But sometimes we want to expose those
 errors such that we can recover more efficiently:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.</span><span class="o">{</span><span class="nc">Try</span><span class="o">,</span> <span class="nc">Success</span><span class="o">,</span> <span class="nc">Failure</span><span class="o">}</span>
@@ -1845,7 +2132,7 @@ errors such that we can recover more efficiently:</p>
 <span class="c1">//=&gt; 0</span>
 </code></pre></div></div>
 
-<p>There’s also the reverse of materialize, which is <code class="highlighter-rouge">Task.dematerialize</code>:</p>
+<p>There’s also the reverse of materialize, which is <code class="language-plaintext highlighter-rouge">Task.dematerialize</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scala.util.Try</span>
 
@@ -1860,9 +2147,9 @@ errors such that we can recover more efficiently:</p>
 <span class="c1">// dematerialized: Task[Int] = ???</span>
 </code></pre></div></div>
 
-<p>We can also convert any <code class="highlighter-rouge">Task</code> into a <code class="highlighter-rouge">Task[Throwable]</code> that will
+<p>We can also convert any <code class="language-plaintext highlighter-rouge">Task</code> into a <code class="language-plaintext highlighter-rouge">Task[Throwable]</code> that will
 expose any errors that happen and will also terminate with an
-<code class="highlighter-rouge">NoSuchElementException</code> in case the source completes with success:</p>
+<code class="language-plaintext highlighter-rouge">NoSuchElementException</code> in case the source completes with success:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
@@ -1890,8 +2177,8 @@ expose any errors that happen and will also terminate with an
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

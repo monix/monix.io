@@ -28,19 +28,15 @@
   <meta content="Migrating from 1.x to 2.x &amp;mdash; Monix" property="og:title">
   <meta content="Guide on migrating from version 1.x (Monifu) to version 2.x" property="og:description">
   <meta content="https://monix.io/docs/2x/intro/migrate2x.html" property="og:url">
+  <meta content="2020-07-20T09:13:52+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Migrating from 1.x to 2.x</h1>
+      <h1 class="page-title">
+        
+        
+          Migrating from 1.x to 2.x
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/intro/migrate2x.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,68 +119,76 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
 
   <p>Package renamings:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">monifu.concurrent</code> -&gt; <code class="highlighter-rouge">monix.execution</code></li>
-  <li><code class="highlighter-rouge">monifu.reactive</code> -&gt; <code class="highlighter-rouge">monix.reactive</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.concurrent</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.execution</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.reactive</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.reactive</code></li>
 </ul>
 
 <p>Moved types:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">monifu.reactive.Ack</code> -&gt; <code class="highlighter-rouge">monix.execution.Ack</code></li>
-  <li><code class="highlighter-rouge">monifu.reactive.observers.SynchronousObserver</code> -&gt; <code class="highlighter-rouge">monix.reactive.Observer.Sync</code></li>
-  <li><code class="highlighter-rouge">monifu.reactive.observers.SynchronousSubscriber</code> -&gt; <code class="highlighter-rouge">monix.reactive.observers.Subscriber.Sync</code></li>
-  <li><code class="highlighter-rouge">monifu.reactive.Subscriber</code> -&gt; <code class="highlighter-rouge">monix.reactive.observers.Subscriber</code></li>
-  <li><code class="highlighter-rouge">monifu.concurrent.extensions</code> -&gt; <code class="highlighter-rouge">monix.execution.FutureUtils.extensions</code></li>
-  <li>the <code class="highlighter-rouge">atomic.padded</code> package in <code class="highlighter-rouge">monifu.concurrent</code> is now gone, use
-the <code class="highlighter-rouge">Atomic.withPadding</code> constructor instead (default was <code class="highlighter-rouge">Right128</code>)</li>
-  <li><code class="highlighter-rouge">monifu.concurrent.async.AsyncQueue</code> is now <code class="highlighter-rouge">monix.execution.misc.AsyncQueue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.reactive.Ack</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.execution.Ack</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.reactive.observers.SynchronousObserver</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.reactive.Observer.Sync</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.reactive.observers.SynchronousSubscriber</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.reactive.observers.Subscriber.Sync</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.reactive.Subscriber</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.reactive.observers.Subscriber</code></li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.concurrent.extensions</code> -&gt; <code class="language-plaintext highlighter-rouge">monix.execution.FutureUtils.extensions</code></li>
+  <li>the <code class="language-plaintext highlighter-rouge">atomic.padded</code> package in <code class="language-plaintext highlighter-rouge">monifu.concurrent</code> is now gone, use
+the <code class="language-plaintext highlighter-rouge">Atomic.withPadding</code> constructor instead (default was <code class="language-plaintext highlighter-rouge">Right128</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">monifu.concurrent.async.AsyncQueue</code> is now <code class="language-plaintext highlighter-rouge">monix.execution.misc.AsyncQueue</code></li>
 </ul>
 
 <p>Renamed operators:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Observable.lift</code> -&gt; <code class="highlighter-rouge">Observable.transform</code></li>
-  <li><code class="highlighter-rouge">Observable.onSubscribe</code> -&gt; <code class="highlighter-rouge">Observable.unsafeSubscribeFn</code> (this one
-changed signature as well, it now returns a <code class="highlighter-rouge">Cancelable</code> instead of
-<code class="highlighter-rouge">Unit</code>)</li>
-  <li><code class="highlighter-rouge">Observable.create</code> -&gt; <code class="highlighter-rouge">Observable.unsafeCreate</code> and there’s a new
-<code class="highlighter-rouge">Observable.create</code> with different behavior</li>
-  <li><code class="highlighter-rouge">Ack.Cancel</code> -&gt; <code class="highlighter-rouge">Ack.Stop</code></li>
-  <li>for the <code class="highlighter-rouge">FutureUtils</code> extensions <code class="highlighter-rouge">withTimeout</code> was renamed to
-<code class="highlighter-rouge">timeout</code> and <code class="highlighter-rouge">liftTry</code> to <code class="highlighter-rouge">materialize</code>, for consistency with
-<code class="highlighter-rouge">Task</code></li>
-  <li><code class="highlighter-rouge">Observable.from</code> is <code class="highlighter-rouge">Observable.apply</code> and <code class="highlighter-rouge">Observable.unit</code> was
-renamed to <code class="highlighter-rouge">Observable.now</code></li>
-  <li><code class="highlighter-rouge">Observable.whileBusyDropEvents(onOverflow)</code> renamed to
-<code class="highlighter-rouge">Observable.whileBusyDropEventsAndSignal</code></li>
-  <li><code class="highlighter-rouge">Observable.toReactive</code> -&gt; <code class="highlighter-rouge">toReactivePublisher</code></li>
-  <li><code class="highlighter-rouge">Cancelable.apply</code> now wants a <code class="highlighter-rouge">Function0</code> and not a by-name parameter</li>
-  <li><code class="highlighter-rouge">Observable.doWork</code> -&gt; <code class="highlighter-rouge">Observable.doOnNext</code></li>
-  <li><code class="highlighter-rouge">Observable.whileBusyBuffer</code> no longer takes an <code class="highlighter-rouge">onOverflow</code> handler. The
-<code class="highlighter-rouge">onOverflow</code> handler is now a parameter of the <code class="highlighter-rouge">OverflowStrategy</code> (
-  <code class="highlighter-rouge">DropNewAndSignal</code> and <code class="highlighter-rouge">DropOldAndSignal</code>)</li>
-  <li><code class="highlighter-rouge">Observable.buffer</code> -&gt; <code class="highlighter-rouge">Observable.bufferTimedAndCounted</code></li>
-  <li><code class="highlighter-rouge">Observable.asFuture</code> is to be done as <code class="highlighter-rouge">Observable.headL.runAsync</code></li>
-  <li><code class="highlighter-rouge">Observable.count</code> is to be done as <code class="highlighter-rouge">Observable.fromTask(Observable.countL)</code></li>
-  <li><code class="highlighter-rouge">Observable.fold</code> is to be done as <code class="highlighter-rouge">Observable.foldL</code>, now returning Task[T] not Future[Option[T]]</li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.lift</code> -&gt; <code class="language-plaintext highlighter-rouge">Observable.transform</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.onSubscribe</code> -&gt; <code class="language-plaintext highlighter-rouge">Observable.unsafeSubscribeFn</code> (this one
+changed signature as well, it now returns a <code class="language-plaintext highlighter-rouge">Cancelable</code> instead of
+<code class="language-plaintext highlighter-rouge">Unit</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.create</code> -&gt; <code class="language-plaintext highlighter-rouge">Observable.unsafeCreate</code> and there’s a new
+<code class="language-plaintext highlighter-rouge">Observable.create</code> with different behavior</li>
+  <li><code class="language-plaintext highlighter-rouge">Ack.Cancel</code> -&gt; <code class="language-plaintext highlighter-rouge">Ack.Stop</code></li>
+  <li>for the <code class="language-plaintext highlighter-rouge">FutureUtils</code> extensions <code class="language-plaintext highlighter-rouge">withTimeout</code> was renamed to
+<code class="language-plaintext highlighter-rouge">timeout</code> and <code class="language-plaintext highlighter-rouge">liftTry</code> to <code class="language-plaintext highlighter-rouge">materialize</code>, for consistency with
+<code class="language-plaintext highlighter-rouge">Task</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.from</code> is <code class="language-plaintext highlighter-rouge">Observable.apply</code> and <code class="language-plaintext highlighter-rouge">Observable.unit</code> was
+renamed to <code class="language-plaintext highlighter-rouge">Observable.now</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.whileBusyDropEvents(onOverflow)</code> renamed to
+<code class="language-plaintext highlighter-rouge">Observable.whileBusyDropEventsAndSignal</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.toReactive</code> -&gt; <code class="language-plaintext highlighter-rouge">toReactivePublisher</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Cancelable.apply</code> now wants a <code class="language-plaintext highlighter-rouge">Function0</code> and not a by-name parameter</li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.doWork</code> -&gt; <code class="language-plaintext highlighter-rouge">Observable.doOnNext</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.whileBusyBuffer</code> no longer takes an <code class="language-plaintext highlighter-rouge">onOverflow</code> handler. The
+<code class="language-plaintext highlighter-rouge">onOverflow</code> handler is now a parameter of the <code class="language-plaintext highlighter-rouge">OverflowStrategy</code> (
+  <code class="language-plaintext highlighter-rouge">DropNewAndSignal</code> and <code class="language-plaintext highlighter-rouge">DropOldAndSignal</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.buffer</code> -&gt; <code class="language-plaintext highlighter-rouge">Observable.bufferTimedAndCounted</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.asFuture</code> is to be done as <code class="language-plaintext highlighter-rouge">Observable.headL.runAsync</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.count</code> is to be done as <code class="language-plaintext highlighter-rouge">Observable.fromTask(Observable.countL)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Observable.fold</code> is to be done as <code class="language-plaintext highlighter-rouge">Observable.foldL</code>, now returning Task[T] not Future[Option[T]]</li>
 </ul>
 
-<p>The <code class="highlighter-rouge">Channel</code> type is now gone, replaced by:</p>
+<p>The <code class="language-plaintext highlighter-rouge">Channel</code> type is now gone, replaced by:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">monix.reactive.Observer.Sync</code> for describing just
+  <li><code class="language-plaintext highlighter-rouge">monix.reactive.Observer.Sync</code> for describing just
 synchronous input</li>
-  <li><code class="highlighter-rouge">monix.reactive.subjects.ConcurrentSubject</code> for describing
+  <li><code class="language-plaintext highlighter-rouge">monix.reactive.subjects.ConcurrentSubject</code> for describing
 synchronous input with attached output</li>
 </ul>
 
-<p><code class="highlighter-rouge">Future</code> no longer converts to <code class="highlighter-rouge">Observable</code> automatically. Use
-<code class="highlighter-rouge">Observable.fromFuture</code>.</p>
+<p><code class="language-plaintext highlighter-rouge">Future</code> no longer converts to <code class="language-plaintext highlighter-rouge">Observable</code> automatically. Use
+<code class="language-plaintext highlighter-rouge">Observable.fromFuture</code>.</p>
 
 
   <div class="buttons">
@@ -190,8 +201,8 @@ synchronous input with attached output</li>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

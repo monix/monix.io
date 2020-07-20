@@ -29,19 +29,15 @@
   <meta content="Monix and Cats-Effect are on a roll. How do they integrate and when to use them?" property="og:description">
   <meta content="https://monix.io/blog/2018/03/20/monix-vs-cats-effect.html" property="og:url">
   <meta content="2018-03-20T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,13 +99,36 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix vs Cats-Effect</h1>
+      <h1 class="post-title">
+        
+        
+          Monix vs Cats-Effect
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2018-03-20">
     20 Mar 2018
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#monixs-task-vs-catseffectio">Monix’s Task vs cats.effect.IO</a>
+    <ul>
+      <li><a href="#what-should-i-use">What should I use?</a></li>
+    </ul>
+  </li>
+  <li><a href="#history-of-monix">History of Monix</a></li>
+  <li><a href="#history-of-cats-effect">History of Cats-Effect</a>
+    <ul>
+      <li><a href="#trouble-on-the-horizon">Trouble on the Horizon</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
 
   <p>I’m the author of Monix and a major contributor to 
 <a href="https://typelevel.org/cats-effect/">Cats-Effect</a>.</p>
@@ -120,23 +139,29 @@ their history and when each should be used.</p>
 <!--more-->
 
 <p>But to start with the most pressing concern …</p>
-
-<h2 id="monixs-task-vs-catseffectio">Monix’s Task vs cats.effect.IO</h2>
+    
+      <h2 id="monixs-task-vs-catseffectio">
+        
+        
+          Monix’s Task vs cats.effect.IO <a href="#monixs-task-vs-catseffectio" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p><a href="https://typelevel.org/cats-effect/datatypes/io.html">cats.effect.IO</a>
-and <a href="https://monix.io/docs/3x/eval/task.html">monix.eval.Task</a> are
+and <a href="https://monix.io/docs/3x/eval/task.md">monix.eval.Task</a> are
 very similar, plus I ended up working on both, so design decisions I
-made for <code class="highlighter-rouge">Task</code> ended up in <code class="highlighter-rouge">IO</code> as well. That said <code class="highlighter-rouge">IO</code> is designed
+made for <code class="language-plaintext highlighter-rouge">Task</code> ended up in <code class="language-plaintext highlighter-rouge">IO</code> as well. That said <code class="language-plaintext highlighter-rouge">IO</code> is designed
 to be a simple, reliable, pure reference implementation, whereas
-<code class="highlighter-rouge">Task</code> is more advanced if you care about certain things.</p>
+<code class="language-plaintext highlighter-rouge">Task</code> is more advanced if you care about certain things.</p>
 
-<p>For example <code class="highlighter-rouge">Task</code>’s run-loop is designed to provide certain fairness
+<p>For example <code class="language-plaintext highlighter-rouge">Task</code>’s run-loop is designed to provide certain fairness
 guarantees, depending on configuration. By default its run-loop does
 processing in batches, introducing thread forks once over a
-threshold. If you’re using <code class="highlighter-rouge">Task</code> or <code class="highlighter-rouge">IO</code> as some sort of green
+threshold. If you’re using <code class="language-plaintext highlighter-rouge">Task</code> or <code class="language-plaintext highlighter-rouge">IO</code> as some sort of green
 threads, and you should because they are really good for that, then
-<code class="highlighter-rouge">Task</code> provides <em>scheduling fairness</em> out of the box, whereas your
-logic via <code class="highlighter-rouge">IO</code> will have to include manual <code class="highlighter-rouge">IO.shift</code> calls.</p>
+<code class="language-plaintext highlighter-rouge">Task</code> provides <em>scheduling fairness</em> out of the box, whereas your
+logic via <code class="language-plaintext highlighter-rouge">IO</code> will have to include manual <code class="language-plaintext highlighter-rouge">IO.shift</code> calls.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect</span>
 <span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
@@ -156,15 +181,15 @@ logic via <code class="highlighter-rouge">IO</code> will have to include manual 
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>This week I’ve released version <code class="highlighter-rouge">0.10</code> of cats-effect with the
-cancelable <code class="highlighter-rouge">IO</code>. Before this it was only Monix’s <code class="highlighter-rouge">Task</code> that was
+<p>This week I’ve released version <code class="language-plaintext highlighter-rouge">0.10</code> of cats-effect with the
+cancelable <code class="language-plaintext highlighter-rouge">IO</code>. Before this it was only Monix’s <code class="language-plaintext highlighter-rouge">Task</code> that was
 cancelable and actually usable in concurrent scenarios (e.g. race
 conditions), so I imported the same underlying design that the other
 maintainers agreed to. That said the IO implementation is more
 conservative still. In both implementations the cancelability of a
-task has to be opt-in, however with <code class="highlighter-rouge">Task</code> you can opt into
-auto-cancelable <code class="highlighter-rouge">flatMap</code> loops, whereas with <code class="highlighter-rouge">IO</code> you need manual
-calls to <code class="highlighter-rouge">IO.cancelBoundary</code>.</p>
+task has to be opt-in, however with <code class="language-plaintext highlighter-rouge">Task</code> you can opt into
+auto-cancelable <code class="language-plaintext highlighter-rouge">flatMap</code> loops, whereas with <code class="language-plaintext highlighter-rouge">IO</code> you need manual
+calls to <code class="language-plaintext highlighter-rouge">IO.cancelBoundary</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cats-effect</span>
 <span class="k">def</span> <span class="nf">fib</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">a</span><span class="k">:</span> <span class="kt">Long</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
@@ -189,29 +214,29 @@ calls to <code class="highlighter-rouge">IO.cancelBoundary</code>.</p>
 </code></pre></div></div>
 
 <p>So IO’s design is to be very explicit about forking or cancelability,
-whereas <code class="highlighter-rouge">Task</code> affords some smartness in it, doing the right thing out
+whereas <code class="language-plaintext highlighter-rouge">Task</code> affords some smartness in it, doing the right thing out
 of the box, but with easy configuration options.</p>
 
-<p><code class="highlighter-rouge">Task</code> is also designed to interact better with the impure side and
+<p><code class="language-plaintext highlighter-rouge">Task</code> is also designed to interact better with the impure side and
 you’ll have an easier time to get it adopted in hybrid projects. For
-example <code class="highlighter-rouge">Task#runAsync</code> calls return <code class="highlighter-rouge">CancelableFuture</code> results. And
-<code class="highlighter-rouge">Task.fromFuture</code> can recognize <code class="highlighter-rouge">CancelableFuture</code> too, which means
+example <code class="language-plaintext highlighter-rouge">Task#runAsync</code> calls return <code class="language-plaintext highlighter-rouge">CancelableFuture</code> results. And
+<code class="language-plaintext highlighter-rouge">Task.fromFuture</code> can recognize <code class="language-plaintext highlighter-rouge">CancelableFuture</code> too, which means
 that this equivalence really holds as you lose no information:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Task</span><span class="o">.</span><span class="py">deferFuture</span><span class="o">(</span><span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">)</span> <span class="o">&lt;-&gt;</span> <span class="n">task</span>
 </code></pre></div></div>
 
-<p>With IO you have <code class="highlighter-rouge">unsafeToFuture</code>, but the above equivalence does not
-hold for <code class="highlighter-rouge">IO</code>. It’s not the same thing, the same level of integration,
-because <code class="highlighter-rouge">IO</code> doesn’t care about what happens after the “edge of the FP
+<p>With IO you have <code class="language-plaintext highlighter-rouge">unsafeToFuture</code>, but the above equivalence does not
+hold for <code class="language-plaintext highlighter-rouge">IO</code>. It’s not the same thing, the same level of integration,
+because <code class="language-plaintext highlighter-rouge">IO</code> doesn’t care about what happens after the “edge of the FP
 program”.</p>
 
-<p><code class="highlighter-rouge">Task</code> also has a <code class="highlighter-rouge">memoize</code> that allows you to (lazily) cache
+<p><code class="language-plaintext highlighter-rouge">Task</code> also has a <code class="language-plaintext highlighter-rouge">memoize</code> that allows you to (lazily) cache
 executing tasks, but that in certain cases could break RT (since
 allocation of a mutable ref is a side effect), so you have to be a big
 boy when using it, but it’s awesome if you’ve got interactions with
-the other side. So to turn any <code class="highlighter-rouge">Task</code> into a lazily evaluated value
-(the thread-safe, asynchronous equivalent of Scala’s <code class="highlighter-rouge">lazy val</code>) 
+the other side. So to turn any <code class="language-plaintext highlighter-rouge">Task</code> into a lazily evaluated value
+(the thread-safe, asynchronous equivalent of Scala’s <code class="language-plaintext highlighter-rouge">lazy val</code>) 
 all you need is:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">task</span><span class="o">.</span><span class="py">memoize</span>
@@ -220,53 +245,65 @@ all you need is:</p>
 <p>See <a href="https://github.com/typelevel/cats-effect/issues/120">issue #120</a>
 for why this won’t happen for IO.</p>
 
-<p>Task also requires a <code class="highlighter-rouge">Scheduler</code> in its <code class="highlighter-rouge">runAsync</code>, which gets
+<p>Task also requires a <code class="language-plaintext highlighter-rouge">Scheduler</code> in its <code class="language-plaintext highlighter-rouge">runAsync</code>, which gets
 injected everywhere internally, so you don’t need an
-<code class="highlighter-rouge">ExecutionContext</code> for operations like <code class="highlighter-rouge">sleep</code> or <code class="highlighter-rouge">shift</code> or
-whatnot. We fixed this <code class="highlighter-rouge">ExecutionContext</code> dependency for <code class="highlighter-rouge">IO</code> recently
-by creating an indirection in <code class="highlighter-rouge">Timer</code>, but it’s still there. This
-matters in certain scenarios - for example with <code class="highlighter-rouge">Task</code> you get a
-<code class="highlighter-rouge">Task.deferFutureAction</code> which gives you an <code class="highlighter-rouge">ExecutionContext</code> for
-wrapping <code class="highlighter-rouge">Future</code> enabled APIs, so you no longer have any need to
-carry around that <code class="highlighter-rouge">ExecutionContext</code>, which isn’t possible with <code class="highlighter-rouge">IO</code>.</p>
+<code class="language-plaintext highlighter-rouge">ExecutionContext</code> for operations like <code class="language-plaintext highlighter-rouge">sleep</code> or <code class="language-plaintext highlighter-rouge">shift</code> or
+whatnot. We fixed this <code class="language-plaintext highlighter-rouge">ExecutionContext</code> dependency for <code class="language-plaintext highlighter-rouge">IO</code> recently
+by creating an indirection in <code class="language-plaintext highlighter-rouge">Timer</code>, but it’s still there. This
+matters in certain scenarios - for example with <code class="language-plaintext highlighter-rouge">Task</code> you get a
+<code class="language-plaintext highlighter-rouge">Task.deferFutureAction</code> which gives you an <code class="language-plaintext highlighter-rouge">ExecutionContext</code> for
+wrapping <code class="language-plaintext highlighter-rouge">Future</code> enabled APIs, so you no longer have any need to
+carry around that <code class="language-plaintext highlighter-rouge">ExecutionContext</code>, which isn’t possible with <code class="language-plaintext highlighter-rouge">IO</code>.</p>
 
-<p>Also Monix has <code class="highlighter-rouge">TaskLocal</code>, which is like a <code class="highlighter-rouge">ThreadLocal</code>, but for
-<code class="highlighter-rouge">Task</code>. You can’t implement such a thing for <code class="highlighter-rouge">IO</code> without modifying
+<p>Also Monix has <code class="language-plaintext highlighter-rouge">TaskLocal</code>, which is like a <code class="language-plaintext highlighter-rouge">ThreadLocal</code>, but for
+<code class="language-plaintext highlighter-rouge">Task</code>. You can’t implement such a thing for <code class="language-plaintext highlighter-rouge">IO</code> without modifying
 its run-loop, because you need to ensure that values get transported
 over async boundaries.</p>
 
 <p>This will not be the end of it. Improvements in run-loop execution
-that we (the Monix developers) come up with, will make it into <code class="highlighter-rouge">Task</code>
-first and might not make it into <code class="highlighter-rouge">IO</code> if it is against its principles.</p>
+that we (the Monix developers) come up with, will make it into <code class="language-plaintext highlighter-rouge">Task</code>
+first and might not make it into <code class="language-plaintext highlighter-rouge">IO</code> if it is against its principles.</p>
+    
+      <h3 id="what-should-i-use">
+        
+        
+          What should I use? <a href="#what-should-i-use" class="anchor">#</a>
+        
+        
+      </h3>
 
-<h3 id="what-should-i-use">What should I use?</h3>
-
-<p><code class="highlighter-rouge">Task</code> is designed for smart control in concurrent scenarios, for
+<p><code class="language-plaintext highlighter-rouge">Task</code> is designed for smart control in concurrent scenarios, for
 fairness and for interoperability with the impure side of the project,
-design goals that go against <code class="highlighter-rouge">IO</code>’s design.  If you’re a user of
-<code class="highlighter-rouge">monix.eval.Task</code>, then know that <code class="highlighter-rouge">Task</code> will always be the more
+design goals that go against <code class="language-plaintext highlighter-rouge">IO</code>’s design.  If you’re a user of
+<code class="language-plaintext highlighter-rouge">monix.eval.Task</code>, then know that <code class="language-plaintext highlighter-rouge">Task</code> will always be the more
 advanced one.</p>
 
-<p>The <code class="highlighter-rouge">IO</code> in Cats-effect is designed for simplicity and the API follows
+<p>The <code class="language-plaintext highlighter-rouge">IO</code> in Cats-effect is designed for simplicity and the API follows
 the WYSIWYG principle.</p>
 
-<p>Both have virtues. But that is why the <code class="highlighter-rouge">cats-effect</code> project also
+<p>Both have virtues. But that is why the <code class="language-plaintext highlighter-rouge">cats-effect</code> project also
 provides <a href="https://typelevel.org/cats-effect/typeclasses/">type classes</a>,
 such that projects that can provide polymorphic abstractions can work
 with both. At this point projects like Doobie, FS2, Http4s or Monix’s
-own <code class="highlighter-rouge">Iterant</code> allow you to use both <code class="highlighter-rouge">Task</code> and <code class="highlighter-rouge">IO</code>.</p>
+own <code class="language-plaintext highlighter-rouge">Iterant</code> allow you to use both <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">IO</code>.</p>
 
-<p>So keep using <code class="highlighter-rouge">Task</code> if you already do, or look into it, because it’s
-awesome ;-) And if you decide to use <code class="highlighter-rouge">cats.effect.IO</code> instead, that’s
+<p>So keep using <code class="language-plaintext highlighter-rouge">Task</code> if you already do, or look into it, because it’s
+awesome ;-) And if you decide to use <code class="language-plaintext highlighter-rouge">cats.effect.IO</code> instead, that’s
 fine too.</p>
-
-<h2 id="history-of-monix">History of Monix</h2>
+    
+      <h2 id="history-of-monix">
+        
+        
+          History of Monix <a href="#history-of-monix" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Monix started at the beginning of 2014 as a collection of concurrency
 tools, augmenting Scala’s standard library, but then it evolved into
 providing a full fledged <a href="http://reactivex.io/">ReactiveX</a>
 implementation that was back-pressured with a protocol based on
-Scala’s <code class="highlighter-rouge">Future</code> and with opinions™ in order to keep an idiomatic
+Scala’s <code class="language-plaintext highlighter-rouge">Future</code> and with opinions™ in order to keep an idiomatic
 Scala style, very unlike RxJava / RxScala.  Back then, RxJava was not
 back-pressured and Akka Streams did not exist, so this was solving a
 very real problem for me.</p>
@@ -299,11 +336,11 @@ New Year’s Eve, I also
 <a href="https://github.com/monix/monix/issues/91">renamed the project</a> 
 to Monix. Not late after that, the first 
 (<a href="(https://github.com/monix/monix/blob/v2.0-M1/monix-async/shared/src/main/scala/monix/async/Task.scala)">slow, shitty and broken</a>)
-version of <code class="highlighter-rouge">Task</code> was unleashed on the unsuspecting public.</p>
+version of <code class="language-plaintext highlighter-rouge">Task</code> was unleashed on the unsuspecting public.</p>
 
 <p>Well, from March until May, when I attended 
 <a href="http://2016.flatmap.no/nedelcu.html#session">flatMap(Oslo)</a>, apparently 
-I got my shit together and had a pretty awesome <code class="highlighter-rouge">Task</code> implementation on
+I got my shit together and had a pretty awesome <code class="language-plaintext highlighter-rouge">Task</code> implementation on
 my hands. And 
 <a href="/presentations/2016-task-flatmap-oslo.html">the presentation</a>
 went great.</p>
@@ -314,9 +351,9 @@ an abstraction for purely functional pull-based streaming. Documentation
 and details to follow at the final 3.0.0.</p>
 
 <p>But being a modular library, the interesting thing to me is that thus
-far some people only use it for <code class="highlighter-rouge">Task</code>, while others only use it for
-<code class="highlighter-rouge">Observable</code>, treating <code class="highlighter-rouge">Task</code> like RxJava’s <code class="highlighter-rouge">Single</code>, aka an
-<code class="highlighter-rouge">Observable</code> of one event. Monix is one of the very few libraries that
+far some people only use it for <code class="language-plaintext highlighter-rouge">Task</code>, while others only use it for
+<code class="language-plaintext highlighter-rouge">Observable</code>, treating <code class="language-plaintext highlighter-rouge">Task</code> like RxJava’s <code class="language-plaintext highlighter-rouge">Single</code>, aka an
+<code class="language-plaintext highlighter-rouge">Observable</code> of one event. Monix is one of the very few libraries that
 happens to be at the intersection of two worlds, exposing its users to
 the benefits of both:</p>
 
@@ -325,26 +362,32 @@ the benefits of both:</p>
 forbidden fruit of FP due to ReactiveX libraries, but never really
 making the jump</li>
   <li>The world of <a href="https://typelevel.org/cats/">Cats</a> developers that
-need abstractions for describing effects, that need the <code class="highlighter-rouge">IO</code> monad</li>
+need abstractions for describing effects, that need the <code class="language-plaintext highlighter-rouge">IO</code> monad</li>
 </ol>
 
 <p>And I’m damn proud of it.</p>
-
-<h2 id="history-of-cats-effect">History of Cats-Effect</h2>
+    
+      <h2 id="history-of-cats-effect">
+        
+        
+          History of Cats-Effect <a href="#history-of-cats-effect" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>Sometimes in Feb 2017 the situation looked like this:</p>
 
 <ol>
-  <li>Monix had <code class="highlighter-rouge">Task</code></li>
-  <li>FS2 had their own <code class="highlighter-rouge">Task</code></li>
-  <li>Scalaz 7 had its own <code class="highlighter-rouge">Task</code></li>
+  <li>Monix had <code class="language-plaintext highlighter-rouge">Task</code></li>
+  <li>FS2 had their own <code class="language-plaintext highlighter-rouge">Task</code></li>
+  <li>Scalaz 7 had its own <code class="language-plaintext highlighter-rouge">Task</code></li>
 </ol>
 
-<p>My <code class="highlighter-rouge">Task</code> implementation was cancelable and was very competitive, continuously 
+<p>My <code class="language-plaintext highlighter-rouge">Task</code> implementation was cancelable and was very competitive, continuously 
 <a href="https://github.com/rossabaker/benchmarks/pull/4">improved for best performance</a>,
-as you may know. FS2’s <code class="highlighter-rouge">Task</code> and Scalaz’s <code class="highlighter-rouge">Task</code> were behind. The
+as you may know. FS2’s <code class="language-plaintext highlighter-rouge">Task</code> and Scalaz’s <code class="language-plaintext highlighter-rouge">Task</code> were behind. The
 problem, especially for Cats’ ecosystem was that we had two working
-<code class="highlighter-rouge">Task</code> implementations on our hands, but libraries like Http4s and
+<code class="language-plaintext highlighter-rouge">Task</code> implementations on our hands, but libraries like Http4s and
 Doobie, had to pick one.</p>
 
 <p>I happened to attend <a href="http://www.nescala.org/2017">NEScala 2017</a>,
@@ -366,16 +409,16 @@ idea of cancelable tasks, due to the bad experience of Scalaz 7.</p>
 <p>Anyway, it was decided that something had to be done. So given my
 experience and short involvement in the discussions for
 <a href="http://reactivestreams.org/">reactive-streams.org</a>, which Monix’s
-<code class="highlighter-rouge">Observable</code> was already implementing, I felt the need for a similar
+<code class="language-plaintext highlighter-rouge">Observable</code> was already implementing, I felt the need for a similar
 interoperability protocol between Task-like data types.  I also
-thought of this for selfish reasons. I did not want my <code class="highlighter-rouge">Task</code>
+thought of this for selfish reasons. I did not want my <code class="language-plaintext highlighter-rouge">Task</code>
 implementation to wither away by <em>de jure</em> standardization, because I
 believed in my approach and wanted it to succeed, therefore if there
 was going to be a proposal, I wanted to be a part of it.</p>
 
 <p>Therefore I submitted a proposal for a project named
 <a href="https://github.com/typelevel/general/issues/66">Schrodinger</a> (later
-renamed to <code class="highlighter-rouge">effects4s</code>), an interop project that was supposed to be
+renamed to <code class="language-plaintext highlighter-rouge">effects4s</code>), an interop project that was supposed to be
 the “reactive streams” protocol, but for task data types and a neutral
 ground between Cats and Scalaz.</p>
 
@@ -397,11 +440,17 @@ Daniel Spiewak was right.</p>
 I’ve been the author of
 <a href="https://github.com/typelevel/cats-effect/pulls?q=is%3Apr+author%3Aalexandru">41 PRs</a>, 
 because I may not be experienced in type class design, but I can sure
-optimize an <code class="highlighter-rouge">IO</code>’s run-loop and optimize I did, repeatedly.</p>
+optimize an <code class="language-plaintext highlighter-rouge">IO</code>’s run-loop and optimize I did, repeatedly.</p>
 
 <p><img src="/public/images/scalaz.png" width="150" class="right" /></p>
-
-<h3 id="trouble-on-the-horizon">Trouble on the Horizon</h3>
+    
+      <h3 id="trouble-on-the-horizon">
+        
+        
+          Trouble on the Horizon <a href="#trouble-on-the-horizon" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>You see, I’m a very competitive individual, so for example when John
 De Goes used benchmarks showing dramatic improvements over Cats-Effect
@@ -413,18 +462,18 @@ follow up with no less than
 <a href="https://github.com/typelevel/cats-effect/pull/95">three</a> batches of
 optimizations.</p>
 
-<p>Most of the changes I did were already in use by Monix’s <code class="highlighter-rouge">Task</code>. Via
+<p>Most of the changes I did were already in use by Monix’s <code class="language-plaintext highlighter-rouge">Task</code>. Via
 these optimizations I effectively replaced the internals of
-<code class="highlighter-rouge">cats.effect.IO</code>. Daniel’s first implementation was more elegant, but
+<code class="language-plaintext highlighter-rouge">cats.effect.IO</code>. Daniel’s first implementation was more elegant, but
 mine was more efficient.</p>
 
 <p>I also had breakthroughs in Monix of course, with
 <a href="https://github.com/monix/monix/pull/474">one</a>,
 <a href="https://github.com/monix/monix/pull/492">two</a> batches. Less impact
-though, due to Monix’s <code class="highlighter-rouge">Task</code> already reaching its potential for many
+though, due to Monix’s <code class="language-plaintext highlighter-rouge">Task</code> already reaching its potential for many
 use cases.</p>
 
-<p>I then realized that my <code class="highlighter-rouge">monix.tail.Iterant</code> is effectively blocked by
+<p>I then realized that my <code class="language-plaintext highlighter-rouge">monix.tail.Iterant</code> is effectively blocked by
 the type class hierarchy not exposing type classes for IO/Task data
 types that can be canceled.</p>
 
@@ -436,7 +485,7 @@ followed by <a href="https://github.com/typelevel/cats-effect/pull/132">Timer</a
 and <a href="https://github.com/typelevel/cats-effect/pull/137">race</a>, culminating in the 
 <a href="https://github.com/typelevel/cats-effect/releases/tag/v0.10">v0.10 release</a>.</p>
 
-<p>All of this ties into Monix of course, <code class="highlighter-rouge">Task</code> along with the new
+<p>All of this ties into Monix of course, <code class="language-plaintext highlighter-rouge">Task</code> along with the new
 <a href="https://monix.io/api/3.0/monix/tail/Iterant.html">Iterant</a> data type
 making full use of 
 <a href="https://github.com/monix/monix/pull/598">Timer and cancelability</a>.  So now
@@ -446,7 +495,14 @@ you’ve got yourself a credible, pull-based competitor to FS2 as well 😉</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -482,18 +538,45 @@ you’ve got yourself a credible, pull-based competitor to FS2 as well 😉</p>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

@@ -28,19 +28,15 @@
   <meta content="Usage in SBT &amp;mdash; Monix" property="og:title">
   <meta content="Packages are published in Maven Central,cross-compiled for Scala 2.10, 2.11, 2.12 and for Scala.js" property="og:description">
   <meta content="https://monix.io/docs/2x/intro/usage.html" property="og:url">
+  <meta content="2020-07-20T09:13:53+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Usage in SBT</h1>
+      <h1 class="page-title">
+        
+        
+          Usage in SBT
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/intro/usage.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,16 +119,32 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#everything-in-monix-core">Everything in Monix Core</a></li>
+  <li><a href="#sub-project-monix-types">Sub-project: monix-types</a></li>
+  <li><a href="#sub-project-monix-execution">Sub-project: monix-execution</a></li>
+  <li><a href="#sub-project-monix-eval">Sub-project: monix-eval</a></li>
+  <li><a href="#sub-project-monix-reactive">Sub-project: monix-reactive</a></li>
+  <li><a href="#sub-project-monix-cats-optional">Sub-project: monix-cats (Optional)</a></li>
+  <li><a href="#sub-project-monix-scalaz-72-optional">Sub-project: monix-scalaz-72 (Optional)</a></li>
+</ul>
+
+  </nav>
 
   <p>The packages are published on Maven Central, cross-compiled
 for Scala 2.10, 2.11 and 2.12, also cross-compiled to 
 <a href="http://www.scala-js.org/">Scala.js</a> 0.6.21:</p>
 
 <ul>
-  <li>Current 1.x release: <code class="highlighter-rouge">1.2</code> 
+  <li>Current 1.x release: <code class="language-plaintext highlighter-rouge">1.2</code> 
 (<a href="https://github.com/monix/monix/archive/v1.2.zip">download source archive</a>)</li>
-  <li>Current 2.x release: <code class="highlighter-rouge">2.3.3</code> 
+  <li>Current 2.x release: <code class="language-plaintext highlighter-rouge">2.3.3</code> 
 (<a href="https://github.com/monix/monix/archive/v2.3.3.zip">download source archive</a>)</li>
 </ul>
 
@@ -133,10 +152,16 @@ for Scala 2.10, 2.11 and 2.12, also cross-compiled to
 <a href="http://www.scala-sbt.org/">SBT</a> (see the
 <a href="http://www.scala-sbt.org/0.13/docs/Setup.html">setup instructions</a>)
 and for <a href="https://maven.apache.org/">Apache Maven</a> build tools.</p>
+    
+      <h2 id="everything-in-monix-core">
+        
+        
+          Everything in Monix Core <a href="#everything-in-monix-core" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="everything-in-monix-core">Everything in Monix Core</h2>
-
-<p>The main <code class="highlighter-rouge">monix</code> project contains everything in the Monix core, 
+<p>The main <code class="language-plaintext highlighter-rouge">monix</code> project contains everything in the Monix core, 
 cross-compiled for:</p>
 
 <ul>
@@ -159,7 +184,7 @@ cross-compiled for:</p>
   <li><a href="#sub-project-monix-reactive">monix-reactive</a></li>
 </ul>
 
-<p>To use with insert the dependency in your <code class="highlighter-rouge">build.sbt</code> or <code class="highlighter-rouge">Build.scala</code>:</p>
+<p>To use with insert the dependency in your <code class="language-plaintext highlighter-rouge">build.sbt</code> or <code class="language-plaintext highlighter-rouge">Build.scala</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for the JVM</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
@@ -171,15 +196,21 @@ so to target Javascript or mixed JVM/Javascript environments:</p>
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for Scala.js/Javascript or cross-compilation</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-types">
+        
+        
+          Sub-project: monix-types <a href="#sub-project-monix-types" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-types">Sub-project: monix-types</h2>
-
-<p>The <code class="highlighter-rouge">monix-types</code> subproject is like a kernel exposing Monix’s
+<p>The <code class="language-plaintext highlighter-rouge">monix-types</code> subproject is like a kernel exposing Monix’s
 type-classes that are used for integration with
 <a href="http://typelevel.org/cats/">Cats</a> or other libraries. For the moment
-this means shims for types such as <code class="highlighter-rouge">Monad</code>, <code class="highlighter-rouge">MonadError</code> or <code class="highlighter-rouge">Comonad</code>,
-or <code class="highlighter-rouge">Evaluable</code>, a type-class meant to abstract over both <code class="highlighter-rouge">Task</code> or
-<code class="highlighter-rouge">Coeval</code>.</p>
+this means shims for types such as <code class="language-plaintext highlighter-rouge">Monad</code>, <code class="language-plaintext highlighter-rouge">MonadError</code> or <code class="language-plaintext highlighter-rouge">Comonad</code>,
+or <code class="language-plaintext highlighter-rouge">Evaluable</code>, a type-class meant to abstract over both <code class="language-plaintext highlighter-rouge">Task</code> or
+<code class="language-plaintext highlighter-rouge">Coeval</code>.</p>
 
 <p>Usage:</p>
 
@@ -202,10 +233,16 @@ or <code class="highlighter-rouge">Evaluable</code>, a type-class meant to abstr
 <span class="c1">// For Scala.js or cross-compiled projects</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-types"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-execution">
+        
+        
+          Sub-project: monix-execution <a href="#sub-project-monix-execution" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-execution">Sub-project: monix-execution</h2>
-
-<p>You can use just <code class="highlighter-rouge">monix-execution</code>, the lower level primitives for dealing
+<p>You can use just <code class="language-plaintext highlighter-rouge">monix-execution</code>, the lower level primitives for dealing
 with asynchronous execution, thus exposing 
 <a href="/api/2.3/monix/execution/Scheduler.html">Scheduler</a> and
 <a href="/api/2.3/monix/execution/Cancelable.html">Cancelable</a>:</p>
@@ -229,10 +266,16 @@ with asynchronous execution, thus exposing
 <span class="c1">// For Scala.js or cross-compiled projects</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-eval">
+        
+        
+          Sub-project: monix-eval <a href="#sub-project-monix-eval" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-eval">Sub-project: monix-eval</h2>
-
-<p>You can use just <code class="highlighter-rouge">monix-eval</code>, the sub-project that exposes
+<p>You can use just <code class="language-plaintext highlighter-rouge">monix-eval</code>, the sub-project that exposes
 <a href="/api/2.3/monix/eval/Task$.html">Task</a> and
 <a href="/api/2.3/monix/eval/Coeval$.html">Coeval</a>:</p>
 
@@ -261,10 +304,16 @@ with asynchronous execution, thus exposing
 <span class="c1">// For Scala.js or cross-compiled projects</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-reactive">
+        
+        
+          Sub-project: monix-reactive <a href="#sub-project-monix-reactive" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-reactive">Sub-project: monix-reactive</h2>
-
-<p>You can use just <code class="highlighter-rouge">monix-reactive</code>, the sub-project that exposes
+<p>You can use just <code class="language-plaintext highlighter-rouge">monix-reactive</code>, the sub-project that exposes
 the <a href="/api/2.3/monix/reactive/Observable.html">Observable</a> pattern:</p>
 
 <ul>
@@ -293,10 +342,16 @@ the <a href="/api/2.3/monix/reactive/Observable.html">Observable</a> pattern:</p
 <span class="c1">// For Scala.js or cross-compiled projects</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-cats-optional">
+        
+        
+          Sub-project: monix-cats (Optional) <a href="#sub-project-monix-cats-optional" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-cats-optional">Sub-project: monix-cats (Optional)</h2>
-
-<p>The <code class="highlighter-rouge">monix-cats</code> optional sub-projects is the integration 
+<p>The <code class="language-plaintext highlighter-rouge">monix-cats</code> optional sub-projects is the integration 
 with the <a href="http://typelevel.org/cats/">Cats</a> library.</p>
 
 <p>To import:</p>
@@ -318,10 +373,16 @@ with the <a href="http://typelevel.org/cats/">Cats</a> library.</p>
 <span class="c1">// For Scala.js or cross-compiled projects</span>
 <span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-cats"</span> <span class="o">%</span> <span class="s">"2.3.3"</span>
 </code></pre></div></div>
+    
+      <h2 id="sub-project-monix-scalaz-72-optional">
+        
+        
+          Sub-project: monix-scalaz-72 (Optional) <a href="#sub-project-monix-scalaz-72-optional" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="sub-project-monix-scalaz-72-optional">Sub-project: monix-scalaz-72 (Optional)</h2>
-
-<p>The <code class="highlighter-rouge">monix-scalaz-72</code> optional sub-projects is the integration 
+<p>The <code class="language-plaintext highlighter-rouge">monix-scalaz-72</code> optional sub-projects is the integration 
 with the <a href="http://scalaz.org/">Scalaz</a> library.</p>
 
 <p>To import:</p>
@@ -357,8 +418,8 @@ with the <a href="http://scalaz.org/">Scalaz</a> library.</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

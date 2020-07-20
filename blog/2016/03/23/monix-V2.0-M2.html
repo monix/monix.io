@@ -29,19 +29,15 @@
   <meta content="Second public milestone release for 2.0 and this one is huge as well." property="og:description">
   <meta content="https://monix.io/blog/2016/03/23/monix-V2.0-M2.html" property="og:url">
   <meta content="2016-03-23T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-M2 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-M2 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-03-23">
@@ -111,8 +113,13 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
   <p>The theme and the big issue of this release has been redesigning
-<code class="highlighter-rouge">Task</code>’s implementation and introducing <code class="highlighter-rouge">Coeval</code>. See
+<code class="language-plaintext highlighter-rouge">Task</code>’s implementation and introducing <code class="language-plaintext highlighter-rouge">Coeval</code>. See
 <a href="https://github.com/monix/monix/issues/141">Issue #141</a> for details.</p>
 
 <!--more-->
@@ -122,36 +129,36 @@
 <p>List of changes:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/88">Issue #88</a>: the <code class="highlighter-rouge">Task</code> implementation
+  <li><a href="https://github.com/monix/monix/issues/88">Issue #88</a>: the <code class="language-plaintext highlighter-rouge">Task</code> implementation
 has been redesigned from scratch</li>
   <li><a href="https://github.com/monix/monix/issues/89">Issue #89</a>: Cats integration 
 has been tried and yielded very positive results, but is being delayed</li>
   <li><a href="https://github.com/monix/monix/issues/96">Issue #96</a> 
-and <a href="https://github.com/monix/monix/issues/99">issue 99</a>: add <code class="highlighter-rouge">MulticastStrategy</code> for
+and <a href="https://github.com/monix/monix/issues/99">issue 99</a>: add <code class="language-plaintext highlighter-rouge">MulticastStrategy</code> for
 safer building of multicast Observables</li>
   <li><a href="https://github.com/monix/monix/issues/127">Issue #127</a>:
 Introduce operators onErrorHandle and onErrorHandleWith</li>
   <li><a href="https://github.com/monix/monix/issues/128">Issue #128</a>: operators 
-materialize, dematerialize and memoize for <code class="highlighter-rouge">Task</code> (and <code class="highlighter-rouge">Coeval</code>)</li>
-  <li><a href="https://github.com/monix/monix/issues/113">Issue #113</a>: Introduce the <code class="highlighter-rouge">bufferIntrospective</code>
+materialize, dematerialize and memoize for <code class="language-plaintext highlighter-rouge">Task</code> (and <code class="language-plaintext highlighter-rouge">Coeval</code>)</li>
+  <li><a href="https://github.com/monix/monix/issues/113">Issue #113</a>: Introduce the <code class="language-plaintext highlighter-rouge">bufferIntrospective</code>
 operator</li>
   <li><a href="https://github.com/monix/monix/issues/123">Issue #123</a>: underlying protocol 
-changes, did some fixes for the work that already happened for <code class="highlighter-rouge">M1</code></li>
-  <li><a href="https://github.com/monix/monix/issues/131">Issue #131</a>: renamed <code class="highlighter-rouge">Ack.Cancel</code>
-to <code class="highlighter-rouge">Ack.Stop</code> in order to differentiate it as a verb from <code class="highlighter-rouge">Cancelable.cancel</code>,
-because in version <code class="highlighter-rouge">2.0</code> they are two different actions 
+changes, did some fixes for the work that already happened for <code class="language-plaintext highlighter-rouge">M1</code></li>
+  <li><a href="https://github.com/monix/monix/issues/131">Issue #131</a>: renamed <code class="language-plaintext highlighter-rouge">Ack.Cancel</code>
+to <code class="language-plaintext highlighter-rouge">Ack.Stop</code> in order to differentiate it as a verb from <code class="language-plaintext highlighter-rouge">Cancelable.cancel</code>,
+because in version <code class="language-plaintext highlighter-rouge">2.0</code> they are two different actions 
 (and it’s more semantically correct this way)</li>
   <li><a href="https://github.com/monix/monix/issues/132">Issue #132</a>: introduced the
- <code class="highlighter-rouge">Observable.onCancelTriggerError</code> operator</li>
+ <code class="language-plaintext highlighter-rouge">Observable.onCancelTriggerError</code> operator</li>
   <li><a href="https://github.com/monix/monix/issues/133">Issue #133</a>: introduced the
- <code class="highlighter-rouge">Observable.doOnDownstreamStop</code> and <code class="highlighter-rouge">doOnCancel</code> 
+ <code class="language-plaintext highlighter-rouge">Observable.doOnDownstreamStop</code> and <code class="language-plaintext highlighter-rouge">doOnCancel</code> 
  (which is one reason for #131)</li>
   <li><a href="https://github.com/monix/monix/issues/134">Issue #134</a>: 
- New operator <code class="highlighter-rouge">Observable.switchIfEmpty</code></li>
+ New operator <code class="language-plaintext highlighter-rouge">Observable.switchIfEmpty</code></li>
   <li><a href="https://github.com/monix/monix/issues/136">Issue #136</a>: 
- Clarify reactive streams, initiated <code class="highlighter-rouge">monix.execution.rstreams</code> for 
- reusable subscription types and added the <code class="highlighter-rouge">ReactivePublisher</code> type-class
- for things that can be converted to <code class="highlighter-rouge">org.reactivestreams.Publisher</code>
+ Clarify reactive streams, initiated <code class="language-plaintext highlighter-rouge">monix.execution.rstreams</code> for 
+ reusable subscription types and added the <code class="language-plaintext highlighter-rouge">ReactivePublisher</code> type-class
+ for things that can be converted to <code class="language-plaintext highlighter-rouge">org.reactivestreams.Publisher</code>
  (both Observable and Task are instances)</li>
   <li><a href="https://github.com/monix/monix/issues/140">Issue #140</a>: 
  Add type-class hierarchy, to be integrated with both Cats and Scalaz</li>
@@ -163,7 +170,14 @@ from scratch, introduce Coeval, introduce Scheduler.executionModel</li>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -199,18 +213,45 @@ from scratch, introduce Coeval, introduce Scheduler.executionModel</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

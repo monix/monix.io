@@ -28,19 +28,15 @@
   <meta content="Hello World! &amp;mdash; Monix" property="og:title">
   <meta content="Go reactive (✿◠‿◠)" property="og:description">
   <meta content="https://monix.io/docs/2x/intro/hello-world.html" property="og:url">
+  <meta content="2020-07-20T09:13:52+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Hello World!</h1>
+      <h1 class="page-title">
+        
+        
+          Hello World!
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     
     
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/intro/hello-world.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,7 +119,18 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#task-the-lazy-future">Task, the Lazy Future</a></li>
+  <li><a href="#observable-the-lazy--async-iterable">Observable, the Lazy &amp; Async Iterable</a></li>
+</ul>
+
+  </nav>
 
   <p>Let’s do instant gratification stuff.</p>
 
@@ -131,13 +145,19 @@ whenever asynchronous execution happens.</p>
 <span class="k">import</span> <span class="nn">scala.concurrent.Await</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
 </code></pre></div></div>
-
-<h2 id="task-the-lazy-future">Task, the Lazy Future</h2>
+    
+      <h2 id="task-the-lazy-future">
+        
+        
+          Task, the Lazy Future <a href="#task-the-lazy-future" class="anchor">#</a>
+        
+        
+      </h2>
 
 <p>For using <a href="/api/2.3/monix/eval/Task$.html">Task</a> or
 <a href="/api/2.3/monix/eval/Coeval$.html">Coeval</a>, usage is
-fairly similar with Scala’s own <code class="highlighter-rouge">Future</code>, except that
-<code class="highlighter-rouge">Task</code> behaves lazily:</p>
+fairly similar with Scala’s own <code class="language-plaintext highlighter-rouge">Future</code>, except that
+<code class="language-plaintext highlighter-rouge">Task</code> behaves lazily:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval._</span>
 
@@ -146,26 +166,32 @@ fairly similar with Scala’s own <code class="highlighter-rouge">Future</code>,
 <span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nc">Task</span> <span class="o">{</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Task</code> in comparison with Scala’s <code class="highlighter-rouge">Future</code> is lazy,
+<p><code class="language-plaintext highlighter-rouge">Task</code> in comparison with Scala’s <code class="language-plaintext highlighter-rouge">Future</code> is lazy,
 so nothing gets evaluated yet. We can convert it into
-a <code class="highlighter-rouge">Future</code> and evaluate it:</p>
+a <code class="language-plaintext highlighter-rouge">Future</code> and evaluate it:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Actual execution, making use of the Scheduler in</span>
 <span class="c1">// our scope, imported above</span>
 <span class="k">val</span> <span class="nv">future</span> <span class="k">=</span> <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span>
-<span class="c1">// future: monix.execution.CancelableFuture[Int] = monix.execution.CancelableFuture$Implementation@100b9ba7</span>
+<span class="c1">// future: monix.execution.CancelableFuture[Int] = monix.execution.CancelableFuture$Implementation@95a28eb</span>
 </code></pre></div></div>
 
-<p>We now have a standard <code class="highlighter-rouge">Future</code>, so we can use its result:</p>
+<p>We now have a standard <code class="language-plaintext highlighter-rouge">Future</code>, so we can use its result:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Avoid blocking; this is done for demostrative purposes</span>
 <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">5.</span><span class="n">seconds</span><span class="o">)</span>
-<span class="c1">// res8: Int = 2</span>
+<span class="c1">// res0: Int = 2</span>
 </code></pre></div></div>
+    
+      <h2 id="observable-the-lazy--async-iterable">
+        
+        
+          Observable, the Lazy &amp; Async Iterable <a href="#observable-the-lazy--async-iterable" class="anchor">#</a>
+        
+        
+      </h2>
 
-<h2 id="observable-the-lazy--async-iterable">Observable, the Lazy &amp; Async Iterable</h2>
-
-<p>We already have the <code class="highlighter-rouge">Scheduler</code> in our local scope,
+<p>We already have the <code class="language-plaintext highlighter-rouge">Scheduler</code> in our local scope,
 so lets make a tick that gets triggered every second.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.reactive._</span>
@@ -215,8 +241,8 @@ it by subscribing to it:</p>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

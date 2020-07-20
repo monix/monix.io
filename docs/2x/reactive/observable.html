@@ -28,19 +28,15 @@
   <meta content="Observable &amp;mdash; Monix" property="og:title">
   <meta content="A data type for modeling and processing asynchronous and reactive streaming of events with non-blocking back-pressure." property="og:description">
   <meta content="https://monix.io/docs/2x/reactive/observable.html" property="og:url">
+  <meta content="2020-07-20T09:13:56+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -101,13 +97,20 @@
 
       <article class="content container">
         <div class="page">
-  <h1 class="page-title">Observable</h1>
+      <h1 class="page-title">
+        
+        
+          Observable
+        
+        
+      </h1>
 
   <nav role="navigation" id="type-info">
     <a href="/api/2.3/monix/reactive/Observable.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/reactive/observable.md">Edit Page</a>
+    
   </nav>
   
   <div id="version2x">
@@ -116,15 +119,35 @@
     <a href="/docs/3x/">click here</a>!
   </div>
 
-  <nav role="navigation" id="toc"></nav>
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
 
-  <h2 id="introduction">Introduction</h2>
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#design-summary">Design Summary</a></li>
+    </ul>
+  </li>
+</ul>
 
-<p>The <code class="highlighter-rouge">Observable</code> is a data type for modeling and processing
+  </nav>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> is a data type for modeling and processing
 asynchronous and reactive streaming of events with non-blocking
 back-pressure.</p>
 
-<p>The <code class="highlighter-rouge">Observable</code> is strongly inspired by
+<p>The <code class="language-plaintext highlighter-rouge">Observable</code> is strongly inspired by
 <a href="http://reactivex.io/">ReactiveX</a>, but with an idiomatic Scala API and
 influenced by the Scala ecosystem of projects such as
 <a href="http://typelevel.org/cats/">Cats</a> and
@@ -159,20 +182,26 @@ hence it has good interoperability.</p>
 
 </code></pre></div></div>
 
-<p>At its simplest, <code class="highlighter-rouge">Observable</code> is a replacement for your regular
+<p>At its simplest, <code class="language-plaintext highlighter-rouge">Observable</code> is a replacement for your regular
 <a href="#scala.collection.Iterable">Iterable</a>
 or Scala 
 <a href="#scala.collection.immutable.Stream">Stream</a>, 
 but with the ability to process asynchronous events without blocking. 
-And in fact you can convert any <code class="highlighter-rouge">Iterable</code> into an <code class="highlighter-rouge">Observable</code>.</p>
+And in fact you can convert any <code class="language-plaintext highlighter-rouge">Iterable</code> into an <code class="language-plaintext highlighter-rouge">Observable</code>.</p>
 
-<p>But <code class="highlighter-rouge">Observable</code> scales to complex problems, touching on
+<p>But <code class="language-plaintext highlighter-rouge">Observable</code> scales to complex problems, touching on
 <em><a href="https://en.wikipedia.org/wiki/Functional_reactive_programming">functional reactive programming (FRP)</a></em>,
 or it can model complex interactions between producers and consumers,
 being a potent alternative for
 <a href="http://akka.io/">the actor model</a>.</p>
-
-<h3 id="design-summary">Design Summary</h3>
+    
+      <h3 id="design-summary">
+        
+        
+          Design Summary <a href="#design-summary" class="anchor">#</a>
+        
+        
+      </h3>
 
 <p>A visual representation of where it sits in the design space:</p>
 
@@ -198,7 +227,7 @@ being a potent alternative for
   </tbody>
 </table>
 
-<p>The Monix <code class="highlighter-rouge">Observable</code>:</p>
+<p>The Monix <code class="language-plaintext highlighter-rouge">Observable</code>:</p>
 
 <ul>
   <li>models lazy &amp; asynchronous streaming of events</li>
@@ -208,7 +237,7 @@ being a potent alternative for
 on steroids</li>
   <li>you can also think of it as being like a Scala
 <a href="#scala.concurrent.Future">Future</a> or like
-a <a href="../eval/task.html">Task</a>, except with the ability to stream 
+a <a href="/docs/2x/eval/task.html">Task</a>, except with the ability to stream 
 multiple items instead of just one, or you can think of it as an asynchronous 
 and non-blocking
 <a href="#scala.collection.Iterable">Iterable</a>
@@ -216,15 +245,15 @@ with benefits</li>
   <li>models producer-consumer relationships, where you can have a single
 producer pushing data into one or multiple consumers</li>
   <li>works best for unidirectional communications</li>
-  <li>allows fine-grained control over the <a href="../execution/scheduler.html#execution-model">execution model</a></li>
-  <li>doesn’t trigger the execution, or any effects until <code class="highlighter-rouge">subscribe</code></li>
+  <li>allows fine-grained control over the <a href="/docs/2x/execution/scheduler.html#execution-model">execution model</a></li>
+  <li>doesn’t trigger the execution, or any effects until <code class="language-plaintext highlighter-rouge">subscribe</code></li>
   <li>allows for cancelling of active streams</li>
   <li>never blocks any threads in its implementation</li>
   <li>does not expose any API calls that can block threads</li>
   <li>compatible with <a href="http://www.scala-js.org/">Scala.js</a> like the rest of Monix</li>
 </ul>
 
-<p>See <strong><a href="./observable-comparisons.html">comparisons with similar tools, like Akka or FS2</a></strong>.</p>
+<p>See <strong><a href="/docs/2x/reactive/observable-comparisons.html">comparisons with similar tools, like Akka or FS2</a></strong>.</p>
 
 <p>… TO BE CONTINUED …</p>
 
@@ -239,8 +268,8 @@ producer pushing data into one or multiple consumers</li>
     <a href="/social.html">
       Follow</a>
   </div>
-</div>
 
+  </div>
       </article>
     </div>
     <script type="text/javascript">

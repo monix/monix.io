@@ -29,19 +29,15 @@
   <meta content="First public milestone release for 2.0 and it is huge." property="og:description">
   <meta content="https://monix.io/blog/2016/03/16/monix-v2.0-M1.html" property="og:url">
   <meta content="2016-03-16T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,13 +99,24 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-M1 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-M1 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-03-16">
     16 Mar 2016
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
+
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
 
   <p>Milestone release for version 2.0, supplied as a preview.
 The final 2.0 release should not have major changes compared
@@ -124,51 +131,58 @@ to this first milestone, but API breakage can still happen.</p>
 <p>List of changes:</p>
 
 <ul>
-  <li><a href="https://github.com/monix/monix/issues/60">Issue #60</a> - initiated the <code class="highlighter-rouge">docs</code> sub-project with
+  <li><a href="https://github.com/monix/monix/issues/60">Issue #60</a> - initiated the <code class="language-plaintext highlighter-rouge">docs</code> sub-project with
 tutorials type-checked as part of the test process</li>
-  <li><a href="https://github.com/monix/monix/issues/88">Issue #88</a> - add Monix’s own <code class="highlighter-rouge">Task</code>, an alternative
-to <code class="highlighter-rouge">Future</code> and the Scalaz <code class="highlighter-rouge">Task</code></li>
+  <li><a href="https://github.com/monix/monix/issues/88">Issue #88</a> - add Monix’s own <code class="language-plaintext highlighter-rouge">Task</code>, an alternative
+to <code class="language-plaintext highlighter-rouge">Future</code> and the Scalaz <code class="language-plaintext highlighter-rouge">Task</code></li>
   <li><a href="https://github.com/monix/monix/issues/89">Issue #89</a> - initial integration 
 with <a href="https://github.com/typelevel/cats">Cats</a></li>
   <li><a href="https://github.com/monix/monix/issues/90">Issue #90</a> - remove functionality that isn’t
 relevant to the purpose of Monix and be supported</li>
   <li><a href="https://github.com/monix/monix/issues/91">Issue #91</a> - project rename and reorganization (epic API breakage)</li>
-  <li><a href="https://github.com/monix/monix/issues/93">Issue #93</a> - renamed <code class="highlighter-rouge">Observable.onSubscribe</code> to
-<code class="highlighter-rouge">Observable.unsafeSubscribeFn</code>, because it shouldn’t be used directly, unless you really, really
+  <li><a href="https://github.com/monix/monix/issues/93">Issue #93</a> - renamed <code class="language-plaintext highlighter-rouge">Observable.onSubscribe</code> to
+<code class="language-plaintext highlighter-rouge">Observable.unsafeSubscribeFn</code>, because it shouldn’t be used directly, unless you really, really
 know what you’re doing</li>
   <li><a href="https://github.com/monix/monix/issues/94">Issue #94</a> - fixed comments style to ScalaDoc</li>
-  <li><a href="https://github.com/monix/monix/issues/96">Issue #96</a> - removed <code class="highlighter-rouge">Observable.create</code> because
+  <li><a href="https://github.com/monix/monix/issues/96">Issue #96</a> - removed <code class="language-plaintext highlighter-rouge">Observable.create</code> because
 it is unsafe</li>
-  <li><a href="https://github.com/monix/monix/issues/100">Issue #100</a> - enhanced the <code class="highlighter-rouge">Scheduler</code> interface</li>
-  <li><a href="https://github.com/monix/monix/issues/102">Issue #102</a> - brought back <code class="highlighter-rouge">sun.misc.Unsafe</code> 
+  <li><a href="https://github.com/monix/monix/issues/100">Issue #100</a> - enhanced the <code class="language-plaintext highlighter-rouge">Scheduler</code> interface</li>
+  <li><a href="https://github.com/monix/monix/issues/102">Issue #102</a> - brought back <code class="language-plaintext highlighter-rouge">sun.misc.Unsafe</code> 
 (actually this was done in separate project, as part of <a href="https://github.com/monix/monix/issues/104">issue #104</a>)</li>
-  <li><a href="https://github.com/monix/monix/issues/104">Issue #104</a> - separated the <code class="highlighter-rouge">Atomic</code> implementations
+  <li><a href="https://github.com/monix/monix/issues/104">Issue #104</a> - separated the <code class="language-plaintext highlighter-rouge">Atomic</code> implementations
 in the <a href="https://github.com/monix/sincron">Sincron</a></li>
   <li><a href="https://github.com/monix/monix/issues/106">Issue #106</a> - enabled code coverage reports</li>
   <li><a href="https://github.com/monix/monix/issues/111">Issue #111</a> - improved test coverage</li>
-  <li><a href="https://github.com/monix/monix/issues/114">Issue #114</a> - initiated the <code class="highlighter-rouge">benchmarks</code> sub-project to
+  <li><a href="https://github.com/monix/monix/issues/114">Issue #114</a> - initiated the <code class="language-plaintext highlighter-rouge">benchmarks</code> sub-project to
 track performance issues</li>
-  <li><a href="https://github.com/monix/monix/issues/115">Issue #115</a> - <code class="highlighter-rouge">Cancelable.cancel</code> now returns <code class="highlighter-rouge">Unit</code>
-and not <code class="highlighter-rouge">Boolean</code></li>
-  <li><a href="https://github.com/monix/monix/issues/118">Issue #118</a> - Fix <code class="highlighter-rouge">materialize</code>, add <code class="highlighter-rouge">dematerialize</code></li>
-  <li><a href="https://github.com/monix/monix/issues/119">Issue #119</a> - Introduced <code class="highlighter-rouge">Pipe</code>, 
-renamed <code class="highlighter-rouge">Channel</code> in <code class="highlighter-rouge">ConcurrentSubject</code>, renamed <code class="highlighter-rouge">SynchronousObserver</code> in <code class="highlighter-rouge">SyncObserver</code>,
-renamed <code class="highlighter-rouge">SynchronousSubscriber</code> in <code class="highlighter-rouge">SyncSubscriber</code></li>
+  <li><a href="https://github.com/monix/monix/issues/115">Issue #115</a> - <code class="language-plaintext highlighter-rouge">Cancelable.cancel</code> now returns <code class="language-plaintext highlighter-rouge">Unit</code>
+and not <code class="language-plaintext highlighter-rouge">Boolean</code></li>
+  <li><a href="https://github.com/monix/monix/issues/118">Issue #118</a> - Fix <code class="language-plaintext highlighter-rouge">materialize</code>, add <code class="language-plaintext highlighter-rouge">dematerialize</code></li>
+  <li><a href="https://github.com/monix/monix/issues/119">Issue #119</a> - Introduced <code class="language-plaintext highlighter-rouge">Pipe</code>, 
+renamed <code class="language-plaintext highlighter-rouge">Channel</code> in <code class="language-plaintext highlighter-rouge">ConcurrentSubject</code>, renamed <code class="language-plaintext highlighter-rouge">SynchronousObserver</code> in <code class="language-plaintext highlighter-rouge">SyncObserver</code>,
+renamed <code class="language-plaintext highlighter-rouge">SynchronousSubscriber</code> in <code class="language-plaintext highlighter-rouge">SyncSubscriber</code></li>
   <li><a href="https://github.com/monix/monix/issues/121">Issue #121</a> - Clarified the contract for synchronous
-pipelines, got rid of the hacks from <code class="highlighter-rouge">internal</code>, replacing them with macro-driven extensions
-for <code class="highlighter-rouge">Future[Ack]</code></li>
-  <li><a href="https://github.com/monix/monix/issues/123">Issue #123</a> - Changed the protocol of <code class="highlighter-rouge">Observable.subscribe</code>,
-back-pressuring <code class="highlighter-rouge">onComplete</code> and <code class="highlighter-rouge">onError</code> is now optional and <code class="highlighter-rouge">Observable.unsafeSubscribeFn</code> needs
-to return a usable <code class="highlighter-rouge">Cancelable</code> instead of <code class="highlighter-rouge">Unit</code> (big internal change)</li>
+pipelines, got rid of the hacks from <code class="language-plaintext highlighter-rouge">internal</code>, replacing them with macro-driven extensions
+for <code class="language-plaintext highlighter-rouge">Future[Ack]</code></li>
+  <li><a href="https://github.com/monix/monix/issues/123">Issue #123</a> - Changed the protocol of <code class="language-plaintext highlighter-rouge">Observable.subscribe</code>,
+back-pressuring <code class="language-plaintext highlighter-rouge">onComplete</code> and <code class="language-plaintext highlighter-rouge">onError</code> is now optional and <code class="language-plaintext highlighter-rouge">Observable.unsafeSubscribeFn</code> needs
+to return a usable <code class="language-plaintext highlighter-rouge">Cancelable</code> instead of <code class="language-plaintext highlighter-rouge">Unit</code> (big internal change)</li>
   <li><a href="https://github.com/monix/monix/issues/125">Issue #125</a> - Modified contract of 
-<code class="highlighter-rouge">AsyncScheduler</code>, added a new <code class="highlighter-rouge">ExecutorScheduler</code></li>
+<code class="language-plaintext highlighter-rouge">AsyncScheduler</code>, added a new <code class="language-plaintext highlighter-rouge">ExecutorScheduler</code></li>
 </ul>
 
 <p>Enjoy!</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -204,18 +218,45 @@ to return a usable <code class="highlighter-rouge">Cancelable</code> instead of 
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">

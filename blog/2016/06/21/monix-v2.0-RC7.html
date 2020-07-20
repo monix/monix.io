@@ -29,19 +29,15 @@
   <meta content="Scalaz 7.2 integration, TaskApp, new Scheduler builders, Atomic references" property="og:description">
   <meta content="https://monix.io/blog/2016/06/21/monix-v2.0-RC7.html" property="og:url">
   <meta content="2016-06-21T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-07-20T09:04:26+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
-  <!-- Javascript -->
-  <script src="//code.jquery.com/jquery-2.2.4.min.js" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/toc.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-  <script src="/public/js/init.js?1591443182111407949" type="text/javascript" language="javascript"></script>
-
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1591443182111407949">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -103,7 +99,13 @@
       <article class="content container">
         <div class="post">
   <a name="start"></a>
-  <h1 class="post-title">Monix: Version 2.0-RC7 Released</h1>
+      <h1 class="post-title">
+        
+        
+          Monix: Version 2.0-RC7 Released
+        
+        
+      </h1>
 
   <time class="post-date" itemprop="dateCreated"
     datetime="2016-06-21">
@@ -111,12 +113,17 @@
     • <a href="https://twitter.com/alexelcu">@alexelcu</a>
   </time>
 
-  <p>This release candidate fixes a bug in <code class="highlighter-rouge">Task.materializeAttempt</code> and
-consequently <code class="highlighter-rouge">Task.onErrorHandleWith</code>. It also adds
-<a href="http://scalaz.org/">Scalaz</a> integration and a <code class="highlighter-rouge">TaskApp</code> to make your
-friends jealous. Also the <code class="highlighter-rouge">Atomic</code> references in project <code class="highlighter-rouge">Sincron</code> are
-being brought back into Monix proper, in <code class="highlighter-rouge">monix-execution</code>, because
-project <code class="highlighter-rouge">Sincron</code> is for all intents and purposes part of Monix and
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p>This release candidate fixes a bug in <code class="language-plaintext highlighter-rouge">Task.materializeAttempt</code> and
+consequently <code class="language-plaintext highlighter-rouge">Task.onErrorHandleWith</code>. It also adds
+<a href="http://scalaz.org/">Scalaz</a> integration and a <code class="language-plaintext highlighter-rouge">TaskApp</code> to make your
+friends jealous. Also the <code class="language-plaintext highlighter-rouge">Atomic</code> references in project <code class="language-plaintext highlighter-rouge">Sincron</code> are
+being brought back into Monix proper, in <code class="language-plaintext highlighter-rouge">monix-execution</code>, because
+project <code class="language-plaintext highlighter-rouge">Sincron</code> is for all intents and purposes part of Monix and
 has no further ambitions.</p>
 
 <!--more-->
@@ -127,8 +134,8 @@ has no further ambitions.</p>
 
 <ul>
   <li><a href="https://github.com/monix/monix/issues/170">Issue #170</a>: 
-<code class="highlighter-rouge">Task.materializeAttempt</code> doesn’t work for <code class="highlighter-rouge">BindAsync</code>, leading to <code class="highlighter-rouge">onErrorHandleWith</code>
-not working with errors triggered in <code class="highlighter-rouge">flatMap</code> on async tasks</li>
+<code class="language-plaintext highlighter-rouge">Task.materializeAttempt</code> doesn’t work for <code class="language-plaintext highlighter-rouge">BindAsync</code>, leading to <code class="language-plaintext highlighter-rouge">onErrorHandleWith</code>
+not working with errors triggered in <code class="language-plaintext highlighter-rouge">flatMap</code> on async tasks</li>
 </ul>
 
 <p>New Features:</p>
@@ -136,35 +143,42 @@ not working with errors triggered in <code class="highlighter-rouge">flatMap</co
 <ul>
   <li><a href="https://github.com/monix/monix/issues/171">Issue #171</a>: 
  Add Scheduler builder on the JVM that allows specifying 
- just the <code class="highlighter-rouge">ExecutionModel</code>, piggybacking <code class="highlighter-rouge">global</code> otherwise</li>
+ just the <code class="language-plaintext highlighter-rouge">ExecutionModel</code>, piggybacking <code class="language-plaintext highlighter-rouge">global</code> otherwise</li>
   <li><a href="https://github.com/monix/monix/issues/174">Issue #174</a>: 
 <a href="https://github.com/scalaz/scalaz">Scalaz</a> integration (in addition to the 
 Cats integration) for FP goodness</li>
   <li><a href="https://github.com/monix/monix/issues/175">Issue #175</a>:
-Reintroduce all of project <code class="highlighter-rouge">Sincron</code> into <code class="highlighter-rouge">monix-execution</code>, which means
-that now <code class="highlighter-rouge">monix-execution</code> exposes <code class="highlighter-rouge">Atomic</code> references. This project
+Reintroduce all of project <code class="language-plaintext highlighter-rouge">Sincron</code> into <code class="language-plaintext highlighter-rouge">monix-execution</code>, which means
+that now <code class="language-plaintext highlighter-rouge">monix-execution</code> exposes <code class="language-plaintext highlighter-rouge">Atomic</code> references. This project
 was split from Monix, but the decision didn’t make sense and the exposed
-functionality is super useful and in the spirit of <code class="highlighter-rouge">monix-execution</code></li>
+functionality is super useful and in the spirit of <code class="language-plaintext highlighter-rouge">monix-execution</code></li>
   <li><a href="https://github.com/monix/monix/issues/176">Issue #176</a>: now that we
-have <code class="highlighter-rouge">Task</code>, we introduce <code class="highlighter-rouge">TaskApp</code>, a safe <code class="highlighter-rouge">App</code> type that allows one
+have <code class="language-plaintext highlighter-rouge">Task</code>, we introduce <code class="language-plaintext highlighter-rouge">TaskApp</code>, a safe <code class="language-plaintext highlighter-rouge">App</code> type that allows one
 to specify pure programs</li>
 </ul>
 
 <p>New documentation pages:</p>
 
 <ul>
-  <li><a href="/docs/2x/execution/atomic.html">Atomic</a></li>
-  <li><a href="/docs/2x/intro/scalaz72.html">Scalaz 7.2 Integration</a></li>
-  <li><a href="/docs/2x/reactive/observable.html">Observable</a> (just introduction, work in progress)</li>
-  <li><a href="/docs/2x/reactive/observable-comparisons.html">Observable: Comparisons with Other Solutions</a></li>
-  <li><a href="/docs/2x/reactive/observers.html">Observers and Subscribers</a></li>
+  <li><a href="/docs/2x/execution/atomic.md">Atomic</a></li>
+  <li><a href="/docs/2x/intro/scalaz72.md">Scalaz 7.2 Integration</a></li>
+  <li><a href="/docs/2x/reactive/observable.md">Observable</a> (just introduction, work in progress)</li>
+  <li><a href="/docs/2x/reactive/observable-comparisons.md">Observable: Comparisons with Other Solutions</a></li>
+  <li><a href="/docs/2x/reactive/observers.md">Observers and Subscribers</a></li>
 </ul>
 
 <p>Enjoy!</p>
 
 
   <div class="related">
-    <h2>Related Posts</h2>
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
     <ul class="related-posts">
       
         <li>
@@ -200,18 +214,45 @@ to specify pure programs</li>
 
   
 <div id="contributions">
-  <h2>Feedback?</h2>
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
 
-  <div class="address">
-    If you wish to discus this article, jump to our chatroom:
-    <p>
-      <a href="https://gitter.im/monix/monix" target="_blank">https://gitter.im/monix/monix</a>
-    </p>
-  </div>
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
 </div>
 
 </div>
-
       </article>
     </div>
     <script type="text/javascript">
