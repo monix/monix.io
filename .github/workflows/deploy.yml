@@ -24,15 +24,18 @@ jobs:
         uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: v2-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          key: v3-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            v2-${{ runner.os }}-gems-
+            v3-${{ runner.os }}-gems-
 
-      - name: Cache SBT Coursier
-        uses: actions/cache@v1.1.2
+      - name: Cache SBT
+        uses: actions/cache@v2
         with:
-          path: ~/.cache/coursier
-          key: v2-${{ runner.os }}-sbt-coursier-${{ hashFiles('**/build.sbt') }}
+          path: | 
+            ~/.ivy2/cache
+            ~/.sbt
+            ~/.cache/coursier
+          key: v3-${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}       
 
       - name: Install dependencies
         run: |
