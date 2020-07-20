@@ -22,7 +22,7 @@ bundle
 Then to generate the whole website:
 
 ```
-CI=true ./script/build
+./script/build
 ```
 
 ### Incremental compilation
