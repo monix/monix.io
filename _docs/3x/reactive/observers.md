@@ -7,7 +7,7 @@ description: |
 
 ## Observer
 
-<a href="{{ site.api3x }}monix/reactive/Observer.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/Observer.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/Observer.scala">Source</a>
 
 The `Observer` from the Rx pattern is the trio of callbacks that get
@@ -259,7 +259,7 @@ though we prefer to log it when we catch such instances.
 
 ## Subscriber
 
-<a href="{{ site.api3x }}monix/reactive/observers/Subscriber.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/observers/Subscriber.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/Subscriber.scala">Source</a>
 
 Given that, in order to do anything with an `Observer` we always need
@@ -402,7 +402,7 @@ monixSubscriber.onComplete()
 
 ### Safe Subscriber
 
-<a href="{{ site.api3x }}monix/reactive/observers/SafeSubscriber.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/observers/SafeSubscriber.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/SafeSubscriber.scala">Source</a>
 
 The `SafeSubscriber` wraps a `Subscriber` implementation into one that
@@ -460,7 +460,7 @@ have to do it by yourself.
 
 ### Connectable Subscriber
 
-<a href="{{ site.api3x }}monix/reactive/observers/ConnectableSubscriber.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/observers/ConnectableSubscriber.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/ConnectableSubscriber.scala">Source</a>
 
 Wraps a `Subscriber` implementation into one that back-pressures the
@@ -501,7 +501,7 @@ ack.isCompleted
 
 ### Cache Until Connect Subscriber
 
-<a href="{{ site.api3x }}monix/reactive/observers/CacheUntilConnectSubscriber.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/observers/CacheUntilConnectSubscriber.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/CacheUntilConnectSubscriber.scala">Source</a>
 
 Wraps an underlying `Subscriber` into an implementation that caches
@@ -535,7 +535,7 @@ val result: CancelableFuture[Ack] =
 
 ### Buffered Subscriber
 
-<a href="{{ site.api3x }}monix/reactive/observers/BufferedSubscriber.html">API Documentation</a> •
+<a href="{{ page.path | api_base_url }}monix/reactive/observers/BufferedSubscriber.html">API Documentation</a> •
 <a href="{{ site.github.repo }}/blob/v{{ site.promoted.version3x }}/monix-reactive/shared/src/main/scala/monix/reactive/observers/BufferedSubscriber.scala">Source</a>
 
 Observers have a strong contract and consequently:
@@ -562,7 +562,7 @@ given that we have a buffer between the data source and the consumer,
 we can talk about *overflows* and *overflow strategies*.
 
 The
-[OverflowStrategy]({{ site.api3x }}monix/reactive/OverflowStrategy$.html)
+[OverflowStrategy]({{ page.path | api_base_url }}monix/reactive/OverflowStrategy$.html)
 parameter dictates the strategy of the used buffer. We've got these
 strategies available:
 

@@ -311,7 +311,7 @@ garbage collector.
 ## Memoization
 
 The
-[Coeval#memoize]({{ site.api3x }}monix/eval/Coeval.html#memoize:monix.eval.Coeval[A])
+[Coeval#memoize]({{ page.path | api_base_url }}monix/eval/Coeval.html#memoize:monix.eval.Coeval[A])
 operator can take any `Coeval` and apply memoization on the first evaluation
 (such as `value`, `runTry`) such that:
 

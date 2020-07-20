@@ -31,14 +31,14 @@ We can do parallel execution in batches, that does deterministic
 ### The Naive Way
 
 The following example uses
-[Task.gather]({{ site.api3x }}monix/eval/Task$.html#gather[A,M[X]<:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]),
+[Task.gather]({{ page.path | api_base_url }}monix/eval/Task$.html#gather[A,M[X]<:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]),
 which does parallel processing while preserving result ordering, 
 but in order to ensure that parallel processing actually happens,
 the tasks need to be effectively asynchronous, which for simple
 functions need to fork threads, hence the usage of 
-[Task.apply]({{ site.api3x }}monix/eval/Task$.html#apply[A](f:=>A):monix.eval.Task[A]),
+[Task.apply]({{ page.path | api_base_url }}monix/eval/Task$.html#apply[A](f:=>A):monix.eval.Task[A]),
 although remember that you can apply 
-[Task.fork]({{ site.api3x }}monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A])
+[Task.fork]({{ page.path | api_base_url }}monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A])
 to any task.
 
 ```scala mdoc:silent:nest
@@ -55,7 +55,7 @@ aggregate.foreach(println)
 ```
 
 If ordering of results does not matter, you can also use 
-[Task.gatherUnordered]({{ site.api3x }}monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]])
+[Task.gatherUnordered]({{ page.path | api_base_url }}monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]])
 instead of `gather`, which might yield better results, given its non-blocking execution.
 
 ### Imposing a Parallelism Limit
@@ -121,16 +121,16 @@ batched.toListL.foreach(println)
 ```
 
 Note the use of 
-[bufferIntrospective]({{ site.api3x }}monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]),
+[bufferIntrospective]({{ page.path | api_base_url }}monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]),
 which buffers incoming events while the downstream is busy, after which
 it emits the buffer as a single bundle. The
-[bufferTumbling]({{ site.api3x }}monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]])
+[bufferTumbling]({{ page.path | api_base_url }}monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]])
 operator can be a more deterministic alternative.
 
 ## Observable.mapParallelUnordered
 
 Another way to achieve parallelism is to use the 
-[Observable.mapParallelUnordered]({{ site.api3x }}monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=>monix.eval.Task[B]):Self[B])
+[Observable.mapParallelUnordered]({{ page.path | api_base_url }}monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=>monix.eval.Task[B]):Self[B])
 operator:
 
 ```scala mdoc:silent:nest

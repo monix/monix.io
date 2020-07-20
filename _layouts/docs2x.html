@@ -5,6 +5,11 @@ layout: default
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
 
+  <time class="post-date" itemprop="dateModified"
+    datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
+    <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
+  </time>
+
   <nav role="navigation" id="type-info">
     {% if page.type_api %}<a href="{{ site.api2x }}{{ page.type_api | replace: '.','/' }}.html">API Documentation</a>{% endif %}
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/{{ page.type_source }}">Source Code</a>{% endif %}
@@ -13,16 +18,12 @@ layout: default
     {% if page.has_comments %}<a href="#comments">Comments</a>{% endif %}
   </nav>
   
+  {% capture alt_link %}{{ page.path | current_doc_link: site.pages }}{% endcapture -%}
   <div id="version2x">
-    You are viewing the documentation for the older Monix 2.x series.<br />
+    You are viewing the documentation for the <em>older</em> Monix 2.x series.<br />
     If you're looking for the latest 3.x
-    <a href="{{ site.docs3x }}">click here</a>!
+    <a href="{% link {{ alt_link }} %}">see here</a>!
   </div>
-
-  <time class="post-date" itemprop="dateModified"
-    datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
-    <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
-  </time>
 
   <nav role="navigation" id="toc">
     {% include toc.html h_min=2 h_max=3 html=content %}
@@ -31,7 +32,7 @@ layout: default
   {{ content }}
 
   <div class="buttons">
-    <a href="/docs/2x/">Contents</a> •
+    <a href="{% link {{ page.path | doc_contents_link }} %}">Contents</a> •
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">
       Edit Page</a> •
     {% if page.play_url %}<a href="{{ page.play_url }}" title="Powered by ScalaFiddle" target="_blank">

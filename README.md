@@ -4,7 +4,7 @@ The homepage and the documentation website for the Monix project.
 
 [![Build status](https://github.com/monix/monix.io/workflows/build/badge.svg)](https://github.com/monix/monix.io/actions?query=workflow%3Abuild)
 
-## Generating the Website Locally
+## Developing Locally
 
 The website gets generated with [Jekyll](https://jekyllrb.com/) and articles are type-checked with [mdoc](https://github.com/scalameta/mdoc). In order to install the required dependencies:
 
@@ -18,6 +18,14 @@ Then to install the Ruby dependencies of the project:
 ```
 bundle
 ```
+
+Then to generate the whole website:
+
+```
+CI=true ./script/build
+```
+
+### Incremental compilation
 
 To generate the `mdoc`-enabled articles, which takes articles from [./_docs][./_docs], generating them parsed into `./docs`:
 

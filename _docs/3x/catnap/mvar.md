@@ -67,7 +67,7 @@ and Monix's implementation does in fact implement that interface.
 `MVar` will remain in Monix as well because:
 
 1. it shares implementation with
-   [monix.execution.AsyncVar]({{ site.api3x }}monix/execution/AsyncVar.html),
+   [monix.execution.AsyncVar]({{ page.path | api_base_url }}monix/execution/AsyncVar.html),
    the `Future`-enabled alternative
 2. we can use our [Atomic](../execution/atomic.md) implementations
 3. at this point Monix's `MVar` has some fixes that have to wait for

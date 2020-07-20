@@ -5,7 +5,7 @@ title: Monix Documentation
 
 ## API Documentation
 
-[ScalaDoc for Monix 3.x]({{ site.api3x }})
+[ScalaDoc for Monix 3.x]({{ page.path | api_base_url }})
 
 Related:
 
@@ -35,7 +35,7 @@ and building on top of the `scala.concurrent` package.
 <img src="{{ site.baseurl }}public/images/logos/java.png" alt="Java's Duke" title="Java's Duke"
      class="doc-icon" />
 
-- [API Documentation]({{ site.api3x }}monix/execution/index.html)
+- [API Documentation]({{ page.path | api_base_url }}monix/execution/index.html)
 - [Scheduler](./execution/scheduler.md)
 - [Cancelable](./execution/cancelable.md)
 - [Callback](./execution/callback.md)
@@ -51,7 +51,7 @@ utilities for managing concurrency, building on top of the
 <img src="{{ site.baseurl }}public/images/logos/cats.png" alt="Cats" title="Cats"
      class="doc-icon" />
 
-- [API Documentation]({{ site.api3x }}monix/catnap/index.html)
+- [API Documentation]({{ page.path | api_base_url }}monix/catnap/index.html)
 - [Circuit Breaker](./catnap/circuit-breaker.md)
 - [MVar](./catnap/mvar.md)
 
@@ -60,7 +60,7 @@ utilities for managing concurrency, building on top of the
 The `monix-eval` sub-project exposes the `Task` and `Coeval` data
 types, for dealing with purely functional effects in a principled way:
 
-- [API Documentation]({{ site.api3x }}monix/eval/index.html)
+- [API Documentation]({{ page.path | api_base_url }}monix/eval/index.html)
 - [Task](./eval/task.md)
 - [Coeval](./eval/coeval.md)
 
@@ -73,7 +73,7 @@ that's an idiomatic implementation of ReactiveX for Scala:
 <img src="{{ site.baseurl }}public/images/logos/reactivex.png" alt="ReactiveX" title="ReactiveX"
      class="doc-icon" />
 
-- [API Documentation]({{ site.api3x }}monix/reactive/index.html)
+- [API Documentation]({{ page.path | api_base_url }}monix/reactive/index.html)
 - [Observable](./reactive/observable.md)
 - [Comparisons with Other Solutions](./reactive/observable-comparisons.md)
 - [Observers and Subscribers](./reactive/observers.md)
@@ -88,7 +88,7 @@ that's an idiomatic implementation of ReactiveX for Scala:
 The `monix-tail` sub-projects exposes `Iterant`, a generic, purely
 functional, principled, pull-based streaming data type:
 
-- [API Documentation]({{ site.api3x }}monix/tail/index.html)
+- [API Documentation]({{ page.path | api_base_url }}monix/tail/index.html)
 
 ## Tutorials
   

@@ -4,14 +4,15 @@ layout: default
 
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
-  <nav role="navigation" id="type-info">
-    <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
-  </nav>
 
   <time class="post-date" itemprop="dateModified"
     datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
     <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
   </time>
+
+  <nav role="navigation" id="type-info">
+    <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
+  </nav>
 
   <nav role="navigation" id="toc">
     {% include toc.html h_min=2 h_max=3 html=content %}
@@ -20,7 +21,7 @@ layout: default
   {{ content }}
 
   <div class="buttons">
-    <a href="/docs/3x/">Contents</a> •
+    <a href="/docs/current/">Contents</a> •
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">
       Edit Page</a> •
     <a href="{{ site.github.chat }}">
