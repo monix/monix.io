@@ -30,15 +30,15 @@
   <meta content="Callback &amp;mdash; Monix" property="og:title">
   <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." property="og:description">
   <meta content="https://monix.io/docs/2x/eval/callback.html" property="og:url">
-  <meta content="2020-07-20T18:29:07+00:00" property="article:modified_time">
+  <meta content="2020-07-20T18:39:46+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1595269950362708469">
+  <link rel="stylesheet" href="/public/css/all.css?1595270573987821264">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595269950362708469">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595270573987821264">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -116,7 +116,7 @@
     <a href="/api/2.3/monix/eval/Callback.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-eval/shared/src/main/scala/monix/eval/Callback.scala">Source Code</a>
     
-    <a href="https://github.com/monix/monix.io/edit/master/_docs/2x/eval/callback.md">Edit Page</a>
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/2x/eval/callback.md">Edit Page</a>
     
   </nav>
   
@@ -187,12 +187,12 @@ maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
 <span class="c1">// task: monix.eval.Task[Unit] = FlatMap(</span>
-<span class="c1">//   Async(monix.eval.Task$$$Lambda$8749/0x0000000802a65040@7699a904),</span>
-<span class="c1">//   monix.eval.Task$$$Lambda$8750/0x0000000802a64040@1f8e5ea2</span>
+<span class="c1">//   Async(monix.eval.Task$$$Lambda$8781/0x0000000802a72040@365a4cb2),</span>
+<span class="c1">//   monix.eval.Task$$$Lambda$8782/0x0000000802a71040@7ff23668</span>
 <span class="c1">// )</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@7eaca242</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@68e80f9a</span>
 </code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
@@ -201,6 +201,7 @@ maybe because you just want the side-effects:</p>
 <span class="c1">// p: concurrent.Promise[String] = Future(&lt;not completed&gt;)</span>
 
 <span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+<span class="c1">// Sample</span>
 <span class="c1">// callback: Callback[String] = &lt;function1&gt;</span>
 </code></pre></div></div>
 
@@ -218,7 +219,7 @@ errors. So to force a protective asynchronous boundary when calling
 
   <div class="buttons">
     <a href="/docs/2x/">Contents</a> •
-    <a href="https://github.com/monix/monix.io/edit/master/_docs/2x/eval/callback.md">
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/2x/eval/callback.md">
       Edit Page</a> •
     
     <a href="https://gitter.im/monix/monix">
