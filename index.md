@@ -119,7 +119,7 @@ generation energy grid solutions.
 
 ## Adopters
 
-Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/edit/master/README.md)
+Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/blob/master/README.md)
 
 - [Abacus](https://abacusfi.com)
 - [commercetools](https://commercetools.com)
