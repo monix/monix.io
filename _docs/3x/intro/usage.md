@@ -59,8 +59,8 @@ libraryDependencies += "io.monix" %%% "monix" % "{{ site.promoted.version3x }}"
 
 You can use just `monix-execution`, the lower level primitives for dealing
 with asynchronous execution, thus exposing 
-[Scheduler]({{ site.api3x }}monix/execution/Scheduler.html) and
-[Cancelable]({{ site.api3x }}monix/execution/Cancelable.html):
+[Scheduler]({{ page.path | api_base_url }}monix/execution/Scheduler.html) and
+[Cancelable]({{ page.path | api_base_url }}monix/execution/Cancelable.html):
 
 - JVM: 
   [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.12%7C{{ site.promoted.version3x }}%7C) /
@@ -81,8 +81,8 @@ libraryDependencies += "io.monix" %%% "monix-execution" % "{{ site.promoted.vers
 ## Sub-project: monix-eval
 
 You can use just `monix-eval`, the sub-project that exposes
-[Task]({{ site.api3x }}monix/eval/Task$.html) and
-[Coeval]({{ site.api3x }}monix/eval/Coeval$.html):
+[Task]({{ page.path | api_base_url }}monix/eval/Task$.html) and
+[Coeval]({{ page.path | api_base_url }}monix/eval/Coeval$.html):
 
 - JVM: 
   [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.12%7C{{ site.promoted.version3x }}%7C) /
@@ -108,7 +108,7 @@ libraryDependencies += "io.monix" %%% "monix-eval" % "{{ site.promoted.version3x
 ## Sub-project: monix-reactive
 
 You can use just `monix-reactive`, the sub-project that exposes
-the [Observable]({{ site.api3x }}monix/reactive/Observable.html) pattern:
+the [Observable]({{ page.path | api_base_url }}monix/reactive/Observable.html) pattern:
 
 - JVM: 
   [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12%7C{{ site.promoted.version3x }}%7C) /
@@ -136,7 +136,7 @@ libraryDependencies += "io.monix" %%% "monix-reactive" % "{{ site.promoted.versi
 ## Sub-project: monix-tail
 
 You can use just `monix-tail`, the sub-project that exposes
-[Iterant]({{ site.api3x }}monix/tail/Iterant.html) for pull based
+[Iterant]({{ page.path | api_base_url }}monix/tail/Iterant.html) for pull based
 streaming:
 
 - JVM: 

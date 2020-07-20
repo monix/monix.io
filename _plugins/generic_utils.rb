@@ -13,6 +13,16 @@ module Jekyll
     @@site = Jekyll.configuration({})
     @@pages_cache = {}
 
+    def api_base_url(path)
+      if path.include?("docs/3x/")
+        @@site['api3x']
+      elsif path.include?("docs/2x/")
+        @@site['api2x']
+      else 
+        @@site['apiCurrent']
+      end
+    end
+
     def doc_contents_link(path)
       if path =~ /\/docs\//
         path.sub(/docs\/([^\/]+)(\/[^$]*)$/, "docs/current/$1")

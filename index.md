@@ -77,7 +77,7 @@ Documentation and tutorials:
 
 API ScalaDoc:
 
-- [3.x]({{ site.api3x }})
+- [Current]({{ site.apiCurrent }}) ([3.x]({{ site.api3x }}))
 - [2.x]({{ site.api2x }})
 - [1.x]({{ site.api1x }})
 

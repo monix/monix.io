@@ -100,7 +100,7 @@ See **[comparisons with similar tools, like Akka or FS2](./observable-comparison
 ### Learning resources
 
 The following documentation barely scratches the surface of `Observable` and is rather incomplete.
-If you find it lacking, make sure to check either the [Observable API]({{ site.api3x }}monix/reactive/Observable.html) or
+If you find it lacking, make sure to check either the [Observable API]({{ page.path | api_base_url }}monix/reactive/Observable.html) or
 look at the comments [in the code](https://github.com/monix/monix) directly. We put a lot of focus on scaladocs. 
 
 Another great resource is the [ReactiveX](http://reactivex.io/) documentation, which opens doors
@@ -196,7 +196,7 @@ If you're mostly using available methods and want to write a purely functional a
 dirty internals don't leak outside and the majority of the API and the process of constructing and executing `Observable`s are all pure.
 
 The main drawback in comparison to purely functional streams, such as [fs2](https://github.com/functional-streams-for-scala/fs2) or
-[Iterant]({{ site.api3x }}monix/tail/Iterant.html), is the presence of impure functions in the API. If you have inexperienced 
+[Iterant]({{ page.path | api_base_url }}monix/tail/Iterant.html), is the presence of impure functions in the API. If you have inexperienced 
 team members, they could be tempted to use them. Fortunately, all of them are marked with the `@UnsafeBecauseImpure` annotation and are explained in the ScalaDoc. 
 There should always be a referentially transparent replacement to solve your specific use case but if your team is not fully committed to FP, these functions can be very useful.
 

@@ -198,7 +198,7 @@ it.
 
 The most straightforward and idiomatic way would be to execute
 tasks and get a
-[CancelableFuture]({{ site.api3x }}monix/execution/CancelableFuture.html)
+[CancelableFuture]({{ page.path | api_base_url }}monix/execution/CancelableFuture.html)
 in return, which is a standard `Future` paired with a
 [Cancelable](../execution/cancelable.md):
 
@@ -803,7 +803,7 @@ Some notes:
 ## Memoization
 
 The
-[Task#memoize]({{ site.api3x }}monix/eval/Task.html#memoize:monix.eval.Task[A])
+[Task#memoize]({{ page.path | api_base_url }}monix/eval/Task.html#memoize:monix.eval.Task[A])
 operator can take any `Task` and apply memoization on the first `runToFuture`,
 such that:
 
