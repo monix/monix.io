@@ -5,10 +5,12 @@ layout: default
 <div class="page">
   <h1 class="page-title">{{ page.title }}</h1>
 
+  {% if with_last_modified_at %}
   <time class="post-date" itemprop="dateModified"
     datetime="{{ page.last_modified_at | date: "%Y-%m-%d" }}">
     <b>Updated at:</b> {{ page.last_modified_at | date_to_string }}
   </time>
+  {% endif -%}
 
   <nav role="navigation" id="type-info">
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>

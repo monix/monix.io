@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Privacy Policy
+with_last_modified_at: true
 ---
 
 This website does not collect personally identifiable information, no first-party cookies are installed that could be used to track visitors and we strive hard to prevent tracking from any third-party services used to deliver content or to improve the experience.

@@ -10,10 +10,7 @@ end
 
 puts "CI=#{ENV['CI']}"
 puts "CI_DEPLOY=#{ENV['CI_DEPLOY']}"
-
-unless ENV['CI'] == 'true'
-  abort("ERROR: Not running on top of CI, aborting!")
-end
+puts
 
 # Forcing a change to the root directory, if not there already
 Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
@@ -22,6 +19,7 @@ puts "---------------------------------------------------------------------"
 puts "Compiling documentation (via mdoc) ..."
 puts 
 
+exec("rm -rf docs/")
 exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
 
 puts "---------------------------------------------------------------------"

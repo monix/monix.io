@@ -1,6 +1,7 @@
 ---
 layout: docs3x
 title: Monix Documentation
+with_last_modified_at: false
 ---
 
 ## API Documentation
