@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Callback &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/execution/callback.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Callback &amp;mdash; Monix" />
+  <meta name="twitter:description" content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." />
+  <meta name="twitter:url" content="https://monix.io/docs/current/execution/callback.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Callback &amp;mdash; Monix" property="og:title">
+  <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." property="og:description">
+  <meta content="https://monix.io/docs/current/execution/callback.html" property="og:url">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Callback
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/current/monix/execution/Callback.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.2.2/monix-execution/shared/src/main/scala/monix/execution/Callback.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/execution/callback.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/current/execution/callback.html">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p><code class="language-plaintext highlighter-rouge">Callback</code> is a listener type that can be called asynchronously with
+the result of a computation.</p>
+
+<p>When building an asynchronous <code class="language-plaintext highlighter-rouge">Task</code>, on execution the API gives you a
+<code class="language-plaintext highlighter-rouge">Callback</code> instance that you can invoke with the result of a
+computation, on completion. Its definition is something like:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">trait</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">-E</span>, <span class="kt">-A</span><span class="o">]</span> <span class="nc">extends</span> <span class="o">(</span><span class="nc">Either</span><span class="o">[</span><span class="kt">E</span>, <span class="kt">A</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">Unit</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">E</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This callback type has a contract:</p>
+
+<ol>
+  <li>on completion, if it was a successful execution, one needs to call <code class="language-plaintext highlighter-rouge">onSuccess</code></li>
+  <li>on completion, if the execution ended in error, one needs to call <code class="language-plaintext highlighter-rouge">onError</code></li>
+  <li>after calling <code class="language-plaintext highlighter-rouge">onSuccess</code> or <code class="language-plaintext highlighter-rouge">onError</code> then no more calls are allowed, as
+that would be a contract violation</li>
+</ol>
+
+<p>In order to protect the contract, you can wrap any such callback into
+a “safe” implementation that protects against violations:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Callback</span>
+
+<span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Callback</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Int</span><span class="o">]</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> 
+    <span class="nf">println</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+  <span class="k">def</span> <span class="nf">onError</span><span class="o">(</span><span class="n">ex</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span>
+    <span class="nv">System</span><span class="o">.</span><span class="py">err</span><span class="o">.</span><span class="py">println</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// We need an exception reporter, but we can just use a Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.global</span>
+
+<span class="k">val</span> <span class="nv">safeCallback1</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)</span>
+
+<span class="c1">// But really, we don't need a Scheduler</span>
+<span class="k">import</span> <span class="nn">monix.execution.UncaughtExceptionReporter</span>
+<span class="k">import</span> <span class="nn">UncaughtExceptionReporter.</span><span class="o">{</span><span class="n">default</span> <span class="k">=&gt;</span> <span class="n">r</span><span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">safeCallback2</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">safe</span><span class="o">(</span><span class="n">callback</span><span class="o">)(</span><span class="n">r</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p><strong>NOTE:</strong> when executing <code class="language-plaintext highlighter-rouge">Task.runToFuture(callback)</code>, the provided
+callback is automatically wrapped in <code class="language-plaintext highlighter-rouge">Callback.safe</code>, so you don’t
+need to worry about it.</p>
+
+<p>In case you just want an <em>empty</em> callback that doesn’t do anything
+on <code class="language-plaintext highlighter-rouge">onSuccess</code>, but that can log errors when <code class="language-plaintext highlighter-rouge">onError</code> happens,
+maybe because you just want the side-effects:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Eval(&lt;function0&gt;)</span>
+
+<span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Unit</span><span class="o">])</span>
+<span class="c1">// Sample</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.Cancelable.empty</span>
+</code></pre></div></div>
+
+<p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nv">scala</span><span class="o">.</span><span class="py">concurrent</span><span class="o">.</span><span class="py">Promise</span><span class="o">[</span><span class="kt">String</span><span class="o">]()</span>
+<span class="c1">// p: concurrent.Promise[String] = Future(&lt;not completed&gt;)</span>
+
+<span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+<span class="c1">// callback: Callback[Throwable, String] = &lt;function1&gt;</span>
+</code></pre></div></div>
+
+<p>An interesting effect when dealing with callbacks is that callbacks
+calling other callbacks can quickly and easily lead to stack-overflow
+errors. So to force a protective asynchronous boundary when calling
+<code class="language-plaintext highlighter-rouge">onSuccess</code> or <code class="language-plaintext highlighter-rouge">onError</code> (which may or may not fork a thread):</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Lets pretend we have something meaningful</span>
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">String</span><span class="o">]</span>
+
+<span class="k">val</span> <span class="nv">asyncCallback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">forked</span><span class="o">(</span><span class="n">ref</span><span class="o">)</span>
+</code></pre></div></div>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/execution/callback.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Callback" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

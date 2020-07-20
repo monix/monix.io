@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Atomic &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/execution/atomic.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Atomic &amp;mdash; Monix" />
+  <meta name="twitter:description" content="References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better." />
+  <meta name="twitter:url" content="https://monix.io/docs/current/execution/atomic.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Atomic &amp;mdash; Monix" property="og:title">
+  <meta content="References that can be updated atomically, for lock-free thread-safe programming, resembling Java's AtomicReference, but better." property="og:description">
+  <meta content="https://monix.io/docs/current/execution/atomic.html" property="og:url">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Atomic
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/current/monix/execution/atomic/Atomic.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.2.2/monix-execution/jvm/src/main/scala/monix/execution/atomic/Atomic.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/execution/atomic.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/2x/execution/atomic.html">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#providing-a-common-interface">Providing a Common interface</a>
+    <ul>
+      <li><a href="#working-with-numbers">Working with Numbers</a></li>
+      <li><a href="#support-for-other-primitives-float-double-short-char-byte">Support for Other Primitives (Float, Double, Short, Char, Byte)</a></li>
+      <li><a href="#common-pattern-loops-for-transforming-the-value">Common Pattern: Loops for Transforming the Value</a></li>
+    </ul>
+  </li>
+  <li><a href="#scalajs-support-for-targeting-javascript">Scala.js support for targeting Javascript</a></li>
+  <li><a href="#efficiency">Efficiency</a>
+    <ul>
+      <li><a href="#boxing--unboxing">Boxing / Unboxing</a></li>
+      <li><a href="#cache-padded-versions-for-avoiding-the-false-sharing-problem">Cache-padded versions for avoiding the false sharing problem</a></li>
+    </ul>
+  </li>
+  <li><a href="#platform-intrinsics">Platform Intrinsics</a></li>
+</ul>
+
+  </nav>
+
+  <p>Scala is awesome at handling concurrency and parallelism, providing
+high-level tools for handling it, however sometimes you need to go
+lower level. Java’s library provides all the multi-threading
+primitives required, however the interfaces of these primitives
+sometime leave something to be desired.</p>
+
+<p>One such example are the atomic references provided in
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/package-summary.html">java.util.concurrent.atomic</a>
+package. This project is an attempt at improving these types for daily
+usage.</p>
+    
+      <h2 id="providing-a-common-interface">
+        
+        
+          Providing a Common interface <a href="#providing-a-common-interface" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>So you have
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html">j.u.c.a.AtomicReference&lt;V&gt;</a>,
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html">j.u.c.a.AtomicInteger</a>,
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html">j.u.c.a.AtomicLong</a>
+and
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicLong.html">j.u.c.a.AtomicBoolean</a>.
+The reason why <code class="language-plaintext highlighter-rouge">AtomicReference&lt;V&gt;</code> does not suffice is because
+compare-and-set works with reference equality, not structural equality
+like it happens with primitives. So you cannot simply box an integer
+and use it safely, plus you’ve got the whole boxing/unboxing overhead.</p>
+
+<p>One problem is that all of these classes do not share a common
+interface and there’s no reason for why they shouldn’t.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.atomic._</span>
+
+<span class="k">val</span> <span class="nv">refInt1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refInt2</span><span class="k">:</span> <span class="kt">AtomicInt</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">refLong1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refLong2</span><span class="k">:</span> <span class="kt">AtomicLong</span> <span class="o">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">refString1</span><span class="k">:</span> <span class="kt">Atomic</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+<span class="k">val</span> <span class="nv">refString2</span><span class="k">:</span> <span class="kt">AtomicAny</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+</code></pre></div></div>
+    
+      <h3 id="working-with-numbers">
+        
+        
+          Working with Numbers <a href="#working-with-numbers" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>One really common use-case for atomic references are for numbers to
+which you need to add or subtract. To this purpose
+<code class="language-plaintext highlighter-rouge">j.u.c.a.AtomicInteger</code> and <code class="language-plaintext highlighter-rouge">j.u.c.a.AtomicLong</code> have an
+<code class="language-plaintext highlighter-rouge">incrementAndGet</code> helper. However Ints and Longs aren’t the only types
+you normally need. How about <code class="language-plaintext highlighter-rouge">Float</code> and <code class="language-plaintext highlighter-rouge">Double</code> and <code class="language-plaintext highlighter-rouge">Short</code>? How about
+<code class="language-plaintext highlighter-rouge">BigDecimal</code> and <code class="language-plaintext highlighter-rouge">BigInt</code>?</p>
+
+<p>In Scala, thanks to the
+<a href="http://www.scala-lang.org/api/current/index.html#scala.math.Numeric">Numeric[T]</a>
+type-class, we can do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+<span class="c1">// ref: AtomicNumberAny[BigInt] = monix.execution.atomic.AtomicNumberAny@1a1fb89a</span>
+
+<span class="c1">// now we can increment a BigInt</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// res0: BigInt = 2</span>
+
+<span class="c1">// or adding to it another value</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">addAndGet</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="s">"329084291234234"</span><span class="o">))</span>
+<span class="c1">// res1: BigInt = 329084291234236</span>
+</code></pre></div></div>
+
+<p>But then if we have a type that isn’t a number:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">string</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">"hello"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Trying to apply numeric operations will of course fail:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">string</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// error: value incrementAndGet is not a member of monix.execution.atomic.AtomicAny[String]</span>
+</code></pre></div></div>
+    
+      <h3 id="support-for-other-primitives-float-double-short-char-byte">
+        
+        
+          Support for Other Primitives (Float, Double, Short, Char, Byte) <a href="#support-for-other-primitives-float-double-short-char-byte" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>Here’s a common gotcha with Java’s <code class="language-plaintext highlighter-rouge">AtomicReference&lt;V&gt;</code>. Suppose
+we’ve got this Java atomic:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
+
+<span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>The unexpected happens on <code class="language-plaintext highlighter-rouge">compareAndSet</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">isSuccess</span> <span class="k">=</span> <span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
+<span class="c1">// isSuccess: Boolean = false</span>
+</code></pre></div></div>
+
+<p>Calling <code class="language-plaintext highlighter-rouge">compareAndSet</code> fails because when using <code class="language-plaintext highlighter-rouge">AtomicReference&lt;V&gt;</code>
+the equality comparison is done by reference and it doesn’t work for
+primitives because the process of
+<a href="http://docs.oracle.com/javase/tutorial/java/data/autoboxing.html">Autoboxing/Unboxing</a>
+is involved. And then there’s the efficiency issue. By using an
+AtomicReference, you’ll end up with extra boxing/unboxing going on.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Float</code> can be stored inside an <code class="language-plaintext highlighter-rouge">AtomicInteger</code> by using Java’s
+<code class="language-plaintext highlighter-rouge">Float.floatToIntBits</code> and <code class="language-plaintext highlighter-rouge">Float.intBitstoFloat</code>. <code class="language-plaintext highlighter-rouge">Double</code> can be
+stored inside an <code class="language-plaintext highlighter-rouge">AtomicLong</code> by using Java’s
+<code class="language-plaintext highlighter-rouge">Double.doubleToLongBits</code> and <code class="language-plaintext highlighter-rouge">Double.longBitsToDouble</code>. <code class="language-plaintext highlighter-rouge">Char</code>,
+<code class="language-plaintext highlighter-rouge">Byte</code> and <code class="language-plaintext highlighter-rouge">Short</code> can be stored inside an <code class="language-plaintext highlighter-rouge">AtomicInteger</code> as well,
+with special care to handle overflows correctly. All this is done to avoid boxing
+for performance reasons.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
+<span class="c1">// ref: AtomicDouble = monix.execution.atomic.AtomicDouble@7a54674b</span>
+
+<span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
+<span class="c1">// res3: Boolean = true</span>
+
+<span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// res4: Double = 101.0</span>
+
+<span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
+<span class="c1">// ref2: AtomicChar = monix.execution.atomic.AtomicChar@f590bed</span>
+
+<span class="nv">ref2</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// res5: Char = 'b'</span>
+
+<span class="nv">ref2</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// res6: Char = 'c'</span>
+</code></pre></div></div>
+    
+      <h3 id="common-pattern-loops-for-transforming-the-value">
+        
+        
+          Common Pattern: Loops for Transforming the Value <a href="#common-pattern-loops-for-transforming-the-value" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p><code class="language-plaintext highlighter-rouge">incrementAndGet</code> represents just one use-case of a simple and more
+general pattern. To push items in a queue for example, one would
+normally do something like this in Java:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">collection.immutable.Queue</span>
+<span class="k">import</span> <span class="nn">java.util.concurrent.atomic.AtomicReference</span>
+
+<span class="k">def</span> <span class="nf">pushElementAndGet</span><span class="o">[</span><span class="kt">T</span> <span class="k">&lt;:</span> <span class="kt">AnyRef</span>, <span class="kt">U</span> <span class="k">&lt;:</span> <span class="kt">T</span><span class="o">]</span>
+  <span class="o">(</span><span class="n">ref</span><span class="k">:</span> <span class="kt">AtomicReference</span><span class="o">[</span><span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]],</span> <span class="n">elem</span><span class="k">:</span> <span class="kt">U</span><span class="o">)</span><span class="k">:</span> <span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  
+  <span class="k">var</span> <span class="n">continue</span> <span class="k">=</span> <span class="kc">true</span>
+  <span class="k">var</span> <span class="n">update</span> <span class="k">=</span> <span class="kc">null</span>
+
+  <span class="nf">while</span> <span class="o">(</span><span class="n">continue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">current</span><span class="k">:</span> <span class="kt">Queue</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="nv">ref</span><span class="o">.</span><span class="py">get</span><span class="o">()</span>
+    <span class="k">var</span> <span class="n">update</span> <span class="k">=</span> <span class="nv">current</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="n">elem</span><span class="o">)</span>
+    <span class="n">continue</span> <span class="k">=</span> <span class="o">!</span><span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="n">current</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
+  <span class="o">}</span>
+  
+  <span class="n">update</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is such a common pattern. Taking a page from the wonderful
+<a href="https://nbronson.github.io/scala-stm/">ScalaSTM</a>,
+with <code class="language-plaintext highlighter-rouge">Atomic</code> you can simply do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nv">Queue</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
+<span class="c1">// ref: AtomicAny[Queue[String]] = monix.execution.atomic.AtomicAny@7673035d</span>
+
+<span class="c1">// Transforms the value and returns the update</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">transformAndGet</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
+<span class="c1">// res7: Queue[String] = Queue("hello")</span>
+
+<span class="c1">// Transforms the value and returns the current one</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">getAndTransform</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"world"</span><span class="o">))</span>
+<span class="c1">// res8: Queue[String] = Queue("hello")</span>
+
+<span class="c1">// We can be specific about what we want extracted as a result</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">transformAndExtract</span> <span class="o">{</span> <span class="n">current</span> <span class="k">=&gt;</span>
+  <span class="nf">val</span> <span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span> <span class="k">=</span> <span class="nv">current</span><span class="o">.</span><span class="py">dequeue</span>
+  <span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">update</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="c1">// res9: String = "hello"</span>
+
+<span class="c1">// Or the shortcut, because it looks so good</span>
+<span class="nv">ref</span><span class="o">.</span><span class="py">transformAndExtract</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">dequeue</span><span class="o">)</span>
+<span class="c1">// res10: String = "world"</span>
+</code></pre></div></div>
+
+<p>Voilà, you now have a concurrent, thread-safe and non-blocking
+Queue. You can do this for whatever persistent data-structure you
+want.</p>
+
+<p>NOTE: the transform methods are implemented using Scala macros, so
+you get zero overhead by using them.</p>
+    
+      <h2 id="scalajs-support-for-targeting-javascript">
+        
+        
+          Scala.js support for targeting Javascript <a href="#scalajs-support-for-targeting-javascript" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>These atomic references are also cross-compiled to <a href="http://www.scala-js.org/">Scala.js</a>
+for targeting Javascript engines, because:</p>
+
+<ul>
+  <li>it’s a useful way of boxing mutable variables, in case you need to box</li>
+  <li>it’s a building block for doing synchronization, so useful for code that you want cross-compiled</li>
+  <li>because mutability doesn’t take <em>time</em> into account and <code class="language-plaintext highlighter-rouge">compareAndSet</code> does, atomic references and
+<code class="language-plaintext highlighter-rouge">compareAndSet</code> in particular is also useful in a non-multi-threaded / asynchronous environment</li>
+</ul>
+    
+      <h2 id="efficiency">
+        
+        
+          Efficiency <a href="#efficiency" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>Atomic references are low-level primitives for concurrency and because
+of that any extra overhead is unacceptable.</p>
+    
+      <h3 id="boxing--unboxing">
+        
+        
+          Boxing / Unboxing <a href="#boxing--unboxing" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>Working with a common <code class="language-plaintext highlighter-rouge">Atomic[T]</code> interface implies boxing/unboxing of
+primitives. This is why the constructor for atomic references always
+returns the most specialized version, as to avoid boxing and unboxing:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref1</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">// ref1: AtomicInt = AtomicInt(1)</span>
+
+<span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">1L</span><span class="o">)</span>
+<span class="c1">// ref2: AtomicLong = AtomicLong(1)</span>
+
+<span class="k">val</span> <span class="nv">ref3</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+<span class="c1">// ref3: AtomicBoolean = AtomicBoolean(true)</span>
+
+<span class="k">val</span> <span class="nv">ref4</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
+<span class="c1">// ref4: AtomicAny[String] = monix.execution.atomic.AtomicAny@34d6fd66</span>
+</code></pre></div></div>
+
+<p>Increments/decrements are done by going through the
+<a href="http://www.scala-lang.org/api/current/index.html#scala.math.Numeric">Numeric[T]</a>
+provided implicit, but only for <code class="language-plaintext highlighter-rouge">AnyRef</code> types, such as <code class="language-plaintext highlighter-rouge">BigInt</code> and
+<code class="language-plaintext highlighter-rouge">BigDecimal</code>. For Scala’s primitives the logic has been optimized to
+bypass <code class="language-plaintext highlighter-rouge">Numeric[T]</code>.</p>
+    
+      <h3 id="cache-padded-versions-for-avoiding-the-false-sharing-problem">
+        
+        
+          Cache-padded versions for avoiding the false sharing problem <a href="#cache-padded-versions-for-avoiding-the-false-sharing-problem" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>In order to reduce cache contention, cache-padded versions for all Atomic
+classes are provided. For reference on what that means, see:</p>
+
+<ul>
+  <li><a href="http://mail.openjdk.java.net/pipermail/hotspot-dev/2012-November/007309.html">mail.openjdk.java.net/pipermail/hotspot-dev/2012-November/007309.html</a></li>
+  <li><a href="http://openjdk.java.net/jeps/142">JEP 142: Reduce Cache Contention on Specified Fields</a></li>
+</ul>
+
+<p>To use the cache-padded versions, you need to override the default
+<code class="language-plaintext highlighter-rouge">PaddingStrategy</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.atomic.PaddingStrategy.</span><span class="o">{</span><span class="nc">Left64</span><span class="o">,</span> <span class="nc">LeftRight256</span><span class="o">}</span>
+
+<span class="c1">// Applies padding to the left of the value for a cache line </span>
+<span class="c1">// of 64 bytes</span>
+<span class="k">val</span> <span class="nv">ref1</span> <span class="k">=</span> <span class="nv">Atomic</span><span class="o">.</span><span class="py">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">Left64</span><span class="o">)</span>
+
+<span class="c1">// Applies padding both to the left and the right of the value </span>
+<span class="c1">// for a total object size of at least 256 bytes</span>
+<span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nv">Atomic</span><span class="o">.</span><span class="py">withPadding</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">LeftRight256</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>The strategies available are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">NoPadding</code>: doesn’t apply any padding, the default</li>
+  <li><code class="language-plaintext highlighter-rouge">Left64</code>: applies padding to the left of the value, for a cache line of 64 bytes</li>
+  <li><code class="language-plaintext highlighter-rouge">Right64</code>: applies padding to the right of the value, for a cache line of 64 bytes</li>
+  <li><code class="language-plaintext highlighter-rouge">LeftRight128</code>: applies padding to both the left and the right, for a cache line of 128 bytes</li>
+  <li><code class="language-plaintext highlighter-rouge">Left128</code>: applies padding to the left of the value, for a cache line of 128 bytes</li>
+  <li><code class="language-plaintext highlighter-rouge">Right128</code>: applies padding to the right of the value, for a cache line of 128 bytes</li>
+  <li><code class="language-plaintext highlighter-rouge">LeftRight256</code>: applies padding to both the left and the right, for a cache line of 256 bytes</li>
+</ul>
+
+<p>And now you can join the folks that have mechanical sympathy :-P</p>
+    
+      <h2 id="platform-intrinsics">
+        
+        
+          Platform Intrinsics <a href="#platform-intrinsics" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>Java 8 came with platform intrinsics, such that:</p>
+
+<ol>
+  <li>Issue
+<a href="https://bugs.openjdk.java.net/browse/JDK-7023898">JDK-7023898</a>
+changed the <code class="language-plaintext highlighter-rouge">getAndAdd</code> method in <code class="language-plaintext highlighter-rouge">Unsafe</code> and all related methods
+in the <code class="language-plaintext highlighter-rouge">AtomicInt</code> and <code class="language-plaintext highlighter-rouge">AtomicLong</code> implementations, like
+<code class="language-plaintext highlighter-rouge">getAndIncrement</code> and <code class="language-plaintext highlighter-rouge">incrementAndGet</code>, to be translated to 
+<code class="language-plaintext highlighter-rouge">LOCK XADD</code> instructions on x86/x64 platforms, being far cheaper than 
+CAS loops based on <code class="language-plaintext highlighter-rouge">LOCK CMPXCHG</code> (normal <code class="language-plaintext highlighter-rouge">compareAndSet</code>)</li>
+  <li>Issue
+<a href="https://bugs.openjdk.java.net/browse/JDK-8004330">JDK-8004330</a>
+changed the <code class="language-plaintext highlighter-rouge">getAndSet</code> in <code class="language-plaintext highlighter-rouge">Unsafe</code> and all atomic implementations
+to be translated to <code class="language-plaintext highlighter-rouge">LOCK XCHG</code>, which is also cheaper than CAS
+loops based on <code class="language-plaintext highlighter-rouge">LOCK CMPXCHG</code> (normal <code class="language-plaintext highlighter-rouge">compareAndSet</code>).  See
+this
+<a href="https://blogs.oracle.com/dave/entry/atomic_fetch_and_add_vs">article by Dave Dice</a>
+for why this is awesome</li>
+</ol>
+
+<p>Monix’s <code class="language-plaintext highlighter-rouge">Atomic</code> implementations are also using the same platform
+intrinsics when running on top of Java 8, but automatically fallback
+to normal <code class="language-plaintext highlighter-rouge">compareAndSet</code> loops if running on top of Java 6 or 7.</p>
+
+<p>So when you do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">numberRef</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="c1">// numberRef: AtomicInt = AtomicInt(2)</span>
+
+<span class="k">val</span> <span class="nv">previous</span> <span class="k">=</span> <span class="nv">numberRef</span><span class="o">.</span><span class="py">getAndSet</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="c1">// previous: Int = 0</span>
+
+<span class="k">val</span> <span class="nv">current</span> <span class="k">=</span> <span class="nv">numberRef</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
+<span class="c1">// current: Int = 2</span>
+</code></pre></div></div>
+
+<p>This code, depending on the Java version used will either use
+optimized CPU instructions (Java 8 and above) or fallback to CAS
+loops (e.g. Java 6 and 7, Android).</p>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/execution/atomic.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Atomic" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

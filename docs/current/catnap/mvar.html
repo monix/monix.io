@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>MVar &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/catnap/mvar.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="MVar &amp;mdash; Monix" />
+  <meta name="twitter:description" content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." />
+  <meta name="twitter:url" content="https://monix.io/docs/current/catnap/mvar.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="MVar &amp;mdash; Monix" property="og:title">
+  <meta content="A mutable location that can be empty or contains a value, asynchronously blocking reads when empty and blocking writes when full." property="og:description">
+  <meta content="https://monix.io/docs/current/catnap/mvar.html" property="og:url">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          MVar
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="type-info">
+    <a href="/api/current/monix/catnap/MVar.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.2.2/monix-catnap/shared/src/main/scala/monix/catnap/MVar.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/catnap/mvar.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/current/catnap/mvar.html">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#inspiration">Inspiration</a></li>
+    </ul>
+  </li>
+  <li><a href="#cats-effect">Cats-Effect</a></li>
+  <li><a href="#use-case-synchronized-mutable-variables">Use-case: Synchronized Mutable Variables</a></li>
+  <li><a href="#use-case-asynchronous-lock-binary-semaphore-mutex">Use-case: Asynchronous Lock (Binary Semaphore, Mutex)</a></li>
+  <li><a href="#use-case-producerconsumer-channel">Use-case: Producer/Consumer Channel</a></li>
+</ul>
+
+  </nav>
+
+  <p>An <code class="language-plaintext highlighter-rouge">MVar</code> is a mutable location that can be empty or contains a value,
+asynchronously blocking reads when empty and blocking writes when full.</p>
+    
+      <h2 id="introduction">
+        
+        
+          Introduction <a href="#introduction" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>Use-cases:</p>
+
+<ol>
+  <li>As synchronized, thread-safe mutable variables</li>
+  <li>As channels, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “receive” and “send”</li>
+  <li>As a binary semaphore, with <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> acting as “acquire” and “release”</li>
+</ol>
+
+<p>It has these fundamental, atomic operations:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">put</code> which fills the var if empty, or blocks (asynchronously) until the var is empty again</li>
+  <li><code class="language-plaintext highlighter-rouge">tryPut</code> which fills the var if empty; returns <code class="language-plaintext highlighter-rouge">true</code> if successful</li>
+  <li><code class="language-plaintext highlighter-rouge">take</code> which empties the var if full, returning the contained value, or blocks (asynchronously) otherwise until there is a value to pull</li>
+  <li><code class="language-plaintext highlighter-rouge">tryTake</code> empties if full, returns <code class="language-plaintext highlighter-rouge">None</code> if empty.</li>
+  <li><code class="language-plaintext highlighter-rouge">read</code> which reads the current value without touching it, assuming there is one, or otherwise it waits until a value is made available via put</li>
+  <li><code class="language-plaintext highlighter-rouge">tryRead</code> returns <code class="language-plaintext highlighter-rouge">Some(a)</code> if full, without modifying the var, or else returns <code class="language-plaintext highlighter-rouge">None</code></li>
+  <li><code class="language-plaintext highlighter-rouge">isEmpty</code> returns <code class="language-plaintext highlighter-rouge">true</code> if currently empty</li>
+</ul>
+
+<p class="extra">
+In this context “<i>asynchronous blocking</i>” means that we are not blocking
+any threads. Instead the implementation uses callbacks to notify clients
+when the operation has finished (notifications exposed by means of <a href="./task.md">Task</a>)
+and it thus works on top of Javascript as well.
+</p>
+    
+      <h3 id="inspiration">
+        
+        
+          Inspiration <a href="#inspiration" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>This data type is inspired by <code class="language-plaintext highlighter-rouge">Control.Concurrent.MVar</code> from Haskell, introduced in the paper
+<a href="http://research.microsoft.com/~simonpj/papers/concurrent-haskell.ps.gz">Concurrent Haskell</a>,
+by Simon Peyton Jones, Andrew Gordon and Sigbjorn Finne, though some details of
+their implementation are changed (in particular, a put on a full <code class="language-plaintext highlighter-rouge">MVar</code> used
+to error, but now merely blocks).</p>
+
+<p>Appropriate for building synchronization primitives and  performing simple
+interthread communication, it’s the equivalent of a <code class="language-plaintext highlighter-rouge">BlockingQueue(capacity = 1)</code>,
+except that there’s no actual thread blocking involved and it is powered by <code class="language-plaintext highlighter-rouge">Task</code>.</p>
+    
+      <h2 id="cats-effect">
+        
+        
+          Cats-Effect <a href="#cats-effect" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p><code class="language-plaintext highlighter-rouge">MVar</code> is generic, being built to abstract over the effect type via the
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a> type classes, meaning
+you can use it with Monix’s <code class="language-plaintext highlighter-rouge">Task</code> just as well as with 
+<a href="https://typelevel.org/cats-effect/datatypes/io.html">cats.effect.IO</a>
+or any data types implementing <code class="language-plaintext highlighter-rouge">Async</code> or <code class="language-plaintext highlighter-rouge">Concurrent</code>.</p>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">MVar</code> is already described in
+<a href="https://typelevel.org/cats-effect/concurrency/mvar.md">cats.effect.concurrent.MVar</a>
+and Monix’s implementation does in fact implement that interface.</p>
+
+<p><a href="https://typelevel.org/cats-effect/concurrency/mvar.md" target="_blank" title="cats.effect.concurrent.MVar" alt="cats.effect.concurrent.MVar">
+  <img src="https://monix.io/public/images/concurrency-mvar.png" width="400" />
+</a></p>
+
+<p><code class="language-plaintext highlighter-rouge">MVar</code> will remain in Monix as well because:</p>
+
+<ol>
+  <li>it shares implementation with
+<a href="/api/current/monix/execution/AsyncVar.html">monix.execution.AsyncVar</a>,
+the <code class="language-plaintext highlighter-rouge">Future</code>-enabled alternative</li>
+  <li>we can use our <a href="/docs/current/execution/atomic.html">Atomic</a> implementations</li>
+  <li>at this point Monix’s <code class="language-plaintext highlighter-rouge">MVar</code> has some fixes that have to wait for
+the next version of Cats-Effect to be merged upstream</li>
+</ol>
+    
+      <h2 id="use-case-synchronized-mutable-variables">
+        
+        
+          Use-case: Synchronized Mutable Variables <a href="#use-case-synchronized-mutable-variables" class="anchor">#</a>
+        
+        
+      </h2>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.CancelableFuture</span>
+<span class="k">import</span> <span class="nn">monix.catnap.MVar</span>
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+
+<span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">state</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="nv">state</span><span class="o">.</span><span class="py">take</span>
+    <span class="k">case</span> <span class="n">x</span> <span class="o">::</span> <span class="n">xs</span> <span class="k">=&gt;</span>
+      <span class="nv">state</span><span class="o">.</span><span class="py">take</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span> <span class="n">current</span> <span class="k">=&gt;</span>
+        <span class="nv">state</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="n">current</span> <span class="o">+</span> <span class="n">x</span><span class="o">).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="n">xs</span><span class="o">))</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> 
+  <span class="k">for</span> <span class="o">{</span>
+    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">of</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="n">r</span> <span class="k">&lt;-</span> <span class="nf">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">100</span><span class="o">).</span><span class="py">toList</span><span class="o">)</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
+
+<span class="c1">// Evaluate</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4950</span>
+</code></pre></div></div>
+
+<p>This sample isn’t very useful, except to show how <code class="language-plaintext highlighter-rouge">MVar</code> can be used
+as a variable. The <code class="language-plaintext highlighter-rouge">take</code> and <code class="language-plaintext highlighter-rouge">put</code> operations are atomic.
+The <code class="language-plaintext highlighter-rouge">take</code> call will (asynchronously) block if there isn’t a value
+available, whereas the call to <code class="language-plaintext highlighter-rouge">put</code> blocks if the <code class="language-plaintext highlighter-rouge">MVar</code> already
+has a value in it waiting to be consumed.</p>
+
+<p>Obviously after the call for <code class="language-plaintext highlighter-rouge">take</code> and before the call for <code class="language-plaintext highlighter-rouge">put</code> happens
+we could have concurrent logic that can update the same variable.
+While the two operations are atomic by themselves, a combination of them
+isn’t atomic (i.e. atomic operations don’t compose), therefore if we want
+this sample to be <em>safe</em>, then we need extra synchronization.</p>
+    
+      <h2 id="use-case-asynchronous-lock-binary-semaphore-mutex">
+        
+        
+          Use-case: Asynchronous Lock (Binary Semaphore, Mutex) <a href="#use-case-asynchronous-lock-binary-semaphore-mutex" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">take</code> operation can act as “acquire” and <code class="language-plaintext highlighter-rouge">put</code> can act as the “release”.
+Let’s do it:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">final</span> <span class="k">class</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">mvar</span><span class="k">:</span> <span class="kt">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Unit</span><span class="o">])</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">acquire</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">mvar</span><span class="o">.</span><span class="py">take</span>
+
+  <span class="k">def</span> <span class="nf">release</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">mvar</span><span class="o">.</span><span class="py">put</span><span class="o">(())</span>
+
+  <span class="k">def</span> <span class="nf">greenLight</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span>
+    <span class="k">for</span> <span class="o">{</span>
+      <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">acquire</span>
+      <span class="n">a</span> <span class="k">&lt;-</span> <span class="nv">fa</span><span class="o">.</span><span class="py">doOnCancel</span><span class="o">(</span><span class="n">release</span><span class="o">)</span>
+      <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">release</span>
+    <span class="o">}</span> <span class="k">yield</span> <span class="n">a</span>
+<span class="o">}</span>
+
+<span class="k">object</span> <span class="nc">MLock</span> <span class="o">{</span>
+  <span class="cm">/** Builder. */</span>
+  <span class="k">def</span> <span class="nf">apply</span><span class="o">()</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">MLock</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">of</span><span class="o">(()).</span><span class="py">map</span><span class="o">(</span><span class="n">v</span> <span class="k">=&gt;</span> <span class="k">new</span> <span class="nc">MLock</span><span class="o">(</span><span class="n">v</span><span class="o">))</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And now we can apply synchronization to the previous example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> 
+  <span class="k">for</span> <span class="o">{</span>
+    <span class="n">lock</span> <span class="k">&lt;-</span> <span class="nc">MLock</span><span class="o">()</span>
+    <span class="n">state</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">of</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+    <span class="n">task</span> <span class="k">=</span> <span class="nf">sum</span><span class="o">(</span><span class="n">state</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="mi">100</span><span class="o">).</span><span class="py">toList</span><span class="o">)</span>
+    <span class="n">r</span> <span class="k">&lt;-</span> <span class="nv">lock</span><span class="o">.</span><span class="py">greenLight</span><span class="o">(</span><span class="n">task</span><span class="o">)</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="n">r</span>
+
+<span class="c1">// Evaluate</span>
+<span class="nv">task</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4950</span>
+</code></pre></div></div>
+    
+      <h2 id="use-case-producerconsumer-channel">
+        
+        
+          Use-case: Producer/Consumer Channel <a href="#use-case-producerconsumer-channel" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>An obvious use-case is to model a simple producer-consumer channel.</p>
+
+<p>Say that you have a producer that needs to push events.
+But we also need some back-pressure, so we need to wait on the
+consumer to consume the last event before being able to generate
+a new event.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Signaling option, because we need to detect completion</span>
+<span class="k">type</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">A</span><span class="o">]]</span>
+
+<span class="k">def</span> <span class="nf">producer</span><span class="o">(</span><span class="n">ch</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">list</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span>
+      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// we are done!</span>
+    <span class="k">case</span> <span class="n">head</span> <span class="o">::</span> <span class="n">tail</span> <span class="k">=&gt;</span>
+      <span class="c1">// next please</span>
+      <span class="nv">ch</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="n">head</span><span class="o">)).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">producer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">tail</span><span class="o">))</span>
+  <span class="o">}</span>
+
+<span class="k">def</span> <span class="nf">consumer</span><span class="o">(</span><span class="n">ch</span><span class="k">:</span> <span class="kt">Channel</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span>
+  <span class="nv">ch</span><span class="o">.</span><span class="py">take</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="k">=&gt;</span>
+      <span class="c1">// next please</span>
+      <span class="nf">consumer</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">x</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span>
+      <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span> <span class="c1">// we are done!</span>
+  <span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">count</span> <span class="k">=</span> <span class="mi">100000</span>
+
+<span class="k">val</span> <span class="nv">sumTask</span> <span class="k">=</span>
+  <span class="k">for</span> <span class="o">{</span>
+    <span class="n">channel</span> <span class="k">&lt;-</span> <span class="nc">MVar</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">empty</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]()</span>
+    <span class="n">producerTask</span> <span class="k">=</span> <span class="nf">producer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="o">(</span><span class="mi">0</span> <span class="n">until</span> <span class="n">count</span><span class="o">).</span><span class="py">toList</span><span class="o">).</span><span class="py">executeAsync</span>
+    <span class="n">consumerTask</span> <span class="k">=</span> <span class="nf">consumer</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="mi">0L</span><span class="o">).</span><span class="py">executeAsync</span>
+    <span class="c1">// Ensure they run in parallel, not really necessary, just for kicks</span>
+    <span class="n">sum</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parMap2</span><span class="o">(</span><span class="n">producerTask</span><span class="o">,</span> <span class="n">consumerTask</span><span class="o">)((</span><span class="k">_</span><span class="o">,</span><span class="n">sum</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">sum</span><span class="o">)</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="n">sum</span>
+
+<span class="c1">// Evaluate</span>
+<span class="nv">sumTask</span><span class="o">.</span><span class="py">runToFuture</span><span class="o">.</span><span class="py">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+<span class="c1">//=&gt; 4999950000</span>
+</code></pre></div></div>
+
+<p>Running this will work as expected. Our <code class="language-plaintext highlighter-rouge">producer</code> pushes values
+into our <code class="language-plaintext highlighter-rouge">MVar</code> and our <code class="language-plaintext highlighter-rouge">consumer</code> will consume all of those values.</p>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/catnap/mvar.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=MVar" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

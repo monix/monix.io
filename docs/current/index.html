@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix Documentation</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Monix Documentation" />
+  <meta name="twitter:description" content="Asynchronous Programming for Scala &amp; Scala.js" />
+  <meta name="twitter:url" content="https://monix.io/docs/current/">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix Documentation" property="og:title">
+  
+  <meta content="Asynchronous Programming for Scala &amp; Scala.js" property="og:description">
+  <meta content="https://monix.io/docs/current/" property="og:url">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Monix Documentation
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="type-info">
+    
+    
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/index.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/2x/">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#api-documentation">API Documentation</a></li>
+  <li><a href="#getting-started">Getting Started</a></li>
+  <li><a href="#sub-projects">Sub-projects</a>
+    <ul>
+      <li><a href="#monix-execution">monix-execution</a></li>
+      <li><a href="#monix-catnap">monix-catnap</a></li>
+      <li><a href="#monix-eval">monix-eval</a></li>
+      <li><a href="#monix-reactive">monix-reactive</a></li>
+      <li><a href="#monix-tail">monix-tail</a></li>
+    </ul>
+  </li>
+  <li><a href="#tutorials">Tutorials</a></li>
+  <li><a href="#best-practices">Best Practices</a></li>
+  <li><a href="#samples">Samples</a></li>
+  <li><a href="#presentations">Presentations</a></li>
+</ul>
+
+  </nav>
+    
+      <h2 id="api-documentation">
+        
+        
+          API Documentation <a href="#api-documentation" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p><a href="/api/current/">ScalaDoc for Monix 3.x</a></p>
+
+<p>Related:</p>
+
+<ul>
+  <li><a href="https://typelevel.org/cats/api/">Cats ScalaDoc</a></li>
+  <li><a href="https://typelevel.org/cats-effect/api/">Cats-Effect ScalaDoc</a></li>
+</ul>
+    
+      <h2 id="getting-started">
+        
+        
+          Getting Started <a href="#getting-started" class="anchor">#</a>
+        
+        
+      </h2>
+
+<ul>
+  <li><a href="/docs/current/intro/usage.html">Usage with SBT</a></li>
+  <li><a href="/docs/current/intro/hello-world.html">Hello World!</a></li>
+  <li><a href="/docs/current/intro/cats.html">Typelevel Cats Integration</a></li>
+</ul>
+
+<p>Quick-start template:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt new monix/monix-3x.g8
+</code></pre></div></div>
+    
+      <h2 id="sub-projects">
+        
+        
+          Sub-projects <a href="#sub-projects" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="monix-execution">
+        
+        
+          monix-execution <a href="#monix-execution" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">monix-execution</code> sub-project provides low level, side effectful
+utilities for dealing with concurrency, exposing the JVM’s primitives
+and building on top of the <code class="language-plaintext highlighter-rouge">scala.concurrent</code> package.</p>
+
+<p><img src="/public/images/logos/java.png" alt="Java's Duke" title="Java's Duke" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/current/monix/execution/index.html">API Documentation</a></li>
+  <li><a href="/docs/current/execution/scheduler.html">Scheduler</a></li>
+  <li><a href="/docs/current/execution/cancelable.html">Cancelable</a></li>
+  <li><a href="/docs/current/execution/callback.html">Callback</a></li>
+  <li><a href="/docs/current/execution/future-utils.html">Future Utils</a></li>
+  <li><a href="/docs/current/execution/atomic.html">Atomic</a></li>
+</ul>
+    
+      <h3 id="monix-catnap">
+        
+        
+          monix-catnap <a href="#monix-catnap" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">monix-catnap</code> sub-project is for generic, purely functional
+utilities for managing concurrency, building on top of the
+<a href="https://typelevel.org/cats-effect/">Cats-Effect</a> type classes:</p>
+
+<p><img src="/public/images/logos/cats.png" alt="Cats" title="Cats" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/current/monix/catnap/index.html">API Documentation</a></li>
+  <li><a href="/docs/current/catnap/circuit-breaker.html">Circuit Breaker</a></li>
+  <li><a href="/docs/current/catnap/mvar.html">MVar</a></li>
+</ul>
+    
+      <h3 id="monix-eval">
+        
+        
+          monix-eval <a href="#monix-eval" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">monix-eval</code> sub-project exposes the <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code> data
+types, for dealing with purely functional effects in a principled way:</p>
+
+<ul>
+  <li><a href="/api/current/monix/eval/index.html">API Documentation</a></li>
+  <li><a href="/docs/current/eval/task.html">Task</a></li>
+  <li><a href="/docs/current/eval/coeval.html">Coeval</a></li>
+</ul>
+    
+      <h3 id="monix-reactive">
+        
+        
+          monix-reactive <a href="#monix-reactive" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">monix-reactive</code> sub-project exposes the <code class="language-plaintext highlighter-rouge">Observable</code> data type,
+along with adjacent utilities, a high performance streaming abstraction
+that’s an idiomatic implementation of ReactiveX for Scala:</p>
+
+<p><img src="/public/images/logos/reactivex.png" alt="ReactiveX" title="ReactiveX" class="doc-icon" /></p>
+
+<ul>
+  <li><a href="/api/current/monix/reactive/index.html">API Documentation</a></li>
+  <li><a href="/docs/current/reactive/observable.html">Observable</a></li>
+  <li><a href="/docs/current/reactive/observable-comparisons.html">Comparisons with Other Solutions</a></li>
+  <li><a href="/docs/current/reactive/observers.html">Observers and Subscribers</a></li>
+  <li><a href="/docs/current/reactive/consumer.html">Consumer</a></li>
+  <li><a href="/docs/current/reactive/javascript.html">Javascript Event Listeners</a></li>
+</ul>
+    
+      <h3 id="monix-tail">
+        
+        
+          monix-tail <a href="#monix-tail" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p><img src="/public/images/logos/many-cats.png" alt="Cats friendly" title="Cats friendly" class="doc-icon2x" /></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">monix-tail</code> sub-projects exposes <code class="language-plaintext highlighter-rouge">Iterant</code>, a generic, purely
+functional, principled, pull-based streaming data type:</p>
+
+<ul>
+  <li><a href="/api/current/monix/tail/index.html">API Documentation</a></li>
+</ul>
+    
+      <h2 id="tutorials">
+        
+        
+          Tutorials <a href="#tutorials" class="anchor">#</a>
+        
+        
+      </h2>
+
+<ul>
+  <li>
+    <p><a href="/docs/current/tutorials/parallelism.html">Parallel Processing</a></p>
+  </li>
+  <li>
+    <p><a href="/blog/2018/11/08/tutorial-future-to-task.html">Converting Scala’s Future to Task (Video)</a></p>
+  </li>
+  <li>
+    <p><a href="/blog/2018/11/07/tutorial-bracket.html">Task’s Bracket, Cats-Effect’s Resource and Streaming (Video)</a></p>
+  </li>
+</ul>
+    
+      <h2 id="best-practices">
+        
+        
+          Best Practices <a href="#best-practices" class="anchor">#</a>
+        
+        
+      </h2>
+
+<ul>
+  <li><a href="/docs/current/best-practices/blocking.html">Should Not Block Threads</a></li>
+</ul>
+    
+      <h2 id="samples">
+        
+        
+          Samples <a href="#samples" class="anchor">#</a>
+        
+        
+      </h2>
+
+<ul>
+  <li><a href="https://github.com/monixio/monix-sample/">Client/Server Communications</a>:
+a mixed <a href="https://www.playframework.com/">Play Framework</a> /
+<a href="http://www.scala-js.org/">Scala.js</a> app</li>
+</ul>
+    
+      <h2 id="presentations">
+        
+        
+          Presentations <a href="#presentations" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>Featured presentation:</p>
+
+<p><a href="https://monix.io/presentations/2018-tale-two-monix-streams.html?autoplay=1#start">
+  <img src="https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F738325570_1280x720.jpg&amp;src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png" />
+</a></p>
+
+<p>
+  <a href="/presentations/">See all presentations!</a>
+</p>
+
+<p>Work in progress! Please help!</p>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/index.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Monix+Documentation" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

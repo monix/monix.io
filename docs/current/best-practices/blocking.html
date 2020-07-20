@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Best Practice: Should Not Block Threads &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/best-practices/blocking.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Best Practice: Should Not Block Threads &amp;mdash; Monix" />
+  <meta name="twitter:description" content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." />
+  <meta name="twitter:url" content="https://monix.io/docs/current/best-practices/blocking.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Best Practice: Should Not Block Threads &amp;mdash; Monix" property="og:title">
+  <meta content="Blocking threads is incredibly error prone. And if you must block, do so with Scala's BlockContext and with explicit timeouts." property="og:description">
+  <meta content="https://monix.io/docs/current/best-practices/blocking.html" property="og:url">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Best Practice: Should Not Block Threads
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
+  <nav role="navigation" id="type-info">
+    
+    
+    
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/best-practices/blocking.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/2x/best-practices/blocking.html">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#if-blocking-specify-explicit-timeouts">If blocking, specify explicit timeouts</a></li>
+  <li><a href="#if-blocking-use-scalas-blockcontext">If blocking, use Scala’s BlockContext</a></li>
+  <li><a href="#if-blocking-use-a-separate-thread-pool-for-blocking-io">If blocking, use a separate thread-pool for blocking I/O</a></li>
+</ul>
+
+  </nav>
+
+  <p>When you have a choice, you should never block. For example, don’t do
+this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fetchSomething</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// later ...</span>
+<span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">fetchSomething</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+<span class="nv">result</span><span class="o">.</span><span class="py">toUpperCase</span>
+</code></pre></div></div>
+
+<p>Prefer keeping the context of that Future all the way, until the edges of your program:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fetchSomething</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="nv">fetchSomething</span><span class="o">.</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">toUpperCase</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p><strong>PRO-TIP:</strong> for Scala’s Future, checkout the
+<a href="https://github.com/scala/async">Scala-Async</a> project to make this
+easier.</p>
+
+<p><strong>REASON:</strong> blocking threads is error prone because you have to know
+and control the configuration of the underlying thread-pool. For
+example even Scala’s <code class="language-plaintext highlighter-rouge">ExecutionContext.Implicits.global</code> has an upper
+limit to the number of threads spawned, which means that you can end
+up in a <em>dead-lock</em>, because all of your threads can end up blocked,
+with no threads available in the pool to finish the required
+callbacks.</p>
+    
+      <h2 id="if-blocking-specify-explicit-timeouts">
+        
+        
+          If blocking, specify explicit timeouts <a href="#if-blocking-specify-explicit-timeouts" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>If you have to block, specify explicit timeouts for failure and never
+use APIs that block on some result and that don’t have explicit
+timeouts.</p>
+
+<p>For example Scala’s own <code class="language-plaintext highlighter-rouge">Await.result</code> is very well behaved ands
+that’s good:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">future</span><span class="o">,</span> <span class="mf">3.</span><span class="n">seconds</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>But for example when using
+<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html">Java’s Future</a>,
+never do this:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">java.util.concurrent.Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// BAD CODE, NEVER DO THIS !!!</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">get</span>
+</code></pre></div></div>
+
+<p>Instead always specify timeouts, because in case the underlying
+thread-pool is limited and there are no more threads left, at least
+some of them will get unblocked after the specified timespan:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">future</span><span class="k">:</span> <span class="kt">java.util.concurrent.Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// GOOD</span>
+<span class="nv">future</span><span class="o">.</span><span class="py">get</span><span class="o">(</span><span class="nv">TimeUnit</span><span class="o">.</span><span class="py">SECONDS</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+</code></pre></div></div>
+    
+      <h2 id="if-blocking-use-scalas-blockcontext">
+        
+        
+          If blocking, use Scala’s BlockContext <a href="#if-blocking-use-scalas-blockcontext" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>This includes all blocking I/O, including SQL queries. Real sample:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// BAD SAMPLE!</span>
+<span class="nc">Future</span> <span class="o">{</span>
+  <span class="nv">DB</span><span class="o">.</span><span class="py">withConnection</span> <span class="o">{</span> <span class="k">implicit</span> <span class="n">connection</span> <span class="k">=&gt;</span>
+    <span class="k">val</span> <span class="nv">query</span> <span class="k">=</span> <span class="nc">SQL</span><span class="o">(</span><span class="s">"select * from bar"</span><span class="o">)</span>
+    <span class="nf">query</span><span class="o">()</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Blocking calls are error-prone because one has to be aware of exactly
+what thread-pool gets affected and given the default configuration of
+the backend app, this can lead to non-deterministic dead-locks. It’s a
+bug waiting to happen in production.</p>
+
+<p>Here’s a simplified example demonstrating the issue for didactic purposes:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">ec</span> <span class="k">=</span> <span class="nc">ExecutionContext</span>
+  <span class="o">.</span><span class="py">fromExecutor</span><span class="o">(</span><span class="nv">Executors</span><span class="o">.</span><span class="py">newFixedThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="nf">addOne</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Future</span><span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="nf">multiply</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">a</span> <span class="k">=</span> <span class="nf">addOne</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">b</span> <span class="k">=</span> <span class="nf">addOne</span><span class="o">(</span><span class="n">y</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">result</span> <span class="k">=</span> <span class="nf">for</span> <span class="o">(</span><span class="n">r1</span> <span class="k">&lt;-</span> <span class="n">a</span><span class="o">;</span> <span class="n">r2</span> <span class="k">&lt;-</span> <span class="n">b</span><span class="o">)</span> <span class="k">yield</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span>
+
+  <span class="c1">// This can dead-lock due to the limited size </span>
+  <span class="c1">// of our thread-pool!</span>
+  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This sample is simplified to make the effect deterministic, but all
+thread-pools configured with upper bounds will sooner or later be
+affected by this.</p>
+
+<p>Blocking calls have to be marked with a <code class="language-plaintext highlighter-rouge">blocking</code> call that signals
+to the <code class="language-plaintext highlighter-rouge">BlockContext</code> a blocking operation. It’s a very neat mechanism
+in Scala that lets the <code class="language-plaintext highlighter-rouge">ExecutionContext</code> know that a blocking operation
+happens, such that the <code class="language-plaintext highlighter-rouge">ExecutionContext</code> can decide what to do about
+it, such as adding more threads to the thread-pool (which is what
+Scala’s ForkJoin thread-pool does).</p>
+
+<p><strong>WARNING:</strong> Scala’s <code class="language-plaintext highlighter-rouge">ExecutionContext.Implicits.global</code> is backed by
+a cool <code class="language-plaintext highlighter-rouge">ForkJoinPool</code> implementation that has an absolute maximum
+number of threads limit. What this means is that, in spite of well
+behaved code, you can still hit that limit and you can still end up in
+a dead-lock. This is why blocking threads is error prone, as nothing
+saves you from knowing and controlling the thread-pools that you end
+up blocking.</p>
+    
+      <h2 id="if-blocking-use-a-separate-thread-pool-for-blocking-io">
+        
+        
+          If blocking, use a separate thread-pool for blocking I/O <a href="#if-blocking-use-a-separate-thread-pool-for-blocking-io" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>If you’re doing a lot of blocking I/O (e.g. a lot of calls to JDBC),
+it’s better to create a second thread-pool / execution context and
+execute all blocking calls on that, leaving the application’s
+thread-pool to deal with CPU-bound stuff.</p>
+
+<p>So you could initialize another I/O related thread-pool like so:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">java.util.concurrent.Executors</span>
+
+<span class="c1">// ...</span>
+<span class="k">private</span> <span class="k">val</span> <span class="nv">io</span> <span class="k">=</span> <span class="nv">Executors</span><span class="o">.</span><span class="py">newCachedThreadPool</span><span class="o">(</span>
+  <span class="k">new</span> <span class="nc">ThreadFactory</span> <span class="o">{</span>
+    <span class="k">private</span> <span class="k">val</span> <span class="nv">counter</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">AtomicLong</span><span class="o">(</span><span class="mi">0L</span><span class="o">)</span>
+
+    <span class="k">def</span> <span class="nf">newThread</span><span class="o">(</span><span class="n">r</span><span class="k">:</span> <span class="kt">Runnable</span><span class="o">)</span> <span class="k">=</span> <span class="o">{</span>
+      <span class="k">val</span> <span class="nv">th</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">r</span><span class="o">)</span>
+      <span class="nv">th</span><span class="o">.</span><span class="py">setName</span><span class="o">(</span><span class="s">"io-thread-"</span> <span class="o">+</span>
+      <span class="nv">counter</span><span class="o">.</span><span class="py">getAndIncrement</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
+      <span class="nv">th</span><span class="o">.</span><span class="py">setDaemon</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+      <span class="n">th</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+</code></pre></div></div>
+
+<p>Note that here I prefer to use an unbounded “cached thread-pool”, so
+it doesn’t have a limit. When doing blocking I/O the idea is that
+you’ve got to have enough threads that you can block. But if unbounded
+is too much, depending on use-case, you can later fine-tune it, the
+idea with this sample being that you get the ball rolling.</p>
+
+<p>You could also use Monix’s <code class="language-plaintext highlighter-rouge">Scheduler.io</code> of course, which is also
+backed by a “cached thread-pool”:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+
+<span class="k">private</span> <span class="k">val</span> <span class="nv">io</span> <span class="k">=</span> 
+  <span class="nv">Scheduler</span><span class="o">.</span><span class="py">io</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"engine-io"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>And then you could provide a helper, like:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">executeBlockingIO</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">cb</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="n">T</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">T</span><span class="o">]()</span>
+
+  <span class="nv">io</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Runnable</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="o">()</span> <span class="k">=</span> <span class="k">try</span> <span class="o">{</span>
+      <span class="nv">p</span><span class="o">.</span><span class="py">success</span><span class="o">(</span><span class="nf">blocking</span><span class="o">(</span><span class="n">cb</span><span class="o">))</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nc">NonFatal</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="nv">logger</span><span class="o">.</span><span class="py">error</span><span class="o">(</span><span class="n">s</span><span class="s">"Uncaught I/O exception"</span><span class="o">,</span> <span class="n">ex</span><span class="o">)</span>
+        <span class="nv">p</span><span class="o">.</span><span class="py">failure</span><span class="o">(</span><span class="n">ex</span><span class="o">)</span>
+    <span class="o">}</span>
+  <span class="o">})</span>
+
+  <span class="nv">p</span><span class="o">.</span><span class="py">future</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/current/best-practices/blocking.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Best+Practice%3A+Should+Not+Block+Threads" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

@@ -12,6 +12,8 @@
   
   <title>Callback &mdash; Monix</title>
 
+  <link rel="canonical" href="https://monix.io/docs/2x/eval/callback.html" />
+
   <!-- Twitter Cards -->
   
   <meta name="twitter:card" content="summary">
@@ -28,15 +30,15 @@
   <meta content="Callback &amp;mdash; Monix" property="og:title">
   <meta content="A listener type that can be called asynchronously with the result of a computation. Used by the Monix Task." property="og:description">
   <meta content="https://monix.io/docs/2x/eval/callback.html" property="og:url">
-  <meta content="2020-07-20T09:13:06+00:00" property="article:modified_time">
+  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1595236454834129521">
+  <link rel="stylesheet" href="/public/css/all.css?1595260612224809258">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595236454834129521">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595260612224809258">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -86,7 +88,7 @@
     <nav class="sidebar-nav">
       <a class="sidebar-nav-item" href="/">About</a>
       <a class="sidebar-nav-item" href="/blog/">Blog</a>
-      <a class="sidebar-nav-item active" href="/docs/3x/">Documentation</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
       <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
       <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
       <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
@@ -105,6 +107,11 @@
         
       </h1>
 
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-07-20">
+    <b>Updated at:</b> 20 Jul 2020
+  </time>
+
   <nav role="navigation" id="type-info">
     <a href="/api/2.3/monix/eval/Callback.html">API Documentation</a>
     <a href="https://github.com/monix/monix/blob/v2.3.3/monix-eval/shared/src/main/scala/monix/eval/Callback.scala">Source Code</a>
@@ -114,15 +121,10 @@
   </nav>
   
   <div id="version2x">
-    You are viewing the documentation for the older Monix 2.x series.<br />
+    You are viewing the documentation for the <em>older</em> Monix 2.x series.<br />
     If you're looking for the latest 3.x
-    <a href="/docs/3x/">click here</a>!
+    <a href="/docs/2x/eval/callback.html">see here</a>!
   </div>
-
-  <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Updated at:</b> 20 Jul 2020
-  </time>
 
   <nav role="navigation" id="toc">
     
@@ -185,12 +187,12 @@ maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
 <span class="c1">// task: monix.eval.Task[Unit] = FlatMap(</span>
-<span class="c1">//   Async(monix.eval.Task$$$Lambda$6102/0x00000008020bd040@5c2ecfdc),</span>
-<span class="c1">//   monix.eval.Task$$$Lambda$6103/0x00000008020bd840@243a05ea</span>
+<span class="c1">//   Async(monix.eval.Task$$$Lambda$6100/0x00000008020b5040@2b747f2b),</span>
+<span class="c1">//   monix.eval.Task$$$Lambda$6101/0x00000008020b4040@6b0e4e05</span>
 <span class="c1">// )</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@1c6012e1</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@58708d13</span>
 </code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
@@ -215,7 +217,7 @@ errors. So to force a protective asynchronous boundary when calling
 
 
   <div class="buttons">
-    <a href="/docs/2x/">Contents</a> •
+    <a href="/docs/current/">Contents</a> •
     <a href="https://github.com/monix/monix.io/edit/master/_tut/docs/2x/eval/callback.md">
       Edit Page</a> •
     
