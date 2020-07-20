@@ -14,7 +14,7 @@ unless ENV['CI'] == 'true'
 end
 
 # Forcing a change to the root directory, if not there already
-Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
+Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..", "..")))
 
 exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
 exec("bundle exec jekyll build")
