@@ -3,10 +3,11 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.1.1"
 gem "support-for"
 gem 'nokogiri'
-gem 'classifier-reborn'
-gem 'gsl'
 gem "mini_magick"
 gem "image_optim"
+
+# gem 'classifier-reborn'
+# gem 'gsl'
 
 group :jekyll_plugins do
   gem "jekyll-paginate-v2"
