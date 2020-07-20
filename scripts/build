@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'tmpdir'
+require 'fileutils'
+require 'time'
 
 def exec(cmd)
   abort("Error encountered, aborting") unless system(cmd)
@@ -14,9 +16,35 @@ unless ENV['CI'] == 'true'
 end
 
 # Forcing a change to the root directory, if not there already
-Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..", "..")))
+Dir.chdir(File.absolute_path(File.join(File.dirname(__FILE__), "..")))
+
+puts "---------------------------------------------------------------------"
+puts "Compiling documentation (via mdoc) ..."
+puts 
 
 exec("sbt -J-XX:MetaspaceSize=2g -J-XX:MaxMetaspaceSize=2g -J-Xmx4g mdoc")
+
+puts "---------------------------------------------------------------------"
+puts "Updating mtimes ..."
+puts 
+
+Dir["_docs/**/*.md"].each do |file|
+  mt = `git log --pretty=format:%cd -n 1 --date=iso -- #{file}`
+  unless mt
+    mt = File.mtime(file)
+  else 
+    mt = Time.parse(mt)
+  end
+  rel_path = file.sub(/^_docs\//, "docs/")
+  if File.file?(rel_path)
+    FileUtils.touch rel_path, :mtime => mt
+  end
+end
+
+puts "---------------------------------------------------------------------"
+puts "Building with Jekyll ..."
+puts 
+
 exec("bundle exec jekyll build")
 
 unless ENV['CI_DEPLOY'] == "true"
@@ -31,6 +59,10 @@ unless ghToken
   puts "Missing GH_TOKEN environment value!"
   exit 1
 end
+
+puts "---------------------------------------------------------------------"
+puts "Deploying ..."
+puts 
 
 destDir = Dir.mktmpdir + "/" + "monix.io"
 begin
