@@ -9,6 +9,9 @@
   {% capture processed_description %}{% if post.excerpt %}{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}{% elsif page.description %}{{ page.description | strip_newlines }}{% else %}{{ site.tagline }}{% endif %}{% endcapture %}
   <title>{{ processed_title }}</title>
 
+  {% capture canonical_link %}{{ page.path | current_doc_link: site.pages }}{% endcapture -%}
+  <link rel="canonical" href="{{ site.url }}{% link {{ canonical_link }} %}" />
+
   <!-- Twitter Cards -->
   {% if page.vimeo -%}
   <meta name="twitter:card" content="player" />

@@ -66,14 +66,14 @@ libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version2x }}"
 Monix is modular by design, so you can have an à la carte experience,
 the project being divided in multiple sub-projects.
 
-See [Usage in SBT and Maven](/docs/3x/intro/usage.md) for more details.
+See [Usage in SBT and Maven](/docs/current/intro/usage.md) for more details.
 
 ### Documentation
 
 Documentation and tutorials:
 
-- [3.x series (latest)](/docs/3x/)
-- [2.x series (previous)](/docs/2x/)
+- [Current](/docs/current/) ([3.x series](/docs/3x/))
+- [2.x series](/docs/2x/)
 
 API ScalaDoc:
 

@@ -1,3 +1,5 @@
+import scala.sys.process._
+
 lazy val sharedSettings = Seq(
   scalaVersion := "2.12.12"
 )
@@ -36,4 +38,8 @@ lazy val docs3x = project       // new documentation project
     ),
     mdocIn := file("_docs/3x"),
     mdocOut := file("docs/3x"),
+    mdoc := {
+      mdoc.evaluated
+      "ln -sfn ./3x docs/current" !
+    }
   )

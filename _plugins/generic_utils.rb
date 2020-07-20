@@ -13,14 +13,22 @@ module Jekyll
     @@site = Jekyll.configuration({})
     @@pages_cache = {}
 
-    def current_doc_link(path, pages)
+    def doc_contents_link(path)
+      if path =~ /\/docs\//
+        path.sub(/docs\/([^\/]+)(\/[^$]*)$/, "docs/current/$1")
+      else
+        "docs/current/index.md"
+      end
+    end
+
+    def current_doc_link(path, pages, version=nil)
       if @@pages_cache.length == 0
         pages.each do |p|
           @@pages_cache[p.path] = true
         end
       end
       
-      p = path.sub(/docs\/[^\/]+/, "docs/#{@@site['docsCurrent']}")
+      p = path.sub(/^docs\/[^\/]+/, "docs/#{version || "current"}")
       if @@pages_cache.key?(p)
         p
       else
