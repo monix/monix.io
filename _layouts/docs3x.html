@@ -11,7 +11,9 @@ layout: default
     <a href="{{ site.github.docs }}/edit/master/_tut/{{ page.path }}">Edit Page</a>
   </nav>
 
-  <nav role="navigation" id="toc"></nav>
+  <nav role="navigation" id="toc">
+    {% include toc.html h_min=2 h_max=3 html=content %}
+  </nav>
 
   {{ content }}
 

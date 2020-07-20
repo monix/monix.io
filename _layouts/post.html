@@ -12,6 +12,10 @@ layout: default
     • <a href="https://twitter.com/{{ page.author }}">@{{ page.author }}</a>
   </time>
 
+  <nav role="navigation" id="toc">
+    {% include toc.html h_min=2 h_max=3 html=content %}
+  </nav>
+
   {{ content }}
 
   <div class="related">
