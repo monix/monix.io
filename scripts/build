@@ -28,6 +28,7 @@ puts "---------------------------------------------------------------------"
 puts "Updating mtimes ..."
 puts 
 
+updated = 0
 Dir["_docs/**/*.md"].each do |file|
   mt = `git log --pretty=format:%cd -n 1 --date=iso -- #{file}`
   unless mt
@@ -38,8 +39,12 @@ Dir["_docs/**/*.md"].each do |file|
   rel_path = file.sub(/^_docs\//, "docs/")
   if File.file?(rel_path)
     FileUtils.touch rel_path, :mtime => mt
+    updated += 1
   end
 end
+
+puts "Updated: #{updated}"
+puts
 
 puts "---------------------------------------------------------------------"
 puts "Building with Jekyll ..."
