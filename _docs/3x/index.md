@@ -1,6 +1,6 @@
 ---
 layout: docs3x
-title: Monix Documentation (3.x)
+title: Monix Documentation
 ---
 
 ## API Documentation
