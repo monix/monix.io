@@ -12,14 +12,6 @@ Asynchronous Programming for Scala and [Scala.js](http://www.scala-js.org/).
 Monix is a high-performance Scala / Scala.js library for composing asynchronous,
 event-based programs.
 
-It started as a proper implementation of [ReactiveX](http://reactivex.io/),
-with stronger functional programming influences and designed from the ground up
-for  back-pressure and made to cleanly interact with Scala's standard library,
-compatible out-of-the-box with the [Reactive Streams](http://www.reactive-streams.org/)
-protocol. It then expanded to include abstractions for suspending side effects
-and for resource handling, being one of the parents and implementors of
-[cats-effect](https://typelevel.org/cats-effect/).
-
 <a href="https://typelevel.org/"><img src="{{ site.baseurl }}public/images/typelevel.png" width="150" style="float:right;" align="right" /></a>
 
 A [Typelevel project](http://typelevel.org/projects/), Monix proudly
@@ -33,8 +25,16 @@ Highlights:
 - modular, only use what you need
 - designed for true asynchronicity, running on both the
   JVM and [Scala.js](http://scala-js.org)
-- really good test coverage, code quality and API documentation
+- excellent test coverage, code quality and API documentation
   as a primary project policy
+
+The project started as a proper implementation of [ReactiveX](http://reactivex.io/),
+with stronger functional programming influences and designed from the ground up
+for  back-pressure and made to cleanly interact with Scala's standard library,
+compatible out-of-the-box with the [Reactive Streams](https://www.reactive-streams.org/)
+protocol. It then expanded to include abstractions for suspending side effects
+and for resource handling, being one of the parents and implementors of
+[Cats Effect](https://typelevel.org/cats-effect/).
 
 ### Presentations
 

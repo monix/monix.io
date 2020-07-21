@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
 
       - uses: olafurpg/setup-scala@v5
         with:
@@ -31,11 +33,11 @@ jobs:
       - name: Cache SBT
         uses: actions/cache@v2
         with:
-          path: | 
+          path: |
             ~/.ivy2/cache
             ~/.sbt
             ~/.cache/coursier
-          key: v4-${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}       
+          key: v4-${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
 
       - name: Install dependencies
         run: |
@@ -44,8 +46,7 @@ jobs:
           # gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          sbt update
-          
+
       - name: Build
         run: |
           ./scripts/build
