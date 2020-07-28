@@ -47,7 +47,7 @@ val items = 0 until 1000
 // The list of all tasks needed for execution
 val tasks = items.map(i => Task(i * 2))
 // Processing in parallel
-val aggregate = Task.parSequence(tasks).map(_.toList)
+val aggregate = Task.gather(tasks).map(_.toList)
 
 // Evaluation:
 aggregate.foreach(println)
@@ -74,7 +74,7 @@ val items = 0 until 1000
 // The list of all tasks needed for execution
 val tasks = items.map(i => Task(i * 2))
 // Building batches of 10 tasks to execute in parallel:
-val batches = tasks.sliding(10,10).map(b => Task.parSequence(b)).toIterable
+val batches = tasks.sliding(10,10).map(b => Task.gather(b)).toIterable
 // Sequencing batches, then flattening the final result
 val aggregate = Task.sequence(batches).map(_.flatten.toList)
 
@@ -108,7 +108,7 @@ val batched = source.flatMap { items =>
   // The list of all tasks needed for execution
   val tasks = items.map(i => Task(i * 2))
   // Building batches of 10 tasks to execute in parallel:
-  val batches = tasks.sliding(10,10).map(b => Task.parSequence(b)).toIterable
+  val batches = tasks.sliding(10,10).map(b => Task.gather(b)).toIterable
   // Sequencing batches, then flattening the final result
   val aggregate = Task.sequence(batches).map(_.flatten.toIterator)
   // Converting into an observable, needed for flatMap
