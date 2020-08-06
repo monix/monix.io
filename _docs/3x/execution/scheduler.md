@@ -303,7 +303,7 @@ testScheduler.execute(runnable2)
 Note that most methods for spawning a Task (`runToFuture`, etc) will execute work
 on the current thread until an async boundary is encountered. If you want all execution
 to happen on the TestScheduler (in order to manually `tick()` it), you can use
-`.asyncBoundary` on the Task, or set the TestScheduler's ExecutionModel to AlwaysAsyncExecution.
+`executeAsync` on the Task, or set the TestScheduler's ExecutionModel to AlwaysAsyncExecution.
 
 ## Execution Model
 
