@@ -300,16 +300,21 @@ testScheduler.execute(runnable1)
 testScheduler.execute(runnable2)
 ```
 
+Note that most methods for spawning a Task (`runToFuture`, etc) will execute work
+on the current thread until an async boundary is encountered. If you want all execution
+to happen on the TestScheduler (in order to manually `tick()` it), you can use
+`executeAsync` on the Task, or set the TestScheduler's ExecutionModel to AlwaysAsyncExecution.
+
 ## Execution Model
 
 Along with time, the `Scheduler` also specifies the
 [ExecutionModel]({{ page.path | api_base_url }}monix/execution/ExecutionModel$.html),
 which is a specification that acts as a guideline for pieces of computations
-that are doing possibly asynchronous execution in loops.
+that are doing possibly asynchronous execution.
 For example in Monix, this affects how both `Task` and `Observable`
 are evaluated.
 
-Currently there are 3 execution models available:
+Currently there are 3 execution models available, which affect how the synchronous parts of these computations are performed:
 
 - [BatchedExecution]({{ page.path | api_base_url }}monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable),
   the Monix default, specifies a mixed execution mode under which tasks are
@@ -319,13 +324,11 @@ Currently there are 3 execution models available:
   indefinitely, especially on top of Javascript where a long loop
   can mean that the UI gets frozen and where we need to be cooperative.
 - [AlwaysAsyncExecution]({{ page.path | api_base_url }}monix/execution/ExecutionModel$.html#AlwaysAsyncExecution)
-  specifies that units of work within a loop should always execute
-  asynchronously on each step, being basically the mode of operation
-  for Scala's `Future`.
+  specifies that each task should be treated as if it were asynchronous,
+  being basically the mode of operation for Scala's `Future`.
 - [SynchronousExecution]({{ page.path | api_base_url }}monix/execution/ExecutionModel$.html#SynchronousExecution)
-  specifies that synchronous execution should always be preferred,
-  for as long as possible, being basically the mode of operation
-  for the Scalaz `Task`.
+  specifies that tasks should be executed synchronously for as long
+  as possible, being basically the mode of operation for `cats.effect.IO`.
 
 You can retrieve the configured `ExecutionModel` by calling
 `Scheduler.executionModel`.  Here's the default:
