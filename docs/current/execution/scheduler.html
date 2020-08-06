@@ -30,15 +30,15 @@
   <meta content="Scheduler &amp;mdash; Monix" property="og:title">
   <meta content="A cross-platform execution context, can execute logic asynchronously and with a delay, typically but not necessarily on a thread-pool." property="og:description">
   <meta content="https://monix.io/docs/current/execution/scheduler.html" property="og:url">
-  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+  <meta content="2020-08-06T09:17:59+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1595312382854014511">
+  <link rel="stylesheet" href="/public/css/all.css?1596705641012905460">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1595312382854014511">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1596705641012905460">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Page updated at:</b> 20 Jul 2020
+    datetime="2020-08-06">
+    <b>Page updated at:</b> 06 Aug 2020
   </time>
   <nav role="navigation" id="type-info">
     <a href="/api/current/monix/execution/Scheduler.html">API Documentation</a>
@@ -449,6 +449,11 @@ which is second.</p>
 <span class="c1">// runnable2 might execute first, or second</span>
 <span class="nv">testScheduler</span><span class="o">.</span><span class="py">execute</span><span class="o">(</span><span class="n">runnable2</span><span class="o">)</span>
 </code></pre></div></div>
+
+<p>Note that most methods for spawning a Task (<code class="language-plaintext highlighter-rouge">runToFuture</code>, etc) will execute work
+on the current thread until an async boundary is encountered. If you want all execution
+to happen on the TestScheduler (in order to manually <code class="language-plaintext highlighter-rouge">tick()</code> it), you can use
+<code class="language-plaintext highlighter-rouge">executeAsync</code> on the Task, or set the TestScheduler’s ExecutionModel to AlwaysAsyncExecution.</p>
     
       <h2 id="execution-model">
         
@@ -461,11 +466,11 @@ which is second.</p>
 <p>Along with time, the <code class="language-plaintext highlighter-rouge">Scheduler</code> also specifies the
 <a href="/api/current/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
 which is a specification that acts as a guideline for pieces of computations
-that are doing possibly asynchronous execution in loops.
+that are doing possibly asynchronous execution.
 For example in Monix, this affects how both <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Observable</code>
 are evaluated.</p>
 
-<p>Currently there are 3 execution models available:</p>
+<p>Currently there are 3 execution models available, which affect how the synchronous parts of these computations are performed:</p>
 
 <ul>
   <li><a href="/api/current/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
@@ -476,13 +481,11 @@ is recommended because we don’t want to block threads / run-loops
 indefinitely, especially on top of Javascript where a long loop
 can mean that the UI gets frozen and where we need to be cooperative.</li>
   <li><a href="/api/current/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
-specifies that units of work within a loop should always execute
-asynchronously on each step, being basically the mode of operation
-for Scala’s <code class="language-plaintext highlighter-rouge">Future</code>.</li>
+specifies that each task should be treated as if it were asynchronous,
+being basically the mode of operation for Scala’s <code class="language-plaintext highlighter-rouge">Future</code>.</li>
   <li><a href="/api/current/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
-specifies that synchronous execution should always be preferred,
-for as long as possible, being basically the mode of operation
-for the Scalaz <code class="language-plaintext highlighter-rouge">Task</code>.</li>
+specifies that tasks should be executed synchronously for as long
+as possible, being basically the mode of operation for <code class="language-plaintext highlighter-rouge">cats.effect.IO</code>.</li>
 </ul>
 
 <p>You can retrieve the configured <code class="language-plaintext highlighter-rouge">ExecutionModel</code> by calling
