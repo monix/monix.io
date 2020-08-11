@@ -17,4 +17,4 @@ stated otherwise.
 
 The [Monix library](https://github.com/monix/monix) itself is licensed
 under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0),
-see [LICENSE.txt](https://github.com/monix/monix/blob/master/LICENSE.txt).
+see [LICENSE.txt](https://github.com/monix/monix/blob/series/3.x/LICENSE.txt).

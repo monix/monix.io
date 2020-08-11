@@ -119,16 +119,19 @@ generation energy grid solutions.
 
 ## Adopters
 
-Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/blob/master/README.md)
+Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/blob/series/3.x/README.md)
 
 - [Abacus](https://abacusfi.com)
+- [Agoda](https://www.agoda.com)
 - [commercetools](https://commercetools.com)
 - [Coya](https://www.coya.com/)
+- [E.ON Connecting Energies](https://www.eon.com/)
 - [eBay Inc.](https://www.ebay.com)
+- [Eloquentix](http://eloquentix.com/)
+- [Hypefactors](https://www.hypefactors.com)
+- [Iterators](https://www.iteratorshq.com)
 - [Sony Electronics](https://www.sony.com)
 - [Zalando](https://www.zalando.com)
-- [Agoda](https://www.agoda.com)
-- [Hypefactors](https://www.hypefactors.com)
 
 ## License
 
