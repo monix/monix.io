@@ -15,13 +15,14 @@ Related:
 ## Getting Started
 
 - [Usage with SBT](./intro/usage.md)
+- [Versioning scheme](./intro/version-scheme.md)
 - [Hello World!](./intro/hello-world.md)
 - [Typelevel Cats Integration](./intro/cats.md)
 
-Quick-start template:
+[Quick-start template](https://github.com/monix/monix-jvm-app-template.g8):
 
 ```
-sbt new monix/monix-3x.g8
+sbt new monix/monix-jvm-app-template.g8
 ```
 
 ## Sub-projects

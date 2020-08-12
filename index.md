@@ -57,16 +57,10 @@ In SBT for the latest 3.x release that integrates with
 libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version3x }}"
 ```
 
-Or for the older `2.x` release:
-
-```scala
-libraryDependencies += "io.monix" %% "monix" % "{{ site.promoted.version2x }}"
-```
-
 Monix is modular by design, so you can have an à la carte experience,
 the project being divided in multiple sub-projects.
 
-See [Usage in SBT and Maven](/docs/current/intro/usage.md) for more details.
+See [Usage in SBT](./docs/current/intro/usage.md), along with the [sub-modules graph](./docs/current/intro/usage.md#sub-modules--dependencies-graph), and don't miss the [versioning scheme](./docs/current/intro/versioning-scheme.md) for binary-backwards compatibility guarantees.
 
 ### Documentation
 
@@ -99,23 +93,6 @@ Relevant links to dependencies:
   </li>
   {% endfor %}
 </ol>
-
-## Acknowledgements
-
-<img src="{{ site.baseurl }}public/images/logos/yklogo.png"
-align="right" /> YourKit supports the Monix project with its
-full-featured Java Profiler.  YourKit, LLC is the creator
-[YourKit Java Profiler](http://www.yourkit.com/java/profiler/index.jsp)
-and
-[YourKit .NET Profiler](http://www.yourkit.com/.net/profiler/index.jsp),
-innovative and intelligent tools for profiling Java and .NET
-applications.
-
-<img src="{{ site.baseurl }}public/images/logos/logo-eloquentix@2x.png" align="right" width="130" />
-Development of Monix has been initiated by
-[Eloquentix](http://eloquentix.com/) engineers, with
-Monix being introduced at E.ON Connecting Energies, powering the next
-generation energy grid solutions.
 
 ## Adopters
 

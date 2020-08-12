@@ -17,10 +17,11 @@ wrapping Scala's Future APIs into Task.
 
 ## Getting Started
 
-To quickly get started with a sample project to play with:
+To quickly get started with a sample project to play with,
+[use our template](https://github.com/monix/monix-jvm-app-template.g8):
 
 ```
-sbt new monix/monix-3x.g8
+sbt new monix/monix-jvm-app-template.g8
 ```
 
 ## Resources

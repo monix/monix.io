@@ -9,7 +9,7 @@ description: |
 
 The packages are published on Maven Central, cross-compiled
 for Scala 2.10, 2.11 and 2.12, also cross-compiled to 
-[Scala.js](http://www.scala-js.org/) {{ site.scalajs_full_version }}:
+[Scala.js](http://www.scala-js.org/) 0.6.x:
 
 - Current 1.x release: `{{ site.promoted.version1x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version1x }}.zip))
@@ -23,17 +23,7 @@ and for [Apache Maven](https://maven.apache.org/) build tools.
 
 ## Everything in Monix Core
 
-The main `monix` project contains everything in the Monix core, 
-cross-compiled for:
-
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
+The main `monix` project contains everything in the Monix core.
   
 Depends on:
 
@@ -68,16 +58,6 @@ or `Evaluable`, a type-class meant to abstract over both `Task` or
 
 Usage:
 
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-types_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Has no dependencies.
 
 ```scala
 // Targetting just the JVM
@@ -94,17 +74,6 @@ with asynchronous execution, thus exposing
 [Scheduler]({{ site.api2x }}monix/execution/Scheduler.html) and
 [Cancelable]({{ site.api2x }}monix/execution/Cancelable.html):
 
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-execution_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Depends on [Sincron](https://sincron.org).
-
 ```scala
 // Targetting just the JVM
 libraryDependencies += "io.monix" %% "monix-execution" % "{{ site.promoted.version2x }}"
@@ -119,21 +88,6 @@ You can use just `monix-eval`, the sub-project that exposes
 [Task]({{ site.api2x }}monix/eval/Task$.html) and
 [Coeval]({{ site.api2x }}monix/eval/Coeval$.html):
 
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-eval_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Depends on:
-
-- [Sincron](https://sincron.org)
-- [monix-types](#sub-project-monix-types)
-- [monix-execution](#sub-project-monix-execution)
-
 ```scala
 // Targetting just the JVM
 libraryDependencies += "io.monix" %% "monix-eval" % "{{ site.promoted.version2x }}"
@@ -146,17 +100,6 @@ libraryDependencies += "io.monix" %%% "monix-eval" % "{{ site.promoted.version2x
 
 You can use just `monix-reactive`, the sub-project that exposes
 the [Observable]({{ site.api2x }}monix/reactive/Observable.html) pattern:
-
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-reactive_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Depends on:
 
 - [Sincron](https://sincron.org)
 - [monix-types](#sub-project-monix-types)
@@ -176,17 +119,6 @@ libraryDependencies += "io.monix" %%% "monix-reactive" % "{{ site.promoted.versi
 The `monix-cats` optional sub-projects is the integration 
 with the [Cats](http://typelevel.org/cats/) library.
 
-To import:
-
-- JVM: 
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-cats_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Depends just on [monix-types](#sub-project-monix-types).
-
 ```scala
 // Targetting just the JVM
 libraryDependencies += "io.monix" %% "monix-cats" % "{{ site.promoted.version2x }}"
@@ -199,19 +131,6 @@ libraryDependencies += "io.monix" %%% "monix-cats" % "{{ site.promoted.version2x
 
 The `monix-scalaz-72` optional sub-projects is the integration 
 with the [Scalaz](http://scalaz.org/) library.
-
-To import:
-
-- JVM: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_2.10%7C{{ site.promoted.version2x }}%7C)
-- Javascript: 
-  [Scala 2.12](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.12%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.11](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.11%7C{{ site.promoted.version2x }}%7C) /
-  [Scala 2.10](https://search.maven.org/#artifactdetails%7Cio.monix%7Cmonix-scalaz-72_{{ site.scalajs_pack_version }}_2.10%7C{{ site.promoted.version2x }}%7C)
-
-Depends just on [monix-types](#sub-project-monix-types).
 
 ```scala
 // Targetting just the JVM
