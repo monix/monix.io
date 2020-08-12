@@ -15,7 +15,7 @@ Related:
 ## Getting Started
 
 - [Usage with SBT](./intro/usage.md)
-- [Versioning scheme](./intro/version-scheme.md)
+- [Versioning scheme](./intro/versioning-scheme.md)
 - [Hello World!](./intro/hello-world.md)
 - [Typelevel Cats Integration](./intro/cats.md)
 
