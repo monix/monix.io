@@ -1,0 +1,28 @@
+digraph Dependencies {
+
+  "JCTools (shaded)" [color=gray, fontcolor=gray];
+  "reactive-streams.org" [color=gray, fontcolor=gray];
+  "Cats" [color=darkred, fontcolor=darkred];
+  "Cats Effect" [color=darkred, fontcolor=darkred];
+
+  "monix" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-execution" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-catnap" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-eval" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-reactive" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-tail" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix-java" [fontcolor=dodgerblue4, color=dodgerblue4];
+  "monix/implicitbox" [fontcolor=gray, color=gray];
+
+  "monix-execution" -> {"JCTools (shaded)", "reactive-streams.org", "monix/implicitbox"};
+
+  "monix-catnap" -> {"monix-execution", "Cats Effect"};
+  "Cats Effect" -> "Cats";
+
+  {"monix-eval", "monix-tail"} -> "monix-catnap";
+  
+  "monix-reactive" -> "monix-eval";
+  "monix-java" -> {"monix-execution", "monix-eval"};
+
+  "monix" -> "monix-reactive", "monix-tail", "monix-java";
+}
