@@ -31,14 +31,14 @@ We can do parallel execution in batches, that does deterministic
 ### The Naive Way
 
 The following example uses
-[Task.gather]({{ page.path | api_base_url }}monix/eval/Task$.html#gather[A,M[X]<:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]),
+[Task.parSequence]({{ page.path | api_base_url }}monix/eval/Task$.htmll#parSequenceN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]),
 which does parallel processing while preserving result ordering, 
 but in order to ensure that parallel processing actually happens,
 the tasks need to be effectively asynchronous, which for simple
 functions need to fork threads, hence the usage of 
 [Task.apply]({{ page.path | api_base_url }}monix/eval/Task$.html#apply[A](f:=>A):monix.eval.Task[A]),
 although remember that you can apply 
-[Task.fork]({{ page.path | api_base_url }}monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A])
+[Task.executeAsync]({{ page.path | api_base_url }}monix/eval/Task$.html#executeAsync:monix.eval.Task[A])
 to any task.
 
 ```scala mdoc:silent:nest
@@ -55,7 +55,7 @@ aggregate.foreach(println)
 ```
 
 If ordering of results does not matter, you can also use 
-[Task.gatherUnordered]({{ page.path | api_base_url }}monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]])
+[Task.parSequenceUnordered]({{ page.path | api_base_url }}monix/eval/Task$.htmll#parSequenceUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]])
 instead of `gather`, which might yield better results, given its non-blocking execution.
 
 ### Imposing a Parallelism Limit
