@@ -36,10 +36,7 @@ which does parallel processing while preserving result ordering,
 but in order to ensure that parallel processing actually happens,
 the tasks need to be effectively asynchronous, which for simple
 functions need to fork threads, hence the usage of 
-[Task.apply]({{ page.path | api_base_url }}monix/eval/Task$.html#apply[A](f:=>A):monix.eval.Task[A]),
-although remember that you can apply 
-[Task.executeAsync]({{ page.path | api_base_url }}monix/eval/Task$.html#executeAsync:monix.eval.Task[A])
-to any task.
+[Task.executeAsync]({{ page.path | api_base_url }}monix/eval/Task$.html#executeAsync:monix.eval.Task[A]).
 
 ```scala mdoc:silent:nest
 val items = 0 until 1000
@@ -56,11 +53,11 @@ aggregate.foreach(println)
 
 If ordering of results does not matter, you can also use 
 [Task.parSequenceUnordered]({{ page.path | api_base_url }}monix/eval/Task$.htmll#parSequenceUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]])
-instead of `gather`, which might yield better results, given its non-blocking execution.
+instead of `parSequence`, which might yield better results, given its non-blocking execution.
 
 ### Imposing a Parallelism Limit
 
-The `Task.gather` builder, as exemplified above, will potentially execute
+The `Task.parSequence` builder, as exemplified above, will potentially execute
 all given tasks in parallel, the problem being that this can lead to inefficiency.
 For example we might be doing HTTP requests and starting 10000 HTTP
 requests in parallel is not necessarily wise as it can choke the
@@ -145,7 +142,7 @@ processed.toListL.foreach(println)
 //=> List(2, 10, 0, 4, 8, 6, 12...
 ```
 
-Compared with using `Task.gather` as exemplified above, this operator
+Compared with using `Task.parSequence` as exemplified above, this operator
 **does not maintain ordering** of results as signaled by the source.
 
 This leads to a more efficient execution, because the source doesn't
