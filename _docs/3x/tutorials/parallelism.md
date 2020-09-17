@@ -32,11 +32,7 @@ We can do parallel execution in batches, that does deterministic
 
 The following example uses
 [Task.parSequence]({{ page.path | api_base_url }}monix/eval/Task$.htmll#parSequenceN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]),
-which does parallel processing while preserving result ordering, 
-but in order to ensure that parallel processing actually happens,
-the tasks need to be effectively asynchronous, which for simple
-functions need to fork threads, hence the usage of 
-[Task.executeAsync]({{ page.path | api_base_url }}monix/eval/Task$.html#executeAsync:monix.eval.Task[A]).
+which does parallel processing while preserving result ordering.
 
 ```scala mdoc:silent:nest
 val items = 0 until 1000
