@@ -30,15 +30,15 @@
   <meta content="Parallel Processing &amp;mdash; Monix" property="og:title">
   <meta content="Recipes for achieving parallelism" property="og:description">
   <meta content="https://monix.io/docs/3x/tutorials/parallelism.html" property="og:url">
-  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+  <meta content="2020-09-18T07:45:49+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1597225062732571168">
+  <link rel="stylesheet" href="/public/css/all.css?1600415596002446796">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1597225062732571168">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1600415596002446796">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Page updated at:</b> 20 Jul 2020
+    datetime="2020-09-18">
+    <b>Page updated at:</b> 18 Sep 2020
   </time>
   <nav role="navigation" id="type-info">
     
@@ -175,15 +175,8 @@
       </h3>
 
 <p>The following example uses
-<a href="/api/3.2/monix/eval/Task$.html#gather[A,M[X]&lt;:TraversableOnce[X]](in:M[monix.eval.Task[A]])(implicitcbf:scala.collection.generic.CanBuildFrom[M[monix.eval.Task[A]],A,M[A]]):monix.eval.Task[M[A]]">Task.gather</a>,
-which does parallel processing while preserving result ordering, 
-but in order to ensure that parallel processing actually happens,
-the tasks need to be effectively asynchronous, which for simple
-functions need to fork threads, hence the usage of 
-<a href="/api/3.2/monix/eval/Task$.html#apply[A](f:=&gt;A):monix.eval.Task[A]">Task.apply</a>,
-although remember that you can apply 
-<a href="/api/3.2/monix/eval/Task$.html#fork[A](fa:monix.eval.Task[A]):monix.eval.Task[A]">Task.fork</a>
-to any task.</p>
+<a href="/api/3.2/monix/eval/Task$.htmll#parSequenceN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequence</a>,
+which does parallel processing while preserving result ordering.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
 
@@ -198,8 +191,8 @@ to any task.</p>
 </code></pre></div></div>
 
 <p>If ordering of results does not matter, you can also use 
-<a href="/api/3.2/monix/eval/Task$.html#gatherUnordered[A](in:TraversableOnce[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.gatherUnordered</a>
-instead of <code class="language-plaintext highlighter-rouge">gather</code>, which might yield better results, given its non-blocking execution.</p>
+<a href="/api/3.2/monix/eval/Task$.htmll#parSequenceUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequenceUnordered</a>
+instead of <code class="language-plaintext highlighter-rouge">parSequence</code>, which might yield better results, given its non-blocking execution.</p>
     
       <h3 id="imposing-a-parallelism-limit">
         
@@ -209,7 +202,7 @@ instead of <code class="language-plaintext highlighter-rouge">gather</code>, whi
         
       </h3>
 
-<p>The <code class="language-plaintext highlighter-rouge">Task.gather</code> builder, as exemplified above, will potentially execute
+<p>The <code class="language-plaintext highlighter-rouge">Task.parSequence</code> builder, as exemplified above, will potentially execute
 all given tasks in parallel, the problem being that this can lead to inefficiency.
 For example we might be doing HTTP requests and starting 10000 HTTP
 requests in parallel is not necessarily wise as it can choke the
@@ -303,7 +296,7 @@ operator:</p>
 <span class="c1">//=&gt; List(2, 10, 0, 4, 8, 6, 12...</span>
 </code></pre></div></div>
 
-<p>Compared with using <code class="language-plaintext highlighter-rouge">Task.gather</code> as exemplified above, this operator
+<p>Compared with using <code class="language-plaintext highlighter-rouge">Task.parSequence</code> as exemplified above, this operator
 <strong>does not maintain ordering</strong> of results as signaled by the source.</p>
 
 <p>This leads to a more efficient execution, because the source doesn’t
