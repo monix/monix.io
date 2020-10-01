@@ -153,8 +153,8 @@ giants. But where the Monix Task implementation disagrees:
    to), but from the consumer's point of view having a `def run: A`
    means that the API cannot be fully supported on top of Javascript
    and on top of the JVM it means that the `Task` ends up faking
-   synchronous evaluation and blocking threads. And [blocking threads
-   is very unsafe](../best-practices/blocking.md).
+   synchronous evaluation and blocking threads. And
+   [blocking threads is very unsafe](../best-practices/blocking.md).
 3. The Scalaz Task cannot cancel running computations. This is
    important for nondeterministic operations. For example when you
    create a race condition with a `race`, you may want to
