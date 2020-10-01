@@ -27,7 +27,7 @@ Then to generate the whole website:
 
 ### Incremental compilation
 
-To generate the `mdoc`-enabled articles, which takes articles from [./_docs][./_docs], generating them parsed into `./docs`:
+To generate the `mdoc`-enabled articles, which takes articles from [./_docs](./_docs), generating them parsed into `./docs`:
 
 ```
 sbt mdoc
