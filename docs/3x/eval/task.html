@@ -30,15 +30,15 @@
   <meta content="Task &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling possibly lazy &amp;amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." property="og:description">
   <meta content="https://monix.io/docs/3x/eval/task.html" property="og:url">
-  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+  <meta content="2020-10-01T14:59:13+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1600415596002446796">
+  <link rel="stylesheet" href="/public/css/all.css?1601564812941389487">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1600415596002446796">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1601564812941389487">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Page updated at:</b> 20 Jul 2020
+    datetime="2020-10-01">
+    <b>Page updated at:</b> 01 Oct 2020
   </time>
   <nav role="navigation" id="type-info">
     <a href="/api/3.2/monix/eval/Task.html">API Documentation</a>
@@ -386,8 +386,8 @@ producer is concerned (i.e. why fork a thread when you don’t have
 to), but from the consumer’s point of view having a <code class="language-plaintext highlighter-rouge">def run: A</code>
 means that the API cannot be fully supported on top of Javascript
 and on top of the JVM it means that the <code class="language-plaintext highlighter-rouge">Task</code> ends up faking
-synchronous evaluation and blocking threads. And <a href="../best-practices/blocking.md">blocking threads
-is very unsafe</a>.</li>
+synchronous evaluation and blocking threads. And
+<a href="/docs/3x/best-practices/blocking.html">blocking threads is very unsafe</a>.</li>
   <li>The Scalaz Task cannot cancel running computations. This is
 important for nondeterministic operations. For example when you
 create a race condition with a <code class="language-plaintext highlighter-rouge">race</code>, you may want to
