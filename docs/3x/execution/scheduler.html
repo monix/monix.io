@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -113,8 +113,8 @@
     <b>Page updated at:</b> 06 Aug 2020
   </time>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.2/monix/execution/Scheduler.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.2.2/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala">Source Code</a>
+    <a href="/api/3.3/monix/execution/Scheduler.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.3.0/monix-execution/shared/src/main/scala/monix/execution/Scheduler.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/execution/scheduler.md">Edit Page</a>
     
@@ -464,7 +464,7 @@ to happen on the TestScheduler (in order to manually <code class="language-plain
       </h2>
 
 <p>Along with time, the <code class="language-plaintext highlighter-rouge">Scheduler</code> also specifies the
-<a href="/api/3.2/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
+<a href="/api/3.3/monix/execution/ExecutionModel$.html">ExecutionModel</a>,
 which is a specification that acts as a guideline for pieces of computations
 that are doing possibly asynchronous execution.
 For example in Monix, this affects how both <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Observable</code>
@@ -473,17 +473,17 @@ are evaluated.</p>
 <p>Currently there are 3 execution models available, which affect how the synchronous parts of these computations are performed:</p>
 
 <ul>
-  <li><a href="/api/3.2/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
+  <li><a href="/api/3.3/monix/execution/ExecutionModel$.html#BatchedExecutionextendsExecutionModelwithProductwithSerializable">BatchedExecution</a>,
 the Monix default, specifies a mixed execution mode under which tasks are
 executed synchronously in batches up to a maximum size, after
 which an asynchronous boundary is forced. This execution mode
 is recommended because we don’t want to block threads / run-loops
 indefinitely, especially on top of Javascript where a long loop
 can mean that the UI gets frozen and where we need to be cooperative.</li>
-  <li><a href="/api/3.2/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
+  <li><a href="/api/3.3/monix/execution/ExecutionModel$.html#AlwaysAsyncExecution">AlwaysAsyncExecution</a>
 specifies that each task should be treated as if it were asynchronous,
 being basically the mode of operation for Scala’s <code class="language-plaintext highlighter-rouge">Future</code>.</li>
-  <li><a href="/api/3.2/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
+  <li><a href="/api/3.3/monix/execution/ExecutionModel$.html#SynchronousExecution">SynchronousExecution</a>
 specifies that tasks should be executed synchronously for as long
 as possible, being basically the mode of operation for <code class="language-plaintext highlighter-rouge">cats.effect.IO</code>.</li>
 </ul>
@@ -670,7 +670,7 @@ so it will still use <code class="language-plaintext highlighter-rouge">setTimeo
       </h2>
 
 <p>The <code class="language-plaintext highlighter-rouge">SchedulerService</code> is a <code class="language-plaintext highlighter-rouge">scheduler</code> type that provides methods for managing termination.
-See the <a href="/api/3.2/monix/execution/schedulers/SchedulerService.html">API Documentation</a>.</p>
+See the <a href="/api/3.3/monix/execution/schedulers/SchedulerService.html">API Documentation</a>.</p>
 
 <p>Similar in spirit to
 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html">java.util.concurrent.ExecutorService</a>,
@@ -729,7 +729,7 @@ to use for waiting:</p>
 <p>We can now further inspect the state of our <code class="language-plaintext highlighter-rouge">SchedulerService</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">isTerminated</span>
-<span class="c1">// res21: Boolean = true</span>
+<span class="c1">// res21: Boolean = false</span>
 </code></pre></div></div>
 
 

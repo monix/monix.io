@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Asynchronous Stack Traces &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/eval/stacktraces.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Asynchronous Stack Traces &amp;mdash; Monix" />
+  <meta name="twitter:description" content="Asynchronous Stack Traces" />
+  <meta name="twitter:url" content="https://monix.io/docs/current/eval/stacktraces.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Asynchronous Stack Traces &amp;mdash; Monix" property="og:title">
+  <meta content="Asynchronous Stack Traces" property="og:description">
+  <meta content="https://monix.io/docs/current/eval/stacktraces.html" property="og:url">
+  <meta content="2020-11-07T12:36:06+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Asynchronous Stack Traces
+        
+        
+      </h1>
+
+  
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-11-07">
+    <b>Page updated at:</b> 07 Nov 2020
+  </time>
+  <nav role="navigation" id="type-info">
+    
+    
+    
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/eval/stacktraces.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/2x/">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#configuration">Configuration</a>
+    <ul>
+      <li><a href="#none">NONE</a></li>
+      <li><a href="#cached">CACHED</a></li>
+      <li><a href="#full">FULL</a></li>
+    </ul>
+  </li>
+  <li><a href="#showing-stack-traces">Showing Stack Traces</a></li>
+  <li><a href="#example">Example</a>
+    <ul>
+      <li><a href="#none-1">NONE</a></li>
+      <li><a href="#cached-1">CACHED</a></li>
+      <li><a href="#full-1">FULL</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+
+  <p>Monix <a href="/docs/current/eval/task.html">Task</a> and <a href="/docs/current/eval/coeval.html">Coeval</a> come with a support for more readable stack traces.</p>
+
+<p>A notable pain point of working with asynchronous code on the JVM is that stack traces no longer provide a valuable context of the execution path that a program takes. 
+This limitation is even more pronounced with Scala’s Future (pre- 2.13), where an asynchronous boundary is inserted after each operation. 
+Task suffers a similar problem, but even a synchronous Task or Coeval program’s stack trace is polluted with the run-loop details.</p>
+    
+      <h2 id="configuration">
+        
+        
+          Configuration <a href="#configuration" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>There are three stack tracing modes:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">NONE</code></li>
+  <li><code class="language-plaintext highlighter-rouge">CACHED</code></li>
+  <li><code class="language-plaintext highlighter-rouge">FULL</code></li>
+</ul>
+
+<p>Each tracing mode comes with a different stack traces detail at the cost of the performance penalty.
+We’ve found <code class="language-plaintext highlighter-rouge">CACHED</code> mode to be the best middle-ground, and it is set by default.</p>
+
+<p>To prevent unbounded memory usage, stack traces for fiber are accumulated in an internal buffer as execution proceeds. 
+If more traces are collected than the buffer can retain, then the older traces will be overwritten. 
+The default size for the buffer is 16 but can be changed via the system property <code class="language-plaintext highlighter-rouge">monix.eval.traceBufferLogSize</code>.
+Note that this property is expressed as a logarithm of a power of two!</p>
+
+<p>For example, to enable full-stack tracing and a trace buffer size of 32, specify the following system properties:</p>
+
+<p><code class="language-plaintext highlighter-rouge">-Dmonix.eval.stackTracingMode=full -Dmonix.eval.traceBufferLogSize=5</code></p>
+
+<p>Note that the <code class="language-plaintext highlighter-rouge">stackTracingMode</code> option is case insensitive.</p>
+
+<p>Another option is <code class="language-plaintext highlighter-rouge">monix.eval.enhancedExceptions</code> that is <code class="language-plaintext highlighter-rouge">true</code> by default and says whether exceptions caught by <code class="language-plaintext highlighter-rouge">Task</code> / <code class="language-plaintext highlighter-rouge">Coeval</code> should include enriched stack trace information.</p>
+    
+      <h3 id="none">
+        
+        
+          NONE <a href="#none" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>No tracing is instrumented by the program and so incurs a negligible impact to performance. If a trace is requested, it will be empty.</p>
+    
+      <h3 id="cached">
+        
+        
+          CACHED <a href="#cached" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>When cached stack tracing is enabled, a stack trace is captured and cached for selected operations, such as every <code class="language-plaintext highlighter-rouge">map</code>, <code class="language-plaintext highlighter-rouge">flatMap</code>, <code class="language-plaintext highlighter-rouge">create</code>, and <code class="language-plaintext highlighter-rouge">parMap2</code> call.</p>
+
+<p>The stack trace cache is indexed by the lambda class reference, so cached tracing may produce inaccurate fiber traces under several scenarios:</p>
+<ul>
+  <li>Monad transformer composition</li>
+  <li>A named function is supplied to map, async, or flatMap at multiple call-sites</li>
+</ul>
+
+<p>We measured about 10-30% performance hit when cached tracing is enabled in micro-benchmarks, but it will most likely be much less for any real application.</p>
+
+<p>We strongly recommend benchmarking applications that use tracing and would appreciate any (good or bad!) reports.</p>
+
+<p>This is the recommended mode to run in most production applications and is enabled by default.</p>
+    
+      <h3 id="full">
+        
+        
+          FULL <a href="#full" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>When full stack tracing is enabled, a stack trace is captured for most combinators, including <code class="language-plaintext highlighter-rouge">now</code>, <code class="language-plaintext highlighter-rouge">eval</code>, <code class="language-plaintext highlighter-rouge">suspend</code>, <code class="language-plaintext highlighter-rouge">raiseError</code> as well as those traced in cached mode.</p>
+
+<p>Stack traces are collected on every invocation, so naturally, most programs will experience a significant performance hit. 
+This mode is mainly useful for debugging in development environments.</p>
+    
+      <h2 id="showing-stack-traces">
+        
+        
+          Showing Stack Traces <a href="#showing-stack-traces" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>If <code class="language-plaintext highlighter-rouge">monix.eval.enhancedExceptions</code> is set to <code class="language-plaintext highlighter-rouge">true</code>, all exceptions caught by <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code> will include extra information in their stack trace.</p>
+
+<p>Another option is to call <code class="language-plaintext highlighter-rouge">Task.trace</code> to expose stack trace information at will.</p>
+    
+      <h2 id="example">
+        
+        
+          Example <a href="#example" class="anchor">#</a>
+        
+        
+      </h2>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="nn">test.app</span>
+
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="k">import</span> <span class="nn">cats.implicits._</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">object</span> <span class="nc">TestTracingApp</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">global</span>
+
+  <span class="k">def</span> <span class="nf">customMethod</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(()).</span><span class="py">guarantee</span><span class="o">(</span><span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">10.</span><span class="n">millis</span><span class="o">))</span>
+
+  <span class="k">val</span> <span class="nv">tracingTestApp</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">shift</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">.</span><span class="py">attempt</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Started the program"</span><span class="o">)),</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">).</span><span class="py">parTupled</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">customMethod</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">if</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"boom"</span><span class="o">))</span> <span class="k">else</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
+  <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
+
+  <span class="nv">tracingTestApp</span><span class="o">.</span><span class="py">onErrorHandleWith</span><span class="o">(</span><span class="n">ex</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">ex</span><span class="o">.</span><span class="py">printStackTrace</span><span class="o">())).</span><span class="py">runSyncUnsafe</span>
+<span class="o">}</span>
+</code></pre></div></div>
+    
+      <h3 id="none-1">
+        
+        
+          NONE <a href="#none-1" class="anchor">#</a>
+        
+        
+      </h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.Exception: boom
+        at test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at monix.eval.internal.TaskRunLoop$.startFull(TaskRunLoop.scala:188)
+        at monix.eval.internal.TaskRestartCallback.syncOnSuccess(TaskRestartCallback.scala:101)
+        at monix.eval.internal.TaskRestartCallback$$anon$1.run(TaskRestartCallback.scala:118)
+        at monix.execution.internal.Trampoline.monix$execution$internal$Trampoline$$immediateLoop(Trampoline.scala:66)
+        at monix.execution.internal.Trampoline.startLoop(Trampoline.scala:32)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.super$startLoop(TrampolineExecutionContext.scala:142)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.$anonfun$startLoop$1(TrampolineExecutionContext.scala:142)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:94)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.startLoop(TrampolineExecutionContext.scala:142)
+        at monix.execution.internal.Trampoline.execute(Trampoline.scala:40)
+        at monix.execution.schedulers.TrampolineExecutionContext.execute(TrampolineExecutionContext.scala:57)
+        at monix.execution.schedulers.BatchingScheduler.execute(BatchingScheduler.scala:50)
+        at monix.execution.schedulers.BatchingScheduler.execute$(BatchingScheduler.scala:47)
+        at monix.execution.schedulers.AsyncScheduler.execute(AsyncScheduler.scala:31)
+        at monix.eval.internal.TaskRestartCallback.onSuccess(TaskRestartCallback.scala:72)
+        at monix.eval.internal.TaskRunLoop$.startFull(TaskRunLoop.scala:183)
+        at monix.eval.internal.TaskRestartCallback.syncOnSuccess(TaskRestartCallback.scala:101)
+        at monix.eval.internal.TaskRestartCallback.onSuccess(TaskRestartCallback.scala:74)
+        at monix.eval.internal.TaskSleep$SleepRunnable.run(TaskSleep.scala:71)
+        at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1402)
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+        at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+</code></pre></div></div>
+    
+      <h3 id="cached-1">
+        
+        
+          CACHED <a href="#cached-1" class="anchor">#</a>
+        
+        
+      </h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.Exception: boom
+        at test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at guarantee @ test.app.TestTracingApp$.customMethod(TestTracingApp.scala:29)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$4(TestTracingApp.scala:35)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$1(TestTracingApp.scala:33)
+        at flatMap @ test.app.TestTracingApp$.delayedEndpoint$test$app$TestTracingApp$1(TestTracingApp.scala:32)
+</code></pre></div></div>
+    
+      <h3 id="full-1">
+        
+        
+          FULL <a href="#full-1" class="anchor">#</a>
+        
+        
+      </h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.Exception: boom
+        at test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at raiseError @ test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at now @ test.app.TestTracingApp$.customMethod(TestTracingApp.scala:29)
+        at guarantee @ test.app.TestTracingApp$.customMethod(TestTracingApp.scala:29)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$4(TestTracingApp.scala:35)
+        at &lt;clinit&gt; @ test.app.TestTracingApp$.delayedEndpoint$test$app$TestTracingApp$1(TestTracingApp.scala:32)
+        at apply @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at &lt;clinit&gt; @ test.app.TestTracingApp$.delayedEndpoint$test$app$TestTracingApp$1(TestTracingApp.scala:32)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$1(TestTracingApp.scala:33)
+        at flatMap @ test.app.TestTracingApp$.delayedEndpoint$test$app$TestTracingApp$1(TestTracingApp.scala:32)
+</code></pre></div></div>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/eval/stacktraces.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Asynchronous+Stack+Traces" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

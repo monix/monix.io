@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix 3.3.0</title>
+
+  <link rel="canonical" href="https://monix.io/blog/2020/11/07/monix-v3.3.0.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Monix 3.3.0" />
+  <meta name="twitter:description" content="Better Stack Traces, Local improvements and new operators" />
+  <meta name="twitter:url" content="https://monix.io/blog/2020/11/07/monix-v3.3.0.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix 3.3.0" property="og:title">
+  <meta content="Better Stack Traces, Local improvements and new operators" property="og:description">
+  <meta content="https://monix.io/blog/2020/11/07/monix-v3.3.0.html" property="og:url">
+  <meta content="2020-11-07T00:00:00+00:00" property="article:published_time">
+  <meta content="2020-11-07T12:36:06+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="post">
+  <a name="start"></a>
+      <h1 class="post-title">
+        
+        
+          Monix 3.3.0
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2020-11-07">
+    07 Nov 2020
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#upgrading">Upgrading</a></li>
+  <li><a href="#highlights">Highlights</a>
+    <ul>
+      <li><a href="#better-stack-traces">Better Stack Traces</a></li>
+      <li><a href="#better-task--future-interop-when-using-local">Better Task =&gt; Future interop when using Local</a></li>
+      <li><a href="#relevant-updates">Relevant updates</a></li>
+      <li><a href="#people-who-made-this-release-possible">People who made this release possible</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+
+  <p>The release is binary and source compatible with 3.x.x line.
+It is released for the following Scala and ScalaJS versions:</p>
+<ul>
+  <li>Scala 2.11: ScalaJS 0.6.x</li>
+  <li>Scala 2.12: ScalaJS 0.6.x and 1.3.x</li>
+  <li>Scala 2.13: ScalaJS 0.6.x and 1.3.x</li>
+</ul>
+
+<p>Note that most likely, this is going to be the last release on ScalaJS 0.6.x.
+We can consider doing backports on-demand.</p>
+
+<!--more-->
+    
+      <h2 id="upgrading">
+        
+        
+          Upgrading <a href="#upgrading" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>To use the new version, include this in your <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+</code></pre></div></div>
+
+<p>Or in case you just want any of the sub-projects:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Local, Scheduler, Cancelable, CancelableFuture, Atomic, etc</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+
+<span class="c1">// Utilities built for Cats-Effect, e.g. ConcurrentChannel, FutureLift</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+
+<span class="c1">// Task, Coeval</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+
+<span class="c1">// Observable</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+
+<span class="c1">// Iterant</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+</code></pre></div></div>
+    
+      <h2 id="highlights">
+        
+        
+          Highlights <a href="#highlights" class="anchor">#</a>
+        
+        
+      </h2>
+    
+      <h3 id="better-stack-traces">
+        
+        
+          Better Stack Traces <a href="#better-stack-traces" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>This release includes a highly requested feature of better stack traces for <code class="language-plaintext highlighter-rouge">Task</code> and <code class="language-plaintext highlighter-rouge">Coeval</code>!</p>
+
+<p>They are enabled by default, but it is configurable. 
+Refer to <a href="/docs/3x/eval/stacktraces.md">Stack Traces section</a> for more details.</p>
+
+<p>We have measured about 10-30% performance hit in CACHED mode (the default) in microbenchmarks.
+If you have any performance tests, we would greatly appreciate any reports!
+If the hit is too big, you can disable the stack traces with <code class="language-plaintext highlighter-rouge">-Dmonix.eval.stackTracingMode=none</code>.</p>
+
+<p>For the following code:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="nn">test.app</span>
+
+<span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler</span>
+<span class="k">import</span> <span class="nn">cats.implicits._</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">object</span> <span class="nc">TestTracingApp</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">global</span>
+
+  <span class="k">def</span> <span class="nf">customMethod</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span>
+    <span class="nv">Task</span><span class="o">.</span><span class="py">now</span><span class="o">(()).</span><span class="py">guarantee</span><span class="o">(</span><span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">10.</span><span class="n">millis</span><span class="o">))</span>
+
+  <span class="k">val</span> <span class="nv">tracingTestApp</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">shift</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">.</span><span class="py">attempt</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Started the program"</span><span class="o">)),</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span><span class="o">).</span><span class="py">parTupled</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">customMethod</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nf">if</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="nv">Task</span><span class="o">.</span><span class="py">raiseError</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"boom"</span><span class="o">))</span> <span class="k">else</span> <span class="nv">Task</span><span class="o">.</span><span class="py">unit</span>
+  <span class="o">}</span> <span class="nf">yield</span> <span class="o">()</span>
+
+  <span class="nv">tracingTestApp</span><span class="o">.</span><span class="py">onErrorHandleWith</span><span class="o">(</span><span class="n">ex</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">ex</span><span class="o">.</span><span class="py">printStackTrace</span><span class="o">())).</span><span class="py">runSyncUnsafe</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The default (cached) stack trace is going to be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.Exception: boom
+        at test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at guarantee @ test.app.TestTracingApp$.customMethod(TestTracingApp.scala:29)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$4(TestTracingApp.scala:35)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at parTupled @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$2(TestTracingApp.scala:34)
+        at flatMap @ test.app.TestTracingApp$.$anonfun$tracingTestApp$1(TestTracingApp.scala:33)
+        at flatMap @ test.app.TestTracingApp$.delayedEndpoint$test$app$TestTracingApp$1(TestTracingApp.scala:32)
+</code></pre></div></div>
+
+<p>Before <code class="language-plaintext highlighter-rouge">3.3.0</code> and with stack traces disabled, stack traces are a mess:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.Exception: boom
+        at test.app.TestTracingApp$.$anonfun$tracingTestApp$5(TestTracingApp.scala:36)
+        at monix.eval.internal.TaskRunLoop$.startFull(TaskRunLoop.scala:188)
+        at monix.eval.internal.TaskRestartCallback.syncOnSuccess(TaskRestartCallback.scala:101)
+        at monix.eval.internal.TaskRestartCallback$$anon$1.run(TaskRestartCallback.scala:118)
+        at monix.execution.internal.Trampoline.monix$execution$internal$Trampoline$$immediateLoop(Trampoline.scala:66)
+        at monix.execution.internal.Trampoline.startLoop(Trampoline.scala:32)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.super$startLoop(TrampolineExecutionContext.scala:142)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.$anonfun$startLoop$1(TrampolineExecutionContext.scala:142)
+        at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+        at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:94)
+        at monix.execution.schedulers.TrampolineExecutionContext$JVMNormalTrampoline.startLoop(TrampolineExecutionContext.scala:142)
+        at monix.execution.internal.Trampoline.execute(Trampoline.scala:40)
+        at monix.execution.schedulers.TrampolineExecutionContext.execute(TrampolineExecutionContext.scala:57)
+        at monix.execution.schedulers.BatchingScheduler.execute(BatchingScheduler.scala:50)
+        at monix.execution.schedulers.BatchingScheduler.execute$(BatchingScheduler.scala:47)
+        at monix.execution.schedulers.AsyncScheduler.execute(AsyncScheduler.scala:31)
+        at monix.eval.internal.TaskRestartCallback.onSuccess(TaskRestartCallback.scala:72)
+        at monix.eval.internal.TaskRunLoop$.startFull(TaskRunLoop.scala:183)
+        at monix.eval.internal.TaskRestartCallback.syncOnSuccess(TaskRestartCallback.scala:101)
+        at monix.eval.internal.TaskRestartCallback.onSuccess(TaskRestartCallback.scala:74)
+        at monix.eval.internal.TaskSleep$SleepRunnable.run(TaskSleep.scala:71)
+        at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1402)
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+        at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+</code></pre></div></div>
+    
+      <h3 id="better-task--future-interop-when-using-local">
+        
+        
+          Better Task =&gt; Future interop when using Local <a href="#better-task--future-interop-when-using-local" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>Running <code class="language-plaintext highlighter-rouge">Task</code> isolates <code class="language-plaintext highlighter-rouge">Local</code>, which was not available in the <code class="language-plaintext highlighter-rouge">Future</code>, resulting in <code class="language-plaintext highlighter-rouge">runToFuture</code>.
+This release enables it and unblocks compelling use cases, such as reading proper request context in Akka HTTP Directive.
+We’ve created an <a href="https://github.com/Avasil/akka-monix-local-example/blob/master/src/main/scala/AkkaHTTPExample.scala">AkkaHTTP Example</a>
+that demonstrates it.</p>
+
+<p>Latest behavior is:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span><span class="k">:</span> <span class="kt">Scheduler</span> <span class="o">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">Implicits</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">for</span> <span class="o">{</span>
+  <span class="k">_</span>  <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">update</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="py">runToFuture</span>
+  <span class="n">value</span> <span class="k">&lt;-</span> <span class="nc">Future</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Local value in Future $value"</span><span class="o">)</span>
+
+<span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Local value on the current thread = $value"</span><span class="o">)</span>
+
+<span class="c1">// =&gt; Local value on the current thread = 0</span>
+<span class="c1">// =&gt; Local value in Future = 1</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Task</code> still isolates the <code class="language-plaintext highlighter-rouge">Local</code>, but the <code class="language-plaintext highlighter-rouge">Future</code> continuation keeps the same reference and can read it.
+Before the change, <code class="language-plaintext highlighter-rouge">Local</code> would be <code class="language-plaintext highlighter-rouge">0</code> in the <code class="language-plaintext highlighter-rouge">Future</code>.</p>
+
+<p>More information about <code class="language-plaintext highlighter-rouge">Local</code> can be found in the new <a href="/docs/3x/execution/local.md">Local documentation</a>.</p>
+    
+      <h3 id="relevant-updates">
+        
+        
+          Relevant updates <a href="#relevant-updates" class="anchor">#</a>
+        
+        
+      </h3>
+
+<ul>
+  <li><a href="https://github.com/monix/monix/pull/1205">#1205</a>: Observable.mergePrioritizedList</li>
+  <li><a href="https://github.com/monix/monix/pull/1209">#1209</a>: Bring back Observable.transform and Transformer alias</li>
+  <li><a href="https://github.com/monix/monix/pull/1198">#1198</a>: Fix flatMapIterable calling recursively itself</li>
+  <li><a href="https://github.com/monix/monix/pull/1213">#1213</a>: Propagate Local isolation in runToFuture</li>
+  <li><a href="https://github.com/monix/monix/pull/1217">#1217</a>: Fix performance regression in bufferSliding</li>
+  <li><a href="https://github.com/monix/monix/pull/1244">#1244</a>: Add support for compression: Gzip and deflate</li>
+  <li><a href="https://github.com/monix/monix/pull/1262">#1262</a>: Fix bug in Task.runSyncUnsafe related to ContextSwitch</li>
+  <li><a href="https://github.com/monix/monix/pull/1265">#1265</a>: Implement Observable#bufferWhile and bufferWhileInclusive</li>
+  <li><a href="https://github.com/monix/monix/pull/1267">#1267</a>: Implement Asynchronous Stack Traces for Task</li>
+  <li><a href="https://github.com/monix/monix/pull/1276">#1276</a>: Add Task/Coeval convenience methods like .when</li>
+  <li><a href="https://github.com/monix/monix/pull/1282">#1282</a>: Add ‘as’ in Task and Coeval</li>
+  <li><a href="https://github.com/monix/monix/pull/1284">#1284</a>: Add left/right builders for Task and Coeval</li>
+  <li><a href="https://github.com/monix/monix/pull/1286">#1286</a>: Add none/some builders for Task and Coeval</li>
+  <li><a href="https://github.com/monix/monix/pull/1291">#1291</a>: tapEval, tapError methods at Task and Coeval</li>
+  <li><a href="https://github.com/monix/monix/pull/1293">#1293</a>: removing no-op onComplete() in Observable.takeByTimespan</li>
+  <li><a href="https://github.com/monix/monix/pull/1299">#1299</a>: Fix a bug in Local.value</li>
+  <li><a href="https://github.com/monix/monix/pull/1307">#1307</a>: Observable.fromIteratorBuffered</li>
+</ul>
+    
+      <h3 id="people-who-made-this-release-possible">
+        
+        
+          People who made this release possible <a href="#people-who-made-this-release-possible" class="anchor">#</a>
+        
+        
+      </h3>
+
+<ul>
+  <li>Adrian (@adrian-salajan)</li>
+  <li>Alexandru Nedelcu (@alexelcu)</li>
+  <li>ctoomey (@ctoomey)</li>
+  <li>Dmitro Pochapsky (@pchpsky)</li>
+  <li>Georgy Khotyan (@GKhotyan)</li>
+  <li>James Yoo (@jyoo980)</li>
+  <li>Kasper Kondzielski (@ghostbuster91)</li>
+  <li>Pau Alarcón (@paualarco)</li>
+  <li>Piotr Gawryś (@Avasil)</li>
+  <li>Sandeep Kota (@sandeepkota)</li>
+  <li>tafit3 (@tafit3)</li>
+  <li>Vladyslav (@VladPodilnyk)</li>
+</ul>
+
+
+  <div class="related">
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2020/06/04/monix-v3.2.2.html">
+              Monix 3.2.2
+              <small>04 Jun 2020</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2020/04/30/monix-v3.2.1.html">
+              Monix 3.2.1
+              <small>30 Apr 2020</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2020/04/26/monix-v3.2.0.html">
+              Monix 3.2.0
+              <small>26 Apr 2020</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/blob/master/_posts/2020-11-07-monix-v3.3.0.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>  
+
+  
+<div id="contributions">
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
+
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
+</div>
+
+</div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Monix+3.3.0" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

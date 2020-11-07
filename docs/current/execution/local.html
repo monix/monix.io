@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Local &mdash; Monix</title>
+
+  <link rel="canonical" href="https://monix.io/docs/current/execution/local.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Local &amp;mdash; Monix" />
+  <meta name="twitter:description" content="A ThreadLocal whose scope is flexible and can be preserved across asynchronous boundaries." />
+  <meta name="twitter:url" content="https://monix.io/docs/current/execution/local.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Local &amp;mdash; Monix" property="og:title">
+  <meta content="A ThreadLocal whose scope is flexible and can be preserved across asynchronous boundaries." property="og:description">
+  <meta content="https://monix.io/docs/current/execution/local.html" property="og:url">
+  <meta content="2020-11-07T12:36:06+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item active" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="page">
+      <h1 class="page-title">
+        
+        
+          Local
+        
+        
+      </h1>
+
+  
+  <time class="post-date" itemprop="dateModified"
+    datetime="2020-11-07">
+    <b>Page updated at:</b> 07 Nov 2020
+  </time>
+  <nav role="navigation" id="type-info">
+    <a href="/api/current/monix/execution/misc/Local.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.3.0/monix-execution/shared/src/main/scala/monix/execution/misc/Local.scala">Source Code</a>
+    
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/execution/local.md">Edit Page</a>
+    
+  </nav>
+  
+  <div id="version3x">
+    You are viewing the documentation for the latest Monix 3.x series.<br/>
+    Older versions:
+    
+      <a href="/docs/2x/">2.x</a>
+  </div>
+
+  <nav role="navigation" id="toc">
+    <ul>
+  <li><a href="#rationale">Rationale</a></li>
+  <li><a href="#integration-with-future">Integration with Future</a></li>
+  <li><a href="#integration-with-task">Integration with Task</a>
+    <ul>
+      <li><a href="#how-to-enable">How to enable</a></li>
+      <li><a href="#auto-isolation">auto-isolation</a></li>
+      <li><a href="#runtofuture">runToFuture</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-repository">Example Repository</a></li>
+  <li><a href="#limitations">Limitations</a></li>
+</ul>
+
+  </nav>
+
+  <p>A <code class="language-plaintext highlighter-rouge">Local</code> is a <code class="language-plaintext highlighter-rouge">ThreadLocal</code> whose scope is flexible and can be preserved across asynchronous boundaries.</p>
+    
+      <h2 id="rationale">
+        
+        
+          Rationale <a href="#rationale" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>The main use case for <code class="language-plaintext highlighter-rouge">Local</code> is integration with tools such as <a href="http://logback.qos.ch/manual/mdc.html">MDC</a>, or <a href="https://opentelemetry.io/">OpenTelemetry</a>
+to propagate the context without passing it manually in parameters.</p>
+
+<p>Traditionally, it is achieved via <code class="language-plaintext highlighter-rouge">ThreadLocal</code> usage. 
+However, in Scala, it is common to write applications with asynchronous data types, such as Scala’s <code class="language-plaintext highlighter-rouge">Future</code>, or Monix <code class="language-plaintext highlighter-rouge">Task</code>.
+These types can jump between threads, so the context in <code class="language-plaintext highlighter-rouge">ThreadLocal</code> will be lost.</p>
+
+<p>Consider the following example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">LocalExample</span> <span class="k">extends</span> <span class="nc">App</span> <span class="k">with</span> <span class="nc">StrictLogging</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">ec</span> <span class="k">=</span> <span class="nv">ExecutionContext</span><span class="o">.</span><span class="py">global</span>
+
+  <span class="k">def</span> <span class="nf">req</span><span class="o">(</span><span class="n">requestId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Received a request to create a user $userName"</span><span class="o">)</span>
+    <span class="c1">// business logic</span>
+  <span class="o">}.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">userName</span><span class="o">))</span>
+  
+  <span class="k">def</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="c1">// business logic</span>
+    <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Registering a new user named $name"</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">val</span> <span class="nv">requests</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nf">req</span><span class="o">(</span><span class="s">"1"</span><span class="o">,</span> <span class="s">"Clark"</span><span class="o">),</span> <span class="nf">req</span><span class="o">(</span><span class="s">"2"</span><span class="o">,</span> <span class="s">"Bruce"</span><span class="o">),</span> <span class="nf">req</span><span class="o">(</span><span class="s">"3"</span><span class="o">,</span> <span class="s">"Diana"</span><span class="o">))</span>
+  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="nv">Future</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">requests</span><span class="o">),</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+  
+  <span class="c1">//=&gt; Received a request to create a user Bruce</span>
+  <span class="c1">//=&gt; Registering a new user named Bruce</span>
+  <span class="c1">//=&gt; Received a request to create a user Diana</span>
+  <span class="c1">//=&gt; Registering a new user named Diana</span>
+  <span class="c1">//=&gt; Received a request to create a user Clark</span>
+  <span class="c1">//=&gt; Registering a new user named Clark</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we would like to attach corresponding <code class="language-plaintext highlighter-rouge">requestId</code> to the logs, we could pass it as a parameter:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">req</span><span class="o">(</span><span class="n">requestId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+  <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"$requestId: Received a request to create a user $userName"</span><span class="o">)</span>
+  <span class="c1">// business logic</span>
+<span class="o">}.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">requestId</span><span class="o">,</span> <span class="n">userName</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">requestId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+  <span class="c1">// business logic</span>
+  <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"$requestId: Registering a new user named $name"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The problem with this approach is that now we need to include the context in all logging methods. 
+Depending on your preferences, you might be okay with it or consider it a different concern and would rather keep it away from business logic.</p>
+
+<p>Let’s take a look at why <code class="language-plaintext highlighter-rouge">MDC</code> with <code class="language-plaintext highlighter-rouge">ThreadLocal</code> doesn’t solve the use case:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">object</span> <span class="nc">LocalExample</span> <span class="k">extends</span> <span class="nc">App</span> <span class="k">with</span> <span class="nc">StrictLogging</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="nv">ec</span> <span class="k">=</span> <span class="nv">ExecutionContext</span><span class="o">.</span><span class="py">global</span>
+
+  <span class="k">def</span> <span class="nf">req</span><span class="o">(</span><span class="n">requestId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="nv">MDC</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="s">"requestId"</span><span class="o">,</span> <span class="n">requestId</span><span class="o">)</span>
+    <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Received a request to create a user $userName"</span><span class="o">)</span>
+    <span class="c1">// more flatmaps to add async boundaries</span>
+  <span class="o">}.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">(()).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">())).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">userName</span><span class="o">))</span>
+
+  <span class="k">def</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+    <span class="c1">// business logic</span>
+    <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Registering a new user named $name"</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">val</span> <span class="nv">requests</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nf">req</span><span class="o">(</span><span class="s">"1"</span><span class="o">,</span> <span class="s">"Clark"</span><span class="o">),</span> <span class="nf">req</span><span class="o">(</span><span class="s">"2"</span><span class="o">,</span> <span class="s">"Bruce"</span><span class="o">),</span> <span class="nf">req</span><span class="o">(</span><span class="s">"3"</span><span class="o">,</span> <span class="s">"Diana"</span><span class="o">))</span>
+  <span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="nv">Future</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">requests</span><span class="o">),</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+  
+  <span class="c1">//=&gt; 3: Received a request to create a user Diana</span>
+  <span class="c1">//=&gt; 2: Received a request to create a user Bruce</span>
+  <span class="c1">//=&gt; 1: Received a request to create a user Clark</span>
+  <span class="c1">//=&gt; 1: Registering a new user named Clark</span>
+  <span class="c1">//=&gt; 2: Registering a new user named Bruce</span>
+  <span class="c1">//=&gt; 2: Registering a new user named Diana</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As we can see in the snippet above, if concurrent operations are reusing the same threads, the proper context can be overwritten.</p>
+
+<p>If we use Monix <code class="language-plaintext highlighter-rouge">Local</code> instead, we can make it work:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="c1">// from https://github.com/mdedetrich/monix-mdc</span>
+<span class="nv">MonixMDCAdapter</span><span class="o">.</span><span class="py">initialize</span><span class="o">()</span>
+
+<span class="k">def</span> <span class="nf">req</span><span class="o">(</span><span class="n">requestId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nv">Local</span><span class="o">.</span><span class="py">isolate</span> <span class="o">{</span>
+  <span class="nc">Future</span> <span class="o">{</span>
+    <span class="nv">MDC</span><span class="o">.</span><span class="py">put</span><span class="o">(</span><span class="s">"requestId"</span><span class="o">,</span> <span class="n">requestId</span><span class="o">)</span>
+    <span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="n">s</span><span class="s">"Received a request to create a user $userName"</span><span class="o">)</span>
+    <span class="c1">// more flatmaps to add async boundaries</span>
+  <span class="o">}.</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">(()).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nc">Future</span><span class="o">())).</span><span class="py">flatMap</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">registerUser</span><span class="o">(</span><span class="n">userName</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="c1">//=&gt; 3: Received a request to create a user Diana</span>
+<span class="c1">//=&gt; 2: Received a request to create a user Bruce</span>
+<span class="c1">//=&gt; 1: Received a request to create a user Clark</span>
+<span class="c1">//=&gt; 1: Registering a new user named Clark</span>
+<span class="c1">//=&gt; 2: Registering a new user named Bruce</span>
+<span class="c1">//=&gt; 3: Registering a new user named Diana</span>
+</code></pre></div></div>
+    
+      <h2 id="integration-with-future">
+        
+        
+          Integration with Future <a href="#integration-with-future" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p><code class="language-plaintext highlighter-rouge">Local</code> works with <code class="language-plaintext highlighter-rouge">Future</code> if <code class="language-plaintext highlighter-rouge">monix.execution.TracingScheduler</code> is used as an <code class="language-plaintext highlighter-rouge">ExecutionContext</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Local</code>s are <em>shared</em> by default, meaning that in the following example:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+  <span class="n">local</span> <span class="o">:=</span> <span class="mi">200</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nc">Future</span> <span class="o">{</span>
+  <span class="n">local</span> <span class="o">:=</span> <span class="mi">100</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>The results of <code class="language-plaintext highlighter-rouge">f1</code> and <code class="language-plaintext highlighter-rouge">f2</code> can vary depending on futures scheduling because they will modify the same variable.
+For instance, <code class="language-plaintext highlighter-rouge">f1</code> might set <code class="language-plaintext highlighter-rouge">local</code> to <code class="language-plaintext highlighter-rouge">200</code>, then <code class="language-plaintext highlighter-rouge">f2</code> sets the <code class="language-plaintext highlighter-rouge">local</code> to <code class="language-plaintext highlighter-rouge">700</code> and both <code class="language-plaintext highlighter-rouge">f1</code> and <code class="language-plaintext highlighter-rouge">f2</code> return <code class="language-plaintext highlighter-rouge">700</code>.
+If the ordering is different, <code class="language-plaintext highlighter-rouge">f2</code> could set the <code class="language-plaintext highlighter-rouge">local</code> to <code class="language-plaintext highlighter-rouge">100</code> and then read the same value, returning it before <code class="language-plaintext highlighter-rouge">f1</code> acts and completes with <code class="language-plaintext highlighter-rouge">400</code>.</p>
+
+<p>In the case of <code class="language-plaintext highlighter-rouge">Future</code>, isolation needs to be explicit and is achieved with <code class="language-plaintext highlighter-rouge">Local.isolate</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">Local</span><span class="o">.</span><span class="py">isolate</span> <span class="o">{</span> 
+  <span class="nc">Future</span> <span class="o">{</span>
+    <span class="n">local</span> <span class="o">:=</span> <span class="mi">200</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">2</span>
+  <span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">Local</span><span class="o">.</span><span class="py">isolate</span> <span class="o">{</span> 
+  <span class="nc">Future</span> <span class="o">{</span>
+    <span class="n">local</span> <span class="o">:=</span> <span class="mi">100</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Thanks to <code class="language-plaintext highlighter-rouge">isolate</code>, <code class="language-plaintext highlighter-rouge">f1</code> will always return <code class="language-plaintext highlighter-rouge">200</code>, and <code class="language-plaintext highlighter-rouge">f2</code> will return <code class="language-plaintext highlighter-rouge">100</code> because each <code class="language-plaintext highlighter-rouge">Future</code> will operate on a different copy of <code class="language-plaintext highlighter-rouge">Local</code>.</p>
+    
+      <h2 id="integration-with-task">
+        
+        
+          Integration with Task <a href="#integration-with-task" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p><code class="language-plaintext highlighter-rouge">Local</code> can be used with <code class="language-plaintext highlighter-rouge">Task</code> either with <code class="language-plaintext highlighter-rouge">Local</code> API, or <code class="language-plaintext highlighter-rouge">TaskLocal</code>, a purely functional interface built on top of impure <code class="language-plaintext highlighter-rouge">Local</code>.
+In case isolation is needed, we need to use <code class="language-plaintext highlighter-rouge">TaskLocal.isolate</code> instead of <code class="language-plaintext highlighter-rouge">Local.isolate</code>. In other cases, it doesn’t matter which one do we use.
+It is perfectly acceptable to interact with the same <code class="language-plaintext highlighter-rouge">Local</code> in both <code class="language-plaintext highlighter-rouge">Future</code> and <code class="language-plaintext highlighter-rouge">Task</code>.</p>
+    
+      <h3 id="how-to-enable">
+        
+        
+          How to enable <a href="#how-to-enable" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p><code class="language-plaintext highlighter-rouge">Local</code> context propagation is disabled by default. There are several ways to enable it:</p>
+
+<ol>
+  <li>Use <code class="language-plaintext highlighter-rouge">TracingScheduler</code> as your <code class="language-plaintext highlighter-rouge">Scheduler</code>.</li>
+  <li>Apply <code class="language-plaintext highlighter-rouge">.executeWithOptions(_.enableLocalContextPropagation)</code> on <code class="language-plaintext highlighter-rouge">Task</code></li>
+  <li>Use <code class="language-plaintext highlighter-rouge">runToFutureOpt</code> or similar with <code class="language-plaintext highlighter-rouge">Task.defaultOptions.enableLocalContextPropagation</code> in the implicit scope.</li>
+  <li>Set system property <code class="language-plaintext highlighter-rouge">monix.environment.localContextPropagation</code> to 1</li>
+</ol>
+
+<p>The first option is recommended because any <code class="language-plaintext highlighter-rouge">Scheduler</code> will be lifted to <code class="language-plaintext highlighter-rouge">TracingScheduler</code> if context propagation is enabled.</p>
+    
+      <h3 id="auto-isolation">
+        
+        
+          auto-isolation <a href="#auto-isolation" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">Future</code>, we don’t always have to call <code class="language-plaintext highlighter-rouge">isolate</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Task</code> is automatically isolated when it is being run.</p>
+
+<p>In the following example, the results will always be <code class="language-plaintext highlighter-rouge">200</code> and <code class="language-plaintext highlighter-rouge">100</code> respectively.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">f1</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalAsync</span> <span class="o">{</span> 
+  <span class="n">local</span> <span class="o">:=</span> <span class="mi">200</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">).</span><span class="py">runToFuture</span>
+
+<span class="k">val</span> <span class="nv">f2</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">evalAsync</span> <span class="o">{</span>
+  <span class="n">local</span> <span class="o">:=</span> <span class="mi">100</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="o">}.</span><span class="py">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">).</span><span class="py">runToFuture</span>
+</code></pre></div></div>
+
+<p>However, concurrent tasks in operators such as <code class="language-plaintext highlighter-rouge">parZip2</code> are not automatically isolated:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">childTaskA</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="n">local</span> <span class="o">:=</span> <span class="mi">200</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">childTaskB</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span>
+  <span class="n">v1</span> <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="n">local</span> <span class="o">:=</span> <span class="mi">100</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">v1</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span>
+
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parZip2</span><span class="o">(</span><span class="n">childTaskA</span><span class="o">,</span> <span class="n">childTaskB</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>Since <code class="language-plaintext highlighter-rouge">local</code> is shared between <code class="language-plaintext highlighter-rouge">childTaskA</code> and <code class="language-plaintext highlighter-rouge">childTaskB</code>, the latter <code class="language-plaintext highlighter-rouge">Task</code> will complete with <code class="language-plaintext highlighter-rouge">300</code> due to earlier modification of <code class="language-plaintext highlighter-rouge">childTaskA</code>.</p>
+
+<p>If that’s not the desired behavior, we need to add <code class="language-plaintext highlighter-rouge">TaskLocal.isolate</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">childTaskA</span> <span class="k">=</span> <span class="nc">Task</span><span class="o">(</span><span class="n">local</span> <span class="o">:=</span> <span class="mi">200</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="nv">childTaskB</span> <span class="k">=</span> <span class="k">for</span> <span class="o">{</span>
+  <span class="n">v1</span> <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mf">100.</span><span class="n">millis</span><span class="o">)</span>
+  <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="n">local</span> <span class="o">:=</span> <span class="mi">100</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="n">v1</span> <span class="o">+</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span>
+
+<span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parZip2</span><span class="o">(</span><span class="nv">TaskLocal</span><span class="o">.</span><span class="py">isolate</span><span class="o">(</span><span class="n">childTaskA</span><span class="o">),</span> <span class="nv">TaskLocal</span><span class="o">.</span><span class="py">isolate</span><span class="o">(</span><span class="n">childTaskB</span><span class="o">))</span>
+</code></pre></div></div>
+
+<p>And <code class="language-plaintext highlighter-rouge">childTaskB</code> will always return <code class="language-plaintext highlighter-rouge">100</code>.</p>
+
+<p>Note that we have an <a href="https://github.com/monix/monix/issues/1302">opened issue</a> about changing those operators to auto-isolate as well.</p>
+    
+      <h3 id="runtofuture">
+        
+        
+          runToFuture <a href="#runtofuture" class="anchor">#</a>
+        
+        
+      </h3>
+
+<p><code class="language-plaintext highlighter-rouge">Task#runToFuture</code> isolates the <code class="language-plaintext highlighter-rouge">Local</code> automatically, but the isolated reference is kept in the <code class="language-plaintext highlighter-rouge">Future</code> continuation:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">s</span><span class="k">:</span> <span class="kt">Scheduler</span> <span class="o">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">Implicits</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">for</span> <span class="o">{</span>
+  <span class="k">_</span>  <span class="k">&lt;-</span> <span class="nc">Task</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">update</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="py">runToFuture</span>
+  <span class="n">value</span> <span class="k">&lt;-</span> <span class="nc">Future</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">yield</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Local value in Future $value"</span><span class="o">)</span>
+
+<span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"Local value on the current thread = $value"</span><span class="o">)</span>
+
+<span class="c1">// =&gt; Local value on the current thread = 0</span>
+<span class="c1">// =&gt; Local value in Future = 1</span>
+</code></pre></div></div>
+
+<p>The current thread and other concurrent operations are not affected.</p>
+
+<p>The purpose of this integration is to support seamless interop of <code class="language-plaintext highlighter-rouge">Task</code> codebases with <code class="language-plaintext highlighter-rouge">Future</code> based libraries that want to interact with <code class="language-plaintext highlighter-rouge">Local</code>.
+The example in the next section shows how the context can be written in <code class="language-plaintext highlighter-rouge">Task</code> via MDC and then read in Akka HTTP’s Directive.</p>
+
+<p>Note that there is a known corner case related to this feature. 
+The isolated context is lost if the <code class="language-plaintext highlighter-rouge">Future</code> is wrapped into other implementation, such as <a href="https://doc.akka.io/api/akka-http/current/akka/http/scaladsl/util/FastFuture.html">FastFuture</a>.
+Please, let us know if it’s preventing any use cases to prioritize addressing this issue accordingly.</p>
+    
+      <h2 id="example-repository">
+        
+        
+          Example Repository <a href="#example-repository" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>Take a look at <a href="https://github.com/Avasil/akka-monix-local-example/blob/master/src/main/scala/AkkaHTTPExample.scala">example repository</a> 
+to see how <code class="language-plaintext highlighter-rouge">Local</code> can be integrated with <a href="https://doc.akka.io/docs/akka-http/current/index.html">Akka HTTP</a> 
+and MDC when most of the application is written using Monix Task.</p>
+
+<p>Note that the context is written in <code class="language-plaintext highlighter-rouge">Task,</code> but it is read in <code class="language-plaintext highlighter-rouge">Directive</code>, operating on a <code class="language-plaintext highlighter-rouge">Future</code>.</p>
+
+<p>Eventually, we will provide high-level libraries that will handle the low-level details, and <code class="language-plaintext highlighter-rouge">Local</code> usage will be transparent to the user.</p>
+    
+      <h2 id="limitations">
+        
+        
+          Limitations <a href="#limitations" class="anchor">#</a>
+        
+        
+      </h2>
+
+<p>A major design constraint is that we want to support both <code class="language-plaintext highlighter-rouge">Future</code> and <code class="language-plaintext highlighter-rouge">Task</code>.
+Since we don’t have any access to <code class="language-plaintext highlighter-rouge">Future</code> implementation, we decided to build <code class="language-plaintext highlighter-rouge">Local</code> on top of <code class="language-plaintext highlighter-rouge">ThreadLocal</code>.
+In some cases, it results in unfortunate consequences that we are yet to address appropriately.</p>
+
+<p>Consider the following code:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">implicit</span> <span class="k">val</span> <span class="nv">ec</span> <span class="k">=</span> <span class="nv">Scheduler</span><span class="o">.</span><span class="py">traced</span>
+
+<span class="k">val</span> <span class="nv">local</span> <span class="k">=</span> <span class="nc">Local</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="nf">blackbox</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nv">p</span> <span class="k">=</span> <span class="nc">Promise</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]()</span>
+  <span class="k">new</span> <span class="nc">Thread</span> <span class="o">{</span>
+    <span class="k">override</span> <span class="k">def</span> <span class="nf">run</span><span class="o">()</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="nv">Thread</span><span class="o">.</span><span class="py">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+      <span class="nv">p</span><span class="o">.</span><span class="py">success</span><span class="o">(())</span>
+    <span class="o">}</span>
+  <span class="o">}.</span><span class="py">start</span><span class="o">()</span>
+  <span class="nv">p</span><span class="o">.</span><span class="py">future</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">f</span> <span class="k">=</span> <span class="nv">Local</span><span class="o">.</span><span class="py">isolate</span> <span class="o">{</span>
+  <span class="k">for</span> <span class="o">{</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">Future</span> <span class="o">{</span> <span class="n">local</span> <span class="o">:=</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">}</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="n">blackbox</span>
+    <span class="k">_</span> <span class="k">&lt;-</span> <span class="nc">Future</span> <span class="o">{</span> <span class="n">local</span> <span class="o">:=</span> <span class="nv">local</span><span class="o">.</span><span class="py">get</span> <span class="o">+</span> <span class="mi">100</span> <span class="o">}</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="nf">println</span><span class="o">(</span><span class="nv">local</span><span class="o">.</span><span class="py">get</span><span class="o">)</span> 
+<span class="o">}</span>
+
+<span class="nv">Await</span><span class="o">.</span><span class="py">result</span><span class="o">(</span><span class="n">f</span><span class="o">,</span> <span class="nv">Duration</span><span class="o">.</span><span class="py">Inf</span><span class="o">)</span>
+
+<span class="c1">// =&gt; 100</span>
+</code></pre></div></div>
+
+<p>The initial value of <code class="language-plaintext highlighter-rouge">local</code> is <code class="language-plaintext highlighter-rouge">0</code>.
+Then in an isolated block, it is modified to <code class="language-plaintext highlighter-rouge">100</code>.
+Next, we call the <code class="language-plaintext highlighter-rouge">blackbox</code> method that is spinning its own <code class="language-plaintext highlighter-rouge">Thread,</code> but it doesn’t interact with <code class="language-plaintext highlighter-rouge">Local</code> whatsoever.
+After <code class="language-plaintext highlighter-rouge">blackbox</code>, we add <code class="language-plaintext highlighter-rouge">100</code> to the current <code class="language-plaintext highlighter-rouge">local</code> value that we expect to be <code class="language-plaintext highlighter-rouge">100</code>.
+However, it wasn’t <code class="language-plaintext highlighter-rouge">100</code>; it was <code class="language-plaintext highlighter-rouge">0</code>! Why?</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">new Thread</code> is created, it doesn’t know about the isolated <code class="language-plaintext highlighter-rouge">Local</code> reference. 
+It uses the main one that wasn’t modified.
+For this reason, we have to isolate this call, so it doesn’t affect the rest of the <code class="language-plaintext highlighter-rouge">Future</code> chain with <code class="language-plaintext highlighter-rouge">Local.isolate(blackbox)</code>.</p>
+
+<p>This corner case applies whenever we interact with a code that handles concurrency outside of <code class="language-plaintext highlighter-rouge">TracingScheduler</code>, or <code class="language-plaintext highlighter-rouge">Task</code>.
+Until this is solved, look at <code class="language-plaintext highlighter-rouge">Local</code> as a low-level mechanism.</p>
+
+
+  <div class="buttons">
+    <a href="/docs/current/">Contents</a> •
+    <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/execution/local.md">
+      Edit Page</a> •
+    
+    <a href="https://gitter.im/monix/monix">
+      Join Chat</a> •
+    <a href="/social.html">
+      Follow</a>
+  </div>
+
+  </div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Local" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

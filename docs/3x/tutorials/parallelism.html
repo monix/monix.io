@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -175,7 +175,7 @@
       </h3>
 
 <p>The following example uses
-<a href="/api/3.2/monix/eval/Task$.htmll#parSequenceN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequence</a>,
+<a href="/api/3.3/monix/eval/Task$.htmll#parSequenceN[A](parallelism:Int)(in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequence</a>,
 which does parallel processing while preserving result ordering.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">items</span> <span class="k">=</span> <span class="mi">0</span> <span class="n">until</span> <span class="mi">1000</span>
@@ -191,7 +191,7 @@ which does parallel processing while preserving result ordering.</p>
 </code></pre></div></div>
 
 <p>If ordering of results does not matter, you can also use 
-<a href="/api/3.2/monix/eval/Task$.htmll#parSequenceUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequenceUnordered</a>
+<a href="/api/3.3/monix/eval/Task$.htmll#parSequenceUnordered[A](in:Iterable[monix.eval.Task[A]]):monix.eval.Task[List[A]]">Task.parSequenceUnordered</a>
 instead of <code class="language-plaintext highlighter-rouge">parSequence</code>, which might yield better results, given its non-blocking execution.</p>
     
       <h3 id="imposing-a-parallelism-limit">
@@ -267,10 +267,10 @@ in batches:</p>
 </code></pre></div></div>
 
 <p>Note the use of 
-<a href="/api/3.2/monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]">bufferIntrospective</a>,
+<a href="/api/3.3/monix/reactive/Observable.html#bufferIntrospective(maxSize:Int):Self[List[A]]">bufferIntrospective</a>,
 which buffers incoming events while the downstream is busy, after which
 it emits the buffer as a single bundle. The
-<a href="/api/3.2/monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]]">bufferTumbling</a>
+<a href="/api/3.3/monix/reactive/Observable.html#bufferTumbling(count:Int):Self[Seq[A]]">bufferTumbling</a>
 operator can be a more deterministic alternative.</p>
     
       <h2 id="observablemapparallelunordered">
@@ -282,7 +282,7 @@ operator can be a more deterministic alternative.</p>
       </h2>
 
 <p>Another way to achieve parallelism is to use the 
-<a href="/api/3.2/monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B]):Self[B]">Observable.mapParallelUnordered</a>
+<a href="/api/3.3/monix/reactive/Observable.html#mapParallelUnordered[B](parallelism:Int)(f:A=&gt;monix.eval.Task[B]):Self[B]">Observable.mapParallelUnordered</a>
 operator:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Observable</span><span class="o">.</span><span class="py">range</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">1000</span><span class="o">)</span>

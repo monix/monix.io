@@ -37,9 +37,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/all.css?1604753069307159909">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1601564812941389487">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604753069307159909">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,6 +102,54 @@
         <div class="posts">
   
   <div class="post">
+      <h1 class="post-title">
+        
+        
+          
+      <a href="/blog/2016/08/20/monix-v2.0-RC11.html">
+        Monix: Version 2.0-RC11 Released
+      </a>
+    
+        
+        
+      </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-08-20">
+      20 Aug 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release fixes one issue with <code class="language-plaintext highlighter-rouge">Task</code>, as it was discovered that
+<code class="language-plaintext highlighter-rouge">flatMap</code> loops aren’t automatically cancelable, a small
+oversight. Also <code class="language-plaintext highlighter-rouge">CompositeCancelable.remove</code> wasn’t working, a bug
+introduced in the previous release. Another bug that was fixed is in
+<code class="language-plaintext highlighter-rouge">Consumer.foldLeftAsync</code>, which wasn’t capturing errors properly.</p>
+
+<p>This release introduces a major refactoring of the <code class="language-plaintext highlighter-rouge">Task</code> internal
+workings of its trampoline, as a serious optimization. As an example
+of what this brings, the conversion from a <code class="language-plaintext highlighter-rouge">Future</code> with
+<code class="language-plaintext highlighter-rouge">Task.fromFuture</code> has near-zero overhead and the performance of
+<code class="language-plaintext highlighter-rouge">Task.gather</code> and <code class="language-plaintext highlighter-rouge">Task.gatherUnordered</code> has improved significantly.</p>
+
+<p>There are also breaking API changes, sorry about that, but these
+should come sooner rather than later, before marking 2.0 final. The
+<code class="language-plaintext highlighter-rouge">zipWith</code> (e.g. <code class="language-plaintext highlighter-rouge">zipWith2</code>, <code class="language-plaintext highlighter-rouge">zipWith3</code>) operators on <code class="language-plaintext highlighter-rouge">Task</code> and
+<code class="language-plaintext highlighter-rouge">Observable</code> and the <code class="language-plaintext highlighter-rouge">combineLatestWith</code> operators on <code class="language-plaintext highlighter-rouge">Observable</code>
+have been renamed to <code class="language-plaintext highlighter-rouge">zipMap</code> (e.g. <code class="language-plaintext highlighter-rouge">zipMap2</code>, etc) and
+<code class="language-plaintext highlighter-rouge">combineLatestMap</code> respectively. This because <code class="language-plaintext highlighter-rouge">zipMap</code> describes the
+operation much better and this name has also been used in the
+Typelevel Cats / Dogs libraries at least.</p>
+
+
+
+    
+    <a href="/blog/2016/08/20/monix-v2.0-RC11.html">Read more &rarr;</a>
+    
+  </div>
+  
+  <div class="post">
+    
       <h1 class="post-title">
         
         
@@ -253,40 +301,6 @@ has no further ambitions.</p>
 
     
     <a href="/blog/2016/06/21/monix-v2.0-RC7.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    
-      <h1 class="post-title">
-        
-        
-          
-      <a href="/blog/2016/06/15/monix-v2.0-RC6.html">
-        Monix: Version 2.0-RC6 Released
-      </a>
-    
-        
-        
-      </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-06-15">
-      15 Jun 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>The sixth release candidate, simplifies the <a href="http://typelevel.org/">Cats</a> integration,
-introduces an alternative parallel <code class="language-plaintext highlighter-rouge">Applicative</code> instance for <code class="language-plaintext highlighter-rouge">Task</code>,
-changes the <code class="language-plaintext highlighter-rouge">Observable.buffer</code> operators to match the behavior in ReactiveX,
-adds observable builders from <code class="language-plaintext highlighter-rouge">java.io.InputStream</code> and <code class="language-plaintext highlighter-rouge">Reader</code>,
-adds <code class="language-plaintext highlighter-rouge">Observable.executeOn</code>, along with other utils and refactors the 
-<code class="language-plaintext highlighter-rouge">Pipe</code> and <code class="language-plaintext highlighter-rouge">ConcurrentSubject</code> builders. Also contains bug fixes.</p>
-
-
-
-    
-    <a href="/blog/2016/06/15/monix-v2.0-RC6.html">Read more &rarr;</a>
     
   </div>
   
