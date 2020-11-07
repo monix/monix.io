@@ -33,7 +33,7 @@ lazy val docs3x = project       // new documentation project
   .settings(sharedSettings)
   .settings(
     libraryDependencies ++= Seq(
-      "io.monix" %% "monix" % "3.2.2",
+      "io.monix" %% "monix" % "3.3.0",
       "org.slf4j" % "slf4j-api" % "1.7.30",
     ),
     mdocIn := file("_docs/3x"),

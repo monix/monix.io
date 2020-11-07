@@ -42,6 +42,7 @@ and building on top of the `scala.concurrent` package.
 - [Callback](./execution/callback.md)
 - [Future Utils](./execution/future-utils.md)
 - [Atomic](./execution/atomic.md)
+- [Local](./execution/local.md)
 
 ### monix-catnap
 
@@ -64,6 +65,7 @@ types, for dealing with purely functional effects in a principled way:
 - [API Documentation]({{ page.path | api_base_url }}monix/eval/index.html)
 - [Task](./eval/task.md)
 - [Coeval](./eval/coeval.md)
+- [Better Stack Traces](./eval/stacktraces.md)
 
 ### monix-reactive
 
