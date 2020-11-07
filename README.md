@@ -1,6 +1,6 @@
 # Monix.io
 
-The homepage and the documentation website for the Monix project.
+The homepage and the documentation for the Monix project website.
 
 [![Build status](https://github.com/monix/monix.io/workflows/build/badge.svg)](https://github.com/monix/monix.io/actions?query=workflow%3Abuild)
 
