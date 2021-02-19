@@ -1478,10 +1478,10 @@ val task = Task(Random.nextInt).flatMap {
 }
 
 task.runAsync(r => println(r))
-//=> Left(-924040280)
+//=> Right(-924040280)
 
 task.runAsync(r => println(r))
-//=> Right(java.lang.IllegalStateException: 834919637)
+//=> Left(java.lang.IllegalStateException: 834919637)
 ```
 
 In case an error happens in the callback provided to `runAsync`, then
