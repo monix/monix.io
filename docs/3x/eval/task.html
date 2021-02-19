@@ -30,15 +30,15 @@
   <meta content="Task &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling possibly lazy &amp;amp; asynchronous computations, useful for controlling side-effects, avoiding nondeterminism and callback-hell." property="og:description">
   <meta content="https://monix.io/docs/3x/eval/task.html" property="og:url">
-  <meta content="2020-10-01T14:59:13+00:00" property="article:modified_time">
+  <meta content="2021-02-19T16:18:21+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1604754815078344759">
+  <link rel="stylesheet" href="/public/css/all.css?1613752054465169652">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1604754815078344759">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1613752054465169652">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-10-01">
-    <b>Page updated at:</b> 01 Oct 2020
+    datetime="2021-02-19">
+    <b>Page updated at:</b> 19 Feb 2021
   </time>
   <nav role="navigation" id="type-info">
     <a href="/api/3.3/monix/eval/Task.html">API Documentation</a>
@@ -1847,10 +1847,10 @@ catches errors, signaling them on <code class="language-plaintext highlighter-ro
 <span class="o">}</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Left(-924040280)</span>
+<span class="c1">//=&gt; Right(-924040280)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="n">r</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">r</span><span class="o">))</span>
-<span class="c1">//=&gt; Right(java.lang.IllegalStateException: 834919637)</span>
+<span class="c1">//=&gt; Left(java.lang.IllegalStateException: 834919637)</span>
 </code></pre></div></div>
 
 <p>In case an error happens in the callback provided to <code class="language-plaintext highlighter-rouge">runAsync</code>, then
