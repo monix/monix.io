@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199122776378051">
+  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199122776378051">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -187,12 +187,12 @@ maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
 <span class="c1">// task: monix.eval.Task[Unit] = FlatMap(</span>
-<span class="c1">//   Async(monix.eval.Task$$$Lambda$8760/0x0000000802a70040@3859afd),</span>
-<span class="c1">//   monix.eval.Task$$$Lambda$8761/0x0000000802a70840@1d03f0d5</span>
+<span class="c1">//   Async(monix.eval.Task$$$Lambda$8563/0x000000080295d040@bbf5be0),</span>
+<span class="c1">//   monix.eval.Task$$$Lambda$8567/0x0000000802969840@4967ef2a</span>
 <span class="c1">// )</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@5f7e8489</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@53733daa</span>
 </code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
