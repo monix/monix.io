@@ -30,15 +30,15 @@
   <meta content="Parallel Processing &amp;mdash; Monix" property="og:title">
   <meta content="Recipes for achieving parallelism" property="og:description">
   <meta content="https://monix.io/docs/current/tutorials/parallelism.html" property="og:url">
-  <meta content="2020-09-18T07:45:49+00:00" property="article:modified_time">
+  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-09-18">
-    <b>Page updated at:</b> 18 Sep 2020
+    datetime="2021-05-14">
+    <b>Page updated at:</b> 14 May 2021
   </time>
   <nav role="navigation" id="type-info">
     
@@ -256,7 +256,7 @@ in batches:</p>
   <span class="c1">// Building batches of 10 tasks to execute in parallel:</span>
   <span class="k">val</span> <span class="nv">batches</span> <span class="k">=</span> <span class="nv">tasks</span><span class="o">.</span><span class="py">sliding</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span><span class="mi">10</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="n">b</span> <span class="k">=&gt;</span> <span class="nv">Task</span><span class="o">.</span><span class="py">parSequence</span><span class="o">(</span><span class="n">b</span><span class="o">)).</span><span class="py">toIterable</span>
   <span class="c1">// Sequencing batches, then flattening the final result</span>
-  <span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">.</span><span class="py">toIterator</span><span class="o">)</span>
+  <span class="k">val</span> <span class="nv">aggregate</span> <span class="k">=</span> <span class="nv">Task</span><span class="o">.</span><span class="py">sequence</span><span class="o">(</span><span class="n">batches</span><span class="o">).</span><span class="py">map</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">flatten</span><span class="o">.</span><span class="py">iterator</span><span class="o">)</span>
   <span class="c1">// Converting into an observable, needed for flatMap</span>
   <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="n">aggregate</span><span class="o">)</span>
 <span class="o">}</span>

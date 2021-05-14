@@ -37,9 +37,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -102,6 +102,43 @@
         <div class="posts">
   
   <div class="post">
+      <h1 class="post-title">
+        
+        
+          
+      <a href="/blog/2016/10/10/monix-v2.0.4.html">
+        Monix: Version 2.0.4 Released for Bug Fixing
+      </a>
+    
+        
+        
+      </h1>
+
+    <time class="post-date" itemprop="dateCreated"
+      datetime="2016-10-10">
+      10 Oct 2016
+      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
+    </time>
+
+    <p>This release is binary compatible with 2.0.x, being a bug fix release
+for <a href="https://github.com/monix/monix/issues/244">Issue #244</a>:
+<em><code class="language-plaintext highlighter-rouge">AsyncScheduler.scheduleAtFixedRate</code> and <code class="language-plaintext highlighter-rouge">scheduleWithFixedDelay</code> on the JVM
+have incorrect behavior</em>.</p>
+
+<p>In order to upgrade, just increment the version number in <code class="language-plaintext highlighter-rouge">build.sbt</code>:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"2.0.4"</span>
+</code></pre></div></div>
+
+
+
+    
+    <a href="/blog/2016/10/10/monix-v2.0.4.html">Read more &rarr;</a>
+    
+  </div>
+  
+  <div class="post">
+    
       <h1 class="post-title">
         
         
@@ -273,42 +310,6 @@ client/server communication sample with both sides handled by Monix
 
     
     <a href="/blog/2016/08/31/monix-v2.0.0.html">Read more &rarr;</a>
-    
-  </div>
-  
-  <div class="post">
-    
-      <h1 class="post-title">
-        
-        
-          
-      <a href="/blog/2016/08/25/monix-v2.0-RC13.html">
-        Monix: Version 2.0-RC13 Released
-      </a>
-    
-        
-        
-      </h1>
-
-    <time class="post-date" itemprop="dateCreated"
-      datetime="2016-08-25">
-      25 Aug 2016
-      • <a href="https://twitter.com/alexelcu">@alexelcu</a>
-    </time>
-
-    <p>This version fixes <code class="language-plaintext highlighter-rouge">Task.memoize</code> and <code class="language-plaintext highlighter-rouge">Coeval.memoize</code>, while
-introducing even more and quite significant <code class="language-plaintext highlighter-rouge">Task</code> optimizations.
-More details on performance to follow.</p>
-
-<p>NOTE: version <code class="language-plaintext highlighter-rouge">2.0-RC13</code> was published immediately after version
-<code class="language-plaintext highlighter-rouge">2.0-RC12</code>, due to a critical bug reported by Mark Tomko and
-immediately fixed in
-<a href="https://github.com/monix/monix/issues/215">issue #215</a>.</p>
-
-
-
-    
-    <a href="/blog/2016/08/25/monix-v2.0-RC13.html">Read more &rarr;</a>
     
   </div>
   

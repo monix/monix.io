@@ -30,15 +30,15 @@
   <meta content="Observable &amp;mdash; Monix" property="og:title">
   <meta content="A data type for modeling and processing asynchronous and reactive streaming of events with non-blocking back-pressure." property="og:description">
   <meta content="https://monix.io/docs/3x/reactive/observable.html" property="og:url">
-  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,12 +109,12 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Page updated at:</b> 20 Jul 2020
+    datetime="2021-05-14">
+    <b>Page updated at:</b> 14 May 2021
   </time>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.3/monix/reactive/Observable.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.3.0/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">Source Code</a>
+    <a href="/api/3.4/monix/reactive/Observable.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.4.0/monix-reactive/shared/src/main/scala/monix/reactive/Observable.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/reactive/observable.md">Edit Page</a>
     
@@ -356,7 +356,7 @@ producer pushing data into one or multiple consumers</li>
       </h3>
 
 <p>The following documentation barely scratches the surface of <code class="language-plaintext highlighter-rouge">Observable</code> and is rather incomplete.
-If you find it lacking, make sure to check either the <a href="/api/3.3/monix/reactive/Observable.html">Observable API</a> or
+If you find it lacking, make sure to check either the <a href="/api/3.4/monix/reactive/Observable.html">Observable API</a> or
 look at the comments <a href="https://github.com/monix/monix">in the code</a> directly. We put a lot of focus on scaladocs.</p>
 
 <p>Another great resource is the <a href="http://reactivex.io/">ReactiveX</a> documentation, which opens doors
@@ -466,7 +466,7 @@ similar way to how it’s done in other streaming libraries from the FP ecosyste
 dirty internals don’t leak outside and the majority of the API and the process of constructing and executing <code class="language-plaintext highlighter-rouge">Observable</code>s are all pure.</p>
 
 <p>The main drawback in comparison to purely functional streams, such as <a href="https://github.com/functional-streams-for-scala/fs2">fs2</a> or
-<a href="/api/3.3/monix/tail/Iterant.html">Iterant</a>, is the presence of impure functions in the API. If you have inexperienced 
+<a href="/api/3.4/monix/tail/Iterant.html">Iterant</a>, is the presence of impure functions in the API. If you have inexperienced 
 team members, they could be tempted to use them. Fortunately, all of them are marked with the <code class="language-plaintext highlighter-rouge">@UnsafeBecauseImpure</code> annotation and are explained in the ScalaDoc. 
 There should always be a referentially transparent replacement to solve your specific use case but if your team is not fully committed to FP, these functions can be very useful.</p>
 
@@ -658,7 +658,7 @@ It also has guaranteed idempotency and thread-safety:</p>
 <span class="k">def</span> <span class="nf">readFile</span><span class="o">(</span><span class="n">path</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Observable</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> 
     <span class="nv">Observable</span><span class="o">.</span><span class="py">suspend</span> <span class="o">{</span>
         <span class="c1">// The side effect won't happen until subscription</span>
-        <span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">Source</span><span class="o">.</span><span class="py">fromFile</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="py">getLines</span>
+        <span class="k">val</span> <span class="nv">lines</span> <span class="k">=</span> <span class="nv">Source</span><span class="o">.</span><span class="py">fromFile</span><span class="o">(</span><span class="n">path</span><span class="o">).</span><span class="py">getLines</span><span class="o">()</span>
         <span class="nv">Observable</span><span class="o">.</span><span class="py">fromIterator</span><span class="o">(</span><span class="nc">Task</span><span class="o">(</span><span class="n">lines</span><span class="o">))</span>
     <span class="o">}</span>
 </code></pre></div></div>

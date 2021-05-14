@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  
+  <title>Monix 3.4.0</title>
+
+  <link rel="canonical" href="https://monix.io/blog/2021/05/14/monix-v3.4.0.html" />
+
+  <!-- Twitter Cards -->
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image:src" content="https://monix.io/public/images/monix-logo-rect.png">
+  <meta name="twitter:site" content="@monix" />  
+  <meta name="twitter:creator" content="@monix" />  
+  <meta name="twitter:title" content="Monix 3.4.0" />
+  <meta name="twitter:description" content="Scala 3 support!" />
+  <meta name="twitter:url" content="https://monix.io/blog/2021/05/14/monix-v3.4.0.html">
+  <!-- Facebook Open-Graph -->
+  <meta property="fb:app_id" content="2160100887367418" />
+
+  <meta content="Monix" property="og:site_name">
+  <meta content="Monix 3.4.0" property="og:title">
+  <meta content="Scala 3 support!" property="og:description">
+  <meta content="https://monix.io/blog/2021/05/14/monix-v3.4.0.html" property="og:url">
+  <meta content="2021-05-14T00:00:00+00:00" property="article:published_time">
+  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
+    
+  <meta content="article" property="og:type">
+  <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
+  <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
+  <!--[if lt IE 9]>
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
+  <![endif]-->
+
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Web App Manifest, see: http://manifest.sysapps.org/ -->
+  <link rel="manifest" href="/manifest.json">
+  <!-- Icons -->
+  <link rel="icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Mobile Safari / iOS Icons -->
+  <link rel="apple-touch-icon" sizes="48x48" href="/public/icons/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/public/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/public/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/public/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/public/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="240x240" href="/public/icons/icon-240x240.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/public/icons/icon-384x384.png">
+  <!-- Standard Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Feed" href="/blog/atom.xml">
+</head>
+
+
+  <body class="monix layout">
+    <div class="wrapper">
+      <aside class="sidebar plus">
+  <div class="container">
+    <div class="sidebar-about">
+      <a class="github-fork-ribbon left-top" href="https://github.com/monix/monix"
+        title="Fork me on GitHub">Fork me on GitHub</a>
+
+      <h1>
+        <a href="/">
+          <img src="/public/images/monix-logo.png"
+            alt="Monix Logo" title="Monix" class="logo" />
+        </a>
+      </h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">About</a>
+      <a class="sidebar-nav-item active" href="/blog/">Blog</a>
+      <a class="sidebar-nav-item" href="/docs/current/">Documentation</a>
+      <a class="sidebar-nav-item" href="/presentations/">Presentations</a>
+      <a class="sidebar-nav-item" href="/social.html">Follow @Monix</a>
+      <a class="sidebar-nav-item" href="/privacy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</aside>
+
+
+      <article class="content container">
+        <div class="post">
+  <a name="start"></a>
+      <h1 class="post-title">
+        
+        
+          Monix 3.4.0
+        
+        
+      </h1>
+
+  <time class="post-date" itemprop="dateCreated"
+    datetime="2021-05-14">
+    14 May 2021
+    • <a href="https://twitter.com/monix">@monix</a>
+  </time>
+
+  <nav role="navigation" id="toc">
+    
+
+  </nav>
+
+  <p>Scala 3 support is here!</p>
+
+<!--more-->
+
+<p>The release is binary and source compatible with the 3.x series, and was cross-built for the following Scala and ScalaJS versions:</p>
+
+<ul>
+  <li>Scala <code class="language-plaintext highlighter-rouge">2.12</code>, <code class="language-plaintext highlighter-rouge">2.13</code> and <code class="language-plaintext highlighter-rouge">3.0</code></li>
+  <li>Scala.js <code class="language-plaintext highlighter-rouge">1.5.1</code></li>
+</ul>
+
+<p><strong>WARN:</strong> we’re dropping compatibility with Scala <code class="language-plaintext highlighter-rouge">2.11</code> and ScalaJS <code class="language-plaintext highlighter-rouge">0.6.x</code>. If you still need those you’ll have to stay on version <code class="language-plaintext highlighter-rouge">3.3.0</code>.</p>
+
+<p>Changes in this release:</p>
+
+<ul>
+  <li>Dropped support for Scala <code class="language-plaintext highlighter-rouge">2.11</code> and Scala.js <code class="language-plaintext highlighter-rouge">0.6.x</code></li>
+  <li>Dependency updates:
+    <ul>
+      <li>Cats <code class="language-plaintext highlighter-rouge">2.6.1</code></li>
+      <li>Cats-Effect <code class="language-plaintext highlighter-rouge">2.5.1</code></li>
+      <li>JCTools <code class="language-plaintext highlighter-rouge">3.3.0</code></li>
+    </ul>
+  </li>
+  <li>Adds support for Scala 3 (<a href="https://github.com/monix/monix/pull/1326">#1326</a>, <a href="https://github.com/monix/monix/pull/1327">#1327</a>, <a href="https://github.com/monix/monix/pull/1328">#1328</a>, <a href="https://github.com/monix/monix/pull/1329">#1329</a>, <a href="https://github.com/monix/monix/pull/1344">#1344</a>, <a href="https://github.com/monix/monix/pull/1323">#1323</a>)</li>
+  <li>Adds <code class="language-plaintext highlighter-rouge">Observable.whileBusyAggregateEvents</code> (<a href="https://github.com/monix/monix/pull/1320">#1320</a>)</li>
+  <li>Fix tracing in <code class="language-plaintext highlighter-rouge">Coeval</code> and <code class="language-plaintext highlighter-rouge">Task</code> via a more accurate filter (<a href="https://github.com/monix/monix/pull/1353">#1353</a>)</li>
+  <li>Adds <code class="language-plaintext highlighter-rouge">Observable.throttleLatest</code> (<a href="https://github.com/monix/monix/pull/1396">#1396</a>)</li>
+  <li>Implement pagination for <code class="language-plaintext highlighter-rouge">Observable</code> (<a href="https://github.com/monix/monix/pull/1381">#1381</a>)</li>
+</ul>
+
+<p>This release was made possible by the work and feedback of:</p>
+
+<ul>
+  <li>Alexandru Nedelcu (<a href="https://github.com/alexandru/">@alexandru</a>)</li>
+  <li>Dominik Wosiński (<a href="https://github.com/Wosin/">@Wosin</a>)</li>
+  <li>Lars Hupel (<a href="https://github.com/larsrh/">@larsrh</a>)</li>
+  <li>Luke Stephenson (<a href="https://github.com/lukestephenson/">@lukestephenson</a>)</li>
+  <li>Oleg Pyzhcov (<a href="https://github.com/oleg-py/">@oleg-py</a>)</li>
+  <li>Pau Alarcón (<a href="https://github.com/paualarco/">@paualarco</a>)</li>
+  <li>Piotr Gawryś (<a href="https://github.com/Avasil/">@Avasil</a>)</li>
+</ul>
+
+
+  <div class="related">
+    
+      <h2>
+        
+        
+          Related Posts
+        
+        
+      </h2>
+    <ul class="related-posts">
+      
+        <li>
+            <a href="/blog/2020/11/07/monix-v3.3.0.html">
+              Monix 3.3.0
+              <small>07 Nov 2020</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2020/06/04/monix-v3.2.2.html">
+              Monix 3.2.2
+              <small>04 Jun 2020</small>
+            </a>
+        </li>
+      
+        <li>
+            <a href="/blog/2020/04/30/monix-v3.2.1.html">
+              Monix 3.2.1
+              <small>30 Apr 2020</small>
+            </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="buttons">
+    <a href="https://github.com/monix/monix.io/blob/master/_posts/2021-05-14-monix-v3.4.0.md">
+      Edit Page</a> •
+    <a href="https://twitter.com/monix">
+      Follow @monix</a>
+  </div>  
+
+  
+<div id="contributions">
+    
+      <h2 id="comments">
+        
+        
+          Comments <a href="#comments" class="anchor">#</a>
+        
+        
+      </h3>
+
+  <script>
+    document.write(
+      '<div class="contributions-note">Be nice!<br><span class="contributions-note-extra">If you don\'t see the commenting widget, it might be blocked (see this <a href="https://github.com/utterance/utterances/issues/341" target="_blank">Privacy Badger issue</a>).</span></div>'
+    );
+  </script>
+  <script
+    src="https://utteranc.es/client.js"
+    repo="monix/monix.io"
+    issue-term="pathname"
+    label="discussion"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
+  <noscript>
+    <div class="contributions-note">
+      <strong>Enable JavaScript to see comments!</strong>
+      <br />
+      <span class="contributions-note-extra">
+        Commenting widget is powered by GitHub's API and
+        <a href="https://utteranc.es" target="_blank">utteranc.es</a>. This
+        website does not track visitors or log personally identifiable
+        information, see our
+        <a href="/privacy.html">privacy policy</a>.
+      </span>
+    </div>
+  </noscript>
+</div>
+
+</div>
+      </article>
+    </div>
+    <script type="text/javascript">
+  var _paq = window._paq || [];
+  // Disabling cookies for privacy reasons
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://ly.monix.io/";
+    _paq.push(['setTrackerUrl', u+'m.php']);
+    _paq.push(['setSiteId', '2']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'m.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  
+  <img src="https://ly.monix.io/m.php?idsite=2&rec=1&action_name=Monix+3.4.0" style="border:0" alt="" />
+</noscript>
+
+
+  </body>
+</html>

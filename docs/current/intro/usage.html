@@ -30,15 +30,15 @@
   <meta content="Usage in SBT &amp;mdash; Monix" property="og:title">
   <meta content="Packages are published in Maven Central,cross-compiled for Scala 2.11, 2.12 and for Scala.js" property="og:description">
   <meta content="https://monix.io/docs/current/intro/usage.html" property="og:url">
-  <meta content="2020-08-12T09:24:27+00:00" property="article:modified_time">
+  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-08-12">
-    <b>Page updated at:</b> 12 Aug 2020
+    datetime="2021-05-14">
+    <b>Page updated at:</b> 14 May 2021
   </time>
   <nav role="navigation" id="type-info">
     
@@ -144,12 +144,12 @@
   </nav>
 
   <p>The packages are published on Maven Central, cross-compiled
-for Scala 2.11, 2.12 and 2.13, also cross-compiled to 
-<a href="http://www.scala-js.org/">Scala.js</a> 0.6.x and 1.x:</p>
+for Scala 2.12, 2.13 and 3.0, also cross-compiled to 
+<a href="http://www.scala-js.org/">Scala.js</a> 1.x:</p>
 
 <ul>
-  <li>Current 3.x release: <code class="language-plaintext highlighter-rouge">3.3.0</code> 
-(<a href="https://github.com/monix/monix/archive/v3.3.0.zip">download source archive</a>)</li>
+  <li>Current 3.x release: <code class="language-plaintext highlighter-rouge">3.4.0</code> 
+(<a href="https://github.com/monix/monix/archive/v3.4.0.zip">download source archive</a>)</li>
 </ul>
 
 <p>These install instructions are for Scala’s <a href="http://www.scala-sbt.org/">SBT</a> (see the <a href="https://www.scala-sbt.org/1.x/docs/">setup instructions</a>). Also see <a href="/docs/current/intro/versioning-scheme.html">versioning scheme</a> for backwards-compatibility
@@ -168,14 +168,14 @@ guarantees.</p>
 <p>Insert this line in <code class="language-plaintext highlighter-rouge">build.sbt</code> or <code class="language-plaintext highlighter-rouge">Build.scala</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Monix is cross-compiled with <a href="http://www.scala-js.org/">Scala.js</a>, 
 so to target Javascript or mixed JVM/Javascript environments:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// for Scala.js/Javascript or cross-compilation</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>
@@ -218,10 +218,10 @@ with asynchronous execution, thus exposing
 <a href="/api/current/monix/execution/Cancelable.html">Cancelable</a>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targeting just the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 
 <span class="c1">// For Scala.js or cross-compiled projects</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-execution"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>
@@ -242,10 +242,10 @@ with asynchronous execution, thus exposing
 <p>You can use just <code class="language-plaintext highlighter-rouge">monix-catnap</code> (see <a href="/api/current/monix/catnap/index.html">API Docs</a>), the high-level primitives building on top of <a href="https://typelevel.org/cats-effect/">Cats Effect</a>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targeting just the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 
 <span class="c1">// For Scala.js or cross-compiled projects</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-catnap"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>
@@ -268,10 +268,10 @@ with asynchronous execution, thus exposing
 <a href="/api/current/monix/eval/Coeval$.html">Coeval</a>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targeting just the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 
 <span class="c1">// For Scala.js or cross-compiled projects</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-eval"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>
@@ -291,10 +291,10 @@ with asynchronous execution, thus exposing
 the <a href="/docs/current/reactive/observable.html">Observable</a> pattern.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targeting just the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 
 <span class="c1">// For Scala.js or cross-compiled projects</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-reactive"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>
@@ -315,10 +315,10 @@ the <a href="/docs/current/reactive/observable.html">Observable</a> pattern.</p>
 streaming.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Targeting just the JVM</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 
 <span class="c1">// For Scala.js or cross-compiled projects</span>
-<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.3.0"</span>
+<span class="n">libraryDependencies</span> <span class="o">+=</span> <span class="s">"io.monix"</span> <span class="o">%%%</span> <span class="s">"monix-tail"</span> <span class="o">%</span> <span class="s">"3.4.0"</span>
 </code></pre></div></div>
 
 <p>Depends on:</p>

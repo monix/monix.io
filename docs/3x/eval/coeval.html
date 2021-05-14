@@ -30,15 +30,15 @@
   <meta content="Coeval &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." property="og:description">
   <meta content="https://monix.io/docs/3x/eval/coeval.html" property="og:url">
-  <meta content="2020-07-20T15:51:27+00:00" property="article:modified_time">
+  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,12 +109,12 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2020-07-20">
-    <b>Page updated at:</b> 20 Jul 2020
+    datetime="2021-05-14">
+    <b>Page updated at:</b> 14 May 2021
   </time>
   <nav role="navigation" id="type-info">
-    <a href="/api/3.3/monix/eval/Coeval.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.3.0/monix-eval/shared/src/main/scala/monix/eval/Coeval.scala">Source Code</a>
+    <a href="/api/3.4/monix/eval/Coeval.html">API Documentation</a>
+    <a href="https://github.com/monix/monix/blob/v3.4.0/monix-eval/shared/src/main/scala/monix/eval/Coeval.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/eval/coeval.md">Edit Page</a>
     
@@ -580,7 +580,7 @@ garbage collector.</p>
       </h2>
 
 <p>The
-<a href="/api/3.3/monix/eval/Coeval.html#memoize:monix.eval.Coeval[A]">Coeval#memoize</a>
+<a href="/api/3.4/monix/eval/Coeval.html#memoize:monix.eval.Coeval[A]">Coeval#memoize</a>
 operator can take any <code class="language-plaintext highlighter-rouge">Coeval</code> and apply memoization on the first evaluation
 (such as <code class="language-plaintext highlighter-rouge">value</code>, <code class="language-plaintext highlighter-rouge">runTry</code>) such that:</p>
 
@@ -862,10 +862,10 @@ errors, it still catches errors, signaling them on <code class="language-plainte
     <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">(</span><span class="nv">odd</span><span class="o">.</span><span class="py">toString</span><span class="o">)</span>
 <span class="o">}</span>
 
-<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span><span class="o">()</span>
 <span class="c1">// res1: Try[Int] = Success(624170708)</span>
 
-<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span>
+<span class="nv">coeval</span><span class="o">.</span><span class="py">runTry</span><span class="o">()</span>
 <span class="c1">// res2: Try[Int] = Failure(IllegalStateException: -814066173)</span>
 </code></pre></div></div>
     
@@ -1033,7 +1033,7 @@ expose any errors that happen and will also terminate with an
 <span class="k">val</span> <span class="nv">throwable</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">failed</span>
 <span class="c1">// throwable: Coeval[Throwable] = ???</span>
 
-<span class="nv">throwable</span><span class="o">.</span><span class="py">runTry</span>
+<span class="nv">throwable</span><span class="o">.</span><span class="py">runTry</span><span class="o">()</span>
 <span class="c1">// res: Try[Throwable] = Success(java.lang.IllegalStateException)</span>
 </code></pre></div></div>
 

@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1617199961162710220">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -114,7 +114,7 @@
   </time>
   <nav role="navigation" id="type-info">
     <a href="/api/current/monix/execution/Callback.html">API Documentation</a>
-    <a href="https://github.com/monix/monix/blob/v3.3.0/monix-execution/shared/src/main/scala/monix/execution/Callback.scala">Source Code</a>
+    <a href="https://github.com/monix/monix/blob/v3.4.0/monix-execution/shared/src/main/scala/monix/execution/Callback.scala">Source Code</a>
     
     <a href="https://github.com/monix/monix.io/blob/master/_docs/3x/execution/callback.md">Edit Page</a>
     
@@ -187,7 +187,7 @@ on <code class="language-plaintext highlighter-rouge">onSuccess</code>, but that
 maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
-<span class="c1">// task: monix.eval.Task[Unit] = Eval(&lt;function0&gt;)</span>
+<span class="c1">// task: monix.eval.Task[Unit] = Eval(thunk = &lt;function0&gt;)</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">Throwable</span>, <span class="kt">Unit</span><span class="o">])</span>
 <span class="c1">// Sample</span>
