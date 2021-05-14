@@ -96,7 +96,7 @@ Relevant links to dependencies:
 
 ## Adopters
 
-Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/blob/series/3.x/README.md)
+Here's a (non-exhaustive) list of companies that use Monix in production. Don't see yours? [You can add it in a PR!](https://github.com/monix/monix/blob/series/4.x/README.md)
 
 - [Abacus](https://abacusfi.com)
 - [Agoda](https://www.agoda.com)
@@ -108,7 +108,9 @@ Here's a (non-exhaustive) list of companies that use Monix in production. Don't 
 - [Hypefactors](https://www.hypefactors.com)
 - [Iterators](https://www.iteratorshq.com)
 - [Sony Electronics](https://www.sony.com)
+- [Tinkoff](https://tinkoff.ru)
 - [Zalando](https://www.zalando.com)
+- [Zendesk](https://www.zendesk.com)
 
 ## License
 

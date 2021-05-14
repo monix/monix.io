@@ -562,10 +562,10 @@ val coeval = Coeval(Random.nextInt).flatMap {
     throw new IllegalStateException(odd.toString)
 }
 
-coeval.runTry
+coeval.runTry()
 // res1: Try[Int] = Success(624170708)
 
-coeval.runTry
+coeval.runTry()
 // res2: Try[Int] = Failure(IllegalStateException: -814066173)
 ```
 
@@ -724,6 +724,6 @@ val source = Coeval.raiseError[Int](new IllegalStateException)
 val throwable = source.failed
 // throwable: Coeval[Throwable] = ???
 
-throwable.runTry
+throwable.runTry()
 // res: Try[Throwable] = Success(java.lang.IllegalStateException)
 ```

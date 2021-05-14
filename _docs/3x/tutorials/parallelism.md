@@ -103,7 +103,7 @@ val batched = source.flatMap { items =>
   // Building batches of 10 tasks to execute in parallel:
   val batches = tasks.sliding(10,10).map(b => Task.parSequence(b)).toIterable
   // Sequencing batches, then flattening the final result
-  val aggregate = Task.sequence(batches).map(_.flatten.toIterator)
+  val aggregate = Task.sequence(batches).map(_.flatten.iterator)
   // Converting into an observable, needed for flatMap
   Observable.fromIterator(aggregate)
 }
