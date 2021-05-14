@@ -17,6 +17,7 @@ lazy val docs2x = project       // new documentation project
   .enablePlugins(MdocPlugin)
   .settings(sharedSettings)
   .settings(
+    scalaVersion := "2.12.13",
     libraryDependencies ++= Seq(
       "io.monix" %% "monix" % "2.3.3",
       "io.monix" %% "monix-scalaz-72" % "2.3.3",
@@ -32,8 +33,9 @@ lazy val docs3x = project       // new documentation project
   .enablePlugins(MdocPlugin)
   .settings(sharedSettings)
   .settings(
+    scalaVersion := "2.13.5",
     libraryDependencies ++= Seq(
-      "io.monix" %% "monix" % "3.3.0",
+      "io.monix" %% "monix" % "3.4.0",
       "org.slf4j" % "slf4j-api" % "1.7.30",
     ),
     mdocIn := file("_docs/3x"),

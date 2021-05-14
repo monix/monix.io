@@ -1470,7 +1470,7 @@ like `flatMap`, to be pure or at least protected from errors, it still
 catches errors, signaling them on `runAsync`:
 
 ```scala mdoc:silent:nest
-val task = Task(Random.nextInt).flatMap {
+val task = Task(Random.nextInt()).flatMap {
   case even if even % 2 == 0 =>
     Task.now(even)
   case odd =>
@@ -1682,7 +1682,7 @@ restart the source on error, for how many times are needed:
 ```scala mdoc:silent:nest
 import scala.util.Random
 
-val source = Task(Random.nextInt).flatMap {
+val source = Task(Random.nextInt()).flatMap {
   case even if even % 2 == 0 =>
     Task.now(even)
   case other =>
@@ -1699,7 +1699,7 @@ We can also restart with a given predicate:
 ```scala mdoc:silent:nest
 import scala.util.Random
 
-val source = Task(Random.nextInt).flatMap {
+val source = Task(Random.nextInt()).flatMap {
   case even if even % 2 == 0 =>
     Task.now(even)
   case other =>
