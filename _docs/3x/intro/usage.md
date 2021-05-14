@@ -8,8 +8,8 @@ description: |
 ---
 
 The packages are published on Maven Central, cross-compiled
-for Scala 2.11, 2.12 and 2.13, also cross-compiled to 
-[Scala.js](http://www.scala-js.org/) 0.6.x and 1.x:
+for Scala 2.12, 2.13 and 3.0, also cross-compiled to 
+[Scala.js](http://www.scala-js.org/) 1.x:
 
 - Current 3.x release: `{{ site.promoted.version3x }}` 
   ([download source archive]({{ site.github.repo }}/archive/v{{ site.promoted.version3x }}.zip))

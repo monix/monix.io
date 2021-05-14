@@ -5,7 +5,7 @@ title: Fork or Follow @Monix
 
 Project repositories:
 
-- [Monix Core](https://github.com/monix/monix/)
+- [Monix (Core)](https://github.com/monix/monix/)
 - [Website](https://github.com/monix/monix.io/)
 
 News &amp; updates:
@@ -16,6 +16,5 @@ News &amp; updates:
 Other Profiles:
 
 - [GitHub (@Monix)](https://github.com/monix)
-- [Keybase (@Monix)](https://keybase.io/monix)
 
 Enjoy!

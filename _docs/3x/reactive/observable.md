@@ -347,7 +347,7 @@ import scala.io.Source
 def readFile(path: String): Observable[String] = 
     Observable.suspend {
         // The side effect won't happen until subscription
-        val lines = Source.fromFile(path).getLines
+        val lines = Source.fromFile(path).getLines()
         Observable.fromIterator(Task(lines))
     }
 ```
