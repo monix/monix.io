@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
+  <link rel="stylesheet" href="/public/css/all.css?1621005102482723575">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621005102482723575">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -212,7 +212,7 @@ you normally need. How about <code class="language-plaintext highlighter-rouge">
 type-class, we can do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nc">BigInt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
-<span class="c1">// ref: AtomicNumberAny[BigInt] = monix.execution.atomic.AtomicNumberAny@58be8e4a</span>
+<span class="c1">// ref: AtomicNumberAny[BigInt] = monix.execution.atomic.AtomicNumberAny@6de7a96</span>
 
 <span class="c1">// now we can increment a BigInt</span>
 <span class="nv">ref</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
@@ -274,7 +274,7 @@ with special care to handle overflows correctly. All this is done to avoid boxin
 for performance reasons.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="mf">0.0</span><span class="o">)</span>
-<span class="c1">// ref: AtomicDouble = monix.execution.atomic.AtomicDouble@148b9d5b</span>
+<span class="c1">// ref: AtomicDouble = monix.execution.atomic.AtomicDouble@75685d09</span>
 
 <span class="nv">ref</span><span class="o">.</span><span class="py">compareAndSet</span><span class="o">(</span><span class="mf">0.0</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">)</span>
 <span class="c1">// res3: Boolean = true</span>
@@ -283,7 +283,7 @@ for performance reasons.</p>
 <span class="c1">// res4: Double = 101.0</span>
 
 <span class="k">val</span> <span class="nv">ref2</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="sc">'a'</span><span class="o">)</span>
-<span class="c1">// ref2: AtomicChar = monix.execution.atomic.AtomicChar@9e3b852</span>
+<span class="c1">// ref2: AtomicChar = monix.execution.atomic.AtomicChar@618cf951</span>
 
 <span class="nv">ref2</span><span class="o">.</span><span class="py">incrementAndGet</span><span class="o">()</span>
 <span class="c1">// res5: Char = 'b'</span>
@@ -328,7 +328,7 @@ normally do something like this in Java:</p>
 with <code class="language-plaintext highlighter-rouge">Atomic</code> you can simply do this:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">ref</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="nv">Queue</span><span class="o">.</span><span class="py">empty</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span>
-<span class="c1">// ref: AtomicAny[Queue[String]] = monix.execution.atomic.AtomicAny@52c37fd8</span>
+<span class="c1">// ref: AtomicAny[Queue[String]] = monix.execution.atomic.AtomicAny@177cdebd</span>
 
 <span class="c1">// Transforms the value and returns the update</span>
 <span class="nv">ref</span><span class="o">.</span><span class="py">transformAndGet</span><span class="o">(</span><span class="nv">_</span><span class="o">.</span><span class="py">enqueue</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
@@ -408,7 +408,7 @@ returns the most specialized version, as to avoid boxing and unboxing:</p>
 <span class="c1">// ref3: AtomicBoolean = AtomicBoolean(true)</span>
 
 <span class="k">val</span> <span class="nv">ref4</span> <span class="k">=</span> <span class="nc">Atomic</span><span class="o">(</span><span class="s">""</span><span class="o">)</span>
-<span class="c1">// ref4: AtomicAny[String] = monix.execution.atomic.AtomicAny@62cd51c2</span>
+<span class="c1">// ref4: AtomicAny[String] = monix.execution.atomic.AtomicAny@7755d010</span>
 </code></pre></div></div>
 
 <p>Increments/decrements are done by going through the

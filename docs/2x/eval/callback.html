@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1621004379965721581">
+  <link rel="stylesheet" href="/public/css/all.css?1621005102482723575">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621004379965721581">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1621005102482723575">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -187,12 +187,12 @@ maybe because you just want the side-effects:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">task</span> <span class="k">=</span> <span class="nv">monix</span><span class="o">.</span><span class="py">eval</span><span class="o">.</span><span class="py">Task</span><span class="o">(</span><span class="nf">println</span><span class="o">(</span><span class="s">"Sample"</span><span class="o">))</span>
 <span class="c1">// task: monix.eval.Task[Unit] = FlatMap(</span>
-<span class="c1">//   Async(monix.eval.Task$$$Lambda$8782/0x0000000802cf9040@2cec9213),</span>
-<span class="c1">//   monix.eval.Task$$$Lambda$8783/0x0000000802cfa040@3233bb4b</span>
+<span class="c1">//   Async(monix.eval.Task$$$Lambda$8798/0x0000000802c98840@60e9ae91),</span>
+<span class="c1">//   monix.eval.Task$$$Lambda$8799/0x0000000802c99040@49ab53dc</span>
 <span class="c1">// )</span>
 
 <span class="nv">task</span><span class="o">.</span><span class="py">runAsync</span><span class="o">(</span><span class="nv">Callback</span><span class="o">.</span><span class="py">empty</span><span class="o">)</span>
-<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@2a1366ba</span>
+<span class="c1">// res1: monix.execution.Cancelable = monix.execution.cancelables.StackedCancelable@5e76ed2f</span>
 </code></pre></div></div>
 
 <p>Or maybe you want to convert a Scala <code class="language-plaintext highlighter-rouge">Promise</code> to a <code class="language-plaintext highlighter-rouge">Callback</code>:</p>
@@ -201,6 +201,7 @@ maybe because you just want the side-effects:</p>
 <span class="c1">// p: concurrent.Promise[String] = Future(&lt;not completed&gt;)</span>
 
 <span class="k">val</span> <span class="nv">callback</span> <span class="k">=</span> <span class="nv">Callback</span><span class="o">.</span><span class="py">fromPromise</span><span class="o">(</span><span class="n">p</span><span class="o">)</span>
+<span class="c1">// Sample</span>
 <span class="c1">// callback: Callback[String] = &lt;function1&gt;</span>
 </code></pre></div></div>
 
