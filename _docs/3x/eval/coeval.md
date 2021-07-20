@@ -685,7 +685,7 @@ import scala.util.{Try, Success, Failure}
 
 val source = Coeval.raiseError[Int](new IllegalStateException)
 val materialized: Coeval[Try[Int]] =
-  coeval.materialize
+  source.materialize
 
 // Now we can flatMap over both success and failure:
 val recovered = materialized.flatMap {
@@ -706,7 +706,7 @@ import scala.util.Try
 val source = Coeval.raiseError[Int](new IllegalStateException)
 
 // Exposing errors
-val materialized = coeval.materialize
+val materialized = source.materialize
 // materialize: Coeval[Try[Int]] = ???
 
 // Hiding errors again
