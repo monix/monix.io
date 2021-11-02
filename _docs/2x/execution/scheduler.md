@@ -30,7 +30,7 @@ An `ExecutionContext` is too limited, having the following problems:
 
 Developers using Akka do have a
 [nicer interface](http://doc.akka.io/docs/akka/current/scala/scheduler.html)
-that solve the above problems in the form of
+that solves the above problems in the form of
 [akka.actor.Scheduler](http://doc.akka.io/api/akka/current/index.html#akka.actor.Scheduler),
 so you can do this:
 
@@ -47,7 +47,7 @@ task.cancel()
 There are problems with the above approach - Akka's Scheduler is an
 integral part of Akka's actors system and their usage implies a
 dependency on Akka, which is a pretty heavy dependency and there's no
-good reason for that, Cancelables are useful outside the context of
+good reason for that. Cancelables are useful outside the context of
 Schedulers or Akka and in terms of the API, as you'll see, we can do better.
 
 Another approach is to use a
