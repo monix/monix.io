@@ -30,15 +30,15 @@
   <meta content="Coeval &amp;mdash; Monix" property="og:title">
   <meta content="A data type for controlling immediate (synchronous), possibly lazy evaluation, or for controlling side-effects, the sidekick of Task." property="og:description">
   <meta content="https://monix.io/docs/3x/eval/coeval.html" property="og:url">
-  <meta content="2021-05-14T14:48:18+00:00" property="article:modified_time">
+  <meta content="2021-11-02T22:26:50+00:00" property="article:modified_time">
     
   <meta content="article" property="og:type">
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1635892108300815428">
+  <link rel="stylesheet" href="/public/css/all.css?1635892346673077195">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1635892108300815428">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1635892346673077195">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -109,8 +109,8 @@
 
   
   <time class="post-date" itemprop="dateModified"
-    datetime="2021-05-14">
-    <b>Page updated at:</b> 14 May 2021
+    datetime="2021-11-02">
+    <b>Page updated at:</b> 02 Nov 2021
   </time>
   <nav role="navigation" id="type-info">
     <a href="/api/3.4/monix/eval/Coeval.html">API Documentation</a>
@@ -996,7 +996,7 @@ errors such that we can recover more efficiently:</p>
 
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 <span class="k">val</span> <span class="nv">materialized</span><span class="k">:</span> <span class="kt">Coeval</span><span class="o">[</span><span class="kt">Try</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span>
-  <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
+  <span class="nv">source</span><span class="o">.</span><span class="py">materialize</span>
 
 <span class="c1">// Now we can flatMap over both success and failure:</span>
 <span class="k">val</span> <span class="nv">recovered</span> <span class="k">=</span> <span class="nv">materialized</span><span class="o">.</span><span class="py">flatMap</span> <span class="o">{</span>
@@ -1016,7 +1016,7 @@ errors such that we can recover more efficiently:</p>
 <span class="k">val</span> <span class="nv">source</span> <span class="k">=</span> <span class="nv">Coeval</span><span class="o">.</span><span class="py">raiseError</span><span class="o">[</span><span class="kt">Int</span><span class="o">](</span><span class="k">new</span> <span class="nc">IllegalStateException</span><span class="o">)</span>
 
 <span class="c1">// Exposing errors</span>
-<span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">coeval</span><span class="o">.</span><span class="py">materialize</span>
+<span class="k">val</span> <span class="nv">materialized</span> <span class="k">=</span> <span class="nv">source</span><span class="o">.</span><span class="py">materialize</span>
 <span class="c1">// materialize: Coeval[Try[Int]] = ???</span>
 
 <span class="c1">// Hiding errors again</span>
