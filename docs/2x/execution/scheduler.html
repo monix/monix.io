@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1632843631331149898">
+  <link rel="stylesheet" href="/public/css/all.css?1635892108300815428">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1632843631331149898">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1635892108300815428">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -173,7 +173,7 @@ cancel the pending execution of a task</li>
 
 <p>Developers using Akka do have a
 <a href="http://doc.akka.io/docs/akka/current/scala/scheduler.html">nicer interface</a>
-that solve the above problems in the form of
+that solves the above problems in the form of
 <a href="http://doc.akka.io/api/akka/current/index.html#akka.actor.Scheduler">akka.actor.Scheduler</a>,
 so you can do this:</p>
 
@@ -189,7 +189,7 @@ so you can do this:</p>
 <p>There are problems with the above approach - Akka’s Scheduler is an
 integral part of Akka’s actors system and their usage implies a
 dependency on Akka, which is a pretty heavy dependency and there’s no
-good reason for that, Cancelables are useful outside the context of
+good reason for that. Cancelables are useful outside the context of
 Schedulers or Akka and in terms of the API, as you’ll see, we can do better.</p>
 
 <p>Another approach is to use a
@@ -725,7 +725,7 @@ to use for waiting:</p>
 <p>We can now further inspect the state of our <code class="language-plaintext highlighter-rouge">SchedulerService</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">io</span><span class="o">.</span><span class="py">isTerminated</span>
-<span class="c1">// res22: Boolean = false</span>
+<span class="c1">// res22: Boolean = true</span>
 </code></pre></div></div>
 
 
