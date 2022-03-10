@@ -17,7 +17,6 @@ layout: default
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/{{ page.type_source }}">Source Code</a>{% endif %}
     {% if page.play_url %}<a href="{{ page.play_url }}" target="_blank">Try It in ScalaFiddle</a>{% endif %}
     <a href="{{ site.github.docs }}/blob/master/{{ page.path | doc_edit_link }}">Edit Page</a>
-    {% if page.has_comments %}<a href="#comments">Comments</a>{% endif %}
   </nav>
   
   {% capture alt_link %}{{ page.path | current_doc_link: site.pages }}{% endcapture -%}
@@ -44,6 +43,4 @@ layout: default
     <a href="{{ site.baseurl }}social.html">
       Follow</a>
   </div>
-
-  {% if page.has_comments %}{% include comments.html %}{% endif -%}
 </div>
