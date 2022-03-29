@@ -16,7 +16,7 @@ layout: default
     {% if page.type_api %}<a href="{{ site.api2x }}{{ page.type_api | replace: '.','/' }}.html">API Documentation</a>{% endif %}
     {% if page.type_source %}<a href="{{ site.github.repo }}/blob/v{{ site.promoted.version2x }}/{{ page.type_source }}">Source Code</a>{% endif %}
     {% if page.play_url %}<a href="{{ page.play_url }}" target="_blank">Try It in ScalaFiddle</a>{% endif %}
-    <a href="{{ site.github.docs }}/blob/master/{{ page.path | doc_edit_link }}">Edit Page</a>
+    <a href="{{ site.github.docs }}/blob/main/{{ page.path | doc_edit_link }}">Edit Page</a>
   </nav>
   
   {% capture alt_link %}{{ page.path | current_doc_link: site.pages }}{% endcapture -%}
@@ -34,7 +34,7 @@ layout: default
 
   <div class="buttons">
     <a href="{% link {{ page.path | doc_contents_link }} %}">Contents</a> •
-    <a href="{{ site.github.docs }}/blob/master/{{ page.path | doc_edit_link }}">
+    <a href="{{ site.github.docs }}/blob/main/{{ page.path | doc_edit_link }}">
       Edit Page</a> •
     {% if page.play_url %}<a href="{{ page.play_url }}" title="Powered by ScalaFiddle" target="_blank">
       Try It</a> •{% endif %}

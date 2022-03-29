@@ -2,14 +2,14 @@ name: build
 on:
   pull_request:
     branches:
-      - "master"
+      - "main"
 
 jobs:
   build:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
       - uses: olafurpg/setup-scala@v10
         with:

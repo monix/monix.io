@@ -23,7 +23,7 @@ Examples:
 
 ## Intermediary Snapshots
 
-We also publish intermediary versions, automatically, whenever PRs get merged to `master`.
+We also publish intermediary versions, automatically, whenever PRs get merged to `main`.
 
 The project has a dynamic version setup (see [sbt-dynver](https://github.com/dwijnand/sbt-dynver)), releases are via GitHub Actions with versions such as `3.2.2+3-1234abcd`, where `3.2.2` is the base version, `+3` represents the number of commits, the distance from that base version, and `1234abcd` represents the commit's "sha" (hash) prefix, identifying the commit in GitHub.
 

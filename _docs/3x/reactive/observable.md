@@ -1423,7 +1423,7 @@ basic rules such as not throwing exceptions and remembering that any `Task` can 
 ### MonadError instance
 
 The `Observable` provides a `MonadError[Observable, Throwable]` instance so you can use any `MonadError` operator for error handling.
-If you are curious what it brings you in practice, check the methods in [cats.MonadError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/master/core/src/main/scala/cats/ApplicativeError.scala). 
+If you are curious what it brings you in practice, check the methods in [cats.MonadError](https://github.com/typelevel/cats/blob/main/core/src/main/scala/cats/MonadError.scala) and [cats.ApplicativeError](https://github.com/typelevel/cats/blob/main/core/src/main/scala/cats/ApplicativeError.scala). 
 
 Many of these methods (and more) are defined directly on the `Observable` and the rest can be acquired by calling `import cats.implicits._`.
 
