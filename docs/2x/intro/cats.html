@@ -36,9 +36,9 @@
   <meta property="og:image" content="https://monix.io/public/images/monix-logo.png" />
   <meta property="og:image:secure_url" content="https://monix.io/public/images/monix-logo.png" />
   <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/all.css?1648574008277833500">
+  <link rel="stylesheet" href="/public/css/all.css?1648888841292468133">
   <!--[if lt IE 9]>
-  <link rel="stylesheet" href="/public/css/forkme.ie.css?1648574008277833500">
+  <link rel="stylesheet" href="/public/css/forkme.ie.css?1648888841292468133">
   <![endif]-->
 
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
@@ -185,7 +185,7 @@ And now we can verify that <code class="language-plaintext highlighter-rouge">Ta
 <span class="k">import</span> <span class="nn">monix.eval.Task</span>
 
 <span class="n">implicitly</span><span class="o">[</span><span class="kt">Monad</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span>
-<span class="c1">// res0: Monad[Task] = monix.cats.MonixToCatsCore11$MonixToCatsMonadRec@4083de10</span>
+<span class="c1">// res0: Monad[Task] = monix.cats.MonixToCatsCore11$MonixToCatsMonadRec@4674de75</span>
 </code></pre></div></div>
 
 <p>In case you want a more à la carte importing experience, that’s
@@ -205,7 +205,7 @@ can also work in reverse:</p>
 <code class="language-plaintext highlighter-rouge">monix.types.Monad[cats.Eval]</code>:</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implicitly</span><span class="o">[</span><span class="kt">monix.</span><span class="k">type</span><span class="kt">s.Monad</span><span class="o">[</span><span class="kt">cats.Eval</span><span class="o">]]</span>
-<span class="c1">// res2: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@2d5badf8</span>
+<span class="c1">// res2: monix.types.Monad[cats.Eval] = monix.cats.CatsCoreToMonix2$$anon$4@185600e3</span>
 </code></pre></div></div>
 
 <p>Note that having both of these wildcard imports in scope generates
@@ -233,6 +233,51 @@ with Monix’s abstractions, such as <code class="language-plaintext highlighter
 </div>
       </article>
     </div>
-    <!-- Here goes scripts and stuff, but right now there's nothing. -->
+    <script type="text/javascript">
+  (function () {
+    var h = "hostname" in document.location && document.location.hostname || "";
+    if (h != "" && h.indexOf("") == -1) {
+      return
+    }
+    var p = (function () {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      var p = {};
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        p[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+      return p;
+    })();
+
+    var now = new Date();
+    var url = "https://ly.monix.io/m.php?idsite=1&rec=1&action_name=Typelevel+Cats+Integration&url=https%3A%2F%2Fmonix.io%2Fdocs%2F2x%2Fintro%2Fcats.html" + 
+      "&rand=" + encodeURIComponent(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)) +
+      "&h=" + now.getHours() +
+      "&m=" + now.getMinutes() +
+      "&s=" + now.getSeconds();
+
+    if ("pk_campaign" in p)
+      url += "&_rcn=" + encodeURIComponent(p["pk_campaign"]);
+    if ("pk_kwd" in p)
+      url += "&_rck=" + encodeURIComponent(p["pk_kwd"]);
+    if ("referrer" in document && document.referrer) 
+      url += "&urlref=" + encodeURIComponent(document.referrer);
+    if ("screen" in window) 
+      url += "&res=" + screen.width + "x" + screen.height;
+
+    var d=document, i=d.createElement("img"),s0=d.getElementsByTagName("script"),s=s0[s0.length-1];
+    i.setAttribute("alt", "");
+    i.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+    i.setAttribute("src", url);
+    i.setAttribute("style", "border:0");
+    s.parentNode.insertBefore(i,s);
+  })();
+</script>
+<noscript>
+  <img referrerpolicy="no-referrer-when-downgrade" src="https://ly.monix.io/m.php?idsite=1&rec=1&action_name=Typelevel+Cats+Integration&url=https%3A%2F%2Fmonix.io%2Fdocs%2F2x%2Fintro%2Fcats.html" style="border:0" alt="" />
+</noscript>
+
+
   </body>
 </html>
